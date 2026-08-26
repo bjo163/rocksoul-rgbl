@@ -1,0 +1,171 @@
+[
+  {
+    "name": "assessment id family",
+    "expected": "record-family-id-kind",
+    "record": {
+      "id": "mw:person:not-an-assessment",
+      "record_type": "assessment",
+      "target": "mw:assertion:a",
+      "result": "ok",
+      "method": "m"
+    }
+  },
+  {
+    "name": "blank entity kind",
+    "expected": "nonblank-kind",
+    "record": {
+      "id": "mw:person:x",
+      "record_type": "entity",
+      "kind": " "
+    }
+  },
+  {
+    "name": "blank label",
+    "expected": "blank-label-value",
+    "record": {
+      "id": "mw:person:x",
+      "record_type": "entity",
+      "kind": "person",
+      "labels": [
+        {
+          "value": " ",
+          "role": "alternate"
+        }
+      ]
+    }
+  },
+  {
+    "name": "duplicate preferred label scope",
+    "expected": "duplicate-preferred-label-scope",
+    "record": {
+      "id": "mw:person:x",
+      "record_type": "entity",
+      "kind": "person",
+      "labels": [
+        {
+          "value": "A",
+          "role": "preferred",
+          "language": "en",
+          "script": "Latn"
+        },
+        {
+          "value": "B",
+          "role": "preferred",
+          "language": "en",
+          "script": "Latn"
+        }
+      ]
+    }
+  },
+  {
+    "name": "blank assertion class",
+    "expected": "nonblank-assertion-class",
+    "record": {
+      "id": "mw:assertion:x",
+      "record_type": "assertion",
+      "subject": "mw:person:a",
+      "predicate": "mw:predicate:p",
+      "object": {
+        "entity": "mw:person:b"
+      },
+      "assertion_class": " "
+    }
+  },
+  {
+    "name": "literal language on number",
+    "expected": "literal-language-nonstring",
+    "record": {
+      "id": "mw:assertion:x",
+      "record_type": "assertion",
+      "subject": "mw:person:a",
+      "predicate": "mw:predicate:p",
+      "object": {
+        "value": 42,
+        "language": "en"
+      },
+      "assertion_class": "explicit_source"
+    }
+  },
+  {
+    "name": "blank literal datatype",
+    "expected": "blank-literal-datatype",
+    "record": {
+      "id": "mw:assertion:x",
+      "record_type": "assertion",
+      "subject": "mw:person:a",
+      "predicate": "mw:predicate:p",
+      "object": {
+        "value": "x",
+        "datatype": " "
+      },
+      "assertion_class": "explicit_source"
+    }
+  },
+  {
+    "name": "blank evidence relation",
+    "expected": "nonblank-evidence-relation",
+    "record": {
+      "id": "mw:evidence:x",
+      "record_type": "evidence",
+      "target": "mw:resource:a",
+      "relation": " "
+    }
+  },
+  {
+    "name": "blank assessment result",
+    "expected": "nonblank-assessment-result",
+    "record": {
+      "id": "mw:assessment:x",
+      "record_type": "assessment",
+      "target": "mw:assertion:a",
+      "result": " ",
+      "method": "m"
+    }
+  },
+  {
+    "name": "blank assessment method",
+    "expected": "nonblank-assessment-method",
+    "record": {
+      "id": "mw:assessment:x",
+      "record_type": "assessment",
+      "target": "mw:assertion:a",
+      "result": "plausible",
+      "method": " "
+    }
+  },
+  {
+    "name": "lifecycle self replacement",
+    "expected": "lifecycle-self-replacement",
+    "record": {
+      "id": "mw:resource:x",
+      "record_type": "resource",
+      "kind": "text",
+      "lifecycle": {
+        "status": "superseded",
+        "replacements": [
+          "mw:resource:x"
+        ]
+      }
+    }
+  },
+  {
+    "name": "malformed deterministic id",
+    "expected": "malformed-deterministic-id",
+    "record": {
+      "id": "mw:evidence:v1:sha256:abc",
+      "record_type": "evidence",
+      "target": "mw:resource:a",
+      "relation": "supports"
+    }
+  },
+  {
+    "name": "deterministic id mismatch",
+    "expected": "deterministic-id-mismatch",
+    "record": {
+      "id": "mw:evidence:v1:sha256:0000000000000000000000000000000000000000000000000000000000000000",
+      "record_type": "evidence",
+      "target": "mw:resource:a",
+      "relation": "supports"
+    }
+  }
+]

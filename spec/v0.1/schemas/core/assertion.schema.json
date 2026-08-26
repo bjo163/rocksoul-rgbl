@@ -8,12 +8,7 @@
     "record_type": { "const": "assertion" },
     "subject": { "$ref": "common.schema.json#/$defs/canonicalId" },
     "predicate": { "$ref": "common.schema.json#/$defs/canonicalId" },
-    "object": {
-      "oneOf": [
-        { "type": "object", "required": ["entity"], "properties": { "entity": { "$ref": "common.schema.json#/$defs/canonicalId" } }, "additionalProperties": false },
-        { "type": "object", "required": ["value"], "properties": { "value": { "type": ["string", "number", "boolean", "null"] }, "datatype": { "type": "string" }, "language": { "type": "string" } }, "additionalProperties": false }
-      ]
-    },
+    "object": { "$ref": "common.schema.json#/$defs/assertionObject" },
     "assertion_class": { "type": "string" },
     "scope": {
       "type": "object",

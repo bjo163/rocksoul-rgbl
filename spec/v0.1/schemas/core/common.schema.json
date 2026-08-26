@@ -19,6 +19,34 @@
       },
       "additionalProperties": false
     },
+    "assertionEntityValue": {
+      "type": "object",
+      "required": ["entity"],
+      "properties": { "entity": { "$ref": "#/$defs/canonicalId" } },
+      "additionalProperties": false
+    },
+    "assertionLiteralValue": {
+      "type": "object",
+      "required": ["value"],
+      "properties": {
+        "value": { "type": ["string", "number", "boolean", "null"] },
+        "datatype": { "type": "string", "minLength": 1, "pattern": ".*\\S.*" },
+        "language": { "type": "string", "pattern": "^[a-z]{2,8}(?:-[A-Za-z0-9]{1,8})*$" }
+      },
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": { "required": ["language"] },
+          "then": { "properties": { "value": { "type": "string" } } }
+        }
+      ]
+    },
+    "assertionObject": {
+      "oneOf": [
+        { "$ref": "#/$defs/assertionEntityValue" },
+        { "$ref": "#/$defs/assertionLiteralValue" }
+      ]
+    },
     "externalIdentifier": {
       "type": "object",
       "required": ["scheme", "value"],

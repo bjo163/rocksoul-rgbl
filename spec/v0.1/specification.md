@@ -19,6 +19,13 @@ It does **not** define a theological truth hierarchy, engine ranking policy, dat
 
 Domain structures such as textual passages, manuscripts, chronology, geography, or lineage belong to versioned profiles built on top of this core.
 
+## Core contracts
+
+- `identifiers.md` — canonical IDs and namespaces.
+- `assertion-values.md` — entity-reference and literal assertion object envelopes.
+- `assessments.md` — assessment target/result/method semantics.
+- `compatibility.md` — compatibility rules for pre-stable `v0.x` evolution.
+
 ## Serialization
 
 Canonical authoring formats are UTF-8 JSON and JSONL validated using JSON Schema Draft 2020-12.

@@ -28,7 +28,7 @@ export default async function GraphPage({ params, searchParams }: { params: Prom
 
       <section className="section"><p className="eyebrow">{graph.nodes.length} nodes</p><h2>Records in this bounded neighborhood</h2><div className="graph-node-list">{graph.nodes.map((node) => <Link className="graph-node" href={`/record/${encodeURIComponent(node.id)}`} key={node.id}>{node.label} · {node.recordType}</Link>)}</div></section>
 
-      <section className="section"><p className="eyebrow">{graph.edges.length} assertion edges</p><h2>Relations</h2><div className="graph-list">{graph.edges.map((edge) => <article className="graph-edge" key={edge.assertion.id}><CanonicalLink id={edge.subject} /><span><CanonicalLink id={edge.assertion.predicate} /><br /><small>{edge.assertion.assertion_class}</small></span><span>{edge.objectId ? <CanonicalLink id={edge.objectId} /> : edge.objectLabel}<br /><Link href={`/assertion/${encodeURIComponent(edge.assertion.id)}`}>inspect assertion</Link></span></article>)}</div></section>
+      <section className="section"><p className="eyebrow">{graph.edges.length} assertion edges</p><h2>Relations</h2><div className="graph-list">{graph.edges.map((edge) => <article className="graph-edge" key={edge.assertion.id}><CanonicalLink id={edge.subject} /><span><code className="predicate" title="Vocabulary predicate ID">{edge.assertion.predicate}</code><br /><small>{edge.assertion.assertion_class}</small></span><span>{edge.objectId ? <CanonicalLink id={edge.objectId} /> : edge.objectLabel}<br /><Link href={`/assertion/${encodeURIComponent(edge.assertion.id)}`}>inspect assertion</Link></span></article>)}</div></section>
     </>
   )
 }

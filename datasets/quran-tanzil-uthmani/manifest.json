@@ -1,0 +1,17 @@
+{
+  "id": "mw:dataset:quran:tanzil-uthmani",
+  "datasetVersion": "0.1.0",
+  "specVersion": "0.1",
+  "profiles": ["textual@0.1", "source@0.1"],
+  "partitions": [
+    {"recordType":"entity","path":"data/core/entities/*.jsonl"},
+    {"recordType":"resource","path":"data/core/resources/*.jsonl"},
+    {"recordType":"provenance","path":"data/core/provenance/*.jsonl"}
+  ],
+  "sources": [
+    "Tanzil Quran Text, Uthmani Version 1.1",
+    "Pinned mirror: dotquran/corpus@c23f5cec2e95e253dc450bd0f34d09e37ba40fac"
+  ],
+  "rights": "Quran text: Creative Commons Attribution 3.0 under Tanzil terms; verbatim text only, Tanzil attribution required, upstream copyright notice retained.",
+  "availability": "bundled"
+}

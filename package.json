@@ -16,9 +16,12 @@
     "todo:sync": "tsx scripts/sync-todo-issues.ts todo-to-issues",
     "todo:sync:issue": "tsx scripts/reconcile-issue-status.ts",
     "todo:check": "tsx scripts/sync-todo-issues.ts check",
-    "check": "pnpm typecheck && pnpm test && pnpm validate"
+    "check": "pnpm typecheck && pnpm test && pnpm validate",
+    "materialize:p5": "tsx scripts/materialize-p5-datasets.ts"
   },
   "devDependencies": {
+    "@moonwitness/corpus-core": "workspace:*",
+    "@moonwitness/corpus-ingestion": "workspace:*",
     "@types/node": "^20.19.0",
     "tsx": "^4.20.0",
     "turbo": "^2.9.0",

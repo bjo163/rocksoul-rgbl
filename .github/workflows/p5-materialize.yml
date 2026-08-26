@@ -6,6 +6,7 @@ on:
       - feature/real-datasets-p5
     paths:
       - .github/workflows/p5-materialize.yml
+      - package.json
       - ingestion/recipes/quran-tanzil-uthmani/recipe.json
       - ingestion/recipes/quran-tanzil-uthmani/recipe.ts
       - ingestion/recipes/dhammapada-sujato-1-20/recipe.json

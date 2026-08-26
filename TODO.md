@@ -136,9 +136,9 @@ For rationale, dependencies, acceptance criteria, and later phases, see [`docs/R
 
 ## P7 — public Corpus Explorer web app
 
-- [ ] Scaffold `apps/web` with Next.js. <!-- mw-todo:P7-001 -->
-- [ ] Add dataset registry/catalog page. <!-- mw-todo:P7-002 -->
-- [ ] Add entity page. <!-- mw-todo:P7-003 -->
+- [x] Scaffold `apps/web` with Next.js. <!-- mw-todo:P7-001 -->
+- [x] Add dataset registry/catalog page. <!-- mw-todo:P7-002 -->
+- [x] Add entity page. <!-- mw-todo:P7-003 -->
 - [ ] Add resource/work page. <!-- mw-todo:P7-004 -->
 - [ ] Add passage reader. <!-- mw-todo:P7-005 -->
 - [ ] Add assertion detail page. <!-- mw-todo:P7-006 -->

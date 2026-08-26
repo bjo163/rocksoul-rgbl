@@ -5,6 +5,8 @@ const MARKER_RE = /<!--\s*mw-todo:([A-Za-z0-9._-]+)\s*-->/
 const SECTION_RE = /^##\s+(P\d+)\s+—\s+(.+)$/
 const HEADING_RE = /^##\s+/
 const TASK_RE = /^(\s*)-\s+\[([ xX])\]\s+(.+?)\s*$/
+const MUTATION_DELAY_MS = Number(process.env.TODO_SYNC_MUTATION_DELAY_MS ?? 2200)
+const MAX_API_RETRIES = Number(process.env.TODO_SYNC_MAX_RETRIES ?? 5)
 
 interface TodoTask {
   id: string
@@ -31,6 +33,10 @@ interface GitHubIssue {
 }
 
 const requiredLabels = ['todo-sync', 'roadmap']
+
+function sleep(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms))
+}
 
 function taskMarker(id: string): string {
   return `<!-- mw-todo:${id} -->`
@@ -167,26 +173,63 @@ function githubToken(): string {
   return token
 }
 
+function isMutation(init: RequestInit): boolean {
+  const method = (init.method ?? 'GET').toUpperCase()
+  return method !== 'GET' && method !== 'HEAD'
+}
+
+function retryDelayMs(response: Response, detail: string, attempt: number): number | null {
+  const retryAfter = Number(response.headers.get('retry-after'))
+  if (Number.isFinite(retryAfter) && retryAfter > 0) {
+    return retryAfter * 1000 + 1000
+  }
+
+  const rateLimited =
+    response.status === 429 ||
+    (response.status === 403 &&
+      /secondary rate limit|temporarily blocked|rate limit/i.test(detail))
+
+  if (!rateLimited) return null
+  return Math.min(30_000 * 2 ** attempt, 180_000)
+}
+
 async function api<T>(path: string, init: RequestInit = {}): Promise<T> {
   const token = githubToken()
-  const response = await fetch(`https://api.github.com${path}`, {
-    ...init,
-    headers: {
-      Accept: 'application/vnd.github+json',
-      Authorization: `Bearer ${token}`,
-      'X-GitHub-Api-Version': '2022-11-28',
-      'Content-Type': 'application/json',
-      ...init.headers
-    }
-  })
 
-  if (!response.ok) {
+  for (let attempt = 0; attempt <= MAX_API_RETRIES; attempt++) {
+    const response = await fetch(`https://api.github.com${path}`, {
+      ...init,
+      headers: {
+        Accept: 'application/vnd.github+json',
+        Authorization: `Bearer ${token}`,
+        'X-GitHub-Api-Version': '2022-11-28',
+        'Content-Type': 'application/json',
+        ...init.headers
+      }
+    })
+
+    if (response.ok) {
+      if (isMutation(init) && MUTATION_DELAY_MS > 0) {
+        await sleep(MUTATION_DELAY_MS)
+      }
+      if (response.status === 204) return undefined as T
+      return (await response.json()) as T
+    }
+
     const detail = await response.text()
+    const retryMs = retryDelayMs(response, detail, attempt)
+    if (retryMs !== null && attempt < MAX_API_RETRIES) {
+      console.warn(
+        `GitHub API rate-limited ${path}; retrying attempt ${attempt + 2}/${MAX_API_RETRIES + 1} after ${Math.ceil(retryMs / 1000)}s.`
+      )
+      await sleep(retryMs)
+      continue
+    }
+
     throw new Error(`GitHub API ${response.status} ${response.statusText}: ${detail}`)
   }
 
-  if (response.status === 204) return undefined as T
-  return (await response.json()) as T
+  throw new Error(`GitHub API retry loop exhausted for ${path}`)
 }
 
 async function listIssues(): Promise<GitHubIssue[]> {
@@ -224,6 +267,10 @@ async function ensureLabel(name: string, color: string, description: string): Pr
 
 async function syncTodoToIssues(): Promise<void> {
   const parsed = await parseTodo(true)
+
+  // Persist deterministic markers before any network mutation. The workflow's
+  // final `if: always()` commit step preserves them even if GitHub rate-limits
+  // a later issue mutation, making subsequent runs safely resumable.
   if (parsed.changed) {
     await writeFile(TODO_PATH, parsed.content, 'utf8')
   }
@@ -248,12 +295,16 @@ async function syncTodoToIssues(): Promise<void> {
   const { owner, repo } = repositoryParts()
   let created = 0
   let updated = 0
+  let skippedHistorical = 0
 
   for (const task of parsed.tasks) {
     const existing = issueByTaskId.get(task.id)
 
     // Historical completed bootstrap tasks do not need synthetic closed issues.
-    if (!existing && task.checked) continue
+    if (!existing && task.checked) {
+      skippedHistorical++
+      continue
+    }
 
     const title = issueTitle(task)
     const body = issueBody(task)
@@ -261,10 +312,11 @@ async function syncTodoToIssues(): Promise<void> {
     const labels = [...requiredLabels, task.phase]
 
     if (!existing) {
-      await api(`/repos/${owner}/${repo}/issues`, {
+      const createdIssue = await api<GitHubIssue>(`/repos/${owner}/${repo}/issues`, {
         method: 'POST',
         body: JSON.stringify({ title, body, labels })
       })
+      issueByTaskId.set(task.id, createdIssue)
       created++
       continue
     }
@@ -293,7 +345,7 @@ async function syncTodoToIssues(): Promise<void> {
   }
 
   console.log(
-    `TODO → Issues sync complete: ${parsed.tasks.length} tracked tasks, ${created} created, ${updated} updated.`
+    `TODO → Issues sync complete: ${parsed.tasks.length} tracked tasks, ${created} created, ${updated} updated, ${skippedHistorical} historical completed tasks skipped.`
   )
 }
 
@@ -313,14 +365,19 @@ async function syncIssueToTodo(): Promise<void> {
   const parsed = await parseTodo(true)
   const task = parsed.tasks.find((candidate) => candidate.id === marker[1])
   if (!task) {
-    console.log(`Managed issue references ${marker[1]}, which is no longer in TODO.md; no automatic deletion action taken.`)
+    console.log(
+      `Managed issue references ${marker[1]}, which is no longer in TODO.md; no automatic deletion action taken.`
+    )
     return
   }
 
   const desiredChecked = event.issue?.state === 'closed'
   const lines = parsed.content.split(/\r?\n/)
   const current = lines[task.lineIndex]
-  lines[task.lineIndex] = current.replace(/-\s+\[[ xX]\]/, `- [${desiredChecked ? 'x' : ' '}]`)
+  lines[task.lineIndex] = current.replace(
+    /-\s+\[[ xX]\]/,
+    `- [${desiredChecked ? 'x' : ' '}]`
+  )
   const next = lines.join('\n')
 
   if (next !== parsed.content || parsed.changed) {

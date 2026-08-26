@@ -11,14 +11,19 @@ export interface ValidationFinding {
 
 export interface ValidationReport {
   valid: boolean
+  datasetCount: number
   recordCount: number
   findings: ValidationFinding[]
 }
 
 const recordTypes = ['entity', 'resource', 'assertion', 'evidence', 'provenance', 'assessment'] as const
 
+function relative(root: string, file: string): string {
+  return path.relative(root, file).replaceAll(path.sep, '/')
+}
+
 export async function validateRepository(root = process.cwd()): Promise<ValidationReport> {
-  const report: ValidationReport = { valid: true, recordCount: 0, findings: [] }
+  const report: ValidationReport = { valid: true, datasetCount: 0, recordCount: 0, findings: [] }
   const ajv = new Ajv2020({ allErrors: true, strict: false })
   const schemaDir = path.join(root, 'spec/v0.1/schemas/core')
   const validators = new Map<string, ReturnType<typeof ajv.compile>>()
@@ -28,34 +33,98 @@ export async function validateRepository(root = process.cwd()): Promise<Validati
     validators.set(recordType, ajv.compile(JSON.parse(raw)))
   }
 
-  const files = await fg('datasets/**/*.jsonl', { cwd: root, absolute: true })
+  const datasetSchema = JSON.parse(
+    await readFile(path.join(schemaDir, 'dataset.schema.json'), 'utf8')
+  ) as object
+  const validateDataset = ajv.compile(datasetSchema)
+
+  const manifests = await fg('datasets/**/manifest.json', { cwd: root, absolute: true })
+  const partitionExpectations = new Map<string, string>()
+
+  for (const manifestFile of manifests.sort()) {
+    report.datasetCount++
+    let manifest: Record<string, unknown>
+    try {
+      manifest = JSON.parse(await readFile(manifestFile, 'utf8')) as Record<string, unknown>
+    } catch {
+      report.findings.push({ file: relative(root, manifestFile), message: 'Invalid dataset manifest JSON' })
+      continue
+    }
+
+    if (!validateDataset(manifest)) {
+      report.findings.push({
+        file: relative(root, manifestFile),
+        message: ajv.errorsText(validateDataset.errors, { separator: '; ' })
+      })
+      continue
+    }
+
+    const datasetDir = path.dirname(manifestFile)
+    const partitions = manifest.partitions as Array<{ recordType: string; path: string }>
+
+    for (const partition of partitions) {
+      const matches = await fg(partition.path, { cwd: datasetDir, absolute: true, onlyFiles: true })
+      if (matches.length === 0) {
+        report.findings.push({
+          file: relative(root, manifestFile),
+          message: `Partition '${partition.path}' matched no files`
+        })
+      }
+      for (const file of matches) {
+        const existing = partitionExpectations.get(file)
+        if (existing && existing !== partition.recordType) {
+          report.findings.push({
+            file: relative(root, manifestFile),
+            message: `Partition file ${relative(root, file)} is declared as both '${existing}' and '${partition.recordType}'`
+          })
+        } else {
+          partitionExpectations.set(file, partition.recordType)
+        }
+      }
+    }
+  }
+
   const ids = new Map<string, string>()
 
-  for (const file of files.sort()) {
+  for (const [file, expectedRecordType] of [...partitionExpectations.entries()].sort(([a], [b]) => a.localeCompare(b))) {
     const text = await readFile(file, 'utf8')
     const lines = text.split(/\r?\n/)
+
     for (let index = 0; index < lines.length; index++) {
       const line = lines[index].trim()
       if (!line) continue
       report.recordCount++
+
       let record: Record<string, unknown>
       try {
         record = JSON.parse(line) as Record<string, unknown>
       } catch {
-        report.findings.push({ file: path.relative(root, file), line: index + 1, message: 'Invalid JSON' })
+        report.findings.push({ file: relative(root, file), line: index + 1, message: 'Invalid JSON' })
         continue
       }
 
       const recordType = record.record_type
+      if (recordType !== expectedRecordType) {
+        report.findings.push({
+          file: relative(root, file),
+          line: index + 1,
+          message: `Partition declares '${expectedRecordType}' but record_type is '${String(recordType)}'`
+        })
+      }
+
       if (typeof recordType !== 'string' || !validators.has(recordType)) {
-        report.findings.push({ file: path.relative(root, file), line: index + 1, message: `Unknown record_type: ${String(recordType)}` })
+        report.findings.push({
+          file: relative(root, file),
+          line: index + 1,
+          message: `Unknown record_type: ${String(recordType)}`
+        })
         continue
       }
 
       const validate = validators.get(recordType)!
       if (!validate(record)) {
         report.findings.push({
-          file: path.relative(root, file),
+          file: relative(root, file),
           line: index + 1,
           message: ajv.errorsText(validate.errors, { separator: '; ' })
         })
@@ -65,12 +134,12 @@ export async function validateRepository(root = process.cwd()): Promise<Validati
         const previous = ids.get(record.id)
         if (previous) {
           report.findings.push({
-            file: path.relative(root, file),
+            file: relative(root, file),
             line: index + 1,
             message: `Duplicate canonical id ${record.id}; first seen in ${previous}`
           })
         } else {
-          ids.set(record.id, path.relative(root, file))
+          ids.set(record.id, `${relative(root, file)}:${index + 1}`)
         }
       }
     }

@@ -8,20 +8,23 @@
     "node": ">=20"
   },
   "scripts": {
-    "build": "turbo run build",
+    "build": "turbo run build && tsx scripts/build-corpus.ts",
     "dev": "turbo run dev",
     "typecheck": "tsc --noEmit",
-    "test": "tsx --test packages/core/src/*.test.ts packages/ingestion/src/*.test.ts packages/validator/src/*.test.ts scripts/*.test.ts",
+    "test": "tsx --test packages/*/src/*.test.ts scripts/*.test.ts",
     "validate": "tsx packages/validator/src/cli.ts",
     "todo:sync": "tsx scripts/sync-todo-issues.ts todo-to-issues",
     "todo:sync:issue": "tsx scripts/reconcile-issue-status.ts",
     "todo:check": "tsx scripts/sync-todo-issues.ts check",
-    "check": "pnpm typecheck && pnpm test && pnpm validate",
+    "check": "pnpm typecheck && pnpm test && pnpm validate && pnpm build",
     "materialize:p5": "tsx scripts/materialize-p5-datasets.ts"
   },
   "devDependencies": {
+    "@moonwitness/corpus-build": "workspace:*",
     "@moonwitness/corpus-core": "workspace:*",
     "@moonwitness/corpus-ingestion": "workspace:*",
+    "@moonwitness/corpus-node": "workspace:*",
+    "@moonwitness/corpus-repository": "workspace:*",
     "@types/node": "^20.19.0",
     "tsx": "^4.20.0",
     "turbo": "^2.9.0",

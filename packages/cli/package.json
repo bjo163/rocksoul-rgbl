@@ -4,7 +4,9 @@
   "type": "module",
   "bin": { "moonwitness-corpus": "./src/cli.ts" },
   "dependencies": {
+    "@moonwitness/corpus-core": "workspace:*",
     "@moonwitness/corpus-ingestion": "workspace:*",
+    "@moonwitness/corpus-node": "workspace:*",
     "@moonwitness/corpus-validator": "workspace:*"
   }
 }

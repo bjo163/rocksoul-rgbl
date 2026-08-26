@@ -161,9 +161,9 @@ For rationale, dependencies, acceptance criteria, and later phases, see [`docs/R
 - [ ] Publish CLI package. <!-- mw-todo:P8-006 -->
 - [x] Add Changesets or equivalent package version workflow. <!-- mw-todo:P8-007 -->
 - [x] Separate spec version, package version, dataset version, and aggregate corpus release version. <!-- mw-todo:P8-008 -->
-- [ ] Generate release checksums. <!-- mw-todo:P8-009 -->
-- [ ] Generate machine-readable release manifest. <!-- mw-todo:P8-010 -->
-- [ ] Optionally export JSON-LD and RO-Crate from canonical records. <!-- mw-todo:P8-011 -->
+- [x] Generate release checksums. <!-- mw-todo:P8-009 -->
+- [x] Generate machine-readable release manifest. <!-- mw-todo:P8-010 -->
+- [x] Optionally export JSON-LD and RO-Crate from canonical records. <!-- mw-todo:P8-011 -->
 
 ## P9 — MoonWitness integration
 

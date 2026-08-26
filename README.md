@@ -2,33 +2,53 @@
 
 MoonWitness Corpus is a public, provenance-first and evidence-aware corpus platform for religious texts, traditions, history, and comparative knowledge.
 
-This repository is intended to provide:
+> Status: **v0.1 foundation / unstable**. Core contracts may still change before the first stable corpus release.
 
-- a stable, technology-neutral corpus specification;
-- versioned canonical datasets with explicit provenance and licensing;
-- reusable TypeScript packages for validation, loading, querying, and tooling;
-- applications for exploring and curating corpus data;
-- a clean upstream data source that MoonWitness can consume through an adapter.
-
-> Status: early v0.1 bootstrap. The specification and core schemas are not yet stable.
-
-## Core principles
-
-1. Canonical corpus data is independent from MoonWitness ORM/database internals.
-2. Assertions are contextual claims, not unqualified global facts.
-3. Evidence, source, provenance, and assessment are separate concepts.
-4. Stable semantic identifiers are independent from database IDs.
-5. Religion- or tradition-specific concepts are data/profile extensions, not hard-coded core schema assumptions.
-6. Engine policy, embeddings, search indexes, and AI-derived projections are downstream concerns, not canonical corpus truth.
-
-## Repository model
+## Architecture
 
 ```text
-spec/       corpus contract and schemas
-datasets/   canonical datasets
-packages/   reusable software
-apps/       executable products
+spec/       technology-neutral corpus contract and schemas
+datasets/   canonical, versioned knowledge datasets
+packages/   reusable SDK, repository, validation and CLI software
+apps/       executable products such as the future corpus explorer
 ingestion/  reproducible source-to-corpus recipes
 ```
 
-The initial implementation will use JSON/JSONL, JSON Schema 2020-12, TypeScript, pnpm, Turborepo, SHA-256 integrity checks, and Git-based versioning.
+The canonical corpus is intentionally independent from MoonWitness ORM/database internals. MoonWitness consumes released corpus data through a downstream adapter.
+
+## Core model
+
+The v0.1 core is deliberately small:
+
+- **Entity** — a stable identity for something discussed by the corpus.
+- **Resource** — a text, work, edition, artifact, dataset, media object, or other information resource.
+- **Assertion** — a contextual claim connecting a subject, predicate, and object/value.
+- **Evidence** — a precise support/contradiction/mention target within a resource.
+- **Provenance** — where a record came from and how it was produced.
+- **Assessment** — an agent/method evaluation of another record; confidence is not global truth.
+
+Religion- or tradition-specific concepts are represented as data and profiles, not hard-coded as universal core fields.
+
+## Technical baseline
+
+- JSON / JSONL canonical serialization
+- JSON Schema Draft 2020-12
+- stable semantic IDs (`mw:...`), independent from database IDs
+- TypeScript tooling on Node.js 20+
+- pnpm workspaces + Turborepo
+- SHA-256 integrity model
+- Git-based review and release history
+
+## Development
+
+```bash
+corepack enable
+pnpm install
+pnpm check
+```
+
+`pnpm check` currently performs TypeScript checking and corpus/schema validation.
+
+## Licensing
+
+No repository-wide data license has been selected yet. Do not add redistributed source text or binary artifacts unless their licensing/rights status is explicitly recorded. See `LICENSES/README.md`.

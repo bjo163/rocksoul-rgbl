@@ -1,0 +1,4 @@
+{
+  "version": "0.1",
+  "values": ["explicit_source", "source_summary", "scholarly_interpretation", "derived", "hypothesis"]
+}

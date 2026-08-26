@@ -1,0 +1,11 @@
+{
+  "name": "@moonwitness/corpus",
+  "version": "0.1.0",
+  "type": "module",
+  "exports": "./src/index.ts",
+  "dependencies": {
+    "@moonwitness/corpus-core": "workspace:*",
+    "@moonwitness/corpus-repository": "workspace:*",
+    "@moonwitness/corpus-schema": "workspace:*"
+  }
+}

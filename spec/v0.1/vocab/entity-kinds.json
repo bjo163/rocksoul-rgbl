@@ -1,0 +1,4 @@
+{
+  "version": "0.1",
+  "values": ["person", "group", "place", "event", "concept", "practice", "tradition", "community", "institution", "being", "object"]
+}

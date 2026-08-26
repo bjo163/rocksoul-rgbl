@@ -1,0 +1,4 @@
+{
+  "version": "0.1",
+  "values": ["supports", "contradicts", "mentions", "quotes", "paraphrases", "interprets", "contextualizes", "parallels", "alludes_to"]
+}

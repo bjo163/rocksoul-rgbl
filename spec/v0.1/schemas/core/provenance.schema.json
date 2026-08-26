@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://moonwitness.org/corpus/spec/v0.1/schemas/core/provenance.schema.json",
+  "type": "object",
+  "required": ["id", "record_type", "source"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^mw:[A-Za-z0-9._-]+(?::[A-Za-z0-9._-]+)+$" },
+    "record_type": { "const": "provenance" },
+    "source": { "type": "string" },
+    "source_reference": { "type": "string" },
+    "activity": { "type": "object" },
+    "extensions": { "type": "object" }
+  },
+  "additionalProperties": false
+}

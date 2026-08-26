@@ -1,0 +1,23 @@
+{
+  "name": "moonwitness-corpus",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.33.4",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "typecheck": "tsc --noEmit",
+    "validate": "tsx packages/validator/src/cli.ts",
+    "check": "pnpm typecheck && pnpm validate"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.0",
+    "tsx": "^4.20.0",
+    "turbo": "^2.9.0",
+    "typescript": "^5.9.0"
+  }
+}

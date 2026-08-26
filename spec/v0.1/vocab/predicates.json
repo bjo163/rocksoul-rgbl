@@ -1,0 +1,9 @@
+{
+  "version": "0.1",
+  "values": [
+    { "id": "mw:predicate:mentions", "label": "mentions" },
+    { "id": "mw:predicate:has-role", "label": "has role" },
+    { "id": "mw:predicate:part-of", "label": "part of" },
+    { "id": "mw:predicate:derived-from", "label": "derived from" }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://moonwitness.org/corpus/spec/v0.1/schemas/core/dataset.schema.json",
+  "type": "object",
+  "required": ["id", "datasetVersion", "specVersion", "profiles", "partitions"],
+  "properties": {
+    "id": { "type": "string" },
+    "datasetVersion": { "type": "string" },
+    "specVersion": { "type": "string" },
+    "profiles": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+    "partitions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["recordType", "path"],
+        "properties": {
+          "recordType": { "type": "string" },
+          "path": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "sources": { "type": "array", "items": { "type": "string" } },
+    "rights": { "type": "string" },
+    "availability": { "enum": ["bundled", "external", "metadata_only", "restricted"] }
+  },
+  "additionalProperties": false
+}

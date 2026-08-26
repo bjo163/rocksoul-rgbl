@@ -1,0 +1,15 @@
+{
+  "id": "mw:dataset:example:p5-cross-tradition",
+  "datasetVersion": "0.1.0",
+  "specVersion": "0.1",
+  "profiles": ["textual@0.1"],
+  "dependencies": [
+    {"dataset":"mw:dataset:quran:tanzil-uthmani","version":"0.1.0"},
+    {"dataset":"mw:dataset:dhammapada:sujato-1-20","version":"0.1.0"}
+  ],
+  "partitions": [
+    {"recordType":"resource","path":"data/core/resources/*.jsonl"}
+  ],
+  "rights": "Synthetic metadata-only cross-reference fixture; source texts remain governed by their owning datasets.",
+  "availability": "bundled"
+}

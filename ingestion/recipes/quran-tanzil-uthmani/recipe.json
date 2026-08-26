@@ -1,0 +1,20 @@
+{
+  "id": "mw:recipe:quran:tanzil-uthmani-1.1",
+  "version": "0.1.0",
+  "specVersion": "0.1",
+  "source": {
+    "kind": "filesystem",
+    "path": "source/quran-uthmani-tanzil-v1.1.txt",
+    "sha256": "6933e133dd56db778c801bf738848454e43648105a151e8d84d86a7cae39ec5f",
+    "byte_size": 1396087,
+    "media_type": "text/plain"
+  },
+  "implementation": {
+    "module": "recipe.ts",
+    "parserVersion": "1",
+    "normalizerVersion": "identity-1",
+    "mapperVersion": "1",
+    "validatorVersion": "1"
+  },
+  "output": { "path": "../../../dist/ingestion/quran-tanzil-uthmani.jsonl" }
+}

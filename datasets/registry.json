@@ -20,6 +20,21 @@
       "id": "mw:dataset:example:provenance-rights",
       "path": "datasets/examples/provenance-rights",
       "status": "fixture"
+    },
+    {
+      "id": "mw:dataset:quran:tanzil-uthmani",
+      "path": "datasets/quran-tanzil-uthmani",
+      "status": "active"
+    },
+    {
+      "id": "mw:dataset:dhammapada:sujato-1-20",
+      "path": "datasets/dhammapada-sujato-1-20",
+      "status": "active"
+    },
+    {
+      "id": "mw:dataset:example:p5-cross-tradition",
+      "path": "datasets/examples/p5-cross-tradition",
+      "status": "fixture"
     }
   ]
 }

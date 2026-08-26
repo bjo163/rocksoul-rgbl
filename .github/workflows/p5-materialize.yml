@@ -1,0 +1,45 @@
+name: P5 Materialize
+
+on:
+  push:
+    branches:
+      - feature/real-datasets-p5
+    paths:
+      - .github/workflows/p5-materialize.yml
+      - ingestion/recipes/quran-tanzil-uthmani/recipe.json
+      - ingestion/recipes/quran-tanzil-uthmani/recipe.ts
+      - ingestion/recipes/dhammapada-sujato-1-20/recipe.json
+      - ingestion/recipes/dhammapada-sujato-1-20/recipe.ts
+      - scripts/materialize-p5-datasets.ts
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feature/real-datasets-p5
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: corepack enable
+      - run: pnpm install --no-frozen-lockfile
+      - name: Materialize canonical datasets
+        run: pnpm materialize:p5
+      - name: Commit deterministic partitions
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add datasets/quran-tanzil-uthmani/data datasets/quran-tanzil-uthmani/CHECKSUMS.sha256
+          git add datasets/dhammapada-sujato-1-20/data datasets/dhammapada-sujato-1-20/CHECKSUMS.sha256
+          if git diff --cached --quiet; then
+            echo 'Canonical P5 partitions already match the pinned recipes.'
+          else
+            git commit -m 'data: materialize P5 canonical datasets'
+            git push origin HEAD:feature/real-datasets-p5
+          fi

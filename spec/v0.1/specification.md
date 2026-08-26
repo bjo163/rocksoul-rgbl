@@ -26,6 +26,7 @@ Domain structures such as textual passages, manuscripts, chronology, geography, 
 - `assessments.md` — assessment target/result/method semantics.
 - `compatibility.md` — compatibility rules for pre-stable `v0.x` evolution.
 - `profiles/textual.md` — textual Work/Expression/Edition/Artifact/Passage/Content/Citation/Alignment/Variant profile.
+- `profiles/source.md` — source identity, artifact integrity/availability, rights, and provenance processing profile.
 
 ## Serialization
 

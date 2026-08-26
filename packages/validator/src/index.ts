@@ -13,6 +13,13 @@ import {
   validateTextualGraphInvariants,
   type TextualRecordSnapshot
 } from './textual-profile.js'
+import {
+  SOURCE_PROFILE_ID,
+  sourceMetadata,
+  validateProvenanceRecordInvariants,
+  validateSourceRecordInvariants,
+  type SourceRecordSnapshot
+} from './source-profile.js'
 
 export interface ValidationFinding {
   file: string
@@ -114,6 +121,15 @@ export async function validateRepository(root = process.cwd()): Promise<Validati
   }
   const validateTextualSelector = ajv.compile(
     JSON.parse(await readFile(path.join(textualSchemaDir, 'selector.schema.json'), 'utf8')) as object
+  )
+
+  const sourceSchemaDir = path.join(root, 'spec/v0.1/schemas/profiles/source')
+  const sourceCommonSchema = JSON.parse(
+    await readFile(path.join(sourceSchemaDir, 'common.schema.json'), 'utf8')
+  ) as object
+  ajv.addSchema(sourceCommonSchema)
+  const validateSourceResource = ajv.compile(
+    JSON.parse(await readFile(path.join(sourceSchemaDir, 'resource.schema.json'), 'utf8')) as object
   )
 
   const manifests = await fg('datasets/**/manifest.json', { cwd: root, absolute: true })
@@ -241,6 +257,8 @@ export async function validateRepository(root = process.cwd()): Promise<Validati
   const duplicateRecordIds = new Set<string>()
   const pendingReferences: PendingReference[] = []
   const textualSnapshots: TextualRecordSnapshot[] = []
+  const sourceSnapshots: SourceRecordSnapshot[] = []
+  const provenanceSnapshots: SourceRecordSnapshot[] = []
 
   for (const [file, expectedRecordType] of [...partitionExpectations.entries()].sort(([a], [b]) => a.localeCompare(b))) {
     const text = await readFile(file, 'utf8')
@@ -325,6 +343,43 @@ export async function validateRepository(root = process.cwd()): Promise<Validati
         }
       }
 
+      let sourceProfileValid = true
+      const source = sourceMetadata(record)
+      if (
+        schemaValid &&
+        recordType === 'resource' &&
+        sourceDataset?.profiles.has(SOURCE_PROFILE_ID) &&
+        (kind === 'textual.content' || kind === 'textual.artifact') &&
+        !source
+      ) {
+        sourceProfileValid = false
+        report.findings.push({
+          file: relative(root, file),
+          line: index + 1,
+          code: 'source-profile-metadata-required',
+          message: `Resource kind ${String(kind)} in a ${SOURCE_PROFILE_ID} dataset must declare extensions.source metadata`
+        })
+      }
+      if (schemaValid && recordType === 'resource' && source) {
+        if (!sourceDataset?.profiles.has(SOURCE_PROFILE_ID)) {
+          sourceProfileValid = false
+          report.findings.push({
+            file: relative(root, file),
+            line: index + 1,
+            code: 'undeclared-source-profile',
+            message: `Resource source metadata requires dataset profile ${SOURCE_PROFILE_ID}`
+          })
+        } else if (!validateSourceResource(record)) {
+          sourceProfileValid = false
+          report.findings.push({
+            file: relative(root, file),
+            line: index + 1,
+            code: 'source-profile-schema-validation',
+            message: ajv.errorsText(validateSourceResource.errors, { separator: '; ' })
+          })
+        }
+      }
+
       if (
         schemaValid &&
         sourceDataset?.profiles.has(TEXTUAL_PROFILE_ID) &&
@@ -403,6 +458,24 @@ export async function validateRepository(root = process.cwd()): Promise<Validati
             line: index + 1
           })
         }
+
+        if (sourceProfileValid && sourceDataset.profiles.has(SOURCE_PROFILE_ID) && recordType === 'resource' && source) {
+          sourceSnapshots.push({
+            record,
+            datasetId: sourceDataset.id,
+            file: relative(root, file),
+            line: index + 1
+          })
+        }
+
+        if (recordType === 'provenance') {
+          provenanceSnapshots.push({
+            record,
+            datasetId: sourceDataset.id,
+            file: relative(root, file),
+            line: index + 1
+          })
+        }
       }
     }
   }
@@ -464,6 +537,18 @@ export async function validateRepository(root = process.cwd()): Promise<Validati
       code: finding.code,
       message: finding.message
     })
+  }
+
+  for (const snapshot of sourceSnapshots) {
+    for (const finding of validateSourceRecordInvariants(snapshot.record, recordValuesById)) {
+      report.findings.push({ file: snapshot.file, line: snapshot.line, code: finding.code, message: finding.message })
+    }
+  }
+
+  for (const snapshot of provenanceSnapshots) {
+    for (const finding of validateProvenanceRecordInvariants(snapshot.record, recordValuesById)) {
+      report.findings.push({ file: snapshot.file, line: snapshot.line, code: finding.code, message: finding.message })
+    }
   }
 
   report.valid = report.findings.length === 0

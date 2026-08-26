@@ -15,6 +15,11 @@
       "id": "mw:dataset:example:textual-canto-stanza",
       "path": "datasets/examples/textual-canto-stanza",
       "status": "fixture"
+    },
+    {
+      "id": "mw:dataset:example:provenance-rights",
+      "path": "datasets/examples/provenance-rights",
+      "status": "fixture"
     }
   ]
 }

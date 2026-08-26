@@ -1,0 +1,13 @@
+{
+  "id": "mw:dataset:example:provenance-rights",
+  "datasetVersion": "0.1.0",
+  "specVersion": "0.1",
+  "profiles": ["textual@0.1", "source@0.1"],
+  "partitions": [
+    { "recordType": "entity", "path": "data/core/entities/*.jsonl" },
+    { "recordType": "resource", "path": "data/core/resources/*.jsonl" },
+    { "recordType": "provenance", "path": "data/core/provenance/*.jsonl" }
+  ],
+  "rights": "Synthetic fixture only; exact record-level rights are declared in extensions.source.rights.",
+  "availability": "bundled"
+}

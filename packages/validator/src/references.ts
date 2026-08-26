@@ -1,4 +1,5 @@
 import { extractTextualReferences } from './textual-profile.js'
+import { extractProvenanceActivityReferences, extractSourceReferences } from './source-profile.js'
 
 export interface CanonicalReferenceUse {
   id: string
@@ -39,6 +40,7 @@ export function extractCanonicalReferences(record: Record<string, unknown>): Can
       break
     case 'provenance':
       pushString(references, 'source', record.source)
+      references.push(...extractProvenanceActivityReferences(record))
       break
     case 'assessment':
       pushString(references, 'target', record.target)
@@ -50,5 +52,6 @@ export function extractCanonicalReferences(record: Record<string, unknown>): Can
     pushArray(references, 'lifecycle.replacements', (record.lifecycle as Record<string, unknown>).replacements)
   }
   references.push(...extractTextualReferences(record))
+  references.push(...extractSourceReferences(record))
   return references
 }

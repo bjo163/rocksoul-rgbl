@@ -4,7 +4,14 @@
   "$defs": {
     "canonicalId": {
       "type": "string",
-      "pattern": "^mw:[A-Za-z0-9._-]+(?::[A-Za-z0-9._-]+)+$"
+      "maxLength": 255,
+      "pattern": "^mw:[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*:[a-z0-9]+(?:[._-][a-z0-9]+)*(?::[a-z0-9]+(?:[._-][a-z0-9]+)*)*$",
+      "examples": [
+        "mw:person:musa",
+        "mw:tradition:islam",
+        "mw:concept:prophet",
+        "mw:work:quran"
+      ]
     },
     "label": {
       "type": "object",

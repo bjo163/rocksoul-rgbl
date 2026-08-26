@@ -42,7 +42,7 @@ For rationale, dependencies, acceptance criteria, and later phases, see [`docs/R
 - [ ] Define literal/object value envelope for assertions. <!-- mw-todo:P1-010 -->
 - [ ] Define assessment target/result/method semantics. <!-- mw-todo:P1-011 -->
 - [x] Add invalid fixtures for every invariant. <!-- mw-todo:P1-012 -->
-- [ ] Write compatibility policy for spec v0.x changes. <!-- mw-todo:P1-013 -->
+- [x] Write compatibility policy for spec v0.x changes. <!-- mw-todo:P1-013 -->
 
 **Exit gate:** core schemas can be treated as stable enough to build profiles without changing their worldview assumptions.
 

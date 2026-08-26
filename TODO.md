@@ -142,9 +142,9 @@ For rationale, dependencies, acceptance criteria, and later phases, see [`docs/R
 - [x] Add resource/work page. <!-- mw-todo:P7-004 -->
 - [x] Add passage reader. <!-- mw-todo:P7-005 -->
 - [x] Add assertion detail page. <!-- mw-todo:P7-006 -->
-- [ ] Add evidence/source/provenance drill-down. <!-- mw-todo:P7-007 -->
-- [ ] Add search page. <!-- mw-todo:P7-008 -->
-- [ ] Add relation/graph explorer with bounded traversal. <!-- mw-todo:P7-009 -->
+- [x] Add evidence/source/provenance drill-down. <!-- mw-todo:P7-007 -->
+- [x] Add search page. <!-- mw-todo:P7-008 -->
+- [x] Add relation/graph explorer with bounded traversal. <!-- mw-todo:P7-009 -->
 - [ ] Add comparison view that clearly preserves source/perspective boundaries. <!-- mw-todo:P7-010 -->
 - [ ] Expose canonical IDs and dataset/spec versions in UI. <!-- mw-todo:P7-011 -->
 - [ ] Avoid presenting derived similarity as identity or factual equivalence. <!-- mw-todo:P7-012 -->

@@ -105,8 +105,8 @@ For rationale, dependencies, acceptance criteria, and later phases, see [`docs/R
 
 ## P5 — prove universality with real datasets
 
-- [ ] Select first source with verified redistribution rights. <!-- mw-todo:P5-001 -->
-- [ ] Build first textual dataset recipe and manifest. <!-- mw-todo:P5-002 -->
+- [x] Select first source with verified redistribution rights. <!-- mw-todo:P5-001 -->
+- [x] Build first textual dataset recipe and manifest. <!-- mw-todo:P5-002 -->
 - [ ] Prefer Quran as the first MoonWitness integration dataset if the selected Arabic/translation sources are legally usable. <!-- mw-todo:P5-003 -->
 - [ ] Select a second open/public-domain source from a substantially different religious tradition and textual structure. <!-- mw-todo:P5-004 -->
 - [ ] Build second dataset without adding religion-specific fields to core schemas. <!-- mw-todo:P5-005 -->

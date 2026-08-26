@@ -15,7 +15,18 @@
       ]
     },
     "assertion_class": { "type": "string" },
-    "scope": { "type": "object", "additionalProperties": { "type": "string" } },
+    "scope": {
+      "type": "object",
+      "minProperties": 1,
+      "properties": {
+        "tradition": { "$ref": "common.schema.json#/$defs/canonicalId" },
+        "community": { "$ref": "common.schema.json#/$defs/canonicalId" },
+        "agent": { "$ref": "common.schema.json#/$defs/canonicalId" },
+        "period": { "$ref": "common.schema.json#/$defs/canonicalId" },
+        "place": { "$ref": "common.schema.json#/$defs/canonicalId" }
+      },
+      "additionalProperties": false
+    },
     "evidence": { "type": "array", "items": { "$ref": "common.schema.json#/$defs/canonicalId" } },
     "provenance": { "$ref": "common.schema.json#/$defs/canonicalId" },
     "lifecycle": { "$ref": "common.schema.json#/$defs/recordLifecycle" },

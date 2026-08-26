@@ -1,3 +1,4 @@
+import type { AssertionScope } from './assertion-scope.js'
 import type { CanonicalId } from './identifiers.js'
 import type { Label } from './labels.js'
 import type { RecordLifecycle } from './lifecycle.js'
@@ -8,11 +9,11 @@ export * from './identity-boundaries.js'
 export * from './dataset-dependencies.js'
 export * from './lifecycle.js'
 export * from './labels.js'
+export * from './assertion-scope.js'
 
 export interface BaseRecord {
   id: CanonicalId
   record_type: 'entity' | 'resource' | 'assertion' | 'evidence' | 'provenance' | 'assessment'
-  /** Omitted means `current`; only universal record-lifecycle state belongs here. */
   lifecycle?: RecordLifecycle
 }
 
@@ -42,7 +43,7 @@ export interface Assertion extends BaseRecord {
   predicate: CanonicalId
   object: AssertionObject
   assertion_class: string
-  scope?: Record<string, CanonicalId | string>
+  scope?: AssertionScope
   evidence?: CanonicalId[]
   provenance?: CanonicalId
   extensions?: Record<string, unknown>

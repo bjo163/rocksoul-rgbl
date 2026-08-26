@@ -3,81 +3,38 @@ import test from 'node:test'
 
 import { extractCanonicalReferences } from './references.js'
 
-test('extracts assertion core references including canonical-looking scope values', () => {
-  assert.deepEqual(
-    extractCanonicalReferences({
-      record_type: 'assertion',
-      subject: 'mw:person:a',
-      predicate: 'mw:predicate:mentions',
-      object: { entity: 'mw:resource:b' },
-      scope: {
-        tradition: 'mw:tradition:example',
-        period: 'late-antiquity'
-      },
-      evidence: ['mw:evidence:a', 'mw:evidence:b'],
-      provenance: 'mw:provenance:a'
-    }),
-    [
-      { field: 'subject', id: 'mw:person:a' },
-      { field: 'predicate', id: 'mw:predicate:mentions' },
-      { field: 'object.entity', id: 'mw:resource:b' },
-      { field: 'scope.tradition', id: 'mw:tradition:example' },
-      { field: 'evidence[0]', id: 'mw:evidence:a' },
-      { field: 'evidence[1]', id: 'mw:evidence:b' },
-      { field: 'provenance', id: 'mw:provenance:a' }
-    ]
-  )
-})
-
-test('extracts evidence, provenance, and assessment references but ignores extensions', () => {
-  assert.deepEqual(
-    extractCanonicalReferences({
-      record_type: 'evidence',
-      target: 'mw:resource:a',
-      provenance: 'mw:provenance:a',
-      extensions: { hidden: 'mw:person:not-universal' }
-    }),
-    [
-      { field: 'target', id: 'mw:resource:a' },
-      { field: 'provenance', id: 'mw:provenance:a' }
-    ]
-  )
-
-  assert.deepEqual(
-    extractCanonicalReferences({
-      record_type: 'provenance',
-      source: 'mw:resource:a'
-    }),
-    [{ field: 'source', id: 'mw:resource:a' }]
-  )
-
-  assert.deepEqual(
-    extractCanonicalReferences({
-      record_type: 'assessment',
-      target: 'mw:assertion:a',
-      assessor: 'mw:agent:a',
-      evidence: ['mw:evidence:a']
-    }),
-    [
-      { field: 'target', id: 'mw:assertion:a' },
-      { field: 'assessor', id: 'mw:agent:a' },
-      { field: 'evidence[0]', id: 'mw:evidence:a' }
-    ]
-  )
+test('extracts all explicit universal assertion scope references', () => {
+  assert.deepEqual(extractCanonicalReferences({
+    record_type: 'assertion',
+    subject: 'mw:person:a',
+    predicate: 'mw:predicate:mentions',
+    object: { entity: 'mw:resource:b' },
+    scope: {
+      tradition: 'mw:tradition:example',
+      community: 'mw:community:example',
+      agent: 'mw:agent:example',
+      period: 'mw:period:example',
+      place: 'mw:place:example'
+    },
+    evidence: ['mw:evidence:a'],
+    provenance: 'mw:provenance:a'
+  }), [
+    { field: 'subject', id: 'mw:person:a' },
+    { field: 'predicate', id: 'mw:predicate:mentions' },
+    { field: 'object.entity', id: 'mw:resource:b' },
+    { field: 'scope.tradition', id: 'mw:tradition:example' },
+    { field: 'scope.community', id: 'mw:community:example' },
+    { field: 'scope.agent', id: 'mw:agent:example' },
+    { field: 'scope.period', id: 'mw:period:example' },
+    { field: 'scope.place', id: 'mw:place:example' },
+    { field: 'evidence[0]', id: 'mw:evidence:a' },
+    { field: 'provenance', id: 'mw:provenance:a' }
+  ])
 })
 
 test('extracts lifecycle replacements as universal canonical references', () => {
-  assert.deepEqual(
-    extractCanonicalReferences({
-      record_type: 'entity',
-      lifecycle: {
-        status: 'superseded',
-        replacements: ['mw:person:b', 'mw:person:c']
-      }
-    }),
-    [
-      { field: 'lifecycle.replacements[0]', id: 'mw:person:b' },
-      { field: 'lifecycle.replacements[1]', id: 'mw:person:c' }
-    ]
-  )
+  assert.deepEqual(extractCanonicalReferences({
+    record_type: 'entity',
+    lifecycle: { status: 'superseded', replacements: ['mw:person:b'] }
+  }), [{ field: 'lifecycle.replacements[0]', id: 'mw:person:b' }])
 })

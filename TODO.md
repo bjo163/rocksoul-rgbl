@@ -125,10 +125,10 @@ For rationale, dependencies, acceptance criteria, and later phases, see [`docs/R
 - [x] Implement dataset registry and dependency resolver. <!-- mw-todo:P6-004 -->
 - [x] Implement canonical ID lookup. <!-- mw-todo:P6-005 -->
 - [x] Implement passage/reference lookup. <!-- mw-todo:P6-006 -->
-- [ ] Implement assertion/evidence traversal. <!-- mw-todo:P6-007 -->
-- [ ] Implement scope filters. <!-- mw-todo:P6-008 -->
-- [ ] Build global derived catalog from dataset packs. <!-- mw-todo:P6-009 -->
-- [ ] Build deterministic search/index artifacts. <!-- mw-todo:P6-010 -->
+- [x] Implement assertion/evidence traversal. <!-- mw-todo:P6-007 -->
+- [x] Implement scope filters. <!-- mw-todo:P6-008 -->
+- [x] Build global derived catalog from dataset packs. <!-- mw-todo:P6-009 -->
+- [x] Build deterministic search/index artifacts. <!-- mw-todo:P6-010 -->
 - [ ] Add generated SQLite/DuckDB/Parquet outputs only as disposable artifacts if useful. <!-- mw-todo:P6-011 -->
 - [ ] Ensure `rm -rf dist && pnpm build` reconstructs all derived artifacts. <!-- mw-todo:P6-012 -->
 

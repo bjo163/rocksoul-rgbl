@@ -11,10 +11,10 @@
     "build": "turbo run build",
     "dev": "turbo run dev",
     "typecheck": "tsc --noEmit",
-    "test": "tsx --test packages/core/src/*.test.ts packages/validator/src/*.test.ts",
+    "test": "tsx --test packages/core/src/*.test.ts packages/validator/src/*.test.ts scripts/*.test.ts",
     "validate": "tsx packages/validator/src/cli.ts",
     "todo:sync": "tsx scripts/sync-todo-issues.ts todo-to-issues",
-    "todo:sync:issue": "tsx scripts/sync-todo-issues.ts issue-to-todo",
+    "todo:sync:issue": "tsx scripts/reconcile-issue-status.ts",
     "todo:check": "tsx scripts/sync-todo-issues.ts check",
     "check": "pnpm typecheck && pnpm test && pnpm validate"
   },

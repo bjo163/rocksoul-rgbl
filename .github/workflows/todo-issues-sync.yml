@@ -5,8 +5,6 @@ on:
     branches: [main]
     paths:
       - TODO.md
-      - scripts/sync-todo-issues.ts
-      - .github/workflows/todo-issues-sync.yml
   issues:
     types: [closed, reopened]
   workflow_dispatch:
@@ -37,22 +35,21 @@ jobs:
       - run: pnpm install --no-frozen-lockfile
 
       - name: TODO → Issues
-        if: github.event_name != 'issues'
+        if: github.event_name == 'push'
         run: pnpm exec tsx scripts/sync-todo-issues.ts todo-to-issues
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TODO_SYNC_MUTATION_DELAY_MS: 2200
           TODO_SYNC_MAX_RETRIES: 5
 
-      - name: Issue → TODO
-        if: github.event_name == 'issues'
-        run: pnpm exec tsx scripts/sync-todo-issues.ts issue-to-todo
+      # Reconcile ALL managed issue states on every issue event. This makes the
+      # sync self-healing if an older run was cancelled or an event was missed.
+      - name: Issues → TODO
+        if: github.event_name == 'issues' || github.event_name == 'workflow_dispatch'
+        run: pnpm exec tsx scripts/reconcile-issue-status.ts
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # This is deliberately `always()`: TODO markers are assigned before the
-      # first GitHub API mutation, so a temporary API/rate-limit failure must
-      # not discard those stable IDs. The next run can safely resume.
       - name: Commit synchronized TODO metadata/status
         if: always()
         shell: bash

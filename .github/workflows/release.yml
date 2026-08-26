@@ -1,0 +1,60 @@
+name: Release bundle
+
+on:
+  workflow_dispatch:
+    inputs:
+      publish_npm:
+        description: Publish npm packages after all repository publication gates are enabled
+        required: true
+        type: boolean
+        default: false
+      create_github_release:
+        description: Create a GitHub Release from the generated bundle
+        required: true
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  id-token: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: https://registry.npmjs.org
+      - run: corepack enable
+      - run: pnpm install --no-frozen-lockfile
+      - run: pnpm check
+      - uses: actions/upload-artifact@v4
+        with:
+          name: moonwitness-corpus-release
+          path: dist/release
+          if-no-files-found: error
+      - name: Verify npm publication gate
+        if: ${{ inputs.publish_npm }}
+        run: |
+          node -e "const c=require('./release/package-contract.json'); if(!c.npmPublishEnabled){console.error(c.publicationBlockers.join('\\n')); process.exit(1)}"
+      - name: Publish npm packages
+        if: ${{ inputs.publish_npm }}
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: pnpm release:publish
+      - name: Create GitHub Release
+        if: ${{ inputs.create_github_release }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          VERSION="$(node -p "require('./release/corpus-release.json').version")"
+          gh release create "corpus-v${VERSION}" \
+            dist/release/SHA256SUMS \
+            dist/release/release-manifest.json \
+            dist/release/corpus.jsonld \
+            dist/release/ro-crate-metadata.json \
+            dist/release/packages/*.tgz \
+            --title "MoonWitness Corpus ${VERSION}" \
+            --generate-notes

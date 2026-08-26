@@ -1,0 +1,67 @@
+{
+  "format": "moonwitness-package-contract-v1",
+  "scope": "@moonwitness",
+  "registry": "https://registry.npmjs.org/",
+  "npmPublishEnabled": false,
+  "publicationBlockers": [
+    "A repository-wide code license has not been selected.",
+    "Ownership and publish permission for the @moonwitness npm scope have not been confirmed in this repository."
+  ],
+  "packages": [
+    {
+      "path": "packages/core",
+      "name": "@moonwitness/corpus-core",
+      "description": "Core MoonWitness Corpus record types, canonical identifiers, and runtime helpers.",
+      "role": "p8-target",
+      "entrypoints": { ".": "index" }
+    },
+    {
+      "path": "packages/schema",
+      "name": "@moonwitness/corpus-schema",
+      "description": "MoonWitness Corpus spec constants and packaged JSON Schema 2020-12 definitions.",
+      "role": "p8-target",
+      "entrypoints": { ".": "index" },
+      "includeSpec": true
+    },
+    {
+      "path": "packages/repository",
+      "name": "@moonwitness/corpus-repository",
+      "description": "Repository and query interfaces for MoonWitness Corpus datasets.",
+      "role": "p8-target",
+      "entrypoints": { ".": "index" }
+    },
+    {
+      "path": "packages/node",
+      "name": "@moonwitness/corpus-node",
+      "description": "Node.js filesystem repository backend for MoonWitness Corpus.",
+      "role": "support",
+      "entrypoints": { ".": "index" }
+    },
+    {
+      "path": "packages/ingestion",
+      "name": "@moonwitness/corpus-ingestion",
+      "description": "Reproducible ingestion helpers for MoonWitness Corpus recipes.",
+      "role": "support",
+      "entrypoints": { ".": "index" }
+    },
+    {
+      "path": "packages/validator",
+      "name": "@moonwitness/corpus-validator",
+      "description": "Schema, referential-integrity, semantic, provenance, and profile validation for MoonWitness Corpus.",
+      "role": "p8-target",
+      "entrypoints": {
+        ".": "index",
+        "./ingestion": "ingestion-definitions"
+      }
+    },
+    {
+      "path": "packages/cli",
+      "name": "@moonwitness/corpus-cli",
+      "description": "Command-line validation, ingestion, lookup, search, and checksum tools for MoonWitness Corpus.",
+      "role": "p8-target",
+      "bin": {
+        "moonwitness-corpus": "cli"
+      }
+    }
+  ]
+}

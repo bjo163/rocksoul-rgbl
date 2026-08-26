@@ -10,7 +10,7 @@ MoonWitness Corpus is a public, provenance-first and evidence-aware corpus platf
 spec/       technology-neutral corpus contract and schemas
 datasets/   canonical, versioned knowledge datasets
 packages/   reusable SDK, repository, validation and CLI software
-apps/       executable products such as the future corpus explorer
+apps/       executable products such as the Corpus Explorer
 ingestion/  reproducible source-to-corpus recipes
 ```
 
@@ -45,6 +45,8 @@ Development is intentionally staged so that real datasets, the public web explor
 
 - [`TODO.md`](TODO.md) — short executable checklist for the current development cycle.
 - [`docs/ROADMAP.md`](docs/ROADMAP.md) — detailed milestones, dependencies, acceptance criteria, integration path, and v0.1 readiness definition.
+- [`docs/PACKAGES.md`](docs/PACKAGES.md) — canonical package names, npm scope, and publication gate.
+- [`docs/RELEASES.md`](docs/RELEASES.md) — version domains, release artifacts, checksums, and manual release workflow.
 
 The immediate critical path is:
 
@@ -72,8 +74,15 @@ pnpm install
 pnpm check
 ```
 
-`pnpm check` currently performs TypeScript checking and corpus/schema validation.
+`pnpm check` performs TypeScript checking, tests, corpus/schema validation, deterministic derived builds, and deterministic release-bundle verification.
+
+To inspect the release artifacts without publishing anything:
+
+```bash
+pnpm build
+pnpm release:prepare
+```
 
 ## Licensing
 
-No repository-wide data license has been selected yet. Do not add redistributed source text or binary artifacts unless their licensing/rights status is explicitly recorded. See `LICENSES/README.md`.
+No repository-wide data or code license has been selected yet. Do not add redistributed source text or binary artifacts unless their licensing/rights status is explicitly recorded. npm publication remains disabled until a code license and npm-scope authorization are deliberately resolved. See `LICENSES/README.md`.

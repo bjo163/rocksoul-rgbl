@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://moonwitness.org/corpus/spec/v0.1/schemas/profiles/textual/artifact.schema.json",
+  "allOf": [
+    { "$ref": "https://moonwitness.org/corpus/spec/v0.1/schemas/core/resource.schema.json" },
+    {
+      "required": ["extensions"],
+      "properties": {
+        "kind": { "const": "textual.artifact" },
+        "extensions": {
+          "type": "object",
+          "required": ["textual"],
+          "properties": {
+            "textual": {
+              "type": "object",
+              "required": ["represents"],
+              "properties": {
+                "represents": { "$ref": "common.schema.json#/$defs/canonicalId" },
+                "representation_kind": { "$ref": "common.schema.json#/$defs/nonBlankString" },
+                "media_type": { "type": "string", "pattern": "^[^/\\s]+/[^/\\s]+$" }
+              },
+              "additionalProperties": false
+            }
+          }
+        }
+      }
+    }
+  ]
+}

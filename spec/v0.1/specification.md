@@ -25,6 +25,7 @@ Domain structures such as textual passages, manuscripts, chronology, geography, 
 - `assertion-values.md` — entity-reference and literal assertion object envelopes.
 - `assessments.md` — assessment target/result/method semantics.
 - `compatibility.md` — compatibility rules for pre-stable `v0.x` evolution.
+- `profiles/textual.md` — textual Work/Expression/Edition/Artifact/Passage/Content/Citation/Alignment/Variant profile.
 
 ## Serialization
 

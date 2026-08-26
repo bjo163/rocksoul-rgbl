@@ -1,3 +1,5 @@
+import { extractTextualReferences } from './textual-profile.js'
+
 export interface CanonicalReferenceUse {
   id: string
   field: string
@@ -47,5 +49,6 @@ export function extractCanonicalReferences(record: Record<string, unknown>): Can
   if (record.lifecycle && typeof record.lifecycle === 'object' && !Array.isArray(record.lifecycle)) {
     pushArray(references, 'lifecycle.replacements', (record.lifecycle as Record<string, unknown>).replacements)
   }
+  references.push(...extractTextualReferences(record))
   return references
 }

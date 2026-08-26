@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://moonwitness.org/corpus/spec/v0.1/schemas/profiles/source/common.schema.json",
+  "$defs": {
+    "absoluteUri": { "type": "string", "minLength": 1, "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:" },
+    "languageTag": { "type": "string", "pattern": "^[a-z]{2,8}(?:-[A-Za-z0-9]{1,8})*$" },
+    "scriptTag": { "type": "string", "pattern": "^[A-Z][a-z]{3}$" },
+    "licenseReference": {
+      "type": "object",
+      "required": ["id", "name"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^LicenseRef-[A-Za-z0-9][A-Za-z0-9.-]*$" },
+        "name": { "type": "string", "minLength": 1, "pattern": ".*\\S.*" },
+        "uri": { "$ref": "#/$defs/absoluteUri" },
+        "note": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "rightsStatement": {
+      "type": "object",
+      "required": ["status", "redistribution"],
+      "properties": {
+        "status": { "enum": ["public_domain", "licensed", "copyrighted", "unknown", "not_applicable"] },
+        "redistribution": { "enum": ["permitted", "restricted", "unknown"] },
+        "license_expression": { "type": "string", "minLength": 1, "pattern": ".*\\S.*" },
+        "license_refs": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/licenseReference" } },
+        "rights_uri": { "$ref": "#/$defs/absoluteUri" },
+        "attribution": { "type": "string", "minLength": 1 },
+        "note": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "artifactDescriptor": {
+      "type": "object",
+      "required": ["availability"],
+      "properties": {
+        "availability": { "enum": ["bundled", "external", "metadata_only", "restricted"] },
+        "locations": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/absoluteUri" } },
+        "media_type": { "type": "string", "pattern": "^[^/\\s]+/[^/\\s]+$" },
+        "byte_size": { "type": "integer", "minimum": 0 },
+        "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "retrieved_at": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\\.[0-9]+)?(?:Z|[+-][0-9]{2}:[0-9]{2})$" }
+      },
+      "additionalProperties": false
+    },
+    "sourceMetadata": {
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "minLength": 1, "pattern": ".*\\S.*" },
+        "publisher": { "$ref": "https://moonwitness.org/corpus/spec/v0.1/schemas/core/common.schema.json#/$defs/canonicalId" },
+        "institution": { "$ref": "https://moonwitness.org/corpus/spec/v0.1/schemas/core/common.schema.json#/$defs/canonicalId" },
+        "revision": { "type": "string", "minLength": 1, "pattern": ".*\\S.*" },
+        "canonical_url": { "$ref": "#/$defs/absoluteUri" },
+        "identifiers": { "type": "array", "minItems": 1, "items": { "$ref": "https://moonwitness.org/corpus/spec/v0.1/schemas/core/common.schema.json#/$defs/externalIdentifier" } },
+        "language": { "$ref": "#/$defs/languageTag" },
+        "script": { "$ref": "#/$defs/scriptTag" },
+        "artifact": { "$ref": "https://moonwitness.org/corpus/spec/v0.1/schemas/core/common.schema.json#/$defs/canonicalId" },
+        "provenance": { "$ref": "https://moonwitness.org/corpus/spec/v0.1/schemas/core/common.schema.json#/$defs/canonicalId" },
+        "descriptor": { "$ref": "#/$defs/artifactDescriptor" },
+        "rights": { "$ref": "#/$defs/rightsStatement" }
+      },
+      "additionalProperties": false,
+      "minProperties": 1
+    }
+  }
+}

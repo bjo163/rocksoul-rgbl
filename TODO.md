@@ -86,10 +86,10 @@ For rationale, dependencies, acceptance criteria, and later phases, see [`docs/R
 - [x] Define `recipe.schema.json`. <!-- mw-todo:P4-001 -->
 - [x] Define source acquisition descriptor. <!-- mw-todo:P4-002 -->
 - [x] Implement ingestion recipe registry. <!-- mw-todo:P4-003 -->
-- [ ] Implement filesystem source connector. <!-- mw-todo:P4-004 -->
-- [ ] Implement explicit HTTP fetch connector for ingestion jobs only. <!-- mw-todo:P4-005 -->
-- [ ] Add immutable raw-artifact SHA-256 verification. <!-- mw-todo:P4-006 -->
-- [ ] Define parser interface. <!-- mw-todo:P4-007 -->
+- [x] Implement filesystem source connector. <!-- mw-todo:P4-004 -->
+- [x] Implement explicit HTTP fetch connector for ingestion jobs only. <!-- mw-todo:P4-005 -->
+- [x] Add immutable raw-artifact SHA-256 verification. <!-- mw-todo:P4-006 -->
+- [x] Define parser interface. <!-- mw-todo:P4-007 -->
 - [ ] Define normalizer interface. <!-- mw-todo:P4-008 -->
 - [ ] Define mapper-to-core/profile interface. <!-- mw-todo:P4-009 -->
 - [ ] Define recipe-specific validator interface. <!-- mw-todo:P4-010 -->

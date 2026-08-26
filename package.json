@@ -16,7 +16,12 @@
     "todo:sync": "tsx scripts/sync-todo-issues.ts todo-to-issues",
     "todo:sync:issue": "tsx scripts/reconcile-issue-status.ts",
     "todo:check": "tsx scripts/sync-todo-issues.ts check",
-    "check": "pnpm typecheck && pnpm test && pnpm validate && pnpm build",
+    "release:prepare": "tsx scripts/build-release.ts",
+    "release:verify": "tsx scripts/verify-release.ts",
+    "release:version": "tsx scripts/apply-release-plan.ts",
+    "release:publish": "tsx scripts/publish-npm.ts",
+    "release:publish:dry-run": "tsx scripts/publish-npm.ts --dry-run",
+    "check": "pnpm typecheck && pnpm test && pnpm validate && pnpm build && pnpm release:verify && pnpm release:publish:dry-run",
     "materialize:p5": "tsx scripts/materialize-p5-datasets.ts"
   },
   "devDependencies": {

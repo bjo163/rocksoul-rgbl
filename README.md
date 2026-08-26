@@ -2,7 +2,7 @@
 
 MoonWitness Corpus is a public, provenance-first and evidence-aware corpus platform for religious texts, traditions, history, and comparative knowledge.
 
-> Status: **v0.1 foundation / unstable**. Core contracts may still change before the first stable corpus release.
+> Status: **v0.1 contract and supply-chain proof / unstable API**. P0–P7 are complete. P8 release infrastructure is implemented, while actual npm publication remains intentionally blocked until repository-wide code licensing and npm-scope authorization are resolved.
 
 ## Architecture
 
@@ -12,9 +12,30 @@ datasets/   canonical, versioned knowledge datasets
 packages/   reusable SDK, repository, validation and CLI software
 apps/       executable products such as the Corpus Explorer
 ingestion/  reproducible source-to-corpus recipes
+release/    package/version/publication contracts
 ```
 
 The canonical corpus is intentionally independent from MoonWitness ORM/database internals. MoonWitness consumes released corpus data through a downstream adapter.
+
+## Current implementation state
+
+The authoritative branch is `main`. The implementation through the public Corpus Explorer and deterministic release-bundle pipeline is merged there.
+
+```text
+P0  Foundation                         complete
+P1  Core contract                      complete
+P2  Textual profile                    complete
+P3  Provenance / rights                complete
+P4  Reproducible ingestion             complete
+P5  Two real cross-tradition proofs    complete
+P6  Repository / query / build         complete
+P7  Public Corpus Explorer             complete
+P8  Release infrastructure             complete
+    npm registry publication           blocked by license/scope authorization
+P9  MoonWitness adapter                next after a pinned public release exists
+```
+
+See [`docs/STATUS.md`](docs/STATUS.md) for the concise current snapshot. `TODO.md` is the canonical executable task state; `docs/ROADMAP.md` preserves the detailed architecture and milestone rationale.
 
 ## Core model
 
@@ -38,32 +59,28 @@ Religion- or tradition-specific concepts are represented as data and profiles, n
 - pnpm workspaces + Turborepo
 - SHA-256 integrity model
 - Git-based review and release history
+- deterministic derived corpus and release artifacts
 
-## Roadmap
+## Roadmap and release docs
 
-Development is intentionally staged so that real datasets, the public web explorer, package releases, and MoonWitness ORM integration do not outrun the canonical corpus contract.
-
-- [`TODO.md`](TODO.md) — short executable checklist for the current development cycle.
-- [`docs/ROADMAP.md`](docs/ROADMAP.md) — detailed milestones, dependencies, acceptance criteria, integration path, and v0.1 readiness definition.
+- [`TODO.md`](TODO.md) — canonical executable checklist and current task state.
+- [`docs/STATUS.md`](docs/STATUS.md) — concise implementation/release snapshot.
+- [`docs/ROADMAP.md`](docs/ROADMAP.md) — detailed milestone rationale and architecture plan.
 - [`docs/PACKAGES.md`](docs/PACKAGES.md) — canonical package names, npm scope, and publication gate.
 - [`docs/RELEASES.md`](docs/RELEASES.md) — version domains, release artifacts, checksums, and manual release workflow.
 
-The immediate critical path is:
+The remaining release path before P9 is intentionally narrow:
 
 ```text
-core contract
-    ↓
-textual profile
-    ↓
-provenance + rights + ingestion
-    ↓
-two real cross-tradition dataset proofs
-    ↓
-repository/query layer
-    ↓
-web explorer + package releases
-    ↓
-MoonWitness downstream adapter
+select repository-wide code license
+        ↓
+confirm publish authority for @moonwitness npm scope
+        ↓
+create pinned corpus/package release
+        ↓
+publish + verify from a clean external consumer
+        ↓
+MoonWitness downstream adapter (P9)
 ```
 
 ## Development
@@ -76,12 +93,14 @@ pnpm check
 
 `pnpm check` performs TypeScript checking, tests, corpus/schema validation, deterministic derived builds, and deterministic release-bundle verification.
 
-To inspect the release artifacts without publishing anything:
+To inspect release artifacts without publishing anything:
 
 ```bash
 pnpm build
 pnpm release:prepare
 ```
+
+Generated artifacts under `dist/` are disposable and must be reproducible from canonical inputs.
 
 ## Licensing
 

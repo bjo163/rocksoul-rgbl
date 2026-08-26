@@ -153,14 +153,14 @@ For rationale, dependencies, acceptance criteria, and later phases, see [`docs/R
 
 ## P8 — public packages and releases
 
-- [ ] Finalize package names and npm scope. <!-- mw-todo:P8-001 -->
+- [x] Finalize package names and npm scope. <!-- mw-todo:P8-001 -->
 - [ ] Publish core types/runtime package. <!-- mw-todo:P8-002 -->
 - [ ] Publish schema package. <!-- mw-todo:P8-003 -->
 - [ ] Publish repository package. <!-- mw-todo:P8-004 -->
 - [ ] Publish validator package. <!-- mw-todo:P8-005 -->
 - [ ] Publish CLI package. <!-- mw-todo:P8-006 -->
-- [ ] Add Changesets or equivalent package version workflow. <!-- mw-todo:P8-007 -->
-- [ ] Separate spec version, package version, dataset version, and aggregate corpus release version. <!-- mw-todo:P8-008 -->
+- [x] Add Changesets or equivalent package version workflow. <!-- mw-todo:P8-007 -->
+- [x] Separate spec version, package version, dataset version, and aggregate corpus release version. <!-- mw-todo:P8-008 -->
 - [ ] Generate release checksums. <!-- mw-todo:P8-009 -->
 - [ ] Generate machine-readable release manifest. <!-- mw-todo:P8-010 -->
 - [ ] Optionally export JSON-LD and RO-Crate from canonical records. <!-- mw-todo:P8-011 -->

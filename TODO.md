@@ -139,9 +139,9 @@ For rationale, dependencies, acceptance criteria, and later phases, see [`docs/R
 - [x] Scaffold `apps/web` with Next.js. <!-- mw-todo:P7-001 -->
 - [x] Add dataset registry/catalog page. <!-- mw-todo:P7-002 -->
 - [x] Add entity page. <!-- mw-todo:P7-003 -->
-- [ ] Add resource/work page. <!-- mw-todo:P7-004 -->
-- [ ] Add passage reader. <!-- mw-todo:P7-005 -->
-- [ ] Add assertion detail page. <!-- mw-todo:P7-006 -->
+- [x] Add resource/work page. <!-- mw-todo:P7-004 -->
+- [x] Add passage reader. <!-- mw-todo:P7-005 -->
+- [x] Add assertion detail page. <!-- mw-todo:P7-006 -->
 - [ ] Add evidence/source/provenance drill-down. <!-- mw-todo:P7-007 -->
 - [ ] Add search page. <!-- mw-todo:P7-008 -->
 - [ ] Add relation/graph explorer with bounded traversal. <!-- mw-todo:P7-009 -->

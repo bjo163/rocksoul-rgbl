@@ -4,9 +4,9 @@
   "type": "object",
   "required": ["id", "record_type", "source"],
   "properties": {
-    "id": { "type": "string", "pattern": "^mw:[A-Za-z0-9._-]+(?::[A-Za-z0-9._-]+)+$" },
+    "id": { "$ref": "common.schema.json#/$defs/canonicalId" },
     "record_type": { "const": "provenance" },
-    "source": { "type": "string" },
+    "source": { "$ref": "common.schema.json#/$defs/canonicalId" },
     "source_reference": { "type": "string" },
     "activity": { "type": "object" },
     "extensions": { "type": "object" }

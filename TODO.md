@@ -71,10 +71,10 @@ For rationale, dependencies, acceptance criteria, and later phases, see [`docs/R
 - [x] Define source/resource metadata profile. <!-- mw-todo:P3-001 -->
 - [x] Define Agent and Activity representation for ingestion provenance. <!-- mw-todo:P3-002 -->
 - [x] Define artifact descriptor: URI, media type, byte size, SHA-256, availability. <!-- mw-todo:P3-003 -->
-- [ ] Define `bundled`, `external`, `metadata_only`, and `restricted` availability states. <!-- mw-todo:P3-004 -->
-- [ ] Define SPDX-compatible license expression fields. <!-- mw-todo:P3-005 -->
-- [ ] Define source-specific `LicenseRef-*` handling. <!-- mw-todo:P3-006 -->
-- [ ] Add rights validation: bundled content must declare rights/license status. <!-- mw-todo:P3-007 -->
+- [x] Define `bundled`, `external`, `metadata_only`, and `restricted` availability states. <!-- mw-todo:P3-004 -->
+- [x] Define SPDX-compatible license expression fields. <!-- mw-todo:P3-005 -->
+- [x] Define source-specific `LicenseRef-*` handling. <!-- mw-todo:P3-006 -->
+- [x] Add rights validation: bundled content must declare rights/license status. <!-- mw-todo:P3-007 -->
 - [ ] Define retrieval timestamp separately from deterministic normalized checksums. <!-- mw-todo:P3-008 -->
 - [ ] Define parser/normalizer/curator provenance chain. <!-- mw-todo:P3-009 -->
 - [ ] Document policy for public-domain claims vs modern editions/translations. <!-- mw-todo:P3-010 -->

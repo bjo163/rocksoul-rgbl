@@ -130,7 +130,7 @@ For rationale, dependencies, acceptance criteria, and later phases, see [`docs/R
 - [x] Build global derived catalog from dataset packs. <!-- mw-todo:P6-009 -->
 - [x] Build deterministic search/index artifacts. <!-- mw-todo:P6-010 -->
 - [x] Add generated SQLite/DuckDB/Parquet outputs only as disposable artifacts if useful. <!-- mw-todo:P6-011 -->
-- [ ] Ensure `rm -rf dist && pnpm build` reconstructs all derived artifacts. <!-- mw-todo:P6-012 -->
+- [x] Ensure `rm -rf dist && pnpm build` reconstructs all derived artifacts. <!-- mw-todo:P6-012 -->
 
 **Exit gate:** CLI and applications query corpus through repository interfaces, never through hard-coded dataset paths.
 

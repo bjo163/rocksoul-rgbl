@@ -1,4 +1,6 @@
-export type CanonicalId = `mw:${string}`
+import type { CanonicalId } from './identifiers.js'
+
+export * from './identifiers.js'
 
 export interface Label {
   value: string

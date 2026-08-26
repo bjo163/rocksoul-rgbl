@@ -22,6 +22,7 @@ concurrency:
 jobs:
   sync:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
         with:
@@ -40,6 +41,8 @@ jobs:
         run: pnpm exec tsx scripts/sync-todo-issues.ts todo-to-issues
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TODO_SYNC_MUTATION_DELAY_MS: 2200
+          TODO_SYNC_MAX_RETRIES: 5
 
       - name: Issue → TODO
         if: github.event_name == 'issues'
@@ -47,7 +50,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      # This is deliberately `always()`: TODO markers are assigned before the
+      # first GitHub API mutation, so a temporary API/rate-limit failure must
+      # not discard those stable IDs. The next run can safely resume.
       - name: Commit synchronized TODO metadata/status
+        if: always()
         shell: bash
         run: |
           if git diff --quiet -- TODO.md; then

@@ -1,0 +1,22 @@
+[
+  { "value": "", "reason": "empty identifier" },
+  { "value": " ", "reason": "whitespace" },
+  { "value": "MW:person:musa", "reason": "uppercase prefix" },
+  { "value": "mw:Person:musa", "reason": "uppercase kind" },
+  { "value": "mw:person:Musa", "reason": "uppercase identity segment" },
+  { "value": "mw::musa", "reason": "empty kind namespace" },
+  { "value": ":mw:person:musa", "reason": "leading separator" },
+  { "value": "mw:person:musa:", "reason": "trailing separator" },
+  { "value": "mw:person::musa", "reason": "empty identity segment" },
+  { "value": "mw:person:mu sa", "reason": "embedded whitespace" },
+  { "value": "mw:person:musa/aaron", "reason": "path separator" },
+  { "value": "mw:person:musa--aaron", "reason": "double punctuation separator" },
+  { "value": "mw:person:musa__aaron", "reason": "double punctuation separator" },
+  { "value": "mw:person:-musa", "reason": "leading punctuation in segment" },
+  { "value": "mw:person:musa-", "reason": "trailing punctuation in segment" },
+  { "value": "mw:123:musa", "reason": "kind namespace must begin with a letter" },
+  { "value": "mw:person:mūsā", "reason": "Unicode is not canonical ID syntax" },
+  { "value": "https://moonwitness.org/id/person/musa", "reason": "URL is not a canonical ID" },
+  { "value": "1842", "reason": "raw database primary key" },
+  { "value": "mw:person:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "reason": "exceeds 255 character maximum" }
+]

@@ -48,10 +48,10 @@ For rationale, dependencies, acceptance criteria, and later phases, see [`docs/R
 
 ## P2 — textual profile v0.1
 
-- [ ] Add `spec/v0.1/schemas/profiles/textual/`. <!-- mw-todo:P2-001 -->
-- [ ] Define Work. <!-- mw-todo:P2-002 -->
-- [ ] Define Expression/recension/translation relationship. <!-- mw-todo:P2-003 -->
-- [ ] Define Edition. <!-- mw-todo:P2-004 -->
+- [x] Add `spec/v0.1/schemas/profiles/textual/`. <!-- mw-todo:P2-001 -->
+- [x] Define Work. <!-- mw-todo:P2-002 -->
+- [x] Define Expression/recension/translation relationship. <!-- mw-todo:P2-003 -->
+- [x] Define Edition. <!-- mw-todo:P2-004 -->
 - [ ] Define Artifact/digital representation descriptor. <!-- mw-todo:P2-005 -->
 - [ ] Define arbitrary-depth Passage hierarchy. <!-- mw-todo:P2-006 -->
 - [ ] Define citation scheme and canonical reference path. <!-- mw-todo:P2-007 -->

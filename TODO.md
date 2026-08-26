@@ -37,7 +37,7 @@ For rationale, dependencies, acceptance criteria, and later phases, see [`docs/R
 - [x] Add referential-integrity validation for all entity/resource/evidence references. <!-- mw-todo:P1-005 -->
 - [x] Add semantic invariants beyond JSON Schema. <!-- mw-todo:P1-006 -->
 - [x] Define record lifecycle fields only where genuinely universal. <!-- mw-todo:P1-007 -->
-- [ ] Stabilize multilingual label model (`language`, `script`, preferred/alternate labels). <!-- mw-todo:P1-008 -->
+- [x] Stabilize multilingual label model (`language`, `script`, preferred/alternate labels). <!-- mw-todo:P1-008 -->
 - [ ] Stabilize scoped assertion model (`tradition`, `community`, `agent`, `period`, `place`). <!-- mw-todo:P1-009 -->
 - [ ] Define literal/object value envelope for assertions. <!-- mw-todo:P1-010 -->
 - [ ] Define assessment target/result/method semantics. <!-- mw-todo:P1-011 -->

@@ -28,6 +28,11 @@ export async function validateRepository(root = process.cwd()): Promise<Validati
   const schemaDir = path.join(root, 'spec/v0.1/schemas/core')
   const validators = new Map<string, ReturnType<typeof ajv.compile>>()
 
+  const commonSchema = JSON.parse(
+    await readFile(path.join(schemaDir, 'common.schema.json'), 'utf8')
+  ) as object
+  ajv.addSchema(commonSchema)
+
   for (const recordType of recordTypes) {
     const raw = await readFile(path.join(schemaDir, `${recordType}.schema.json`), 'utf8')
     validators.set(recordType, ajv.compile(JSON.parse(raw)))

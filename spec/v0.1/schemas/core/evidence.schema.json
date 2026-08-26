@@ -4,12 +4,12 @@
   "type": "object",
   "required": ["id", "record_type", "target", "relation"],
   "properties": {
-    "id": { "type": "string", "pattern": "^mw:[A-Za-z0-9._-]+(?::[A-Za-z0-9._-]+)+$" },
+    "id": { "$ref": "common.schema.json#/$defs/canonicalId" },
     "record_type": { "const": "evidence" },
-    "target": { "type": "string" },
+    "target": { "$ref": "common.schema.json#/$defs/canonicalId" },
     "relation": { "type": "string" },
     "selector": { "type": "object", "required": ["type"], "properties": { "type": { "type": "string" } }, "additionalProperties": true },
-    "provenance": { "type": "string" },
+    "provenance": { "$ref": "common.schema.json#/$defs/canonicalId" },
     "extensions": { "type": "object" }
   },
   "additionalProperties": false

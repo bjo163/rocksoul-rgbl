@@ -1,0 +1,30 @@
+[
+  {
+    "name": "assertion-basic",
+    "kind": "assertion",
+    "payload": {
+      "record_type": "assertion",
+      "subject": "mw:person:musa",
+      "predicate": "mw:predicate:has-role",
+      "object": { "entity": "mw:concept:prophet" },
+      "assertion_class": "explicit_source",
+      "scope": { "tradition": "mw:tradition:islam" }
+    },
+    "canonical": "{\"assertion_class\":\"explicit_source\",\"object\":{\"entity\":\"mw:concept:prophet\"},\"predicate\":\"mw:predicate:has-role\",\"record_type\":\"assertion\",\"scope\":{\"tradition\":\"mw:tradition:islam\"},\"subject\":\"mw:person:musa\"}",
+    "sha256": "5b8d516a62168363cbd70ec3fce5db1cb37ecd8d07e50e102a2c00eb24337034",
+    "id": "mw:assertion:v1:sha256:5b8d516a62168363cbd70ec3fce5db1cb37ecd8d07e50e102a2c00eb24337034"
+  },
+  {
+    "name": "evidence-basic",
+    "kind": "evidence",
+    "payload": {
+      "record_type": "evidence",
+      "target": "mw:resource:example",
+      "relation": "supports",
+      "selector": { "type": "text_quote", "exact": "example" }
+    },
+    "canonical": "{\"record_type\":\"evidence\",\"relation\":\"supports\",\"selector\":{\"exact\":\"example\",\"type\":\"text_quote\"},\"target\":\"mw:resource:example\"}",
+    "sha256": "72538a91352d690ff28786aff990359ae2846947367abd3a631e81b3e6a46752",
+    "id": "mw:evidence:v1:sha256:72538a91352d690ff28786aff990359ae2846947367abd3a631e81b3e6a46752"
+  }
+]

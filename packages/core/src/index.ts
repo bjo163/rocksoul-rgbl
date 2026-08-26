@@ -1,6 +1,7 @@
 import type { CanonicalId } from './identifiers.js'
 
 export * from './identifiers.js'
+export * from './deterministic-ids.js'
 
 export interface Label {
   value: string

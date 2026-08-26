@@ -119,9 +119,9 @@ For rationale, dependencies, acceptance criteria, and later phases, see [`docs/R
 
 ## P6 — repository, build, and query layer
 
-- [ ] Expand `CorpusRepository` contract. <!-- mw-todo:P6-001 -->
-- [ ] Implement in-memory repository for tests. <!-- mw-todo:P6-002 -->
-- [ ] Implement filesystem/JSONL repository for Node.js. <!-- mw-todo:P6-003 -->
+- [x] Expand `CorpusRepository` contract. <!-- mw-todo:P6-001 -->
+- [x] Implement in-memory repository for tests. <!-- mw-todo:P6-002 -->
+- [x] Implement filesystem/JSONL repository for Node.js. <!-- mw-todo:P6-003 -->
 - [ ] Implement dataset registry and dependency resolver. <!-- mw-todo:P6-004 -->
 - [ ] Implement canonical ID lookup. <!-- mw-todo:P6-005 -->
 - [ ] Implement passage/reference lookup. <!-- mw-todo:P6-006 -->

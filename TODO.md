@@ -56,10 +56,10 @@ For rationale, dependencies, acceptance criteria, and later phases, see [`docs/R
 - [x] Define arbitrary-depth Passage hierarchy. <!-- mw-todo:P2-006 -->
 - [x] Define citation scheme and canonical reference path. <!-- mw-todo:P2-007 -->
 - [x] Define Content as language/script-specific text attached to a passage/resource. <!-- mw-todo:P2-008 -->
-- [ ] Define `derived_from` for translation/transliteration/normalization. <!-- mw-todo:P2-009 -->
-- [ ] Define Alignment between passages/content segments. <!-- mw-todo:P2-010 -->
-- [ ] Define Variant/readings without assuming one global base text. <!-- mw-todo:P2-011 -->
-- [ ] Define source-preserving vs normalized/search representations. <!-- mw-todo:P2-012 -->
+- [x] Define `derived_from` for translation/transliteration/normalization. <!-- mw-todo:P2-009 -->
+- [x] Define Alignment between passages/content segments. <!-- mw-todo:P2-010 -->
+- [x] Define Variant/readings without assuming one global base text. <!-- mw-todo:P2-011 -->
+- [x] Define source-preserving vs normalized/search representations. <!-- mw-todo:P2-012 -->
 - [ ] Add Web-Annotation-inspired text quote/position/range selectors. <!-- mw-todo:P2-013 -->
 - [ ] Add textual profile examples for two structurally different citation schemes. <!-- mw-todo:P2-014 -->
 - [ ] Extend validator with textual hierarchy/citation invariants. <!-- mw-todo:P2-015 -->

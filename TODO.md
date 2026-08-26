@@ -90,9 +90,9 @@ For rationale, dependencies, acceptance criteria, and later phases, see [`docs/R
 - [x] Implement explicit HTTP fetch connector for ingestion jobs only. <!-- mw-todo:P4-005 -->
 - [x] Add immutable raw-artifact SHA-256 verification. <!-- mw-todo:P4-006 -->
 - [x] Define parser interface. <!-- mw-todo:P4-007 -->
-- [ ] Define normalizer interface. <!-- mw-todo:P4-008 -->
-- [ ] Define mapper-to-core/profile interface. <!-- mw-todo:P4-009 -->
-- [ ] Define recipe-specific validator interface. <!-- mw-todo:P4-010 -->
+- [x] Define normalizer interface. <!-- mw-todo:P4-008 -->
+- [x] Define mapper-to-core/profile interface. <!-- mw-todo:P4-009 -->
+- [x] Define recipe-specific validator interface. <!-- mw-todo:P4-010 -->
 - [ ] Make normalized output byte-for-byte deterministic. <!-- mw-todo:P4-011 -->
 - [ ] Add curation overlay format instead of silently editing parser output. <!-- mw-todo:P4-012 -->
 - [ ] Record reconciliation/correction provenance. <!-- mw-todo:P4-013 -->

@@ -68,9 +68,9 @@ For rationale, dependencies, acceptance criteria, and later phases, see [`docs/R
 
 ## P3 — provenance, source, rights, and artifacts
 
-- [ ] Define source/resource metadata profile. <!-- mw-todo:P3-001 -->
-- [ ] Define Agent and Activity representation for ingestion provenance. <!-- mw-todo:P3-002 -->
-- [ ] Define artifact descriptor: URI, media type, byte size, SHA-256, availability. <!-- mw-todo:P3-003 -->
+- [x] Define source/resource metadata profile. <!-- mw-todo:P3-001 -->
+- [x] Define Agent and Activity representation for ingestion provenance. <!-- mw-todo:P3-002 -->
+- [x] Define artifact descriptor: URI, media type, byte size, SHA-256, availability. <!-- mw-todo:P3-003 -->
 - [ ] Define `bundled`, `external`, `metadata_only`, and `restricted` availability states. <!-- mw-todo:P3-004 -->
 - [ ] Define SPDX-compatible license expression fields. <!-- mw-todo:P3-005 -->
 - [ ] Define source-specific `LicenseRef-*` handling. <!-- mw-todo:P3-006 -->

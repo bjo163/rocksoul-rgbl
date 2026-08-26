@@ -165,6 +165,33 @@ For rationale, dependencies, acceptance criteria, and later phases, see [`docs/R
 - [x] Generate machine-readable release manifest. <!-- mw-todo:P8-010 -->
 - [x] Optionally export JSON-LD and RO-Crate from canonical records. <!-- mw-todo:P8-011 -->
 
+## P12 — foundation text corpus expansion (current priority)
+
+P9–P11 are intentionally deferred while this data-first milestone is active. Exact sources, license evidence, and acceptance boundaries are documented in [`docs/DATASET_TARGETS.md`](docs/DATASET_TARGETS.md).
+
+- [ ] Add a machine-readable coverage/completeness matrix for all real datasets. <!-- mw-todo:P12-001 -->
+- [ ] Re-verify the Quran Tanzil Uthmani baseline: 6,236 ayah, pinned source checksum, rights evidence, and source-preserving text. <!-- mw-todo:P12-002 -->
+- [ ] Complete the Bhikkhu Sujato English Dhammapada from SuttaCentral Bilara `published@cf0dac3b59a3f9b1d4829acb311e303f1eb6bba6`. <!-- mw-todo:P12-003 -->
+- [ ] Audit the exact SuttaCentral Pali Dhammapada root edition/source and redistribution rights independently from translation licensing. <!-- mw-todo:P12-004 -->
+- [ ] Ingest the full Pali Dhammapada as a separate expression only if P12-004 permits bundling; otherwise record it as external/metadata-only. <!-- mw-todo:P12-005 -->
+- [ ] Add Pali↔English Dhammapada segment alignment when both representations are legally available, without asserting semantic identity. <!-- mw-todo:P12-006 -->
+- [ ] Pin an exact Open Scriptures Hebrew Bible/WLC upstream commit and artifact checksums with attribution/license evidence. <!-- mw-todo:P12-007 -->
+- [ ] Ingest the full Westminster Leningrad Codex Hebrew text from OSHB `wlc/` as source-preserving content. <!-- mw-todo:P12-008 -->
+- [ ] Ingest OSHB lemma/morphology as separate annotation data linked to source tokens, preserving source token IDs. <!-- mw-todo:P12-009 -->
+- [ ] Pin the official SBLGNT v1.2 source commit/artifacts and CC BY 4.0 attribution evidence. <!-- mw-todo:P12-010 -->
+- [ ] Ingest the full SBL Greek New Testament v1.2 as a specific Greek expression/edition. <!-- mw-todo:P12-011 -->
+- [ ] Pin the eBible World English Bible Classic 2020 stable full-ecumenical artifact, checksum, and public-domain/trademark evidence. <!-- mw-todo:P12-012 -->
+- [ ] Ingest World English Bible Classic 2020 full ecumenical book set as a separate English expression/edition. <!-- mw-todo:P12-013 -->
+- [ ] Represent WEB book-set membership/order as edition/collection metadata rather than one universal Bible canon. <!-- mw-todo:P12-014 -->
+- [ ] Add WEB↔OSHB passage alignment for overlapping Hebrew Bible books with versification differences explicit. <!-- mw-todo:P12-015 -->
+- [ ] Add WEB↔SBLGNT New Testament passage alignment with edition and verse-boundary differences explicit. <!-- mw-todo:P12-016 -->
+- [ ] Expand SuttaCentral CC0 Bhikkhu Sujato English translations to Dīgha Nikāya and Majjhima Nikāya from a pinned `published` commit. <!-- mw-todo:P12-017 -->
+- [ ] Expand SuttaCentral CC0 Bhikkhu Sujato English translations to Saṁyutta Nikāya and Aṅguttara Nikāya from a pinned `published` commit. <!-- mw-todo:P12-018 -->
+- [ ] Add deterministic completeness/count/checksum tests plus rights/provenance gates for every P12 dataset. <!-- mw-todo:P12-019 -->
+- [ ] Produce the Foundation Text Corpus coverage report and pass the no-unresolved-bundled-rights exit gate. <!-- mw-todo:P12-020 -->
+
+**Exit gate:** the foundation corpus has source-pinned Arabic Quran, complete Dhammapada English with legally correct Pali handling, full source-preserving WLC Hebrew, SBLGNT v1.2 Greek, WEB Classic 2020 English, explicit permitted alignments, broader CC0 Sujato DN/MN/SN/AN coverage, deterministic checksums, and no unresolved rights for bundled content.
+
 ## P9 — MoonWitness integration
 
 This work belongs primarily in the `moonwitness` repository, not in canonical corpus core.

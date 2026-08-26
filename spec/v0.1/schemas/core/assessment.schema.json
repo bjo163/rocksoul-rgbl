@@ -4,14 +4,14 @@
   "type": "object",
   "required": ["id", "record_type", "target", "result"],
   "properties": {
-    "id": { "type": "string", "pattern": "^mw:[A-Za-z0-9._-]+(?::[A-Za-z0-9._-]+)+$" },
+    "id": { "$ref": "common.schema.json#/$defs/canonicalId" },
     "record_type": { "const": "assessment" },
-    "target": { "type": "string" },
+    "target": { "$ref": "common.schema.json#/$defs/canonicalId" },
     "result": { "type": "string" },
-    "assessor": { "type": "string" },
+    "assessor": { "$ref": "common.schema.json#/$defs/canonicalId" },
     "method": { "type": "string" },
     "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
-    "evidence": { "type": "array", "items": { "type": "string" } },
+    "evidence": { "type": "array", "items": { "$ref": "common.schema.json#/$defs/canonicalId" } },
     "extensions": { "type": "object" }
   },
   "additionalProperties": false

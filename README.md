@@ -39,6 +39,31 @@ Religion- or tradition-specific concepts are represented as data and profiles, n
 - SHA-256 integrity model
 - Git-based review and release history
 
+## Roadmap
+
+Development is intentionally staged so that real datasets, the public web explorer, package releases, and MoonWitness ORM integration do not outrun the canonical corpus contract.
+
+- [`TODO.md`](TODO.md) — short executable checklist for the current development cycle.
+- [`docs/ROADMAP.md`](docs/ROADMAP.md) — detailed milestones, dependencies, acceptance criteria, integration path, and v0.1 readiness definition.
+
+The immediate critical path is:
+
+```text
+core contract
+    ↓
+textual profile
+    ↓
+provenance + rights + ingestion
+    ↓
+two real cross-tradition dataset proofs
+    ↓
+repository/query layer
+    ↓
+web explorer + package releases
+    ↓
+MoonWitness downstream adapter
+```
+
 ## Development
 
 ```bash

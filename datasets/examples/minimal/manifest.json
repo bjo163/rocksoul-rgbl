@@ -1,0 +1,15 @@
+{
+  "id": "mw:dataset:example:minimal",
+  "datasetVersion": "0.1.0",
+  "specVersion": "0.1",
+  "profiles": [],
+  "partitions": [
+    { "recordType": "entity", "path": "data/core/entities/*.jsonl" },
+    { "recordType": "resource", "path": "data/core/resources/*.jsonl" },
+    { "recordType": "assertion", "path": "data/core/assertions/*.jsonl" },
+    { "recordType": "evidence", "path": "data/core/evidence/*.jsonl" },
+    { "recordType": "provenance", "path": "data/core/provenance/*.jsonl" },
+    { "recordType": "assessment", "path": "data/core/assessments/*.jsonl" }
+  ],
+  "availability": "bundled"
+}

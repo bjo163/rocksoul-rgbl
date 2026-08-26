@@ -1,0 +1,11 @@
+{
+  "name": "@moonwitness/corpus-cli",
+  "version": "0.1.0",
+  "type": "module",
+  "bin": {
+    "moonwitness-corpus": "./src/cli.ts"
+  },
+  "dependencies": {
+    "@moonwitness/corpus-validator": "workspace:*"
+  }
+}

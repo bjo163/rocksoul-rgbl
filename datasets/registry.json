@@ -1,0 +1,10 @@
+{
+  "specVersion": "0.1",
+  "datasets": [
+    {
+      "id": "mw:dataset:example:minimal",
+      "path": "datasets/examples/minimal",
+      "status": "fixture"
+    }
+  ]
+}

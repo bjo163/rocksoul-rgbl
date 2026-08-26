@@ -1,0 +1,1 @@
+{"id":"mw:assertion:example:001","record_type":"assertion","subject":"mw:person:example-person","predicate":"mw:predicate:mentions","object":{"entity":"mw:resource:example-source"},"assertion_class":"explicit_source","evidence":["mw:evidence:example:001"],"provenance":"mw:provenance:example:001"}

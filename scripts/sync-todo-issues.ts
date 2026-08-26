@@ -3,6 +3,7 @@ import { readFile, writeFile } from 'node:fs/promises'
 const TODO_PATH = process.env.TODO_SYNC_FILE ?? 'TODO.md'
 const MARKER_RE = /<!--\s*mw-todo:([A-Za-z0-9._-]+)\s*-->/
 const SECTION_RE = /^##\s+(P\d+)\s+—\s+(.+)$/
+const HEADING_RE = /^##\s+/
 const TASK_RE = /^(\s*)-\s+\[([ xX])\]\s+(.+?)\s*$/
 
 interface TodoTask {
@@ -78,6 +79,10 @@ async function parseTodo(assignMissingIds: boolean): Promise<ParsedTodo> {
       phase = section[1]
       continue
     }
+    if (HEADING_RE.test(line)) {
+      phase = null
+      continue
+    }
     if (!phase) continue
 
     const task = line.match(TASK_RE)
@@ -98,6 +103,7 @@ async function parseTodo(assignMissingIds: boolean): Promise<ParsedTodo> {
   phase = null
   let sectionName = ''
   const tasks: TodoTask[] = []
+  const emitted = new Set<string>()
   let changed = false
 
   for (let index = 0; index < lines.length; index++) {
@@ -105,6 +111,11 @@ async function parseTodo(assignMissingIds: boolean): Promise<ParsedTodo> {
     if (section) {
       phase = section[1]
       sectionName = section[2]
+      continue
+    }
+    if (HEADING_RE.test(lines[index])) {
+      phase = null
+      sectionName = ''
       continue
     }
 
@@ -118,7 +129,7 @@ async function parseTodo(assignMissingIds: boolean): Promise<ParsedTodo> {
     const checked = match[2].toLowerCase() === 'x'
     const existingMarker = lines[index].match(MARKER_RE)
     let id = existingMarker?.[1]
-    let text = match[3].replace(MARKER_RE, '').trim()
+    const text = match[3].replace(MARKER_RE, '').trim()
 
     if (!id) {
       if (!assignMissingIds) {
@@ -131,10 +142,8 @@ async function parseTodo(assignMissingIds: boolean): Promise<ParsedTodo> {
       changed = true
     }
 
-    if (seen.has(id) && !existingMarker) {
-      throw new Error(`Generated duplicate TODO task id: ${id}`)
-    }
-    seen.add(id)
+    if (emitted.has(id)) throw new Error(`Duplicate TODO task id: ${id}`)
+    emitted.add(id)
 
     tasks.push({ id, phase, section: sectionName, text, checked, lineIndex: index })
   }
@@ -221,8 +230,8 @@ async function syncTodoToIssues(): Promise<void> {
 
   await ensureLabel('todo-sync', '1D76DB', 'Automatically synchronized with TODO.md')
   await ensureLabel('roadmap', '5319E7', 'MoonWitness Corpus roadmap task')
-  for (const phase of new Set(parsed.tasks.map((task) => task.phase))) {
-    await ensureLabel(phase, 'BFD4F2', `Roadmap phase ${phase}`)
+  for (const phaseName of new Set(parsed.tasks.map((task) => task.phase))) {
+    await ensureLabel(phaseName, 'BFD4F2', `Roadmap phase ${phaseName}`)
   }
 
   const issues = await listIssues()

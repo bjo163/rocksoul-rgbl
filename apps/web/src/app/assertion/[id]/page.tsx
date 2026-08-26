@@ -32,7 +32,7 @@ export default async function AssertionPage({ params }: { params: Promise<{ id: 
         <article className="assertion-card">
           <div className="assertion-triplet">
             <CanonicalLink id={assertion.subject} />
-            <CanonicalLink id={assertion.predicate} />
+            <code className="predicate" title="Vocabulary predicate ID">{assertion.predicate}</code>
             {objectEntity ? <CanonicalLink id={objectEntity} /> : <span>{assertionObjectText(assertion.object)}</span>}
           </div>
           <ScopeView assertion={assertion} />

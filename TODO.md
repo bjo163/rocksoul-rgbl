@@ -31,7 +31,7 @@ For rationale, dependencies, acceptance criteria, and later phases, see [`docs/R
 ## P1 — stabilize the core contract
 
 - [x] Define canonical ID grammar and namespace rules. <!-- mw-todo:P1-001 -->
-- [ ] Define deterministic IDs for generated records such as assertions/evidence. <!-- mw-todo:P1-002 -->
+- [x] Define deterministic IDs for generated records such as assertions/evidence. <!-- mw-todo:P1-002 -->
 - [ ] Define external identifier vs alias vs canonical ID semantics. <!-- mw-todo:P1-003 -->
 - [ ] Define cross-dataset reference syntax and dependency resolution. <!-- mw-todo:P1-004 -->
 - [ ] Add referential-integrity validation for all entity/resource/evidence references. <!-- mw-todo:P1-005 -->

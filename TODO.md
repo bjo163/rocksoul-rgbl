@@ -34,7 +34,7 @@ For rationale, dependencies, acceptance criteria, and later phases, see [`docs/R
 - [x] Define deterministic IDs for generated records such as assertions/evidence. <!-- mw-todo:P1-002 -->
 - [x] Define external identifier vs alias vs canonical ID semantics. <!-- mw-todo:P1-003 -->
 - [x] Define cross-dataset reference syntax and dependency resolution. <!-- mw-todo:P1-004 -->
-- [ ] Add referential-integrity validation for all entity/resource/evidence references. <!-- mw-todo:P1-005 -->
+- [x] Add referential-integrity validation for all entity/resource/evidence references. <!-- mw-todo:P1-005 -->
 - [ ] Add semantic invariants beyond JSON Schema. <!-- mw-todo:P1-006 -->
 - [ ] Define record lifecycle fields only where genuinely universal. <!-- mw-todo:P1-007 -->
 - [ ] Stabilize multilingual label model (`language`, `script`, preferred/alternate labels). <!-- mw-todo:P1-008 -->

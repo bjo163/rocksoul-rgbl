@@ -44,6 +44,18 @@ For every roadmap task under `P0`, `P1`, ...:
 
 Already-completed historical tasks that never had an issue are not backfilled as synthetic closed issues.
 
+### Rate-limit safety and resumability
+
+GitHub applies secondary limits to rapid content creation. The synchronizer therefore deliberately avoids burst writes:
+
+- successful POST/PATCH mutations are spaced by a configurable delay (`TODO_SYNC_MUTATION_DELAY_MS`, default 2200 ms);
+- HTTP 403/429 rate-limit responses use bounded retry/backoff and honor `Retry-After` when GitHub supplies it;
+- task markers are written to `TODO.md` **before** issue mutations begin;
+- the workflow commits marker/status changes with `if: always()`, so a temporary GitHub API failure does not discard stable identities;
+- a later run scans existing issue markers before creating anything, so it safely resumes instead of duplicating issues.
+
+The sync is intentionally idempotent: the same `TODO.md` plus the same existing issue set converges to the same task/issue mapping.
+
 ## Issue → TODO
 
 When a managed issue is closed or reopened:
@@ -85,6 +97,8 @@ pnpm todo:check
 ```
 
 `pnpm todo:sync:issue` is intended for the GitHub `issues` event because it reads `GITHUB_EVENT_PATH`.
+
+For manual recovery from a temporary GitHub content-creation limit, it is safe to rerun `pnpm todo:sync` or dispatch the workflow again. Existing marker-linked issues are discovered first and are not recreated.
 
 ## Security and permissions
 

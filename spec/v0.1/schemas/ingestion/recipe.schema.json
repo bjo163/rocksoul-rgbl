@@ -1,0 +1,24 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://moonwitness.org/corpus/spec/v0.1/schemas/ingestion/recipe.schema.json",
+  "type":"object",
+  "required":["id","version","specVersion","source","implementation","output"],
+  "properties":{
+    "id":{"$ref":"https://moonwitness.org/corpus/spec/v0.1/schemas/core/common.schema.json#/$defs/canonicalId"},
+    "version":{"type":"string","pattern":"^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(?:-[0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*)?(?:\\+[0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*)?$"},
+    "specVersion":{"const":"0.1"},
+    "source":{"$ref":"acquisition.schema.json"},
+    "implementation":{
+      "type":"object","required":["module","parserVersion","normalizerVersion","mapperVersion"],
+      "properties":{
+        "module":{"type":"string","minLength":1},
+        "parserVersion":{"type":"string","minLength":1},
+        "normalizerVersion":{"type":"string","minLength":1},
+        "mapperVersion":{"type":"string","minLength":1},
+        "validatorVersion":{"type":"string","minLength":1}
+      },"additionalProperties":false
+    },
+    "overlays":{"type":"array","uniqueItems":true,"items":{"type":"string","minLength":1}},
+    "output":{"type":"object","required":["path"],"properties":{"path":{"type":"string","minLength":1}},"additionalProperties":false}
+  },"additionalProperties":false
+}

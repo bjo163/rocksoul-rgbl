@@ -3,6 +3,8 @@ import path from 'node:path'
 import Ajv2020 from 'ajv/dist/2020.js'
 import fg from 'fast-glob'
 
+import { extractCanonicalReferences } from './references.js'
+
 export interface ValidationFinding {
   file: string
   line?: number
@@ -18,8 +20,54 @@ export interface ValidationReport {
 
 const recordTypes = ['entity', 'resource', 'assertion', 'evidence', 'provenance', 'assessment'] as const
 
+interface DatasetContext {
+  id: string
+  version: string
+  manifestFile: string
+  dependencies: Map<string, string>
+}
+
+interface RecordOwner {
+  datasetId: string
+  datasetVersion: string
+  file: string
+  line: number
+}
+
+interface PendingReference {
+  sourceDatasetId: string
+  file: string
+  line: number
+  field: string
+  targetId: string
+}
+
 function relative(root: string, file: string): string {
   return path.relative(root, file).replaceAll(path.sep, '/')
+}
+
+async function loadVocabularyIds(root: string): Promise<Set<string>> {
+  const ids = new Set<string>()
+  const files = await fg('spec/v0.1/vocab/**/*.json', { cwd: root, absolute: true, onlyFiles: true })
+
+  for (const file of files.sort()) {
+    try {
+      const document = JSON.parse(await readFile(file, 'utf8')) as { values?: unknown[] }
+      if (!Array.isArray(document.values)) continue
+
+      for (const value of document.values) {
+        if (value && typeof value === 'object' && !Array.isArray(value)) {
+          const id = (value as Record<string, unknown>).id
+          if (typeof id === 'string' && id.startsWith('mw:')) ids.add(id)
+        }
+      }
+    } catch {
+      // Vocabulary structure has its own validation lifecycle; malformed files
+      // simply cannot contribute resolvable canonical IDs here.
+    }
+  }
+
+  return ids
 }
 
 export async function validateRepository(root = process.cwd()): Promise<ValidationReport> {
@@ -45,6 +93,8 @@ export async function validateRepository(root = process.cwd()): Promise<Validati
 
   const manifests = await fg('datasets/**/manifest.json', { cwd: root, absolute: true })
   const partitionExpectations = new Map<string, string>()
+  const partitionOwners = new Map<string, string>()
+  const datasets = new Map<string, DatasetContext>()
 
   for (const manifestFile of manifests.sort()) {
     report.datasetCount++
@@ -62,6 +112,41 @@ export async function validateRepository(root = process.cwd()): Promise<Validati
         message: ajv.errorsText(validateDataset.errors, { separator: '; ' })
       })
       continue
+    }
+
+    const datasetId = manifest.id as string
+    const datasetVersion = manifest.datasetVersion as string
+    const dependencies = new Map<string, string>()
+
+    for (const dependency of (manifest.dependencies ?? []) as Array<{ dataset: string; version: string }>) {
+      if (dependency.dataset === datasetId) {
+        report.findings.push({
+          file: relative(root, manifestFile),
+          message: `Dataset ${datasetId} must not depend on itself`
+        })
+      }
+      if (dependencies.has(dependency.dataset)) {
+        report.findings.push({
+          file: relative(root, manifestFile),
+          message: `Dataset dependency ${dependency.dataset} is declared more than once`
+        })
+      } else {
+        dependencies.set(dependency.dataset, dependency.version)
+      }
+    }
+
+    if (datasets.has(datasetId)) {
+      report.findings.push({
+        file: relative(root, manifestFile),
+        message: `Duplicate canonical dataset id ${datasetId}`
+      })
+    } else {
+      datasets.set(datasetId, {
+        id: datasetId,
+        version: datasetVersion,
+        manifestFile,
+        dependencies
+      })
     }
 
     const datasetDir = path.dirname(manifestFile)
@@ -85,15 +170,46 @@ export async function validateRepository(root = process.cwd()): Promise<Validati
         } else {
           partitionExpectations.set(file, partition.recordType)
         }
+
+        const existingOwner = partitionOwners.get(file)
+        if (existingOwner && existingOwner !== datasetId) {
+          report.findings.push({
+            file: relative(root, manifestFile),
+            message: `Partition file ${relative(root, file)} is owned by both ${existingOwner} and ${datasetId}`
+          })
+        } else {
+          partitionOwners.set(file, datasetId)
+        }
       }
     }
   }
 
-  const ids = new Map<string, string>()
+  for (const dataset of datasets.values()) {
+    for (const [dependencyId, requiredVersion] of dataset.dependencies) {
+      const target = datasets.get(dependencyId)
+      if (!target) {
+        report.findings.push({
+          file: relative(root, dataset.manifestFile),
+          message: `Unresolved dataset dependency ${dependencyId}@${requiredVersion}`
+        })
+      } else if (target.version !== requiredVersion) {
+        report.findings.push({
+          file: relative(root, dataset.manifestFile),
+          message: `Dataset dependency ${dependencyId} requires ${requiredVersion} but workspace provides ${target.version}`
+        })
+      }
+    }
+  }
+
+  const recordOwners = new Map<string, RecordOwner>()
+  const duplicateRecordIds = new Set<string>()
+  const pendingReferences: PendingReference[] = []
 
   for (const [file, expectedRecordType] of [...partitionExpectations.entries()].sort(([a], [b]) => a.localeCompare(b))) {
     const text = await readFile(file, 'utf8')
     const lines = text.split(/\r?\n/)
+    const sourceDatasetId = partitionOwners.get(file)
+    const sourceDataset = sourceDatasetId ? datasets.get(sourceDatasetId) : undefined
 
     for (let index = 0; index < lines.length; index++) {
       const line = lines[index].trim()
@@ -127,7 +243,8 @@ export async function validateRepository(root = process.cwd()): Promise<Validati
       }
 
       const validate = validators.get(recordType)!
-      if (!validate(record)) {
+      const schemaValid = validate(record)
+      if (!schemaValid) {
         report.findings.push({
           file: relative(root, file),
           line: index + 1,
@@ -135,18 +252,82 @@ export async function validateRepository(root = process.cwd()): Promise<Validati
         })
       }
 
-      if (typeof record.id === 'string') {
-        const previous = ids.get(record.id)
+      if (typeof record.id === 'string' && sourceDataset) {
+        const previous = recordOwners.get(record.id)
         if (previous) {
+          duplicateRecordIds.add(record.id)
           report.findings.push({
             file: relative(root, file),
             line: index + 1,
-            message: `Duplicate canonical id ${record.id}; first seen in ${previous}`
+            message: `Duplicate canonical id ${record.id}; first seen in ${previous.file}:${previous.line}`
           })
         } else {
-          ids.set(record.id, `${relative(root, file)}:${index + 1}`)
+          recordOwners.set(record.id, {
+            datasetId: sourceDataset.id,
+            datasetVersion: sourceDataset.version,
+            file: relative(root, file),
+            line: index + 1
+          })
         }
       }
+
+      if (schemaValid && sourceDataset) {
+        for (const reference of extractCanonicalReferences(record)) {
+          pendingReferences.push({
+            sourceDatasetId: sourceDataset.id,
+            file: relative(root, file),
+            line: index + 1,
+            field: reference.field,
+            targetId: reference.id
+          })
+        }
+      }
+    }
+  }
+
+  const vocabularyIds = await loadVocabularyIds(root)
+
+  for (const reference of pendingReferences) {
+    if (vocabularyIds.has(reference.targetId) || datasets.has(reference.targetId)) continue
+
+    const target = recordOwners.get(reference.targetId)
+    if (!target) {
+      report.findings.push({
+        file: reference.file,
+        line: reference.line,
+        message: `Dangling canonical reference ${reference.field} -> ${reference.targetId}`
+      })
+      continue
+    }
+
+    if (duplicateRecordIds.has(reference.targetId)) {
+      report.findings.push({
+        file: reference.file,
+        line: reference.line,
+        message: `Ambiguous canonical reference ${reference.field} -> ${reference.targetId} because the target ID has multiple owners`
+      })
+      continue
+    }
+
+    if (target.datasetId === reference.sourceDatasetId) continue
+
+    const sourceDataset = datasets.get(reference.sourceDatasetId)
+    const requiredVersion = sourceDataset?.dependencies.get(target.datasetId)
+    if (!requiredVersion) {
+      report.findings.push({
+        file: reference.file,
+        line: reference.line,
+        message: `Cross-dataset reference ${reference.field} -> ${reference.targetId} is owned by ${target.datasetId}@${target.datasetVersion}, but ${reference.sourceDatasetId} does not declare that dataset as a direct dependency`
+      })
+      continue
+    }
+
+    if (requiredVersion !== target.datasetVersion) {
+      report.findings.push({
+        file: reference.file,
+        line: reference.line,
+        message: `Cross-dataset reference ${reference.field} -> ${reference.targetId} requires ${target.datasetId}@${requiredVersion}, but target is provided by ${target.datasetId}@${target.datasetVersion}`
+      })
     }
   }
 

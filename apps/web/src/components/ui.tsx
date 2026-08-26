@@ -74,7 +74,7 @@ export function AssertionCard({ assertion }: { assertion: Assertion }) {
     <article className="assertion-card">
       <div className="assertion-triplet">
         <CanonicalLink id={assertion.subject} />
-        <span className="predicate"><CanonicalLink id={assertion.predicate} /></span>
+        <code className="predicate" title="Vocabulary predicate ID">{assertion.predicate}</code>
         <span>{objectEntity ? <CanonicalLink id={objectEntity} /> : assertionObjectText(assertion.object)}</span>
       </div>
       <div className="assertion-meta">

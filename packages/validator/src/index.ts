@@ -5,6 +5,14 @@ import fg from 'fast-glob'
 
 import { extractCanonicalReferences } from './references.js'
 import { validateSemanticInvariants } from './semantic-invariants.js'
+import {
+  TEXTUAL_PROFILE_ID,
+  TEXTUAL_SCHEMA_FILE_BY_KIND,
+  TEXTUAL_SELECTOR_TYPES,
+  validateTextSelector,
+  validateTextualGraphInvariants,
+  type TextualRecordSnapshot
+} from './textual-profile.js'
 
 export interface ValidationFinding {
   file: string
@@ -27,6 +35,7 @@ interface DatasetContext {
   version: string
   manifestFile: string
   dependencies: Map<string, string>
+  profiles: Set<string>
 }
 
 interface RecordOwner {
@@ -93,6 +102,20 @@ export async function validateRepository(root = process.cwd()): Promise<Validati
   ) as object
   const validateDataset = ajv.compile(datasetSchema)
 
+  const textualSchemaDir = path.join(root, 'spec/v0.1/schemas/profiles/textual')
+  const textualCommonSchema = JSON.parse(
+    await readFile(path.join(textualSchemaDir, 'common.schema.json'), 'utf8')
+  ) as object
+  ajv.addSchema(textualCommonSchema)
+  const textualValidators = new Map<string, ReturnType<typeof ajv.compile>>()
+  for (const [kind, fileName] of Object.entries(TEXTUAL_SCHEMA_FILE_BY_KIND)) {
+    const schema = JSON.parse(await readFile(path.join(textualSchemaDir, fileName), 'utf8')) as object
+    textualValidators.set(kind, ajv.compile(schema))
+  }
+  const validateTextualSelector = ajv.compile(
+    JSON.parse(await readFile(path.join(textualSchemaDir, 'selector.schema.json'), 'utf8')) as object
+  )
+
   const manifests = await fg('datasets/**/manifest.json', { cwd: root, absolute: true })
   const partitionExpectations = new Map<string, string>()
   const partitionOwners = new Map<string, string>()
@@ -119,6 +142,7 @@ export async function validateRepository(root = process.cwd()): Promise<Validati
     const datasetId = manifest.id as string
     const datasetVersion = manifest.datasetVersion as string
     const dependencies = new Map<string, string>()
+    const profiles = new Set((manifest.profiles ?? []) as string[])
 
     for (const dependency of (manifest.dependencies ?? []) as Array<{ dataset: string; version: string }>) {
       if (dependency.dataset === datasetId) {
@@ -150,7 +174,8 @@ export async function validateRepository(root = process.cwd()): Promise<Validati
         id: datasetId,
         version: datasetVersion,
         manifestFile,
-        dependencies
+        dependencies,
+        profiles
       })
     }
 
@@ -212,8 +237,10 @@ export async function validateRepository(root = process.cwd()): Promise<Validati
   }
 
   const recordOwners = new Map<string, RecordOwner>()
+  const recordValuesById = new Map<string, Record<string, unknown>>()
   const duplicateRecordIds = new Set<string>()
   const pendingReferences: PendingReference[] = []
+  const textualSnapshots: TextualRecordSnapshot[] = []
 
   for (const [file, expectedRecordType] of [...partitionExpectations.entries()].sort(([a], [b]) => a.localeCompare(b))) {
     const text = await readFile(file, 'utf8')
@@ -265,6 +292,62 @@ export async function validateRepository(root = process.cwd()): Promise<Validati
         })
       }
 
+      let textualProfileValid = true
+      const kind = record.kind
+      if (schemaValid && recordType === 'resource' && typeof kind === 'string' && kind.startsWith('textual.')) {
+        if (!sourceDataset?.profiles.has(TEXTUAL_PROFILE_ID)) {
+          textualProfileValid = false
+          report.findings.push({
+            file: relative(root, file),
+            line: index + 1,
+            code: 'undeclared-textual-profile',
+            message: `Resource kind ${kind} requires dataset profile ${TEXTUAL_PROFILE_ID}`
+          })
+        } else {
+          const validateTextualResource = textualValidators.get(kind)
+          if (!validateTextualResource) {
+            textualProfileValid = false
+            report.findings.push({
+              file: relative(root, file),
+              line: index + 1,
+              code: 'unknown-textual-resource-kind',
+              message: `Unknown textual resource kind: ${kind}`
+            })
+          } else if (!validateTextualResource(record)) {
+            textualProfileValid = false
+            report.findings.push({
+              file: relative(root, file),
+              line: index + 1,
+              code: 'textual-profile-schema-validation',
+              message: ajv.errorsText(validateTextualResource.errors, { separator: '; ' })
+            })
+          }
+        }
+      }
+
+      if (
+        schemaValid &&
+        sourceDataset?.profiles.has(TEXTUAL_PROFILE_ID) &&
+        recordType === 'evidence' &&
+        record.selector &&
+        typeof record.selector === 'object' &&
+        !Array.isArray(record.selector) &&
+        TEXTUAL_SELECTOR_TYPES.has(String((record.selector as Record<string, unknown>).type))
+      ) {
+        if (!validateTextualSelector(record.selector)) {
+          report.findings.push({
+            file: relative(root, file),
+            line: index + 1,
+            code: 'textual-selector-schema-validation',
+            message: ajv.errorsText(validateTextualSelector.errors, { separator: '; ' })
+          })
+        } else {
+          for (const finding of validateTextSelector(record.selector, 'selector')) {
+            report.findings.push({ file: relative(root, file), line: index + 1, code: finding.code, message: finding.message })
+          }
+        }
+      }
+
       if (typeof record.id === 'string' && sourceDataset) {
         const previous = recordOwners.get(record.id)
         if (previous) {
@@ -282,6 +365,7 @@ export async function validateRepository(root = process.cwd()): Promise<Validati
             file: relative(root, file),
             line: index + 1
           })
+          recordValuesById.set(record.id, record)
         }
       }
 
@@ -302,6 +386,21 @@ export async function validateRepository(root = process.cwd()): Promise<Validati
             line: index + 1,
             field: reference.field,
             targetId: reference.id
+          })
+        }
+
+        if (
+          textualProfileValid &&
+          sourceDataset.profiles.has(TEXTUAL_PROFILE_ID) &&
+          recordType === 'resource' &&
+          typeof kind === 'string' &&
+          textualValidators.has(kind)
+        ) {
+          textualSnapshots.push({
+            record,
+            datasetId: sourceDataset.id,
+            file: relative(root, file),
+            line: index + 1
           })
         }
       }
@@ -356,6 +455,15 @@ export async function validateRepository(root = process.cwd()): Promise<Validati
         message: `Cross-dataset reference ${reference.field} -> ${reference.targetId} requires ${target.datasetId}@${requiredVersion}, but target is provided by ${target.datasetId}@${target.datasetVersion}`
       })
     }
+  }
+
+  for (const finding of validateTextualGraphInvariants(textualSnapshots, recordValuesById)) {
+    report.findings.push({
+      file: finding.snapshot.file,
+      line: finding.snapshot.line,
+      code: finding.code,
+      message: finding.message
+    })
   }
 
   report.valid = report.findings.length === 0

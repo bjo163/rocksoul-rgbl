@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://moonwitness.org/corpus/spec/v0.1/schemas/profiles/textual/alignment.schema.json",
+  "allOf": [
+    { "$ref": "https://moonwitness.org/corpus/spec/v0.1/schemas/core/resource.schema.json" },
+    {
+      "required": ["extensions"],
+      "properties": {
+        "kind": { "const": "textual.alignment" },
+        "extensions": {
+          "type": "object",
+          "required": ["textual"],
+          "properties": {
+            "textual": {
+              "type": "object",
+              "required": ["relation", "sources", "targets"],
+              "properties": {
+                "relation": { "$ref": "common.schema.json#/$defs/nonBlankString" },
+                "sources": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": { "$ref": "common.schema.json#/$defs/textTarget" }
+                },
+                "targets": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": { "$ref": "common.schema.json#/$defs/textTarget" }
+                },
+                "method": { "$ref": "common.schema.json#/$defs/nonBlankString" },
+                "provenance": { "$ref": "common.schema.json#/$defs/canonicalId" }
+              },
+              "additionalProperties": false
+            }
+          }
+        }
+      }
+    }
+  ]
+}

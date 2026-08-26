@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://moonwitness.org/corpus/spec/v0.1/schemas/profiles/textual/content.schema.json",
+  "allOf": [
+    { "$ref": "https://moonwitness.org/corpus/spec/v0.1/schemas/core/resource.schema.json" },
+    {
+      "required": ["extensions"],
+      "properties": {
+        "kind": { "const": "textual.content" },
+        "extensions": {
+          "type": "object",
+          "required": ["textual"],
+          "properties": {
+            "textual": {
+              "type": "object",
+              "required": ["target", "language", "representation", "text"],
+              "properties": {
+                "target": { "$ref": "common.schema.json#/$defs/canonicalId" },
+                "language": { "$ref": "common.schema.json#/$defs/languageTag" },
+                "script": { "$ref": "common.schema.json#/$defs/scriptTag" },
+                "representation": { "enum": ["source", "diplomatic", "normalized", "search"] },
+                "text": { "type": "string" },
+                "derived_from": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": { "$ref": "common.schema.json#/$defs/contentDerivation" }
+                }
+              },
+              "additionalProperties": false,
+              "allOf": [
+                {
+                  "if": { "properties": { "representation": { "enum": ["normalized", "search"] } }, "required": ["representation"] },
+                  "then": { "required": ["derived_from"] }
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  ]
+}

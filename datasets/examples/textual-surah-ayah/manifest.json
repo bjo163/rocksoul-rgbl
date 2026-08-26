@@ -1,0 +1,11 @@
+{
+  "id": "mw:dataset:example:textual-surah-ayah",
+  "datasetVersion": "0.1.0",
+  "specVersion": "0.1",
+  "profiles": ["textual@0.1"],
+  "partitions": [
+    { "recordType": "resource", "path": "data/core/resources/*.jsonl" },
+    { "recordType": "evidence", "path": "data/core/evidence/*.jsonl" }
+  ],
+  "availability": "bundled"
+}

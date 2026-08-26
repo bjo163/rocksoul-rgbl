@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://moonwitness.org/corpus/spec/v0.1/schemas/profiles/textual/expression.schema.json",
+  "allOf": [
+    { "$ref": "https://moonwitness.org/corpus/spec/v0.1/schemas/core/resource.schema.json" },
+    {
+      "required": ["extensions"],
+      "properties": {
+        "kind": { "const": "textual.expression" },
+        "extensions": {
+          "type": "object",
+          "required": ["textual"],
+          "properties": {
+            "textual": {
+              "type": "object",
+              "required": ["work", "language"],
+              "properties": {
+                "work": { "$ref": "common.schema.json#/$defs/canonicalId" },
+                "language": { "$ref": "common.schema.json#/$defs/languageTag" },
+                "script": { "$ref": "common.schema.json#/$defs/scriptTag" },
+                "relations": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": ["relation", "expression"],
+                    "properties": {
+                      "relation": {
+                        "enum": ["translation_of", "recension_of", "transliteration_of", "revision_of", "adaptation_of", "derived_from"]
+                      },
+                      "expression": { "$ref": "common.schema.json#/$defs/canonicalId" }
+                    },
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "additionalProperties": false
+            }
+          }
+        }
+      }
+    }
+  ]
+}

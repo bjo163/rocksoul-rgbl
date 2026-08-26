@@ -12,6 +12,7 @@ export * from './lifecycle.js'
 export * from './labels.js'
 export * from './assertion-scope.js'
 export * from './assertion-values.js'
+export * from './textual-profile.js'
 
 export interface BaseRecord { id: CanonicalId; record_type: 'entity'|'resource'|'assertion'|'evidence'|'provenance'|'assessment'; lifecycle?: RecordLifecycle }
 export interface Entity extends BaseRecord { record_type:'entity'; kind:string; labels?:Label[]; description?:string; extensions?:Record<string,unknown> }

@@ -5,6 +5,16 @@
       "id": "mw:dataset:example:minimal",
       "path": "datasets/examples/minimal",
       "status": "fixture"
+    },
+    {
+      "id": "mw:dataset:example:textual-surah-ayah",
+      "path": "datasets/examples/textual-surah-ayah",
+      "status": "fixture"
+    },
+    {
+      "id": "mw:dataset:example:textual-canto-stanza",
+      "path": "datasets/examples/textual-canto-stanza",
+      "status": "fixture"
     }
   ]
 }

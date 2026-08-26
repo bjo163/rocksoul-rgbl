@@ -1,0 +1,1 @@
+{"id":"mw:evidence:example:textual-selector","record_type":"evidence","target":"mw:content:example-recitation:1-1:source","relation":"mentions","selector":{"type":"TextQuoteSelector","exact":"Example","suffix":" source"}}

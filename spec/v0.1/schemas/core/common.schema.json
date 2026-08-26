@@ -22,6 +22,45 @@
         "script": { "type": "string" }
       },
       "additionalProperties": false
+    },
+    "externalIdentifier": {
+      "type": "object",
+      "required": ["scheme", "value"],
+      "properties": {
+        "scheme": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$"
+        },
+        "value": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^[^\\u0000-\\u001f\\u007f]+$"
+        },
+        "uri": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:"
+        }
+      },
+      "additionalProperties": false
+    },
+    "sourceLocalIdentifier": {
+      "type": "object",
+      "required": ["source", "value"],
+      "properties": {
+        "source": { "$ref": "#/$defs/canonicalId" },
+        "namespace": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^[^\\u0000-\\u001f\\u007f]+$"
+        },
+        "value": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^[^\\u0000-\\u001f\\u007f]+$"
+        }
+      },
+      "additionalProperties": false
     }
   }
 }

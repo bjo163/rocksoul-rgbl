@@ -1,0 +1,34 @@
+{
+  "canonical": {
+    "id": "mw:person:musa",
+    "meaning": "MoonWitness repository-global semantic identity"
+  },
+  "external": [
+    {
+      "scheme": "wikidata",
+      "value": "Q12345",
+      "uri": "https://www.wikidata.org/entity/Q12345"
+    },
+    {
+      "scheme": "viaf",
+      "value": "123456789"
+    },
+    {
+      "scheme": "doi",
+      "value": "10.1000/example",
+      "uri": "https://doi.org/10.1000/example"
+    }
+  ],
+  "source_local": [
+    {
+      "source": "mw:resource:source-example",
+      "namespace": "people",
+      "value": "123"
+    }
+  ],
+  "aliases": [
+    { "value": "Musa", "language": "id" },
+    { "value": "Moses", "language": "en" },
+    { "value": "משה", "language": "he", "script": "Hebr" }
+  ]
+}

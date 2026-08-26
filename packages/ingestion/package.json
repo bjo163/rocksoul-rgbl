@@ -1,0 +1,7 @@
+{
+  "name": "@moonwitness/corpus-ingestion",
+  "version": "0.1.0",
+  "type": "module",
+  "exports": { ".": "./src/index.ts" },
+  "dependencies": { "@moonwitness/corpus-core": "workspace:*" }
+}

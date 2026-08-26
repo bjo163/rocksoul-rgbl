@@ -1,0 +1,14 @@
+{
+  "version":"0.1",
+  "operations":[
+    {
+      "op":"replace",
+      "target":"mw:resource:example-ingested:beta",
+      "path":"/description",
+      "value":"Synthetic ingested line: beta (curated fixture)",
+      "reason":"Exercise explicit curation overlays without mutating parser output.",
+      "curator":"mw:agent:example-curator",
+      "provenance":"mw:provenance:example:curation"
+    }
+  ]
+}

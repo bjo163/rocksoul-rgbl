@@ -1,0 +1,16 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://moonwitness.org/corpus/spec/v0.1/schemas/ingestion/registry.schema.json",
+  "type":"object","required":["specVersion","recipes"],
+  "properties":{
+    "specVersion":{"const":"0.1"},
+    "recipes":{"type":"array","items":{
+      "type":"object","required":["id","path"],
+      "properties":{
+        "id":{"$ref":"https://moonwitness.org/corpus/spec/v0.1/schemas/core/common.schema.json#/$defs/canonicalId"},
+        "path":{"type":"string","minLength":1},
+        "status":{"enum":["fixture","active","deprecated"]}
+      },"additionalProperties":false
+    }}
+  },"additionalProperties":false
+}

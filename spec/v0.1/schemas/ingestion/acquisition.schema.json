@@ -1,0 +1,22 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://moonwitness.org/corpus/spec/v0.1/schemas/ingestion/acquisition.schema.json",
+  "$defs":{
+    "sha256":{"type":"string","pattern":"^[0-9a-f]{64}$"},
+    "filesystem":{
+      "type":"object","required":["kind","path","sha256"],
+      "properties":{
+        "kind":{"const":"filesystem"},"path":{"type":"string","minLength":1},"sha256":{"$ref":"#/$defs/sha256"},
+        "byte_size":{"type":"integer","minimum":0},"media_type":{"type":"string","pattern":"^[^/\\s]+/[^/\\s]+$"}
+      },"additionalProperties":false
+    },
+    "http":{
+      "type":"object","required":["kind","url","sha256"],
+      "properties":{
+        "kind":{"const":"http"},"url":{"type":"string","pattern":"^https?://"},"sha256":{"$ref":"#/$defs/sha256"},
+        "byte_size":{"type":"integer","minimum":0},"media_type":{"type":"string","pattern":"^[^/\\s]+/[^/\\s]+$"}
+      },"additionalProperties":false
+    }
+  },
+  "oneOf":[{"$ref":"#/$defs/filesystem"},{"$ref":"#/$defs/http"}]
+}

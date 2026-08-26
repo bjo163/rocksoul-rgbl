@@ -1,0 +1,25 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://moonwitness.org/corpus/spec/v0.1/schemas/ingestion/curation-overlay.schema.json",
+  "type":"object","required":["version","operations"],
+  "properties":{
+    "version":{"const":"0.1"},
+    "operations":{"type":"array","items":{
+      "type":"object","required":["op","target","path","reason","curator","provenance"],
+      "properties":{
+        "op":{"enum":["add","replace","remove"]},
+        "target":{"$ref":"https://moonwitness.org/corpus/spec/v0.1/schemas/core/common.schema.json#/$defs/canonicalId"},
+        "path":{"type":"string","pattern":"^/(?!$)"},
+        "value":{},
+        "reason":{"type":"string","minLength":1,"pattern":".*\\S.*"},
+        "curator":{"$ref":"https://moonwitness.org/corpus/spec/v0.1/schemas/core/common.schema.json#/$defs/canonicalId"},
+        "provenance":{"$ref":"https://moonwitness.org/corpus/spec/v0.1/schemas/core/common.schema.json#/$defs/canonicalId"}
+      },
+      "allOf":[
+        {"if":{"properties":{"op":{"enum":["add","replace"]}},"required":["op"]},"then":{"required":["value"]}},
+        {"if":{"properties":{"op":{"const":"remove"}},"required":["op"]},"then":{"not":{"required":["value"]}}}
+      ],
+      "additionalProperties":false
+    }}
+  },"additionalProperties":false
+}

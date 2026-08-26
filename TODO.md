@@ -75,9 +75,9 @@ For rationale, dependencies, acceptance criteria, and later phases, see [`docs/R
 - [x] Define SPDX-compatible license expression fields. <!-- mw-todo:P3-005 -->
 - [x] Define source-specific `LicenseRef-*` handling. <!-- mw-todo:P3-006 -->
 - [x] Add rights validation: bundled content must declare rights/license status. <!-- mw-todo:P3-007 -->
-- [ ] Define retrieval timestamp separately from deterministic normalized checksums. <!-- mw-todo:P3-008 -->
-- [ ] Define parser/normalizer/curator provenance chain. <!-- mw-todo:P3-009 -->
-- [ ] Document policy for public-domain claims vs modern editions/translations. <!-- mw-todo:P3-010 -->
+- [x] Define retrieval timestamp separately from deterministic normalized checksums. <!-- mw-todo:P3-008 -->
+- [x] Define parser/normalizer/curator provenance chain. <!-- mw-todo:P3-009 -->
+- [x] Document policy for public-domain claims vs modern editions/translations. <!-- mw-todo:P3-010 -->
 
 **Exit gate:** every real content record can answer “from which artifact/edition, under what rights, and through what processing path did this record enter the corpus?”
 

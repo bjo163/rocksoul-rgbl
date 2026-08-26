@@ -4,20 +4,20 @@
   "type": "object",
   "required": ["id", "record_type", "subject", "predicate", "object", "assertion_class"],
   "properties": {
-    "id": { "type": "string", "pattern": "^mw:[A-Za-z0-9._-]+(?::[A-Za-z0-9._-]+)+$" },
+    "id": { "$ref": "common.schema.json#/$defs/canonicalId" },
     "record_type": { "const": "assertion" },
-    "subject": { "type": "string" },
-    "predicate": { "type": "string" },
+    "subject": { "$ref": "common.schema.json#/$defs/canonicalId" },
+    "predicate": { "$ref": "common.schema.json#/$defs/canonicalId" },
     "object": {
       "oneOf": [
-        { "type": "object", "required": ["entity"], "properties": { "entity": { "type": "string" } }, "additionalProperties": false },
+        { "type": "object", "required": ["entity"], "properties": { "entity": { "$ref": "common.schema.json#/$defs/canonicalId" } }, "additionalProperties": false },
         { "type": "object", "required": ["value"], "properties": { "value": { "type": ["string", "number", "boolean", "null"] }, "datatype": { "type": "string" }, "language": { "type": "string" } }, "additionalProperties": false }
       ]
     },
     "assertion_class": { "type": "string" },
     "scope": { "type": "object", "additionalProperties": { "type": "string" } },
-    "evidence": { "type": "array", "items": { "type": "string" } },
-    "provenance": { "type": "string" },
+    "evidence": { "type": "array", "items": { "$ref": "common.schema.json#/$defs/canonicalId" } },
+    "provenance": { "$ref": "common.schema.json#/$defs/canonicalId" },
     "extensions": { "type": "object" }
   },
   "additionalProperties": false

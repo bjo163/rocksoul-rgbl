@@ -1,0 +1,62 @@
+name: TODO ↔ Issues Sync
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - TODO.md
+      - scripts/sync-todo-issues.ts
+      - .github/workflows/todo-issues-sync.yml
+  issues:
+    types: [closed, reopened]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: todo-issues-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - run: corepack enable
+      - run: pnpm install --no-frozen-lockfile
+
+      - name: TODO → Issues
+        if: github.event_name != 'issues'
+        run: pnpm exec tsx scripts/sync-todo-issues.ts todo-to-issues
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Issue → TODO
+        if: github.event_name == 'issues'
+        run: pnpm exec tsx scripts/sync-todo-issues.ts issue-to-todo
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Commit synchronized TODO metadata/status
+        shell: bash
+        run: |
+          if git diff --quiet -- TODO.md; then
+            echo "TODO.md unchanged"
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add TODO.md
+          git commit -m "chore(todo): synchronize GitHub issues [skip ci]"
+          git push origin HEAD:${{ github.event.repository.default_branch }}

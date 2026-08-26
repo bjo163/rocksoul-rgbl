@@ -2,7 +2,7 @@
 
 MoonWitness Corpus is a public, provenance-first and evidence-aware corpus platform for religious texts, traditions, history, and comparative knowledge.
 
-> Status: **v0.1 contract and supply-chain proof / unstable API**. P0–P7 are complete. P8 release infrastructure is implemented, while actual npm publication remains intentionally blocked until repository-wide code licensing and npm-scope authorization are resolved.
+> Status: **v0.1 contract and supply-chain proof / unstable API**. P0–P7 are complete. P8 release infrastructure is implemented. **P12 Foundation Text Corpus expansion is the current execution priority**, while npm publication and P9–P11 feature/integration work are intentionally deferred.
 
 ## Architecture
 
@@ -31,11 +31,14 @@ P5  Two real cross-tradition proofs    complete
 P6  Repository / query / build         complete
 P7  Public Corpus Explorer             complete
 P8  Release infrastructure             complete
-    npm registry publication           blocked by license/scope authorization
-P9  MoonWitness adapter                next after a pinned public release exists
+    npm registry publication           deferred / license+scope blocked
+P12 Foundation Text Corpus expansion   CURRENT PRIORITY
+P9  MoonWitness adapter                deferred until data/release baseline is ready
+P10 Advanced profiles                  deferred
+P11 Curation / collaboration           deferred
 ```
 
-See [`docs/STATUS.md`](docs/STATUS.md) for the concise current snapshot. `TODO.md` is the canonical executable task state; `docs/ROADMAP.md` preserves the detailed architecture and milestone rationale.
+See [`docs/STATUS.md`](docs/STATUS.md) for the concise current snapshot and [`docs/DATASET_TARGETS.md`](docs/DATASET_TARGETS.md) for the approved source/target plan. `TODO.md` is the canonical executable task state; `docs/ROADMAP.md` preserves the detailed architecture and milestone rationale.
 
 ## Core model
 
@@ -61,27 +64,38 @@ Religion- or tradition-specific concepts are represented as data and profiles, n
 - Git-based review and release history
 - deterministic derived corpus and release artifacts
 
-## Roadmap and release docs
+## Roadmap and data/release docs
 
 - [`TODO.md`](TODO.md) — canonical executable checklist and current task state.
 - [`docs/STATUS.md`](docs/STATUS.md) — concise implementation/release snapshot.
+- [`docs/DATASET_TARGETS.md`](docs/DATASET_TARGETS.md) — current Foundation Text Corpus targets, exact source lanes, rights boundaries, and exit gate.
 - [`docs/ROADMAP.md`](docs/ROADMAP.md) — detailed milestone rationale and architecture plan.
 - [`docs/PACKAGES.md`](docs/PACKAGES.md) — canonical package names, npm scope, and publication gate.
 - [`docs/RELEASES.md`](docs/RELEASES.md) — version domains, release artifacts, checksums, and manual release workflow.
 
-The remaining release path before P9 is intentionally narrow:
+The current data-first execution path is:
 
 ```text
-select repository-wide code license
+coverage/completeness inventory
         ↓
-confirm publish authority for @moonwitness npm scope
+verify existing Quran Arabic baseline
         ↓
-create pinned corpus/package release
+complete Dhammapada English + legally audit Pali root
         ↓
-publish + verify from a clean external consumer
+OSHB/WLC Hebrew + separate morphology
         ↓
-MoonWitness downstream adapter (P9)
+SBLGNT v1.2 Greek
+        ↓
+WEB Classic 2020 English
+        ↓
+explicit passage alignments
+        ↓
+SuttaCentral DN/MN/SN/AN English expansion
+        ↓
+Foundation Text Corpus completeness/rights/reproducibility gate
 ```
+
+Only after that data baseline is strong do we return to npm publication and the MoonWitness adapter.
 
 ## Development
 
@@ -104,4 +118,4 @@ Generated artifacts under `dist/` are disposable and must be reproducible from c
 
 ## Licensing
 
-No repository-wide data or code license has been selected yet. Do not add redistributed source text or binary artifacts unless their licensing/rights status is explicitly recorded. npm publication remains disabled until a code license and npm-scope authorization are deliberately resolved. See `LICENSES/README.md`.
+No repository-wide data or code license has been selected yet. Do not add redistributed source text or binary artifacts unless their licensing/rights status is explicitly recorded. Dataset-specific rights remain first-class and are evaluated independently from the repository code-license question. npm publication remains disabled until a code license and npm-scope authorization are deliberately resolved. See `LICENSES/README.md`.

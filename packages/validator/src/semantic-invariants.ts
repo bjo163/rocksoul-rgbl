@@ -80,6 +80,16 @@ export async function validateSemanticInvariants(
       break
   }
 
+  if (record.lifecycle && typeof record.lifecycle === 'object' && !Array.isArray(record.lifecycle)) {
+    const replacements = (record.lifecycle as Record<string, unknown>).replacements
+    if (Array.isArray(replacements) && replacements.includes(id)) {
+      findings.push({
+        code: 'lifecycle-self-replacement',
+        message: 'A record must not name its own canonical ID as a lifecycle replacement'
+      })
+    }
+  }
+
   if ((recordType === 'assertion' || recordType === 'evidence') && looksLikeDeterministicV1Id(id)) {
     if (!isDeterministicId(id)) {
       findings.push({

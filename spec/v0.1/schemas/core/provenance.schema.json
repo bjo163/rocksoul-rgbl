@@ -9,6 +9,7 @@
     "source": { "$ref": "common.schema.json#/$defs/canonicalId" },
     "source_reference": { "type": "string" },
     "activity": { "type": "object" },
+    "lifecycle": { "$ref": "common.schema.json#/$defs/recordLifecycle" },
     "extensions": { "type": "object" }
   },
   "additionalProperties": false

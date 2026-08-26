@@ -9,6 +9,7 @@
     "kind": { "type": "string", "minLength": 1 },
     "labels": { "type": "array", "items": { "type": "object", "required": ["value"], "properties": { "value": { "type": "string" }, "language": { "type": "string" }, "script": { "type": "string" } }, "additionalProperties": false } },
     "description": { "type": "string" },
+    "lifecycle": { "$ref": "common.schema.json#/$defs/recordLifecycle" },
     "extensions": { "type": "object" }
   },
   "additionalProperties": false

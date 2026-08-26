@@ -61,6 +61,31 @@
         }
       },
       "additionalProperties": false
+    },
+    "recordLifecycle": {
+      "type": "object",
+      "required": ["status"],
+      "properties": {
+        "status": { "enum": ["current", "superseded", "retired"] },
+        "replacements": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/canonicalId" }
+        },
+        "reason": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": { "properties": { "status": { "const": "superseded" } }, "required": ["status"] },
+          "then": { "required": ["replacements"] }
+        },
+        {
+          "if": { "properties": { "status": { "enum": ["current", "retired"] } }, "required": ["status"] },
+          "then": { "not": { "required": ["replacements"] } }
+        }
+      ]
     }
   }
 }

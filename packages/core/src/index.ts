@@ -1,9 +1,11 @@
 import type { CanonicalId } from './identifiers.js'
+import type { RecordLifecycle } from './lifecycle.js'
 
 export * from './identifiers.js'
 export * from './deterministic-ids.js'
 export * from './identity-boundaries.js'
 export * from './dataset-dependencies.js'
+export * from './lifecycle.js'
 
 export interface Label {
   value: string
@@ -14,6 +16,8 @@ export interface Label {
 export interface BaseRecord {
   id: CanonicalId
   record_type: 'entity' | 'resource' | 'assertion' | 'evidence' | 'provenance' | 'assessment'
+  /** Omitted means `current`; only universal record-lifecycle state belongs here. */
+  lifecycle?: RecordLifecycle
 }
 
 export interface Entity extends BaseRecord {

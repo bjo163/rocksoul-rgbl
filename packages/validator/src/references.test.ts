@@ -65,3 +65,19 @@ test('extracts evidence, provenance, and assessment references but ignores exten
     ]
   )
 })
+
+test('extracts lifecycle replacements as universal canonical references', () => {
+  assert.deepEqual(
+    extractCanonicalReferences({
+      record_type: 'entity',
+      lifecycle: {
+        status: 'superseded',
+        replacements: ['mw:person:b', 'mw:person:c']
+      }
+    }),
+    [
+      { field: 'lifecycle.replacements[0]', id: 'mw:person:b' },
+      { field: 'lifecycle.replacements[1]', id: 'mw:person:c' }
+    ]
+  )
+})

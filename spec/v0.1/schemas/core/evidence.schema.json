@@ -10,6 +10,7 @@
     "relation": { "type": "string" },
     "selector": { "type": "object", "required": ["type"], "properties": { "type": { "type": "string" } }, "additionalProperties": true },
     "provenance": { "$ref": "common.schema.json#/$defs/canonicalId" },
+    "lifecycle": { "$ref": "common.schema.json#/$defs/recordLifecycle" },
     "extensions": { "type": "object" }
   },
   "additionalProperties": false

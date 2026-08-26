@@ -69,5 +69,13 @@ export function extractCanonicalReferences(record: Record<string, unknown>): Can
       break
   }
 
+  if (record.lifecycle && typeof record.lifecycle === 'object' && !Array.isArray(record.lifecycle)) {
+    pushArray(
+      references,
+      'lifecycle.replacements',
+      (record.lifecycle as Record<string, unknown>).replacements
+    )
+  }
+
   return references
 }

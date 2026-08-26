@@ -60,9 +60,9 @@ For rationale, dependencies, acceptance criteria, and later phases, see [`docs/R
 - [x] Define Alignment between passages/content segments. <!-- mw-todo:P2-010 -->
 - [x] Define Variant/readings without assuming one global base text. <!-- mw-todo:P2-011 -->
 - [x] Define source-preserving vs normalized/search representations. <!-- mw-todo:P2-012 -->
-- [ ] Add Web-Annotation-inspired text quote/position/range selectors. <!-- mw-todo:P2-013 -->
-- [ ] Add textual profile examples for two structurally different citation schemes. <!-- mw-todo:P2-014 -->
-- [ ] Extend validator with textual hierarchy/citation invariants. <!-- mw-todo:P2-015 -->
+- [x] Add Web-Annotation-inspired text quote/position/range selectors. <!-- mw-todo:P2-013 -->
+- [x] Add textual profile examples for two structurally different citation schemes. <!-- mw-todo:P2-014 -->
+- [x] Extend validator with textual hierarchy/citation invariants. <!-- mw-todo:P2-015 -->
 
 **Exit gate:** a surah/ayah text and a non-Quran chapter/stanza or book/chapter/verse text can use the same profile without core changes.
 

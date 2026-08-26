@@ -1,0 +1,45 @@
+name: One-shot TODO issue sync
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/todo-sync-once.yml
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - run: corepack enable
+      - run: pnpm install --no-frozen-lockfile
+
+      - name: Sync TODO to Issues
+        run: pnpm exec tsx scripts/sync-todo-issues.ts todo-to-issues
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TODO_SYNC_MUTATION_DELAY_MS: 2200
+          TODO_SYNC_MAX_RETRIES: 5
+
+      - name: Remove one-shot workflow
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm .github/workflows/todo-sync-once.yml
+          git commit -m "chore: remove one-shot TODO issue sync [skip ci]"
+          git push origin HEAD:main

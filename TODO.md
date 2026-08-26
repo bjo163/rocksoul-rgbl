@@ -93,10 +93,10 @@ For rationale, dependencies, acceptance criteria, and later phases, see [`docs/R
 - [x] Define normalizer interface. <!-- mw-todo:P4-008 -->
 - [x] Define mapper-to-core/profile interface. <!-- mw-todo:P4-009 -->
 - [x] Define recipe-specific validator interface. <!-- mw-todo:P4-010 -->
-- [ ] Make normalized output byte-for-byte deterministic. <!-- mw-todo:P4-011 -->
-- [ ] Add curation overlay format instead of silently editing parser output. <!-- mw-todo:P4-012 -->
-- [ ] Record reconciliation/correction provenance. <!-- mw-todo:P4-013 -->
-- [ ] Add `corpus ingest <recipe>` CLI command. <!-- mw-todo:P4-014 -->
+- [x] Make normalized output byte-for-byte deterministic. <!-- mw-todo:P4-011 -->
+- [x] Add curation overlay format instead of silently editing parser output. <!-- mw-todo:P4-012 -->
+- [x] Record reconciliation/correction provenance. <!-- mw-todo:P4-013 -->
+- [x] Add `corpus ingest <recipe>` CLI command. <!-- mw-todo:P4-014 -->
 - [ ] Add `corpus checksum` CLI command. <!-- mw-todo:P4-015 -->
 - [ ] Add idempotency tests. <!-- mw-todo:P4-016 -->
 - [ ] Ensure network access is not required to consume a released dataset. <!-- mw-todo:P4-017 -->

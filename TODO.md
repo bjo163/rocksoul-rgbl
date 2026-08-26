@@ -109,8 +109,8 @@ For rationale, dependencies, acceptance criteria, and later phases, see [`docs/R
 - [x] Build first textual dataset recipe and manifest. <!-- mw-todo:P5-002 -->
 - [x] Prefer Quran as the first MoonWitness integration dataset if the selected Arabic/translation sources are legally usable. <!-- mw-todo:P5-003 -->
 - [x] Select a second open/public-domain source from a substantially different religious tradition and textual structure. <!-- mw-todo:P5-004 -->
-- [ ] Build second dataset without adding religion-specific fields to core schemas. <!-- mw-todo:P5-005 -->
-- [ ] Validate both datasets in CI. <!-- mw-todo:P5-006 -->
+- [x] Build second dataset without adding religion-specific fields to core schemas. <!-- mw-todo:P5-005 -->
+- [x] Validate both datasets in CI. <!-- mw-todo:P5-006 -->
 - [ ] Document every source, edition, language, script, rights statement, checksum, and retrieval process. <!-- mw-todo:P5-007 -->
 - [ ] Add cross-reference fixture between datasets without asserting theological equivalence. <!-- mw-todo:P5-008 -->
 - [ ] Review vocabulary for hidden Abrahamic/Islam-centric assumptions. <!-- mw-todo:P5-009 -->

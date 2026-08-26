@@ -122,9 +122,9 @@ For rationale, dependencies, acceptance criteria, and later phases, see [`docs/R
 - [x] Expand `CorpusRepository` contract. <!-- mw-todo:P6-001 -->
 - [x] Implement in-memory repository for tests. <!-- mw-todo:P6-002 -->
 - [x] Implement filesystem/JSONL repository for Node.js. <!-- mw-todo:P6-003 -->
-- [ ] Implement dataset registry and dependency resolver. <!-- mw-todo:P6-004 -->
-- [ ] Implement canonical ID lookup. <!-- mw-todo:P6-005 -->
-- [ ] Implement passage/reference lookup. <!-- mw-todo:P6-006 -->
+- [x] Implement dataset registry and dependency resolver. <!-- mw-todo:P6-004 -->
+- [x] Implement canonical ID lookup. <!-- mw-todo:P6-005 -->
+- [x] Implement passage/reference lookup. <!-- mw-todo:P6-006 -->
 - [ ] Implement assertion/evidence traversal. <!-- mw-todo:P6-007 -->
 - [ ] Implement scope filters. <!-- mw-todo:P6-008 -->
 - [ ] Build global derived catalog from dataset packs. <!-- mw-todo:P6-009 -->

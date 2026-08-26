@@ -8,11 +8,16 @@ on:
       - .github/workflows/p5-source-audit.yml
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   audit:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: feature/real-datasets-p5
       - name: Fetch pinned source artifacts
         run: |
           set -euo pipefail
@@ -32,3 +37,19 @@ jobs:
           path: p5-source-audit/
           if-no-files-found: error
           retention-days: 7
+      - name: Commit audited source snapshots
+        run: |
+          set -euo pipefail
+          mkdir -p ingestion/recipes/quran-tanzil-uthmani/source
+          mkdir -p ingestion/recipes/dhammapada-sujato-1-20/source
+          cp p5-source-audit/quran-uthmani-tanzil-v1.1.txt ingestion/recipes/quran-tanzil-uthmani/source/quran-uthmani-tanzil-v1.1.txt
+          cp p5-source-audit/dhammapada-1-20-en-sujato.json ingestion/recipes/dhammapada-sujato-1-20/source/dhammapada-1-20-en-sujato.json
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add ingestion/recipes/quran-tanzil-uthmani/source ingestion/recipes/dhammapada-sujato-1-20/source
+          if git diff --cached --quiet; then
+            echo 'Source snapshots already match the pinned artifacts.'
+          else
+            git commit -m 'data: pin audited P5 source snapshots [skip ci]'
+            git push origin HEAD:feature/real-datasets-p5
+          fi

@@ -1,4 +1,5 @@
 import type { CanonicalId } from './identifiers.js'
+import type { Label } from './labels.js'
 import type { RecordLifecycle } from './lifecycle.js'
 
 export * from './identifiers.js'
@@ -6,12 +7,7 @@ export * from './deterministic-ids.js'
 export * from './identity-boundaries.js'
 export * from './dataset-dependencies.js'
 export * from './lifecycle.js'
-
-export interface Label {
-  value: string
-  language?: string
-  script?: string
-}
+export * from './labels.js'
 
 export interface BaseRecord {
   id: CanonicalId

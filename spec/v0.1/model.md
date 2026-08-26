@@ -6,6 +6,10 @@ An entity records stable identity and descriptive labels. Context-sensitive clas
 
 For example, a person should not receive a global `is_prophet: true` field. A dataset may instead assert `person -> has_role -> prophet` within an explicit tradition/community/source scope and attach evidence.
 
+## Multilingual labels
+
+Entity/resource labels use explicit `preferred` or `alternate` roles with optional BCP 47 language tags and ISO 15924 script codes. Preferred-label uniqueness is scoped by the exact `(language, script)` pair. Labels never establish canonical identity; see `labels.md`.
+
 ## Source vs evidence vs provenance
 
 - **Resource/source**: what artifact, edition, publication, dataset, or work is being referenced.

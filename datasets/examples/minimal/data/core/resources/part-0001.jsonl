@@ -1,1 +1,1 @@
-{"id":"mw:resource:example-source","record_type":"resource","kind":"text","labels":[{"value":"Synthetic Example Source","language":"en"}],"description":"Synthetic fixture resource; not a real-world source."}
+{"id":"mw:resource:example-source","record_type":"resource","kind":"text","labels":[{"value":"Synthetic Example Source","role":"preferred","language":"en","script":"Latn"}],"description":"Synthetic fixture resource; not a real-world source."}

@@ -19,15 +19,33 @@ const FIXED_ID_KIND_BY_RECORD_TYPE: Readonly<Record<string, string>> = {
   assessment: 'assessment'
 }
 
-function requireNonBlank(
-  findings: SemanticInvariantFinding[],
-  record: Record<string, unknown>,
-  field: string,
-  code: string
-): void {
+function requireNonBlank(findings: SemanticInvariantFinding[], record: Record<string, unknown>, field: string, code: string): void {
   const value = record[field]
-  if (typeof value === 'string' && value.trim().length === 0) {
-    findings.push({ code, message: `${field} must contain a non-whitespace semantic value` })
+  if (typeof value === 'string' && value.trim().length === 0) findings.push({ code, message: `${field} must contain a non-whitespace semantic value` })
+}
+
+function validateLabels(findings: SemanticInvariantFinding[], record: Record<string, unknown>): void {
+  if (!Array.isArray(record.labels)) return
+  const preferredScopes = new Set<string>()
+  for (let index = 0; index < record.labels.length; index += 1) {
+    const label = record.labels[index]
+    if (!label || typeof label !== 'object' || Array.isArray(label)) continue
+    const value = (label as Record<string, unknown>).value
+    const role = (label as Record<string, unknown>).role
+    const language = (label as Record<string, unknown>).language
+    const script = (label as Record<string, unknown>).script
+    if (typeof value === 'string' && value.trim().length === 0) {
+      findings.push({ code: 'blank-label-value', message: `labels[${index}].value must contain non-whitespace text` })
+    }
+    if (role === 'preferred') {
+      const scope = `${typeof language === 'string' ? language : ''}\u0000${typeof script === 'string' ? script : ''}`
+      if (preferredScopes.has(scope)) {
+        findings.push({
+          code: 'duplicate-preferred-label-scope',
+          message: `Only one preferred label is allowed for language '${typeof language === 'string' ? language : 'und'}' and script '${typeof script === 'string' ? script : 'unspecified'}'`
+        })
+      } else preferredScopes.add(scope)
+    }
   }
 }
 
@@ -40,34 +58,23 @@ function looksLikeDeterministicV1Id(id: string): boolean {
   }
 }
 
-/**
- * Validate cross-field/core semantic invariants that intentionally live above
- * JSON Schema. Call this only after the record has passed its structural schema.
- */
-export async function validateSemanticInvariants(
-  record: Record<string, unknown>
-): Promise<SemanticInvariantFinding[]> {
+export async function validateSemanticInvariants(record: Record<string, unknown>): Promise<SemanticInvariantFinding[]> {
   const findings: SemanticInvariantFinding[] = []
   const recordType = record.record_type
   const id = record.id
-
   if (typeof recordType !== 'string' || typeof id !== 'string') return findings
 
   const fixedKind = FIXED_ID_KIND_BY_RECORD_TYPE[recordType]
   if (fixedKind) {
     const parsed = parseCanonicalId(id)
-    if (parsed.kind !== fixedKind) {
-      findings.push({
-        code: 'record-family-id-kind',
-        message: `${recordType} records must use canonical ID kind '${fixedKind}', not '${parsed.kind}'`
-      })
-    }
+    if (parsed.kind !== fixedKind) findings.push({ code: 'record-family-id-kind', message: `${recordType} records must use canonical ID kind '${fixedKind}', not '${parsed.kind}'` })
   }
 
   switch (recordType) {
     case 'entity':
     case 'resource':
       requireNonBlank(findings, record, 'kind', 'nonblank-kind')
+      validateLabels(findings, record)
       break
     case 'assertion':
       requireNonBlank(findings, record, 'assertion_class', 'nonblank-assertion-class')
@@ -82,34 +89,18 @@ export async function validateSemanticInvariants(
 
   if (record.lifecycle && typeof record.lifecycle === 'object' && !Array.isArray(record.lifecycle)) {
     const replacements = (record.lifecycle as Record<string, unknown>).replacements
-    if (Array.isArray(replacements) && replacements.includes(id)) {
-      findings.push({
-        code: 'lifecycle-self-replacement',
-        message: 'A record must not name its own canonical ID as a lifecycle replacement'
-      })
-    }
+    if (Array.isArray(replacements) && replacements.includes(id)) findings.push({ code: 'lifecycle-self-replacement', message: 'A record must not name its own canonical ID as a lifecycle replacement' })
   }
 
   if ((recordType === 'assertion' || recordType === 'evidence') && looksLikeDeterministicV1Id(id)) {
     if (!isDeterministicId(id)) {
-      findings.push({
-        code: 'malformed-deterministic-id',
-        message: `Deterministic ${recordType} ID must use mw:${recordType}:v1:sha256:<64 lowercase hex>`
-      })
+      findings.push({ code: 'malformed-deterministic-id', message: `Deterministic ${recordType} ID must use mw:${recordType}:v1:sha256:<64 lowercase hex>` })
       return findings
     }
-
-    const expected =
-      recordType === 'assertion'
-        ? await deterministicAssertionId(record as unknown as AssertionIdentityInput)
-        : await deterministicEvidenceId(record as unknown as EvidenceIdentityInput)
-
-    if (expected !== id) {
-      findings.push({
-        code: 'deterministic-id-mismatch',
-        message: `Deterministic ${recordType} ID does not match its v1 semantic identity payload; expected ${expected}`
-      })
-    }
+    const expected = recordType === 'assertion'
+      ? await deterministicAssertionId(record as unknown as AssertionIdentityInput)
+      : await deterministicEvidenceId(record as unknown as EvidenceIdentityInput)
+    if (expected !== id) findings.push({ code: 'deterministic-id-mismatch', message: `Deterministic ${recordType} ID does not match its v1 semantic identity payload; expected ${expected}` })
   }
 
   return findings

@@ -41,7 +41,7 @@ For rationale, dependencies, acceptance criteria, and later phases, see [`docs/R
 - [x] Stabilize scoped assertion model (`tradition`, `community`, `agent`, `period`, `place`). <!-- mw-todo:P1-009 -->
 - [ ] Define literal/object value envelope for assertions. <!-- mw-todo:P1-010 -->
 - [ ] Define assessment target/result/method semantics. <!-- mw-todo:P1-011 -->
-- [ ] Add invalid fixtures for every invariant. <!-- mw-todo:P1-012 -->
+- [x] Add invalid fixtures for every invariant. <!-- mw-todo:P1-012 -->
 - [ ] Write compatibility policy for spec v0.x changes. <!-- mw-todo:P1-013 -->
 
 **Exit gate:** core schemas can be treated as stable enough to build profiles without changing their worldview assumptions.

@@ -145,8 +145,8 @@ For rationale, dependencies, acceptance criteria, and later phases, see [`docs/R
 - [x] Add evidence/source/provenance drill-down. <!-- mw-todo:P7-007 -->
 - [x] Add search page. <!-- mw-todo:P7-008 -->
 - [x] Add relation/graph explorer with bounded traversal. <!-- mw-todo:P7-009 -->
-- [ ] Add comparison view that clearly preserves source/perspective boundaries. <!-- mw-todo:P7-010 -->
-- [ ] Expose canonical IDs and dataset/spec versions in UI. <!-- mw-todo:P7-011 -->
+- [x] Add comparison view that clearly preserves source/perspective boundaries. <!-- mw-todo:P7-010 -->
+- [x] Expose canonical IDs and dataset/spec versions in UI. <!-- mw-todo:P7-011 -->
 - [ ] Avoid presenting derived similarity as identity or factual equivalence. <!-- mw-todo:P7-012 -->
 
 **Exit gate:** a user can navigate from a claim to exact evidence, source/edition, provenance, and dataset version.

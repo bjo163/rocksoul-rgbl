@@ -1,0 +1,68 @@
+import type {
+  AssertionObject,
+  CanonicalId,
+  CorpusRecord,
+  Resource
+} from '@moonwitness/corpus-core'
+
+export const COMPARISON_BOUNDARY =
+  'This view places records side by side for inspection. It does not assert identity, equivalence, shared authority, or factual agreement between them.'
+
+export function encodeId(id: string): string {
+  return encodeURIComponent(id)
+}
+
+export function canonicalHref(id: CanonicalId): string {
+  return `/record/${encodeId(id)}`
+}
+
+export function datasetHref(id: CanonicalId): string {
+  return `/datasets/${encodeId(id)}`
+}
+
+export function hrefForRecord(id: CanonicalId, recordType: CorpusRecord['record_type'], kind?: string): string {
+  const encoded = encodeId(id)
+  if (recordType === 'entity') return `/entity/${encoded}`
+  if (recordType === 'resource') return kind === 'textual.passage' ? `/passage/${encoded}` : `/resource/${encoded}`
+  if (recordType === 'assertion') return `/assertion/${encoded}`
+  if (recordType === 'evidence') return `/evidence/${encoded}`
+  if (recordType === 'provenance') return `/provenance/${encoded}`
+  return `/record/${encoded}`
+}
+
+export function recordHref(record: CorpusRecord): string {
+  return hrefForRecord(record.id, record.record_type, 'kind' in record ? record.kind : undefined)
+}
+
+export function preferredLabel(record: CorpusRecord): string | undefined {
+  if (!('labels' in record) || !record.labels?.length) return undefined
+  return record.labels.find((label) => label.role === 'preferred')?.value ?? record.labels[0]?.value
+}
+
+export function displayName(record: CorpusRecord): string {
+  return preferredLabel(record) ?? record.id
+}
+
+export function assertionObjectText(object: AssertionObject): string {
+  if ('entity' in object) return object.entity
+  if (object.value === null) return 'null'
+  if (typeof object.value === 'string') return object.value
+  return JSON.stringify(object.value)
+}
+
+export function textualPayload(resource: Resource): Record<string, unknown> | null {
+  const textual = resource.extensions?.textual
+  return textual && typeof textual === 'object' && !Array.isArray(textual)
+    ? textual as Record<string, unknown>
+    : null
+}
+
+export function isRtlScript(script: unknown): boolean {
+  return script === 'Arab' || script === 'Hebr' || script === 'Syrc' || script === 'Thaa'
+}
+
+export function clampGraphDepth(value: unknown): number {
+  const parsed = typeof value === 'string' ? Number.parseInt(value, 10) : Number(value)
+  if (!Number.isFinite(parsed)) return 1
+  return Math.min(3, Math.max(1, Math.trunc(parsed)))
+}

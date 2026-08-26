@@ -97,9 +97,9 @@ For rationale, dependencies, acceptance criteria, and later phases, see [`docs/R
 - [x] Add curation overlay format instead of silently editing parser output. <!-- mw-todo:P4-012 -->
 - [x] Record reconciliation/correction provenance. <!-- mw-todo:P4-013 -->
 - [x] Add `corpus ingest <recipe>` CLI command. <!-- mw-todo:P4-014 -->
-- [ ] Add `corpus checksum` CLI command. <!-- mw-todo:P4-015 -->
-- [ ] Add idempotency tests. <!-- mw-todo:P4-016 -->
-- [ ] Ensure network access is not required to consume a released dataset. <!-- mw-todo:P4-017 -->
+- [x] Add `corpus checksum` CLI command. <!-- mw-todo:P4-015 -->
+- [x] Add idempotency tests. <!-- mw-todo:P4-016 -->
+- [x] Ensure network access is not required to consume a released dataset. <!-- mw-todo:P4-017 -->
 
 **Exit gate:** raw source + pinned recipe/parser/normalizer versions can reproduce the same canonical dataset checksum.
 

@@ -52,10 +52,10 @@ For rationale, dependencies, acceptance criteria, and later phases, see [`docs/R
 - [x] Define Work. <!-- mw-todo:P2-002 -->
 - [x] Define Expression/recension/translation relationship. <!-- mw-todo:P2-003 -->
 - [x] Define Edition. <!-- mw-todo:P2-004 -->
-- [ ] Define Artifact/digital representation descriptor. <!-- mw-todo:P2-005 -->
-- [ ] Define arbitrary-depth Passage hierarchy. <!-- mw-todo:P2-006 -->
-- [ ] Define citation scheme and canonical reference path. <!-- mw-todo:P2-007 -->
-- [ ] Define Content as language/script-specific text attached to a passage/resource. <!-- mw-todo:P2-008 -->
+- [x] Define Artifact/digital representation descriptor. <!-- mw-todo:P2-005 -->
+- [x] Define arbitrary-depth Passage hierarchy. <!-- mw-todo:P2-006 -->
+- [x] Define citation scheme and canonical reference path. <!-- mw-todo:P2-007 -->
+- [x] Define Content as language/script-specific text attached to a passage/resource. <!-- mw-todo:P2-008 -->
 - [ ] Define `derived_from` for translation/transliteration/normalization. <!-- mw-todo:P2-009 -->
 - [ ] Define Alignment between passages/content segments. <!-- mw-todo:P2-010 -->
 - [ ] Define Variant/readings without assuming one global base text. <!-- mw-todo:P2-011 -->

@@ -11,11 +11,12 @@
     "build": "turbo run build",
     "dev": "turbo run dev",
     "typecheck": "tsc --noEmit",
+    "test": "tsx --test packages/core/src/*.test.ts packages/validator/src/*.test.ts",
     "validate": "tsx packages/validator/src/cli.ts",
     "todo:sync": "tsx scripts/sync-todo-issues.ts todo-to-issues",
     "todo:sync:issue": "tsx scripts/sync-todo-issues.ts issue-to-todo",
     "todo:check": "tsx scripts/sync-todo-issues.ts check",
-    "check": "pnpm typecheck && pnpm validate"
+    "check": "pnpm typecheck && pnpm test && pnpm validate"
   },
   "devDependencies": {
     "@types/node": "^20.19.0",

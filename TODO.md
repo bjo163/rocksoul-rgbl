@@ -83,9 +83,9 @@ For rationale, dependencies, acceptance criteria, and later phases, see [`docs/R
 
 ## P4 — ingestion framework
 
-- [ ] Define `recipe.schema.json`. <!-- mw-todo:P4-001 -->
-- [ ] Define source acquisition descriptor. <!-- mw-todo:P4-002 -->
-- [ ] Implement ingestion recipe registry. <!-- mw-todo:P4-003 -->
+- [x] Define `recipe.schema.json`. <!-- mw-todo:P4-001 -->
+- [x] Define source acquisition descriptor. <!-- mw-todo:P4-002 -->
+- [x] Implement ingestion recipe registry. <!-- mw-todo:P4-003 -->
 - [ ] Implement filesystem source connector. <!-- mw-todo:P4-004 -->
 - [ ] Implement explicit HTTP fetch connector for ingestion jobs only. <!-- mw-todo:P4-005 -->
 - [ ] Add immutable raw-artifact SHA-256 verification. <!-- mw-todo:P4-006 -->

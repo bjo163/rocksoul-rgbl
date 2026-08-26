@@ -199,6 +199,40 @@ P9–P11 are intentionally deferred while this data-first milestone is active. E
 
 **Exit gate:** the foundation corpus has source-pinned Arabic Quran, source-preserving original-language backbones, human-published English (`en`) and Indonesian (`id`) translation coverage for every major P12 work/collection, complete Dhammapada handling, WLC Hebrew, SBLGNT v1.2 Greek, WEB English, explicit permitted alignments, broader DN/MN/SN/AN coverage, deterministic checksums, and no unresolved rights for bundled content. Machine/LLM translations never satisfy the canonical `en`/`id` gate.
 
+## P13 — world religions and religious persons registry (parallel data track)
+
+P13 runs in parallel with P12. It builds an open-ended registry, not a final universal taxonomy. Source/role/reconciliation policy is documented in [`docs/WORLD_REGISTRY_TARGETS.md`](docs/WORLD_REGISTRY_TARGETS.md).
+
+- [x] Define the non-exhaustive religion/tradition taxonomy policy and contextual religious-role assertion policy. <!-- mw-todo:P13-001 -->
+- [ ] Add a machine-readable P13 source registry with exact source, revision, rights, retrieval, and checksum metadata. <!-- mw-todo:P13-002 -->
+- [ ] Pin reproducible Wikidata CC0 discovery snapshots/queries for religions, traditions, denominations, schools, movements, and communities. <!-- mw-todo:P13-003 -->
+- [ ] Ingest canonical tradition/religion/movement entities without treating a source taxonomy as universal truth. <!-- mw-todo:P13-004 -->
+- [ ] Add preferred `en` and `id` labels plus native/source-language labels and alternate names/transliterations for high-priority tradition entities. <!-- mw-todo:P13-005 -->
+- [ ] Preserve Wikidata QIDs and other authority identifiers as external IDs, never as MoonWitness canonical identity. <!-- mw-todo:P13-006 -->
+- [ ] Represent broader/narrower/related religion classifications as source-attributed assertions with provenance. <!-- mw-todo:P13-007 -->
+- [ ] Add sourced geography/region associations without making geography an intrinsic definition of a religion. <!-- mw-todo:P13-008 -->
+- [ ] Pin reproducible Wikidata CC0 discovery snapshots/queries for religious, scriptural, historical, and legendary persons/figures. <!-- mw-todo:P13-009 -->
+- [ ] Ingest person/figure entities separately from claims about their religious roles, historicity, or identity. <!-- mw-todo:P13-010 -->
+- [ ] Define extensible data vocabulary concepts for roles such as prophet, messenger, apostle, patriarch, founder, guru, rishi, tirthankara, buddha, bodhisattva, imam, saint, sage, reformer, and related roles without adding core enums. <!-- mw-todo:P13-011 -->
+- [ ] Implement scoped role assertions (`tradition`/`community`/`source`) so no person is globally hard-coded as prophet/founder/guru/etc. <!-- mw-todo:P13-012 -->
+- [ ] Add Quran-evidenced named prophet/messenger/scriptural-figure assertions linked to exact P12 Quran passages. <!-- mw-todo:P13-013 -->
+- [ ] Add Tanakh/Hebrew-Bible-evidenced prophet/patriarch/priest/king/scriptural-figure assertions linked to exact P12 passages. <!-- mw-todo:P13-014 -->
+- [ ] Add Greek-New-Testament-evidenced apostle/disciple/prophet/scriptural-figure assertions linked to exact P12 passages. <!-- mw-todo:P13-015 -->
+- [ ] Add Buddhist figure coverage (Buddhas, disciples, teachers, bodhisattvas where source-appropriate) with school/source scope explicit. <!-- mw-todo:P13-016 -->
+- [ ] Add Hindu-tradition figure coverage (rishis, gurus, acharyas, avatars/deities/figures where source-appropriate) without flattening diverse traditions into one taxonomy. <!-- mw-todo:P13-017 -->
+- [ ] Add Jain Tirthankara/teacher coverage with tradition/source provenance. <!-- mw-todo:P13-018 -->
+- [ ] Add Sikh Guru and related figure coverage with Sikh textual/historical source provenance. <!-- mw-todo:P13-019 -->
+- [ ] Add Baháʼí, Zoroastrian, Daoist/Confucian/Shinto, indigenous/traditional, ancient/historical, and modern/new-religious-movement figure discovery lanes with source-specific review. <!-- mw-todo:P13-020 -->
+- [ ] Add preferred `en` and `id` labels, aliases, honorifics, transliterations, and native-language names for high-priority persons/figures. <!-- mw-todo:P13-021 -->
+- [ ] Add deterministic duplicate/reconciliation reports for same-name, alias, transliteration, and cross-source candidates without automatic merges. <!-- mw-todo:P13-022 -->
+- [ ] Add explicit cross-tradition identity/equivalence assertions only when sourced; name similarity must never merge or equate figures. <!-- mw-todo:P13-023 -->
+- [ ] Represent historicity/legendary/chronology uncertainty as sourced assertions/assessments rather than hidden entity flags. <!-- mw-todo:P13-024 -->
+- [ ] Add machine-readable coverage matrices for religion families, movements, person roles, `en`/`id` labels, source provenance, and unresolved gaps. <!-- mw-todo:P13-025 -->
+- [ ] Add deterministic ingestion/count/checksum/right/provenance tests for P13 datasets and discovery snapshots. <!-- mw-todo:P13-026 -->
+- [ ] Produce the P13 v0.1 coverage report and pass the no-global-prophet/no-final-taxonomy/no-name-only-identity exit gates. <!-- mw-todo:P13-027 -->
+
+**Exit gate:** P13 provides reproducible open registries of traditions and religious/scriptural persons with `en` + `id` coverage reporting, external identifiers, source-attributed hierarchy/role assertions, exact textual evidence where available, deterministic reconciliation, and no claim that a finite taxonomy is literally “all religions” or that a religious role is universally true.
+
 ## P9 — MoonWitness integration
 
 This work belongs primarily in the `moonwitness` repository, not in canonical corpus core.

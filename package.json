@@ -12,6 +12,9 @@
     "dev": "turbo run dev",
     "typecheck": "tsc --noEmit",
     "validate": "tsx packages/validator/src/cli.ts",
+    "todo:sync": "tsx scripts/sync-todo-issues.ts todo-to-issues",
+    "todo:sync:issue": "tsx scripts/sync-todo-issues.ts issue-to-todo",
+    "todo:check": "tsx scripts/sync-todo-issues.ts check",
     "check": "pnpm typecheck && pnpm validate"
   },
   "devDependencies": {

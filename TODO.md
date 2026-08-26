@@ -39,8 +39,8 @@ For rationale, dependencies, acceptance criteria, and later phases, see [`docs/R
 - [x] Define record lifecycle fields only where genuinely universal. <!-- mw-todo:P1-007 -->
 - [x] Stabilize multilingual label model (`language`, `script`, preferred/alternate labels). <!-- mw-todo:P1-008 -->
 - [x] Stabilize scoped assertion model (`tradition`, `community`, `agent`, `period`, `place`). <!-- mw-todo:P1-009 -->
-- [ ] Define literal/object value envelope for assertions. <!-- mw-todo:P1-010 -->
-- [ ] Define assessment target/result/method semantics. <!-- mw-todo:P1-011 -->
+- [x] Define literal/object value envelope for assertions. <!-- mw-todo:P1-010 -->
+- [x] Define assessment target/result/method semantics. <!-- mw-todo:P1-011 -->
 - [x] Add invalid fixtures for every invariant. <!-- mw-todo:P1-012 -->
 - [x] Write compatibility policy for spec v0.x changes. <!-- mw-todo:P1-013 -->
 

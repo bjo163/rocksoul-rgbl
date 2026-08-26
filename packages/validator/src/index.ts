@@ -4,10 +4,12 @@ import Ajv2020 from 'ajv/dist/2020.js'
 import fg from 'fast-glob'
 
 import { extractCanonicalReferences } from './references.js'
+import { validateSemanticInvariants } from './semantic-invariants.js'
 
 export interface ValidationFinding {
   file: string
   line?: number
+  code?: string
   message: string
 }
 
@@ -122,12 +124,14 @@ export async function validateRepository(root = process.cwd()): Promise<Validati
       if (dependency.dataset === datasetId) {
         report.findings.push({
           file: relative(root, manifestFile),
+          code: 'dataset-self-dependency',
           message: `Dataset ${datasetId} must not depend on itself`
         })
       }
       if (dependencies.has(dependency.dataset)) {
         report.findings.push({
           file: relative(root, manifestFile),
+          code: 'duplicate-dataset-dependency',
           message: `Dataset dependency ${dependency.dataset} is declared more than once`
         })
       } else {
@@ -138,6 +142,7 @@ export async function validateRepository(root = process.cwd()): Promise<Validati
     if (datasets.has(datasetId)) {
       report.findings.push({
         file: relative(root, manifestFile),
+        code: 'duplicate-dataset-id',
         message: `Duplicate canonical dataset id ${datasetId}`
       })
     } else {
@@ -157,6 +162,7 @@ export async function validateRepository(root = process.cwd()): Promise<Validati
       if (matches.length === 0) {
         report.findings.push({
           file: relative(root, manifestFile),
+          code: 'empty-partition',
           message: `Partition '${partition.path}' matched no files`
         })
       }
@@ -165,6 +171,7 @@ export async function validateRepository(root = process.cwd()): Promise<Validati
         if (existing && existing !== partition.recordType) {
           report.findings.push({
             file: relative(root, manifestFile),
+            code: 'partition-type-conflict',
             message: `Partition file ${relative(root, file)} is declared as both '${existing}' and '${partition.recordType}'`
           })
         } else {
@@ -175,6 +182,7 @@ export async function validateRepository(root = process.cwd()): Promise<Validati
         if (existingOwner && existingOwner !== datasetId) {
           report.findings.push({
             file: relative(root, manifestFile),
+            code: 'partition-owner-conflict',
             message: `Partition file ${relative(root, file)} is owned by both ${existingOwner} and ${datasetId}`
           })
         } else {
@@ -190,11 +198,13 @@ export async function validateRepository(root = process.cwd()): Promise<Validati
       if (!target) {
         report.findings.push({
           file: relative(root, dataset.manifestFile),
+          code: 'unresolved-dataset-dependency',
           message: `Unresolved dataset dependency ${dependencyId}@${requiredVersion}`
         })
       } else if (target.version !== requiredVersion) {
         report.findings.push({
           file: relative(root, dataset.manifestFile),
+          code: 'dataset-dependency-version-mismatch',
           message: `Dataset dependency ${dependencyId} requires ${requiredVersion} but workspace provides ${target.version}`
         })
       }
@@ -220,7 +230,7 @@ export async function validateRepository(root = process.cwd()): Promise<Validati
       try {
         record = JSON.parse(line) as Record<string, unknown>
       } catch {
-        report.findings.push({ file: relative(root, file), line: index + 1, message: 'Invalid JSON' })
+        report.findings.push({ file: relative(root, file), line: index + 1, code: 'invalid-json', message: 'Invalid JSON' })
         continue
       }
 
@@ -229,6 +239,7 @@ export async function validateRepository(root = process.cwd()): Promise<Validati
         report.findings.push({
           file: relative(root, file),
           line: index + 1,
+          code: 'partition-record-type-mismatch',
           message: `Partition declares '${expectedRecordType}' but record_type is '${String(recordType)}'`
         })
       }
@@ -237,6 +248,7 @@ export async function validateRepository(root = process.cwd()): Promise<Validati
         report.findings.push({
           file: relative(root, file),
           line: index + 1,
+          code: 'unknown-record-type',
           message: `Unknown record_type: ${String(recordType)}`
         })
         continue
@@ -248,6 +260,7 @@ export async function validateRepository(root = process.cwd()): Promise<Validati
         report.findings.push({
           file: relative(root, file),
           line: index + 1,
+          code: 'schema-validation',
           message: ajv.errorsText(validate.errors, { separator: '; ' })
         })
       }
@@ -259,6 +272,7 @@ export async function validateRepository(root = process.cwd()): Promise<Validati
           report.findings.push({
             file: relative(root, file),
             line: index + 1,
+            code: 'duplicate-canonical-id',
             message: `Duplicate canonical id ${record.id}; first seen in ${previous.file}:${previous.line}`
           })
         } else {
@@ -272,6 +286,15 @@ export async function validateRepository(root = process.cwd()): Promise<Validati
       }
 
       if (schemaValid && sourceDataset) {
+        for (const finding of await validateSemanticInvariants(record)) {
+          report.findings.push({
+            file: relative(root, file),
+            line: index + 1,
+            code: finding.code,
+            message: finding.message
+          })
+        }
+
         for (const reference of extractCanonicalReferences(record)) {
           pendingReferences.push({
             sourceDatasetId: sourceDataset.id,
@@ -295,6 +318,7 @@ export async function validateRepository(root = process.cwd()): Promise<Validati
       report.findings.push({
         file: reference.file,
         line: reference.line,
+        code: 'dangling-canonical-reference',
         message: `Dangling canonical reference ${reference.field} -> ${reference.targetId}`
       })
       continue
@@ -304,6 +328,7 @@ export async function validateRepository(root = process.cwd()): Promise<Validati
       report.findings.push({
         file: reference.file,
         line: reference.line,
+        code: 'ambiguous-canonical-reference',
         message: `Ambiguous canonical reference ${reference.field} -> ${reference.targetId} because the target ID has multiple owners`
       })
       continue
@@ -317,6 +342,7 @@ export async function validateRepository(root = process.cwd()): Promise<Validati
       report.findings.push({
         file: reference.file,
         line: reference.line,
+        code: 'undeclared-cross-dataset-reference',
         message: `Cross-dataset reference ${reference.field} -> ${reference.targetId} is owned by ${target.datasetId}@${target.datasetVersion}, but ${reference.sourceDatasetId} does not declare that dataset as a direct dependency`
       })
       continue
@@ -326,6 +352,7 @@ export async function validateRepository(root = process.cwd()): Promise<Validati
       report.findings.push({
         file: reference.file,
         line: reference.line,
+        code: 'cross-dataset-reference-version-mismatch',
         message: `Cross-dataset reference ${reference.field} -> ${reference.targetId} requires ${target.datasetId}@${requiredVersion}, but target is provided by ${target.datasetId}@${target.datasetVersion}`
       })
     }

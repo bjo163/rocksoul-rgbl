@@ -4,6 +4,7 @@
   "type": "module",
   "exports": "./src/index.ts",
   "dependencies": {
+    "@moonwitness/corpus-core": "workspace:*",
     "ajv": "^8.17.1",
     "fast-glob": "^3.3.3"
   }

@@ -1,0 +1,16 @@
+{
+  "consumer": {
+    "id": "mw:dataset:example:consumer",
+    "datasetVersion": "1.0.0",
+    "dependencies": [
+      { "dataset": "mw:dataset:example:text-a", "version": "2.1.0" },
+      { "dataset": "mw:dataset:example:text-b", "version": "1.4.3" }
+    ]
+  },
+  "canonicalReference": "mw:person:example",
+  "invalidDependencyForms": [
+    { "dataset": "example:text-a", "version": "2.1.0" },
+    { "dataset": "mw:dataset:example:text-a", "version": "^2.1.0" },
+    { "dataset": "mw:dataset:example:text-a", "version": "2.x" }
+  ]
+}

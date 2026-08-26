@@ -3,6 +3,7 @@ import type { CanonicalId } from './identifiers.js'
 export * from './identifiers.js'
 export * from './deterministic-ids.js'
 export * from './identity-boundaries.js'
+export * from './dataset-dependencies.js'
 
 export interface Label {
   value: string

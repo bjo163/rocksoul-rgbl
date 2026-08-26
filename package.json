@@ -10,8 +10,8 @@
   "scripts": {
     "build": "turbo run build && tsx scripts/build-corpus.ts",
     "dev": "turbo run dev",
-    "typecheck": "tsc --noEmit",
-    "test": "tsx --test packages/*/src/*.test.ts scripts/*.test.ts",
+    "typecheck": "tsc --noEmit && pnpm --filter @moonwitness/corpus-web typecheck",
+    "test": "tsx --test packages/*/src/*.test.ts apps/*/src/*.test.ts scripts/*.test.ts",
     "validate": "tsx packages/validator/src/cli.ts",
     "todo:sync": "tsx scripts/sync-todo-issues.ts todo-to-issues",
     "todo:sync:issue": "tsx scripts/reconcile-issue-status.ts",

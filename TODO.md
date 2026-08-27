@@ -318,11 +318,11 @@ P16 expands sourced prayers and lived-practice material while separating text, p
 - [x] Audit and ingest Jain prayer/ritual, Sikh bani/ardas/kirtan, Baháʼí prayer, and Zoroastrian liturgical candidates under exact rights. <!-- mw-todo:P16-011 -->
 - [x] Audit Daoist, Confucian, Shinto, and East Asian ritual/devotional candidates with temple/school/community and language context. <!-- mw-todo:P16-012 -->
 - [x] Add indigenous/local/oral devotional discovery under consent-first policy; restricted performance text remains metadata-only unless explicitly permitted. <!-- mw-todo:P16-013 -->
-- [x] Model ritual/practice participants, roles, actions, sequence, objects, place, time, calendar, and community as sourced contextual assertions. <!-- mw-todo:P16-014 -->
+- [ ] Model ritual/practice participants, roles, actions, sequence, objects, place, time, calendar, and community as sourced contextual assertions. <!-- mw-todo:P16-014 -->
 - [x] Add festival, fast, feast, pilgrimage, lifecycle rite, and observance entities with calendar-system and regional/community variation. <!-- mw-todo:P16-015 -->
 - [x] Add sacred object, symbol, garment, food, instrument, architecture, and material-culture links without assigning one universal meaning. <!-- mw-todo:P16-016 -->
 - [x] Add prayer/mantra/hymn citation adapters for line, stanza, refrain, verse, section, bead/count, service order, and performance segment. <!-- mw-todo:P16-017 -->
-- [x] Add human English and Indonesian translations as separate expressions linked to exact source segments and translator/edition rights. <!-- mw-todo:P16-018 -->
+- [ ] Add human English and Indonesian translations as separate expressions linked to exact source segments and translator/edition rights. <!-- mw-todo:P16-018 -->
 - [x] Add textual and community variants without synthesizing a single normative prayer or ritual form. <!-- mw-todo:P16-019 -->
 - [x] Add audio/video/IIIF performance evidence with time/region/performer/community metadata and media rights. <!-- mw-todo:P16-020 -->
 - [x] Link P16 terms to P15 concepts and participants/communities to P13 entities through reviewed evidence. <!-- mw-todo:P16-021 -->

@@ -71,6 +71,22 @@
       "alignmentCoverage": { "status": "complete_for_exact_reference_join", "notes": "The coverage deliberately excludes any match requiring inferred versification or semantic equivalence." }
     },
     {
+      "datasetId": "mw:dataset:bible:tsi-2021",
+      "path": "datasets/bible-tsi-2021",
+      "workCollection": "Indonesian Bible TSI 2021",
+      "datasetRole": "translation",
+      "availability": "bundled",
+      "language": { "tag": "id", "script": "Latn", "coverageRole": "translation" },
+      "expression": { "label": "Alkitab Terjemahan Sederhana Indonesia, Edisi Ketiga", "edition": "TSI 2021 eBible VPL export" },
+      "completeness": { "status": "partial", "unit": "verse", "covered": 20649, "expected": 20650, "scope": "Pinned eBible VPL export for 48 supplied book codes; one WEB versification gap is explicit and canonical full-Bible completeness remains an open gap." },
+      "sourceArtifact": { "revision": "eBible ind_vpl.zip / TSI 2021", "path": "ingestion/recipes/tsi/source/ind_vpl.txt", "sha256": "dd750b6f7f91cc058ce7814280ccec4b09710f18203dce0a7a80797d6250a165", "byteSize": 3884668 },
+      "rights": { "status": "verified_for_bundled_licensed_redistribution", "license": "CC-BY-SA-4.0", "evidence": "datasets/bible-tsi-2021/README.md" },
+      "provenance": { "manifest": "datasets/bible-tsi-2021/manifest.json", "checksums": "datasets/bible-tsi-2021/CHECKSUMS.sha256", "recipe": "scripts/materialize-tsi.ts" },
+      "sourceLanguageCoverage": { "language": "he/grc", "status": "provided_by_WLC_and_SBLGNT_dependencies_where_available" },
+      "translationCoverage": { "en": "missing", "id": "complete_for_48_book_export" },
+      "alignmentCoverage": { "status": "complete_for_exact_WEB_and_inherited_WLC_SBLGNT_bridges", "notes": "TSI verses use exact WEB book/chapter/verse passage targets; existing pinned WEB↔WLC/SBLGNT bridges are projected without semantic identity." }
+    },
+    {
       "datasetId": "mw:dataset:web-classic:2020",
       "path": "datasets/web-classic-2020",
       "workCollection": "Bible (WEB Classic ecumenical book set)",

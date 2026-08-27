@@ -42,6 +42,11 @@
       "status": "active"
     },
     {
+      "id": "mw:dataset:bible:tsi-2021",
+      "path": "datasets/bible-tsi-2021",
+      "status": "active"
+    },
+    {
       "id": "mw:dataset:oshb:wlc",
       "path": "datasets/oshb-wlc",
       "status": "active"

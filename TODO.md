@@ -193,7 +193,7 @@ P9–P11 are intentionally deferred while this data-first milestone is active. E
 - [ ] Pin and ingest Quran English translation from QuranEnc / Rowwad Translation Center under exact source-preserving republication terms. <!-- mw-todo:P12-022 -->
 - [ ] Pin and ingest Quran Indonesian translation from QuranEnc / Kementerian Agama Republik Indonesia under exact source-preserving republication terms. <!-- mw-todo:P12-023 -->
 - [ ] Pin and ingest an open Indonesian Bible expression, starting with TSI Edisi Ketiga (CC BY-SA 4.0), with exact per-book completeness; use AGS only as an explicitly separate supplemental edition where useful. <!-- mw-todo:P12-024 -->
-- [ ] Add Indonesian Bible passage alignments to WLC/SBLGNT/WEB where editions overlap, preserving book/verse and versification gaps explicitly. <!-- mw-todo:P12-025 -->
+- [x] Add Indonesian Bible passage alignments to WLC/SBLGNT/WEB where editions overlap, preserving book/verse and versification gaps explicitly. <!-- mw-todo:P12-025 -->
 - [ ] Audit and ingest the Indonesian LP2KBI/Bimas Buddha Kemenag Dhammapada if its government/public-domain rights basis is independently verified; otherwise select another openly redistributable human Indonesian translation. <!-- mw-todo:P12-026 -->
 - [ ] Audit and ingest human-published Indonesian coverage for DN/MN/SN/AN; keep unavailable passages explicit and never fill canonical gaps with machine translation. <!-- mw-todo:P12-027 -->
 

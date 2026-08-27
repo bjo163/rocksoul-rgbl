@@ -3,9 +3,9 @@
   "generatedAt": "2026-08-27T00:00:00Z",
   "scope": "P12 Foundation Text Corpus",
   "totals": {
-    "activeDatasets": 12,
-    "records": 444846,
-    "coveredUnits": 123383
+    "activeDatasets": 13,
+    "records": 506715,
+    "coveredUnits": 144032
   },
   "gates": {
     "noUnresolvedBundledRights": {
@@ -25,6 +25,11 @@
           "datasetId": "mw:dataset:suttacentral:sn-an-sujato",
           "english": "complete",
           "indonesian": "missing"
+        },
+        {
+          "datasetId": "mw:dataset:bible:tsi-2021",
+          "english": "missing",
+          "indonesian": "complete_for_48_book_export"
         },
         {
           "datasetId": "mw:dataset:web-classic:2020",
@@ -176,6 +181,38 @@
         "path": "scripts/materialize-bible-alignments.ts",
         "sha256": "3863f96f023a6182ebc957524b2645b9cde669df94747043521e45db66775710",
         "byteSize": 4691
+      }
+    },
+    {
+      "datasetId": "mw:dataset:bible:tsi-2021",
+      "workCollection": "Indonesian Bible TSI 2021",
+      "datasetRole": "translation",
+      "completeness": {
+        "status": "partial",
+        "unit": "verse",
+        "covered": 20649,
+        "expected": 20650,
+        "scope": "Pinned eBible VPL export for 48 supplied book codes; one WEB versification gap is explicit and canonical full-Bible completeness remains an open gap."
+      },
+      "recordCount": 61869,
+      "sourceLanguage": "he/grc",
+      "sourceLanguageStatus": "provided_by_WLC_and_SBLGNT_dependencies_where_available",
+      "english": "missing",
+      "indonesian": "complete_for_48_book_export",
+      "rights": {
+        "status": "verified_for_bundled_licensed_redistribution",
+        "license": "CC-BY-SA-4.0",
+        "evidence": "datasets/bible-tsi-2021/README.md"
+      },
+      "alignment": {
+        "status": "complete_for_exact_WEB_and_inherited_WLC_SBLGNT_bridges",
+        "notes": "TSI verses use exact WEB book/chapter/verse passage targets; existing pinned WEB↔WLC/SBLGNT bridges are projected without semantic identity."
+      },
+      "sourceArtifact": {
+        "revision": "eBible ind_vpl.zip / TSI 2021",
+        "path": "ingestion/recipes/tsi/source/ind_vpl.txt",
+        "sha256": "dd750b6f7f91cc058ce7814280ccec4b09710f18203dce0a7a80797d6250a165",
+        "byteSize": 3884668
       }
     },
     {

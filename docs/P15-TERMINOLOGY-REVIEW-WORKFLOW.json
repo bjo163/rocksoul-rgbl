@@ -1,0 +1,69 @@
+{
+  "formatVersion": "1",
+  "scope": "P15 terminology review workflow. Review decisions are source- and community-scoped metadata; they never merge concepts or establish cross-tradition equivalence automatically.",
+  "concerns": [
+    "community_preferred_naming",
+    "deprecated_label",
+    "sensitive_language",
+    "disputed_translation"
+  ],
+  "states": [
+    "proposed",
+    "source_review",
+    "community_review",
+    "accepted_scoped",
+    "deprecated_scoped",
+    "sensitive_hold",
+    "disputed"
+  ],
+  "requiredDecisionFields": [
+    "termOrConcept",
+    "concern",
+    "state",
+    "scope",
+    "reviewer",
+    "provenance",
+    "evidence",
+    "rationale"
+  ],
+  "transitions": [
+    { "from": "proposed", "to": "source_review", "requires": ["provenance", "evidence"] },
+    { "from": "source_review", "to": "community_review", "requires": ["reviewer", "scope"] },
+    { "from": "source_review", "to": "accepted_scoped", "requires": ["reviewer", "scope", "rationale"] },
+    { "from": "community_review", "to": "accepted_scoped", "requires": ["reviewer", "scope", "rationale"] },
+    { "from": "community_review", "to": "deprecated_scoped", "requires": ["reviewer", "scope", "rationale"] },
+    { "from": "source_review", "to": "sensitive_hold", "requires": ["reviewer", "scope", "rationale"] },
+    { "from": "community_review", "to": "disputed", "requires": ["reviewer", "scope", "evidence", "rationale"] },
+    { "from": "accepted_scoped", "to": "disputed", "requires": ["reviewer", "scope", "evidence", "rationale"] }
+  ],
+  "concernPolicies": {
+    "community_preferred_naming": {
+      "requiresCommunityScope": true,
+      "globalPreferredNameAllowed": false,
+      "note": "A community-preferred form is preferred only within the reviewed scope."
+    },
+    "deprecated_label": {
+      "retainHistoricalForm": true,
+      "deleteOnDeprecation": false,
+      "note": "Deprecated forms remain traceable for historical/source lookup."
+    },
+    "sensitive_language": {
+      "requiresSensitivityReview": true,
+      "publicationMayBeMetadataOnly": true,
+      "note": "Sensitive terms may be held or exposed as metadata-only according to rights/community context."
+    },
+    "disputed_translation": {
+      "retainCompetingExpressions": true,
+      "automaticWinnerAllowed": false,
+      "note": "Competing human translations remain attributed and scoped; disagreement is preserved."
+    }
+  },
+  "guardrails": {
+    "noAutomaticConceptMerge": true,
+    "noNameOnlyIdentity": true,
+    "noTranslationOnlyEquivalence": true,
+    "noUnsourcedDefinition": true,
+    "reviewHistoryRetained": true,
+    "scopeRequiredForNormativeLabels": true
+  }
+}

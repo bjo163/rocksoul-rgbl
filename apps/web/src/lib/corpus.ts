@@ -239,7 +239,9 @@ export interface DynamicTraditionDataset {
 
 export interface DynamicTraditionHub {
   id: string
+  entityId?: string
   name: string
+  nativeName?: string
   icon: string
   subtitle: string
   color: string
@@ -262,11 +264,33 @@ export interface DynamicCorpusCatalog {
 
 let catalogPromise: Promise<DynamicCorpusCatalog> | undefined
 
+function getTraditionIcon(key: string): { icon: string; color: string } {
+  const k = key.toLowerCase()
+  if (k.includes('islam') || k.includes('quran') || k.includes('hadith')) return { icon: '🕌', color: '#10b981' }
+  if (k.includes('christianity') || k.includes('bible') || k.includes('sblgnt') || k.includes('tsi')) return { icon: '✝️', color: '#38bdf8' }
+  if (k.includes('judaism') || k.includes('oshb') || k.includes('wlc') || k.includes('mishnah')) return { icon: '✡️', color: '#fbbf24' }
+  if (k.includes('buddhism') || k.includes('dhammapada') || k.includes('sutta')) return { icon: '☸️', color: '#f97316' }
+  if (k.includes('hinduism') || k.includes('gita') || k.includes('sanskrit')) return { icon: '🕉️', color: '#a855f7' }
+  if (k.includes('daoism')) return { icon: '☯️', color: '#06b6d4' }
+  if (k.includes('confucianism')) return { icon: '📜', color: '#eab308' }
+  if (k.includes('sikhism')) return { icon: '☬', color: '#ec4899' }
+  if (k.includes('shinto')) return { icon: '⛩️', color: '#ef4444' }
+  if (k.includes('jainism')) return { icon: '🪷', color: '#14b8a6' }
+  if (k.includes('zoroastrianism')) return { icon: '🔥', color: '#f59e0b' }
+  return { icon: '🌐', color: '#0ea5e9' }
+}
+
 export async function getDynamicCorpusCatalog(): Promise<DynamicCorpusCatalog> {
   if (!catalogPromise) {
     catalogPromise = (async () => {
       const repository = await getRepository()
       const datasets = await repository.listDatasets()
+
+      // Dynamically discover all tradition entities from the corpus
+      const traditionEntities = new Map<string, CorpusRecord>()
+      for await (const r of repository.iterateRecords({ recordTypes: ['entity'], kinds: ['tradition'] })) {
+        traditionEntities.set(r.id, r)
+      }
 
       // Sample passages per dataset dynamically
       const samplePassagesByDataset = new Map<string, { id: string; label: string }>()
@@ -278,43 +302,86 @@ export async function getDynamicCorpusCatalog(): Promise<DynamicCorpusCatalog> {
         }
       }
 
-      // Tradition configuration definitions
-      const traditionDefs: Array<{ id: string; name: string; icon: string; color: string; keywords: string[]; defaultDesc: string }> = [
-        { id: 'islam', name: 'Tradisi Islam', icon: '🕌', color: '#10b981', keywords: ['islam', 'quran', 'hadith', 'tafsir'], defaultDesc: 'Kitab suci Al-Qur\'an, kumpulan hadits shahih, tafsir klasik, dan doa ma\'tsur.' },
-        { id: 'christianity', name: 'Tradisi Kekristenan', icon: '✝️', color: '#38bdf8', keywords: ['christianity', 'bible', 'sblgnt', 'tsi', 'early-writings', 'web-classic'], defaultDesc: 'Perjanjian Baru teks Yunani & terjemahan Indonesia, kredo kuno, dan doa Bapa Kami.' },
-        { id: 'judaism', name: 'Tradisi Yudaisme', icon: '✡️', color: '#fbbf24', keywords: ['judaism', 'oshb', 'wlc', 'mishnah', 'avot'], defaultDesc: 'Tanakh Ibrani teks Masoret, traktat etika Mishnah Pirkei Avot, dan doa Shema.' },
-        { id: 'buddhism', name: 'Tradisi Buddhisme', icon: '☸️', color: '#f97316', keywords: ['buddhism', 'dhammapada', 'sutta', 'sujato'], defaultDesc: 'Syair kebajikan Dhammapada teks Pali & terjemahan, serta pelimpahan kasih Metta.' },
-        { id: 'hinduism', name: 'Tradisi Hinduisme', icon: '🕉️', color: '#a855f7', keywords: ['hinduism', 'gita', 'bhagavad', 'sanskrit'], defaultDesc: 'Shloka suci Sanskerta Bhagavad Gita, Gayatri Mantra, dan konsep spiritual Hindu.' },
-        { id: 'interreligious', name: 'Lintas Tradisi & Graf Riset', icon: '🌐', color: '#0ea5e9', keywords: ['devotional', 'world-religions', 'research-graph', 'example', 'baseline'], defaultDesc: 'Registri entitas agama dunia, kompilasi doa multibahasa, dan graf relasi intertekstual.' }
-      ]
+      // Group datasets dynamically by resolved tradition
+      const traditionGroups = new Map<string, {
+        id: string
+        entityId?: string
+        name: string
+        nativeName?: string
+        icon: string
+        color: string
+        description: string
+        datasets: DynamicTraditionDataset[]
+      }>()
 
-      const traditions: DynamicTraditionHub[] = traditionDefs.map((def) => {
-        const matchingDatasets = datasets.filter((d) => {
-          const id = d.manifest.id.toLowerCase()
-          return def.keywords.some((k) => id.includes(k))
+      for (const dataset of datasets) {
+        const meta = getDatasetFriendlyMeta(dataset.manifest.id)
+        const idLower = dataset.manifest.id.toLowerCase()
+
+        // Resolve tradition key dynamically
+        let traditionKey = 'interreligious'
+        let traditionEntityId = ''
+
+        if (idLower.includes('islam') || idLower.includes('quran') || idLower.includes('hadith') || idLower.includes('tafsir')) {
+          traditionKey = 'islam'
+          traditionEntityId = 'mw:tradition:islam'
+        } else if (idLower.includes('christianity') || idLower.includes('bible') || idLower.includes('sblgnt') || idLower.includes('tsi') || idLower.includes('early-writings') || idLower.includes('web-classic')) {
+          traditionKey = 'christianity'
+          traditionEntityId = 'mw:tradition:christianity'
+        } else if (idLower.includes('judaism') || idLower.includes('oshb') || idLower.includes('wlc') || idLower.includes('mishnah') || idLower.includes('avot')) {
+          traditionKey = 'judaism'
+          traditionEntityId = 'mw:tradition:judaism'
+        } else if (idLower.includes('buddhism') || idLower.includes('dhammapada') || idLower.includes('sutta') || idLower.includes('sujato')) {
+          traditionKey = 'buddhism'
+          traditionEntityId = 'mw:tradition:buddhism'
+        } else if (idLower.includes('hinduism') || idLower.includes('gita') || idLower.includes('bhagavad') || idLower.includes('sanskrit')) {
+          traditionKey = 'hinduism'
+          traditionEntityId = 'mw:tradition:hinduism'
+        }
+
+        const entityRecord = traditionEntityId ? traditionEntities.get(traditionEntityId) : undefined
+        const { icon, color } = getTraditionIcon(traditionKey)
+
+        let traditionName = meta.tradition
+        let nativeName: string | undefined
+
+        if (entityRecord && 'labels' in entityRecord && entityRecord.labels) {
+          const idLabel = entityRecord.labels.find((l) => l.language === 'id' && l.role === 'preferred')?.value
+          const enLabel = entityRecord.labels.find((l) => l.language === 'en' && l.role === 'preferred')?.value
+          traditionName = idLabel ? `Tradisi ${idLabel}` : enLabel ? `Tradisi ${enLabel}` : meta.tradition
+
+          const native = entityRecord.labels.find((l) => ['ar', 'sa', 'he', 'pi', 'zh', 'el'].includes(l.language) && l.role === 'preferred')?.value
+          nativeName = native
+        }
+
+        const group = traditionGroups.get(traditionKey) ?? {
+          id: traditionKey,
+          entityId: traditionEntityId,
+          name: traditionName,
+          nativeName,
+          icon,
+          color,
+          description: `Koleksi teks suci, literatur kanonikal, terjemahan, dan rekaman evidensi ${traditionName}.`,
+          datasets: []
+        }
+
+        group.datasets.push({
+          id: dataset.manifest.id,
+          title: meta.title,
+          subtitle: meta.subtitle,
+          badge: meta.badge,
+          datasetVersion: dataset.manifest.datasetVersion,
+          status: dataset.entry.status,
+          featuredPassage: samplePassagesByDataset.get(dataset.manifest.id)
         })
 
-        return {
-          id: def.id,
-          name: def.name,
-          icon: def.icon,
-          subtitle: `${matchingDatasets.length} Paket Kitab & Koleksi`,
-          color: def.color,
-          description: def.defaultDesc,
-          datasets: matchingDatasets.map((d) => {
-            const meta = getDatasetFriendlyMeta(d.manifest.id)
-            return {
-              id: d.manifest.id,
-              title: meta.title,
-              subtitle: meta.subtitle,
-              badge: meta.badge,
-              datasetVersion: d.manifest.datasetVersion,
-              status: d.entry.status,
-              featuredPassage: samplePassagesByDataset.get(d.manifest.id)
-            }
-          })
-        }
-      }).filter((t) => t.datasets.length > 0)
+        traditionGroups.set(traditionKey, group)
+      }
+
+      const traditions: DynamicTraditionHub[] = Array.from(traditionGroups.values()).map((g) => ({
+        ...g,
+        subtitle: `${g.datasets.length} Paket Kitab & Koleksi`
+      }))
 
       // Dynamic sample pills derived automatically from actual dataset passages
       const samplePills: Array<{ label: string; query: string }> = []

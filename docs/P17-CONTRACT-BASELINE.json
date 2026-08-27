@@ -1,0 +1,9 @@
+{
+  "formatVersion": "1",
+  "scope": "P17 explainable evidence graph contract baseline; no opaque similarity edges are canonical.",
+  "edgeTypes": ["mention", "quotation", "citation", "allusion_candidate", "commentary_target", "parallel_passage", "motif", "event", "place", "role", "transmission", "term_usage", "ritual_usage", "comparison"],
+  "requiredFields": ["sourceDataset", "sourceVersion", "subject", "predicate", "object", "method", "status", "reviewState", "provenance"],
+  "statuses": ["asserted", "candidate", "uncertain", "disputed", "unmatched", "negative", "superseded", "retracted"],
+  "reviewStates": ["unreviewed", "reviewed", "rejected", "community_review"],
+  "guardrails": { "similarityIsCandidateOnly": true, "identityRequiresSource": true, "equivalenceRequiresSource": true, "everyEdgeTraceable": true, "negativeFindingsRetained": true }
+}

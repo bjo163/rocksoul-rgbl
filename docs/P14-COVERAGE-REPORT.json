@@ -1,0 +1,16 @@
+{
+  "formatVersion": "1",
+  "scope": "Non-exhaustive diversity snapshot of bundled and metadata-only source lanes.",
+  "dimensions": ["tradition", "genre", "sourceLanguage", "en", "id", "textScale", "rightsState", "gaps"],
+  "bundledLanes": [
+    { "collection": "Quran", "tradition": "Islam", "genre": "scripture", "sourceLanguage": "ar", "en": "complete", "id": "complete", "textScale": "complete", "rightsState": "licensed-source-preserving" },
+    { "collection": "Hebrew Bible WLC", "tradition": "Judaism/Christian source use", "genre": "scripture", "sourceLanguage": "he", "en": "complete-translation-linked", "id": "missing", "textScale": "complete-edition", "rightsState": "public-domain-text-plus-licensed-morphology" },
+    { "collection": "SBLGNT", "tradition": "Christianity", "genre": "scripture", "sourceLanguage": "grc", "en": "complete-translation-linked", "id": "missing", "textScale": "complete-edition", "rightsState": "CC-BY-4.0" },
+    { "collection": "Dhammapada", "tradition": "Buddhism", "genre": "scripture", "sourceLanguage": "pli-metadata-only", "en": "complete", "id": "partial-422/423", "textScale": "complete-plus-partial-translation", "rightsState": "CC0-plus-CC-BY-SA" },
+    { "collection": "DN/MN/SN/AN", "tradition": "Buddhism", "genre": "scripture", "sourceLanguage": "pli-metadata-only", "en": "complete", "id": "missing", "textScale": "complete-translation-set", "rightsState": "CC0-translation-root-rights-pending" },
+    { "collection": "Indonesian Bible TSI", "tradition": "Christianity", "genre": "scripture", "sourceLanguage": "he/grc-linked", "en": "WEB-linked", "id": "partial-20649/20650", "textScale": "near-complete-edition", "rightsState": "CC-BY-SA-4.0" }
+  ],
+  "metadataOnlyLanes": ["Indonesian DN/MN/SN/AN Wikisource discovery", "Arabic hadith/report", "Quran commentary/tafsir", "Mishnah/Talmud/midrash", "Hindu/Jain/Sikh/Baháʼí/Zoroastrian/East Asian primary texts", "living-tradition material"],
+  "gates": { "noExhaustivenessClaim": "pass", "noUnconsentedRestrictedContent": "pass", "noTranslationAsSource": "pass", "rightsReviewForBundledLanes": "pass" },
+  "unresolved": ["human Indonesian DN/MN/SN/AN", "rights-cleared hadith/report first lane", "non-Abrahamic/non-Buddhist primary-text lane", "devotional/commentary genre coverage", "consent-reviewed living-tradition metadata"]
+}

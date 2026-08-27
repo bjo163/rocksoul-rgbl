@@ -1,0 +1,9 @@
+{
+  "formatVersion": "1",
+  "scope": "P16 devotional/practice contract baseline; no devotional text is bundled by this contract.",
+  "layers": ["normative_source_text", "descriptive_practice", "commentary", "performance_media", "community_assertion"],
+  "genres": ["prayer", "blessing", "hymn", "chant", "mantra", "creed", "liturgy", "ritual_instruction", "observance", "practice_description"],
+  "accessStates": ["public", "community_contextual", "initiatory", "restricted", "ceremonial", "hazardous", "metadata_only"],
+  "requiredMetadata": ["work", "edition", "citation", "language", "completeness", "communityScope", "rights", "provenance", "sensitivity"],
+  "guardrails": { "noUnscopedNormativity": true, "noRestrictedTextWithoutPermission": true, "performanceIsNotText": true, "descriptiveRecordsAreNotInstructions": true }
+}

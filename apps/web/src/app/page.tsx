@@ -1,24 +1,13 @@
 import Link from 'next/link'
-import type { CorpusRecord } from '@moonwitness/corpus-core'
-import { getRepository } from '../lib/corpus.js'
+import { getCorpusSummary, getRepository } from '../lib/corpus.js'
 import { datasetHref } from '../lib/presentation.js'
 
 export default async function HomePage() {
   const repository = await getRepository()
-  const datasets = await repository.listDatasets()
-  const counts: Record<CorpusRecord['record_type'], number> = {
-    entity: 0,
-    resource: 0,
-    assertion: 0,
-    evidence: 0,
-    provenance: 0,
-    assessment: 0
-  }
-  let total = 0
-  for await (const record of repository.iterateRecords()) {
-    counts[record.record_type] += 1
-    total += 1
-  }
+  const [datasets, summary] = await Promise.all([
+    repository.listDatasets(),
+    getCorpusSummary()
+  ])
 
   const active = datasets.filter((dataset) => dataset.entry.status === 'active')
 
@@ -43,9 +32,9 @@ export default async function HomePage() {
 
       <section className="stats" aria-label="Corpus summary">
         <div className="stat"><strong>{datasets.length.toLocaleString()}</strong><span>dataset packs</span></div>
-        <div className="stat"><strong>{total.toLocaleString()}</strong><span>canonical records</span></div>
-        <div className="stat"><strong>{counts.resource.toLocaleString()}</strong><span>resources</span></div>
-        <div className="stat"><strong>{counts.assertion.toLocaleString()}</strong><span>assertions</span></div>
+        <div className="stat"><strong>{summary.total.toLocaleString()}</strong><span>canonical records</span></div>
+        <div className="stat"><strong>{summary.resources.toLocaleString()}</strong><span>resources</span></div>
+        <div className="stat"><strong>{summary.assertions.toLocaleString()}</strong><span>assertions</span></div>
       </section>
 
       <section className="section">

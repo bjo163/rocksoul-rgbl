@@ -55,6 +55,61 @@ export async function datasetMap(repository: CorpusRepository): Promise<Map<Cano
   return new Map((await repository.listDatasets()).map((dataset) => [dataset.manifest.id, dataset]))
 }
 
+export interface CorpusSummary {
+  total: number
+  resources: number
+  assertions: number
+  entities: number
+}
+
+let summaryPromise: Promise<CorpusSummary> | undefined
+
+export async function getCorpusSummary(): Promise<CorpusSummary> {
+  if (!summaryPromise) {
+    summaryPromise = (async () => {
+      const root = await getCorpusRoot()
+      const fs = await import('node:fs/promises')
+      const path = await import('node:path')
+      const registryText = await fs.readFile(path.join(root, 'datasets/registry.json'), 'utf8')
+      const registry = JSON.parse(registryText) as { datasets: Array<{ path: string }> }
+
+      let total = 0
+      let resources = 0
+      let assertions = 0
+      let entities = 0
+
+      for (const entry of registry.datasets) {
+        const coreDir = path.join(root, entry.path, 'data/core')
+        try {
+          const subdirs = await fs.readdir(coreDir, { withFileTypes: true })
+          for (const sub of subdirs) {
+            if (!sub.isDirectory()) continue
+            const partitionDir = path.join(coreDir, sub.name)
+            const files = await fs.readdir(partitionDir)
+            for (const file of files) {
+              if (!file.endsWith('.jsonl')) continue
+              const buf = await fs.readFile(path.join(partitionDir, file))
+              let lines = 0
+              for (let i = 0; i < buf.length; i++) {
+                if (buf[i] === 10) lines++
+              }
+              if (buf.length > 0 && buf[buf.length - 1] !== 10) lines++
+              total += lines
+              if (sub.name === 'resources') resources += lines
+              else if (sub.name === 'assertions') assertions += lines
+              else if (sub.name === 'entities') entities += lines
+            }
+          }
+        } catch {
+          // ignore missing directories
+        }
+      }
+      return { total, resources, assertions, entities }
+    })()
+  }
+  return summaryPromise
+}
+
 export interface RecordContext {
   record: CorpusRecord
   dataset: DatasetDescriptor | null

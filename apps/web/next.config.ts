@@ -16,6 +16,7 @@ const nextConfig: NextConfig = {
   outputFileTracingIncludes: {
     '/*': ['../../datasets/**/*']
   },
+  turbopack: {},
   webpack(config) {
     config.resolve.extensionAlias = {
       ...(config.resolve.extensionAlias ?? {}),

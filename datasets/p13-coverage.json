@@ -22,5 +22,5 @@
     "reconciliationAutomaticMerge": "disabled",
     "historicityAssessments": "pending-sourced-lane"
   },
-  "unresolved": ["P13-020 indigenous/modern discovery lanes", "P13-021 aliases and native names", "P13-023 sourced cross-tradition equivalence", "P13-024 historicity assessments"]
+  "unresolved": ["P13-020 indigenous/modern discovery lanes", "P13-023 sourced cross-tradition equivalence", "P13-024 historicity assessments"]
 }

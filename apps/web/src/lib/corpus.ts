@@ -150,16 +150,28 @@ async function getContentIndex(): Promise<Map<CanonicalId, Resource[]>> {
       const repository = await getRepository()
       const index = new Map<CanonicalId, Resource[]>()
       const recordsMap = (repository as unknown as { records?: Map<CanonicalId, CorpusRecord> }).records
-      const source = recordsMap ? recordsMap.values() : repository.iterateRecords({ recordTypes: ['resource'], kinds: ['textual.content'] })
 
-      for await (const record of source) {
-        if (record.record_type !== 'resource' || record.kind !== 'textual.content') continue
-        const payload = textualPayload(record)
-        const target = payload?.target as CanonicalId | undefined
-        if (target) {
-          const list = index.get(target) ?? []
-          list.push(record)
-          index.set(target, list)
+      if (recordsMap) {
+        for (const record of recordsMap.values()) {
+          if (record.record_type !== 'resource' || record.kind !== 'textual.content') continue
+          const payload = textualPayload(record)
+          const target = payload?.target as CanonicalId | undefined
+          if (target) {
+            const list = index.get(target) ?? []
+            list.push(record)
+            index.set(target, list)
+          }
+        }
+      } else {
+        for await (const record of repository.iterateRecords({ recordTypes: ['resource'], kinds: ['textual.content'] })) {
+          if (record.record_type !== 'resource' || record.kind !== 'textual.content') continue
+          const payload = textualPayload(record)
+          const target = payload?.target as CanonicalId | undefined
+          if (target) {
+            const list = index.get(target) ?? []
+            list.push(record)
+            index.set(target, list)
+          }
         }
       }
       return index
@@ -181,13 +193,22 @@ async function getAssessmentIndex(): Promise<Map<CanonicalId, Assessment[]>> {
       const repository = await getRepository()
       const index = new Map<CanonicalId, Assessment[]>()
       const recordsMap = (repository as unknown as { records?: Map<CanonicalId, CorpusRecord> }).records
-      const source = recordsMap ? recordsMap.values() : repository.iterateRecords({ recordTypes: ['assessment'] })
 
-      for await (const record of source) {
-        if (record.record_type === 'assessment' && record.target) {
-          const list = index.get(record.target) ?? []
-          list.push(record)
-          index.set(record.target, list)
+      if (recordsMap) {
+        for (const record of recordsMap.values()) {
+          if (record.record_type === 'assessment' && record.target) {
+            const list = index.get(record.target) ?? []
+            list.push(record)
+            index.set(record.target, list)
+          }
+        }
+      } else {
+        for await (const record of repository.iterateRecords({ recordTypes: ['assessment'] })) {
+          if (record.record_type === 'assessment' && record.target) {
+            const list = index.get(record.target) ?? []
+            list.push(record)
+            index.set(record.target, list)
+          }
         }
       }
       return index
@@ -204,11 +225,18 @@ async function getPassageIndex(): Promise<Map<CanonicalId, CorpusRecord>> {
       const repository = await getRepository()
       const index = new Map<CanonicalId, CorpusRecord>()
       const recordsMap = (repository as unknown as { records?: Map<CanonicalId, CorpusRecord> }).records
-      const source = recordsMap ? recordsMap.values() : repository.iterateRecords({ recordTypes: ['resource'], kinds: ['textual.passage'] })
 
-      for await (const record of source) {
-        if (record.record_type === 'resource' && record.kind === 'textual.passage') {
-          index.set(record.id, record)
+      if (recordsMap) {
+        for (const record of recordsMap.values()) {
+          if (record.record_type === 'resource' && record.kind === 'textual.passage') {
+            index.set(record.id, record)
+          }
+        }
+      } else {
+        for await (const record of repository.iterateRecords({ recordTypes: ['resource'], kinds: ['textual.passage'] })) {
+          if (record.record_type === 'resource' && record.kind === 'textual.passage') {
+            index.set(record.id, record)
+          }
         }
       }
       return index

@@ -10,7 +10,7 @@ import type {
 } from '@moonwitness/corpus-core'
 import { FileSystemCorpusRepository } from '@moonwitness/corpus-node'
 import type { CorpusRepository, DatasetDescriptor } from '@moonwitness/corpus-repository'
-import { getDatasetFriendlyMeta, textualPayload } from './presentation.js'
+import { displayName, getDatasetFriendlyMeta, textualPayload } from './presentation.js'
 
 declare global {
   // eslint-disable-next-line no-var
@@ -243,29 +243,8 @@ export async function listAvailableScriptureWorks(): Promise<DynamicScriptureWor
       const catalog = await getDynamicCorpusCatalog()
 
       const works: DynamicScriptureWork[] = []
-      const knownWorkRecords: CorpusRecord[] = []
-      for await (const record of repository.iterateRecords({ recordTypes: ['resource'], kinds: ['textual.work'] })) {
-        knownWorkRecords.push(record)
-      }
-
-      // Pre-map passages to find containers and work prefixes dynamically
-      const passagesByWorkPrefix = new Map<string, { containers: Set<string>; samplePassage?: CorpusRecord }>()
-      for await (const p of repository.iterateRecords({ recordTypes: ['resource'], kinds: ['textual.passage'] })) {
-        const parts = p.id.replace(/^mw:passage:/, '').split(':')
-        const topKey = parts[0]
-
-        const entry = passagesByWorkPrefix.get(topKey) ?? { containers: new Set<string>() }
-        if (parts.length > 2) {
-          entry.containers.add(parts[1])
-        }
-        if (!entry.samplePassage) {
-          entry.samplePassage = p
-        }
-        passagesByWorkPrefix.set(topKey, entry)
-      }
-
-      for (const w of knownWorkRecords) {
-        if (w.id.includes('example-')) continue // skip synthetic test fixtures
+      for await (const w of repository.iterateRecords({ recordTypes: ['resource'], kinds: ['textual.work'] })) {
+        if (w.id.includes('example-')) continue // skip test fixtures
 
         const idLabel = ('labels' in w && Array.isArray(w.labels))
           ? w.labels.find((l) => l.language === 'id' && l.role === 'preferred')?.value
@@ -280,9 +259,8 @@ export async function listAvailableScriptureWorks(): Promise<DynamicScriptureWor
         const title = idLabel ?? enLabel ?? displayName(w)
         const cleanWorkSuffix = w.id.replace(/^mw:work:/, '')
         const slug = cleanWorkSuffix.replace(/:/g, '-')
-        const topKey = cleanWorkSuffix.split(':').pop() ?? slug
 
-        // Resolve tradition from catalog
+        // Match tradition dynamically from catalog
         const matchedTradition = catalog.traditions.find((t) => {
           const tKey = t.id.toLowerCase()
           return w.id.toLowerCase().includes(tKey) || (t.name && title.toLowerCase().includes(t.name.toLowerCase()))
@@ -297,18 +275,15 @@ export async function listAvailableScriptureWorks(): Promise<DynamicScriptureWor
 
         const traditionName = matchedTradition?.name ?? 'Lintas Tradisi'
         const icon = matchedTradition?.icon ?? '📖'
-        const passInfo = passagesByWorkPrefix.get(topKey) ?? passagesByWorkPrefix.get(cleanWorkSuffix.split(':')[0])
-        const containerCount = passInfo?.containers.size ?? 1
 
         let sectionLabel = 'Bagian'
-        if (topKey.includes('quran') || w.id.includes('quran')) sectionLabel = 'Surah'
-        else if (topKey.includes('dhammapada') || w.id.includes('dhammapada')) sectionLabel = 'Bab'
-        else if (topKey.includes('gita') || w.id.includes('gita')) sectionLabel = 'Adhyaya'
-        else if (topKey.includes('hadith') || w.id.includes('hadith')) sectionLabel = 'Hadits'
-        else if (topKey.includes('avot') || w.id.includes('mishnah')) sectionLabel = 'Perek'
-        else if (topKey.includes('testament') || topKey.includes('bible')) sectionLabel = 'Pasal'
-
-        const firstSection = passInfo?.containers.size ? Array.from(passInfo.containers)[0] : '1'
+        let totalSections = 1
+        if (w.id.includes('quran')) { sectionLabel = 'Surah'; totalSections = 114 }
+        else if (w.id.includes('dhammapada')) { sectionLabel = 'Bab'; totalSections = 26 }
+        else if (w.id.includes('gita')) { sectionLabel = 'Adhyaya'; totalSections = 18 }
+        else if (w.id.includes('hadith')) { sectionLabel = 'Hadits'; totalSections = 42 }
+        else if (w.id.includes('avot') || w.id.includes('mishnah')) { sectionLabel = 'Perek'; totalSections = 6 }
+        else if (w.id.includes('testament') || w.id.includes('bible')) { sectionLabel = 'Pasal'; totalSections = 28 }
 
         works.push({
           id: w.id,
@@ -321,11 +296,11 @@ export async function listAvailableScriptureWorks(): Promise<DynamicScriptureWor
           description: ('description' in w && typeof w.description === 'string')
             ? w.description
             : `Teks kanonikal ${title} ber-penjajaran paralel teks asli dan terjemahan resmi.`,
-          badge: `${sectionLabel} 1 - ${containerCount || 1}`,
+          badge: `${sectionLabel} 1 - ${totalSections}`,
           sectionLabel,
-          totalSections: containerCount || 1,
-          sampleSectionId: firstSection,
-          href: `/read/${encodeURIComponent(slug)}?section=${firstSection}`
+          totalSections,
+          sampleSectionId: '1',
+          href: `/read/${encodeURIComponent(slug)}?section=1`
         })
       }
 
@@ -355,36 +330,17 @@ export async function getParallelReaderData(scriptureKey: string, sectionParam?:
   if (matchedWork.id === 'mw:work:devotional:baseline') prefix = 'mw:passage:devotional:'
   if (matchedWork.id === 'mw:work:mishnah:pirkei-avot') prefix = 'mw:passage:judaism:mishnah:pirkei-avot:'
 
-  // Discover all distinct containers/sections for this prefix
-  const containers = new Set<string>()
-  for await (const p of repository.iterateRecords({ recordTypes: ['resource'], kinds: ['textual.passage'] })) {
-    if (p.id.startsWith(prefix)) {
-      const rest = p.id.replace(prefix, '')
-      const parts = rest.split(':')
-      if (parts.length > 1) {
-        containers.add(parts[0])
-      }
-    }
+  const totalSections = matchedWork.totalSections
+  const currentSection = sectionParam && Number(sectionParam) >= 1 && Number(sectionParam) <= totalSections
+    ? sectionParam
+    : '1'
+
+  const sectionsList: Array<{ id: string; label: string }> = []
+  for (let i = 1; i <= totalSections; i++) {
+    sectionsList.push({ id: String(i), label: `${matchedWork.sectionLabel} ${i}` })
   }
 
-  const sortedContainers = Array.from(containers).sort((a, b) => {
-    const numA = Number(a)
-    const numB = Number(b)
-    if (!Number.isNaN(numA) && !Number.isNaN(numB)) return numA - numB
-    return a.localeCompare(b, undefined, { numeric: true })
-  })
-
-  const totalSections = Math.max(sortedContainers.length, 1)
-  const currentSection = sectionParam && sortedContainers.includes(sectionParam)
-    ? sectionParam
-    : (sortedContainers[0] ?? '1')
-
-  const sectionsList = sortedContainers.map((c) => ({
-    id: c,
-    label: `${matchedWork.sectionLabel} ${c}`
-  }))
-
-  const effectivePrefix = sortedContainers.length > 0
+  const effectivePrefix = totalSections > 1
     ? `${prefix}${currentSection}:`
     : prefix
 

@@ -86,11 +86,11 @@ async function main(): Promise<void> {
       checksums: `${DATASET_PATH}/CHECKSUMS.sha256`,
       recipe: RECIPE_PATH,
     },
-    sourceLanguageCoverage: { language: 'pli', status: 'missing_pending_rights_audit' },
+    sourceLanguageCoverage: { language: 'pli', status: 'metadata_only_pending_root_rights' },
     translationCoverage: { en: 'complete', id: 'missing' },
     alignmentCoverage: {
-      status: 'blocked_pending_source_language_rights_audit',
-      notes: 'Pali↔English alignment must wait for the independent Pali root source/rights decision.',
+      status: 'blocked_pending_source_language_rights',
+      notes: 'Pali↔English alignment remains blocked by the edition-specific redistribution decision recorded in docs/P12-004-PALI-RIGHTS-AUDIT.md.',
     },
   })
   coverage.datasets.sort((a, b) => String(a.datasetId).localeCompare(String(b.datasetId)))

@@ -14,6 +14,8 @@ export * from './labels.js'
 export * from './assertion-scope.js'
 export * from './assertion-values.js'
 export * from './textual-profile.js'
+export * from './citation-adapters.js'
+export * from './review-candidates.js'
 export * from './source-profile.js'
 export * from './provenance.js'
 

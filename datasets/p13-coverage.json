@@ -9,20 +9,22 @@
     "hinduism": { "traditionEntity": "mw:tradition:hinduism", "personCount": 1, "textualEvidenceAssertions": 0 },
     "jainism": { "traditionEntity": "mw:tradition:jainism", "personCount": 1, "textualEvidenceAssertions": 0 },
     "sikhism": { "traditionEntity": "mw:tradition:sikhism", "personCount": 1, "textualEvidenceAssertions": 0 },
-    "bahai-faith": { "traditionEntity": "mw:tradition:bahai-faith", "personCount": 1, "textualEvidenceAssertions": 0 },
-    "zoroastrianism": { "traditionEntity": "mw:tradition:zoroastrianism", "personCount": 1, "textualEvidenceAssertions": 0 },
-    "daoism": { "traditionEntity": "mw:tradition:daoism", "personCount": 1, "textualEvidenceAssertions": 0 },
-    "confucianism": { "traditionEntity": "mw:tradition:confucianism", "personCount": 1, "textualEvidenceAssertions": 0 },
-    "shinto": { "traditionEntity": "mw:tradition:shinto", "personCount": 0, "textualEvidenceAssertions": 0 },
-    "modern-and-new-movements": { "traditionEntity": null, "personCount": 3, "textualEvidenceAssertions": 0 },
-    "indigenous-and-traditional": { "traditionEntity": null, "personCount": 1, "textualEvidenceAssertions": 0 }
+    "bahai-faith": { "traditionEntity": "mw:tradition:bahai-faith", "personCount": 1, "textualEvidenceAssertions": 0, "discoveryCandidates": 1 },
+    "zoroastrianism": { "traditionEntity": "mw:tradition:zoroastrianism", "personCount": 1, "textualEvidenceAssertions": 0, "discoveryCandidates": 1 },
+    "daoism": { "traditionEntity": "mw:tradition:daoism", "personCount": 1, "textualEvidenceAssertions": 0, "discoveryCandidates": 1 },
+    "confucianism": { "traditionEntity": "mw:tradition:confucianism", "personCount": 1, "textualEvidenceAssertions": 0, "discoveryCandidates": 1 },
+    "shinto": { "traditionEntity": "mw:tradition:shinto", "personCount": 0, "textualEvidenceAssertions": 0, "discoveryCandidates": 1 },
+    "modern-and-new-movements": { "traditionEntity": null, "personCount": 3, "textualEvidenceAssertions": 0, "discoveryCandidates": 4 },
+    "indigenous-and-traditional": { "traditionEntity": null, "personCount": 1, "textualEvidenceAssertions": 0, "discoveryCandidates": 1 }
   },
   "gates": {
     "noGlobalRoleAssertions": "pass",
     "noFinalTaxonomy": "pass",
     "noNameOnlyIdentity": "pass",
     "reconciliationAutomaticMerge": "disabled",
+    "discoveryLaneExpansion": "pass_source_scoped_candidate_registry",
     "historicityAssessments": "partial-unresolved-assessments"
   },
-  "unresolved": ["P13-020 indigenous/modern discovery lanes", "P13-023 sourced cross-tradition equivalence", "P13-024 expanded historicity evidence and scholarly assessment lanes"]
+  "discoveryRegistry": "docs/P13-DISCOVERY-LANES.json",
+  "unresolved": ["P13-023 sourced cross-tradition equivalence", "P13-024 expanded historicity evidence and scholarly assessment lanes"]
 }

@@ -1,0 +1,83 @@
+{
+  "formatVersion": "1",
+  "scope": "P13 bounded figure-discovery lanes. Discovery candidates are source-scoped review inputs, not automatic identity, role, historicity, or tradition-membership conclusions.",
+  "sources": {
+    "wikidata": {
+      "license": "CC0-1.0",
+      "bundledSnapshotRoot": "datasets/registries/snapshots/wikidata/entities",
+      "externalEntityPattern": "https://www.wikidata.org/wiki/{qid}",
+      "policy": "Use exact QIDs for discovery. A Wikidata label or classification may seed review but cannot by itself establish MoonWitness identity, role, historicity, or cross-tradition equivalence."
+    }
+  },
+  "lanes": [
+    {
+      "id": "bahai",
+      "scope": "Baháʼí figures",
+      "candidates": [
+        { "canonicalId": "mw:person:bahaullah", "source": "wikidata", "qid": "Q101054", "sourceState": "bundled_snapshot", "reviewState": "baseline_reviewed" }
+      ]
+    },
+    {
+      "id": "zoroastrian",
+      "scope": "Zoroastrian figures",
+      "candidates": [
+        { "canonicalId": "mw:person:zoroaster", "source": "wikidata", "qid": "Q35811", "sourceState": "bundled_snapshot", "reviewState": "baseline_reviewed" }
+      ]
+    },
+    {
+      "id": "daoist",
+      "scope": "Daoist figures",
+      "candidates": [
+        { "canonicalId": "mw:person:laozi", "source": "wikidata", "qid": "Q9333", "sourceState": "bundled_snapshot", "reviewState": "baseline_reviewed" }
+      ]
+    },
+    {
+      "id": "confucian",
+      "scope": "Confucian figures",
+      "candidates": [
+        { "canonicalId": "mw:person:confucius", "source": "wikidata", "qid": "Q4604", "sourceState": "bundled_snapshot", "reviewState": "baseline_reviewed" }
+      ]
+    },
+    {
+      "id": "shinto",
+      "scope": "Shinto and historically adjacent Kokugaku figure discovery",
+      "candidates": [
+        { "source": "wikidata", "qid": "Q384647", "label": "Motoori Norinaga", "sourceState": "external_discovery_only", "reviewState": "requires_source_specific_review", "note": "Kokugaku relevance is a discovery lead only; do not infer universal Shinto membership or role from the label or movement adjacency." }
+      ]
+    },
+    {
+      "id": "indigenous-traditional",
+      "scope": "Indigenous and traditional religious figures",
+      "candidates": [
+        { "canonicalId": "mw:person:wovoka", "source": "wikidata", "qid": "Q558420", "sourceState": "bundled_snapshot", "reviewState": "baseline_reviewed", "note": "Community/tradition scope must remain source-specific; no generic indigenous taxonomy is asserted." }
+      ]
+    },
+    {
+      "id": "ancient-historical",
+      "scope": "Ancient and historical religious figures",
+      "candidates": [
+        { "canonicalId": "mw:person:zoroaster", "source": "wikidata", "qid": "Q35811", "sourceState": "bundled_snapshot", "reviewState": "historicity_requires_independent_sources" },
+        { "canonicalId": "mw:person:laozi", "source": "wikidata", "qid": "Q9333", "sourceState": "bundled_snapshot", "reviewState": "historicity_requires_independent_sources" },
+        { "canonicalId": "mw:person:confucius", "source": "wikidata", "qid": "Q4604", "sourceState": "bundled_snapshot", "reviewState": "historicity_requires_independent_sources" }
+      ]
+    },
+    {
+      "id": "modern-new-religious-movements",
+      "scope": "Modern and new religious movement figures",
+      "candidates": [
+        { "canonicalId": "mw:person:joseph-smith", "source": "wikidata", "qid": "Q47102", "sourceState": "bundled_snapshot", "reviewState": "baseline_reviewed" },
+        { "canonicalId": "mw:person:mary-baker-eddy", "source": "wikidata", "qid": "Q235069", "sourceState": "bundled_snapshot", "reviewState": "baseline_reviewed" },
+        { "canonicalId": "mw:person:ellen-g-white", "source": "wikidata", "qid": "Q292290", "sourceState": "bundled_snapshot", "reviewState": "baseline_reviewed" },
+        { "canonicalId": "mw:person:haile-selassie", "source": "wikidata", "qid": "Q41178", "sourceState": "bundled_snapshot", "reviewState": "baseline_reviewed", "note": "Any Rastafari role or status must be represented as a community/source-scoped assertion, never a global entity flag." }
+      ]
+    }
+  ],
+  "guardrails": {
+    "discoveryIsNotIdentity": true,
+    "nameSimilarityNeverMerges": true,
+    "rolesRequireScopedEvidence": true,
+    "historicityRequiresSourcedAssessment": true,
+    "externalDiscoveryRequiresReviewBeforeBundling": true,
+    "noFinalTaxonomyClaim": true
+  }
+}

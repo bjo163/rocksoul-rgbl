@@ -209,11 +209,11 @@ P13 runs in parallel with P12. It builds an open-ended registry, not a final uni
 - [x] Ingest canonical tradition/religion/movement entities without treating a source taxonomy as universal truth. <!-- mw-todo:P13-004 -->
 - [x] Add preferred `en` and `id` labels plus native/source-language labels and alternate names/transliterations for high-priority tradition entities. <!-- mw-todo:P13-005 -->
 - [x] Preserve Wikidata QIDs and other authority identifiers as external IDs, never as MoonWitness canonical identity. <!-- mw-todo:P13-006 -->
-- [ ] Represent broader/narrower/related religion classifications as source-attributed assertions with provenance. <!-- mw-todo:P13-007 -->
-- [ ] Add sourced geography/region associations without making geography an intrinsic definition of a religion. <!-- mw-todo:P13-008 -->
-- [ ] Pin reproducible Wikidata CC0 discovery snapshots/queries for religious, scriptural, historical, and legendary persons/figures. <!-- mw-todo:P13-009 -->
-- [ ] Ingest person/figure entities separately from claims about their religious roles, historicity, or identity. <!-- mw-todo:P13-010 -->
-- [ ] Define extensible data vocabulary concepts for roles such as prophet, messenger, apostle, patriarch, founder, guru, rishi, tirthankara, buddha, bodhisattva, imam, saint, sage, reformer, and related roles without adding core enums. <!-- mw-todo:P13-011 -->
+- [x] Represent broader/narrower/related religion classifications as source-attributed assertions with provenance. <!-- mw-todo:P13-007 -->
+- [x] Add sourced geography/region associations without making geography an intrinsic definition of a religion. <!-- mw-todo:P13-008 -->
+- [x] Pin reproducible Wikidata CC0 discovery snapshots/queries for religious, scriptural, historical, and legendary persons/figures. <!-- mw-todo:P13-009 -->
+- [x] Ingest person/figure entities separately from claims about their religious roles, historicity, or identity. <!-- mw-todo:P13-010 -->
+- [x] Define extensible data vocabulary concepts for roles such as prophet, messenger, apostle, patriarch, founder, guru, rishi, tirthankara, buddha, bodhisattva, imam, saint, sage, reformer, and related roles without adding core enums. <!-- mw-todo:P13-011 -->
 - [ ] Implement scoped role assertions (`tradition`/`community`/`source`) so no person is globally hard-coded as prophet/founder/guru/etc. <!-- mw-todo:P13-012 -->
 - [ ] Add Quran-evidenced named prophet/messenger/scriptural-figure assertions linked to exact P12 Quran passages. <!-- mw-todo:P13-013 -->
 - [ ] Add Tanakh/Hebrew-Bible-evidenced prophet/patriarch/priest/king/scriptural-figure assertions linked to exact P12 passages. <!-- mw-todo:P13-014 -->

@@ -20,6 +20,11 @@
       "id": "mw:recipe:dhammapada:sujato",
       "path": "ingestion/recipes/dhammapada-sujato",
       "status": "active"
+    },
+    {
+      "id": "mw:recipe:oshb:wlc",
+      "path": "ingestion/recipes/oshb-wlc",
+      "status": "active"
     }
   ]
 }

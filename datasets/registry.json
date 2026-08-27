@@ -32,6 +32,11 @@
       "status": "fixture"
     },
     {
+      "id": "mw:dataset:oshb:wlc",
+      "path": "datasets/oshb-wlc",
+      "status": "active"
+    },
+    {
       "id": "mw:dataset:quran:tanzil-uthmani",
       "path": "datasets/quran-tanzil-uthmani",
       "status": "active"

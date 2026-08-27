@@ -1,0 +1,3 @@
+{"id":"mw:institution:openscriptures","kind":"institution","labels":[{"language":"en","role":"preferred","script":"Latn","value":"Open Scriptures"}],"record_type":"entity"}
+{"id":"mw:predicate:has-lemma","kind":"predicate","labels":[{"language":"en","role":"preferred","script":"Latn","value":"has lemma"}],"record_type":"entity"}
+{"id":"mw:predicate:has-morphology","kind":"predicate","labels":[{"language":"en","role":"preferred","script":"Latn","value":"has morphology"}],"record_type":"entity"}

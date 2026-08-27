@@ -1,0 +1,19 @@
+{
+  "id": "mw:dataset:oshb:wlc",
+  "datasetVersion": "0.1.0",
+  "specVersion": "0.1",
+  "profiles": ["textual@0.1", "source@0.1"],
+  "partitions": [
+    { "recordType": "entity", "path": "data/core/entities/*.jsonl" },
+    { "recordType": "resource", "path": "data/core/resources/*.jsonl" },
+    { "recordType": "evidence", "path": "data/core/evidence/*.jsonl" },
+    { "recordType": "provenance", "path": "data/core/provenance/*.jsonl" }
+  ],
+  "sources": [
+    "Open Scriptures Hebrew Bible / Westminster Leningrad Codex",
+    "openscriptures/morphhb master@3d15126fb1ef74867fc1434be1942e837932691f",
+    "ingestion/recipes/oshb-wlc/source/source-manifest.json"
+  ],
+  "rights": "Westminster Leningrad Codex text is public domain; OSHB lemma and morphology annotations are redistributed with CC BY 4.0 attribution.",
+  "availability": "bundled"
+}

@@ -12,6 +12,53 @@
   },
   "datasets": [
     {
+      "datasetId": "mw:dataset:oshb:wlc",
+      "path": "datasets/oshb-wlc",
+      "workCollection": "Hebrew Bible",
+      "datasetRole": "source_text",
+      "availability": "bundled",
+      "language": {
+        "tag": "he",
+        "script": "Hebr",
+        "coverageRole": "source"
+      },
+      "expression": {
+        "label": "Westminster Leningrad Codex",
+        "edition": "Open Scriptures Hebrew Bible / WLC"
+      },
+      "completeness": {
+        "status": "complete",
+        "unit": "verse",
+        "covered": 23213,
+        "expected": 23213,
+        "scope": "Complete OSHB wlc/ source set"
+      },
+      "sourceArtifact": {
+        "revision": "openscriptures/morphhb@3d15126fb1ef74867fc1434be1942e837932691f",
+        "path": "ingestion/recipes/oshb-wlc/source/source-manifest.json",
+        "sha256": "97eef4819aea695324e1f5ceeae5355b6df1943e888a6359dec72ebb5302ad01",
+        "byteSize": 8146
+      },
+      "rights": {
+        "status": "verified_for_bundled_mixed_rights",
+        "license": "WLC public domain; OSHB annotations CC-BY-4.0",
+        "evidence": "docs/P12-007-009-OSHB-WLC.md"
+      },
+      "provenance": {
+        "manifest": "datasets/oshb-wlc/manifest.json",
+        "checksums": "datasets/oshb-wlc/CHECKSUMS.sha256",
+        "recipe": "ingestion/recipes/oshb-wlc"
+      },
+      "translationCoverage": {
+        "en": "missing",
+        "id": "missing"
+      },
+      "alignmentCoverage": {
+        "status": "not_started",
+        "notes": "Hebrew Bible alignment to WEB is deferred to P12-015."
+      }
+    },
+    {
       "datasetId": "mw:dataset:dhammapada:sujato",
       "path": "datasets/dhammapada-sujato",
       "workCollection": "Dhammapada",

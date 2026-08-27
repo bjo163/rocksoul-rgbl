@@ -2,13 +2,14 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { isCanonicalId } from '@moonwitness/corpus-core'
 import { assertionsAround, contentForTarget, getRecordContext } from '../../../lib/corpus.js'
-import { isRtlScript, textualPayload } from '../../../lib/presentation.js'
+import { isRtlScript, preferredLabel, textualPayload } from '../../../lib/presentation.js'
 import { AssertionCard, CanonicalLink, JsonBlock, RecordMetadata, Section } from '../../../components/ui.js'
 
 export const dynamic = 'force-dynamic'
 
 export default async function PassagePage({ params }: { params: Promise<{ id: string }> }) {
-  const id = (await params).id
+  const rawId = (await params).id
+  const id = rawId.includes('%') ? decodeURIComponent(rawId) : rawId
   if (!isCanonicalId(id)) notFound()
   const context = await getRecordContext(id)
   if (!context || context.record.record_type !== 'resource' || context.record.kind !== 'textual.passage') notFound()
@@ -19,12 +20,17 @@ export default async function PassagePage({ params }: { params: Promise<{ id: st
   const citations = Array.isArray(payload.citations) ? payload.citations as Array<Record<string, unknown>> : []
   const container = typeof payload.container === 'string' && isCanonicalId(payload.container) ? payload.container : null
 
+  const title = preferredLabel(passage) ?? (citations[0]?.reference ? String(citations[0].reference) : passage.id)
+
   return (
     <>
       <header className="page-header">
-        <p className="eyebrow">Passage reader</p>
-        <h1>{citations[0]?.reference ? String(citations[0].reference) : passage.id}</h1>
-        <p>{String(payload.unit ?? 'textual.passage')}{container ? <> within <CanonicalLink id={container} /></> : ''}</p>
+        <span className="section-tag">Pembaca Ayat & Teks</span>
+        <h1 className="section-title">{title}</h1>
+        <p className="section-desc">
+          Unit: <strong>{String(payload.unit ?? 'textual.passage')}</strong>
+          {container ? <> · Bagian dari <CanonicalLink id={container} /></> : ''}
+        </p>
       </header>
       <RecordMetadata record={passage} dataset={context.dataset} />
       <div className="actions">

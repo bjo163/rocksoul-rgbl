@@ -2,8 +2,50 @@
   "formatVersion": "1",
   "scope": "P17 explainable evidence graph contract baseline; no opaque similarity edges are canonical.",
   "edgeTypes": ["mention", "quotation", "citation", "allusion_candidate", "commentary_target", "parallel_passage", "motif", "event", "place", "role", "transmission", "term_usage", "ritual_usage", "comparison"],
-  "requiredFields": ["sourceDataset", "sourceVersion", "subject", "predicate", "object", "method", "status", "reviewState", "provenance"],
-  "statuses": ["asserted", "candidate", "uncertain", "disputed", "unmatched", "negative", "superseded", "retracted"],
+  "requiredFields": ["sourceDataset", "sourceVersion", "subject", "predicate", "object", "selector", "method", "status", "reviewState", "provenance"],
+  "statuses": ["asserted", "candidate", "uncertain", "disputed", "unmatched", "absent", "negative", "superseded", "retracted"],
   "reviewStates": ["unreviewed", "reviewed", "rejected", "community_review"],
-  "guardrails": { "similarityIsCandidateOnly": true, "identityRequiresSource": true, "equivalenceRequiresSource": true, "everyEdgeTraceable": true, "negativeFindingsRetained": true }
+  "assessmentKinds": ["source_assertion", "curator_assessment", "automated_candidate_score"],
+  "edgeContract": {
+    "required": ["sourceDataset", "sourceVersion", "subject", "predicate", "object", "selector", "method", "status", "reviewState", "provenance"],
+    "selectorRequiredForPassageOrFragmentTargets": true,
+    "dependencyVersionMustBeExact": true,
+    "automatedScoresCannotSetAssertedStatus": true,
+    "identityEquivalenceOrDependenceRequiresSource": true
+  },
+  "edgeTypeContracts": {
+    "mention": { "canonicalStatus": "candidate_or_asserted", "requiresExactSelector": true },
+    "quotation": { "canonicalStatus": "asserted", "requiresExactSelector": true, "requiresSourceIdentification": true },
+    "citation": { "canonicalStatus": "asserted", "requiresExactSelector": true, "requiresSourceIdentification": true },
+    "allusion_candidate": { "canonicalStatus": "candidate", "requiresConfidenceAssessment": true, "cannotBePromotedBySimilarityAlone": true },
+    "commentary_target": { "canonicalStatus": "asserted", "requiresExactSelector": true },
+    "parallel_passage": { "canonicalStatus": "asserted_or_candidate", "requiresBoundaryAndGapMetadata": true },
+    "motif": { "canonicalStatus": "candidate_or_asserted", "requiresSourceScope": true },
+    "event": { "canonicalStatus": "asserted_or_disputed", "requiresSourceScope": true },
+    "place": { "canonicalStatus": "asserted_or_disputed", "requiresSourceScope": true },
+    "role": { "canonicalStatus": "asserted_or_disputed", "requiresSourceScope": true },
+    "transmission": { "canonicalStatus": "asserted_or_uncertain", "requiresSourceScope": true },
+    "term_usage": { "canonicalStatus": "asserted", "requiresExactSelector": true },
+    "ritual_usage": { "canonicalStatus": "asserted_or_candidate", "requiresSourceScope": true },
+    "comparison": { "canonicalStatus": "curator_assessment", "requiresComparisonDimensions": true, "cannotAssertTheologicalIdentity": true }
+  },
+  "assessmentContract": {
+    "source_assertion": { "requiresSource": true, "scoreAllowed": false },
+    "curator_assessment": { "requiresReviewer": true, "requiresProvenance": true, "scoreAllowed": true },
+    "automated_candidate_score": { "requiresMethod": true, "requiresModelOrAlgorithmVersion": true, "canonicalConclusionAllowed": false }
+  },
+  "lifecyclePolicy": {
+    "negativeAndAbsentFindingsRetained": true,
+    "supersededAndRetractedFindingsRetained": true,
+    "contradictoryStatesRequireReconciliation": true
+  },
+  "guardrails": {
+    "similarityIsCandidateOnly": true,
+    "identityRequiresSource": true,
+    "equivalenceRequiresSource": true,
+    "dependenceRequiresSource": true,
+    "everyEdgeTraceable": true,
+    "negativeFindingsRetained": true,
+    "noUntraceableCanonicalClaim": true
+  }
 }

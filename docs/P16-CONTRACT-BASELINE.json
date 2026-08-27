@@ -5,5 +5,61 @@
   "genres": ["prayer", "blessing", "hymn", "chant", "mantra", "creed", "liturgy", "ritual_instruction", "observance", "practice_description"],
   "accessStates": ["public", "community_contextual", "initiatory", "restricted", "ceremonial", "hazardous", "metadata_only"],
   "requiredMetadata": ["work", "edition", "citation", "language", "completeness", "communityScope", "rights", "provenance", "sensitivity"],
-  "guardrails": { "noUnscopedNormativity": true, "noRestrictedTextWithoutPermission": true, "performanceIsNotText": true, "descriptiveRecordsAreNotInstructions": true }
+  "recordContracts": {
+    "devotional_text": {
+      "allowedLayers": ["normative_source_text"],
+      "allowedGenres": ["prayer", "blessing", "hymn", "chant", "mantra", "creed", "liturgy", "ritual_instruction"],
+      "required": ["work", "edition", "citation", "language", "completeness", "communityScope", "rights", "provenance", "sensitivity", "text"]
+    },
+    "practice_description": {
+      "allowedLayers": ["descriptive_practice"],
+      "allowedGenres": ["observance", "practice_description", "ritual_instruction"],
+      "required": ["work", "citation", "language", "communityScope", "rights", "provenance", "sensitivity", "description"],
+      "cannotImplyNormativity": true
+    },
+    "commentary": {
+      "allowedLayers": ["commentary"],
+      "required": ["target", "citation", "language", "communityScope", "rights", "provenance"]
+    },
+    "performance_evidence": {
+      "allowedLayers": ["performance_media"],
+      "required": ["target", "mediaType", "rights", "provenance", "communityScope", "sensitivity"],
+      "cannotSubstituteForText": true
+    },
+    "community_assertion": {
+      "allowedLayers": ["community_assertion"],
+      "required": ["subject", "predicate", "object", "communityScope", "provenance", "reviewState"]
+    }
+  },
+  "completeWorkContract": {
+    "required": ["work", "edition", "citation", "language", "completeness", "communityScope", "rights", "provenance", "sensitivity"],
+    "completenessValue": "complete"
+  },
+  "boundedExcerptContract": {
+    "required": ["work", "edition", "citation", "selector", "language", "completeness", "communityScope", "rights", "provenance", "sensitivity"],
+    "completenessValues": ["bounded_excerpt", "fragment"],
+    "parentWorkRequired": true
+  },
+  "layerSeparation": {
+    "normative_source_text": "source text or edition expression only",
+    "descriptive_practice": "description of practice; never an instruction by default",
+    "commentary": "interpretive material linked to a target",
+    "performance_media": "audio/video/IIIF or performance evidence; never canonical text",
+    "community_assertion": "source-attributed participant/community claim"
+  },
+  "sensitivityPolicy": {
+    "defaultForUnreviewed": "metadata_only",
+    "restrictedTextRequiresExplicitPermission": true,
+    "initiatoryOrCeremonialTextRequiresCommunityReview": true,
+    "hazardousMaterialCannotBecomeUnsourcedInstructions": true,
+    "accessStateMustBeExplicit": true
+  },
+  "guardrails": {
+    "noUnscopedNormativity": true,
+    "noRestrictedTextWithoutPermission": true,
+    "performanceIsNotText": true,
+    "descriptiveRecordsAreNotInstructions": true,
+    "noUnsourcedRitualInstructions": true,
+    "sensitivityReviewRequired": true
+  }
 }

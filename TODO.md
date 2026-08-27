@@ -239,9 +239,9 @@ P14 increases diversity of texts, fragments, genres, languages, and communities 
 
 - [ ] Define a machine-readable P14 diversity matrix covering tradition/community, genre, source language, `en`/`id`, text scale, rights state, and unresolved gaps. <!-- mw-todo:P14-001 -->
 - [ ] Add a source-discovery registry that records candidate source, authority, edition, retrieval method, checksum, rights decision, and bundle/metadata-only disposition. <!-- mw-todo:P14-002 -->
-- [x] Add a reusable complete-work versus bounded-fragment contract; fragments must retain parent work, edition, citation range, completeness statement, rights, and provenance. <!-- mw-todo:P14-003 -->
-- [x] Add deterministic source/rights gates that prohibit bundling a candidate merely because it is downloadable. <!-- mw-todo:P14-004 -->
-- [x] Add genre vocabulary and profiles for scripture, hadith/report, commentary, legal text, ritual/manual, hymn/prayer, biography, chronicle, philosophical text, and oral-tradition metadata. <!-- mw-todo:P14-005 -->
+- [ ] Add a reusable complete-work versus bounded-fragment contract; fragments must retain parent work, edition, citation range, completeness statement, rights, and provenance. <!-- mw-todo:P14-003 -->
+- [ ] Add deterministic source/rights gates that prohibit bundling a candidate merely because it is downloadable. <!-- mw-todo:P14-004 -->
+- [ ] Add genre vocabulary and profiles for scripture, hadith/report, commentary, legal text, ritual/manual, hymn/prayer, biography, chronicle, philosophical text, and oral-tradition metadata. <!-- mw-todo:P14-005 -->
 - [ ] Audit and pin openly redistributable Arabic hadith/report source candidates; keep collection, book, chapter, report, matn, and isnad/transmitter layers distinct. <!-- mw-todo:P14-006 -->
 - [ ] Ingest the first rights-cleared Arabic hadith/report collection with exact citation hierarchy and source-preserving matn, without using a secondary website as authority by default. <!-- mw-todo:P14-007 -->
 - [ ] Add separately sourced human English and Indonesian hadith/report translations only where republication rights, translator, and edition are explicit. <!-- mw-todo:P14-008 -->
@@ -277,9 +277,9 @@ P15 separates lexical forms from source-scoped meanings and from P13 entities. P
 
 - [ ] Define separate schemas/contracts for concept, term, sacred name, epithet, title, honorific, definition, and usage evidence. <!-- mw-todo:P15-001 -->
 - [ ] Define an anti-equivalence policy: shared translation, spelling, or function never automatically equates concepts across sources or traditions. <!-- mw-todo:P15-002 -->
-- [x] Add a machine-readable P15 source registry and coverage matrix by tradition, semantic domain, language, script, `en`/`id`, and evidence state. <!-- mw-todo:P15-003 -->
-- [x] Add language/script-aware preferred terms, aliases, grammatical metadata, and source-local identifiers without normalizing away meaningful distinctions. <!-- mw-todo:P15-004 -->
-- [x] Add transliteration records with scheme, version, source form, reversibility/lossiness, and provenance. <!-- mw-todo:P15-005 -->
+- [ ] Add a machine-readable P15 source registry and coverage matrix by tradition, semantic domain, language, script, `en`/`id`, and evidence state. <!-- mw-todo:P15-003 -->
+- [ ] Add language/script-aware preferred terms, aliases, grammatical metadata, and source-local identifiers without normalizing away meaningful distinctions. <!-- mw-todo:P15-004 -->
+- [ ] Add transliteration records with scheme, version, source form, reversibility/lossiness, and provenance. <!-- mw-todo:P15-005 -->
 - [x] Add sourced etymology and historical-form assertions without treating reconstructed derivations as certain facts. <!-- mw-todo:P15-006 -->
 - [x] Add sourced definitions and usage notes scoped to work, passage, tradition, community, period, and language. <!-- mw-todo:P15-007 -->
 - [x] Add broader/narrower/related/contrasted-with/translated-as relations as provenance-bearing assertions rather than universal ontology edges. <!-- mw-todo:P15-008 -->

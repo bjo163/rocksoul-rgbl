@@ -251,14 +251,14 @@ P14 increases diversity of texts, fragments, genres, languages, and communities 
 - [ ] Audit Talmud and midrash candidates; support metadata-only or bounded quotation datasets when complete redistribution is not permitted. <!-- mw-todo:P14-012 -->
 - [ ] Add Jewish liturgical/prayer and medieval philosophical-text candidate lanes with explicit community, language, and rights scopes. <!-- mw-todo:P14-013 -->
 - [ ] Audit and ingest rights-cleared Apostolic Fathers, early Christian creeds, and patristic source-text candidates as editions separate from the New Testament. <!-- mw-todo:P14-014 -->
-- [x] Add Christian liturgical, conciliar, and denominational primary-document lanes with denomination/community scope and non-universal claims. <!-- mw-todo:P14-015 -->
-- [x] Complete the Pali root-text rights decision for DN/MN/SN/AN and ingest only independently permitted source-language material. <!-- mw-todo:P14-016 -->
-- [x] Add Buddhist non-Pali source lanes for Chinese and Tibetan canon metadata, with source-language, edition, and access constraints explicit. <!-- mw-todo:P14-017 -->
-- [x] Audit and ingest rights-cleared Buddhist commentarial, vinaya, and meditation-manual datasets as genres distinct from sutta text. <!-- mw-todo:P14-018 -->
+- [ ] Add Christian liturgical, conciliar, and denominational primary-document lanes with denomination/community scope and non-universal claims. <!-- mw-todo:P14-015 -->
+- [ ] Complete the Pali root-text rights decision for DN/MN/SN/AN and ingest only independently permitted source-language material. <!-- mw-todo:P14-016 -->
+- [ ] Add Buddhist non-Pali source lanes for Chinese and Tibetan canon metadata, with source-language, edition, and access constraints explicit. <!-- mw-todo:P14-017 -->
+- [ ] Audit and ingest rights-cleared Buddhist commentarial, vinaya, and meditation-manual datasets as genres distinct from sutta text. <!-- mw-todo:P14-018 -->
 - [ ] Audit and ingest Sanskrit Bhagavad Gita source candidates plus human English and Indonesian translations as separate expressions. <!-- mw-todo:P14-019 -->
-- [x] Add rights-cleared Veda, Upanishad, and Hindu epic source/fragment lanes with recension, language, and translation boundaries explicit. <!-- mw-todo:P14-020 -->
-- [x] Audit Jain Agama and Tattvartha Sutra candidates with Prakrit/Sanskrit/Hindi/English/Indonesian distinctions and sect scope. <!-- mw-todo:P14-021 -->
-- [x] Audit Sikh Guru Granth Sahib source and translation candidates, preserving raga, ang, and hymn citation systems where licensed. <!-- mw-todo:P14-022 -->
+- [ ] Add rights-cleared Veda, Upanishad, and Hindu epic source/fragment lanes with recension, language, and translation boundaries explicit. <!-- mw-todo:P14-020 -->
+- [ ] Audit Jain Agama and Tattvartha Sutra candidates with Prakrit/Sanskrit/Hindi/English/Indonesian distinctions and sect scope. <!-- mw-todo:P14-021 -->
+- [ ] Audit Sikh Guru Granth Sahib source and translation candidates, preserving raga, ang, and hymn citation systems where licensed. <!-- mw-todo:P14-022 -->
 - [x] Audit Baháʼí, Zoroastrian, Daoist, Confucian, and Shinto primary-text candidates with edition, translation, and community scopes. <!-- mw-todo:P14-023 -->
 - [x] Add indigenous, local, oral, and living-tradition discovery lanes under consent-first metadata policy; do not bundle restricted or ceremonial content without explicit permission. <!-- mw-todo:P14-024 -->
 - [x] Add modern religious-movement primary-document lanes with publisher, date, jurisdiction, and redistribution terms recorded. <!-- mw-todo:P14-025 -->

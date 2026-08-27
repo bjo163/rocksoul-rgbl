@@ -343,9 +343,9 @@ P17 connects P12–P16 through explainable, reviewable evidence rather than opaq
 - [x] Add machine-readable graph-source registry and coverage matrix by edge type, tradition pair, language pair, evidence quality, and unresolved candidates. <!-- mw-todo:P17-004 -->
 - [ ] Add deterministic mention extraction candidates linking P12/P14/P16 passages to P13 persons, traditions, places, and institutions. <!-- mw-todo:P17-005 -->
 - [ ] Add exact quotation and explicit citation links where a source itself identifies the cited work/passage. <!-- mw-todo:P17-006 -->
-- [x] Add reviewed allusion/intertext candidates with confidence and scholarly provenance; never label model similarity as established allusion. <!-- mw-todo:P17-007 -->
+- [ ] Add reviewed allusion/intertext candidates with confidence and scholarly provenance; never label model similarity as established allusion. <!-- mw-todo:P17-007 -->
 - [ ] Add commentary/exegesis links from tafsir, midrash, commentary, scholia, and other interpretation datasets to exact target passages. <!-- mw-todo:P17-008 -->
-- [x] Add same-edition and cross-edition parallel-passage records with versification, boundary, omission, and addition gaps explicit. <!-- mw-todo:P17-009 -->
+- [ ] Add same-edition and cross-edition parallel-passage records with versification, boundary, omission, and addition gaps explicit. <!-- mw-todo:P17-009 -->
 - [x] Add narrative/event participation assertions linking persons, places, periods, and passages while preserving source disagreement. <!-- mw-todo:P17-010 -->
 - [x] Add genealogy, lineage, teacher/student, isnad, succession, and transmission links as source-scoped claims with uncertainty. <!-- mw-todo:P17-011 -->
 - [x] Add P15 concept/term occurrence, definition, translation, contrast, and semantic-shift evidence across passages and periods. <!-- mw-todo:P17-012 -->

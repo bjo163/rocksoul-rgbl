@@ -389,7 +389,6 @@ export async function getParallelReaderData(scriptureKey: string, sectionParam?:
   })
 
   // Assemble parallel representations
-  const contentIndex = await getContentIndex()
   const verses: ParallelVerse[] = matchingPassages.map((passage) => {
     const payload = textualPayload(passage) ?? {}
     const citations = Array.isArray(payload.citations) ? payload.citations as Array<{ reference?: string }> : []

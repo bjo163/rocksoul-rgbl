@@ -183,11 +183,11 @@ P9–P11 are intentionally deferred while this data-first milestone is active. E
 - [x] Pin the eBible World English Bible Classic 2020 stable full-ecumenical artifact, checksum, and public-domain/trademark evidence. <!-- mw-todo:P12-012 -->
 - [x] Ingest World English Bible Classic 2020 full ecumenical book set as a separate English expression/edition. <!-- mw-todo:P12-013 -->
 - [x] Represent WEB book-set membership/order as edition/collection metadata rather than one universal Bible canon. <!-- mw-todo:P12-014 -->
-- [ ] Add WEB↔OSHB passage alignment for overlapping Hebrew Bible books with versification differences explicit. <!-- mw-todo:P12-015 -->
-- [ ] Add WEB↔SBLGNT New Testament passage alignment with edition and verse-boundary differences explicit. <!-- mw-todo:P12-016 -->
-- [ ] Expand SuttaCentral CC0 Bhikkhu Sujato English translations to Dīgha Nikāya and Majjhima Nikāya from a pinned `published` commit. <!-- mw-todo:P12-017 -->
-- [ ] Expand SuttaCentral CC0 Bhikkhu Sujato English translations to Saṁyutta Nikāya and Aṅguttara Nikāya from a pinned `published` commit. <!-- mw-todo:P12-018 -->
-- [ ] Add deterministic completeness/count/checksum tests plus rights/provenance gates for every P12 dataset. <!-- mw-todo:P12-019 -->
+- [x] Add WEB↔OSHB passage alignment for overlapping Hebrew Bible books with versification differences explicit. <!-- mw-todo:P12-015 -->
+- [x] Add WEB↔SBLGNT New Testament passage alignment with edition and verse-boundary differences explicit. <!-- mw-todo:P12-016 -->
+- [x] Expand SuttaCentral CC0 Bhikkhu Sujato English translations to Dīgha Nikāya and Majjhima Nikāya from a pinned `published` commit. <!-- mw-todo:P12-017 -->
+- [x] Expand SuttaCentral CC0 Bhikkhu Sujato English translations to Saṁyutta Nikāya and Aṅguttara Nikāya from a pinned `published` commit. <!-- mw-todo:P12-018 -->
+- [x] Add deterministic completeness/count/checksum tests plus rights/provenance gates for every P12 dataset. <!-- mw-todo:P12-019 -->
 - [ ] Produce the Foundation Text Corpus coverage report and pass both the no-unresolved-bundled-rights gate and the required source-language + `en` + `id` translation-coverage gate. <!-- mw-todo:P12-020 -->
 - [ ] Enforce source-language + human-published English (`en`) + Indonesian (`id`) minimum coverage for every major P12 work/collection; machine/LLM translation must not satisfy canonical coverage. <!-- mw-todo:P12-021 -->
 - [ ] Pin and ingest Quran English translation from QuranEnc / Rowwad Translation Center under exact source-preserving republication terms. <!-- mw-todo:P12-022 -->

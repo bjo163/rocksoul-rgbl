@@ -5,8 +5,8 @@
   "source": {
     "kind": "filesystem",
     "path": "source/source-manifest.json",
-    "sha256": "97eef4819aea695324e1f5ceeae5355b6df1943e888a6359dec72ebb5302ad01",
-    "byte_size": 8146,
+    "sha256": "23b29d9c9a7c7d01d6a0510a88b9435a676dfe6f033252094230da711d776430",
+    "byte_size": 7895,
     "media_type": "application/json"
   },
   "implementation": {

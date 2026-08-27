@@ -2,7 +2,7 @@
   "id": "mw:recipe:sblgnt:v1-2",
   "version": "1.0.0",
   "specVersion": "0.1",
-  "source": { "kind": "filesystem", "path": "source/source-manifest.json", "sha256": "96addfb28c3164368a1780815c0da579f644b43193fcbb7fd1b861d71325ff7f", "byte_size": 6129, "media_type": "application/json" },
+  "source": { "kind": "filesystem", "path": "source/source-manifest.json", "sha256": "238093b8222c87bb5a056881177fa703e4725ac81a20eab95c02b16fcd78ed21", "byte_size": 5950, "media_type": "application/json" },
   "implementation": { "module": "recipe.ts", "parserVersion": "sblgnt-xml-1", "normalizerVersion": "identity-1", "mapperVersion": "1", "validatorVersion": "1" },
   "output": { "path": "../../../dist/ingestion/sblgnt-v1-2.jsonl" }
 }

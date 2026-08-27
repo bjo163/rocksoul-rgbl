@@ -329,7 +329,7 @@ P16 expands sourced prayers and lived-practice material while separating text, p
 - [ ] Add deterministic alignment and gap reports across source, transliteration, `en`, and `id` devotional expressions. <!-- mw-todo:P16-022 -->
 - [x] Add safety and ethics review preventing canonical records from becoming unsourced ritual instructions or exposing restricted content. <!-- mw-todo:P16-023 -->
 - [x] Add deterministic ingestion/count/checksum/rights/provenance/sensitivity tests for every P16 dataset. <!-- mw-todo:P16-024 -->
-- [ ] Produce the P16 devotional/practice report and pass no-unscoped-normativity/no-restricted-content/no-performance-as-text gates. <!-- mw-todo:P16-025 -->
+- [x] Produce the P16 devotional/practice report and pass no-unscoped-normativity/no-restricted-content/no-performance-as-text gates. <!-- mw-todo:P16-025 -->
 
 **Exit gate:** P16 provides diverse, rights-safe devotional and practice data while preserving textual variants, community scope, performance boundaries, consent, and sensitivity controls.
 
@@ -353,7 +353,7 @@ P17 connects P12–P16 through explainable, reviewable evidence rather than opaq
 - [ ] Add cross-tradition comparison records that state comparison dimensions and sources without asserting theological identity. <!-- mw-todo:P17-014 -->
 - [x] Represent negative, absent, unmatched, uncertain, disputed, superseded, and retracted graph findings explicitly. <!-- mw-todo:P17-015 -->
 - [x] Add claim-level confidence/assessment vocabulary that distinguishes source assertion, curator assessment, and automated candidate score. <!-- mw-todo:P17-016 -->
-- [ ] Add graph reconciliation for duplicate edges, contradictory claims, citation aliases, selector drift, and dataset-version changes. <!-- mw-todo:P17-017 -->
+- [x] Add graph reconciliation for duplicate edges, contradictory claims, citation aliases, selector drift, and dataset-version changes. <!-- mw-todo:P17-017 -->
 - [x] Add immutable graph snapshots with exact dependency versions and deterministic edge/checksum manifests. <!-- mw-todo:P17-018 -->
 - [x] Add explanation paths from any derived comparison or registry claim back to exact source artifact and passage evidence. <!-- mw-todo:P17-019 -->
 - [x] Add benchmark query fixtures for person→role→passage, term→concept→usage, prayer→source→community, and passage→commentary→citation. <!-- mw-todo:P17-020 -->
@@ -361,7 +361,7 @@ P17 connects P12–P16 through explainable, reviewable evidence rather than opaq
 - [x] Add deterministic graph validation for dangling references, dependency scope, cycles where prohibited, selector validity, and contradictory lifecycle states. <!-- mw-todo:P17-022 -->
 - [x] Add exportable research graph partitions without embedding generated summaries or model opinions as canonical facts. <!-- mw-todo:P17-023 -->
 - [x] Produce intertextual/reconciliation coverage reports showing both confirmed links and unresolved gaps. <!-- mw-todo:P17-024 -->
-- [ ] Produce the P17 v0.1 report and pass no-opaque-edge/no-similarity-as-truth/no-untraceable-claim exit gates. <!-- mw-todo:P17-025 -->
+- [x] Produce the P17 v0.1 report and pass no-opaque-edge/no-similarity-as-truth/no-untraceable-claim exit gates. <!-- mw-todo:P17-025 -->
 
 **Exit gate:** P17 supplies a deterministic, explainable evidence graph in which every canonical link can be traced to exact data, method, provenance, and review state, including uncertainty and gaps.
 

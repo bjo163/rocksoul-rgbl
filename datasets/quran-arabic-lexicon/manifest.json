@@ -1,0 +1,11 @@
+{
+  "id": "mw:dataset:lexicon:quran-arabic-core", "datasetVersion": "0.1.0", "specVersion": "0.1", "profiles": ["lexicon@0.1"],
+  "dependencies": [{ "dataset": "mw:dataset:quran:tanzil-uthmani", "version": "0.1.0" }],
+  "partitions": [
+    { "recordType": "resource", "path": "data/core/resources/*.jsonl" },
+    { "recordType": "provenance", "path": "data/core/provenance/*.jsonl" }
+  ],
+  "sources": ["Curated source-form and passage-usage seed from the pinned Tanzil Uthmani 1.1 dataset"],
+  "rights": "Metadata and curation records are CC0 repository data; source forms remain governed by the dependent Tanzil dataset terms.",
+  "availability": "bundled"
+}

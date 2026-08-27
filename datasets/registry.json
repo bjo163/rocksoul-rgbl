@@ -12,6 +12,11 @@
       "status": "active"
     },
     {
+      "id": "mw:dataset:lexicon:quran-arabic-core",
+      "path": "datasets/quran-arabic-lexicon",
+      "status": "supplemental"
+    },
+    {
       "id": "mw:dataset:example:minimal",
       "path": "datasets/examples/minimal",
       "status": "fixture"

@@ -323,10 +323,10 @@ P16 expands sourced prayers and lived-practice material while separating text, p
 - [x] Add sacred object, symbol, garment, food, instrument, architecture, and material-culture links without assigning one universal meaning. <!-- mw-todo:P16-016 -->
 - [x] Add prayer/mantra/hymn citation adapters for line, stanza, refrain, verse, section, bead/count, service order, and performance segment. <!-- mw-todo:P16-017 -->
 - [x] Add human English and Indonesian translations as separate expressions linked to exact source segments and translator/edition rights. <!-- mw-todo:P16-018 -->
-- [ ] Add textual and community variants without synthesizing a single normative prayer or ritual form. <!-- mw-todo:P16-019 -->
-- [ ] Add audio/video/IIIF performance evidence with time/region/performer/community metadata and media rights. <!-- mw-todo:P16-020 -->
-- [ ] Link P16 terms to P15 concepts and participants/communities to P13 entities through reviewed evidence. <!-- mw-todo:P16-021 -->
-- [ ] Add deterministic alignment and gap reports across source, transliteration, `en`, and `id` devotional expressions. <!-- mw-todo:P16-022 -->
+- [x] Add textual and community variants without synthesizing a single normative prayer or ritual form. <!-- mw-todo:P16-019 -->
+- [x] Add audio/video/IIIF performance evidence with time/region/performer/community metadata and media rights. <!-- mw-todo:P16-020 -->
+- [x] Link P16 terms to P15 concepts and participants/communities to P13 entities through reviewed evidence. <!-- mw-todo:P16-021 -->
+- [x] Add deterministic alignment and gap reports across source, transliteration, `en`, and `id` devotional expressions. <!-- mw-todo:P16-022 -->
 - [x] Add safety and ethics review preventing canonical records from becoming unsourced ritual instructions or exposing restricted content. <!-- mw-todo:P16-023 -->
 - [x] Add deterministic ingestion/count/checksum/rights/provenance/sensitivity tests for every P16 dataset. <!-- mw-todo:P16-024 -->
 - [x] Produce the P16 devotional/practice report and pass no-unscoped-normativity/no-restricted-content/no-performance-as-text gates. <!-- mw-todo:P16-025 -->
@@ -342,10 +342,10 @@ P17 connects P12–P16 through explainable, reviewable evidence rather than opaq
 - [x] Define identity/equivalence/dependence guardrails: lexical or embedding similarity can create candidates but never canonical conclusions. <!-- mw-todo:P17-003 -->
 - [x] Add machine-readable graph-source registry and coverage matrix by edge type, tradition pair, language pair, evidence quality, and unresolved candidates. <!-- mw-todo:P17-004 -->
 - [x] Add deterministic mention extraction candidates linking P12/P14/P16 passages to P13 persons, traditions, places, and institutions. <!-- mw-todo:P17-005 -->
-- [ ] Add exact quotation and explicit citation links where a source itself identifies the cited work/passage. <!-- mw-todo:P17-006 -->
-- [ ] Add reviewed allusion/intertext candidates with confidence and scholarly provenance; never label model similarity as established allusion. <!-- mw-todo:P17-007 -->
+- [x] Add exact quotation and explicit citation links where a source itself identifies the cited work/passage. <!-- mw-todo:P17-006 -->
+- [x] Add reviewed allusion/intertext candidates with confidence and scholarly provenance; never label model similarity as established allusion. <!-- mw-todo:P17-007 -->
 - [x] Add commentary/exegesis links from tafsir, midrash, commentary, scholia, and other interpretation datasets to exact target passages. <!-- mw-todo:P17-008 -->
-- [ ] Add same-edition and cross-edition parallel-passage records with versification, boundary, omission, and addition gaps explicit. <!-- mw-todo:P17-009 -->
+- [x] Add same-edition and cross-edition parallel-passage records with versification, boundary, omission, and addition gaps explicit. <!-- mw-todo:P17-009 -->
 - [ ] Add narrative/event participation assertions linking persons, places, periods, and passages while preserving source disagreement. <!-- mw-todo:P17-010 -->
 - [ ] Add genealogy, lineage, teacher/student, isnad, succession, and transmission links as source-scoped claims with uncertainty. <!-- mw-todo:P17-011 -->
 - [ ] Add P15 concept/term occurrence, definition, translation, contrast, and semantic-shift evidence across passages and periods. <!-- mw-todo:P17-012 -->

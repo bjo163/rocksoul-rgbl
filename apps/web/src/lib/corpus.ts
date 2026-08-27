@@ -10,7 +10,7 @@ import type {
 } from '@moonwitness/corpus-core'
 import { FileSystemCorpusRepository } from '@moonwitness/corpus-node'
 import type { CorpusRepository, DatasetDescriptor } from '@moonwitness/corpus-repository'
-import { textualPayload } from './presentation.js'
+import { getDatasetFriendlyMeta, textualPayload } from './presentation.js'
 
 declare global {
   // eslint-disable-next-line no-var

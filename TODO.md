@@ -323,8 +323,8 @@ P16 expands sourced prayers and lived-practice material while separating text, p
 - [x] Add sacred object, symbol, garment, food, instrument, architecture, and material-culture links without assigning one universal meaning. <!-- mw-todo:P16-016 -->
 - [x] Add prayer/mantra/hymn citation adapters for line, stanza, refrain, verse, section, bead/count, service order, and performance segment. <!-- mw-todo:P16-017 -->
 - [ ] Add human English and Indonesian translations as separate expressions linked to exact source segments and translator/edition rights. <!-- mw-todo:P16-018 -->
-- [x] Add textual and community variants without synthesizing a single normative prayer or ritual form. <!-- mw-todo:P16-019 -->
-- [x] Add audio/video/IIIF performance evidence with time/region/performer/community metadata and media rights. <!-- mw-todo:P16-020 -->
+- [ ] Add textual and community variants without synthesizing a single normative prayer or ritual form. <!-- mw-todo:P16-019 -->
+- [ ] Add audio/video/IIIF performance evidence with time/region/performer/community metadata and media rights. <!-- mw-todo:P16-020 -->
 - [x] Link P16 terms to P15 concepts and participants/communities to P13 entities through reviewed evidence. <!-- mw-todo:P16-021 -->
 - [x] Add deterministic alignment and gap reports across source, transliteration, `en`, and `id` devotional expressions. <!-- mw-todo:P16-022 -->
 - [x] Add safety and ethics review preventing canonical records from becoming unsourced ritual instructions or exposing restricted content. <!-- mw-todo:P16-023 -->

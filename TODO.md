@@ -322,7 +322,7 @@ P16 expands sourced prayers and lived-practice material while separating text, p
 - [ ] Add festival, fast, feast, pilgrimage, lifecycle rite, and observance entities with calendar-system and regional/community variation. <!-- mw-todo:P16-015 -->
 - [ ] Add sacred object, symbol, garment, food, instrument, architecture, and material-culture links without assigning one universal meaning. <!-- mw-todo:P16-016 -->
 - [ ] Add prayer/mantra/hymn citation adapters for line, stanza, refrain, verse, section, bead/count, service order, and performance segment. <!-- mw-todo:P16-017 -->
-- [ ] Add human English and Indonesian translations as separate expressions linked to exact source segments and translator/edition rights. <!-- mw-todo:P16-018 -->
+- [x] Add human English and Indonesian translations as separate expressions linked to exact source segments and translator/edition rights. <!-- mw-todo:P16-018 -->
 - [ ] Add textual and community variants without synthesizing a single normative prayer or ritual form. <!-- mw-todo:P16-019 -->
 - [ ] Add audio/video/IIIF performance evidence with time/region/performer/community metadata and media rights. <!-- mw-todo:P16-020 -->
 - [ ] Link P16 terms to P15 concepts and participants/communities to P13 entities through reviewed evidence. <!-- mw-todo:P16-021 -->
@@ -341,15 +341,15 @@ P17 connects P12–P16 through explainable, reviewable evidence rather than opaq
 - [x] Require every graph edge to expose source dataset/version, exact target/selector, method, assertion status, reviewer state, and provenance. <!-- mw-todo:P17-002 -->
 - [x] Define identity/equivalence/dependence guardrails: lexical or embedding similarity can create candidates but never canonical conclusions. <!-- mw-todo:P17-003 -->
 - [x] Add machine-readable graph-source registry and coverage matrix by edge type, tradition pair, language pair, evidence quality, and unresolved candidates. <!-- mw-todo:P17-004 -->
-- [ ] Add deterministic mention extraction candidates linking P12/P14/P16 passages to P13 persons, traditions, places, and institutions. <!-- mw-todo:P17-005 -->
+- [x] Add deterministic mention extraction candidates linking P12/P14/P16 passages to P13 persons, traditions, places, and institutions. <!-- mw-todo:P17-005 -->
 - [ ] Add exact quotation and explicit citation links where a source itself identifies the cited work/passage. <!-- mw-todo:P17-006 -->
 - [ ] Add reviewed allusion/intertext candidates with confidence and scholarly provenance; never label model similarity as established allusion. <!-- mw-todo:P17-007 -->
-- [ ] Add commentary/exegesis links from tafsir, midrash, commentary, scholia, and other interpretation datasets to exact target passages. <!-- mw-todo:P17-008 -->
+- [x] Add commentary/exegesis links from tafsir, midrash, commentary, scholia, and other interpretation datasets to exact target passages. <!-- mw-todo:P17-008 -->
 - [ ] Add same-edition and cross-edition parallel-passage records with versification, boundary, omission, and addition gaps explicit. <!-- mw-todo:P17-009 -->
 - [ ] Add narrative/event participation assertions linking persons, places, periods, and passages while preserving source disagreement. <!-- mw-todo:P17-010 -->
 - [ ] Add genealogy, lineage, teacher/student, isnad, succession, and transmission links as source-scoped claims with uncertainty. <!-- mw-todo:P17-011 -->
 - [ ] Add P15 concept/term occurrence, definition, translation, contrast, and semantic-shift evidence across passages and periods. <!-- mw-todo:P17-012 -->
-- [ ] Add P16 prayer/ritual usage and adaptation links to source texts, concepts, communities, observances, and media evidence. <!-- mw-todo:P17-013 -->
+- [x] Add P16 prayer/ritual usage and adaptation links to source texts, concepts, communities, observances, and media evidence. <!-- mw-todo:P17-013 -->
 - [ ] Add cross-tradition comparison records that state comparison dimensions and sources without asserting theological identity. <!-- mw-todo:P17-014 -->
 - [x] Represent negative, absent, unmatched, uncertain, disputed, superseded, and retracted graph findings explicitly. <!-- mw-todo:P17-015 -->
 - [x] Add claim-level confidence/assessment vocabulary that distinguishes source assertion, curator assessment, and automated candidate score. <!-- mw-todo:P17-016 -->

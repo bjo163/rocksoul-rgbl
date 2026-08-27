@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://moonwitness.org/corpus/spec/v0.1/schemas/profiles/variants/apparatus.schema.json",
+  "allOf": [
+    { "$ref": "https://moonwitness.org/corpus/spec/v0.1/schemas/core/resource.schema.json" },
+    { "required": ["extensions"], "properties": { "kind": { "const": "variants.apparatus" }, "extensions": { "type": "object", "required": ["variant"], "properties": { "variant": { "type": "object", "required": ["target", "witnesses"], "properties": { "target": { "$ref": "common.schema.json#/$defs/canonicalId" }, "location": { "$ref": "common.schema.json#/$defs/nonBlankString" }, "lemma": { "$ref": "common.schema.json#/$defs/nonBlankString" }, "witnesses": { "type": "array", "minItems": 1, "items": { "type": "object", "required": ["witness", "reading"], "properties": { "witness": { "$ref": "common.schema.json#/$defs/canonicalId" }, "reading": { "type": "string" }, "type": { "enum": ["lemma", "addition", "omission", "transposition", "orthography", "punctuation", "other"] }, "certainty": { "enum": ["certain", "probable", "uncertain", "disputed", "unknown"] } }, "additionalProperties": false } }, "method": { "$ref": "common.schema.json#/$defs/nonBlankString" }, "evidence": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "common.schema.json#/$defs/canonicalId" } }, "provenance": { "$ref": "common.schema.json#/$defs/canonicalId" } }, "additionalProperties": false } }, "additionalProperties": false } } }
+  ]
+}

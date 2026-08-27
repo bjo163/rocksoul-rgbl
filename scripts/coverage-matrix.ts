@@ -13,10 +13,11 @@ type Registry = {
 type CoverageEntry = {
   datasetId: string
   path: string
+  availability: 'bundled' | 'external' | 'metadata_only' | 'restricted'
   completeness: {
-    status: 'complete' | 'partial'
+    status: 'complete' | 'partial' | 'metadata_only' | 'external'
     covered: number
-    expected: number
+    expected: number | null
   }
   sourceArtifact: {
     sha256: string
@@ -66,30 +67,42 @@ export async function assertCoverageMatrix(root = process.cwd()): Promise<void> 
     assert.equal(entry.path, registered.path, `coverage path for ${entry.datasetId} must match datasets/registry.json`)
 
     assert.ok(Number.isInteger(entry.completeness.covered) && entry.completeness.covered >= 0)
-    assert.ok(Number.isInteger(entry.completeness.expected) && entry.completeness.expected > 0)
-    assert.ok(
-      entry.completeness.covered <= entry.completeness.expected,
-      `coverage for ${entry.datasetId} cannot exceed its expected unit count`,
-    )
 
-    if (entry.completeness.status === 'complete') {
-      assert.equal(
-        entry.completeness.covered,
-        entry.completeness.expected,
-        `complete dataset ${entry.datasetId} must cover all expected units`,
-      )
-    } else {
+    if (entry.completeness.status === 'complete' || entry.completeness.status === 'partial') {
+      assert.ok(Number.isInteger(entry.completeness.expected) && (entry.completeness.expected ?? 0) > 0)
       assert.ok(
-        entry.completeness.covered < entry.completeness.expected,
-        `partial dataset ${entry.datasetId} must expose a real completeness gap`,
+        entry.completeness.covered <= (entry.completeness.expected ?? 0),
+        `coverage for ${entry.datasetId} cannot exceed its expected unit count`,
+      )
+
+      if (entry.completeness.status === 'complete') {
+        assert.equal(
+          entry.completeness.covered,
+          entry.completeness.expected,
+          `complete dataset ${entry.datasetId} must cover all expected units`,
+        )
+      } else {
+        assert.ok(
+          entry.completeness.covered < (entry.completeness.expected ?? 0),
+          `partial dataset ${entry.datasetId} must expose a real completeness gap`,
+        )
+      }
+    } else {
+      assert.equal(
+        entry.completeness.expected,
+        null,
+        `${entry.completeness.status} coverage for ${entry.datasetId} must not invent an expected textual unit count`,
       )
     }
 
     assert.match(entry.sourceArtifact.sha256, /^[0-9a-f]{64}$/)
-    assert.ok(
-      entry.rights.status.startsWith('verified_for_bundled_'),
-      `active bundled dataset ${entry.datasetId} must expose a verified bundled-rights state`,
-    )
+
+    if (entry.availability === 'bundled') {
+      assert.ok(
+        entry.rights.status.startsWith('verified_for_bundled_'),
+        `bundled dataset ${entry.datasetId} must expose a verified bundled-rights state`,
+      )
+    }
 
     for (const file of [entry.provenance.manifest, entry.provenance.checksums]) {
       await readFile(path.join(root, file), 'utf8')

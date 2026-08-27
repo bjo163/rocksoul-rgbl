@@ -70,7 +70,7 @@ export async function assertDatasetMaterialized(root: string, recipePath: string
 async function main(): Promise<void> {
   const root = process.cwd()
   const quran = await materializeDataset(root, 'ingestion/recipes/quran-tanzil-uthmani', 'datasets/quran-tanzil-uthmani')
-  const dhammapada = await materializeDataset(root, 'ingestion/recipes/dhammapada-sujato-1-20', 'datasets/dhammapada-sujato-1-20')
+  const dhammapada = await materializeDataset(root, 'ingestion/recipes/dhammapada-sujato', 'datasets/dhammapada-sujato')
   console.log(`Quran: ${quran.reduce((sum, p) => sum + p.recordCount, 0)} records`)
   console.log(`Dhammapada: ${dhammapada.reduce((sum, p) => sum + p.recordCount, 0)} records`)
 }

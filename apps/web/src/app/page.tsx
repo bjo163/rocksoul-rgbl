@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { getCorpusSummary, getDynamicCorpusCatalog, getRepository } from '../lib/corpus.js'
+import { getCorpusSummary, getDynamicCorpusCatalog, getRepository, listAvailableScriptureWorks } from '../lib/corpus.js'
 import { datasetHref } from '../lib/presentation.js'
 
 export const dynamic = 'force-dynamic'
@@ -15,15 +15,20 @@ export default async function HomePage({ searchParams }: { searchParams: SearchP
   const selectedTraditionId = first(params.tradition).trim().toLowerCase()
 
   const repository = await getRepository()
-  const [datasets, summary, catalog] = await Promise.all([
+  const [datasets, summary, catalog, scriptureWorks] = await Promise.all([
     repository.listDatasets(),
     getCorpusSummary(),
-    getDynamicCorpusCatalog()
+    getDynamicCorpusCatalog(),
+    listAvailableScriptureWorks()
   ])
 
   const selectedTradition = selectedTraditionId
     ? catalog.traditions.find((t) => t.id === selectedTraditionId)
     : undefined
+
+  const traditionWorks = selectedTradition
+    ? scriptureWorks.filter((w) => w.traditionId === selectedTradition.id || selectedTradition.name.toLowerCase().includes(w.traditionName.toLowerCase()))
+    : []
 
   return (
     <>
@@ -145,29 +150,19 @@ export default async function HomePage({ searchParams }: { searchParams: SearchP
               </div>
             </div>
 
-            {/* Direct Unified Reader CTA Button */}
-            {selectedTradition.id === 'islam' && (
+            {/* Direct Unified Reader CTA Buttons (100% Data-Driven from Works) */}
+            {traditionWorks.length > 0 && (
               <div style={{ marginTop: '20px', display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-                <Link href="/read/quran?surah=1" className="button" style={{ fontWeight: 800, padding: '12px 20px', fontSize: '0.95rem' }}>
-                  📖 Baca Al-Qur'an Lengkap (Arab + Indonesia Kemenag + English Berdampingan) →
-                </Link>
-                <Link href="/read/hadith" className="button secondary" style={{ padding: '12px 18px', fontSize: '0.95rem' }}>
-                  📜 Baca 40 Hadits Arba'in An-Nawawi →
-                </Link>
-              </div>
-            )}
-            {selectedTradition.id === 'buddhism' && (
-              <div style={{ marginTop: '20px' }}>
-                <Link href="/read/dhammapada?chapter=1" className="button" style={{ fontWeight: 800, padding: '12px 20px', fontSize: '0.95rem' }}>
-                  📖 Baca Syair Dhammapada (Pali + Indonesia + English Berdampingan) →
-                </Link>
-              </div>
-            )}
-            {selectedTradition.id === 'hinduism' && (
-              <div style={{ marginTop: '20px' }}>
-                <Link href="/read/gita?chapter=2" className="button" style={{ fontWeight: 800, padding: '12px 20px', fontSize: '0.95rem' }}>
-                  📖 Baca Bhagavad Gita (Sanskerta + Indonesia + English Berdampingan) →
-                </Link>
+                {traditionWorks.map((tw) => (
+                  <Link
+                    key={tw.id}
+                    href={tw.href}
+                    className="button"
+                    style={{ fontWeight: 800, padding: '12px 18px', fontSize: '0.92rem' }}
+                  >
+                    📖 Baca {tw.title} {tw.nativeTitle ? `(${tw.nativeTitle})` : ''} Berdampingan →
+                  </Link>
+                ))}
               </div>
             )}
           </div>

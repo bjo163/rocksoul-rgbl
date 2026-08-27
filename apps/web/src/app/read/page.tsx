@@ -1,55 +1,10 @@
 import Link from 'next/link'
+import { listAvailableScriptureWorks } from '../../lib/corpus.js'
 
 export const dynamic = 'force-dynamic'
 
-export default function ReadHubPage() {
-  const scriptures = [
-    {
-      key: 'quran',
-      title: "Al-Qur'an Al-Karim (114 Surah)",
-      tradition: 'Islam',
-      icon: '🕌',
-      badge: 'Arab + Indonesia + English',
-      description: 'Baca teks suci Al-Qur\'an Rasm Utsmani lengkap 114 Surah berpasangan langsung dengan Terjemahan Resmi Kemenag RI dan English Rawai Al-Bayan.',
-      href: '/read/quran?surah=1'
-    },
-    {
-      key: 'dhammapada',
-      title: 'Syair Suci Dhammapada (26 Bab)',
-      tradition: 'Buddhisme',
-      icon: '☸️',
-      badge: 'Pali + Indonesia + English',
-      description: 'Baca 423 bait syair kebajikan Dhammapada teks bahasa Pali berpasangan dengan Terjemahan Wikisumber Bahasa Indonesia dan Bhikkhu Sujato English.',
-      href: '/read/dhammapada?chapter=1'
-    },
-    {
-      key: 'gita',
-      title: 'Bhagavad Gita (18 Adhyaya)',
-      tradition: 'Hinduisme',
-      icon: '🕉️',
-      badge: 'Sanskerta + Indonesia + English',
-      description: 'Shloka-shloka suci Sanskerta aksara Dewanagari Bhagavad Gita berpasangan dengan transliterasi dan terjemahan bahasa Indonesia serta Inggris.',
-      href: '/read/gita?chapter=2'
-    },
-    {
-      key: 'hadith',
-      title: "40 Hadits Arba'in An-Nawawi",
-      tradition: 'Islam',
-      icon: '📜',
-      badge: 'Matn Arab + Sanad + Terjemahan',
-      description: 'Kompilasi hadis-hadis pokok rukun Islam dan akhlak karya Imam An-Nawawi berpasangan dengan rantai perawi sanad dan terjemahan resmi.',
-      href: '/read/hadith'
-    },
-    {
-      key: 'devotional',
-      title: 'Kompilasi Doa & Mantram Lintas Tradisi',
-      tradition: 'Lintas Tradisi',
-      icon: '🤲',
-      badge: 'Doa Harian & Liturgi',
-      description: 'Sayyid al-Istighfar, Doa Bapa Kami, Shema Yisrael, Metta Chanting, dan Gayatri Mantra berdampingan dengan terjemahan dan ulasan konteks.',
-      href: '/read/devotional'
-    }
-  ]
+export default async function ReadHubPage() {
+  const scriptures = await listAvailableScriptureWorks()
 
   return (
     <>
@@ -57,22 +12,27 @@ export default function ReadHubPage() {
         <span className="section-tag">Pembaca Kitab Terpadu</span>
         <h1 className="section-title">Baca Teks Suci Berdampingan (Parallel Reader)</h1>
         <p className="section-desc">
-          Teks bahasa asli, terjemahan resmi bahasa Indonesia, dan terjemahan bahasa Inggris disajikan <strong>berpasangan ayat-demi-ayat (1-to-1 relational alignment)</strong> tanpa terpisah.
+          Teks bahasa asli, terjemahan resmi bahasa Indonesia, dan terjemahan bahasa Inggris disajikan <strong>berpasangan ayat-demi-ayat (1-to-1 relational alignment)</strong> secara otomatis dari korpus.
         </p>
       </header>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '20px' }}>
         {scriptures.map((s) => (
-          <article className="card" key={s.key} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '24px' }}>
+          <article className="card" key={s.id} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '24px' }}>
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
                 <span style={{ fontSize: '2rem' }}>{s.icon}</span>
                 <div>
                   <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#ffffff', margin: 0 }}>
                     {s.title}
+                    {s.nativeTitle && (
+                      <span style={{ fontSize: '0.85rem', color: 'var(--accent-primary)', marginLeft: '8px', fontWeight: 600 }}>
+                        ({s.nativeTitle})
+                      </span>
+                    )}
                   </h2>
                   <span className="badge primary" style={{ fontSize: '0.72rem', marginTop: '4px' }}>
-                    {s.badge}
+                    {s.traditionName} · {s.badge}
                   </span>
                 </div>
               </div>

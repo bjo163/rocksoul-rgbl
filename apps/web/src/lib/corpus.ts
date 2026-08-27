@@ -218,85 +218,185 @@ export interface ParallelReaderData {
   verses: ParallelVerse[]
 }
 
+export interface DynamicScriptureWork {
+  id: CanonicalId
+  slug: string
+  title: string
+  nativeTitle?: string
+  traditionId?: string
+  traditionName: string
+  icon: string
+  description: string
+  badge: string
+  sectionLabel: string
+  totalSections: number
+  sampleSectionId: string
+  href: string
+}
+
+let scriptureWorksPromise: Promise<DynamicScriptureWork[]> | undefined
+
+export async function listAvailableScriptureWorks(): Promise<DynamicScriptureWork[]> {
+  if (!scriptureWorksPromise) {
+    scriptureWorksPromise = (async () => {
+      const repository = await getRepository()
+      const catalog = await getDynamicCorpusCatalog()
+
+      const works: DynamicScriptureWork[] = []
+      const knownWorkRecords: CorpusRecord[] = []
+      for await (const record of repository.iterateRecords({ recordTypes: ['resource'], kinds: ['textual.work'] })) {
+        knownWorkRecords.push(record)
+      }
+
+      // Pre-map passages to find containers and work prefixes dynamically
+      const passagesByWorkPrefix = new Map<string, { containers: Set<string>; samplePassage?: CorpusRecord }>()
+      for await (const p of repository.iterateRecords({ recordTypes: ['resource'], kinds: ['textual.passage'] })) {
+        const parts = p.id.replace(/^mw:passage:/, '').split(':')
+        const topKey = parts[0]
+
+        const entry = passagesByWorkPrefix.get(topKey) ?? { containers: new Set<string>() }
+        if (parts.length > 2) {
+          entry.containers.add(parts[1])
+        }
+        if (!entry.samplePassage) {
+          entry.samplePassage = p
+        }
+        passagesByWorkPrefix.set(topKey, entry)
+      }
+
+      for (const w of knownWorkRecords) {
+        if (w.id.includes('example-')) continue // skip synthetic test fixtures
+
+        const idLabel = ('labels' in w && Array.isArray(w.labels))
+          ? w.labels.find((l) => l.language === 'id' && l.role === 'preferred')?.value
+          : undefined
+        const enLabel = ('labels' in w && Array.isArray(w.labels))
+          ? w.labels.find((l) => l.language === 'en' && l.role === 'preferred')?.value
+          : undefined
+        const native = ('labels' in w && Array.isArray(w.labels))
+          ? w.labels.find((l) => ['ar', 'sa', 'he', 'pi', 'zh', 'el'].includes(l.language) && l.role === 'preferred')?.value
+          : undefined
+
+        const title = idLabel ?? enLabel ?? displayName(w)
+        const cleanWorkSuffix = w.id.replace(/^mw:work:/, '')
+        const slug = cleanWorkSuffix.replace(/:/g, '-')
+        const topKey = cleanWorkSuffix.split(':').pop() ?? slug
+
+        // Resolve tradition from catalog
+        const matchedTradition = catalog.traditions.find((t) => {
+          const tKey = t.id.toLowerCase()
+          return w.id.toLowerCase().includes(tKey) || (t.name && title.toLowerCase().includes(t.name.toLowerCase()))
+        }) ?? (
+          w.id.includes('quran') || w.id.includes('hadith') ? catalog.traditions.find((t) => t.id === 'islam') :
+          w.id.includes('dhammapada') || w.id.includes('sutta') ? catalog.traditions.find((t) => t.id === 'buddhism') :
+          w.id.includes('gita') ? catalog.traditions.find((t) => t.id === 'hinduism') :
+          w.id.includes('testament') || w.id.includes('didache') ? catalog.traditions.find((t) => t.id === 'christianity') :
+          w.id.includes('avot') || w.id.includes('hebrew') ? catalog.traditions.find((t) => t.id === 'judaism') :
+          catalog.traditions.find((t) => t.id === 'interreligious')
+        )
+
+        const traditionName = matchedTradition?.name ?? 'Lintas Tradisi'
+        const icon = matchedTradition?.icon ?? '📖'
+        const passInfo = passagesByWorkPrefix.get(topKey) ?? passagesByWorkPrefix.get(cleanWorkSuffix.split(':')[0])
+        const containerCount = passInfo?.containers.size ?? 1
+
+        let sectionLabel = 'Bagian'
+        if (topKey.includes('quran') || w.id.includes('quran')) sectionLabel = 'Surah'
+        else if (topKey.includes('dhammapada') || w.id.includes('dhammapada')) sectionLabel = 'Bab'
+        else if (topKey.includes('gita') || w.id.includes('gita')) sectionLabel = 'Adhyaya'
+        else if (topKey.includes('hadith') || w.id.includes('hadith')) sectionLabel = 'Hadits'
+        else if (topKey.includes('avot') || w.id.includes('mishnah')) sectionLabel = 'Perek'
+        else if (topKey.includes('testament') || topKey.includes('bible')) sectionLabel = 'Pasal'
+
+        const firstSection = passInfo?.containers.size ? Array.from(passInfo.containers)[0] : '1'
+
+        works.push({
+          id: w.id,
+          slug,
+          title,
+          nativeTitle: native,
+          traditionId: matchedTradition?.id,
+          traditionName,
+          icon,
+          description: ('description' in w && typeof w.description === 'string')
+            ? w.description
+            : `Teks kanonikal ${title} ber-penjajaran paralel teks asli dan terjemahan resmi.`,
+          badge: `${sectionLabel} 1 - ${containerCount || 1}`,
+          sectionLabel,
+          totalSections: containerCount || 1,
+          sampleSectionId: firstSection,
+          href: `/read/${encodeURIComponent(slug)}?section=${firstSection}`
+        })
+      }
+
+      return works
+    })()
+  }
+  return scriptureWorksPromise
+}
+
 export async function getParallelReaderData(scriptureKey: string, sectionParam?: string): Promise<ParallelReaderData | null> {
   const repository = await getRepository()
   const contentIndex = await getContentIndex()
+  const works = await listAvailableScriptureWorks()
 
-  const key = scriptureKey.toLowerCase()
-  let prefix = ''
-  let title = ''
-  let subtitle = ''
-  let icon = '📖'
-  let tradition = 'Islam'
-  let sectionLabel = 'Bagian'
-  let totalSections = 1
-  const sectionsList: Array<{ id: string; label: string }> = []
+  const cleanKey = scriptureKey.toLowerCase().replace(/^mw:work:/, '').replace(/:/g, '-')
+  const matchedWork = works.find((w) => w.slug.toLowerCase() === cleanKey || w.id.toLowerCase().includes(cleanKey) || cleanKey.includes(w.slug.toLowerCase()))
 
-  if (key === 'quran') {
-    title = "Al-Qur'an Al-Karim"
-    subtitle = "Teks Arab Rasm Utsmani berpasangan 1-to-1 dengan Terjemahan Kemenag RI & English"
-    icon = '🕌'
-    tradition = 'Islam'
-    sectionLabel = 'Surah'
-    totalSections = 114
-    for (let i = 1; i <= 114; i++) {
-      sectionsList.push({ id: String(i), label: `Surah ${i}` })
+  if (!matchedWork) return null
+
+  // Determine passage prefix dynamically
+  const workSuffix = matchedWork.id.replace(/^mw:work:/, '')
+  let prefix = `mw:passage:${workSuffix}:`
+  if (matchedWork.id === 'mw:work:quran') prefix = 'mw:passage:quran:'
+  if (matchedWork.id === 'mw:work:dhammapada') prefix = 'mw:passage:dhammapada:'
+  if (matchedWork.id === 'mw:work:hinduism:bhagavad-gita') prefix = 'mw:passage:hinduism:gita:'
+  if (matchedWork.id === 'mw:work:hadith:nawawi-40') prefix = 'mw:passage:hadith:nawawi-40:'
+  if (matchedWork.id === 'mw:work:devotional:baseline') prefix = 'mw:passage:devotional:'
+  if (matchedWork.id === 'mw:work:mishnah:pirkei-avot') prefix = 'mw:passage:judaism:mishnah:pirkei-avot:'
+
+  // Discover all distinct containers/sections for this prefix
+  const containers = new Set<string>()
+  for await (const p of repository.iterateRecords({ recordTypes: ['resource'], kinds: ['textual.passage'] })) {
+    if (p.id.startsWith(prefix)) {
+      const rest = p.id.replace(prefix, '')
+      const parts = rest.split(':')
+      if (parts.length > 1) {
+        containers.add(parts[0])
+      }
     }
-    const surah = sectionParam && Number(sectionParam) >= 1 && Number(sectionParam) <= 114 ? sectionParam : '1'
-    prefix = `mw:passage:quran:${surah}:`
-  } else if (key === 'dhammapada') {
-    title = 'Dhammapada'
-    subtitle = 'Syair Suci Pali berpasangan dengan Terjemahan Wikisumber ID & Bhikkhu Sujato EN'
-    icon = '☸️'
-    tradition = 'Buddhisme'
-    sectionLabel = 'Bab'
-    totalSections = 26
-    for (let i = 1; i <= 26; i++) {
-      sectionsList.push({ id: String(i), label: `Bab ${i}` })
-    }
-    const chapter = sectionParam && Number(sectionParam) >= 1 && Number(sectionParam) <= 26 ? sectionParam : '1'
-    prefix = `mw:passage:dhammapada:${chapter}:`
-  } else if (key === 'gita') {
-    title = 'Bhagavad Gita'
-    subtitle = 'Shloka Sanskerta Dewanagari berpasangan dengan Terjemahan Indonesia & English'
-    icon = '🕉️'
-    tradition = 'Hinduisme'
-    sectionLabel = 'Adhyaya'
-    totalSections = 18
-    for (let i = 1; i <= 18; i++) {
-      sectionsList.push({ id: String(i), label: `Adhyaya ${i}` })
-    }
-    const chapter = sectionParam && Number(sectionParam) >= 1 && Number(sectionParam) <= 18 ? sectionParam : '2'
-    prefix = `mw:passage:hinduism:gita:${chapter}:`
-  } else if (key === 'hadith') {
-    title = "40 Hadits Arba'in An-Nawawi"
-    subtitle = "Matn Arab berpasangan dengan Rantai Sanad dan Terjemahan Indonesia & English"
-    icon = '📜'
-    tradition = 'Islam'
-    sectionLabel = 'Hadits'
-    totalSections = 42
-    prefix = 'mw:passage:hadith:nawawi-40:'
-  } else if (key === 'devotional') {
-    title = 'Kompilasi Doa & Mantram Lintas Tradisi'
-    subtitle = 'Teks Sumber Asli berpasangan dengan Terjemahan dan Konteks Praktik'
-    icon = '🤲'
-    tradition = 'Lintas Tradisi'
-    sectionLabel = 'Doa'
-    totalSections = 1
-    prefix = 'mw:passage:devotional:'
-  } else {
-    return null
   }
 
-  // Find all passages matching prefix
+  const sortedContainers = Array.from(containers).sort((a, b) => {
+    const numA = Number(a)
+    const numB = Number(b)
+    if (!Number.isNaN(numA) && !Number.isNaN(numB)) return numA - numB
+    return a.localeCompare(b, undefined, { numeric: true })
+  })
+
+  const totalSections = Math.max(sortedContainers.length, 1)
+  const currentSection = sectionParam && sortedContainers.includes(sectionParam)
+    ? sectionParam
+    : (sortedContainers[0] ?? '1')
+
+  const sectionsList = sortedContainers.map((c) => ({
+    id: c,
+    label: `${matchedWork.sectionLabel} ${c}`
+  }))
+
+  const effectivePrefix = sortedContainers.length > 0
+    ? `${prefix}${currentSection}:`
+    : prefix
+
+  // Find all passages matching current section prefix
   const matchingPassages: CorpusRecord[] = []
   for await (const record of repository.iterateRecords({ recordTypes: ['resource'], kinds: ['textual.passage'] })) {
-    if (record.id.startsWith(prefix)) {
+    if (record.id.startsWith(effectivePrefix)) {
       matchingPassages.push(record)
     }
   }
 
-  // Sort by sequence or local ID
+  // Sort passages by sequence
   matchingPassages.sort((a, b) => {
     const aSeq = (a as { extensions?: { textual?: { sequence?: number } } }).extensions?.textual?.sequence
     const bSeq = (b as { extensions?: { textual?: { sequence?: number } } }).extensions?.textual?.sequence
@@ -304,7 +404,7 @@ export async function getParallelReaderData(scriptureKey: string, sectionParam?:
     return a.id.localeCompare(b.id, undefined, { numeric: true })
   })
 
-  // For each passage, assemble parallel representations
+  // Assemble parallel representations
   const verses: ParallelVerse[] = matchingPassages.map((passage) => {
     const payload = textualPayload(passage) ?? {}
     const citations = Array.isArray(payload.citations) ? payload.citations as Array<{ reference?: string }> : []
@@ -351,14 +451,14 @@ export async function getParallelReaderData(scriptureKey: string, sectionParam?:
   })
 
   return {
-    key,
-    title,
-    subtitle,
-    icon,
-    tradition,
-    currentSection: sectionParam ?? (sectionsList[0]?.id ?? '1'),
+    key: matchedWork.slug,
+    title: matchedWork.title,
+    subtitle: matchedWork.description,
+    icon: matchedWork.icon,
+    tradition: matchedWork.traditionName,
+    currentSection,
     totalSections,
-    sectionLabel,
+    sectionLabel: matchedWork.sectionLabel,
     sectionsList,
     verses
   }

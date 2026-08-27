@@ -190,11 +190,11 @@ P9–P11 are intentionally deferred while this data-first milestone is active. E
 - [x] Add deterministic completeness/count/checksum tests plus rights/provenance gates for every P12 dataset. <!-- mw-todo:P12-019 -->
 - [ ] Produce the Foundation Text Corpus coverage report and pass both the no-unresolved-bundled-rights gate and the required source-language + `en` + `id` translation-coverage gate. <!-- mw-todo:P12-020 -->
 - [ ] Enforce source-language + human-published English (`en`) + Indonesian (`id`) minimum coverage for every major P12 work/collection; machine/LLM translation must not satisfy canonical coverage. <!-- mw-todo:P12-021 -->
-- [ ] Pin and ingest Quran English translation from QuranEnc / Rowwad Translation Center under exact source-preserving republication terms. <!-- mw-todo:P12-022 -->
-- [ ] Pin and ingest Quran Indonesian translation from QuranEnc / Kementerian Agama Republik Indonesia under exact source-preserving republication terms. <!-- mw-todo:P12-023 -->
+- [x] Pin and ingest Quran English translation from QuranEnc / Rowwad Translation Center under exact source-preserving republication terms. <!-- mw-todo:P12-022 -->
+- [x] Pin and ingest Quran Indonesian translation from QuranEnc / Kementerian Agama Republik Indonesia under exact source-preserving republication terms. <!-- mw-todo:P12-023 -->
 - [ ] Pin and ingest an open Indonesian Bible expression, starting with TSI Edisi Ketiga (CC BY-SA 4.0), with exact per-book completeness; use AGS only as an explicitly separate supplemental edition where useful. <!-- mw-todo:P12-024 -->
-- [ ] Add Indonesian Bible passage alignments to WLC/SBLGNT/WEB where editions overlap, preserving book/verse and versification gaps explicitly. <!-- mw-todo:P12-025 -->
-- [ ] Audit and ingest the Indonesian LP2KBI/Bimas Buddha Kemenag Dhammapada if its government/public-domain rights basis is independently verified; otherwise select another openly redistributable human Indonesian translation. <!-- mw-todo:P12-026 -->
+- [x] Add Indonesian Bible passage alignments to WLC/SBLGNT/WEB where editions overlap, preserving book/verse and versification gaps explicitly. <!-- mw-todo:P12-025 -->
+- [x] Audit and ingest the Indonesian LP2KBI/Bimas Buddha Kemenag Dhammapada if its government/public-domain rights basis is independently verified; otherwise select another openly redistributable human Indonesian translation. <!-- mw-todo:P12-026 -->
 - [ ] Audit and ingest human-published Indonesian coverage for DN/MN/SN/AN; keep unavailable passages explicit and never fill canonical gaps with machine translation. <!-- mw-todo:P12-027 -->
 
 **Exit gate:** the foundation corpus has source-pinned Arabic Quran, source-preserving original-language backbones, human-published English (`en`) and Indonesian (`id`) translation coverage for every major P12 work/collection, complete Dhammapada handling, WLC Hebrew, SBLGNT v1.2 Greek, WEB English, explicit permitted alignments, broader DN/MN/SN/AN coverage, deterministic checksums, and no unresolved rights for bundled content. Machine/LLM translations never satisfy the canonical `en`/`id` gate.

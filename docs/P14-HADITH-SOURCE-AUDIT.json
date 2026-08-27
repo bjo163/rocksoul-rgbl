@@ -1,0 +1,56 @@
+{
+  "formatVersion": "1",
+  "auditDate": "2026-08-27",
+  "scope": "P14 Arabic hadith/report source-candidate audit. An eligible candidate is not automatically an authoritative edition or an ingested dataset.",
+  "candidates": [
+    {
+      "id": "open-hadith-data",
+      "repository": "Jaguar16/open-hadith-data",
+      "revision": "1d6365b2d7e97b56627bfdca2c41052877d8a5dd",
+      "revisionPolicy": "exact_commit_only",
+      "status": "eligible_arabic_candidate_not_yet_ingested",
+      "sourceCharacter": "secondary structured extraction from sunnah.com; must not become authority by default",
+      "rights": {
+        "structuredData": "CC0-1.0",
+        "arabicHadithText": "publisher_declared_public_domain",
+        "englishTranslations": "excluded_pending_upstream_redistribution_rights",
+        "licenseEvidence": "Jaguar16/open-hadith-data@1d6365b2d7e97b56627bfdca2c41052877d8a5dd:DATA_LICENSE.md"
+      },
+      "structure": {
+        "collection": "collection object/id",
+        "book": "books[].book_number/book_key",
+        "chapter": "books[].chapters[].chapter_number",
+        "report": "hadith_number/reference/in_book_reference",
+        "fullArabic": "text_ar",
+        "matn": "matn_ar",
+        "isnad": "isnad_ar",
+        "transmitter": "narrator as source string; structured person/transmitter identity requires separate reviewed evidence",
+        "closing": "closing_ar",
+        "variants": "has_variants"
+      },
+      "constraints": [
+        "Do not bundle text_en, matn_en, or English narrator/translation fields until translator/publisher redistribution rights are independently verified.",
+        "Preserve matn and isnad as distinct source layers; never infer transmitter biography or historical truth from chain text.",
+        "Preserve collection/book/chapter/report hierarchy and exact source reference.",
+        "Before P14-007 ingestion, select a bounded collection and verify it against an authenticated/primary edition or stronger source witness; sunnah.com scraping is provenance, not canonical authority."
+      ]
+    },
+    {
+      "id": "lk-hadith-corpus",
+      "repository": "ShathaTm/LK-Hadith-Corpus",
+      "status": "audit_only_not_eligible_for_bundling",
+      "reason": "Public repository and useful bilingual/annotated structure were discoverable, but an explicit redistribution license for the corpus was not established in this audit."
+    }
+  ],
+  "requiredLayerPolicy": {
+    "collectionBookChapterReportDistinct": true,
+    "matnIsnadDistinct": true,
+    "transmitterIdentityRequiresReviewedEvidence": true,
+    "sourceGradeIsSourceAttributionNotCanonicalTruth": true,
+    "secondaryWebsiteNotAuthorityByDefault": true
+  },
+  "nextIngestionGate": {
+    "issue": "P14-007",
+    "state": "blocked_pending_bounded_collection_selection_and_primary_witness_verification"
+  }
+}

@@ -247,7 +247,7 @@ P14 increases diversity of texts, fragments, genres, languages, and communities 
 - [ ] Add separately sourced human English and Indonesian hadith/report translations only where republication rights, translator, and edition are explicit. <!-- mw-todo:P14-008 -->
 - [ ] Model isnad/transmission as source-attributed assertions and chains, never as automatically verified biography or historical fact. <!-- mw-todo:P14-009 -->
 - [ ] Audit and ingest a rights-cleared Quran commentary/tafsir lane as commentary linked to Quran passages, never as Quran source text. <!-- mw-todo:P14-010 -->
-- [x] Audit and ingest a rights-cleared Mishnah source lane, preserving tractate/chapter/mishnah citations and Hebrew/Aramaic distinctions. <!-- mw-todo:P14-011 -->
+- [ ] Audit and ingest a rights-cleared Mishnah source lane, preserving tractate/chapter/mishnah citations and Hebrew/Aramaic distinctions. <!-- mw-todo:P14-011 -->
 - [x] Audit Talmud and midrash candidates; support metadata-only or bounded quotation datasets when complete redistribution is not permitted. <!-- mw-todo:P14-012 -->
 - [x] Add Jewish liturgical/prayer and medieval philosophical-text candidate lanes with explicit community, language, and rights scopes. <!-- mw-todo:P14-013 -->
 - [x] Audit and ingest rights-cleared Apostolic Fathers, early Christian creeds, and patristic source-text candidates as editions separate from the New Testament. <!-- mw-todo:P14-014 -->

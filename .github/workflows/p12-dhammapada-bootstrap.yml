@@ -1,0 +1,46 @@
+name: P12 Dhammapada bootstrap
+
+on:
+  push:
+    branches:
+      - p12-003-dhammapada-sujato-complete
+    paths:
+      - '.github/workflows/p12-dhammapada-bootstrap.yml'
+      - 'scripts/acquire-dhammapada-sujato.mjs'
+      - 'scripts/materialize-p12-dhammapada.ts'
+      - 'ingestion/recipes/dhammapada-sujato/recipe.ts'
+
+permissions:
+  contents: write
+
+jobs:
+  materialize:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: p12-003-dhammapada-sujato-complete
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: node scripts/acquire-dhammapada-sujato.mjs
+      - run: corepack enable
+      - run: pnpm install --no-frozen-lockfile
+      - run: pnpm exec tsx scripts/materialize-p12-dhammapada.ts
+      - name: Commit pinned source snapshots and materialized dataset
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add ingestion/recipes/dhammapada-sujato/source \
+                  ingestion/recipes/dhammapada-sujato/recipe.json \
+                  datasets/dhammapada-sujato \
+                  datasets/registry.json \
+                  datasets/coverage.json
+          if git diff --cached --quiet; then
+            echo 'No generated changes to commit.'
+            exit 0
+          fi
+          git commit -m 'data(p12): materialize complete Dhammapada [skip ci]'
+          git push origin HEAD:p12-003-dhammapada-sujato-complete

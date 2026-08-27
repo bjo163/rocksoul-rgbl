@@ -233,6 +233,44 @@ P13 runs in parallel with P12. It builds an open-ended registry, not a final uni
 
 **Exit gate:** P13 provides reproducible open registries of traditions and religious/scriptural persons with `en` + `id` coverage reporting, external identifiers, source-attributed hierarchy/role assertions, exact textual evidence where available, deterministic reconciliation, and no claim that a finite taxonomy is literally “all religions” or that a religious role is universally true.
 
+## P14 — dataset diversity and source expansion
+
+P14 increases diversity of texts, fragments, genres, languages, and communities without treating record count as coverage. Detailed policy and source-lane boundaries are in [`docs/DATASET_DIVERSITY_TARGETS.md`](docs/DATASET_DIVERSITY_TARGETS.md).
+
+- [ ] Define a machine-readable P14 diversity matrix covering tradition/community, genre, source language, `en`/`id`, text scale, rights state, and unresolved gaps. <!-- mw-todo:P14-001 -->
+- [ ] Add a source-discovery registry that records candidate source, authority, edition, retrieval method, checksum, rights decision, and bundle/metadata-only disposition. <!-- mw-todo:P14-002 -->
+- [ ] Add a reusable complete-work versus bounded-fragment contract; fragments must retain parent work, edition, citation range, completeness statement, rights, and provenance. <!-- mw-todo:P14-003 -->
+- [ ] Add deterministic source/rights gates that prohibit bundling a candidate merely because it is downloadable. <!-- mw-todo:P14-004 -->
+- [ ] Add genre vocabulary and profiles for scripture, hadith/report, commentary, legal text, ritual/manual, hymn/prayer, biography, chronicle, philosophical text, and oral-tradition metadata. <!-- mw-todo:P14-005 -->
+- [ ] Audit and pin openly redistributable Arabic hadith/report source candidates; keep collection, book, chapter, report, matn, and isnad/transmitter layers distinct. <!-- mw-todo:P14-006 -->
+- [ ] Ingest the first rights-cleared Arabic hadith/report collection with exact citation hierarchy and source-preserving matn, without using a secondary website as authority by default. <!-- mw-todo:P14-007 -->
+- [ ] Add separately sourced human English and Indonesian hadith/report translations only where republication rights, translator, and edition are explicit. <!-- mw-todo:P14-008 -->
+- [ ] Model isnad/transmission as source-attributed assertions and chains, never as automatically verified biography or historical fact. <!-- mw-todo:P14-009 -->
+- [ ] Audit and ingest a rights-cleared Quran commentary/tafsir lane as commentary linked to Quran passages, never as Quran source text. <!-- mw-todo:P14-010 -->
+- [ ] Audit and ingest a rights-cleared Mishnah source lane, preserving tractate/chapter/mishnah citations and Hebrew/Aramaic distinctions. <!-- mw-todo:P14-011 -->
+- [ ] Audit Talmud and midrash candidates; support metadata-only or bounded quotation datasets when complete redistribution is not permitted. <!-- mw-todo:P14-012 -->
+- [ ] Add Jewish liturgical/prayer and medieval philosophical-text candidate lanes with explicit community, language, and rights scopes. <!-- mw-todo:P14-013 -->
+- [ ] Audit and ingest rights-cleared Apostolic Fathers, early Christian creeds, and patristic source-text candidates as editions separate from the New Testament. <!-- mw-todo:P14-014 -->
+- [ ] Add Christian liturgical, conciliar, and denominational primary-document lanes with denomination/community scope and non-universal claims. <!-- mw-todo:P14-015 -->
+- [ ] Complete the Pali root-text rights decision for DN/MN/SN/AN and ingest only independently permitted source-language material. <!-- mw-todo:P14-016 -->
+- [ ] Add Buddhist non-Pali source lanes for Chinese and Tibetan canon metadata, with source-language, edition, and access constraints explicit. <!-- mw-todo:P14-017 -->
+- [ ] Audit and ingest rights-cleared Buddhist commentarial, vinaya, and meditation-manual datasets as genres distinct from sutta text. <!-- mw-todo:P14-018 -->
+- [ ] Audit and ingest Sanskrit Bhagavad Gita source candidates plus human English and Indonesian translations as separate expressions. <!-- mw-todo:P14-019 -->
+- [ ] Add rights-cleared Veda, Upanishad, and Hindu epic source/fragment lanes with recension, language, and translation boundaries explicit. <!-- mw-todo:P14-020 -->
+- [ ] Audit Jain Agama and Tattvartha Sutra candidates with Prakrit/Sanskrit/Hindi/English/Indonesian distinctions and sect scope. <!-- mw-todo:P14-021 -->
+- [ ] Audit Sikh Guru Granth Sahib source and translation candidates, preserving raga, ang, and hymn citation systems where licensed. <!-- mw-todo:P14-022 -->
+- [ ] Audit Baháʼí, Zoroastrian, Daoist, Confucian, and Shinto primary-text candidates with edition, translation, and community scopes. <!-- mw-todo:P14-023 -->
+- [ ] Add indigenous, local, oral, and living-tradition discovery lanes under consent-first metadata policy; do not bundle restricted or ceremonial content without explicit permission. <!-- mw-todo:P14-024 -->
+- [ ] Add modern religious-movement primary-document lanes with publisher, date, jurisdiction, and redistribution terms recorded. <!-- mw-todo:P14-025 -->
+- [ ] Add multilingual transliteration/romanization provenance for source languages where a lossless native-script representation is retained. <!-- mw-todo:P14-026 -->
+- [ ] Add citation adapters for non-Bible/non-sutta structures: hadith report, folio/line, hymn/ang/raga, chapter/verse, tractate/mishnah, and fragment selector. <!-- mw-todo:P14-027 -->
+- [ ] Add passage-to-P13 evidence extraction contracts so text mentions create review candidates, never automatic person identity or role claims. <!-- mw-todo:P14-028 -->
+- [ ] Add diversity-aware sampling and duplicate controls so high-volume traditions do not hide missing source-language, genre, or community coverage. <!-- mw-todo:P14-029 -->
+- [ ] Add deterministic ingestion/count/checksum/rights/provenance tests for every P14 dataset and fragment collection. <!-- mw-todo:P14-030 -->
+- [ ] Produce the P14 diversity coverage report and pass the no-exhaustiveness/no-unconsented-restricted-content/no-translation-as-source exit gates. <!-- mw-todo:P14-031 -->
+
+**Exit gate:** P14 demonstrates materially broader, rights-safe coverage across traditions, genres, and languages while preserving source/translation/commentary boundaries, fragment completeness, community scope, and provenance.
+
 ## P10 — advanced profiles (after v0.1 proof)
 
 - [x] Temporal/chronology profile with uncertainty/ranges/calendars. <!-- mw-todo:P10-001 -->

@@ -1,0 +1,26 @@
+{
+  "formatVersion": "1",
+  "scope": "Bounded P13 v0.1 coverage; rows are coverage claims, not an exhaustive census.",
+  "families": {
+    "christianity": { "traditionEntity": "mw:tradition:christianity", "personCount": 2, "textualEvidenceAssertions": 1 },
+    "islam": { "traditionEntity": "mw:tradition:islam", "personCount": 2, "textualEvidenceAssertions": 4 },
+    "judaism": { "traditionEntity": "mw:tradition:judaism", "personCount": 2, "textualEvidenceAssertions": 2 },
+    "buddhism": { "traditionEntity": "mw:tradition:buddhism", "personCount": 1, "textualEvidenceAssertions": 0 },
+    "hinduism": { "traditionEntity": "mw:tradition:hinduism", "personCount": 1, "textualEvidenceAssertions": 0 },
+    "jainism": { "traditionEntity": "mw:tradition:jainism", "personCount": 1, "textualEvidenceAssertions": 0 },
+    "sikhism": { "traditionEntity": "mw:tradition:sikhism", "personCount": 1, "textualEvidenceAssertions": 0 },
+    "bahai-faith": { "traditionEntity": "mw:tradition:bahai-faith", "personCount": 0, "textualEvidenceAssertions": 0 },
+    "zoroastrianism": { "traditionEntity": "mw:tradition:zoroastrianism", "personCount": 1, "textualEvidenceAssertions": 0 },
+    "daoism": { "traditionEntity": "mw:tradition:daoism", "personCount": 1, "textualEvidenceAssertions": 0 },
+    "confucianism": { "traditionEntity": "mw:tradition:confucianism", "personCount": 1, "textualEvidenceAssertions": 0 },
+    "shinto": { "traditionEntity": "mw:tradition:shinto", "personCount": 0, "textualEvidenceAssertions": 0 }
+  },
+  "gates": {
+    "noGlobalRoleAssertions": "pass",
+    "noFinalTaxonomy": "pass",
+    "noNameOnlyIdentity": "pass",
+    "reconciliationAutomaticMerge": "disabled",
+    "historicityAssessments": "pending-sourced-lane"
+  },
+  "unresolved": ["P13-020 indigenous/modern discovery lanes", "P13-021 aliases and native names", "P13-023 sourced cross-tradition equivalence", "P13-024 historicity assessments"]
+}

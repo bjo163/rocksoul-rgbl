@@ -1,0 +1,29 @@
+{
+  "id": "mw:dataset:lexicon:hebrew-biblical-core",
+  "datasetVersion": "0.1.0",
+  "specVersion": "0.1",
+  "profiles": [
+    "lexicon@0.1"
+  ],
+  "dependencies": [
+    {
+      "dataset": "mw:dataset:oshb:wlc",
+      "version": "0.1.0"
+    }
+  ],
+  "partitions": [
+    {
+      "recordType": "resource",
+      "path": "data/core/resources/*.jsonl"
+    },
+    {
+      "recordType": "provenance",
+      "path": "data/core/provenance/*.jsonl"
+    }
+  ],
+  "sources": [
+    "Curated Hebrew biblical source-form and passage-usage seed from OSHB WLC dataset"
+  ],
+  "rights": "Metadata and curation records are CC0 repository data; Hebrew forms remain governed by WLC public domain terms.",
+  "availability": "bundled"
+}

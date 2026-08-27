@@ -1,0 +1,29 @@
+{
+  "id": "mw:dataset:lexicon:sanskrit-hindu-core",
+  "datasetVersion": "0.1.0",
+  "specVersion": "0.1",
+  "profiles": [
+    "lexicon@0.1"
+  ],
+  "dependencies": [
+    {
+      "dataset": "mw:dataset:hinduism:bhagavad-gita",
+      "version": "0.1.0"
+    }
+  ],
+  "partitions": [
+    {
+      "recordType": "resource",
+      "path": "data/core/resources/*.jsonl"
+    },
+    {
+      "recordType": "provenance",
+      "path": "data/core/provenance/*.jsonl"
+    }
+  ],
+  "sources": [
+    "Curated Sanskrit Hindu source-form and passage-usage seed from Bhagavad Gita dataset"
+  ],
+  "rights": "Metadata and curation records are CC0 repository data; Sanskrit forms remain governed by public domain terms.",
+  "availability": "bundled"
+}

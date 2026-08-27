@@ -145,6 +145,21 @@
       "id": "mw:dataset:devotional:baseline",
       "path": "datasets/devotional-baseline",
       "status": "supplemental"
+    },
+    {
+      "id": "mw:dataset:lexicon:hebrew-biblical-core",
+      "path": "datasets/hebrew-biblical-lexicon",
+      "status": "supplemental"
+    },
+    {
+      "id": "mw:dataset:lexicon:greek-christian-core",
+      "path": "datasets/greek-christian-lexicon",
+      "status": "supplemental"
+    },
+    {
+      "id": "mw:dataset:lexicon:sanskrit-hindu-core",
+      "path": "datasets/sanskrit-hindu-lexicon",
+      "status": "supplemental"
     }
   ]
 }

@@ -271,6 +271,100 @@ P14 increases diversity of texts, fragments, genres, languages, and communities 
 
 **Exit gate:** P14 demonstrates materially broader, rights-safe coverage across traditions, genres, and languages while preserving source/translation/commentary boundaries, fragment completeness, community scope, and provenance.
 
+## P15 — multilingual religious lexicon and concept registry
+
+P15 separates lexical forms from source-scoped meanings and from P13 entities. Policy is documented in [`docs/RELIGIOUS_LEXICON_TARGETS.md`](docs/RELIGIOUS_LEXICON_TARGETS.md).
+
+- [ ] Define separate schemas/contracts for concept, term, sacred name, epithet, title, honorific, definition, and usage evidence. <!-- mw-todo:P15-001 -->
+- [ ] Define an anti-equivalence policy: shared translation, spelling, or function never automatically equates concepts across sources or traditions. <!-- mw-todo:P15-002 -->
+- [ ] Add a machine-readable P15 source registry and coverage matrix by tradition, semantic domain, language, script, `en`/`id`, and evidence state. <!-- mw-todo:P15-003 -->
+- [ ] Add language/script-aware preferred terms, aliases, grammatical metadata, and source-local identifiers without normalizing away meaningful distinctions. <!-- mw-todo:P15-004 -->
+- [ ] Add transliteration records with scheme, version, source form, reversibility/lossiness, and provenance. <!-- mw-todo:P15-005 -->
+- [ ] Add sourced etymology and historical-form assertions without treating reconstructed derivations as certain facts. <!-- mw-todo:P15-006 -->
+- [ ] Add sourced definitions and usage notes scoped to work, passage, tradition, community, period, and language. <!-- mw-todo:P15-007 -->
+- [ ] Add broader/narrower/related/contrasted-with/translated-as relations as provenance-bearing assertions rather than universal ontology edges. <!-- mw-todo:P15-008 -->
+- [ ] Add contested, polysemous, homographic, obsolete, pejorative, reclaimed, and community-preferred term states with review notes. <!-- mw-todo:P15-009 -->
+- [ ] Link sacred names, epithets, and titles to P13 entities only through sourced designation assertions; never merge entity identity from a name match. <!-- mw-todo:P15-010 -->
+- [ ] Extract and review Quran/Islamic Arabic terms, divine names, roles, practices, and theological vocabulary from exact P12/P14 evidence. <!-- mw-todo:P15-011 -->
+- [ ] Extract and review Hebrew/Aramaic Jewish terms, divine designations, offices, practices, and covenant/legal vocabulary from exact evidence. <!-- mw-todo:P15-012 -->
+- [ ] Extract and review Greek/Latin/Syriac Christian terms, titles, offices, sacraments, and doctrinal vocabulary with source/community scope. <!-- mw-todo:P15-013 -->
+- [ ] Extract and review Pali/Sanskrit Buddhist terms with school, canon, translation, and commentarial scope explicit. <!-- mw-todo:P15-014 -->
+- [ ] Add Sanskrit and regional-language Hindu concept/name coverage without flattening deity, epithet, avatara, philosophical school, or practice distinctions. <!-- mw-todo:P15-015 -->
+- [ ] Add Jain, Sikh, Baháʼí, Zoroastrian, Daoist, Confucian, and Shinto term/name lanes with native script and community scope. <!-- mw-todo:P15-016 -->
+- [ ] Add rights- and consent-reviewed indigenous/local terminology metadata without publishing restricted names or meanings. <!-- mw-todo:P15-017 -->
+- [ ] Add human-published English and Indonesian glosses/definitions as attributed expressions; machine glosses remain derived non-canonical candidates. <!-- mw-todo:P15-018 -->
+- [ ] Add passage-level term occurrence and definition evidence linked to P12/P14 content without changing source text. <!-- mw-todo:P15-019 -->
+- [ ] Add deterministic duplicate, spelling-variant, transliteration, homograph, and possible-concept-match reports without automatic merges. <!-- mw-todo:P15-020 -->
+- [ ] Add terminology review workflow for community-preferred naming, deprecated labels, sensitive language, and disputed translations. <!-- mw-todo:P15-021 -->
+- [ ] Add deterministic ingestion/count/checksum/rights/provenance and source-evidence tests for every P15 dataset. <!-- mw-todo:P15-022 -->
+- [ ] Produce the P15 multilingual lexicon report and pass no-name-only-identity/no-translation-only-equivalence/no-unsourced-definition gates. <!-- mw-todo:P15-023 -->
+
+**Exit gate:** P15 provides a multilingual, evidence-backed lexicon whose terms, concepts, names, entities, transliterations, and translations remain explicitly distinct and source-scoped.
+
+## P16 — devotional, prayer, liturgy, and practice corpus
+
+P16 expands sourced prayers and lived-practice material while separating text, performance, ritual description, and community claims. Policy is documented in [`docs/DEVOTIONAL_RITUAL_CORPUS_TARGETS.md`](docs/DEVOTIONAL_RITUAL_CORPUS_TARGETS.md).
+
+- [ ] Define schemas/contracts for prayer, blessing, hymn, chant, mantra, creed, liturgy, ritual instruction, observance, and practice description. <!-- mw-todo:P16-001 -->
+- [ ] Add a machine-readable P16 source registry and coverage matrix by tradition/community, genre, language, text/performance form, rights, and sensitivity state. <!-- mw-todo:P16-002 -->
+- [ ] Require work/edition/citation/completeness/provenance/rights metadata for every complete devotional work and bounded excerpt. <!-- mw-todo:P16-003 -->
+- [ ] Separate normative source text, descriptive practice metadata, commentary, performance recording, and participant/community assertions. <!-- mw-todo:P16-004 -->
+- [ ] Add sensitivity and access states for public, community-contextual, initiatory, restricted, ceremonial, hazardous, and metadata-only material. <!-- mw-todo:P16-005 -->
+- [ ] Audit and ingest rights-cleared Islamic dua, dhikr, salat wording, khutbah, and devotional-text candidates with school/source variation explicit. <!-- mw-todo:P16-006 -->
+- [ ] Audit and ingest rights-cleared Jewish prayer, blessing, piyyut, and liturgical-order candidates with rite/community variants explicit. <!-- mw-todo:P16-007 -->
+- [ ] Audit and ingest rights-cleared Christian prayers, creeds, hymns, lectionary/liturgy fragments, and denominational variants. <!-- mw-todo:P16-008 -->
+- [ ] Audit and ingest rights-cleared Buddhist paritta, sutra chant, aspiration, dedication, liturgy, and meditation-manual excerpts with school scope. <!-- mw-todo:P16-009 -->
+- [ ] Audit and ingest rights-cleared Hindu mantra, stotra, puja, vrata, and devotional hymn candidates with deity/sampradaya/source scope. <!-- mw-todo:P16-010 -->
+- [ ] Audit and ingest Jain prayer/ritual, Sikh bani/ardas/kirtan, Baháʼí prayer, and Zoroastrian liturgical candidates under exact rights. <!-- mw-todo:P16-011 -->
+- [ ] Audit Daoist, Confucian, Shinto, and East Asian ritual/devotional candidates with temple/school/community and language context. <!-- mw-todo:P16-012 -->
+- [ ] Add indigenous/local/oral devotional discovery under consent-first policy; restricted performance text remains metadata-only unless explicitly permitted. <!-- mw-todo:P16-013 -->
+- [ ] Model ritual/practice participants, roles, actions, sequence, objects, place, time, calendar, and community as sourced contextual assertions. <!-- mw-todo:P16-014 -->
+- [ ] Add festival, fast, feast, pilgrimage, lifecycle rite, and observance entities with calendar-system and regional/community variation. <!-- mw-todo:P16-015 -->
+- [ ] Add sacred object, symbol, garment, food, instrument, architecture, and material-culture links without assigning one universal meaning. <!-- mw-todo:P16-016 -->
+- [ ] Add prayer/mantra/hymn citation adapters for line, stanza, refrain, verse, section, bead/count, service order, and performance segment. <!-- mw-todo:P16-017 -->
+- [ ] Add human English and Indonesian translations as separate expressions linked to exact source segments and translator/edition rights. <!-- mw-todo:P16-018 -->
+- [ ] Add textual and community variants without synthesizing a single normative prayer or ritual form. <!-- mw-todo:P16-019 -->
+- [ ] Add audio/video/IIIF performance evidence with time/region/performer/community metadata and media rights. <!-- mw-todo:P16-020 -->
+- [ ] Link P16 terms to P15 concepts and participants/communities to P13 entities through reviewed evidence. <!-- mw-todo:P16-021 -->
+- [ ] Add deterministic alignment and gap reports across source, transliteration, `en`, and `id` devotional expressions. <!-- mw-todo:P16-022 -->
+- [ ] Add safety and ethics review preventing canonical records from becoming unsourced ritual instructions or exposing restricted content. <!-- mw-todo:P16-023 -->
+- [ ] Add deterministic ingestion/count/checksum/rights/provenance/sensitivity tests for every P16 dataset. <!-- mw-todo:P16-024 -->
+- [ ] Produce the P16 devotional/practice report and pass no-unscoped-normativity/no-restricted-content/no-performance-as-text gates. <!-- mw-todo:P16-025 -->
+
+**Exit gate:** P16 provides diverse, rights-safe devotional and practice data while preserving textual variants, community scope, performance boundaries, consent, and sensitivity controls.
+
+## P17 — intertextual evidence and research graph
+
+P17 connects P12–P16 through explainable, reviewable evidence rather than opaque similarity. Policy is documented in [`docs/INTERTEXTUAL_EVIDENCE_GRAPH_TARGETS.md`](docs/INTERTEXTUAL_EVIDENCE_GRAPH_TARGETS.md).
+
+- [ ] Define typed contracts for mention, quotation, citation, allusion candidate, commentary target, parallel passage, motif, event, place, role, and transmission evidence. <!-- mw-todo:P17-001 -->
+- [ ] Require every graph edge to expose source dataset/version, exact target/selector, method, assertion status, reviewer state, and provenance. <!-- mw-todo:P17-002 -->
+- [ ] Define identity/equivalence/dependence guardrails: lexical or embedding similarity can create candidates but never canonical conclusions. <!-- mw-todo:P17-003 -->
+- [ ] Add machine-readable graph-source registry and coverage matrix by edge type, tradition pair, language pair, evidence quality, and unresolved candidates. <!-- mw-todo:P17-004 -->
+- [ ] Add deterministic mention extraction candidates linking P12/P14/P16 passages to P13 persons, traditions, places, and institutions. <!-- mw-todo:P17-005 -->
+- [ ] Add exact quotation and explicit citation links where a source itself identifies the cited work/passage. <!-- mw-todo:P17-006 -->
+- [ ] Add reviewed allusion/intertext candidates with confidence and scholarly provenance; never label model similarity as established allusion. <!-- mw-todo:P17-007 -->
+- [ ] Add commentary/exegesis links from tafsir, midrash, commentary, scholia, and other interpretation datasets to exact target passages. <!-- mw-todo:P17-008 -->
+- [ ] Add same-edition and cross-edition parallel-passage records with versification, boundary, omission, and addition gaps explicit. <!-- mw-todo:P17-009 -->
+- [ ] Add narrative/event participation assertions linking persons, places, periods, and passages while preserving source disagreement. <!-- mw-todo:P17-010 -->
+- [ ] Add genealogy, lineage, teacher/student, isnad, succession, and transmission links as source-scoped claims with uncertainty. <!-- mw-todo:P17-011 -->
+- [ ] Add P15 concept/term occurrence, definition, translation, contrast, and semantic-shift evidence across passages and periods. <!-- mw-todo:P17-012 -->
+- [ ] Add P16 prayer/ritual usage and adaptation links to source texts, concepts, communities, observances, and media evidence. <!-- mw-todo:P17-013 -->
+- [ ] Add cross-tradition comparison records that state comparison dimensions and sources without asserting theological identity. <!-- mw-todo:P17-014 -->
+- [ ] Represent negative, absent, unmatched, uncertain, disputed, superseded, and retracted graph findings explicitly. <!-- mw-todo:P17-015 -->
+- [ ] Add claim-level confidence/assessment vocabulary that distinguishes source assertion, curator assessment, and automated candidate score. <!-- mw-todo:P17-016 -->
+- [ ] Add graph reconciliation for duplicate edges, contradictory claims, citation aliases, selector drift, and dataset-version changes. <!-- mw-todo:P17-017 -->
+- [ ] Add immutable graph snapshots with exact dependency versions and deterministic edge/checksum manifests. <!-- mw-todo:P17-018 -->
+- [ ] Add explanation paths from any derived comparison or registry claim back to exact source artifact and passage evidence. <!-- mw-todo:P17-019 -->
+- [ ] Add benchmark query fixtures for person→role→passage, term→concept→usage, prayer→source→community, and passage→commentary→citation. <!-- mw-todo:P17-020 -->
+- [ ] Add precision-focused review samples for machine-assisted mention/allusion/parallel candidates across scripts and traditions. <!-- mw-todo:P17-021 -->
+- [ ] Add deterministic graph validation for dangling references, dependency scope, cycles where prohibited, selector validity, and contradictory lifecycle states. <!-- mw-todo:P17-022 -->
+- [ ] Add exportable research graph partitions without embedding generated summaries or model opinions as canonical facts. <!-- mw-todo:P17-023 -->
+- [ ] Produce intertextual/reconciliation coverage reports showing both confirmed links and unresolved gaps. <!-- mw-todo:P17-024 -->
+- [ ] Produce the P17 v0.1 report and pass no-opaque-edge/no-similarity-as-truth/no-untraceable-claim exit gates. <!-- mw-todo:P17-025 -->
+
+**Exit gate:** P17 supplies a deterministic, explainable evidence graph in which every canonical link can be traced to exact data, method, provenance, and review state, including uncertainty and gaps.
+
 ## P10 — advanced profiles (after v0.1 proof)
 
 - [x] Temporal/chronology profile with uncertainty/ranges/calendars. <!-- mw-todo:P10-001 -->

@@ -1,0 +1,46 @@
+{
+  "formatVersion": "1",
+  "scope": "Bounded source registry for the bundled P17 research-graph baseline; not an exhaustive intertextual registry.",
+  "sources": [
+    {
+      "datasetId": "mw:dataset:world-religions:textual-evidence",
+      "version": "0.1.0",
+      "edgeTypes": ["role"],
+      "traditionPairDimensions": ["source-tradition↔P13-scoped-role-registry"],
+      "languagePairDimensions": ["ar/he/grc↔registry"],
+      "evidenceQuality": "reviewed-explicit-source-assertion",
+      "confirmedRecords": 7,
+      "unresolvedCandidates": 0
+    },
+    {
+      "datasetId": "mw:dataset:lexicon:quran-arabic-core",
+      "version": "0.1.0",
+      "edgeTypes": ["term_usage"],
+      "traditionPairDimensions": ["Islam↔Islam"],
+      "languagePairDimensions": ["ar↔ar"],
+      "evidenceQuality": "reviewed-exact-passage-usage",
+      "confirmedRecords": 3,
+      "unresolvedCandidates": 0
+    },
+    {
+      "datasetId": "mw:dataset:lexicon:dhammapada-core",
+      "version": "0.1.0",
+      "edgeTypes": ["term_usage"],
+      "traditionPairDimensions": ["Buddhism↔Buddhism"],
+      "languagePairDimensions": ["en/id↔same-expression"],
+      "evidenceQuality": "reviewed-exact-passage-usage",
+      "confirmedRecords": 4,
+      "unresolvedCandidates": 0
+    },
+    {
+      "datasetId": "mw:dataset:bible:passage-alignments",
+      "version": "0.1.0",
+      "edgeTypes": ["parallel_passage"],
+      "traditionPairDimensions": ["Judaism/Christian-source-use↔Christianity"],
+      "languagePairDimensions": ["he/grc↔en"],
+      "evidenceQuality": "reviewed-deterministic-structural-alignment",
+      "confirmedRecords": 2,
+      "unresolvedCandidates": 0
+    }
+  ]
+}

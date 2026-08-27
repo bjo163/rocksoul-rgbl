@@ -1,0 +1,45 @@
+{
+  "formatVersion": "1",
+  "scope": "Bounded P17 research-graph coverage snapshot. Confirmed means represented by explicit bundled evidence; unresolved means not yet covered, not disproven.",
+  "snapshotManifest": "datasets/research-graph-baseline/snapshot-manifest.json",
+  "totals": {
+    "confirmedLinks": 16,
+    "unresolvedCandidateGroups": 8
+  },
+  "edgeTypeCoverage": [
+    { "edgeType": "role", "confirmed": 7, "status": "bounded" },
+    { "edgeType": "term_usage", "confirmed": 7, "status": "bounded" },
+    { "edgeType": "parallel_passage", "confirmed": 2, "status": "bounded", "legacySourceType": "textual_alignment" },
+    { "edgeType": "mention", "confirmed": 0, "status": "unresolved" },
+    { "edgeType": "quotation", "confirmed": 0, "status": "unresolved" },
+    { "edgeType": "citation", "confirmed": 0, "status": "unresolved" },
+    { "edgeType": "allusion_candidate", "confirmed": 0, "status": "unresolved" },
+    { "edgeType": "commentary_target", "confirmed": 0, "status": "unresolved" },
+    { "edgeType": "event", "confirmed": 0, "status": "unresolved" },
+    { "edgeType": "transmission", "confirmed": 0, "status": "unresolved" },
+    { "edgeType": "ritual_usage", "confirmed": 0, "status": "unresolved" },
+    { "edgeType": "comparison", "confirmed": 0, "status": "unresolved" }
+  ],
+  "matrix": [
+    { "edgeType": "role", "traditionPair": "source-tradition↔P13-scoped-role-registry", "languagePair": "ar/he/grc↔registry", "evidenceQuality": "reviewed-explicit-source-assertion", "confirmed": 7 },
+    { "edgeType": "term_usage", "traditionPair": "Islam↔Islam", "languagePair": "ar↔ar", "evidenceQuality": "reviewed-exact-passage-usage", "confirmed": 3 },
+    { "edgeType": "term_usage", "traditionPair": "Buddhism↔Buddhism", "languagePair": "en/id↔same-expression", "evidenceQuality": "reviewed-exact-passage-usage", "confirmed": 4 },
+    { "edgeType": "parallel_passage", "traditionPair": "Judaism/Christian-source-use↔Christianity", "languagePair": "he/grc↔en", "evidenceQuality": "reviewed-deterministic-structural-alignment", "confirmed": 2 }
+  ],
+  "unresolved": [
+    "deterministic mention extraction across P12/P14/P16",
+    "explicit quotation and citation graph lanes",
+    "reviewed scholarly allusion candidates",
+    "commentary/exegesis target links",
+    "event/place participation and source disagreement",
+    "genealogy/lineage/isnad/succession/transmission",
+    "P16 ritual/prayer usage and adaptation links",
+    "cross-tradition comparison records and reconciliation"
+  ],
+  "gates": {
+    "noExhaustivenessClaim": "pass",
+    "confirmedAndUnresolvedSeparated": "pass",
+    "sourceRegistryPresent": "pass",
+    "snapshotChecksummed": "pass"
+  }
+}

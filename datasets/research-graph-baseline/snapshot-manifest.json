@@ -1,0 +1,45 @@
+{
+  "formatVersion": "1",
+  "datasetId": "mw:dataset:research-graph:baseline",
+  "datasetVersion": "0.1.0",
+  "checksumAlgorithm": "git-blob-sha1",
+  "dependencies": [
+    { "dataset": "mw:dataset:world-religions:baseline", "version": "0.1.0" },
+    { "dataset": "mw:dataset:world-religions:textual-evidence", "version": "0.1.0" },
+    { "dataset": "mw:dataset:quran:tanzil-uthmani", "version": "0.1.0" },
+    { "dataset": "mw:dataset:oshb:wlc", "version": "0.1.0" },
+    { "dataset": "mw:dataset:sblgnt:v1-2", "version": "0.1.0" },
+    { "dataset": "mw:dataset:lexicon:quran-arabic-core", "version": "0.1.0" },
+    { "dataset": "mw:dataset:lexicon:dhammapada-core", "version": "0.1.0" },
+    { "dataset": "mw:dataset:dhammapada:sujato", "version": "0.2.0" },
+    { "dataset": "mw:dataset:dhammapada:indonesian-wikisource", "version": "0.1.0" },
+    { "dataset": "mw:dataset:bible:passage-alignments", "version": "0.1.0" },
+    { "dataset": "mw:dataset:web-classic:2020", "version": "0.1.0" }
+  ],
+  "files": [
+    {
+      "path": "data/core/evidence/graph.jsonl",
+      "recordType": "evidence",
+      "records": 16,
+      "checksum": "6938cee81d5897cd3f459c8cb016584343efe68f"
+    },
+    {
+      "path": "data/core/resources/graph.jsonl",
+      "recordType": "resource",
+      "records": 1,
+      "checksum": "bbb92ffb94772a20867e1b0f9968fba2f02cc0e0"
+    },
+    {
+      "path": "data/core/provenance/graph.jsonl",
+      "recordType": "provenance",
+      "records": 1,
+      "checksum": "9cf4d07840c402b2b3d40eb28c4462677dde417d"
+    }
+  ],
+  "canonicalEdgeCounts": {
+    "role": 7,
+    "term_usage": 7,
+    "parallel_passage": 2
+  },
+  "edgeAliases": { "textual_alignment": "parallel_passage" }
+}

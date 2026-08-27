@@ -1,0 +1,17 @@
+{
+  "formatVersion": "1",
+  "scope": "Bounded P15 multilingual religious lexicon seed coverage; not an exhaustive dictionary.",
+  "datasets": [
+    { "datasetId": "mw:dataset:lexicon:quran-arabic-core", "records": 14, "concepts": 3, "terms": 3, "usageEvidence": 3, "languages": ["ar", "en", "id", "ar-Latn"], "status": "supplemental" },
+    { "datasetId": "mw:dataset:lexicon:dhammapada-core", "records": 10, "concepts": 2, "terms": 2, "usageEvidence": 4, "languages": ["en", "id"], "status": "supplemental" }
+  ],
+  "totals": { "datasets": 2, "records": 24, "concepts": 5, "terms": 5, "usageEvidence": 7 },
+  "gates": {
+    "scopedConcepts": "pass",
+    "sourceEvidence": "pass",
+    "translationOnlyEquivalence": "not_asserted",
+    "unsourcedDefinitions": "pass_no_definitions_claimed",
+    "automaticIdentityMerge": "disabled"
+  },
+  "unresolved": ["Hebrew/Aramaic, Greek/Latin/Syriac, Pali/Sanskrit, Hindu, Jain, Sikh, Baháʼí, Zoroastrian, Daoist, Confucian, Shinto, and indigenous lexicon lanes", "attributed human definitions and broader lexicographic coverage", "large-scale deterministic duplicate/homograph reconciliation"]
+}

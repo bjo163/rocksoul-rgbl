@@ -2,12 +2,18 @@
   "formatVersion": "1", "scope": "Baseline active corpus diversity; non-exhaustive",
   "dimensions": ["tradition", "genre", "sourceLanguage", "en", "id", "textScale", "rightsState", "gaps"],
   "coverage": [
-    { "collection": "Quran", "tradition": "Islam", "genre": "scripture", "sourceLanguage": "ar", "en": "missing", "id": "missing", "textScale": "complete", "rightsState": "bundled-reviewed" },
-    { "collection": "Hebrew Bible WLC", "tradition": "Judaism/Christian source use", "genre": "scripture", "sourceLanguage": "he", "en": "WEB-partial-by-book-set", "id": "missing", "textScale": "complete-edition", "rightsState": "bundled-reviewed" },
-    { "collection": "SBLGNT", "tradition": "Christianity", "genre": "scripture", "sourceLanguage": "grc", "en": "WEB-complete-NT", "id": "missing", "textScale": "complete-edition", "rightsState": "bundled-reviewed" },
-    { "collection": "Dhammapada", "tradition": "Buddhism", "genre": "scripture", "sourceLanguage": "pli-metadata-only", "en": "complete", "id": "missing", "textScale": "complete", "rightsState": "translation-bundled-root-metadata" },
+    { "collection": "Quran", "tradition": "Islam", "genre": "scripture", "sourceLanguage": "ar", "en": "rwwad-complete", "id": "kemenag-complete", "textScale": "complete", "rightsState": "bundled-reviewed" },
+    { "collection": "Hadith Nawawi 40", "tradition": "Islam", "genre": "hadith_report", "sourceLanguage": "ar", "en": "human-complete", "id": "human-complete", "textScale": "complete-collection", "rightsState": "bundled-reviewed" },
+    { "collection": "Tafsir Excerpts", "tradition": "Islam", "genre": "commentary", "sourceLanguage": "ar", "en": "human-sample", "id": "human-sample", "textScale": "bounded-excerpts", "rightsState": "bundled-reviewed" },
+    { "collection": "Hebrew Bible WLC", "tradition": "Judaism/Christian source use", "genre": "scripture", "sourceLanguage": "he", "en": "WEB-partial-by-book-set", "id": "tsi-complete-nt-partial-ot", "textScale": "complete-edition", "rightsState": "bundled-reviewed" },
+    { "collection": "Mishnah Pirkei Avot", "tradition": "Judaism", "genre": "legal_and_ethical_tradition", "sourceLanguage": "he", "en": "human-complete", "id": "human-complete", "textScale": "complete-tractate", "rightsState": "bundled-reviewed" },
+    { "collection": "SBLGNT", "tradition": "Christianity", "genre": "scripture", "sourceLanguage": "grc", "en": "WEB-complete-NT", "id": "tsi-complete-nt", "textScale": "complete-edition", "rightsState": "bundled-reviewed" },
+    { "collection": "Didache and Early Creeds", "tradition": "Christianity", "genre": "patristics_and_creeds", "sourceLanguage": "grc/la", "en": "human-complete", "id": "human-complete", "textScale": "complete-texts", "rightsState": "bundled-reviewed" },
+    { "collection": "Dhammapada", "tradition": "Buddhism", "genre": "scripture", "sourceLanguage": "pli-metadata-only", "en": "complete", "id": "wikisource-complete-359-gap", "textScale": "complete", "rightsState": "translation-bundled-root-metadata" },
     { "collection": "DN/MN", "tradition": "Buddhism", "genre": "scripture", "sourceLanguage": "pli-metadata-only", "en": "complete", "id": "missing", "textScale": "complete-translation-set", "rightsState": "translation-bundled-root-unresolved" },
-    { "collection": "SN/AN", "tradition": "Buddhism", "genre": "scripture", "sourceLanguage": "pli-metadata-only", "en": "complete", "id": "missing", "textScale": "complete-translation-set", "rightsState": "translation-bundled-root-unresolved" }
+    { "collection": "SN/AN", "tradition": "Buddhism", "genre": "scripture", "sourceLanguage": "pli-metadata-only", "en": "complete", "id": "missing", "textScale": "complete-translation-set", "rightsState": "translation-bundled-root-unresolved" },
+    { "collection": "Bhagavad Gita", "tradition": "Hinduism", "genre": "scripture_and_philosophy", "sourceLanguage": "sa", "en": "human-complete", "id": "human-complete", "textScale": "complete-representative-shlokas", "rightsState": "bundled-reviewed" }
   ],
-  "highestPriorityGaps": ["human Indonesian translations", "source-language Buddhist roots with clear rights", "hadith/report genre", "non-Abrahamic/non-Buddhist primary texts", "devotional and commentary genres"]
+  "highestPriorityGaps": ["source-language Buddhist roots with clear rights", "Talmud tractates (metadata/bounded)", "Jain/Sikh primary-text editions", "oral and living tradition consent workflows"]
 }
+

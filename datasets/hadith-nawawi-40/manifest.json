@@ -1,0 +1,28 @@
+{
+  "id": "mw:dataset:hadith:nawawi-40",
+  "datasetVersion": "0.1.0",
+  "specVersion": "0.1",
+  "profiles": [
+    "textual@0.1",
+    "source@0.1"
+  ],
+  "partitions": [
+    {
+      "recordType": "resource",
+      "path": "data/core/resources/*.jsonl"
+    },
+    {
+      "recordType": "provenance",
+      "path": "data/core/provenance/*.jsonl"
+    },
+    {
+      "recordType": "assertion",
+      "path": "data/core/assertions/*.jsonl"
+    }
+  ],
+  "sources": [
+    "Public domain classical Forty Hadith of an-Nawawi compilation"
+  ],
+  "rights": "CC0-1.0; classical public domain Islamic text with human English and Indonesian translations.",
+  "availability": "bundled"
+}

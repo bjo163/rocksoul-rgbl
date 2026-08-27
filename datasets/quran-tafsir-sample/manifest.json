@@ -1,0 +1,24 @@
+{
+  "id": "mw:dataset:islam:quran-tafsir-sample",
+  "datasetVersion": "0.1.0",
+  "specVersion": "0.1",
+  "profiles": [
+    "textual@0.1",
+    "source@0.1"
+  ],
+  "partitions": [
+    {
+      "recordType": "resource",
+      "path": "data/core/resources/*.jsonl"
+    },
+    {
+      "recordType": "provenance",
+      "path": "data/core/provenance/*.jsonl"
+    }
+  ],
+  "sources": [
+    "Classical public domain Quranic commentary extracts"
+  ],
+  "rights": "CC0-1.0; classical public domain Islamic commentary with human translations.",
+  "availability": "bundled"
+}

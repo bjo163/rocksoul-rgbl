@@ -1,0 +1,28 @@
+{
+  "id": "mw:dataset:devotional:baseline",
+  "datasetVersion": "0.1.0",
+  "specVersion": "0.1",
+  "profiles": [
+    "textual@0.1",
+    "source@0.1"
+  ],
+  "partitions": [
+    {
+      "recordType": "resource",
+      "path": "data/core/resources/*.jsonl"
+    },
+    {
+      "recordType": "provenance",
+      "path": "data/core/provenance/*.jsonl"
+    },
+    {
+      "recordType": "assertion",
+      "path": "data/core/assertions/*.jsonl"
+    }
+  ],
+  "sources": [
+    "Public domain classical devotional prayers, mantras, and chants across world traditions"
+  ],
+  "rights": "CC0-1.0; classical public domain religious prayers and chants with human English and Indonesian translations.",
+  "availability": "bundled"
+}

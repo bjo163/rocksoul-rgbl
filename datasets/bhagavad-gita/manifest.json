@@ -1,0 +1,24 @@
+{
+  "id": "mw:dataset:hinduism:bhagavad-gita",
+  "datasetVersion": "0.1.0",
+  "specVersion": "0.1",
+  "profiles": [
+    "textual@0.1",
+    "source@0.1"
+  ],
+  "partitions": [
+    {
+      "recordType": "resource",
+      "path": "data/core/resources/*.jsonl"
+    },
+    {
+      "recordType": "provenance",
+      "path": "data/core/provenance/*.jsonl"
+    }
+  ],
+  "sources": [
+    "Public domain Sanskrit Bhagavad Gita and human English/Indonesian translations"
+  ],
+  "rights": "CC0-1.0; classical public domain Hindu text with human English and Indonesian translations.",
+  "availability": "bundled"
+}

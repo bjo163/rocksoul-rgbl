@@ -115,6 +115,36 @@
       "id": "mw:dataset:quranenc:indonesian-kemenag",
       "path": "datasets/quranenc-indonesian-kemenag",
       "status": "active"
+    },
+    {
+      "id": "mw:dataset:hadith:nawawi-40",
+      "path": "datasets/hadith-nawawi-40",
+      "status": "supplemental"
+    },
+    {
+      "id": "mw:dataset:mishnah:pirkei-avot",
+      "path": "datasets/mishnah-pirkei-avot",
+      "status": "supplemental"
+    },
+    {
+      "id": "mw:dataset:hinduism:bhagavad-gita",
+      "path": "datasets/bhagavad-gita",
+      "status": "supplemental"
+    },
+    {
+      "id": "mw:dataset:christianity:early-writings",
+      "path": "datasets/early-christian-writings",
+      "status": "supplemental"
+    },
+    {
+      "id": "mw:dataset:islam:quran-tafsir-sample",
+      "path": "datasets/quran-tafsir-sample",
+      "status": "supplemental"
+    },
+    {
+      "id": "mw:dataset:devotional:baseline",
+      "path": "datasets/devotional-baseline",
+      "status": "supplemental"
     }
   ]
 }

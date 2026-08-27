@@ -434,18 +434,16 @@ export async function getParallelReaderData(scriptureKey: string, sectionParam?:
       const text = typeof textMeta.text === 'string' ? textMeta.text : ''
       const lang = typeof textMeta.language === 'string' ? textMeta.language : ''
       const script = typeof textMeta.script === 'string' ? textMeta.script : undefined
-      const rep = textMeta.representation
-
-      if (rep === 'source' || ['ar', 'grc', 'el', 'he', 'pi', 'sa'].includes(lang)) {
+      if (lang === 'id' || lang === 'ind' || lang === 'indonesian') {
+        indonesianText = { language: lang, text, datasetId: c.id }
+      } else if (lang === 'en' || lang === 'eng' || lang === 'english') {
+        englishText = { language: lang, text, datasetId: c.id }
+      } else if (['ar', 'ara', 'grc', 'el', 'ell', 'he', 'heb', 'pi', 'pli', 'sa', 'san'].includes(lang) || rep === 'source') {
         if (!sourceText) {
           sourceText = { language: lang, text, script, datasetId: c.id }
         } else {
           otherTexts.push({ language: lang, text, script, datasetId: c.id })
         }
-      } else if (lang === 'id') {
-        indonesianText = { language: lang, text, datasetId: c.id }
-      } else if (lang === 'en') {
-        englishText = { language: lang, text, datasetId: c.id }
       } else {
         otherTexts.push({ language: lang, text, script, datasetId: c.id })
       }

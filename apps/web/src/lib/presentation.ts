@@ -70,68 +70,48 @@ export function clampGraphDepth(value: unknown): number {
 export interface FriendlyDatasetInfo {
   title: string
   subtitle: string
-  tradition: 'Islam' | 'Kekristenan' | 'Yudaisme' | 'Buddhisme' | 'Hinduisme' | 'Lintas Tradisi' | 'Sistem'
+  tradition: string
   icon: string
   badge: string
   description: string
 }
 
-export function getDatasetFriendlyMeta(id: string): FriendlyDatasetInfo {
+export function getDatasetFriendlyMeta(id: string, manifest?: { profiles?: string[]; sources?: Array<{ role?: string }> }): FriendlyDatasetInfo {
   const cleanId = id.replace(/^mw:dataset:/, '')
-  const lower = id.toLowerCase()
-
-  let tradition: FriendlyDatasetInfo['tradition'] = 'Lintas Tradisi'
-  let icon = '📦'
-  let badge = 'Dataset'
-
-  if (lower.includes('islam') || lower.includes('quran') || lower.includes('hadith') || lower.includes('tafsir')) {
-    tradition = 'Islam'
-    icon = lower.includes('hadith') ? '📜' : lower.includes('tafsir') ? '💡' : '🕌'
-  } else if (lower.includes('christianity') || lower.includes('bible') || lower.includes('sblgnt') || lower.includes('tsi') || lower.includes('early-writings') || lower.includes('web-classic')) {
-    tradition = 'Kekristenan'
-    icon = lower.includes('early-writings') ? '📜' : '✝️'
-  } else if (lower.includes('judaism') || lower.includes('oshb') || lower.includes('wlc') || lower.includes('mishnah') || lower.includes('avot')) {
-    tradition = 'Yudaisme'
-    icon = lower.includes('mishnah') ? '📜' : '✡️'
-  } else if (lower.includes('buddhism') || lower.includes('dhammapada') || lower.includes('sutta') || lower.includes('sujato')) {
-    tradition = 'Buddhisme'
-    icon = '☸️'
-  } else if (lower.includes('hinduism') || lower.includes('gita') || lower.includes('bhagavad') || lower.includes('sanskrit')) {
-    tradition = 'Hinduisme'
-    icon = '🕉️'
-  } else if (lower.includes('devotional')) {
-    tradition = 'Lintas Tradisi'
-    icon = '🤲'
-    badge = 'Doa & Liturgi'
-  } else if (lower.includes('research-graph')) {
-    tradition = 'Lintas Tradisi'
-    icon = '🕸️'
-    badge = 'Graf Evidensi'
-  } else if (lower.includes('world-religions')) {
-    tradition = 'Lintas Tradisi'
-    icon = '🌐'
-    badge = 'Registri Entitas'
-  }
-
-  if (lower.includes('lexicon')) {
-    badge = 'Leksikon'
-    icon = '📚'
-  } else if (lower.includes('translation') || lower.includes('indonesian') || lower.includes('english') || lower.includes('tsi') || lower.includes('kemenag') || lower.includes('rwwad') || lower.includes('web-classic')) {
-    badge = 'Terjemahan'
-  } else if (lower.includes('quran') || lower.includes('wlc') || lower.includes('sblgnt') || lower.includes('gita') || lower.includes('dhammapada')) {
-    badge = 'Kitab Suci'
-  }
-
-  // Format clean human title
   const parts = cleanId.split(':')
-  const titleFormatted = parts
+  const domain = parts[0] ? parts[0].charAt(0).toUpperCase() + parts[0].slice(1) : 'General'
+
+  // Format clean human title from canonical id segments
+  const title = parts
     .map((p) => p.split('-').map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(' '))
     .join(' · ')
 
+  // Profile-based badge (directly from manifest.profiles or canonical namespace)
+  const profile = manifest?.profiles?.[0]
+  let badge = 'Dataset'
+  let icon = '📦'
+
+  if (profile?.startsWith('textual') || cleanId.includes('quran') || cleanId.includes('bible') || cleanId.includes('oshb') || cleanId.includes('dhammapada') || cleanId.includes('gita')) {
+    badge = 'Kitab Suci / Teks'
+    icon = '📖'
+  } else if (profile?.startsWith('lexicon') || cleanId.includes('lexicon')) {
+    badge = 'Leksikon'
+    icon = '📚'
+  } else if (profile?.startsWith('devotional') || cleanId.includes('devotional')) {
+    badge = 'Doa & Liturgi'
+    icon = '🤲'
+  } else if (profile?.startsWith('research-graph') || cleanId.includes('research-graph')) {
+    badge = 'Graf Riset'
+    icon = '🕸️'
+  } else if (profile?.startsWith('entity') || cleanId.includes('world-religions')) {
+    badge = 'Registri Entitas'
+    icon = '🌐'
+  }
+
   return {
-    title: titleFormatted,
-    subtitle: `Paket kanonikal ${tradition}`,
-    tradition,
+    title,
+    subtitle: `Paket korpus kanonikal ${domain}`,
+    tradition: domain,
     icon,
     badge,
     description: `Paket data kanonikal MoonWitness ${cleanId} ber-provenance dan checksum SHA-256 terverifikasi.`

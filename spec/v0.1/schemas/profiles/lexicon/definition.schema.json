@@ -1,0 +1,4 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "https://moonwitness.org/corpus/spec/v0.1/schemas/profiles/lexicon/definition.schema.json",
+  "allOf": [{ "$ref": "https://moonwitness.org/corpus/spec/v0.1/schemas/core/resource.schema.json" }, { "required": ["extensions"], "properties": { "kind": { "const": "lexicon.definition" }, "extensions": { "type": "object", "required": ["lexicon"], "properties": { "lexicon": { "type": "object", "required": ["target", "text", "language", "scope", "provenance"], "properties": { "target": { "$ref": "common.schema.json#/$defs/canonicalId" }, "text": { "$ref": "common.schema.json#/$defs/nonBlankString" }, "language": { "$ref": "common.schema.json#/$defs/language" }, "scope": { "$ref": "common.schema.json#/$defs/scope" }, "provenance": { "$ref": "common.schema.json#/$defs/canonicalId" } }, "additionalProperties": false } }, "additionalProperties": false } } }]
+}

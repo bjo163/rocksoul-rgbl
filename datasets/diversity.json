@@ -1,0 +1,12 @@
+{
+  "formatVersion": "1", "scope": "Baseline active corpus diversity; non-exhaustive",
+  "dimensions": ["tradition", "genre", "sourceLanguage", "en", "id", "textScale", "rightsState", "gaps"],
+  "coverage": [
+    { "collection": "Quran", "tradition": "Islam", "genre": "scripture", "sourceLanguage": "ar", "en": "missing", "id": "missing", "textScale": "complete", "rightsState": "bundled-reviewed" },
+    { "collection": "Hebrew Bible WLC", "tradition": "Judaism/Christian source use", "genre": "scripture", "sourceLanguage": "he", "en": "WEB-partial-by-book-set", "id": "missing", "textScale": "complete-edition", "rightsState": "bundled-reviewed" },
+    { "collection": "SBLGNT", "tradition": "Christianity", "genre": "scripture", "sourceLanguage": "grc", "en": "WEB-complete-NT", "id": "missing", "textScale": "complete-edition", "rightsState": "bundled-reviewed" },
+    { "collection": "Dhammapada", "tradition": "Buddhism", "genre": "scripture", "sourceLanguage": "pli-metadata-only", "en": "complete", "id": "missing", "textScale": "complete", "rightsState": "translation-bundled-root-metadata" },
+    { "collection": "DN/MN", "tradition": "Buddhism", "genre": "scripture", "sourceLanguage": "pli-metadata-only", "en": "complete", "id": "missing", "textScale": "complete-translation-set", "rightsState": "translation-bundled-root-unresolved" }
+  ],
+  "highestPriorityGaps": ["human Indonesian translations", "source-language Buddhist roots with clear rights", "hadith/report genre", "non-Abrahamic/non-Buddhist primary texts", "devotional and commentary genres"]
+}

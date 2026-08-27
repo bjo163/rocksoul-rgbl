@@ -11,7 +11,8 @@ const sourceDatasets = [
   { recipe: 'ingestion/recipes/dhammapada-sujato', dataset: 'datasets/dhammapada-sujato', expectedRecords: 4005 },
   { recipe: 'ingestion/recipes/oshb-wlc', dataset: 'datasets/oshb-wlc', expectedRecords: 69648 },
   { recipe: 'ingestion/recipes/sblgnt-v1-2', dataset: 'datasets/sblgnt-v1-2', expectedRecords: 15885 },
-  { recipe: 'ingestion/recipes/web-classic-2020', dataset: 'datasets/web-classic-2020', expectedRecords: 76124 }
+  { recipe: 'ingestion/recipes/web-classic-2020', dataset: 'datasets/web-classic-2020', expectedRecords: 76124 },
+  { recipe: 'ingestion/recipes/suttacentral-dn-mn', dataset: 'datasets/suttacentral-dn-mn-sujato', expectedRecords: 75089 }
 ] as const
 
 test('P12 bundled source corpora are checksum-pinned, deterministic, and provenance-complete', async () => {

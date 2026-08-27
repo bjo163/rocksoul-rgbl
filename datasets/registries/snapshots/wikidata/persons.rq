@@ -1,0 +1,5 @@
+SELECT ?item ?itemLabel ?itemLabelId WHERE {
+  VALUES ?item { wd:Q302 wd:Q9458 wd:Q9077 wd:Q9181 wd:Q9441 wd:Q9422 wd:Q9333 wd:Q4604 wd:Q42891 wd:Q35811 wd:Q83322 }
+  OPTIONAL { ?item rdfs:label ?itemLabelId FILTER(LANG(?itemLabelId) = "id") }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,id". }
+}

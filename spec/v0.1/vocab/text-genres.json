@@ -1,0 +1,4 @@
+{
+  "id": "mw:vocab:text-genre", "version": "0.1", "openEnded": true,
+  "values": ["scripture", "hadith_report", "commentary", "legal_text", "ritual_manual", "prayer", "hymn", "chant", "creed", "biography", "chronicle", "philosophical_text", "oral_tradition_metadata", "fragment"]
+}

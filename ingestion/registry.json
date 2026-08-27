@@ -35,6 +35,11 @@
       "id": "mw:recipe:web-classic:2020",
       "path": "ingestion/recipes/web-classic-2020",
       "status": "active"
+    },
+    {
+      "id": "mw:recipe:suttacentral:dn-mn-sujato",
+      "path": "ingestion/recipes/suttacentral-dn-mn",
+      "status": "active"
     }
   ]
 }

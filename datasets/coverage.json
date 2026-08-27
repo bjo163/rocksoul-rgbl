@@ -12,6 +12,35 @@
   },
   "datasets": [
     {
+      "datasetId": "mw:dataset:world-religions:baseline",
+      "path": "datasets/world-religions-baseline",
+      "workCollection": "World religions/persons registry baseline",
+      "datasetRole": "registry", "availability": "bundled",
+      "language": { "tag": "mul", "script": "Zyyy", "coverageRole": "metadata" },
+      "expression": { "label": "Wikidata CC0 bounded baseline", "edition": "snapshot 2026-08-27" },
+      "completeness": { "status": "external", "unit": "entity/assertion", "covered": 146, "expected": null, "scope": "Non-exhaustive baseline; expansion is tracked by P13 coverage" },
+      "sourceArtifact": { "revision": "Wikidata entity lastrevid manifest 2026-08-27", "path": "datasets/registries/snapshots/wikidata/snapshot-manifest.json", "sha256": "e9e43842f28d93cb56b606c057aaebd2545f3f0218f6ddd304fa9ae598055793", "byteSize": 15682 },
+      "rights": { "status": "verified_for_bundled_metadata_only", "license": "CC0-1.0", "evidence": "datasets/registries/snapshots/wikidata/README.md" },
+      "provenance": { "manifest": "datasets/world-religions-baseline/manifest.json", "checksums": "datasets/world-religions-baseline/CHECKSUMS.sha256", "recipe": "scripts/materialize-p13-baseline.ts" },
+      "translationCoverage": { "en": "baseline", "id": "baseline" },
+      "alignmentCoverage": { "status": "not_applicable", "notes": "Registry assertions link source entities and do not align text editions." }
+    },
+    {
+      "datasetId": "mw:dataset:suttacentral:dn-mn-sujato",
+      "path": "datasets/suttacentral-dn-mn-sujato",
+      "workCollection": "Dīgha Nikāya and Majjhima Nikāya",
+      "datasetRole": "translation", "availability": "bundled",
+      "language": { "tag": "en", "script": "Latn", "coverageRole": "translation" },
+      "expression": { "label": "DN/MN — Bhikkhu Sujato", "edition": "SuttaCentral Bilara published@cf0dac3b59a3f9b1d4829acb311e303f1eb6bba6" },
+      "completeness": { "status": "complete", "unit": "sutta", "covered": 186, "expected": 186, "scope": "34 DN and 152 MN translation source files" },
+      "sourceArtifact": { "revision": "suttacentral/bilara-data@cf0dac3b59a3f9b1d4829acb311e303f1eb6bba6", "path": "ingestion/recipes/suttacentral-dn-mn/source/source-manifest.json", "sha256": "4fd51e3efae30d93dd2dd310983f555d3809598f10fd3391daf42147d080ddd6", "byteSize": 56217 },
+      "rights": { "status": "verified_for_bundled_public_domain", "license": "CC0-1.0", "evidence": "datasets/suttacentral-dn-mn-sujato/README.md" },
+      "provenance": { "manifest": "datasets/suttacentral-dn-mn-sujato/manifest.json", "checksums": "datasets/suttacentral-dn-mn-sujato/CHECKSUMS.sha256", "recipe": "ingestion/recipes/suttacentral-dn-mn" },
+      "sourceLanguageCoverage": { "language": "pli", "status": "metadata_only_pending_root_rights" },
+      "translationCoverage": { "en": "complete", "id": "missing" },
+      "alignmentCoverage": { "status": "blocked_pending_source_language_rights", "notes": "No Pali alignment is asserted by this English-only dataset." }
+    },
+    {
       "datasetId": "mw:dataset:bible:passage-alignments",
       "path": "datasets/bible-passage-alignments",
       "workCollection": "Bible cross-edition passage references",

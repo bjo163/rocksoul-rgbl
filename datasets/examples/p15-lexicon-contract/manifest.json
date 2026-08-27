@@ -1,0 +1,12 @@
+{
+  "id": "mw:dataset:example:p15-lexicon-contract", "datasetVersion": "0.1.0", "specVersion": "0.1", "profiles": ["lexicon@0.1"],
+  "dependencies": [{ "dataset": "mw:dataset:world-religions:baseline", "version": "0.1.0" }],
+  "partitions": [
+    { "recordType": "resource", "path": "data/core/resources/*.jsonl" },
+    { "recordType": "assertion", "path": "data/core/assertions/*.jsonl" },
+    { "recordType": "provenance", "path": "data/core/provenance/*.jsonl" }
+  ],
+  "sources": ["Non-authoritative contract examples backed by the pinned P13 Wikidata snapshot"],
+  "rights": "CC0 repository fixture; source snapshot metadata is CC0-1.0.",
+  "availability": "metadata_only"
+}

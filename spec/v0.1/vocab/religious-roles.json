@@ -1,0 +1,4 @@
+{
+  "id": "mw:vocab:religious-role", "version": "0.1", "openEnded": true,
+  "values": ["prophet", "messenger", "apostle", "patriarch", "founder", "guru", "rishi", "tirthankara", "buddha", "bodhisattva", "imam", "saint", "sage", "reformer", "teacher", "scriptural_figure"]
+}

@@ -1,0 +1,11 @@
+{
+  "formatVersion": "1", "reviewedAt": "2026-08-27",
+  "candidates": [
+    { "id": "hadith-arabic", "genre": "hadith_report", "decision": "audit", "rights": "unresolved", "bundle": false },
+    { "id": "tafsir", "genre": "commentary", "decision": "audit", "rights": "unresolved", "bundle": false },
+    { "id": "mishnah", "genre": "legal_commentarial_text", "decision": "audit", "rights": "unresolved", "bundle": false },
+    { "id": "apostolic-fathers", "genre": "early_christian_text", "decision": "audit", "rights": "edition_specific", "bundle": false },
+    { "id": "bhagavad-gita", "genre": "scripture_philosophical_text", "decision": "audit", "rights": "edition_translation_specific", "bundle": false },
+    { "id": "living-tradition-material", "genre": "oral_tradition_metadata", "decision": "consent_required", "rights": "community_review_required", "bundle": false }
+  ]
+}

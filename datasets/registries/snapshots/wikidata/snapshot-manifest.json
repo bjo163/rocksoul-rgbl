@@ -1,0 +1,492 @@
+{
+  "formatVersion": "1",
+  "source": "Wikidata Special:EntityData",
+  "rights": "CC0-1.0",
+  "retrievedAt": "2026-08-27T00:00:00Z",
+  "queries": [
+    "traditions.rq",
+    "persons.rq"
+  ],
+  "entities": [
+    {
+      "qid": "Q1068640",
+      "lastRevision": 2535680903,
+      "modified": "2026-08-24T05:18:21Z",
+      "file": "entities/Q1068640.json",
+      "byteSize": 30510,
+      "sha256": "525ee57d37ce41d823879372691df7be0def51418c61c976605b61ebdf3a880e"
+    },
+    {
+      "qid": "Q11767",
+      "lastRevision": 2521597968,
+      "modified": "2026-07-23T11:27:31Z",
+      "file": "entities/Q11767.json",
+      "byteSize": 104471,
+      "sha256": "ca17607ef9f14531594b4ea4d3c22558355f1ee615febbf4275f597d257a4b25"
+    },
+    {
+      "qid": "Q1218",
+      "lastRevision": 2532467567,
+      "modified": "2026-08-17T19:37:29Z",
+      "file": "entities/Q1218.json",
+      "byteSize": 330582,
+      "sha256": "515b0b65a9b9e7546791e69a2cbf48581efdb97fc33aef078cc2ee706a88fb42"
+    },
+    {
+      "qid": "Q132265",
+      "lastRevision": 2532472332,
+      "modified": "2026-08-17T19:47:31Z",
+      "file": "entities/Q132265.json",
+      "byteSize": 71170,
+      "sha256": "411159a5bd510c4ccee75a83bf36565beb2e42ab6e3139d1cca53097ecbf3ae7"
+    },
+    {
+      "qid": "Q16",
+      "lastRevision": 2536785777,
+      "modified": "2026-08-26T18:31:57Z",
+      "file": "entities/Q16.json",
+      "byteSize": 1345146,
+      "sha256": "655e2a68d49db994f89afa3771daceb2363a70934aaac35b7da1ffe146ff89bf"
+    },
+    {
+      "qid": "Q1651597",
+      "lastRevision": 2532534490,
+      "modified": "2026-08-17T22:38:30Z",
+      "file": "entities/Q1651597.json",
+      "byteSize": 44674,
+      "sha256": "dc1400bdd6961b2e64c8621d70328362d63f5059e583e7688d901509755d89c7"
+    },
+    {
+      "qid": "Q169977",
+      "lastRevision": 2531315372,
+      "modified": "2026-08-14T12:45:27Z",
+      "file": "entities/Q169977.json",
+      "byteSize": 57679,
+      "sha256": "7ee39c96308bfe3ed5b0971720077a3eecb56422b31182b7f09d4ab20c3ab372"
+    },
+    {
+      "qid": "Q17",
+      "lastRevision": 2536748944,
+      "modified": "2026-08-26T16:40:05Z",
+      "file": "entities/Q17.json",
+      "byteSize": 835301,
+      "sha256": "3dd241ba56b7bbd3c54ab2df608a077dd67586dd4b9cd8627a52ef418db9832b"
+    },
+    {
+      "qid": "Q176767",
+      "lastRevision": 2536201283,
+      "modified": "2026-08-25T12:35:01Z",
+      "file": "entities/Q176767.json",
+      "byteSize": 43612,
+      "sha256": "a6082d17b72f843f27a755a532ec9652ed27c64484b04470b5407e678f465805"
+    },
+    {
+      "qid": "Q1841",
+      "lastRevision": 2534318668,
+      "modified": "2026-08-21T17:13:25Z",
+      "file": "entities/Q1841.json",
+      "byteSize": 104896,
+      "sha256": "5e957a2fef12d9cfdd6b455a4f46e1d674a97c31b1130dd764100d5ab44f3119"
+    },
+    {
+      "qid": "Q188213",
+      "lastRevision": 2532539495,
+      "modified": "2026-08-17T22:53:34Z",
+      "file": "entities/Q188213.json",
+      "byteSize": 42610,
+      "sha256": "f0aef8f7545e0da742a422860a3130ea1e50c74d7b20521214869e72981f024b"
+    },
+    {
+      "qid": "Q19842652",
+      "lastRevision": 2526287549,
+      "modified": "2026-08-02T15:17:26Z",
+      "file": "entities/Q19842652.json",
+      "byteSize": 10729,
+      "sha256": "e27aad5e2c583e85fe45d0444896860a0e7b12bfa22842cc34fe1a5a69e0a2bf"
+    },
+    {
+      "qid": "Q205047",
+      "lastRevision": 2526908357,
+      "modified": "2026-08-03T23:05:21Z",
+      "file": "entities/Q205047.json",
+      "byteSize": 80469,
+      "sha256": "d2c65bde70b313a7c0e0f8c83ceaf62f095f2b7398aa8b3e9cfe4b910f2df347"
+    },
+    {
+      "qid": "Q22679",
+      "lastRevision": 2534319582,
+      "modified": "2026-08-21T17:14:43Z",
+      "file": "entities/Q22679.json",
+      "byteSize": 104557,
+      "sha256": "0929cab8c55bfc1296e5d49d0a0c83902b2b7b6c37c683da3e21e3645a626d3d"
+    },
+    {
+      "qid": "Q23540",
+      "lastRevision": 2534319702,
+      "modified": "2026-08-21T17:14:52Z",
+      "file": "entities/Q23540.json",
+      "byteSize": 142526,
+      "sha256": "d40026f039398034dabd25b712cf6f54c06efb3d6d8eb5b58922ef5e8ada5392"
+    },
+    {
+      "qid": "Q237",
+      "lastRevision": 2536993327,
+      "modified": "2026-08-27T08:16:52Z",
+      "file": "entities/Q237.json",
+      "byteSize": 327084,
+      "sha256": "115129adc3f94064d4b8a34ede300271c624eb225ca64386c14d75e0dad7e98b"
+    },
+    {
+      "qid": "Q265",
+      "lastRevision": 2532454090,
+      "modified": "2026-08-17T19:02:22Z",
+      "file": "entities/Q265.json",
+      "byteSize": 461646,
+      "sha256": "f01b1ccb6e2edd3353d0fe88753687a99b953ac1488ec93c9623e2b9d4ef181e"
+    },
+    {
+      "qid": "Q2914617",
+      "lastRevision": 2535422035,
+      "modified": "2026-08-23T13:02:12Z",
+      "file": "entities/Q2914617.json",
+      "byteSize": 15518,
+      "sha256": "7c9e77ef38ff48c9a088cdb0fe0a61e870c91a2219a3110f1d8eaa6c6465448f"
+    },
+    {
+      "qid": "Q29520",
+      "lastRevision": 2535668018,
+      "modified": "2026-08-24T04:03:38Z",
+      "file": "entities/Q29520.json",
+      "byteSize": 91154,
+      "sha256": "bfd44f521a52f812858d1ac0d990fcf1b17f75f6d9304cd10b43ae406e2ebdab"
+    },
+    {
+      "qid": "Q30",
+      "lastRevision": 2536815285,
+      "modified": "2026-08-26T19:57:06Z",
+      "file": "entities/Q30.json",
+      "byteSize": 1552920,
+      "sha256": "e7aeb88a8b6c8642f982e2561ec9ac6d0d668737eb958b6d5709a8c3c4554eb9"
+    },
+    {
+      "qid": "Q302",
+      "lastRevision": 2536555025,
+      "modified": "2026-08-26T07:51:36Z",
+      "file": "entities/Q302.json",
+      "byteSize": 504501,
+      "sha256": "920fc32ce1c26b85dae87f417466ac20a82f8d4e0902e32e6ec0950eafd22713"
+    },
+    {
+      "qid": "Q307043",
+      "lastRevision": 2533861916,
+      "modified": "2026-08-20T19:38:10Z",
+      "file": "entities/Q307043.json",
+      "byteSize": 45618,
+      "sha256": "11e3af7adc40b767116ef0e15612c8da1918ccf2c3faf9b1cec7088e606930c8"
+    },
+    {
+      "qid": "Q35811",
+      "lastRevision": 2533483727,
+      "modified": "2026-08-20T00:20:58Z",
+      "file": "entities/Q35811.json",
+      "byteSize": 135138,
+      "sha256": "8da8dec971f759848cb69d96296b66ea7f70179c42ce6f6b2b5796a7ed61a12b"
+    },
+    {
+      "qid": "Q37211",
+      "lastRevision": 2532545603,
+      "modified": "2026-08-17T23:12:33Z",
+      "file": "entities/Q37211.json",
+      "byteSize": 90143,
+      "sha256": "97278f090a05bfc7fcc842d7b8bc9c173abf09342b11c42bc4a03e86c005c09e"
+    },
+    {
+      "qid": "Q424",
+      "lastRevision": 2532456227,
+      "modified": "2026-08-17T19:09:01Z",
+      "file": "entities/Q424.json",
+      "byteSize": 554495,
+      "sha256": "6a77a5a6c21066b0354bc64c790ec44bd2b340d806e6d7b02d336d4c6fa3b169"
+    },
+    {
+      "qid": "Q42891",
+      "lastRevision": 2532458453,
+      "modified": "2026-08-17T19:15:31Z",
+      "file": "entities/Q42891.json",
+      "byteSize": 126392,
+      "sha256": "06c321a240a7dce1fa194fc544f4ff5a4d34c3d4382337ad5e125adc35dca7a1"
+    },
+    {
+      "qid": "Q432",
+      "lastRevision": 2534984391,
+      "modified": "2026-08-22T18:57:54Z",
+      "file": "entities/Q432.json",
+      "byteSize": 207676,
+      "sha256": "77a4e677419594e35c90c83ea1a4ec0437499fd023649d28053c349b21d38694"
+    },
+    {
+      "qid": "Q4478",
+      "lastRevision": 2532478523,
+      "modified": "2026-08-17T20:02:15Z",
+      "file": "entities/Q4478.json",
+      "byteSize": 93001,
+      "sha256": "0137a864318cd961863019c1413211ae32e3804658d84f51cc7c3be0851b1d7b"
+    },
+    {
+      "qid": "Q4604",
+      "lastRevision": 2533930947,
+      "modified": "2026-08-20T23:25:45Z",
+      "file": "entities/Q4604.json",
+      "byteSize": 262086,
+      "sha256": "ffd1d832f810ba0063337a9672fbe7a54074b3220cfae10bc6cf47afe2868875"
+    },
+    {
+      "qid": "Q47280",
+      "lastRevision": 2525169182,
+      "modified": "2026-07-31T12:21:14Z",
+      "file": "entities/Q47280.json",
+      "byteSize": 75281,
+      "sha256": "978520512e58ad496fa504a92f718bbbf7444f642f2c239e1ad89017d7a996a5"
+    },
+    {
+      "qid": "Q4802652",
+      "lastRevision": 2400880269,
+      "modified": "2025-09-05T14:50:54Z",
+      "file": "entities/Q4802652.json",
+      "byteSize": 15374,
+      "sha256": "6b0a0b1dbce36ebb6899c1e8dafd024ca15ba1f86e2496e958f21457ac3c58c0"
+    },
+    {
+      "qid": "Q48362",
+      "lastRevision": 2536928178,
+      "modified": "2026-08-27T02:53:55Z",
+      "file": "entities/Q48362.json",
+      "byteSize": 72840,
+      "sha256": "b4bdb74d960bd77103405517c2efddf392481d2e7df01e2464f4da6188bf6518"
+    },
+    {
+      "qid": "Q483654",
+      "lastRevision": 2534305176,
+      "modified": "2026-08-21T16:50:27Z",
+      "file": "entities/Q483654.json",
+      "byteSize": 101691,
+      "sha256": "5c8c231820adbf51959be2f505cf2db51c26b3b9c165901692072a0ee076ea15"
+    },
+    {
+      "qid": "Q5043",
+      "lastRevision": 2535016892,
+      "modified": "2026-08-22T20:02:26Z",
+      "file": "entities/Q5043.json",
+      "byteSize": 217937,
+      "sha256": "5ea3f352a7be43015552bb584ac82968b536a8d74d7f48d766308084c6360048"
+    },
+    {
+      "qid": "Q53001749",
+      "lastRevision": 2534298721,
+      "modified": "2026-08-21T16:38:03Z",
+      "file": "entities/Q53001749.json",
+      "byteSize": 10033,
+      "sha256": "e0205780f6148a0271484940f0a629d5bafee792c7d46883ee0b72699f3c3ff1"
+    },
+    {
+      "qid": "Q5310255",
+      "lastRevision": 2358737201,
+      "modified": "2025-06-10T00:28:10Z",
+      "file": "entities/Q5310255.json",
+      "byteSize": 6545,
+      "sha256": "2435bbe5a1bd27f381001560853c3ef2d4cb05da2de491635406110f705e951a"
+    },
+    {
+      "qid": "Q5891",
+      "lastRevision": 2535946991,
+      "modified": "2026-08-24T21:31:58Z",
+      "file": "entities/Q5891.json",
+      "byteSize": 202754,
+      "sha256": "d98a1c231909bcdcd7b82276c8b5bc21eb0ef5af89f856c9c3302a929e2906ed"
+    },
+    {
+      "qid": "Q668",
+      "lastRevision": 2532533998,
+      "modified": "2026-08-17T22:36:55Z",
+      "file": "entities/Q668.json",
+      "byteSize": 1098798,
+      "sha256": "3015e121c9a3b0a8b8f4322ebab84959b186a584162972ae197b20da79d74ff1"
+    },
+    {
+      "qid": "Q748",
+      "lastRevision": 2534318628,
+      "modified": "2026-08-21T17:13:21Z",
+      "file": "entities/Q748.json",
+      "byteSize": 155828,
+      "sha256": "43f7d7a1b4976ab2d6d7af5c6114b8f672f5e639bfc151bad5788d8defe069da"
+    },
+    {
+      "qid": "Q794",
+      "lastRevision": 2536573924,
+      "modified": "2026-08-26T08:40:55Z",
+      "file": "entities/Q794.json",
+      "byteSize": 695132,
+      "sha256": "ea5a361f4973965cc095e4fd7b7ead125122331e0d859b32e0ced2133fed29b1"
+    },
+    {
+      "qid": "Q812767",
+      "lastRevision": 2534309210,
+      "modified": "2026-08-21T16:57:30Z",
+      "file": "entities/Q812767.json",
+      "byteSize": 117250,
+      "sha256": "1cd6ba671800ea18722e7b7da936e21c13b41583a4089f5b8bbd20eec4d31813"
+    },
+    {
+      "qid": "Q83322",
+      "lastRevision": 2533421175,
+      "modified": "2026-08-19T21:14:57Z",
+      "file": "entities/Q83322.json",
+      "byteSize": 101687,
+      "sha256": "d42fb0d061b00a27ae5dca49b7b39417f4ccc06ead0c5f0f2010c278617b4afa"
+    },
+    {
+      "qid": "Q842798",
+      "lastRevision": 2532301006,
+      "modified": "2026-08-17T11:32:48Z",
+      "file": "entities/Q842798.json",
+      "byteSize": 35287,
+      "sha256": "aa3ab669e5c93bdac45552c61b0b474850705b467d6cb13d7394336f67fd7e55"
+    },
+    {
+      "qid": "Q863",
+      "lastRevision": 2532470458,
+      "modified": "2026-08-17T19:43:33Z",
+      "file": "entities/Q863.json",
+      "byteSize": 467551,
+      "sha256": "22a594d304a8dc9af759b242ba59ed0e8e372e357b9e4bd9071227d80c866977"
+    },
+    {
+      "qid": "Q9077",
+      "lastRevision": 2533416105,
+      "modified": "2026-08-19T21:03:21Z",
+      "file": "entities/Q9077.json",
+      "byteSize": 171117,
+      "sha256": "a9de13c4800b58c08013c60855cde645875b4741cbf7afa9ecf67721e19f5d8c"
+    },
+    {
+      "qid": "Q9089",
+      "lastRevision": 2534320513,
+      "modified": "2026-08-21T17:16:20Z",
+      "file": "entities/Q9089.json",
+      "byteSize": 157341,
+      "sha256": "4b49bbb7ad4e42aa069cd0860d5ebe002e5fda8b75d05c5383ac49251eb5edbb"
+    },
+    {
+      "qid": "Q9174",
+      "lastRevision": 2534300663,
+      "modified": "2026-08-21T16:41:37Z",
+      "file": "entities/Q9174.json",
+      "byteSize": 177956,
+      "sha256": "7a305338b44c5a4047b7bbaf166b86cd71ffbab77df001666e8d2f1a7f82d1e8"
+    },
+    {
+      "qid": "Q9181",
+      "lastRevision": 2535708667,
+      "modified": "2026-08-24T07:03:39Z",
+      "file": "entities/Q9181.json",
+      "byteSize": 175669,
+      "sha256": "3bdbfa352c9839d5acadad6ead5f960ec39e05a44f138a5589c97bd3e649a633"
+    },
+    {
+      "qid": "Q9232",
+      "lastRevision": 2534320519,
+      "modified": "2026-08-21T17:16:21Z",
+      "file": "entities/Q9232.json",
+      "byteSize": 86163,
+      "sha256": "287cd90afdde917d37e425e9c28387931002389d5c357c3dc6eae7490978924b"
+    },
+    {
+      "qid": "Q9268",
+      "lastRevision": 2534947158,
+      "modified": "2026-08-22T17:37:55Z",
+      "file": "entities/Q9268.json",
+      "byteSize": 152803,
+      "sha256": "c67f2124f351217a450d2b05fe4ae35ce5e4d81a1f1476c194faa62533656d7c"
+    },
+    {
+      "qid": "Q9316",
+      "lastRevision": 2534320534,
+      "modified": "2026-08-21T17:16:22Z",
+      "file": "entities/Q9316.json",
+      "byteSize": 83619,
+      "sha256": "9ab2f5c87786af9c083cc8d6278f491ec206584cba131f12ce39cb3fa2e9dbb6"
+    },
+    {
+      "qid": "Q9333",
+      "lastRevision": 2535631637,
+      "modified": "2026-08-24T01:19:01Z",
+      "file": "entities/Q9333.json",
+      "byteSize": 189302,
+      "sha256": "d810d43c7df0ccfe262ec2831eb5704c7d2e377852221651e9d31a2ecd68529b"
+    },
+    {
+      "qid": "Q9422",
+      "lastRevision": 2536323640,
+      "modified": "2026-08-25T18:58:09Z",
+      "file": "entities/Q9422.json",
+      "byteSize": 68672,
+      "sha256": "ea42e1a96dd87e892011624fceb9bb8ec2d259a043e2531da2743e5f48c237b1"
+    },
+    {
+      "qid": "Q9441",
+      "lastRevision": 2536694732,
+      "modified": "2026-08-26T13:31:21Z",
+      "file": "entities/Q9441.json",
+      "byteSize": 218499,
+      "sha256": "c9c7f56bb689de0b55fe1af590f547016f6f251a33657d29f9e521a0c00a45d4"
+    },
+    {
+      "qid": "Q9458",
+      "lastRevision": 2536743338,
+      "modified": "2026-08-26T16:22:09Z",
+      "file": "entities/Q9458.json",
+      "byteSize": 333191,
+      "sha256": "9fba10a87908f15e31cac087290dd5966084901729529a8f86d8b1c4d4f59d9c"
+    },
+    {
+      "qid": "Q9581",
+      "lastRevision": 2534320547,
+      "modified": "2026-08-21T17:16:24Z",
+      "file": "entities/Q9581.json",
+      "byteSize": 92535,
+      "sha256": "68d12e67be4a09391d266c322a2aeb76daf32bed1346a7cbd4edeb76785079f7"
+    },
+    {
+      "qid": "Q9585",
+      "lastRevision": 2534319243,
+      "modified": "2026-08-21T17:14:13Z",
+      "file": "entities/Q9585.json",
+      "byteSize": 84304,
+      "sha256": "13fc238a87e648264efeb6643b654f531de4a6baf5b99d95f45d0f8b7f2c902c"
+    },
+    {
+      "qid": "Q9592",
+      "lastRevision": 2536746615,
+      "modified": "2026-08-26T16:31:46Z",
+      "file": "entities/Q9592.json",
+      "byteSize": 221272,
+      "sha256": "538565cbc81fb4cbcf10e0af4d9c9877c9e29f6328555630da045b35e5539cd3"
+    },
+    {
+      "qid": "Q9598",
+      "lastRevision": 2534319262,
+      "modified": "2026-08-21T17:14:14Z",
+      "file": "entities/Q9598.json",
+      "byteSize": 100030,
+      "sha256": "7eefad480cd8b147a125f323fcf5f33293c9c5a716b9179acf6b886cafc9b3de"
+    },
+    {
+      "qid": "Q9601",
+      "lastRevision": 2534319286,
+      "modified": "2026-08-21T17:14:16Z",
+      "file": "entities/Q9601.json",
+      "byteSize": 106261,
+      "sha256": "9ede3e7075ead8fb9c6efb2f1e747ca170b07f721789d5db029dd00d659d9ec4"
+    }
+  ]
+}

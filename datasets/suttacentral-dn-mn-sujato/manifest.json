@@ -1,0 +1,12 @@
+{
+  "id": "mw:dataset:suttacentral:dn-mn-sujato", "datasetVersion": "0.1.0", "specVersion": "0.1",
+  "profiles": ["textual@0.1", "source@0.1"],
+  "dependencies": [{ "dataset": "mw:dataset:dhammapada:sujato", "version": "0.2.0" }],
+  "partitions": [
+    { "recordType": "resource", "path": "data/core/resources/*.jsonl" },
+    { "recordType": "provenance", "path": "data/core/provenance/*.jsonl" }
+  ],
+  "sources": ["SuttaCentral Bilara DN/MN English translations by Bhikkhu Sujato", "bilara-data published@cf0dac3b59a3f9b1d4829acb311e303f1eb6bba6"],
+  "rights": "Bhikkhu Sujato / SuttaCentral Bilara-supported translations are dedicated to the public domain under CC0 1.0.",
+  "availability": "bundled"
+}

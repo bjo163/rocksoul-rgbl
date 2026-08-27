@@ -1,0 +1,7 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "https://moonwitness.org/corpus/spec/v0.1/schemas/profiles/textual/fragment.schema.json",
+  "allOf": [
+    { "$ref": "https://moonwitness.org/corpus/spec/v0.1/schemas/core/resource.schema.json" },
+    { "required": ["extensions"], "properties": { "kind": { "const": "textual.fragment" }, "extensions": { "type": "object", "required": ["textual"], "properties": { "textual": { "type": "object", "required": ["parent", "edition", "completeness", "provenance"], "properties": { "parent": { "$ref": "common.schema.json#/$defs/canonicalId" }, "edition": { "$ref": "common.schema.json#/$defs/canonicalId" }, "citation": { "$ref": "common.schema.json#/$defs/nonBlankString" }, "completeness": { "enum": ["complete_work", "complete_section", "bounded_excerpt", "isolated_fragment", "metadata_only"] }, "provenance": { "$ref": "common.schema.json#/$defs/canonicalId" }, "note": { "$ref": "common.schema.json#/$defs/nonBlankString" } }, "additionalProperties": false } } } } }
+  ]
+}

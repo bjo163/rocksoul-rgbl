@@ -1,0 +1,12 @@
+{
+  "id": "mw:dataset:world-religions:baseline", "datasetVersion": "0.1.0", "specVersion": "0.1", "profiles": [],
+  "partitions": [
+    { "recordType": "entity", "path": "data/core/entities/*.jsonl" },
+    { "recordType": "resource", "path": "data/core/resources/*.jsonl" },
+    { "recordType": "assertion", "path": "data/core/assertions/*.jsonl" },
+    { "recordType": "provenance", "path": "data/core/provenance/*.jsonl" }
+  ],
+  "sources": ["Wikidata bounded Special:EntityData snapshot, exact entity lastrevid values in snapshot-manifest.json", "datasets/registries/snapshots/wikidata"],
+  "rights": "Wikidata structured data is CC0 1.0; imported classifications and roles remain source-attributed assertions.",
+  "availability": "bundled"
+}

@@ -175,17 +175,17 @@ P9–P11 are intentionally deferred while this data-first milestone is active. E
 - [x] Audit the exact SuttaCentral Pali Dhammapada root edition/source and redistribution rights independently from translation licensing. <!-- mw-todo:P12-004 -->
 - [x] Ingest the full Pali Dhammapada as a separate expression only if P12-004 permits bundling; otherwise record it as external/metadata-only. <!-- mw-todo:P12-005 -->
 - [ ] Add Pali↔English Dhammapada segment alignment when both representations are legally available, without asserting semantic identity. <!-- mw-todo:P12-006 -->
-- [ ] Pin an exact Open Scriptures Hebrew Bible/WLC upstream commit and artifact checksums with attribution/license evidence. <!-- mw-todo:P12-007 -->
-- [ ] Ingest the full Westminster Leningrad Codex Hebrew text from OSHB `wlc/` as source-preserving content. <!-- mw-todo:P12-008 -->
-- [ ] Ingest OSHB lemma/morphology as separate annotation data linked to source tokens, preserving source token IDs. <!-- mw-todo:P12-009 -->
-- [ ] Pin the official SBLGNT v1.2 source commit/artifacts and CC BY 4.0 attribution evidence. <!-- mw-todo:P12-010 -->
-- [ ] Ingest the full SBL Greek New Testament v1.2 as a specific Greek expression/edition. <!-- mw-todo:P12-011 -->
-- [ ] Pin the eBible World English Bible Classic 2020 stable full-ecumenical artifact, checksum, and public-domain/trademark evidence. <!-- mw-todo:P12-012 -->
-- [ ] Ingest World English Bible Classic 2020 full ecumenical book set as a separate English expression/edition. <!-- mw-todo:P12-013 -->
-- [ ] Represent WEB book-set membership/order as edition/collection metadata rather than one universal Bible canon. <!-- mw-todo:P12-014 -->
-- [ ] Add WEB↔OSHB passage alignment for overlapping Hebrew Bible books with versification differences explicit. <!-- mw-todo:P12-015 -->
-- [ ] Add WEB↔SBLGNT New Testament passage alignment with edition and verse-boundary differences explicit. <!-- mw-todo:P12-016 -->
-- [ ] Expand SuttaCentral CC0 Bhikkhu Sujato English translations to Dīgha Nikāya and Majjhima Nikāya from a pinned `published` commit. <!-- mw-todo:P12-017 -->
+- [x] Pin an exact Open Scriptures Hebrew Bible/WLC upstream commit and artifact checksums with attribution/license evidence. <!-- mw-todo:P12-007 -->
+- [x] Ingest the full Westminster Leningrad Codex Hebrew text from OSHB `wlc/` as source-preserving content. <!-- mw-todo:P12-008 -->
+- [x] Ingest OSHB lemma/morphology as separate annotation data linked to source tokens, preserving source token IDs. <!-- mw-todo:P12-009 -->
+- [x] Pin the official SBLGNT v1.2 source commit/artifacts and CC BY 4.0 attribution evidence. <!-- mw-todo:P12-010 -->
+- [x] Ingest the full SBL Greek New Testament v1.2 as a specific Greek expression/edition. <!-- mw-todo:P12-011 -->
+- [x] Pin the eBible World English Bible Classic 2020 stable full-ecumenical artifact, checksum, and public-domain/trademark evidence. <!-- mw-todo:P12-012 -->
+- [x] Ingest World English Bible Classic 2020 full ecumenical book set as a separate English expression/edition. <!-- mw-todo:P12-013 -->
+- [x] Represent WEB book-set membership/order as edition/collection metadata rather than one universal Bible canon. <!-- mw-todo:P12-014 -->
+- [x] Add WEB↔OSHB passage alignment for overlapping Hebrew Bible books with versification differences explicit. <!-- mw-todo:P12-015 -->
+- [x] Add WEB↔SBLGNT New Testament passage alignment with edition and verse-boundary differences explicit. <!-- mw-todo:P12-016 -->
+- [x] Expand SuttaCentral CC0 Bhikkhu Sujato English translations to Dīgha Nikāya and Majjhima Nikāya from a pinned `published` commit. <!-- mw-todo:P12-017 -->
 - [ ] Expand SuttaCentral CC0 Bhikkhu Sujato English translations to Saṁyutta Nikāya and Aṅguttara Nikāya from a pinned `published` commit. <!-- mw-todo:P12-018 -->
 - [ ] Add deterministic completeness/count/checksum tests plus rights/provenance gates for every P12 dataset. <!-- mw-todo:P12-019 -->
 - [ ] Produce the Foundation Text Corpus coverage report and pass both the no-unresolved-bundled-rights gate and the required source-language + `en` + `id` translation-coverage gate. <!-- mw-todo:P12-020 -->
@@ -204,17 +204,17 @@ P9–P11 are intentionally deferred while this data-first milestone is active. E
 P13 runs in parallel with P12. It builds an open-ended registry, not a final universal taxonomy. Source/role/reconciliation policy is documented in [`docs/WORLD_REGISTRY_TARGETS.md`](docs/WORLD_REGISTRY_TARGETS.md).
 
 - [x] Define the non-exhaustive religion/tradition taxonomy policy and contextual religious-role assertion policy. <!-- mw-todo:P13-001 -->
-- [ ] Add a machine-readable P13 source registry with exact source, revision, rights, retrieval, and checksum metadata. <!-- mw-todo:P13-002 -->
-- [ ] Pin reproducible Wikidata CC0 discovery snapshots/queries for religions, traditions, denominations, schools, movements, and communities. <!-- mw-todo:P13-003 -->
-- [ ] Ingest canonical tradition/religion/movement entities without treating a source taxonomy as universal truth. <!-- mw-todo:P13-004 -->
-- [ ] Add preferred `en` and `id` labels plus native/source-language labels and alternate names/transliterations for high-priority tradition entities. <!-- mw-todo:P13-005 -->
-- [ ] Preserve Wikidata QIDs and other authority identifiers as external IDs, never as MoonWitness canonical identity. <!-- mw-todo:P13-006 -->
-- [ ] Represent broader/narrower/related religion classifications as source-attributed assertions with provenance. <!-- mw-todo:P13-007 -->
-- [ ] Add sourced geography/region associations without making geography an intrinsic definition of a religion. <!-- mw-todo:P13-008 -->
-- [ ] Pin reproducible Wikidata CC0 discovery snapshots/queries for religious, scriptural, historical, and legendary persons/figures. <!-- mw-todo:P13-009 -->
-- [ ] Ingest person/figure entities separately from claims about their religious roles, historicity, or identity. <!-- mw-todo:P13-010 -->
-- [ ] Define extensible data vocabulary concepts for roles such as prophet, messenger, apostle, patriarch, founder, guru, rishi, tirthankara, buddha, bodhisattva, imam, saint, sage, reformer, and related roles without adding core enums. <!-- mw-todo:P13-011 -->
-- [ ] Implement scoped role assertions (`tradition`/`community`/`source`) so no person is globally hard-coded as prophet/founder/guru/etc. <!-- mw-todo:P13-012 -->
+- [x] Add a machine-readable P13 source registry with exact source, revision, rights, retrieval, and checksum metadata. <!-- mw-todo:P13-002 -->
+- [x] Pin reproducible Wikidata CC0 discovery snapshots/queries for religions, traditions, denominations, schools, movements, and communities. <!-- mw-todo:P13-003 -->
+- [x] Ingest canonical tradition/religion/movement entities without treating a source taxonomy as universal truth. <!-- mw-todo:P13-004 -->
+- [x] Add preferred `en` and `id` labels plus native/source-language labels and alternate names/transliterations for high-priority tradition entities. <!-- mw-todo:P13-005 -->
+- [x] Preserve Wikidata QIDs and other authority identifiers as external IDs, never as MoonWitness canonical identity. <!-- mw-todo:P13-006 -->
+- [x] Represent broader/narrower/related religion classifications as source-attributed assertions with provenance. <!-- mw-todo:P13-007 -->
+- [x] Add sourced geography/region associations without making geography an intrinsic definition of a religion. <!-- mw-todo:P13-008 -->
+- [x] Pin reproducible Wikidata CC0 discovery snapshots/queries for religious, scriptural, historical, and legendary persons/figures. <!-- mw-todo:P13-009 -->
+- [x] Ingest person/figure entities separately from claims about their religious roles, historicity, or identity. <!-- mw-todo:P13-010 -->
+- [x] Define extensible data vocabulary concepts for roles such as prophet, messenger, apostle, patriarch, founder, guru, rishi, tirthankara, buddha, bodhisattva, imam, saint, sage, reformer, and related roles without adding core enums. <!-- mw-todo:P13-011 -->
+- [x] Implement scoped role assertions (`tradition`/`community`/`source`) so no person is globally hard-coded as prophet/founder/guru/etc. <!-- mw-todo:P13-012 -->
 - [ ] Add Quran-evidenced named prophet/messenger/scriptural-figure assertions linked to exact P12 Quran passages. <!-- mw-todo:P13-013 -->
 - [ ] Add Tanakh/Hebrew-Bible-evidenced prophet/patriarch/priest/king/scriptural-figure assertions linked to exact P12 passages. <!-- mw-todo:P13-014 -->
 - [ ] Add Greek-New-Testament-evidenced apostle/disciple/prophet/scriptural-figure assertions linked to exact P12 passages. <!-- mw-todo:P13-015 -->
@@ -237,11 +237,11 @@ P13 runs in parallel with P12. It builds an open-ended registry, not a final uni
 
 P14 increases diversity of texts, fragments, genres, languages, and communities without treating record count as coverage. Detailed policy and source-lane boundaries are in [`docs/DATASET_DIVERSITY_TARGETS.md`](docs/DATASET_DIVERSITY_TARGETS.md).
 
-- [ ] Define a machine-readable P14 diversity matrix covering tradition/community, genre, source language, `en`/`id`, text scale, rights state, and unresolved gaps. <!-- mw-todo:P14-001 -->
-- [ ] Add a source-discovery registry that records candidate source, authority, edition, retrieval method, checksum, rights decision, and bundle/metadata-only disposition. <!-- mw-todo:P14-002 -->
-- [ ] Add a reusable complete-work versus bounded-fragment contract; fragments must retain parent work, edition, citation range, completeness statement, rights, and provenance. <!-- mw-todo:P14-003 -->
-- [ ] Add deterministic source/rights gates that prohibit bundling a candidate merely because it is downloadable. <!-- mw-todo:P14-004 -->
-- [ ] Add genre vocabulary and profiles for scripture, hadith/report, commentary, legal text, ritual/manual, hymn/prayer, biography, chronicle, philosophical text, and oral-tradition metadata. <!-- mw-todo:P14-005 -->
+- [x] Define a machine-readable P14 diversity matrix covering tradition/community, genre, source language, `en`/`id`, text scale, rights state, and unresolved gaps. <!-- mw-todo:P14-001 -->
+- [x] Add a source-discovery registry that records candidate source, authority, edition, retrieval method, checksum, rights decision, and bundle/metadata-only disposition. <!-- mw-todo:P14-002 -->
+- [x] Add a reusable complete-work versus bounded-fragment contract; fragments must retain parent work, edition, citation range, completeness statement, rights, and provenance. <!-- mw-todo:P14-003 -->
+- [x] Add deterministic source/rights gates that prohibit bundling a candidate merely because it is downloadable. <!-- mw-todo:P14-004 -->
+- [x] Add genre vocabulary and profiles for scripture, hadith/report, commentary, legal text, ritual/manual, hymn/prayer, biography, chronicle, philosophical text, and oral-tradition metadata. <!-- mw-todo:P14-005 -->
 - [ ] Audit and pin openly redistributable Arabic hadith/report source candidates; keep collection, book, chapter, report, matn, and isnad/transmitter layers distinct. <!-- mw-todo:P14-006 -->
 - [ ] Ingest the first rights-cleared Arabic hadith/report collection with exact citation hierarchy and source-preserving matn, without using a secondary website as authority by default. <!-- mw-todo:P14-007 -->
 - [ ] Add separately sourced human English and Indonesian hadith/report translations only where republication rights, translator, and edition are explicit. <!-- mw-todo:P14-008 -->
@@ -275,16 +275,16 @@ P14 increases diversity of texts, fragments, genres, languages, and communities 
 
 P15 separates lexical forms from source-scoped meanings and from P13 entities. Policy is documented in [`docs/RELIGIOUS_LEXICON_TARGETS.md`](docs/RELIGIOUS_LEXICON_TARGETS.md).
 
-- [ ] Define separate schemas/contracts for concept, term, sacred name, epithet, title, honorific, definition, and usage evidence. <!-- mw-todo:P15-001 -->
-- [ ] Define an anti-equivalence policy: shared translation, spelling, or function never automatically equates concepts across sources or traditions. <!-- mw-todo:P15-002 -->
-- [ ] Add a machine-readable P15 source registry and coverage matrix by tradition, semantic domain, language, script, `en`/`id`, and evidence state. <!-- mw-todo:P15-003 -->
-- [ ] Add language/script-aware preferred terms, aliases, grammatical metadata, and source-local identifiers without normalizing away meaningful distinctions. <!-- mw-todo:P15-004 -->
-- [ ] Add transliteration records with scheme, version, source form, reversibility/lossiness, and provenance. <!-- mw-todo:P15-005 -->
-- [ ] Add sourced etymology and historical-form assertions without treating reconstructed derivations as certain facts. <!-- mw-todo:P15-006 -->
-- [ ] Add sourced definitions and usage notes scoped to work, passage, tradition, community, period, and language. <!-- mw-todo:P15-007 -->
-- [ ] Add broader/narrower/related/contrasted-with/translated-as relations as provenance-bearing assertions rather than universal ontology edges. <!-- mw-todo:P15-008 -->
-- [ ] Add contested, polysemous, homographic, obsolete, pejorative, reclaimed, and community-preferred term states with review notes. <!-- mw-todo:P15-009 -->
-- [ ] Link sacred names, epithets, and titles to P13 entities only through sourced designation assertions; never merge entity identity from a name match. <!-- mw-todo:P15-010 -->
+- [x] Define separate schemas/contracts for concept, term, sacred name, epithet, title, honorific, definition, and usage evidence. <!-- mw-todo:P15-001 -->
+- [x] Define an anti-equivalence policy: shared translation, spelling, or function never automatically equates concepts across sources or traditions. <!-- mw-todo:P15-002 -->
+- [x] Add a machine-readable P15 source registry and coverage matrix by tradition, semantic domain, language, script, `en`/`id`, and evidence state. <!-- mw-todo:P15-003 -->
+- [x] Add language/script-aware preferred terms, aliases, grammatical metadata, and source-local identifiers without normalizing away meaningful distinctions. <!-- mw-todo:P15-004 -->
+- [x] Add transliteration records with scheme, version, source form, reversibility/lossiness, and provenance. <!-- mw-todo:P15-005 -->
+- [x] Add sourced etymology and historical-form assertions without treating reconstructed derivations as certain facts. <!-- mw-todo:P15-006 -->
+- [x] Add sourced definitions and usage notes scoped to work, passage, tradition, community, period, and language. <!-- mw-todo:P15-007 -->
+- [x] Add broader/narrower/related/contrasted-with/translated-as relations as provenance-bearing assertions rather than universal ontology edges. <!-- mw-todo:P15-008 -->
+- [x] Add contested, polysemous, homographic, obsolete, pejorative, reclaimed, and community-preferred term states with review notes. <!-- mw-todo:P15-009 -->
+- [x] Link sacred names, epithets, and titles to P13 entities only through sourced designation assertions; never merge entity identity from a name match. <!-- mw-todo:P15-010 -->
 - [ ] Extract and review Quran/Islamic Arabic terms, divine names, roles, practices, and theological vocabulary from exact P12/P14 evidence. <!-- mw-todo:P15-011 -->
 - [ ] Extract and review Hebrew/Aramaic Jewish terms, divine designations, offices, practices, and covenant/legal vocabulary from exact evidence. <!-- mw-todo:P15-012 -->
 - [ ] Extract and review Greek/Latin/Syriac Christian terms, titles, offices, sacraments, and doctrinal vocabulary with source/community scope. <!-- mw-todo:P15-013 -->

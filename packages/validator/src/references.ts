@@ -53,5 +53,24 @@ export function extractCanonicalReferences(record: Record<string, unknown>): Can
   }
   references.push(...extractTextualReferences(record))
   references.push(...extractSourceReferences(record))
+  if (typeof record.kind === 'string' && record.kind.startsWith('lexicon.') && record.extensions && typeof record.extensions === 'object' && !Array.isArray(record.extensions)) {
+    const lexicon = (record.extensions as Record<string, unknown>).lexicon
+    if (lexicon && typeof lexicon === 'object' && !Array.isArray(lexicon)) {
+      const value = lexicon as Record<string, unknown>
+      for (const field of ['concept', 'term', 'entity', 'target', 'source_form', 'provenance']) pushString(references, `extensions.lexicon.${field}`, value[field])
+      pushArray(references, 'extensions.lexicon.source_forms', value.source_forms)
+      pushArray(references, 'extensions.lexicon.evidence', value.evidence)
+      if (Array.isArray(value.source_local_ids)) {
+        for (let index = 0; index < value.source_local_ids.length; index += 1) {
+          const identifier = value.source_local_ids[index]
+          if (identifier && typeof identifier === 'object' && !Array.isArray(identifier)) pushString(references, `extensions.lexicon.source_local_ids[${index}].source`, (identifier as Record<string, unknown>).source)
+        }
+      }
+      if (value.scope && typeof value.scope === 'object' && !Array.isArray(value.scope)) {
+        const scope = value.scope as Record<string, unknown>
+        for (const field of ['tradition', 'community', 'work', 'passage', 'period']) pushString(references, `extensions.lexicon.scope.${field}`, scope[field])
+      }
+    }
+  }
   return references
 }

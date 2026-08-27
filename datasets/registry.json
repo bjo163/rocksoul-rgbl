@@ -17,6 +17,11 @@
       "status": "fixture"
     },
     {
+      "id": "mw:dataset:example:p15-lexicon-contract",
+      "path": "datasets/examples/p15-lexicon-contract",
+      "status": "fixture"
+    },
+    {
       "id": "mw:dataset:example:provenance-rights",
       "path": "datasets/examples/provenance-rights",
       "status": "fixture"
@@ -47,8 +52,18 @@
       "status": "active"
     },
     {
+      "id": "mw:dataset:suttacentral:dn-mn-sujato",
+      "path": "datasets/suttacentral-dn-mn-sujato",
+      "status": "active"
+    },
+    {
       "id": "mw:dataset:web-classic:2020",
       "path": "datasets/web-classic-2020",
+      "status": "active"
+    },
+    {
+      "id": "mw:dataset:world-religions:baseline",
+      "path": "datasets/world-religions-baseline",
       "status": "active"
     },
     {

@@ -1,0 +1,7 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "https://moonwitness.org/corpus/spec/v0.1/schemas/profiles/lexicon/concept.schema.json",
+  "allOf": [
+    { "$ref": "https://moonwitness.org/corpus/spec/v0.1/schemas/core/resource.schema.json" },
+    { "required": ["extensions"], "properties": { "kind": { "const": "lexicon.concept" }, "extensions": { "type": "object", "required": ["lexicon"], "properties": { "lexicon": { "type": "object", "required": ["semantic_domain", "evidence_state", "provenance"], "properties": { "semantic_domain": { "$ref": "common.schema.json#/$defs/nonBlankString" }, "evidence_state": { "enum": ["attested", "editorial_abstraction", "candidate", "disputed"] }, "scope": { "$ref": "common.schema.json#/$defs/scope" }, "states": { "$ref": "common.schema.json#/$defs/states" }, "review_note": { "$ref": "common.schema.json#/$defs/nonBlankString" }, "provenance": { "$ref": "common.schema.json#/$defs/canonicalId" } }, "additionalProperties": false } }, "additionalProperties": false } } }
+  ]
+}

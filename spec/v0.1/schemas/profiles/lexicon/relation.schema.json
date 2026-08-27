@@ -1,0 +1,4 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "https://moonwitness.org/corpus/spec/v0.1/schemas/profiles/lexicon/relation.schema.json",
+  "allOf": [{ "$ref": "https://moonwitness.org/corpus/spec/v0.1/schemas/core/resource.schema.json" }, { "required": ["extensions"], "properties": { "kind": { "const": "lexicon.relation" }, "extensions": { "type": "object", "required": ["lexicon"], "properties": { "lexicon": { "type": "object", "required": ["term", "target", "relation", "scope", "provenance"], "properties": { "term": { "$ref": "common.schema.json#/$defs/canonicalId" }, "target": { "$ref": "common.schema.json#/$defs/canonicalId" }, "relation": { "enum": ["broader", "narrower", "related", "contrasted_with", "translated_as"] }, "scope": { "$ref": "common.schema.json#/$defs/scope" }, "provenance": { "$ref": "common.schema.json#/$defs/canonicalId" } }, "additionalProperties": false } }, "additionalProperties": false } } }]
+}

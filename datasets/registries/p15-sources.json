@@ -1,0 +1,9 @@
+{
+  "formatVersion": "1",
+  "policy": "spec/v0.1/profiles/lexicon.md",
+  "sources": [
+    { "id": "p13-wikidata-baseline", "purpose": "entity designation targets and multilingual source labels", "revision": "datasets/registries/snapshots/wikidata/snapshot-manifest.json", "rights": "CC0-1.0", "evidenceState": "approved_metadata_only", "artifact": "datasets/world-religions-baseline/CHECKSUMS.sha256" },
+    { "id": "p12-primary-texts", "purpose": "future passage-level term occurrence evidence", "revision": "datasets/coverage.json", "rights": "per-dataset", "evidenceState": "approved_only_after_exact_passage_review", "artifact": "datasets/registry.json" },
+    { "id": "p15-contract-fixture", "purpose": "schema and cross-dataset reference verification only", "revision": "0.1.0", "rights": "CC0 repository fixture", "evidenceState": "non_authoritative_fixture", "artifact": "datasets/examples/p15-lexicon-contract/manifest.json" }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://moonwitness.org/corpus/spec/v0.1/schemas/profiles/lexicon/common.schema.json",
+  "$defs": {
+    "canonicalId": { "$ref": "https://moonwitness.org/corpus/spec/v0.1/schemas/core/common.schema.json#/$defs/canonicalId" },
+    "nonBlankString": { "type": "string", "minLength": 1, "pattern": ".*\\S.*" },
+    "language": { "type": "string", "pattern": "^[a-z]{2,8}(?:-[A-Za-z0-9]{1,8})*$" },
+    "script": { "type": "string", "pattern": "^[A-Z][a-z]{3}$" },
+    "form": {
+      "type": "object", "required": ["value", "language", "script", "role"],
+      "properties": { "value": { "$ref": "#/$defs/nonBlankString" }, "language": { "$ref": "#/$defs/language" }, "script": { "$ref": "#/$defs/script" }, "role": { "enum": ["preferred", "alternate", "historical", "source"] } },
+      "additionalProperties": false
+    },
+    "scope": {
+      "type": "object", "minProperties": 1,
+      "properties": { "tradition": { "$ref": "#/$defs/canonicalId" }, "community": { "$ref": "#/$defs/canonicalId" }, "work": { "$ref": "#/$defs/canonicalId" }, "passage": { "$ref": "#/$defs/canonicalId" }, "period": { "$ref": "#/$defs/canonicalId" }, "language": { "$ref": "#/$defs/language" } },
+      "additionalProperties": false
+    },
+    "states": { "type": "array", "uniqueItems": true, "items": { "enum": ["contested", "polysemous", "homographic", "obsolete", "pejorative", "reclaimed", "community_preferred"] } }
+  }
+}

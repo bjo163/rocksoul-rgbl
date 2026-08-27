@@ -1,0 +1,14 @@
+{
+  "formatVersion": "1",
+  "scope": "P15 contract baseline; content expansion begins at P15-011",
+  "dimensions": ["tradition", "semanticDomain", "language", "script", "english", "indonesian", "evidenceState"],
+  "lanes": [
+    { "tradition": "Islam", "semanticDomain": ["divine names", "roles", "practice", "theology"], "language": "ar", "script": "Arab", "english": "planned", "indonesian": "planned", "evidenceState": "P15-011" },
+    { "tradition": "Judaism", "semanticDomain": ["divine designations", "offices", "covenant", "law"], "language": "he/arc", "script": "Hebr", "english": "planned", "indonesian": "planned", "evidenceState": "P15-012" },
+    { "tradition": "Christianity", "semanticDomain": ["titles", "offices", "sacraments", "doctrine"], "language": "grc/la/syr", "script": "Grek/Latn/Syrc", "english": "planned", "indonesian": "planned", "evidenceState": "P15-013" },
+    { "tradition": "Buddhism", "semanticDomain": ["persons and titles", "doctrine", "practice"], "language": "pi/sa", "script": "Latn/Deva", "english": "planned", "indonesian": "planned", "evidenceState": "P15-014" },
+    { "tradition": "Hinduism", "semanticDomain": ["deities", "epithets", "schools", "practice"], "language": "sa/mul", "script": "Deva/multiple", "english": "planned", "indonesian": "planned", "evidenceState": "P15-015" },
+    { "tradition": "Jain/Sikh/Bahai/Zoroastrian/Daoist/Confucian/Shinto", "semanticDomain": ["names", "titles", "concepts", "practice"], "language": "mul", "script": "multiple", "english": "planned", "indonesian": "planned", "evidenceState": "P15-016" }
+  ],
+  "contractCoverage": { "concept": true, "term": true, "sacredName": true, "epithet": true, "title": true, "honorific": true, "definition": true, "usage": true, "transliteration": true, "etymology": true, "relation": true, "designationToP13": true }
+}

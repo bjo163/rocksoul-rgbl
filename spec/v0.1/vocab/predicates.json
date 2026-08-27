@@ -4,6 +4,10 @@
     { "id": "mw:predicate:mentions", "label": "mentions" },
     { "id": "mw:predicate:has-role", "label": "has role" },
     { "id": "mw:predicate:part-of", "label": "part of" },
-    { "id": "mw:predicate:derived-from", "label": "derived from" }
+    { "id": "mw:predicate:derived-from", "label": "derived from" },
+    { "id": "mw:predicate:broader-than", "label": "broader than" },
+    { "id": "mw:predicate:related-to", "label": "related to" },
+    { "id": "mw:predicate:associated-with-geography", "label": "associated with geography" },
+    { "id": "mw:predicate:designates", "label": "designates" }
   ]
 }

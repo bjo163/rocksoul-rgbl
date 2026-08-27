@@ -1,0 +1,10 @@
+{
+  "formatVersion": "1", "retrievedAt": "2026-08-27T00:00:00Z",
+  "sources": [
+    { "id": "wikidata", "authority": "Wikimedia Foundation", "revision": "snapshot-2026-08-27", "rights": "CC0-1.0", "retrieval": "SPARQL query artifacts plus entity revision metadata", "status": "approved", "artifact": "datasets/registries/snapshots/wikidata" },
+    { "id": "quran-tanzil", "authority": "Tanzil Project", "revision": "v1.1", "rights": "CC-BY-3.0 with source-specific terms", "retrieval": "ingestion/recipes/quran-tanzil-uthmani", "status": "approved", "artifact": "datasets/quran-tanzil-uthmani/CHECKSUMS.sha256" },
+    { "id": "oshb-wlc", "authority": "Open Scriptures", "revision": "3d15126fb1ef74867fc1434be1942e837932691f", "rights": "WLC public domain; annotations CC-BY-4.0", "retrieval": "ingestion/recipes/oshb-wlc", "status": "approved", "artifact": "datasets/oshb-wlc/CHECKSUMS.sha256" },
+    { "id": "sblgnt", "authority": "Society of Biblical Literature / Logos", "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c", "rights": "CC-BY-4.0", "retrieval": "ingestion/recipes/sblgnt-v1-2", "status": "approved", "artifact": "datasets/sblgnt-v1-2/CHECKSUMS.sha256" },
+    { "id": "suttacentral-bilara", "authority": "SuttaCentral", "revision": "cf0dac3b59a3f9b1d4829acb311e303f1eb6bba6", "rights": "CC0-1.0 for reviewed Bilara-supported translations; root texts audited separately", "retrieval": "ingestion/recipes/suttacentral-dn-mn", "status": "approved_with_scope", "artifact": "datasets/suttacentral-dn-mn-sujato/CHECKSUMS.sha256" }
+  ]
+}

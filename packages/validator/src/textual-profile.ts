@@ -10,6 +10,7 @@ export const TEXTUAL_SCHEMA_FILE_BY_KIND: Readonly<Record<string, string>> = {
   'textual.passage': 'passage.schema.json',
   'textual.citation_scheme': 'citation-scheme.schema.json',
   'textual.book_set': 'book-set.schema.json',
+  'textual.fragment': 'fragment.schema.json',
   'textual.content': 'content.schema.json',
   'textual.alignment': 'alignment.schema.json',
   'textual.variant': 'variant.schema.json'
@@ -42,6 +43,7 @@ const EXPECTED_ID_KIND: Readonly<Record<string, string>> = {
   'textual.passage': 'passage',
   'textual.citation_scheme': 'citation-scheme',
   'textual.book_set': 'collection',
+  'textual.fragment': 'fragment',
   'textual.content': 'content',
   'textual.alignment': 'alignment',
   'textual.variant': 'variant'
@@ -109,6 +111,11 @@ export function extractTextualReferences(record: Record<string, unknown>): Textu
       break
     case 'textual.book_set':
       pushString(references, 'extensions.textual.edition', payload.edition)
+      break
+    case 'textual.fragment':
+      pushString(references, 'extensions.textual.parent', payload.parent)
+      pushString(references, 'extensions.textual.edition', payload.edition)
+      pushString(references, 'extensions.textual.provenance', payload.provenance)
       break
     case 'textual.content':
       pushString(references, 'extensions.textual.target', payload.target)

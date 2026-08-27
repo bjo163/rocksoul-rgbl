@@ -351,8 +351,8 @@ P17 connects P12–P16 through explainable, reviewable evidence rather than opaq
 - [ ] Add P15 concept/term occurrence, definition, translation, contrast, and semantic-shift evidence across passages and periods. <!-- mw-todo:P17-012 -->
 - [ ] Add P16 prayer/ritual usage and adaptation links to source texts, concepts, communities, observances, and media evidence. <!-- mw-todo:P17-013 -->
 - [ ] Add cross-tradition comparison records that state comparison dimensions and sources without asserting theological identity. <!-- mw-todo:P17-014 -->
-- [ ] Represent negative, absent, unmatched, uncertain, disputed, superseded, and retracted graph findings explicitly. <!-- mw-todo:P17-015 -->
-- [ ] Add claim-level confidence/assessment vocabulary that distinguishes source assertion, curator assessment, and automated candidate score. <!-- mw-todo:P17-016 -->
+- [x] Represent negative, absent, unmatched, uncertain, disputed, superseded, and retracted graph findings explicitly. <!-- mw-todo:P17-015 -->
+- [x] Add claim-level confidence/assessment vocabulary that distinguishes source assertion, curator assessment, and automated candidate score. <!-- mw-todo:P17-016 -->
 - [ ] Add graph reconciliation for duplicate edges, contradictory claims, citation aliases, selector drift, and dataset-version changes. <!-- mw-todo:P17-017 -->
 - [ ] Add immutable graph snapshots with exact dependency versions and deterministic edge/checksum manifests. <!-- mw-todo:P17-018 -->
 - [ ] Add explanation paths from any derived comparison or registry claim back to exact source artifact and passage evidence. <!-- mw-todo:P17-019 -->

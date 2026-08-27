@@ -327,7 +327,7 @@ P16 expands sourced prayers and lived-practice material while separating text, p
 - [ ] Add audio/video/IIIF performance evidence with time/region/performer/community metadata and media rights. <!-- mw-todo:P16-020 -->
 - [ ] Link P16 terms to P15 concepts and participants/communities to P13 entities through reviewed evidence. <!-- mw-todo:P16-021 -->
 - [ ] Add deterministic alignment and gap reports across source, transliteration, `en`, and `id` devotional expressions. <!-- mw-todo:P16-022 -->
-- [ ] Add safety and ethics review preventing canonical records from becoming unsourced ritual instructions or exposing restricted content. <!-- mw-todo:P16-023 -->
+- [x] Add safety and ethics review preventing canonical records from becoming unsourced ritual instructions or exposing restricted content. <!-- mw-todo:P16-023 -->
 - [ ] Add deterministic ingestion/count/checksum/rights/provenance/sensitivity tests for every P16 dataset. <!-- mw-todo:P16-024 -->
 - [ ] Produce the P16 devotional/practice report and pass no-unscoped-normativity/no-restricted-content/no-performance-as-text gates. <!-- mw-todo:P16-025 -->
 
@@ -337,9 +337,9 @@ P16 expands sourced prayers and lived-practice material while separating text, p
 
 P17 connects P12–P16 through explainable, reviewable evidence rather than opaque similarity. Policy is documented in [`docs/INTERTEXTUAL_EVIDENCE_GRAPH_TARGETS.md`](docs/INTERTEXTUAL_EVIDENCE_GRAPH_TARGETS.md).
 
-- [ ] Define typed contracts for mention, quotation, citation, allusion candidate, commentary target, parallel passage, motif, event, place, role, and transmission evidence. <!-- mw-todo:P17-001 -->
-- [ ] Require every graph edge to expose source dataset/version, exact target/selector, method, assertion status, reviewer state, and provenance. <!-- mw-todo:P17-002 -->
-- [ ] Define identity/equivalence/dependence guardrails: lexical or embedding similarity can create candidates but never canonical conclusions. <!-- mw-todo:P17-003 -->
+- [x] Define typed contracts for mention, quotation, citation, allusion candidate, commentary target, parallel passage, motif, event, place, role, and transmission evidence. <!-- mw-todo:P17-001 -->
+- [x] Require every graph edge to expose source dataset/version, exact target/selector, method, assertion status, reviewer state, and provenance. <!-- mw-todo:P17-002 -->
+- [x] Define identity/equivalence/dependence guardrails: lexical or embedding similarity can create candidates but never canonical conclusions. <!-- mw-todo:P17-003 -->
 - [ ] Add machine-readable graph-source registry and coverage matrix by edge type, tradition pair, language pair, evidence quality, and unresolved candidates. <!-- mw-todo:P17-004 -->
 - [ ] Add deterministic mention extraction candidates linking P12/P14/P16 passages to P13 persons, traditions, places, and institutions. <!-- mw-todo:P17-005 -->
 - [ ] Add exact quotation and explicit citation links where a source itself identifies the cited work/passage. <!-- mw-todo:P17-006 -->

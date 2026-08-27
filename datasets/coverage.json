@@ -12,6 +12,21 @@
   },
   "datasets": [
     {
+      "datasetId": "mw:dataset:sblgnt:v1-2",
+      "path": "datasets/sblgnt-v1-2",
+      "workCollection": "New Testament",
+      "datasetRole": "source_text",
+      "availability": "bundled",
+      "language": { "tag": "grc", "script": "Grek", "coverageRole": "source" },
+      "expression": { "label": "SBL Greek New Testament v1.2", "edition": "The Greek New Testament: SBL Edition" },
+      "completeness": { "status": "complete", "unit": "verse", "covered": 7941, "expected": 7941, "scope": "Complete SBLGNT XML source set" },
+      "sourceArtifact": { "revision": "LogosBible/SBLGNT@c4d241a9c1c479a55b989ba35a4976c1d0b8052c", "path": "ingestion/recipes/sblgnt-v1-2/source/source-manifest.json", "sha256": "96addfb28c3164368a1780815c0da579f644b43193fcbb7fd1b861d71325ff7f", "byteSize": 6129 },
+      "rights": { "status": "verified_for_bundled_licensed_redistribution", "license": "CC-BY-4.0", "evidence": "datasets/sblgnt-v1-2/README.md" },
+      "provenance": { "manifest": "datasets/sblgnt-v1-2/manifest.json", "checksums": "datasets/sblgnt-v1-2/CHECKSUMS.sha256", "recipe": "ingestion/recipes/sblgnt-v1-2" },
+      "translationCoverage": { "en": "missing", "id": "missing" },
+      "alignmentCoverage": { "status": "not_started", "notes": "Greek↔English/Indonesian alignment is deferred to later Foundation Corpus tasks." }
+    },
+    {
       "datasetId": "mw:dataset:oshb:wlc",
       "path": "datasets/oshb-wlc",
       "workCollection": "Hebrew Bible",

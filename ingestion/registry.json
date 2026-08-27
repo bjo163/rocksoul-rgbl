@@ -25,6 +25,11 @@
       "id": "mw:recipe:oshb:wlc",
       "path": "ingestion/recipes/oshb-wlc",
       "status": "active"
+    },
+    {
+      "id": "mw:recipe:sblgnt:v1-2",
+      "path": "ingestion/recipes/sblgnt-v1-2",
+      "status": "active"
     }
   ]
 }

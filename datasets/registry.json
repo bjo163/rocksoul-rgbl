@@ -37,6 +37,11 @@
       "status": "active"
     },
     {
+      "id": "mw:dataset:sblgnt:v1-2",
+      "path": "datasets/sblgnt-v1-2",
+      "status": "active"
+    },
+    {
       "id": "mw:dataset:quran:tanzil-uthmani",
       "path": "datasets/quran-tanzil-uthmani",
       "status": "active"

@@ -1,0 +1,14 @@
+{
+  "id": "mw:dataset:sblgnt:v1-2",
+  "datasetVersion": "0.1.0",
+  "specVersion": "0.1",
+  "profiles": ["textual@0.1", "source@0.1"],
+  "partitions": [
+    { "recordType": "entity", "path": "data/core/entities/*.jsonl" },
+    { "recordType": "resource", "path": "data/core/resources/*.jsonl" },
+    { "recordType": "provenance", "path": "data/core/provenance/*.jsonl" }
+  ],
+  "sources": ["LogosBible/SBLGNT data/sblgnt/xml", "SBLGNT master@c4d241a9c1c479a55b989ba35a4976c1d0b8052c", "ingestion/recipes/sblgnt-v1-2/source/source-manifest.json"],
+  "rights": "SBLGNT v1.2 is redistributed under CC BY 4.0 with attribution to the Society of Biblical Literature and Logos Bible Software.",
+  "availability": "bundled"
+}

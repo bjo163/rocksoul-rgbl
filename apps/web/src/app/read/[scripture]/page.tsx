@@ -77,15 +77,10 @@ export default async function ParallelScriptureReaderPage({
             <span style={{ fontWeight: 700, color: '#ffffff', fontSize: '0.92rem' }}>
               Pilih {data.sectionLabel}:
             </span>
-            <form action={`/read/${data.key}`} method="get" style={{ display: 'inline' }}>
+            <form action={`/read/${data.key}`} method="get" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
               <select
-                name={data.key === 'quran' ? 'surah' : 'chapter'}
+                name="section"
                 defaultValue={data.currentSection}
-                onChange={(e) => {
-                  if (typeof window !== 'undefined') {
-                    window.location.href = getSectionHref(Number(e.target.value))
-                  }
-                }}
                 style={{
                   padding: '8px 14px',
                   borderRadius: '8px',
@@ -103,6 +98,9 @@ export default async function ParallelScriptureReaderPage({
                   </option>
                 ))}
               </select>
+              <button type="submit" className="button secondary" style={{ padding: '8px 14px', fontSize: '0.85rem' }}>
+                Buka
+              </button>
             </form>
           </div>
 

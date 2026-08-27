@@ -22,4 +22,4 @@ Canonical partition checksums are recorded in `CHECKSUMS.sha256`.
 
 The bundled Bhikkhu Sujato English translation is recorded as `CC0-1.0`; see `LICENSES/SUTTACENTRAL-CC0.md`.
 
-This dataset does not bundle Pali/root content. Pali source edition and redistribution rights remain a separate P12-004 audit. Indonesian human-published coverage is also still missing and remains tracked separately. No machine or LLM translation is used to satisfy those gaps.
+This dataset does not bundle Pali/root content. The P12-004 audit records the exact Pali source and concludes that root-text redistribution rights are unresolved; the safe availability decision is metadata-only. Indonesian human-published coverage is also still missing and remains tracked separately. No machine or LLM translation is used to satisfy those gaps.

@@ -1,0 +1,17 @@
+{
+  "format": "moonwitness-rights-audit-v1",
+  "dataset": "mw:dataset:dhammapada:sujato",
+  "source": {
+    "repository": "https://github.com/suttacentral/bilara-data",
+    "branch": "published",
+    "commit": "cf0dac3b59a3f9b1d4829acb311e303f1eb6bba6",
+    "path_glob": "root/pli/ms/sutta/kn/dhp/*_root-pli-ms.json"
+  },
+  "retrieved_at": "2026-08-27",
+  "license_evidence": "https://github.com/suttacentral/bilara-data/blob/cf0dac3b59a3f9b1d4829acb311e303f1eb6bba6/LICENSE.md",
+  "translation_license_scope": "CC0 applies explicitly to Bilara-supported translations; it is not evidence of Pali root redistribution rights.",
+  "root_rights_status": "unresolved",
+  "availability_decision": "metadata_only",
+  "bundle": false,
+  "alignment_decision": "deferred_until_root_rights_cleared"
+}

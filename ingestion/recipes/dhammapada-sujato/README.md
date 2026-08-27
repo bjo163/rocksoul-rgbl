@@ -16,4 +16,4 @@ The acquisition script downloads the 26 exact chapter/range translation files fr
 
 The recipe verifies every source file against the manifest, preserves each Bilara segment value without text normalization, and maps the source to the generic textual profile as 26 chapters, 423 stanzas, and source segments. The English expression remains explicitly a translation of a Pali expression; this recipe does not bundle a Pali text.
 
-Materialized dataset output is stored in `datasets/dhammapada-sujato/` and is checked for byte-for-byte reproducibility by the repository test suite.
+Materialized dataset output is stored in `datasets/dhammapada-sujato/` and is checked for byte-for-byte reproducibility by the repository test suite. The separate `pali-root-rights-audit.json` records why the Pali root is metadata-only and why no Pali bytes or alignment are generated here.

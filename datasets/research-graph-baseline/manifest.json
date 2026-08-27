@@ -9,7 +9,9 @@
     { "dataset": "mw:dataset:lexicon:quran-arabic-core", "version": "0.1.0" },
     { "dataset": "mw:dataset:lexicon:dhammapada-core", "version": "0.1.0" },
     { "dataset": "mw:dataset:dhammapada:sujato", "version": "0.2.0" },
-    { "dataset": "mw:dataset:dhammapada:indonesian-wikisource", "version": "0.1.0" }
+    { "dataset": "mw:dataset:dhammapada:indonesian-wikisource", "version": "0.1.0" },
+    { "dataset": "mw:dataset:bible:passage-alignments", "version": "0.1.0" },
+    { "dataset": "mw:dataset:web-classic:2020", "version": "0.1.0" }
   ],
   "partitions": [
     { "recordType": "evidence", "path": "data/core/evidence/*.jsonl" },

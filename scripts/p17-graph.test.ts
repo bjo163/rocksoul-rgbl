@@ -3,7 +3,7 @@ import { readFile } from 'node:fs/promises'
 import path from 'node:path'
 import test from 'node:test'
 
-test('P17 graph baseline preserves role and term-usage edge classes', async () => {
+test('P17 graph baseline preserves role, term-usage, and alignment edge classes', async () => {
   const root = process.cwd()
   const file = path.join(root, 'datasets/research-graph-baseline/data/core/evidence/graph.jsonl')
   const lines = (await readFile(file, 'utf8')).trim().split('\n')
@@ -12,10 +12,11 @@ test('P17 graph baseline preserves role and term-usage edge classes', async () =
     extensions?: { graph?: { edgeType?: string; status?: string; reviewState?: string } }
   })
 
-  assert.equal(edges.length, 14)
+  assert.equal(edges.length, 16)
   assert.ok(edges.every((edge) => edge.record_type === 'evidence'))
   assert.equal(edges.filter((edge) => edge.extensions?.graph?.edgeType === 'role').length, 7)
   assert.equal(edges.filter((edge) => edge.extensions?.graph?.edgeType === 'term_usage').length, 7)
+  assert.equal(edges.filter((edge) => edge.extensions?.graph?.edgeType === 'textual_alignment').length, 2)
   assert.ok(edges.every((edge) => edge.extensions?.graph?.status === 'asserted'))
   assert.ok(edges.every((edge) => edge.extensions?.graph?.reviewState === 'reviewed'))
 })

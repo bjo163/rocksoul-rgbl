@@ -257,11 +257,11 @@ P14 increases diversity of texts, fragments, genres, languages, and communities 
 - [x] Audit and ingest rights-cleared Buddhist commentarial, vinaya, and meditation-manual datasets as genres distinct from sutta text. <!-- mw-todo:P14-018 -->
 - [x] Audit and ingest Sanskrit Bhagavad Gita source candidates plus human English and Indonesian translations as separate expressions. <!-- mw-todo:P14-019 -->
 - [x] Add rights-cleared Veda, Upanishad, and Hindu epic source/fragment lanes with recension, language, and translation boundaries explicit. <!-- mw-todo:P14-020 -->
-- [ ] Audit Jain Agama and Tattvartha Sutra candidates with Prakrit/Sanskrit/Hindi/English/Indonesian distinctions and sect scope. <!-- mw-todo:P14-021 -->
-- [ ] Audit Sikh Guru Granth Sahib source and translation candidates, preserving raga, ang, and hymn citation systems where licensed. <!-- mw-todo:P14-022 -->
-- [ ] Audit Baháʼí, Zoroastrian, Daoist, Confucian, and Shinto primary-text candidates with edition, translation, and community scopes. <!-- mw-todo:P14-023 -->
-- [ ] Add indigenous, local, oral, and living-tradition discovery lanes under consent-first metadata policy; do not bundle restricted or ceremonial content without explicit permission. <!-- mw-todo:P14-024 -->
-- [ ] Add modern religious-movement primary-document lanes with publisher, date, jurisdiction, and redistribution terms recorded. <!-- mw-todo:P14-025 -->
+- [x] Audit Jain Agama and Tattvartha Sutra candidates with Prakrit/Sanskrit/Hindi/English/Indonesian distinctions and sect scope. <!-- mw-todo:P14-021 -->
+- [x] Audit Sikh Guru Granth Sahib source and translation candidates, preserving raga, ang, and hymn citation systems where licensed. <!-- mw-todo:P14-022 -->
+- [x] Audit Baháʼí, Zoroastrian, Daoist, Confucian, and Shinto primary-text candidates with edition, translation, and community scopes. <!-- mw-todo:P14-023 -->
+- [x] Add indigenous, local, oral, and living-tradition discovery lanes under consent-first metadata policy; do not bundle restricted or ceremonial content without explicit permission. <!-- mw-todo:P14-024 -->
+- [x] Add modern religious-movement primary-document lanes with publisher, date, jurisdiction, and redistribution terms recorded. <!-- mw-todo:P14-025 -->
 - [x] Add multilingual transliteration/romanization provenance for source languages where a lossless native-script representation is retained. <!-- mw-todo:P14-026 -->
 - [x] Add citation adapters for non-Bible/non-sutta structures: hadith report, folio/line, hymn/ang/raga, chapter/verse, tractate/mishnah, and fragment selector. <!-- mw-todo:P14-027 -->
 - [x] Add passage-to-P13 evidence extraction contracts so text mentions create review candidates, never automatic person identity or role claims. <!-- mw-todo:P14-028 -->
@@ -286,9 +286,9 @@ P15 separates lexical forms from source-scoped meanings and from P13 entities. P
 - [x] Add contested, polysemous, homographic, obsolete, pejorative, reclaimed, and community-preferred term states with review notes. <!-- mw-todo:P15-009 -->
 - [x] Link sacred names, epithets, and titles to P13 entities only through sourced designation assertions; never merge entity identity from a name match. <!-- mw-todo:P15-010 -->
 - [x] Extract and review Quran/Islamic Arabic terms, divine names, roles, practices, and theological vocabulary from exact P12/P14 evidence. <!-- mw-todo:P15-011 -->
-- [ ] Extract and review Hebrew/Aramaic Jewish terms, divine designations, offices, practices, and covenant/legal vocabulary from exact evidence. <!-- mw-todo:P15-012 -->
-- [ ] Extract and review Greek/Latin/Syriac Christian terms, titles, offices, sacraments, and doctrinal vocabulary with source/community scope. <!-- mw-todo:P15-013 -->
-- [ ] Extract and review Pali/Sanskrit Buddhist terms with school, canon, translation, and commentarial scope explicit. <!-- mw-todo:P15-014 -->
+- [x] Extract and review Hebrew/Aramaic Jewish terms, divine designations, offices, practices, and covenant/legal vocabulary from exact evidence. <!-- mw-todo:P15-012 -->
+- [x] Extract and review Greek/Latin/Syriac Christian terms, titles, offices, sacraments, and doctrinal vocabulary with source/community scope. <!-- mw-todo:P15-013 -->
+- [x] Extract and review Pali/Sanskrit Buddhist terms with school, canon, translation, and commentarial scope explicit. <!-- mw-todo:P15-014 -->
 - [ ] Add Sanskrit and regional-language Hindu concept/name coverage without flattening deity, epithet, avatara, philosophical school, or practice distinctions. <!-- mw-todo:P15-015 -->
 - [ ] Add Jain, Sikh, Baháʼí, Zoroastrian, Daoist, Confucian, and Shinto term/name lanes with native script and community scope. <!-- mw-todo:P15-016 -->
 - [ ] Add rights- and consent-reviewed indigenous/local terminology metadata without publishing restricted names or meanings. <!-- mw-todo:P15-017 -->

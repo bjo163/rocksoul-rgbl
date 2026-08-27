@@ -10,7 +10,7 @@ test('Quran real dataset is byte-for-byte reproducible from its pinned recipe', 
 })
 
 test('Dhammapada real dataset is byte-for-byte reproducible from its pinned recipe', async () => {
-  await assertDatasetMaterialized(root, 'ingestion/recipes/dhammapada-sujato-1-20', 'datasets/dhammapada-sujato-1-20')
+  await assertDatasetMaterialized(root, 'ingestion/recipes/dhammapada-sujato', 'datasets/dhammapada-sujato')
 })
 
 test('P5 cross-tradition fixture explicitly disclaims equivalence', async () => {

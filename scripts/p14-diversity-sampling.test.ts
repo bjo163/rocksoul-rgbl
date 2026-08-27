@@ -9,7 +9,7 @@ const candidates = [
     genre: index < 6 ? 'scripture' : 'commentary',
     sourceLanguage: 'ar',
     community: 'general',
-    dedupeKey: index === 7 ? 'islam-7-source' : `islam-${index + 1}-source`,
+    dedupeKey: `islam-${index + 1}-source`,
   })),
   { id: 'islam-7-duplicate', tradition: 'Islam', genre: 'commentary', sourceLanguage: 'ar', community: 'general', dedupeKey: 'islam-7-source' },
   { id: 'buddhist-pali', tradition: 'Buddhism', genre: 'scripture', sourceLanguage: 'pli', community: 'theravada', dedupeKey: 'buddhist-pali-source' },

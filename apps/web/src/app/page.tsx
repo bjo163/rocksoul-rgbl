@@ -267,9 +267,9 @@ export default async function HomePage({ searchParams }: { searchParams: SearchP
           {/* Full Traditions Grid */}
           <section style={{ marginBottom: '60px' }}>
             <div className="section-header">
-              <span className="section-tag">Katalog Lintas Tradisi</span>
-              <h2 className="section-title">Koleksi Kitab, Doa, & Leksikon per Agama</h2>
-              <p className="section-desc">Pilih tradisi untuk langsung membaca teks suci, terjemahan resmi, kumpulan doa, dan kamus istilahnya.</p>
+              <span className="section-tag">Katalog {catalog.traditions.length} Tradisi</span>
+              <h2 className="section-title">Koleksi Kitab & Manuskrip ({datasets.length} Paket)</h2>
+              <p className="section-desc">Pilih dari {catalog.traditions.length} tradisi agama dunia di bawah untuk membaca teks sumber, terjemahan resmi, dan leksikon kanonikalnya.</p>
             </div>
 
             <div className="traditions-grid">

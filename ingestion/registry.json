@@ -12,6 +12,11 @@
       "status": "active"
     },
     {
+      "id": "mw:recipe:dhammapada:sujato-1-20",
+      "path": "ingestion/recipes/dhammapada-sujato-1-20",
+      "status": "deprecated"
+    },
+    {
       "id": "mw:recipe:dhammapada:sujato",
       "path": "ingestion/recipes/dhammapada-sujato",
       "status": "active"

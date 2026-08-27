@@ -195,6 +195,175 @@ export async function assessmentsForTarget(id: CanonicalId): Promise<Assessment[
   return index.get(id) ?? []
 }
 
+export interface ParallelVerse {
+  id: CanonicalId
+  citation: string
+  label?: string
+  sourceText?: { language: string; text: string; script?: string; datasetId?: string }
+  indonesianText?: { language: string; text: string; datasetId?: string }
+  englishText?: { language: string; text: string; datasetId?: string }
+  otherTexts: Array<{ language: string; text: string; script?: string; datasetId?: string }>
+}
+
+export interface ParallelReaderData {
+  key: string
+  title: string
+  subtitle: string
+  icon: string
+  tradition: string
+  currentSection: string
+  totalSections: number
+  sectionLabel: string
+  sectionsList: Array<{ id: string; label: string }>
+  verses: ParallelVerse[]
+}
+
+export async function getParallelReaderData(scriptureKey: string, sectionParam?: string): Promise<ParallelReaderData | null> {
+  const repository = await getRepository()
+  const contentIndex = await getContentIndex()
+
+  const key = scriptureKey.toLowerCase()
+  let prefix = ''
+  let title = ''
+  let subtitle = ''
+  let icon = '📖'
+  let tradition = 'Islam'
+  let sectionLabel = 'Bagian'
+  let totalSections = 1
+  const sectionsList: Array<{ id: string; label: string }> = []
+
+  if (key === 'quran') {
+    title = "Al-Qur'an Al-Karim"
+    subtitle = "Teks Arab Rasm Utsmani berpasangan 1-to-1 dengan Terjemahan Kemenag RI & English"
+    icon = '🕌'
+    tradition = 'Islam'
+    sectionLabel = 'Surah'
+    totalSections = 114
+    for (let i = 1; i <= 114; i++) {
+      sectionsList.push({ id: String(i), label: `Surah ${i}` })
+    }
+    const surah = sectionParam && Number(sectionParam) >= 1 && Number(sectionParam) <= 114 ? sectionParam : '1'
+    prefix = `mw:passage:quran:${surah}:`
+  } else if (key === 'dhammapada') {
+    title = 'Dhammapada'
+    subtitle = 'Syair Suci Pali berpasangan dengan Terjemahan Wikisumber ID & Bhikkhu Sujato EN'
+    icon = '☸️'
+    tradition = 'Buddhisme'
+    sectionLabel = 'Bab'
+    totalSections = 26
+    for (let i = 1; i <= 26; i++) {
+      sectionsList.push({ id: String(i), label: `Bab ${i}` })
+    }
+    const chapter = sectionParam && Number(sectionParam) >= 1 && Number(sectionParam) <= 26 ? sectionParam : '1'
+    prefix = `mw:passage:dhammapada:${chapter}:`
+  } else if (key === 'gita') {
+    title = 'Bhagavad Gita'
+    subtitle = 'Shloka Sanskerta Dewanagari berpasangan dengan Terjemahan Indonesia & English'
+    icon = '🕉️'
+    tradition = 'Hinduisme'
+    sectionLabel = 'Adhyaya'
+    totalSections = 18
+    for (let i = 1; i <= 18; i++) {
+      sectionsList.push({ id: String(i), label: `Adhyaya ${i}` })
+    }
+    const chapter = sectionParam && Number(sectionParam) >= 1 && Number(sectionParam) <= 18 ? sectionParam : '2'
+    prefix = `mw:passage:hinduism:gita:${chapter}:`
+  } else if (key === 'hadith') {
+    title = "40 Hadits Arba'in An-Nawawi"
+    subtitle = "Matn Arab berpasangan dengan Rantai Sanad dan Terjemahan Indonesia & English"
+    icon = '📜'
+    tradition = 'Islam'
+    sectionLabel = 'Hadits'
+    totalSections = 42
+    prefix = 'mw:passage:hadith:nawawi-40:'
+  } else if (key === 'devotional') {
+    title = 'Kompilasi Doa & Mantram Lintas Tradisi'
+    subtitle = 'Teks Sumber Asli berpasangan dengan Terjemahan dan Konteks Praktik'
+    icon = '🤲'
+    tradition = 'Lintas Tradisi'
+    sectionLabel = 'Doa'
+    totalSections = 1
+    prefix = 'mw:passage:devotional:'
+  } else {
+    return null
+  }
+
+  // Find all passages matching prefix
+  const matchingPassages: CorpusRecord[] = []
+  for await (const record of repository.iterateRecords({ recordTypes: ['resource'], kinds: ['textual.passage'] })) {
+    if (record.id.startsWith(prefix)) {
+      matchingPassages.push(record)
+    }
+  }
+
+  // Sort by sequence or local ID
+  matchingPassages.sort((a, b) => {
+    const aSeq = (a as { extensions?: { textual?: { sequence?: number } } }).extensions?.textual?.sequence
+    const bSeq = (b as { extensions?: { textual?: { sequence?: number } } }).extensions?.textual?.sequence
+    if (typeof aSeq === 'number' && typeof bSeq === 'number') return aSeq - bSeq
+    return a.id.localeCompare(b.id, undefined, { numeric: true })
+  })
+
+  // For each passage, assemble parallel representations
+  const verses: ParallelVerse[] = matchingPassages.map((passage) => {
+    const payload = textualPayload(passage) ?? {}
+    const citations = Array.isArray(payload.citations) ? payload.citations as Array<{ reference?: string }> : []
+    const citation = citations[0]?.reference ?? passage.id.split(':').pop() ?? ''
+    const label = ('labels' in passage && passage.labels && passage.labels[0]?.value) ? passage.labels[0].value : undefined
+
+    const contents = contentIndex.get(passage.id) ?? []
+    let sourceText: ParallelVerse['sourceText']
+    let indonesianText: ParallelVerse['indonesianText']
+    let englishText: ParallelVerse['englishText']
+    const otherTexts: ParallelVerse['otherTexts'] = []
+
+    for (const c of contents) {
+      const textMeta = textualPayload(c) ?? {}
+      const text = typeof textMeta.text === 'string' ? textMeta.text : ''
+      const lang = typeof textMeta.language === 'string' ? textMeta.language : ''
+      const script = typeof textMeta.script === 'string' ? textMeta.script : undefined
+      const rep = textMeta.representation
+
+      if (rep === 'source' || ['ar', 'grc', 'el', 'he', 'pi', 'sa'].includes(lang)) {
+        if (!sourceText) {
+          sourceText = { language: lang, text, script, datasetId: c.id }
+        } else {
+          otherTexts.push({ language: lang, text, script, datasetId: c.id })
+        }
+      } else if (lang === 'id') {
+        indonesianText = { language: lang, text, datasetId: c.id }
+      } else if (lang === 'en') {
+        englishText = { language: lang, text, datasetId: c.id }
+      } else {
+        otherTexts.push({ language: lang, text, script, datasetId: c.id })
+      }
+    }
+
+    return {
+      id: passage.id,
+      citation,
+      label,
+      sourceText,
+      indonesianText,
+      englishText,
+      otherTexts
+    }
+  })
+
+  return {
+    key,
+    title,
+    subtitle,
+    icon,
+    tradition,
+    currentSection: sectionParam ?? (sectionsList[0]?.id ?? '1'),
+    totalSections,
+    sectionLabel,
+    sectionsList,
+    verses
+  }
+}
+
 export interface EvidenceChainItem {
   evidence: Evidence
   target: CorpusRecord | null

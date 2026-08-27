@@ -145,22 +145,31 @@ export default async function HomePage({ searchParams }: { searchParams: SearchP
               </div>
             </div>
 
-            {/* Quick Search Scoped to Tradition */}
-            <form className="hero-search-box" style={{ maxWidth: '100%', margin: '24px 0 16px' }} action="/search" method="get">
-              <div className="search-input-group">
-                <span className="search-icon">🔍</span>
-                <input
-                  className="search-field"
-                  name="q"
-                  placeholder={`Cari ayat, kata kunci, atau istilah di ${selectedTradition.name}...`}
-                  aria-label={`Cari di ${selectedTradition.name}`}
-                  autoFocus
-                />
-                <button className="search-submit-btn" type="submit">
-                  Cari di {selectedTradition.name.replace('Tradisi ', '')}
-                </button>
+            {/* Direct Unified Reader CTA Button */}
+            {selectedTradition.id === 'islam' && (
+              <div style={{ marginTop: '20px', display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+                <Link href="/read/quran?surah=1" className="button" style={{ fontWeight: 800, padding: '12px 20px', fontSize: '0.95rem' }}>
+                  📖 Baca Al-Qur'an Lengkap (Arab + Indonesia Kemenag + English Berdampingan) →
+                </Link>
+                <Link href="/read/hadith" className="button secondary" style={{ padding: '12px 18px', fontSize: '0.95rem' }}>
+                  📜 Baca 40 Hadits Arba'in An-Nawawi →
+                </Link>
               </div>
-            </form>
+            )}
+            {selectedTradition.id === 'buddhism' && (
+              <div style={{ marginTop: '20px' }}>
+                <Link href="/read/dhammapada?chapter=1" className="button" style={{ fontWeight: 800, padding: '12px 20px', fontSize: '0.95rem' }}>
+                  📖 Baca Syair Dhammapada (Pali + Indonesia + English Berdampingan) →
+                </Link>
+              </div>
+            )}
+            {selectedTradition.id === 'hinduism' && (
+              <div style={{ marginTop: '20px' }}>
+                <Link href="/read/gita?chapter=2" className="button" style={{ fontWeight: 800, padding: '12px 20px', fontSize: '0.95rem' }}>
+                  📖 Baca Bhagavad Gita (Sanskerta + Indonesia + English Berdampingan) →
+                </Link>
+              </div>
+            )}
           </div>
 
           {/* Dataset Packs for this Tradition */}

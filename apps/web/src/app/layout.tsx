@@ -27,8 +27,11 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
               </div>
             </Link>
             <nav className="nav-links" aria-label="Navigasi Utama">
+              <Link className="nav-item" href="/read">
+                <span>📖</span> Baca Kitab
+              </Link>
               <Link className="nav-item" href="/datasets">
-                <span>📖</span> Kitab & Dataset
+                <span>📦</span> Katalog Dataset
               </Link>
               <Link className="nav-item" href="/search">
                 <span>🔍</span> Pencarian

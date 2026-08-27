@@ -316,8 +316,8 @@ P16 expands sourced prayers and lived-practice material while separating text, p
 - [ ] Audit and ingest rights-cleared Buddhist paritta, sutra chant, aspiration, dedication, liturgy, and meditation-manual excerpts with school scope. <!-- mw-todo:P16-009 -->
 - [ ] Audit and ingest rights-cleared Hindu mantra, stotra, puja, vrata, and devotional hymn candidates with deity/sampradaya/source scope. <!-- mw-todo:P16-010 -->
 - [ ] Audit and ingest Jain prayer/ritual, Sikh bani/ardas/kirtan, Baháʼí prayer, and Zoroastrian liturgical candidates under exact rights. <!-- mw-todo:P16-011 -->
-- [x] Audit Daoist, Confucian, Shinto, and East Asian ritual/devotional candidates with temple/school/community and language context. <!-- mw-todo:P16-012 -->
-- [x] Add indigenous/local/oral devotional discovery under consent-first policy; restricted performance text remains metadata-only unless explicitly permitted. <!-- mw-todo:P16-013 -->
+- [ ] Audit Daoist, Confucian, Shinto, and East Asian ritual/devotional candidates with temple/school/community and language context. <!-- mw-todo:P16-012 -->
+- [ ] Add indigenous/local/oral devotional discovery under consent-first policy; restricted performance text remains metadata-only unless explicitly permitted. <!-- mw-todo:P16-013 -->
 - [ ] Model ritual/practice participants, roles, actions, sequence, objects, place, time, calendar, and community as sourced contextual assertions. <!-- mw-todo:P16-014 -->
 - [x] Add festival, fast, feast, pilgrimage, lifecycle rite, and observance entities with calendar-system and regional/community variation. <!-- mw-todo:P16-015 -->
 - [x] Add sacred object, symbol, garment, food, instrument, architecture, and material-culture links without assigning one universal meaning. <!-- mw-todo:P16-016 -->

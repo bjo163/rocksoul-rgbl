@@ -12,8 +12,12 @@ import { FileSystemCorpusRepository } from '@moonwitness/corpus-node'
 import type { CorpusRepository, DatasetDescriptor } from '@moonwitness/corpus-repository'
 import { textualPayload } from './presentation.js'
 
-let repositoryPromise: Promise<FileSystemCorpusRepository> | undefined
-let rootPromise: Promise<string> | undefined
+declare global {
+  // eslint-disable-next-line no-var
+  var __moonwitness_repository__: Promise<FileSystemCorpusRepository> | undefined
+  // eslint-disable-next-line no-var
+  var __moonwitness_root__: Promise<string> | undefined
+}
 
 async function hasRegistry(candidate: string): Promise<boolean> {
   try {
@@ -25,8 +29,8 @@ async function hasRegistry(candidate: string): Promise<boolean> {
 }
 
 export async function getCorpusRoot(): Promise<string> {
-  if (!rootPromise) {
-    rootPromise = (async () => {
+  if (!globalThis.__moonwitness_root__) {
+    globalThis.__moonwitness_root__ = (async () => {
       const candidates = [
         process.env.MOONWITNESS_CORPUS_ROOT,
         process.cwd(),
@@ -41,14 +45,14 @@ export async function getCorpusRoot(): Promise<string> {
       throw new Error('Could not locate datasets/registry.json. Set MOONWITNESS_CORPUS_ROOT to the repository root.')
     })()
   }
-  return rootPromise
+  return globalThis.__moonwitness_root__
 }
 
 export async function getRepository(): Promise<FileSystemCorpusRepository> {
-  if (!repositoryPromise) {
-    repositoryPromise = getCorpusRoot().then((root) => FileSystemCorpusRepository.open(root))
+  if (!globalThis.__moonwitness_repository__) {
+    globalThis.__moonwitness_repository__ = getCorpusRoot().then((root) => FileSystemCorpusRepository.open(root))
   }
-  return repositoryPromise
+  return globalThis.__moonwitness_repository__
 }
 
 export async function datasetMap(repository: CorpusRepository): Promise<Map<CanonicalId, DatasetDescriptor>> {
@@ -138,24 +142,57 @@ export async function assertionsAround(id: CanonicalId, limit = 24): Promise<Ass
   return { outgoing, incoming }
 }
 
-export async function contentForTarget(id: CanonicalId): Promise<Resource[]> {
-  const repository = await getRepository()
-  const result: Resource[] = []
-  for await (const record of repository.iterateRecords({ recordTypes: ['resource'], kinds: ['textual.content'] })) {
-    if (record.record_type !== 'resource') continue
-    const payload = textualPayload(record)
-    if (payload?.target === id) result.push(record)
+let contentIndexPromise: Promise<Map<CanonicalId, Resource[]>> | undefined
+
+async function getContentIndex(): Promise<Map<CanonicalId, Resource[]>> {
+  if (!contentIndexPromise) {
+    contentIndexPromise = (async () => {
+      const repository = await getRepository()
+      const index = new Map<CanonicalId, Resource[]>()
+      for await (const record of repository.iterateRecords({ recordTypes: ['resource'], kinds: ['textual.content'] })) {
+        if (record.record_type !== 'resource') continue
+        const payload = textualPayload(record)
+        const target = payload?.target as CanonicalId | undefined
+        if (target) {
+          const list = index.get(target) ?? []
+          list.push(record)
+          index.set(target, list)
+        }
+      }
+      return index
+    })()
   }
-  return result
+  return contentIndexPromise
+}
+
+export async function contentForTarget(id: CanonicalId): Promise<Resource[]> {
+  const index = await getContentIndex()
+  return index.get(id) ?? []
+}
+
+let assessmentIndexPromise: Promise<Map<CanonicalId, Assessment[]>> | undefined
+
+async function getAssessmentIndex(): Promise<Map<CanonicalId, Assessment[]>> {
+  if (!assessmentIndexPromise) {
+    assessmentIndexPromise = (async () => {
+      const repository = await getRepository()
+      const index = new Map<CanonicalId, Assessment[]>()
+      for await (const record of repository.iterateRecords({ recordTypes: ['assessment'] })) {
+        if (record.record_type === 'assessment' && record.target) {
+          const list = index.get(record.target) ?? []
+          list.push(record)
+          index.set(record.target, list)
+        }
+      }
+      return index
+    })()
+  }
+  return assessmentIndexPromise
 }
 
 export async function assessmentsForTarget(id: CanonicalId): Promise<Assessment[]> {
-  const repository = await getRepository()
-  const result: Assessment[] = []
-  for await (const record of repository.iterateRecords({ recordTypes: ['assessment'] })) {
-    if (record.record_type === 'assessment' && record.target === id) result.push(record)
-  }
-  return result
+  const index = await getAssessmentIndex()
+  return index.get(id) ?? []
 }
 
 export interface EvidenceChainItem {

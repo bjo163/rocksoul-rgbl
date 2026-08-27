@@ -4,31 +4,64 @@ import './globals.css'
 
 export const metadata: Metadata = {
   title: {
-    default: 'MoonWitness Corpus Explorer',
-    template: '%s · MoonWitness Corpus Explorer'
+    default: 'MoonWitness Corpus Explorer — Penjelajah Teks Suci & Leksikon Dunia',
+    template: '%s · MoonWitness Corpus'
   },
-  description: 'A provenance-first explorer for the public MoonWitness canonical corpus.'
+  description: 'Aplikasi penjelajah korpus kanonikal teks suci, doa, leksikon, dan manuskrip lintas tradisi agama dunia ber-evidensi terverifikasi.'
 }
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
+    <html lang="id">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+      </head>
       <body>
         <header className="site-header">
           <div className="header-inner">
-            <Link className="brand" href="/">MoonWitness <span>Corpus</span></Link>
-            <nav className="nav" aria-label="Primary navigation">
-              <Link href="/datasets">Datasets</Link>
-              <Link href="/search">Search</Link>
-              <Link href="/compare">Compare</Link>
+            <Link className="brand-wrapper" href="/">
+              <div className="brand-icon">🌙</div>
+              <div className="brand-title">
+                MoonWitness <span>Corpus</span>
+              </div>
+            </Link>
+            <nav className="nav-links" aria-label="Navigasi Utama">
+              <Link className="nav-item" href="/datasets">
+                <span>📖</span> Kitab & Dataset
+              </Link>
+              <Link className="nav-item" href="/search">
+                <span>🔍</span> Pencarian
+              </Link>
+              <Link className="nav-item" href="/search?q=devotional">
+                <span>🤲</span> Doa & Liturgi
+              </Link>
+              <Link className="nav-item" href="/search?q=lexicon">
+                <span>📚</span> Leksikon
+              </Link>
+              <Link className="nav-item nav-cta" href="/compare">
+                <span>⚖️</span> Bandingkan Teks
+              </Link>
             </nav>
           </div>
         </header>
+
         <main>{children}</main>
+
         <footer className="site-footer">
           <div className="footer-inner">
-            <p>Descriptive corpus records are kept separate from application policy. Claims remain scoped to their sources, perspectives, evidence, provenance, and dataset versions.</p>
-            <p><code>spec/ + datasets/</code> are canonical; this explorer is a replaceable consumer.</p>
+            <div>
+              <strong style={{ color: '#ffffff', display: 'block', marginBottom: '6px' }}>MoonWitness Corpus</strong>
+              <p style={{ maxWidth: '640px', lineHeight: '1.6' }}>
+                Korpus kanonikal lintas-tradisi yang memisahkan data teks sumber, terjemahan, komentar tafsir, dan rantai sanad/provenance secara transparan tanpa klaim normatif sepihak.
+              </p>
+            </div>
+            <div>
+              <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+                <code>spec/ + datasets/</code> canonical<br />
+                SHA-256 Checksum Verified · CC0 / Public Domain
+              </p>
+            </div>
           </div>
         </footer>
       </body>

@@ -355,11 +355,11 @@ P17 connects P12–P16 through explainable, reviewable evidence rather than opaq
 - [x] Add claim-level confidence/assessment vocabulary that distinguishes source assertion, curator assessment, and automated candidate score. <!-- mw-todo:P17-016 -->
 - [ ] Add graph reconciliation for duplicate edges, contradictory claims, citation aliases, selector drift, and dataset-version changes. <!-- mw-todo:P17-017 -->
 - [x] Add immutable graph snapshots with exact dependency versions and deterministic edge/checksum manifests. <!-- mw-todo:P17-018 -->
-- [ ] Add explanation paths from any derived comparison or registry claim back to exact source artifact and passage evidence. <!-- mw-todo:P17-019 -->
-- [ ] Add benchmark query fixtures for person→role→passage, term→concept→usage, prayer→source→community, and passage→commentary→citation. <!-- mw-todo:P17-020 -->
+- [x] Add explanation paths from any derived comparison or registry claim back to exact source artifact and passage evidence. <!-- mw-todo:P17-019 -->
+- [x] Add benchmark query fixtures for person→role→passage, term→concept→usage, prayer→source→community, and passage→commentary→citation. <!-- mw-todo:P17-020 -->
 - [ ] Add precision-focused review samples for machine-assisted mention/allusion/parallel candidates across scripts and traditions. <!-- mw-todo:P17-021 -->
-- [ ] Add deterministic graph validation for dangling references, dependency scope, cycles where prohibited, selector validity, and contradictory lifecycle states. <!-- mw-todo:P17-022 -->
-- [ ] Add exportable research graph partitions without embedding generated summaries or model opinions as canonical facts. <!-- mw-todo:P17-023 -->
+- [x] Add deterministic graph validation for dangling references, dependency scope, cycles where prohibited, selector validity, and contradictory lifecycle states. <!-- mw-todo:P17-022 -->
+- [x] Add exportable research graph partitions without embedding generated summaries or model opinions as canonical facts. <!-- mw-todo:P17-023 -->
 - [x] Produce intertextual/reconciliation coverage reports showing both confirmed links and unresolved gaps. <!-- mw-todo:P17-024 -->
 - [ ] Produce the P17 v0.1 report and pass no-opaque-edge/no-similarity-as-truth/no-untraceable-claim exit gates. <!-- mw-todo:P17-025 -->
 

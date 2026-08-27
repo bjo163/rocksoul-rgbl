@@ -262,12 +262,12 @@ P14 increases diversity of texts, fragments, genres, languages, and communities 
 - [ ] Audit Baháʼí, Zoroastrian, Daoist, Confucian, and Shinto primary-text candidates with edition, translation, and community scopes. <!-- mw-todo:P14-023 -->
 - [ ] Add indigenous, local, oral, and living-tradition discovery lanes under consent-first metadata policy; do not bundle restricted or ceremonial content without explicit permission. <!-- mw-todo:P14-024 -->
 - [ ] Add modern religious-movement primary-document lanes with publisher, date, jurisdiction, and redistribution terms recorded. <!-- mw-todo:P14-025 -->
-- [ ] Add multilingual transliteration/romanization provenance for source languages where a lossless native-script representation is retained. <!-- mw-todo:P14-026 -->
+- [x] Add multilingual transliteration/romanization provenance for source languages where a lossless native-script representation is retained. <!-- mw-todo:P14-026 -->
 - [x] Add citation adapters for non-Bible/non-sutta structures: hadith report, folio/line, hymn/ang/raga, chapter/verse, tractate/mishnah, and fragment selector. <!-- mw-todo:P14-027 -->
 - [x] Add passage-to-P13 evidence extraction contracts so text mentions create review candidates, never automatic person identity or role claims. <!-- mw-todo:P14-028 -->
 - [x] Add diversity-aware sampling and duplicate controls so high-volume traditions do not hide missing source-language, genre, or community coverage. <!-- mw-todo:P14-029 -->
-- [ ] Add deterministic ingestion/count/checksum/rights/provenance tests for every P14 dataset and fragment collection. <!-- mw-todo:P14-030 -->
-- [ ] Produce the P14 diversity coverage report and pass the no-exhaustiveness/no-unconsented-restricted-content/no-translation-as-source exit gates. <!-- mw-todo:P14-031 -->
+- [x] Add deterministic ingestion/count/checksum/rights/provenance tests for every P14 dataset and fragment collection. <!-- mw-todo:P14-030 -->
+- [x] Produce the P14 diversity coverage report and pass the no-exhaustiveness/no-unconsented-restricted-content/no-translation-as-source exit gates. <!-- mw-todo:P14-031 -->
 
 **Exit gate:** P14 demonstrates materially broader, rights-safe coverage across traditions, genres, and languages while preserving source/translation/commentary boundaries, fragment completeness, community scope, and provenance.
 
@@ -294,10 +294,10 @@ P15 separates lexical forms from source-scoped meanings and from P13 entities. P
 - [ ] Add rights- and consent-reviewed indigenous/local terminology metadata without publishing restricted names or meanings. <!-- mw-todo:P15-017 -->
 - [ ] Add human-published English and Indonesian glosses/definitions as attributed expressions; machine glosses remain derived non-canonical candidates. <!-- mw-todo:P15-018 -->
 - [ ] Add passage-level term occurrence and definition evidence linked to P12/P14 content without changing source text. <!-- mw-todo:P15-019 -->
-- [ ] Add deterministic duplicate, spelling-variant, transliteration, homograph, and possible-concept-match reports without automatic merges. <!-- mw-todo:P15-020 -->
-- [ ] Add terminology review workflow for community-preferred naming, deprecated labels, sensitive language, and disputed translations. <!-- mw-todo:P15-021 -->
-- [ ] Add deterministic ingestion/count/checksum/rights/provenance and source-evidence tests for every P15 dataset. <!-- mw-todo:P15-022 -->
-- [ ] Produce the P15 multilingual lexicon report and pass no-name-only-identity/no-translation-only-equivalence/no-unsourced-definition gates. <!-- mw-todo:P15-023 -->
+- [x] Add deterministic duplicate, spelling-variant, transliteration, homograph, and possible-concept-match reports without automatic merges. <!-- mw-todo:P15-020 -->
+- [x] Add terminology review workflow for community-preferred naming, deprecated labels, sensitive language, and disputed translations. <!-- mw-todo:P15-021 -->
+- [x] Add deterministic ingestion/count/checksum/rights/provenance and source-evidence tests for every P15 dataset. <!-- mw-todo:P15-022 -->
+- [x] Produce the P15 multilingual lexicon report and pass no-name-only-identity/no-translation-only-equivalence/no-unsourced-definition gates. <!-- mw-todo:P15-023 -->
 
 **Exit gate:** P15 provides a multilingual, evidence-backed lexicon whose terms, concepts, names, entities, transliterations, and translations remain explicitly distinct and source-scoped.
 
@@ -306,7 +306,7 @@ P15 separates lexical forms from source-scoped meanings and from P13 entities. P
 P16 expands sourced prayers and lived-practice material while separating text, performance, ritual description, and community claims. Policy is documented in [`docs/DEVOTIONAL_RITUAL_CORPUS_TARGETS.md`](docs/DEVOTIONAL_RITUAL_CORPUS_TARGETS.md).
 
 - [x] Define schemas/contracts for prayer, blessing, hymn, chant, mantra, creed, liturgy, ritual instruction, observance, and practice description. <!-- mw-todo:P16-001 -->
-- [ ] Add a machine-readable P16 source registry and coverage matrix by tradition/community, genre, language, text/performance form, rights, and sensitivity state. <!-- mw-todo:P16-002 -->
+- [x] Add a machine-readable P16 source registry and coverage matrix by tradition/community, genre, language, text/performance form, rights, and sensitivity state. <!-- mw-todo:P16-002 -->
 - [x] Require work/edition/citation/completeness/provenance/rights metadata for every complete devotional work and bounded excerpt. <!-- mw-todo:P16-003 -->
 - [x] Separate normative source text, descriptive practice metadata, commentary, performance recording, and participant/community assertions. <!-- mw-todo:P16-004 -->
 - [x] Add sensitivity and access states for public, community-contextual, initiatory, restricted, ceremonial, hazardous, and metadata-only material. <!-- mw-todo:P16-005 -->
@@ -328,7 +328,7 @@ P16 expands sourced prayers and lived-practice material while separating text, p
 - [ ] Link P16 terms to P15 concepts and participants/communities to P13 entities through reviewed evidence. <!-- mw-todo:P16-021 -->
 - [ ] Add deterministic alignment and gap reports across source, transliteration, `en`, and `id` devotional expressions. <!-- mw-todo:P16-022 -->
 - [x] Add safety and ethics review preventing canonical records from becoming unsourced ritual instructions or exposing restricted content. <!-- mw-todo:P16-023 -->
-- [ ] Add deterministic ingestion/count/checksum/rights/provenance/sensitivity tests for every P16 dataset. <!-- mw-todo:P16-024 -->
+- [x] Add deterministic ingestion/count/checksum/rights/provenance/sensitivity tests for every P16 dataset. <!-- mw-todo:P16-024 -->
 - [ ] Produce the P16 devotional/practice report and pass no-unscoped-normativity/no-restricted-content/no-performance-as-text gates. <!-- mw-todo:P16-025 -->
 
 **Exit gate:** P16 provides diverse, rights-safe devotional and practice data while preserving textual variants, community scope, performance boundaries, consent, and sensitivity controls.

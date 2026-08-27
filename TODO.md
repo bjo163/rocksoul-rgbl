@@ -218,16 +218,16 @@ P13 runs in parallel with P12. It builds an open-ended registry, not a final uni
 - [ ] Add Quran-evidenced named prophet/messenger/scriptural-figure assertions linked to exact P12 Quran passages. <!-- mw-todo:P13-013 -->
 - [ ] Add Tanakh/Hebrew-Bible-evidenced prophet/patriarch/priest/king/scriptural-figure assertions linked to exact P12 passages. <!-- mw-todo:P13-014 -->
 - [ ] Add Greek-New-Testament-evidenced apostle/disciple/prophet/scriptural-figure assertions linked to exact P12 passages. <!-- mw-todo:P13-015 -->
-- [x] Add Buddhist figure coverage (Buddhas, disciples, teachers, bodhisattvas where source-appropriate) with school/source scope explicit. <!-- mw-todo:P13-016 -->
-- [x] Add Hindu-tradition figure coverage (rishis, gurus, acharyas, avatars/deities/figures where source-appropriate) without flattening diverse traditions into one taxonomy. <!-- mw-todo:P13-017 -->
-- [x] Add Jain Tirthankara/teacher coverage with tradition/source provenance. <!-- mw-todo:P13-018 -->
-- [x] Add Sikh Guru and related figure coverage with Sikh textual/historical source provenance. <!-- mw-todo:P13-019 -->
+- [ ] Add Buddhist figure coverage (Buddhas, disciples, teachers, bodhisattvas where source-appropriate) with school/source scope explicit. <!-- mw-todo:P13-016 -->
+- [ ] Add Hindu-tradition figure coverage (rishis, gurus, acharyas, avatars/deities/figures where source-appropriate) without flattening diverse traditions into one taxonomy. <!-- mw-todo:P13-017 -->
+- [ ] Add Jain Tirthankara/teacher coverage with tradition/source provenance. <!-- mw-todo:P13-018 -->
+- [ ] Add Sikh Guru and related figure coverage with Sikh textual/historical source provenance. <!-- mw-todo:P13-019 -->
 - [ ] Add Baháʼí, Zoroastrian, Daoist/Confucian/Shinto, indigenous/traditional, ancient/historical, and modern/new-religious-movement figure discovery lanes with source-specific review. <!-- mw-todo:P13-020 -->
 - [ ] Add preferred `en` and `id` labels, aliases, honorifics, transliterations, and native-language names for high-priority persons/figures. <!-- mw-todo:P13-021 -->
 - [x] Add deterministic duplicate/reconciliation reports for same-name, alias, transliteration, and cross-source candidates without automatic merges. <!-- mw-todo:P13-022 -->
 - [ ] Add explicit cross-tradition identity/equivalence assertions only when sourced; name similarity must never merge or equate figures. <!-- mw-todo:P13-023 -->
 - [ ] Represent historicity/legendary/chronology uncertainty as sourced assertions/assessments rather than hidden entity flags. <!-- mw-todo:P13-024 -->
-- [x] Add machine-readable coverage matrices for religion families, movements, person roles, `en`/`id` labels, source provenance, and unresolved gaps. <!-- mw-todo:P13-025 -->
+- [ ] Add machine-readable coverage matrices for religion families, movements, person roles, `en`/`id` labels, source provenance, and unresolved gaps. <!-- mw-todo:P13-025 -->
 - [x] Add deterministic ingestion/count/checksum/right/provenance tests for P13 datasets and discovery snapshots. <!-- mw-todo:P13-026 -->
 - [x] Produce the P13 v0.1 coverage report and pass the no-global-prophet/no-final-taxonomy/no-name-only-identity exit gates. <!-- mw-todo:P13-027 -->
 

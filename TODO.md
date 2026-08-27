@@ -175,7 +175,7 @@ P9–P11 are intentionally deferred while this data-first milestone is active. E
 - [x] Audit the exact SuttaCentral Pali Dhammapada root edition/source and redistribution rights independently from translation licensing. <!-- mw-todo:P12-004 -->
 - [x] Ingest the full Pali Dhammapada as a separate expression only if P12-004 permits bundling; otherwise record it as external/metadata-only. <!-- mw-todo:P12-005 -->
 - [ ] Add Pali↔English Dhammapada segment alignment when both representations are legally available, without asserting semantic identity. <!-- mw-todo:P12-006 -->
-- [ ] Pin an exact Open Scriptures Hebrew Bible/WLC upstream commit and artifact checksums with attribution/license evidence. <!-- mw-todo:P12-007 -->
+- [x] Pin an exact Open Scriptures Hebrew Bible/WLC upstream commit and artifact checksums with attribution/license evidence. <!-- mw-todo:P12-007 -->
 - [ ] Ingest the full Westminster Leningrad Codex Hebrew text from OSHB `wlc/` as source-preserving content. <!-- mw-todo:P12-008 -->
 - [ ] Ingest OSHB lemma/morphology as separate annotation data linked to source tokens, preserving source token IDs. <!-- mw-todo:P12-009 -->
 - [ ] Pin the official SBLGNT v1.2 source commit/artifacts and CC BY 4.0 attribution evidence. <!-- mw-todo:P12-010 -->
@@ -227,9 +227,9 @@ P13 runs in parallel with P12. It builds an open-ended registry, not a final uni
 - [x] Add deterministic duplicate/reconciliation reports for same-name, alias, transliteration, and cross-source candidates without automatic merges. <!-- mw-todo:P13-022 -->
 - [ ] Add explicit cross-tradition identity/equivalence assertions only when sourced; name similarity must never merge or equate figures. <!-- mw-todo:P13-023 -->
 - [ ] Represent historicity/legendary/chronology uncertainty as sourced assertions/assessments rather than hidden entity flags. <!-- mw-todo:P13-024 -->
-- [ ] Add machine-readable coverage matrices for religion families, movements, person roles, `en`/`id` labels, source provenance, and unresolved gaps. <!-- mw-todo:P13-025 -->
-- [ ] Add deterministic ingestion/count/checksum/right/provenance tests for P13 datasets and discovery snapshots. <!-- mw-todo:P13-026 -->
-- [ ] Produce the P13 v0.1 coverage report and pass the no-global-prophet/no-final-taxonomy/no-name-only-identity exit gates. <!-- mw-todo:P13-027 -->
+- [x] Add machine-readable coverage matrices for religion families, movements, person roles, `en`/`id` labels, source provenance, and unresolved gaps. <!-- mw-todo:P13-025 -->
+- [x] Add deterministic ingestion/count/checksum/right/provenance tests for P13 datasets and discovery snapshots. <!-- mw-todo:P13-026 -->
+- [x] Produce the P13 v0.1 coverage report and pass the no-global-prophet/no-final-taxonomy/no-name-only-identity exit gates. <!-- mw-todo:P13-027 -->
 
 **Exit gate:** P13 provides reproducible open registries of traditions and religious/scriptural persons with `en` + `id` coverage reporting, external identifiers, source-attributed hierarchy/role assertions, exact textual evidence where available, deterministic reconciliation, and no claim that a finite taxonomy is literally “all religions” or that a religious role is universally true.
 

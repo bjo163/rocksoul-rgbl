@@ -1,0 +1,18 @@
+{
+  "id": "mw:dataset:bible:passage-alignments",
+  "datasetVersion": "0.1.0",
+  "specVersion": "0.1",
+  "profiles": ["textual@0.1"],
+  "dependencies": [
+    { "dataset": "mw:dataset:oshb:wlc", "version": "0.1.0" },
+    { "dataset": "mw:dataset:sblgnt:v1-2", "version": "0.1.0" },
+    { "dataset": "mw:dataset:web-classic:2020", "version": "0.1.0" }
+  ],
+  "partitions": [
+    { "recordType": "resource", "path": "data/core/resources/*.jsonl" },
+    { "recordType": "provenance", "path": "data/core/provenance/*.jsonl" }
+  ],
+  "sources": ["Deterministic joins between pinned OSHB/WLC, SBLGNT v1.2, and WEB Classic 2020 passage references"],
+  "rights": "Alignment metadata only; source text rights remain governed by their owning datasets.",
+  "availability": "bundled"
+}

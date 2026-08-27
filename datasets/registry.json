@@ -32,6 +32,11 @@
       "status": "fixture"
     },
     {
+      "id": "mw:dataset:bible:passage-alignments",
+      "path": "datasets/bible-passage-alignments",
+      "status": "active"
+    },
+    {
       "id": "mw:dataset:oshb:wlc",
       "path": "datasets/oshb-wlc",
       "status": "active"

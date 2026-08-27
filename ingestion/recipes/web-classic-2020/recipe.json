@@ -2,7 +2,7 @@
   "id": "mw:recipe:web-classic:2020",
   "version": "1.0.0",
   "specVersion": "0.1",
-  "source": { "kind": "filesystem", "path": "source/source-manifest.json", "sha256": "638c0e870502c8a19d343ce13906cd2683081c13cb8aa3b45424606021f21349", "byte_size": 489, "media_type": "application/json" },
+  "source": { "kind": "filesystem", "path": "source/source-manifest.json", "sha256": "50a63007e1b8bde87a3d46aa6fdd1474a8b3195b5f2da3116f022a487e8b2013", "byte_size": 475, "media_type": "application/json" },
   "implementation": { "module": "recipe.ts", "parserVersion": "ebible-vpl-1", "normalizerVersion": "identity-1", "mapperVersion": "1", "validatorVersion": "1" },
   "output": { "path": "../../../dist/ingestion/web-classic-2020.jsonl" }
 }

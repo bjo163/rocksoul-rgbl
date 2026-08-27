@@ -12,6 +12,21 @@
   },
   "datasets": [
     {
+      "datasetId": "mw:dataset:bible:passage-alignments",
+      "path": "datasets/bible-passage-alignments",
+      "workCollection": "Bible cross-edition passage references",
+      "datasetRole": "alignment",
+      "availability": "bundled",
+      "language": { "tag": "und", "script": "Zyyy", "coverageRole": "metadata" },
+      "expression": { "label": "WLC/SBLGNT to WEB passage-reference joins", "edition": "deterministic v1" },
+      "completeness": { "status": "external", "unit": "passage", "covered": 30948, "expected": null, "scope": "Only exact chapter/verse matches after source-specific book-code mapping; non-matches intentionally remain gaps" },
+      "sourceArtifact": { "revision": "scripts/materialize-bible-alignments.ts@1", "path": "scripts/materialize-bible-alignments.ts", "sha256": "3863f96f023a6182ebc957524b2645b9cde669df94747043521e45db66775710", "byteSize": 4691 },
+      "rights": { "status": "verified_for_bundled_metadata_only", "license": "Metadata only; source-text rights remain with dependency datasets", "evidence": "docs/P12-015-016-BIBLE-ALIGNMENTS.md" },
+      "provenance": { "manifest": "datasets/bible-passage-alignments/manifest.json", "checksums": "datasets/bible-passage-alignments/CHECKSUMS.sha256", "recipe": "scripts/materialize-bible-alignments.ts" },
+      "translationCoverage": { "en": "not_applicable", "id": "not_applicable" },
+      "alignmentCoverage": { "status": "complete_for_exact_reference_join", "notes": "The coverage deliberately excludes any match requiring inferred versification or semantic equivalence." }
+    },
+    {
       "datasetId": "mw:dataset:web-classic:2020",
       "path": "datasets/web-classic-2020",
       "workCollection": "Bible (WEB Classic ecumenical book set)",
@@ -20,7 +35,7 @@
       "language": { "tag": "en", "script": "Latn", "coverageRole": "translation" },
       "expression": { "label": "World English Bible Classic", "edition": "2020 stable text edition" },
       "completeness": { "status": "complete", "unit": "reference slot", "covered": 38058, "expected": 38058, "scope": "Full eBible WEB Classic ecumenical VPL source set; includes 29 explicit empty slots" },
-      "sourceArtifact": { "revision": "eBible eng-web_vpl.zip, 2020 stable text edition", "path": "ingestion/recipes/web-classic-2020/source/source-manifest.json", "sha256": "638c0e870502c8a19d343ce13906cd2683081c13cb8aa3b45424606021f21349", "byteSize": 489 },
+      "sourceArtifact": { "revision": "eBible eng-web_vpl.zip, 2020 stable text edition", "path": "ingestion/recipes/web-classic-2020/source/source-manifest.json", "sha256": "50a63007e1b8bde87a3d46aa6fdd1474a8b3195b5f2da3116f022a487e8b2013", "byteSize": 475 },
       "rights": { "status": "verified_for_bundled_public_domain", "license": "Public Domain; World English Bible trademark notice", "evidence": "docs/P12-012-014-WEB-CLASSIC.md" },
       "provenance": { "manifest": "datasets/web-classic-2020/manifest.json", "checksums": "datasets/web-classic-2020/CHECKSUMS.sha256", "recipe": "ingestion/recipes/web-classic-2020" },
       "sourceLanguageCoverage": { "language": "multiple", "status": "separate_WLC_and_SBLGNT_datasets" },

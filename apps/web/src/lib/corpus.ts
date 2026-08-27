@@ -226,3 +226,164 @@ export async function evidenceContext(id: CanonicalId): Promise<EvidenceChainIte
   const source = provenance ? await repository.getRecord(provenance.source) : null
   return { evidence, target, provenance, source }
 }
+
+export interface DynamicTraditionDataset {
+  id: string
+  title: string
+  subtitle: string
+  badge: string
+  datasetVersion: string
+  status: string
+  featuredPassage?: { id: string; label: string }
+}
+
+export interface DynamicTraditionHub {
+  id: string
+  name: string
+  icon: string
+  subtitle: string
+  color: string
+  description: string
+  datasets: DynamicTraditionDataset[]
+}
+
+export interface DynamicCorpusCatalog {
+  traditions: DynamicTraditionHub[]
+  samplePills: Array<{ label: string; query: string }>
+  featuredCategories: Array<{
+    title: string
+    icon: string
+    desc: string
+    href: string
+    count: number
+    cta: string
+  }>
+}
+
+let catalogPromise: Promise<DynamicCorpusCatalog> | undefined
+
+export async function getDynamicCorpusCatalog(): Promise<DynamicCorpusCatalog> {
+  if (!catalogPromise) {
+    catalogPromise = (async () => {
+      const repository = await getRepository()
+      const datasets = await repository.listDatasets()
+
+      // Sample passages per dataset dynamically
+      const samplePassagesByDataset = new Map<string, { id: string; label: string }>()
+      for await (const r of repository.iterateRecords({ recordTypes: ['resource'], kinds: ['textual.passage'] })) {
+        const dId = await repository.getRecordDataset(r.id)
+        if (dId && !samplePassagesByDataset.has(dId)) {
+          const label = ('labels' in r && r.labels && r.labels[0]?.value) ? r.labels[0].value : r.id
+          samplePassagesByDataset.set(dId, { id: r.id, label })
+        }
+      }
+
+      // Tradition configuration definitions
+      const traditionDefs: Array<{ id: string; name: string; icon: string; color: string; keywords: string[]; defaultDesc: string }> = [
+        { id: 'islam', name: 'Tradisi Islam', icon: '🕌', color: '#10b981', keywords: ['islam', 'quran', 'hadith', 'tafsir'], defaultDesc: 'Kitab suci Al-Qur\'an, kumpulan hadits shahih, tafsir klasik, dan doa ma\'tsur.' },
+        { id: 'christianity', name: 'Tradisi Kekristenan', icon: '✝️', color: '#38bdf8', keywords: ['christianity', 'bible', 'sblgnt', 'tsi', 'early-writings', 'web-classic'], defaultDesc: 'Perjanjian Baru teks Yunani & terjemahan Indonesia, kredo kuno, dan doa Bapa Kami.' },
+        { id: 'judaism', name: 'Tradisi Yudaisme', icon: '✡️', color: '#fbbf24', keywords: ['judaism', 'oshb', 'wlc', 'mishnah', 'avot'], defaultDesc: 'Tanakh Ibrani teks Masoret, traktat etika Mishnah Pirkei Avot, dan doa Shema.' },
+        { id: 'buddhism', name: 'Tradisi Buddhisme', icon: '☸️', color: '#f97316', keywords: ['buddhism', 'dhammapada', 'sutta', 'sujato'], defaultDesc: 'Syair kebajikan Dhammapada teks Pali & terjemahan, serta pelimpahan kasih Metta.' },
+        { id: 'hinduism', name: 'Tradisi Hinduisme', icon: '🕉️', color: '#a855f7', keywords: ['hinduism', 'gita', 'bhagavad', 'sanskrit'], defaultDesc: 'Shloka suci Sanskerta Bhagavad Gita, Gayatri Mantra, dan konsep spiritual Hindu.' },
+        { id: 'interreligious', name: 'Lintas Tradisi & Graf Riset', icon: '🌐', color: '#0ea5e9', keywords: ['devotional', 'world-religions', 'research-graph', 'example', 'baseline'], defaultDesc: 'Registri entitas agama dunia, kompilasi doa multibahasa, dan graf relasi intertekstual.' }
+      ]
+
+      const traditions: DynamicTraditionHub[] = traditionDefs.map((def) => {
+        const matchingDatasets = datasets.filter((d) => {
+          const id = d.manifest.id.toLowerCase()
+          return def.keywords.some((k) => id.includes(k))
+        })
+
+        return {
+          id: def.id,
+          name: def.name,
+          icon: def.icon,
+          subtitle: `${matchingDatasets.length} Paket Kitab & Koleksi`,
+          color: def.color,
+          description: def.defaultDesc,
+          datasets: matchingDatasets.map((d) => {
+            const meta = getDatasetFriendlyMeta(d.manifest.id)
+            return {
+              id: d.manifest.id,
+              title: meta.title,
+              subtitle: meta.subtitle,
+              badge: meta.badge,
+              datasetVersion: d.manifest.datasetVersion,
+              status: d.entry.status,
+              featuredPassage: samplePassagesByDataset.get(d.manifest.id)
+            }
+          })
+        }
+      }).filter((t) => t.datasets.length > 0)
+
+      // Dynamic sample pills derived automatically from actual dataset passages
+      const samplePills: Array<{ label: string; query: string }> = []
+      for (const t of traditions) {
+        for (const d of t.datasets) {
+          if (d.featuredPassage) {
+            samplePills.push({
+              label: `${t.icon} ${d.featuredPassage.label}`,
+              query: d.featuredPassage.label
+            })
+            if (samplePills.length >= 10) break
+          }
+        }
+        if (samplePills.length >= 10) break
+      }
+
+      const featuredCategories = [
+        {
+          title: 'Pembaca Ayat & Teks Suci',
+          icon: '📖',
+          desc: 'Baca teks sumber bahasa asli berdampingan dengan transliterasi dan terjemahan resmi Indonesia & Inggris.',
+          href: '/datasets',
+          count: datasets.filter((d) => d.manifest.profiles.includes('textual@0.1')).length,
+          cta: 'Buka Katalog Teks'
+        },
+        {
+          title: 'Pencarian Korpus Instan',
+          icon: '🔍',
+          desc: 'Cari kata kunci, topik, kutipan ayat, atau doa di antara seluruh rekaman kanonikal dengan filter tradisi dan bahasa.',
+          href: '/search',
+          count: datasets.length,
+          cta: 'Coba Pencarian'
+        },
+        {
+          title: 'Koleksi Doa & Liturgi',
+          icon: '🤲',
+          desc: 'Kumpulan doa harian, kredo kuno, mantra meditasi, dan lantunan suci dunia ber-tinjauan sensitivitas.',
+          href: '/search?q=devotional',
+          count: datasets.filter((d) => d.manifest.profiles.includes('devotional@0.1') || d.manifest.id.includes('devotional')).length || 1,
+          cta: 'Jelajahi Doa'
+        },
+        {
+          title: 'Leksikon Teologi Multibahasa',
+          icon: '📚',
+          desc: 'Kamus konsep spiritual dan nama suci (Ibrani, Yunani, Arab, Pali, Sanskerta) terhubung langsung ke bukti kemunculan di ayat.',
+          href: '/search?q=lexicon',
+          count: datasets.filter((d) => d.manifest.profiles.includes('lexicon@0.1')).length,
+          cta: 'Buka Leksikon'
+        },
+        {
+          title: 'Graf Evidensi & Intertekstual',
+          icon: '🕸️',
+          desc: 'Telusuri silsilah figur, kutipan langsung lintas teks, dan rantai tafsir tanpa klaim spekulatif.',
+          href: '/datasets/mw%3Adataset%3Aresearch-graph%3Abaseline',
+          count: datasets.filter((d) => d.manifest.profiles.includes('research-graph@0.1') || d.manifest.id.includes('research-graph')).length || 1,
+          cta: 'Lihat Graf Riset'
+        },
+        {
+          title: 'Perbandingan Teks Berdampingan',
+          icon: '⚖️',
+          desc: 'Bandingkan dua teks atau edisi secara transparan berdampingan tanpa memaksakan kesetaraan atau peleburan makna.',
+          href: '/compare',
+          count: datasets.length,
+          cta: 'Bandingkan Dokumen'
+        }
+      ]
+
+      return { traditions, samplePills, featuredCategories }
+    })()
+  }
+  return catalogPromise
+}

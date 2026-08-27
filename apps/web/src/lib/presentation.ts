@@ -76,192 +76,64 @@ export interface FriendlyDatasetInfo {
   description: string
 }
 
-export const DATASET_FRIENDLY_META: Record<string, FriendlyDatasetInfo> = {
-  'mw:dataset:quran:tanzil-uthmani': {
-    title: "Al-Qur'an Al-Karim (Tanzil Utsmani)",
-    subtitle: 'Teks sumber bahasa Arab rasm Utsmani lengkap 114 Surah',
-    tradition: 'Islam',
-    icon: '🕌',
-    badge: 'Kitab Suci',
-    description: 'Teks kanon Al-Qur\'an ber-isnad dari proyek Tanzil terverifikasi dengan rasm Utsmani.'
-  },
-  'mw:dataset:quranenc:indonesian-kemenag': {
-    title: "Al-Qur'an Terjemahan Kemenag RI",
-    subtitle: 'Terjemahan resmi Kementerian Agama Republik Indonesia',
-    tradition: 'Islam',
-    icon: '🇮🇩',
-    badge: 'Terjemahan',
-    description: 'Terjemahan bahasa Indonesia resmi lengkap 30 juz ber-akurasi tinggi.'
-  },
-  'mw:dataset:quranenc:english-rwwad': {
-    title: 'Quran English Translation (Rawai Al-Bayan)',
-    subtitle: 'Standard English translation from QuranEnc center',
-    tradition: 'Islam',
-    icon: '📖',
-    badge: 'Terjemahan',
-    description: 'Clear and authenticated English translation for international study.'
-  },
-  'mw:dataset:hadith:nawawi-40': {
-    title: "Hadits Arba'in An-Nawawi",
-    subtitle: '40 Hadis pokok rukun Islam & akhlak dengan isnad dan terjemahan',
-    tradition: 'Islam',
-    icon: '📜',
-    badge: 'Koleksi Hadis',
-    description: 'Kompilasi hadis klasik Imam An-Nawawi memisahkan matn Arab dan rantai sanad transmisi.'
-  },
-  'mw:dataset:islam:quran-tafsir-sample': {
-    title: 'Tafsir Al-Qur\'an Klasik',
-    subtitle: 'Ekstrak tafsir eksegesis ayat-ayat pilihan',
-    tradition: 'Islam',
-    icon: '💡',
-    badge: 'Tafsir',
-    description: 'Komentar tafsir Al-Fatihah dan Al-Ikhlas terhubung langsung ke target ayat.'
-  },
-  'mw:dataset:sblgnt:v1-2': {
-    title: 'Perjanjian Baru Yunani (SBLGNT)',
-    subtitle: 'Teks sumber Yunani Koine Perjanjian Baru edisi SBL',
-    tradition: 'Kekristenan',
-    icon: '✝️',
-    badge: 'Kitab Suci',
-    description: 'Teks kritis Perjanjian Baru dalam bahasa Yunani kuno dengan ortografi terstandar.'
-  },
-  'mw:dataset:bible:tsi-2021': {
-    title: 'Alkitab Terjemahan Sederhana Indonesia (TSI)',
-    subtitle: 'Perjanjian Baru bahasa Indonesia mudah dipahami',
-    tradition: 'Kekristenan',
-    icon: '🇮🇩',
-    badge: 'Terjemahan',
-    description: 'Terjemahan PB bahasa Indonesia berorientasi makna dari Albata.'
-  },
-  'mw:dataset:web-classic:2020': {
-    title: 'World English Bible (WEB Classic)',
-    subtitle: 'Public domain modern English translation',
-    tradition: 'Kekristenan',
-    icon: '📖',
-    badge: 'Terjemahan',
-    description: 'Complete Old and New Testament in clear modern English.'
-  },
-  'mw:dataset:christianity:early-writings': {
-    title: 'Dokumen Kristen Awal & Kredo Kuno',
-    subtitle: 'Didakhe, Pengakuan Iman Rasuli, Pengakuan Iman Nicea',
-    tradition: 'Kekristenan',
-    icon: '📜',
-    badge: 'Kredo & Patristik',
-    description: 'Teks bahasa Yunani/Latin beserta terjemahan bahasa Indonesia dan Inggris.'
-  },
-  'mw:dataset:oshb:wlc': {
-    title: 'Tanakh Ibrani (Westminster Leningrad Codex)',
-    subtitle: 'Teks sumber Ibrani Kitab Suci Tanakh ber-vokalisasi Masoret',
-    tradition: 'Yudaisme',
-    icon: '✡️',
-    badge: 'Kitab Suci',
-    description: 'Teks otoritatif naskah Leningrad tertua yang memuat Taurat, Nabi-nabi, dan Tulisan-tulisan.'
-  },
-  'mw:dataset:mishnah:pirkei-avot': {
-    title: 'Mishnah Pirkei Avot (Etika Para Leluhur)',
-    subtitle: 'Traktat etika dan hikmah para rabi dalam bahasa Ibrani',
-    tradition: 'Yudaisme',
-    icon: '📜',
-    badge: 'Mishnah',
-    description: 'Petuah etika klasik dengan hierarki sitasi traktat, bab, dan mishnah.'
-  },
-  'mw:dataset:dhammapada:sujato': {
-    title: 'Dhammapada (Bhikkhu Sujato Translation)',
-    subtitle: 'Terjemahan lengkap 423 bait syair Dhammapada bahasa Inggris',
-    tradition: 'Buddhisme',
-    icon: '☸️',
-    badge: 'Kitab Suci',
-    description: 'Koleksi bait suci Dhammapada ber-lisensi CC0 dari SuttaCentral.'
-  },
-  'mw:dataset:dhammapada:indonesian-wikisource': {
-    title: 'Dhammapada Bahasa Indonesia',
-    subtitle: 'Terjemahan bahasa Indonesia syair Dhammapada (Wikisumber)',
-    tradition: 'Buddhisme',
-    icon: '🇮🇩',
-    badge: 'Terjemahan',
-    description: 'Bait-bait kebajikan sang Buddha dalam bahasa Indonesia.'
-  },
-  'mw:dataset:hinduism:bhagavad-gita': {
-    title: 'Bhagavad Gita (Sanskerta Dewanagari)',
-    subtitle: 'Nyanyian Ilahi Sri Kresna kepada Arjuna',
-    tradition: 'Hinduisme',
-    icon: '🕉️',
-    badge: 'Kitab Suci',
-    description: 'Shloka-shloka suci Sanskerta beraksara Dewanagari dengan terjemahan EN dan ID.'
-  },
-  'mw:dataset:devotional:baseline': {
-    title: 'Kompilasi Doa & Mantram Lintas Tradisi',
-    subtitle: 'Sayyid al-Istighfar, Bapa Kami, Shema, Metta Chanting, Gayatri',
-    tradition: 'Lintas Tradisi',
-    icon: '🤲',
-    badge: 'Doa & Liturgi',
-    description: 'Koleksi doa, puji-pujian, dan lantunan suci dunia ber-tinjauan sensitivitas dan etika.'
-  },
-  'mw:dataset:lexicon:hebrew-biblical-core': {
-    title: 'Leksikon Teologi Ibrani Alkitabiah',
-    subtitle: 'YHWH, Elohim, Berit, Torah, Kohen, Navi, Hesed, Shalom',
-    tradition: 'Yudaisme',
-    icon: '📚',
-    badge: 'Leksikon',
-    description: 'Kamus konsep Ibrani dengan bukti kemunculan di ayat-ayat WLC.'
-  },
-  'mw:dataset:lexicon:greek-christian-core': {
-    title: 'Leksikon Yunani Perjanjian Baru',
-    subtitle: 'Logos, Agape, Ecclesia, Charis, Soteria, Pistis, Theos, Kyrios',
-    tradition: 'Kekristenan',
-    icon: '📚',
-    badge: 'Leksikon',
-    description: 'Kamus konsep Yunani kuno dengan bukti kemunculan di ayat-ayat SBLGNT.'
-  },
-  'mw:dataset:lexicon:sanskrit-hindu-core': {
-    title: 'Leksikon Sanskerta Filosofis Hindu',
-    subtitle: 'Dharma, Karma, Moksha, Atman, Yoga, Bhakti, Avatara, Om',
-    tradition: 'Hinduisme',
-    icon: '📚',
-    badge: 'Leksikon',
-    description: 'Kamus istilah spiritual Sanskerta dengan bukti shloka Bhagavad Gita.'
-  },
-  'mw:dataset:lexicon:quran-arabic-core': {
-    title: 'Leksikon Bahasa Arab Al-Qur\'an',
-    subtitle: 'Allah, Rabb, dan terminologi teologis Quran',
-    tradition: 'Islam',
-    icon: '📚',
-    badge: 'Leksikon',
-    description: 'Kamus akar kata dan konsep teologis Al-Qur\'an ber-evidensi ayat.'
-  },
-  'mw:dataset:lexicon:dhammapada-core': {
-    title: 'Leksikon Istilah Pali Dhammapada',
-    subtitle: 'Mind (Citta/Mano), Suffering (Dukkha), dan konsep kebajikan',
-    tradition: 'Buddhisme',
-    icon: '📚',
-    badge: 'Leksikon',
-    description: 'Kamus istilah inti etika dan batin ajaran Buddha.'
-  },
-  'mw:dataset:world-religions:baseline': {
-    title: 'Registri Entitas Tradisi Agama Dunia',
-    subtitle: 'Profil tokoh, tradisi, institusi, dan tempat suci',
-    tradition: 'Lintas Tradisi',
-    icon: '🌐',
-    badge: 'Registri Entitas',
-    description: 'Registri entitas terstandar P13 dengan penilaian historisitas transparan.'
-  },
-  'mw:dataset:research-graph:baseline': {
-    title: 'Graf Penelitian & Intertekstualitas',
-    subtitle: 'Relasi kutipan, tafsir, silsilah figur, dan adaptasi doa',
-    tradition: 'Lintas Tradisi',
-    icon: '🕸️',
-    badge: 'Graf Evidensi',
-    description: 'Graf evidensi P17 yang menghubungkan antar dokumen tanpa klaim embedding spekulatif.'
-  }
-}
-
 export function getDatasetFriendlyMeta(id: string): FriendlyDatasetInfo {
-  return DATASET_FRIENDLY_META[id] ?? {
-    title: id.replace(/^mw:dataset:/, ''),
-    subtitle: 'Dataset pack canonical MoonWitness',
-    tradition: 'Lintas Tradisi',
-    icon: '📦',
-    badge: 'Dataset',
-    description: 'Paket korpus kanonikal MoonWitness ber-provenance dan checksum terverifikasi.'
+  const cleanId = id.replace(/^mw:dataset:/, '')
+  const lower = id.toLowerCase()
+
+  let tradition: FriendlyDatasetInfo['tradition'] = 'Lintas Tradisi'
+  let icon = '📦'
+  let badge = 'Dataset'
+
+  if (lower.includes('islam') || lower.includes('quran') || lower.includes('hadith') || lower.includes('tafsir')) {
+    tradition = 'Islam'
+    icon = lower.includes('hadith') ? '📜' : lower.includes('tafsir') ? '💡' : '🕌'
+  } else if (lower.includes('christianity') || lower.includes('bible') || lower.includes('sblgnt') || lower.includes('tsi') || lower.includes('early-writings') || lower.includes('web-classic')) {
+    tradition = 'Kekristenan'
+    icon = lower.includes('early-writings') ? '📜' : '✝️'
+  } else if (lower.includes('judaism') || lower.includes('oshb') || lower.includes('wlc') || lower.includes('mishnah') || lower.includes('avot')) {
+    tradition = 'Yudaisme'
+    icon = lower.includes('mishnah') ? '📜' : '✡️'
+  } else if (lower.includes('buddhism') || lower.includes('dhammapada') || lower.includes('sutta') || lower.includes('sujato')) {
+    tradition = 'Buddhisme'
+    icon = '☸️'
+  } else if (lower.includes('hinduism') || lower.includes('gita') || lower.includes('bhagavad') || lower.includes('sanskrit')) {
+    tradition = 'Hinduisme'
+    icon = '🕉️'
+  } else if (lower.includes('devotional')) {
+    tradition = 'Lintas Tradisi'
+    icon = '🤲'
+    badge = 'Doa & Liturgi'
+  } else if (lower.includes('research-graph')) {
+    tradition = 'Lintas Tradisi'
+    icon = '🕸️'
+    badge = 'Graf Evidensi'
+  } else if (lower.includes('world-religions')) {
+    tradition = 'Lintas Tradisi'
+    icon = '🌐'
+    badge = 'Registri Entitas'
+  }
+
+  if (lower.includes('lexicon')) {
+    badge = 'Leksikon'
+    icon = '📚'
+  } else if (lower.includes('translation') || lower.includes('indonesian') || lower.includes('english') || lower.includes('tsi') || lower.includes('kemenag') || lower.includes('rwwad') || lower.includes('web-classic')) {
+    badge = 'Terjemahan'
+  } else if (lower.includes('quran') || lower.includes('wlc') || lower.includes('sblgnt') || lower.includes('gita') || lower.includes('dhammapada')) {
+    badge = 'Kitab Suci'
+  }
+
+  // Format clean human title
+  const parts = cleanId.split(':')
+  const titleFormatted = parts
+    .map((p) => p.split('-').map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(' '))
+    .join(' · ')
+
+  return {
+    title: titleFormatted,
+    subtitle: `Paket kanonikal ${tradition}`,
+    tradition,
+    icon,
+    badge,
+    description: `Paket data kanonikal MoonWitness ${cleanId} ber-provenance dan checksum SHA-256 terverifikasi.`
   }
 }

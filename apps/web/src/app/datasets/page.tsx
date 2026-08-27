@@ -6,15 +6,19 @@ export default async function DatasetsPage() {
   const repository = await getRepository()
   const datasets = await repository.listDatasets()
 
-  const traditionsOrder = ['Islam', 'Kekristenan', 'Yudaisme', 'Buddhisme', 'Hinduisme', 'Lintas Tradisi', 'Sistem']
+  // Dynamically group datasets by tradition
+  const groupsMap = new Map<string, typeof datasets>()
+  for (const dataset of datasets) {
+    const meta = getDatasetFriendlyMeta(dataset.manifest.id)
+    const list = groupsMap.get(meta.tradition) ?? []
+    list.push(dataset)
+    groupsMap.set(meta.tradition, list)
+  }
 
-  const grouped = traditionsOrder.map((tradition) => {
-    const items = datasets.filter((d) => {
-      const meta = getDatasetFriendlyMeta(d.manifest.id)
-      return meta.tradition === tradition
-    })
-    return { tradition, items }
-  }).filter((g) => g.items.length > 0)
+  const grouped = Array.from(groupsMap.entries()).map(([tradition, items]) => ({
+    tradition,
+    items
+  }))
 
   return (
     <>

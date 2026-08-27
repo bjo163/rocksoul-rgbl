@@ -3,6 +3,9 @@ dist/
 .turbo/
 .next/
 coverage/
+.pnpm-store/
+.vercel/
+*.tsbuildinfo
 .env
 .env.*
 !.env.example

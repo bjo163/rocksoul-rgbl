@@ -5,14 +5,18 @@
     { "dataset": "mw:dataset:world-religions:textual-evidence", "version": "0.1.0" },
     { "dataset": "mw:dataset:quran:tanzil-uthmani", "version": "0.1.0" },
     { "dataset": "mw:dataset:oshb:wlc", "version": "0.1.0" },
-    { "dataset": "mw:dataset:sblgnt:v1-2", "version": "0.1.0" }
+    { "dataset": "mw:dataset:sblgnt:v1-2", "version": "0.1.0" },
+    { "dataset": "mw:dataset:lexicon:quran-arabic-core", "version": "0.1.0" },
+    { "dataset": "mw:dataset:lexicon:dhammapada-core", "version": "0.1.0" },
+    { "dataset": "mw:dataset:dhammapada:sujato", "version": "0.2.0" },
+    { "dataset": "mw:dataset:dhammapada:indonesian-wikisource", "version": "0.1.0" }
   ],
   "partitions": [
     { "recordType": "evidence", "path": "data/core/evidence/*.jsonl" },
     { "recordType": "resource", "path": "data/core/resources/*.jsonl" },
     { "recordType": "provenance", "path": "data/core/provenance/*.jsonl" }
   ],
-  "sources": ["Deterministic P13 role-evidence graph edges over pinned P12 passages"],
+  "sources": ["Deterministic P13 role and P15 term-usage evidence graph edges over pinned P12 passages"],
   "rights": "Metadata-only graph records; source text remains governed by dependency datasets.",
   "availability": "bundled"
 }

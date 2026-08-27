@@ -4,6 +4,7 @@
     { "recordType": "entity", "path": "data/core/entities/*.jsonl" },
     { "recordType": "resource", "path": "data/core/resources/*.jsonl" },
     { "recordType": "assertion", "path": "data/core/assertions/*.jsonl" },
+    { "recordType": "assessment", "path": "data/core/assessments/*.jsonl" },
     { "recordType": "provenance", "path": "data/core/provenance/*.jsonl" }
   ],
   "sources": ["Wikidata bounded Special:EntityData snapshot, exact entity lastrevid values in snapshot-manifest.json", "datasets/registries/snapshots/wikidata"],

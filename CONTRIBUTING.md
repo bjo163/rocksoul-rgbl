@@ -12,3 +12,5 @@ MoonWitness Corpus treats data changes as reviewable scholarly/software artifact
 6. Generated indexes, embeddings, database projections, and build artifacts are not canonical source data.
 
 Run `pnpm check` before opening a pull request.
+
+See [`docs/CURATION_WORKFLOWS.md`](docs/CURATION_WORKFLOWS.md) for the curator/reviewer roles, source and rights review, evidence review, reconciliation policy, and dataset authoring checklist.

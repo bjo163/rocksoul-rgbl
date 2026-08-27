@@ -247,14 +247,14 @@ P13 runs in parallel with P12. It builds an open-ended registry, not a final uni
 
 ## P11 — curation and collaboration
 
-- [ ] Design curator identity/review model. <!-- mw-todo:P11-001 -->
-- [ ] Design reconciliation workflow. <!-- mw-todo:P11-002 -->
+- [x] Design curator identity/review model. <!-- mw-todo:P11-001 -->
+- [x] Design reconciliation workflow. <!-- mw-todo:P11-002 -->
 - [ ] Build `apps/studio` only after Git-based curation contracts are stable. <!-- mw-todo:P11-003 -->
 - [ ] Studio edits must generate reviewable dataset patches/PRs, not hidden database-only truth. <!-- mw-todo:P11-004 -->
-- [ ] Add source/rights review workflow. <!-- mw-todo:P11-005 -->
-- [ ] Add assertion/evidence review workflow. <!-- mw-todo:P11-006 -->
-- [ ] Add duplicate/entity reconciliation workflow. <!-- mw-todo:P11-007 -->
-- [ ] Add contributor documentation and dataset authoring guide. <!-- mw-todo:P11-008 -->
+- [x] Add source/rights review workflow. <!-- mw-todo:P11-005 -->
+- [x] Add assertion/evidence review workflow. <!-- mw-todo:P11-006 -->
+- [x] Add duplicate/entity reconciliation workflow. <!-- mw-todo:P11-007 -->
+- [x] Add contributor documentation and dataset authoring guide. <!-- mw-todo:P11-008 -->
 
 ---
 

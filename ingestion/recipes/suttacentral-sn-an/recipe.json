@@ -1,0 +1,22 @@
+{
+  "id": "mw:recipe:suttacentral:sn-an-sujato",
+  "version": "1.0.0",
+  "specVersion": "0.1",
+  "source": {
+    "kind": "filesystem",
+    "path": "source/source-manifest.json",
+    "sha256": "052dec614451ebcdab2434ca178c3f403654b1738f09a3573deecb0aad894667",
+    "byte_size": 1015463,
+    "media_type": "application/json"
+  },
+  "implementation": {
+    "module": "recipe.ts",
+    "parserVersion": "bilara-json-set-1",
+    "normalizerVersion": "identity-1",
+    "mapperVersion": "1",
+    "validatorVersion": "1"
+  },
+  "output": {
+    "path": "../../../dist/ingestion/suttacentral-sn-an-sujato.jsonl"
+  }
+}

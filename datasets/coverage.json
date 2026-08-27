@@ -41,6 +41,21 @@
       "alignmentCoverage": { "status": "blocked_pending_source_language_rights", "notes": "No Pali alignment is asserted by this English-only dataset." }
     },
     {
+      "datasetId": "mw:dataset:suttacentral:sn-an-sujato",
+      "path": "datasets/suttacentral-sn-an-sujato",
+      "workCollection": "Saṁyutta Nikāya and Aṅguttara Nikāya",
+      "datasetRole": "translation", "availability": "bundled",
+      "language": { "tag": "en", "script": "Latn", "coverageRole": "translation" },
+      "expression": { "label": "SN/AN — Bhikkhu Sujato", "edition": "SuttaCentral Bilara published@cf0dac3b59a3f9b1d4829acb311e303f1eb6bba6" },
+      "completeness": { "status": "complete", "unit": "sutta", "covered": 3751, "expected": 3751, "scope": "3,751 SN/AN sutta records across 3,227 pinned Bilara files" },
+      "sourceArtifact": { "revision": "suttacentral/bilara-data@cf0dac3b59a3f9b1d4829acb311e303f1eb6bba6", "path": "ingestion/recipes/suttacentral-sn-an/source/source-manifest.json", "sha256": "052dec614451ebcdab2434ca178c3f403654b1738f09a3573deecb0aad894667", "byteSize": 1015463 },
+      "rights": { "status": "verified_for_bundled_public_domain", "license": "CC0-1.0", "evidence": "datasets/suttacentral-sn-an-sujato/README.md" },
+      "provenance": { "manifest": "datasets/suttacentral-sn-an-sujato/manifest.json", "checksums": "datasets/suttacentral-sn-an-sujato/CHECKSUMS.sha256", "recipe": "ingestion/recipes/suttacentral-sn-an" },
+      "sourceLanguageCoverage": { "language": "pli", "status": "metadata_only_pending_root_rights" },
+      "translationCoverage": { "en": "complete", "id": "missing" },
+      "alignmentCoverage": { "status": "blocked_pending_source_language_rights", "notes": "No Pali alignment is asserted by this English-only dataset." }
+    },
+    {
       "datasetId": "mw:dataset:bible:passage-alignments",
       "path": "datasets/bible-passage-alignments",
       "workCollection": "Bible cross-edition passage references",

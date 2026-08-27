@@ -40,6 +40,11 @@
       "id": "mw:recipe:suttacentral:dn-mn-sujato",
       "path": "ingestion/recipes/suttacentral-dn-mn",
       "status": "active"
+    },
+    {
+      "id": "mw:recipe:suttacentral:sn-an-sujato",
+      "path": "ingestion/recipes/suttacentral-sn-an",
+      "status": "active"
     }
   ]
 }

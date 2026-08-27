@@ -57,6 +57,11 @@
       "status": "active"
     },
     {
+      "id": "mw:dataset:suttacentral:sn-an-sujato",
+      "path": "datasets/suttacentral-sn-an-sujato",
+      "status": "active"
+    },
+    {
       "id": "mw:dataset:web-classic:2020",
       "path": "datasets/web-classic-2020",
       "status": "active"

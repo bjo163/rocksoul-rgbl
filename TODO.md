@@ -275,8 +275,8 @@ P14 increases diversity of texts, fragments, genres, languages, and communities 
 
 P15 separates lexical forms from source-scoped meanings and from P13 entities. Policy is documented in [`docs/RELIGIOUS_LEXICON_TARGETS.md`](docs/RELIGIOUS_LEXICON_TARGETS.md).
 
-- [x] Define separate schemas/contracts for concept, term, sacred name, epithet, title, honorific, definition, and usage evidence. <!-- mw-todo:P15-001 -->
-- [x] Define an anti-equivalence policy: shared translation, spelling, or function never automatically equates concepts across sources or traditions. <!-- mw-todo:P15-002 -->
+- [ ] Define separate schemas/contracts for concept, term, sacred name, epithet, title, honorific, definition, and usage evidence. <!-- mw-todo:P15-001 -->
+- [ ] Define an anti-equivalence policy: shared translation, spelling, or function never automatically equates concepts across sources or traditions. <!-- mw-todo:P15-002 -->
 - [x] Add a machine-readable P15 source registry and coverage matrix by tradition, semantic domain, language, script, `en`/`id`, and evidence state. <!-- mw-todo:P15-003 -->
 - [x] Add language/script-aware preferred terms, aliases, grammatical metadata, and source-local identifiers without normalizing away meaningful distinctions. <!-- mw-todo:P15-004 -->
 - [x] Add transliteration records with scheme, version, source form, reversibility/lossiness, and provenance. <!-- mw-todo:P15-005 -->

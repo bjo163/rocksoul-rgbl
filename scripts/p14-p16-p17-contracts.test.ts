@@ -14,11 +14,14 @@ test('P14 diversity and P16/P17 contract baselines preserve production guardrail
     completeWorkContract: { required: string[]; completenessValue: string }
     boundedExcerptContract: { required: string[]; completenessValues: string[]; parentWorkRequired: boolean }
     sensitivityPolicy: Record<string, string | boolean>
+    safetyReviewContract: { reviewStates: string[]; requiredChecks: string[]; defaultDisposition: string; bundleRequires: string[]; restrictedOrInitiatoryBundleRequiresCommunityReview: boolean; blockedMaterialCannotBeBundled: boolean; unsourcedInstructionalContentCannotBeCanonical: boolean }
     guardrails: Record<string, boolean>
   }
   const p17 = JSON.parse(await readFile(path.join(root, 'docs/P17-CONTRACT-BASELINE.json'), 'utf8')) as {
     edgeTypes: string[]
+    edgeAliases: Record<string, string>
     statuses: string[]
+    reviewStates: string[]
     requiredFields: string[]
     assessmentKinds: string[]
     edgeContract: Record<string, string[] | boolean>
@@ -45,15 +48,22 @@ test('P14 diversity and P16/P17 contract baselines preserve production guardrail
   assert.ok(p16.boundedExcerptContract.required.includes('selector'))
   assert.equal(p16.sensitivityPolicy.restrictedTextRequiresExplicitPermission, true)
   assert.equal(p16.sensitivityPolicy.defaultForUnreviewed, 'metadata_only')
+  assert.deepEqual(p16.safetyReviewContract.bundleRequires, ['rights_reviewed', 'safety_reviewed'])
+  assert.ok(p16.safetyReviewContract.requiredChecks.includes('restricted_content') && p16.safetyReviewContract.requiredChecks.includes('instructional_risk'))
+  assert.equal(p16.safetyReviewContract.restrictedOrInitiatoryBundleRequiresCommunityReview, true)
+  assert.equal(p16.safetyReviewContract.blockedMaterialCannotBeBundled, true)
+  assert.equal(p16.safetyReviewContract.unsourcedInstructionalContentCannotBeCanonical, true)
   assert.equal(p16.guardrails.noRestrictedTextWithoutPermission, true)
   assert.equal(p16.guardrails.noUnsourcedRitualInstructions, true)
 
   assert.ok(p17.edgeTypes.includes('quotation') && p17.edgeTypes.includes('parallel_passage'))
-  assert.ok(p17.requiredFields.includes('selector') && p17.requiredFields.includes('reviewState'))
+  assert.equal(p17.edgeAliases.textual_alignment, 'parallel_passage')
+  assert.ok(p17.requiredFields.includes('edgeType') && p17.requiredFields.includes('selector') && p17.requiredFields.includes('reviewState'))
   assert.ok(p17.statuses.includes('negative') && p17.statuses.includes('absent') && p17.statuses.includes('retracted'))
   assert.deepEqual(p17.assessmentKinds, ['source_assertion', 'curator_assessment', 'automated_candidate_score'])
   assert.equal(p17.edgeContract.selectorRequiredForPassageOrFragmentTargets, true)
   assert.equal(p17.edgeContract.automatedScoresCannotSetAssertedStatus, true)
+  assert.equal(p17.edgeContract.legacyAliasesMustResolveToCanonicalTypes, true)
   assert.equal(p17.edgeTypeContracts.allusion_candidate.cannotBePromotedBySimilarityAlone, true)
   assert.equal(p17.edgeTypeContracts.parallel_passage.requiresBoundaryAndGapMetadata, true)
   assert.equal(p17.assessmentContract.automated_candidate_score.canonicalConclusionAllowed, false)
@@ -61,4 +71,25 @@ test('P14 diversity and P16/P17 contract baselines preserve production guardrail
   assert.equal(p17.guardrails.similarityIsCandidateOnly, true)
   assert.equal(p17.guardrails.dependenceRequiresSource, true)
   assert.equal(p17.guardrails.noUntraceableCanonicalClaim, true)
+
+  const graphText = await readFile(path.join(root, 'datasets/research-graph-baseline/data/core/evidence/graph.jsonl'), 'utf8')
+  const edges = graphText.trim().split(/\r?\n/).filter(Boolean).map((line) => JSON.parse(line) as {
+    provenance?: string
+    selector?: unknown
+    extensions?: { graph?: { edgeType?: string; sourceDataset?: string; sourceVersion?: string; subject?: string; object?: string; method?: string; status?: string; reviewState?: string } }
+  })
+  assert.ok(edges.length > 0)
+  for (const edge of edges) {
+    const graph = edge.extensions?.graph
+    assert.ok(graph, 'research graph evidence must expose extensions.graph')
+    assert.ok(edge.selector, 'research graph evidence must expose an exact selector')
+    assert.ok(edge.provenance, 'research graph evidence must expose provenance')
+    assert.ok(graph.edgeType && graph.sourceDataset && graph.sourceVersion && graph.subject && graph.object && graph.method && graph.status && graph.reviewState)
+    assert.match(graph.sourceVersion, /^\d+\.\d+\.\d+$/)
+    assert.ok(p17.statuses.includes(graph.status))
+    assert.ok(p17.reviewStates.includes(graph.reviewState))
+    const canonicalType = p17.edgeAliases[graph.edgeType] ?? graph.edgeType
+    assert.ok(p17.edgeTypes.includes(canonicalType), `unknown graph edge type: ${graph.edgeType}`)
+    assert.ok(p17.edgeTypeContracts[canonicalType], `missing contract for graph edge type: ${canonicalType}`)
+  }
 })

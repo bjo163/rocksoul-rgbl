@@ -2,16 +2,18 @@
   "formatVersion": "1",
   "scope": "P17 explainable evidence graph contract baseline; no opaque similarity edges are canonical.",
   "edgeTypes": ["mention", "quotation", "citation", "allusion_candidate", "commentary_target", "parallel_passage", "motif", "event", "place", "role", "transmission", "term_usage", "ritual_usage", "comparison"],
-  "requiredFields": ["sourceDataset", "sourceVersion", "subject", "predicate", "object", "selector", "method", "status", "reviewState", "provenance"],
+  "edgeAliases": { "textual_alignment": "parallel_passage" },
+  "requiredFields": ["sourceDataset", "sourceVersion", "subject", "edgeType", "object", "selector", "method", "status", "reviewState", "provenance"],
   "statuses": ["asserted", "candidate", "uncertain", "disputed", "unmatched", "absent", "negative", "superseded", "retracted"],
   "reviewStates": ["unreviewed", "reviewed", "rejected", "community_review"],
   "assessmentKinds": ["source_assertion", "curator_assessment", "automated_candidate_score"],
   "edgeContract": {
-    "required": ["sourceDataset", "sourceVersion", "subject", "predicate", "object", "selector", "method", "status", "reviewState", "provenance"],
+    "required": ["sourceDataset", "sourceVersion", "subject", "edgeType", "object", "selector", "method", "status", "reviewState", "provenance"],
     "selectorRequiredForPassageOrFragmentTargets": true,
     "dependencyVersionMustBeExact": true,
     "automatedScoresCannotSetAssertedStatus": true,
-    "identityEquivalenceOrDependenceRequiresSource": true
+    "identityEquivalenceOrDependenceRequiresSource": true,
+    "legacyAliasesMustResolveToCanonicalTypes": true
   },
   "edgeTypeContracts": {
     "mention": { "canonicalStatus": "candidate_or_asserted", "requiresExactSelector": true },

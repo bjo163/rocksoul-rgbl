@@ -54,6 +54,15 @@
     "hazardousMaterialCannotBecomeUnsourcedInstructions": true,
     "accessStateMustBeExplicit": true
   },
+  "safetyReviewContract": {
+    "reviewStates": ["unreviewed", "rights_reviewed", "community_reviewed", "safety_reviewed", "blocked"],
+    "requiredChecks": ["rights", "access_state", "community_scope", "restricted_content", "normativity", "instructional_risk", "provenance"],
+    "defaultDisposition": "metadata_only",
+    "bundleRequires": ["rights_reviewed", "safety_reviewed"],
+    "restrictedOrInitiatoryBundleRequiresCommunityReview": true,
+    "blockedMaterialCannotBeBundled": true,
+    "unsourcedInstructionalContentCannotBeCanonical": true
+  },
   "guardrails": {
     "noUnscopedNormativity": true,
     "noRestrictedTextWithoutPermission": true,

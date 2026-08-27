@@ -204,11 +204,11 @@ P9–P11 are intentionally deferred while this data-first milestone is active. E
 P13 runs in parallel with P12. It builds an open-ended registry, not a final universal taxonomy. Source/role/reconciliation policy is documented in [`docs/WORLD_REGISTRY_TARGETS.md`](docs/WORLD_REGISTRY_TARGETS.md).
 
 - [x] Define the non-exhaustive religion/tradition taxonomy policy and contextual religious-role assertion policy. <!-- mw-todo:P13-001 -->
-- [ ] Add a machine-readable P13 source registry with exact source, revision, rights, retrieval, and checksum metadata. <!-- mw-todo:P13-002 -->
-- [ ] Pin reproducible Wikidata CC0 discovery snapshots/queries for religions, traditions, denominations, schools, movements, and communities. <!-- mw-todo:P13-003 -->
-- [ ] Ingest canonical tradition/religion/movement entities without treating a source taxonomy as universal truth. <!-- mw-todo:P13-004 -->
-- [ ] Add preferred `en` and `id` labels plus native/source-language labels and alternate names/transliterations for high-priority tradition entities. <!-- mw-todo:P13-005 -->
-- [ ] Preserve Wikidata QIDs and other authority identifiers as external IDs, never as MoonWitness canonical identity. <!-- mw-todo:P13-006 -->
+- [x] Add a machine-readable P13 source registry with exact source, revision, rights, retrieval, and checksum metadata. <!-- mw-todo:P13-002 -->
+- [x] Pin reproducible Wikidata CC0 discovery snapshots/queries for religions, traditions, denominations, schools, movements, and communities. <!-- mw-todo:P13-003 -->
+- [x] Ingest canonical tradition/religion/movement entities without treating a source taxonomy as universal truth. <!-- mw-todo:P13-004 -->
+- [x] Add preferred `en` and `id` labels plus native/source-language labels and alternate names/transliterations for high-priority tradition entities. <!-- mw-todo:P13-005 -->
+- [x] Preserve Wikidata QIDs and other authority identifiers as external IDs, never as MoonWitness canonical identity. <!-- mw-todo:P13-006 -->
 - [ ] Represent broader/narrower/related religion classifications as source-attributed assertions with provenance. <!-- mw-todo:P13-007 -->
 - [ ] Add sourced geography/region associations without making geography an intrinsic definition of a religion. <!-- mw-todo:P13-008 -->
 - [ ] Pin reproducible Wikidata CC0 discovery snapshots/queries for religious, scriptural, historical, and legendary persons/figures. <!-- mw-todo:P13-009 -->

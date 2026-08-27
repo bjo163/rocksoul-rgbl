@@ -1,0 +1,109 @@
+{
+  "formatVersion": "1",
+  "scope": "All datasets/registry.json entries whose status is active must appear exactly once in this matrix. Fixture datasets are excluded.",
+  "translationPolicy": {
+    "requiredCanonicalLanguages": ["source", "en", "id"],
+    "machineTranslationCountsAsCanonicalCoverage": false,
+    "policyDocument": "docs/TRANSLATION_TARGETS.md"
+  },
+  "datasets": [
+    {
+      "datasetId": "mw:dataset:quran:tanzil-uthmani",
+      "path": "datasets/quran-tanzil-uthmani",
+      "workCollection": "Quran",
+      "datasetRole": "source_text",
+      "availability": "bundled",
+      "language": {
+        "tag": "ar",
+        "script": "Arab",
+        "coverageRole": "source"
+      },
+      "expression": {
+        "label": "Tanzil Uthmani v1.1",
+        "edition": "Tanzil Quran Text, Uthmani Version 1.1"
+      },
+      "completeness": {
+        "status": "complete",
+        "unit": "ayah",
+        "covered": 6236,
+        "expected": 6236,
+        "scope": "114 surahs; 6,236 ayah"
+      },
+      "sourceArtifact": {
+        "revision": "dotquran/corpus@c23f5cec2e95e253dc450bd0f34d09e37ba40fac",
+        "path": "ingestion/recipes/quran-tanzil-uthmani/source/quran-uthmani-tanzil-v1.1.txt",
+        "sha256": "6933e133dd56db778c801bf738848454e43648105a151e8d84d86a7cae39ec5f",
+        "byteSize": 1396087
+      },
+      "rights": {
+        "status": "verified_for_bundled_source_preserving_redistribution",
+        "license": "CC-BY-3.0 with Tanzil source-specific terms",
+        "evidence": "datasets/quran-tanzil-uthmani/LICENSES/TANZIL.md"
+      },
+      "provenance": {
+        "manifest": "datasets/quran-tanzil-uthmani/manifest.json",
+        "checksums": "datasets/quran-tanzil-uthmani/CHECKSUMS.sha256",
+        "recipe": "ingestion/recipes/quran-tanzil-uthmani"
+      },
+      "translationCoverage": {
+        "en": "missing",
+        "id": "missing"
+      },
+      "alignmentCoverage": {
+        "status": "not_started",
+        "notes": "Arabic↔English↔Indonesian alignment is deferred until independently sourced translations are ingested."
+      }
+    },
+    {
+      "datasetId": "mw:dataset:dhammapada:sujato-1-20",
+      "path": "datasets/dhammapada-sujato-1-20",
+      "workCollection": "Dhammapada",
+      "datasetRole": "translation",
+      "availability": "bundled",
+      "language": {
+        "tag": "en",
+        "script": "Latn",
+        "coverageRole": "translation"
+      },
+      "expression": {
+        "label": "Sayings of the Dhamma — Bhikkhu Sujato",
+        "edition": "SuttaCentral Bilara published@cf0dac3b59a3f9b1d4829acb311e303f1eb6bba6"
+      },
+      "completeness": {
+        "status": "partial",
+        "unit": "stanza",
+        "covered": 20,
+        "expected": 423,
+        "scope": "Dhammapada stanzas 1–20 of 423"
+      },
+      "sourceArtifact": {
+        "revision": "suttacentral/bilara-data@cf0dac3b59a3f9b1d4829acb311e303f1eb6bba6",
+        "path": "ingestion/recipes/dhammapada-sujato-1-20/source/dhammapada-1-20-en-sujato.json",
+        "sha256": "0f4104ecc71702f56dd8a84ee3b3adbdfe3c544e10bbcf7a1d22c9b0c0975ac3",
+        "byteSize": 4943
+      },
+      "rights": {
+        "status": "verified_for_bundled_redistribution",
+        "license": "CC0-1.0",
+        "evidence": "datasets/dhammapada-sujato-1-20/LICENSES/SUTTACENTRAL-CC0.md"
+      },
+      "provenance": {
+        "manifest": "datasets/dhammapada-sujato-1-20/manifest.json",
+        "checksums": "datasets/dhammapada-sujato-1-20/CHECKSUMS.sha256",
+        "recipe": "ingestion/recipes/dhammapada-sujato-1-20"
+      },
+      "sourceLanguageCoverage": {
+        "language": "pli",
+        "status": "missing_pending_rights_audit"
+      },
+      "translationCoverage": {
+        "en": "partial",
+        "id": "missing"
+      },
+      "alignmentCoverage": {
+        "status": "blocked_pending_source_language_rights_audit",
+        "notes": "Pali↔English alignment must wait for the independent Pali root source/rights decision."
+      }
+    }
+  ]
+}

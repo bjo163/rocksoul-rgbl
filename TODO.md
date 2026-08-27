@@ -284,7 +284,7 @@ P15 separates lexical forms from source-scoped meanings and from P13 entities. P
 - [ ] Add sourced definitions and usage notes scoped to work, passage, tradition, community, period, and language. <!-- mw-todo:P15-007 -->
 - [ ] Add broader/narrower/related/contrasted-with/translated-as relations as provenance-bearing assertions rather than universal ontology edges. <!-- mw-todo:P15-008 -->
 - [ ] Add contested, polysemous, homographic, obsolete, pejorative, reclaimed, and community-preferred term states with review notes. <!-- mw-todo:P15-009 -->
-- [x] Link sacred names, epithets, and titles to P13 entities only through sourced designation assertions; never merge entity identity from a name match. <!-- mw-todo:P15-010 -->
+- [ ] Link sacred names, epithets, and titles to P13 entities only through sourced designation assertions; never merge entity identity from a name match. <!-- mw-todo:P15-010 -->
 - [ ] Extract and review Quran/Islamic Arabic terms, divine names, roles, practices, and theological vocabulary from exact P12/P14 evidence. <!-- mw-todo:P15-011 -->
 - [ ] Extract and review Hebrew/Aramaic Jewish terms, divine designations, offices, practices, and covenant/legal vocabulary from exact evidence. <!-- mw-todo:P15-012 -->
 - [ ] Extract and review Greek/Latin/Syriac Christian terms, titles, offices, sacraments, and doctrinal vocabulary with source/community scope. <!-- mw-todo:P15-013 -->

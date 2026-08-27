@@ -5,7 +5,7 @@
   "profiles": ["textual@0.1"],
   "dependencies": [
     {"dataset":"mw:dataset:quran:tanzil-uthmani","version":"0.1.0"},
-    {"dataset":"mw:dataset:dhammapada:sujato-1-20","version":"0.1.0"}
+    {"dataset":"mw:dataset:dhammapada:sujato","version":"0.2.0"}
   ],
   "partitions": [
     {"recordType":"resource","path":"data/core/resources/*.jsonl"}

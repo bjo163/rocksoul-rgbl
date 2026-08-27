@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://moonwitness.org/corpus/spec/v0.1/schemas/profiles/contextual/geography.schema.json",
+  "allOf": [
+    { "$ref": "https://moonwitness.org/corpus/spec/v0.1/schemas/core/resource.schema.json" },
+    {
+      "required": ["extensions"],
+      "properties": {
+        "kind": { "const": "contextual.geography" },
+        "extensions": {
+          "type": "object",
+          "required": ["geography"],
+          "properties": {
+            "geography": {
+              "type": "object",
+              "required": ["target", "place", "relation"],
+              "properties": {
+                "target": { "$ref": "common.schema.json#/$defs/canonicalId" },
+                "place": { "$ref": "common.schema.json#/$defs/canonicalId" },
+                "relation": { "enum": ["origin", "located_in", "associated_with", "attested_in", "published_in"] },
+                "valid_from": { "$ref": "common.schema.json#/$defs/canonicalId" },
+                "valid_to": { "$ref": "common.schema.json#/$defs/canonicalId" },
+                "evidence": { "$ref": "common.schema.json#/$defs/referenceList" },
+                "provenance": { "$ref": "common.schema.json#/$defs/canonicalId" },
+                "note": { "$ref": "common.schema.json#/$defs/nonBlankString" }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        }
+      }
+    }
+  ]
+}

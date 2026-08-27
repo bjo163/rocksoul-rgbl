@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://moonwitness.org/corpus/spec/v0.1/schemas/profiles/contextual/temporal.schema.json",
+  "allOf": [
+    { "$ref": "https://moonwitness.org/corpus/spec/v0.1/schemas/core/resource.schema.json" },
+    {
+      "required": ["extensions"],
+      "properties": {
+        "kind": { "const": "contextual.temporal" },
+        "extensions": {
+          "type": "object",
+          "required": ["temporal"],
+          "properties": {
+            "temporal": {
+              "type": "object",
+              "required": ["target", "calendar", "precision", "uncertainty"],
+              "properties": {
+                "target": { "$ref": "common.schema.json#/$defs/canonicalId" },
+                "calendar": { "$ref": "common.schema.json#/$defs/nonBlankString" },
+                "date": { "$ref": "common.schema.json#/$defs/nonBlankString" },
+                "earliest": { "$ref": "common.schema.json#/$defs/nonBlankString" },
+                "latest": { "$ref": "common.schema.json#/$defs/nonBlankString" },
+                "precision": { "enum": ["day", "month", "year", "decade", "century", "millennium", "unspecified"] },
+                "uncertainty": { "enum": ["exact", "approximate", "before", "after", "range", "contested", "unknown"] },
+                "note": { "$ref": "common.schema.json#/$defs/nonBlankString" },
+                "evidence": { "$ref": "common.schema.json#/$defs/referenceList" },
+                "provenance": { "$ref": "common.schema.json#/$defs/canonicalId" }
+              },
+              "additionalProperties": false,
+              "anyOf": [
+                { "required": ["date"], "not": { "anyOf": [{ "required": ["earliest"] }, { "required": ["latest"] }] } },
+                { "required": ["earliest", "latest"], "not": { "required": ["date"] } }
+              ]
+            }
+          },
+          "additionalProperties": false
+        }
+      }
+    }
+  ]
+}

@@ -20,6 +20,7 @@ import {
   validateSourceRecordInvariants,
   type SourceRecordSnapshot
 } from './source-profile.js'
+import { CONTEXTUAL_PROFILE_ID, CONTEXTUAL_SCHEMA_FILE_BY_KIND } from './contextual-profile.js'
 
 export interface ValidationFinding {
   file: string
@@ -34,6 +35,8 @@ export interface ValidationReport {
   recordCount: number
   findings: ValidationFinding[]
 }
+
+export { CONTEXTUAL_PROFILE_ID, CONTEXTUAL_SCHEMA_FILE_BY_KIND } from './contextual-profile.js'
 
 const recordTypes = ['entity', 'resource', 'assertion', 'evidence', 'provenance', 'assessment'] as const
 
@@ -132,7 +135,34 @@ export async function validateRepository(root = process.cwd()): Promise<Validati
     JSON.parse(await readFile(path.join(sourceSchemaDir, 'resource.schema.json'), 'utf8')) as object
   )
 
-  const manifests = await fg('datasets/**/manifest.json', { cwd: root, absolute: true })
+  const contextualSchemaDir = path.join(root, 'spec/v0.1/schemas/profiles/contextual')
+  ajv.addSchema(JSON.parse(await readFile(path.join(contextualSchemaDir, 'common.schema.json'), 'utf8')) as object)
+  const contextualValidators = new Map<string, ReturnType<typeof ajv.compile>>()
+  for (const [kind, fileName] of Object.entries(CONTEXTUAL_SCHEMA_FILE_BY_KIND)) {
+    contextualValidators.set(
+      kind,
+      ajv.compile(JSON.parse(await readFile(path.join(contextualSchemaDir, fileName), 'utf8')) as object)
+    )
+  }
+
+  const datasetRegistryFile = path.join(root, 'datasets/registry.json')
+  let registeredDatasetRoots: Set<string> | null = null
+  try {
+    const registry = JSON.parse(await readFile(datasetRegistryFile, 'utf8')) as {
+      datasets?: Array<{ path?: string }>
+    }
+    registeredDatasetRoots = new Set(
+      (registry.datasets ?? [])
+        .filter((entry): entry is { path: string } => typeof entry.path === 'string')
+        .map((entry) => path.resolve(root, entry.path).replaceAll('\\', '/').toLowerCase())
+    )
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code !== 'ENOENT') {
+      report.findings.push({ file: relative(root, datasetRegistryFile), code: 'dataset-registry-json', message: 'Invalid dataset registry JSON' })
+    }
+  }
+  const manifests = (await fg('datasets/**/manifest.json', { cwd: root, absolute: true }))
+    .filter((manifestFile) => !registeredDatasetRoots || registeredDatasetRoots.has(path.dirname(manifestFile).replaceAll('\\', '/').toLowerCase()))
   const partitionExpectations = new Map<string, string>()
   const partitionOwners = new Map<string, string>()
   const datasets = new Map<string, DatasetContext>()
@@ -338,6 +368,32 @@ export async function validateRepository(root = process.cwd()): Promise<Validati
               line: index + 1,
               code: 'textual-profile-schema-validation',
               message: ajv.errorsText(validateTextualResource.errors, { separator: '; ' })
+            })
+          }
+        }
+      }
+
+      let contextualProfileValid = true
+      if (schemaValid && recordType === 'resource' && typeof kind === 'string' && kind.startsWith('contextual.')) {
+        if (!sourceDataset?.profiles.has(CONTEXTUAL_PROFILE_ID)) {
+          contextualProfileValid = false
+          report.findings.push({
+            file: relative(root, file), line: index + 1, code: 'undeclared-contextual-profile',
+            message: `Resource kind ${kind} requires dataset profile ${CONTEXTUAL_PROFILE_ID}`
+          })
+        } else {
+          const validateContextualResource = contextualValidators.get(kind)
+          if (!validateContextualResource) {
+            contextualProfileValid = false
+            report.findings.push({
+              file: relative(root, file), line: index + 1, code: 'unknown-contextual-resource-kind',
+              message: `Unknown contextual resource kind: ${kind}`
+            })
+          } else if (!validateContextualResource(record)) {
+            contextualProfileValid = false
+            report.findings.push({
+              file: relative(root, file), line: index + 1, code: 'contextual-profile-schema-validation',
+              message: ajv.errorsText(validateContextualResource.errors, { separator: '; ' })
             })
           }
         }

@@ -292,8 +292,8 @@ P15 separates lexical forms from source-scoped meanings and from P13 entities. P
 - [ ] Add Sanskrit and regional-language Hindu concept/name coverage without flattening deity, epithet, avatara, philosophical school, or practice distinctions. <!-- mw-todo:P15-015 -->
 - [ ] Add Jain, Sikh, Baháʼí, Zoroastrian, Daoist, Confucian, and Shinto term/name lanes with native script and community scope. <!-- mw-todo:P15-016 -->
 - [ ] Add rights- and consent-reviewed indigenous/local terminology metadata without publishing restricted names or meanings. <!-- mw-todo:P15-017 -->
-- [ ] Add human-published English and Indonesian glosses/definitions as attributed expressions; machine glosses remain derived non-canonical candidates. <!-- mw-todo:P15-018 -->
-- [ ] Add passage-level term occurrence and definition evidence linked to P12/P14 content without changing source text. <!-- mw-todo:P15-019 -->
+- [x] Add human-published English and Indonesian glosses/definitions as attributed expressions; machine glosses remain derived non-canonical candidates. <!-- mw-todo:P15-018 -->
+- [x] Add passage-level term occurrence and definition evidence linked to P12/P14 content without changing source text. <!-- mw-todo:P15-019 -->
 - [x] Add deterministic duplicate, spelling-variant, transliteration, homograph, and possible-concept-match reports without automatic merges. <!-- mw-todo:P15-020 -->
 - [x] Add terminology review workflow for community-preferred naming, deprecated labels, sensitive language, and disputed translations. <!-- mw-todo:P15-021 -->
 - [x] Add deterministic ingestion/count/checksum/rights/provenance and source-evidence tests for every P15 dataset. <!-- mw-todo:P15-022 -->
@@ -310,15 +310,15 @@ P16 expands sourced prayers and lived-practice material while separating text, p
 - [x] Require work/edition/citation/completeness/provenance/rights metadata for every complete devotional work and bounded excerpt. <!-- mw-todo:P16-003 -->
 - [x] Separate normative source text, descriptive practice metadata, commentary, performance recording, and participant/community assertions. <!-- mw-todo:P16-004 -->
 - [x] Add sensitivity and access states for public, community-contextual, initiatory, restricted, ceremonial, hazardous, and metadata-only material. <!-- mw-todo:P16-005 -->
-- [ ] Audit and ingest rights-cleared Islamic dua, dhikr, salat wording, khutbah, and devotional-text candidates with school/source variation explicit. <!-- mw-todo:P16-006 -->
-- [ ] Audit and ingest rights-cleared Jewish prayer, blessing, piyyut, and liturgical-order candidates with rite/community variants explicit. <!-- mw-todo:P16-007 -->
-- [ ] Audit and ingest rights-cleared Christian prayers, creeds, hymns, lectionary/liturgy fragments, and denominational variants. <!-- mw-todo:P16-008 -->
-- [ ] Audit and ingest rights-cleared Buddhist paritta, sutra chant, aspiration, dedication, liturgy, and meditation-manual excerpts with school scope. <!-- mw-todo:P16-009 -->
-- [ ] Audit and ingest rights-cleared Hindu mantra, stotra, puja, vrata, and devotional hymn candidates with deity/sampradaya/source scope. <!-- mw-todo:P16-010 -->
+- [x] Audit and ingest rights-cleared Islamic dua, dhikr, salat wording, khutbah, and devotional-text candidates with school/source variation explicit. <!-- mw-todo:P16-006 -->
+- [x] Audit and ingest rights-cleared Jewish prayer, blessing, piyyut, and liturgical-order candidates with rite/community variants explicit. <!-- mw-todo:P16-007 -->
+- [x] Audit and ingest rights-cleared Christian prayers, creeds, hymns, lectionary/liturgy fragments, and denominational variants. <!-- mw-todo:P16-008 -->
+- [x] Audit and ingest rights-cleared Buddhist paritta, sutra chant, aspiration, dedication, liturgy, and meditation-manual excerpts with school scope. <!-- mw-todo:P16-009 -->
+- [x] Audit and ingest rights-cleared Hindu mantra, stotra, puja, vrata, and devotional hymn candidates with deity/sampradaya/source scope. <!-- mw-todo:P16-010 -->
 - [ ] Audit and ingest Jain prayer/ritual, Sikh bani/ardas/kirtan, Baháʼí prayer, and Zoroastrian liturgical candidates under exact rights. <!-- mw-todo:P16-011 -->
 - [ ] Audit Daoist, Confucian, Shinto, and East Asian ritual/devotional candidates with temple/school/community and language context. <!-- mw-todo:P16-012 -->
 - [ ] Add indigenous/local/oral devotional discovery under consent-first policy; restricted performance text remains metadata-only unless explicitly permitted. <!-- mw-todo:P16-013 -->
-- [ ] Model ritual/practice participants, roles, actions, sequence, objects, place, time, calendar, and community as sourced contextual assertions. <!-- mw-todo:P16-014 -->
+- [x] Model ritual/practice participants, roles, actions, sequence, objects, place, time, calendar, and community as sourced contextual assertions. <!-- mw-todo:P16-014 -->
 - [ ] Add festival, fast, feast, pilgrimage, lifecycle rite, and observance entities with calendar-system and regional/community variation. <!-- mw-todo:P16-015 -->
 - [ ] Add sacred object, symbol, garment, food, instrument, architecture, and material-culture links without assigning one universal meaning. <!-- mw-todo:P16-016 -->
 - [ ] Add prayer/mantra/hymn citation adapters for line, stanza, refrain, verse, section, bead/count, service order, and performance segment. <!-- mw-todo:P16-017 -->

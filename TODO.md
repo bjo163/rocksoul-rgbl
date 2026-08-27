@@ -289,8 +289,8 @@ P15 separates lexical forms from source-scoped meanings and from P13 entities. P
 - [ ] Extract and review Hebrew/Aramaic Jewish terms, divine designations, offices, practices, and covenant/legal vocabulary from exact evidence. <!-- mw-todo:P15-012 -->
 - [ ] Extract and review Greek/Latin/Syriac Christian terms, titles, offices, sacraments, and doctrinal vocabulary with source/community scope. <!-- mw-todo:P15-013 -->
 - [ ] Extract and review Pali/Sanskrit Buddhist terms with school, canon, translation, and commentarial scope explicit. <!-- mw-todo:P15-014 -->
-- [x] Add Sanskrit and regional-language Hindu concept/name coverage without flattening deity, epithet, avatara, philosophical school, or practice distinctions. <!-- mw-todo:P15-015 -->
-- [x] Add Jain, Sikh, Baháʼí, Zoroastrian, Daoist, Confucian, and Shinto term/name lanes with native script and community scope. <!-- mw-todo:P15-016 -->
+- [ ] Add Sanskrit and regional-language Hindu concept/name coverage without flattening deity, epithet, avatara, philosophical school, or practice distinctions. <!-- mw-todo:P15-015 -->
+- [ ] Add Jain, Sikh, Baháʼí, Zoroastrian, Daoist, Confucian, and Shinto term/name lanes with native script and community scope. <!-- mw-todo:P15-016 -->
 - [x] Add rights- and consent-reviewed indigenous/local terminology metadata without publishing restricted names or meanings. <!-- mw-todo:P15-017 -->
 - [ ] Add human-published English and Indonesian glosses/definitions as attributed expressions; machine glosses remain derived non-canonical candidates. <!-- mw-todo:P15-018 -->
 - [ ] Add passage-level term occurrence and definition evidence linked to P12/P14 content without changing source text. <!-- mw-todo:P15-019 -->

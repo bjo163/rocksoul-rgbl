@@ -305,11 +305,11 @@ P15 separates lexical forms from source-scoped meanings and from P13 entities. P
 
 P16 expands sourced prayers and lived-practice material while separating text, performance, ritual description, and community claims. Policy is documented in [`docs/DEVOTIONAL_RITUAL_CORPUS_TARGETS.md`](docs/DEVOTIONAL_RITUAL_CORPUS_TARGETS.md).
 
-- [ ] Define schemas/contracts for prayer, blessing, hymn, chant, mantra, creed, liturgy, ritual instruction, observance, and practice description. <!-- mw-todo:P16-001 -->
+- [x] Define schemas/contracts for prayer, blessing, hymn, chant, mantra, creed, liturgy, ritual instruction, observance, and practice description. <!-- mw-todo:P16-001 -->
 - [ ] Add a machine-readable P16 source registry and coverage matrix by tradition/community, genre, language, text/performance form, rights, and sensitivity state. <!-- mw-todo:P16-002 -->
-- [ ] Require work/edition/citation/completeness/provenance/rights metadata for every complete devotional work and bounded excerpt. <!-- mw-todo:P16-003 -->
-- [ ] Separate normative source text, descriptive practice metadata, commentary, performance recording, and participant/community assertions. <!-- mw-todo:P16-004 -->
-- [ ] Add sensitivity and access states for public, community-contextual, initiatory, restricted, ceremonial, hazardous, and metadata-only material. <!-- mw-todo:P16-005 -->
+- [x] Require work/edition/citation/completeness/provenance/rights metadata for every complete devotional work and bounded excerpt. <!-- mw-todo:P16-003 -->
+- [x] Separate normative source text, descriptive practice metadata, commentary, performance recording, and participant/community assertions. <!-- mw-todo:P16-004 -->
+- [x] Add sensitivity and access states for public, community-contextual, initiatory, restricted, ceremonial, hazardous, and metadata-only material. <!-- mw-todo:P16-005 -->
 - [ ] Audit and ingest rights-cleared Islamic dua, dhikr, salat wording, khutbah, and devotional-text candidates with school/source variation explicit. <!-- mw-todo:P16-006 -->
 - [ ] Audit and ingest rights-cleared Jewish prayer, blessing, piyyut, and liturgical-order candidates with rite/community variants explicit. <!-- mw-todo:P16-007 -->
 - [ ] Audit and ingest rights-cleared Christian prayers, creeds, hymns, lectionary/liturgy fragments, and denominational variants. <!-- mw-todo:P16-008 -->

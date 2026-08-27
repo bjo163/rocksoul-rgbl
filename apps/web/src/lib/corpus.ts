@@ -149,7 +149,9 @@ async function getContentIndex(): Promise<Map<CanonicalId, Resource[]>> {
     contentIndexPromise = (async () => {
       const repository = await getRepository()
       const index = new Map<CanonicalId, Resource[]>()
-      const recordsMap = (repository as unknown as { records?: Map<CanonicalId, CorpusRecord> }).records
+      const recordsMap = typeof repository.getAllRecords === 'function'
+        ? repository.getAllRecords()
+        : (repository as unknown as { records?: Map<CanonicalId, CorpusRecord> }).records
 
       if (recordsMap) {
         for (const record of recordsMap.values()) {
@@ -192,7 +194,9 @@ async function getAssessmentIndex(): Promise<Map<CanonicalId, Assessment[]>> {
     assessmentIndexPromise = (async () => {
       const repository = await getRepository()
       const index = new Map<CanonicalId, Assessment[]>()
-      const recordsMap = (repository as unknown as { records?: Map<CanonicalId, CorpusRecord> }).records
+      const recordsMap = typeof repository.getAllRecords === 'function'
+        ? repository.getAllRecords()
+        : (repository as unknown as { records?: Map<CanonicalId, CorpusRecord> }).records
 
       if (recordsMap) {
         for (const record of recordsMap.values()) {
@@ -224,7 +228,9 @@ async function getPassageIndex(): Promise<Map<CanonicalId, CorpusRecord>> {
     passageIndexPromise = (async () => {
       const repository = await getRepository()
       const index = new Map<CanonicalId, CorpusRecord>()
-      const recordsMap = (repository as unknown as { records?: Map<CanonicalId, CorpusRecord> }).records
+      const recordsMap = typeof repository.getAllRecords === 'function'
+        ? repository.getAllRecords()
+        : (repository as unknown as { records?: Map<CanonicalId, CorpusRecord> }).records
 
       if (recordsMap) {
         for (const record of recordsMap.values()) {

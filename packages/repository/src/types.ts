@@ -114,4 +114,5 @@ export interface CorpusRepository {
   getEvidenceForAssertion(id: CanonicalId): Promise<Evidence[]>
   traverseAssertionEvidence(id: CanonicalId): Promise<AssertionEvidenceTraversal | null>
   search(query: CorpusSearchQuery): Promise<CorpusSearchResult[]>
+  getAllRecords?(): ReadonlyMap<CanonicalId, CorpusRecord>
 }

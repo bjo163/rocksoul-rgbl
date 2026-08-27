@@ -99,6 +99,10 @@ export class MemoryCorpusRepository implements CorpusRepository {
     for (const [recordId, datasetId] of recordDatasets) this.recordDatasets.set(recordId, datasetId)
   }
 
+  getAllRecords(): ReadonlyMap<CanonicalId, CorpusRecord> {
+    return this.records
+  }
+
   async getRecord(id: CanonicalId): Promise<CorpusRecord | null> {
     return this.records.get(id) ?? null
   }

@@ -340,7 +340,7 @@ P17 connects P12–P16 through explainable, reviewable evidence rather than opaq
 - [x] Define typed contracts for mention, quotation, citation, allusion candidate, commentary target, parallel passage, motif, event, place, role, and transmission evidence. <!-- mw-todo:P17-001 -->
 - [x] Require every graph edge to expose source dataset/version, exact target/selector, method, assertion status, reviewer state, and provenance. <!-- mw-todo:P17-002 -->
 - [x] Define identity/equivalence/dependence guardrails: lexical or embedding similarity can create candidates but never canonical conclusions. <!-- mw-todo:P17-003 -->
-- [ ] Add machine-readable graph-source registry and coverage matrix by edge type, tradition pair, language pair, evidence quality, and unresolved candidates. <!-- mw-todo:P17-004 -->
+- [x] Add machine-readable graph-source registry and coverage matrix by edge type, tradition pair, language pair, evidence quality, and unresolved candidates. <!-- mw-todo:P17-004 -->
 - [ ] Add deterministic mention extraction candidates linking P12/P14/P16 passages to P13 persons, traditions, places, and institutions. <!-- mw-todo:P17-005 -->
 - [ ] Add exact quotation and explicit citation links where a source itself identifies the cited work/passage. <!-- mw-todo:P17-006 -->
 - [ ] Add reviewed allusion/intertext candidates with confidence and scholarly provenance; never label model similarity as established allusion. <!-- mw-todo:P17-007 -->
@@ -354,13 +354,13 @@ P17 connects P12–P16 through explainable, reviewable evidence rather than opaq
 - [x] Represent negative, absent, unmatched, uncertain, disputed, superseded, and retracted graph findings explicitly. <!-- mw-todo:P17-015 -->
 - [x] Add claim-level confidence/assessment vocabulary that distinguishes source assertion, curator assessment, and automated candidate score. <!-- mw-todo:P17-016 -->
 - [ ] Add graph reconciliation for duplicate edges, contradictory claims, citation aliases, selector drift, and dataset-version changes. <!-- mw-todo:P17-017 -->
-- [ ] Add immutable graph snapshots with exact dependency versions and deterministic edge/checksum manifests. <!-- mw-todo:P17-018 -->
+- [x] Add immutable graph snapshots with exact dependency versions and deterministic edge/checksum manifests. <!-- mw-todo:P17-018 -->
 - [ ] Add explanation paths from any derived comparison or registry claim back to exact source artifact and passage evidence. <!-- mw-todo:P17-019 -->
 - [ ] Add benchmark query fixtures for person→role→passage, term→concept→usage, prayer→source→community, and passage→commentary→citation. <!-- mw-todo:P17-020 -->
 - [ ] Add precision-focused review samples for machine-assisted mention/allusion/parallel candidates across scripts and traditions. <!-- mw-todo:P17-021 -->
 - [ ] Add deterministic graph validation for dangling references, dependency scope, cycles where prohibited, selector validity, and contradictory lifecycle states. <!-- mw-todo:P17-022 -->
 - [ ] Add exportable research graph partitions without embedding generated summaries or model opinions as canonical facts. <!-- mw-todo:P17-023 -->
-- [ ] Produce intertextual/reconciliation coverage reports showing both confirmed links and unresolved gaps. <!-- mw-todo:P17-024 -->
+- [x] Produce intertextual/reconciliation coverage reports showing both confirmed links and unresolved gaps. <!-- mw-todo:P17-024 -->
 - [ ] Produce the P17 v0.1 report and pass no-opaque-edge/no-similarity-as-truth/no-untraceable-claim exit gates. <!-- mw-todo:P17-025 -->
 
 **Exit gate:** P17 supplies a deterministic, explainable evidence graph in which every canonical link can be traced to exact data, method, provenance, and review state, including uncertainty and gaps.

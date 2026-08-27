@@ -222,7 +222,7 @@ P13 runs in parallel with P12. It builds an open-ended registry, not a final uni
 - [x] Add Hindu-tradition figure coverage (rishis, gurus, acharyas, avatars/deities/figures where source-appropriate) without flattening diverse traditions into one taxonomy. <!-- mw-todo:P13-017 -->
 - [x] Add Jain Tirthankara/teacher coverage with tradition/source provenance. <!-- mw-todo:P13-018 -->
 - [x] Add Sikh Guru and related figure coverage with Sikh textual/historical source provenance. <!-- mw-todo:P13-019 -->
-- [ ] Add Baháʼí, Zoroastrian, Daoist/Confucian/Shinto, indigenous/traditional, ancient/historical, and modern/new-religious-movement figure discovery lanes with source-specific review. <!-- mw-todo:P13-020 -->
+- [x] Add Baháʼí, Zoroastrian, Daoist/Confucian/Shinto, indigenous/traditional, ancient/historical, and modern/new-religious-movement figure discovery lanes with source-specific review. <!-- mw-todo:P13-020 -->
 - [x] Add preferred `en` and `id` labels, aliases, honorifics, transliterations, and native-language names for high-priority persons/figures. <!-- mw-todo:P13-021 -->
 - [x] Add deterministic duplicate/reconciliation reports for same-name, alias, transliteration, and cross-source candidates without automatic merges. <!-- mw-todo:P13-022 -->
 - [ ] Add explicit cross-tradition identity/equivalence assertions only when sourced; name similarity must never merge or equate figures. <!-- mw-todo:P13-023 -->
@@ -263,9 +263,9 @@ P14 increases diversity of texts, fragments, genres, languages, and communities 
 - [ ] Add indigenous, local, oral, and living-tradition discovery lanes under consent-first metadata policy; do not bundle restricted or ceremonial content without explicit permission. <!-- mw-todo:P14-024 -->
 - [ ] Add modern religious-movement primary-document lanes with publisher, date, jurisdiction, and redistribution terms recorded. <!-- mw-todo:P14-025 -->
 - [ ] Add multilingual transliteration/romanization provenance for source languages where a lossless native-script representation is retained. <!-- mw-todo:P14-026 -->
-- [ ] Add citation adapters for non-Bible/non-sutta structures: hadith report, folio/line, hymn/ang/raga, chapter/verse, tractate/mishnah, and fragment selector. <!-- mw-todo:P14-027 -->
-- [ ] Add passage-to-P13 evidence extraction contracts so text mentions create review candidates, never automatic person identity or role claims. <!-- mw-todo:P14-028 -->
-- [ ] Add diversity-aware sampling and duplicate controls so high-volume traditions do not hide missing source-language, genre, or community coverage. <!-- mw-todo:P14-029 -->
+- [x] Add citation adapters for non-Bible/non-sutta structures: hadith report, folio/line, hymn/ang/raga, chapter/verse, tractate/mishnah, and fragment selector. <!-- mw-todo:P14-027 -->
+- [x] Add passage-to-P13 evidence extraction contracts so text mentions create review candidates, never automatic person identity or role claims. <!-- mw-todo:P14-028 -->
+- [x] Add diversity-aware sampling and duplicate controls so high-volume traditions do not hide missing source-language, genre, or community coverage. <!-- mw-todo:P14-029 -->
 - [ ] Add deterministic ingestion/count/checksum/rights/provenance tests for every P14 dataset and fragment collection. <!-- mw-todo:P14-030 -->
 - [ ] Produce the P14 diversity coverage report and pass the no-exhaustiveness/no-unconsented-restricted-content/no-translation-as-source exit gates. <!-- mw-todo:P14-031 -->
 

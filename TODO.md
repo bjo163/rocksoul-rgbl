@@ -243,8 +243,8 @@ P14 increases diversity of texts, fragments, genres, languages, and communities 
 - [x] Add deterministic source/rights gates that prohibit bundling a candidate merely because it is downloadable. <!-- mw-todo:P14-004 -->
 - [x] Add genre vocabulary and profiles for scripture, hadith/report, commentary, legal text, ritual/manual, hymn/prayer, biography, chronicle, philosophical text, and oral-tradition metadata. <!-- mw-todo:P14-005 -->
 - [x] Audit and pin openly redistributable Arabic hadith/report source candidates; keep collection, book, chapter, report, matn, and isnad/transmitter layers distinct. <!-- mw-todo:P14-006 -->
-- [x] Ingest the first rights-cleared Arabic hadith/report collection with exact citation hierarchy and source-preserving matn, without using a secondary website as authority by default. <!-- mw-todo:P14-007 -->
-- [x] Add separately sourced human English and Indonesian hadith/report translations only where republication rights, translator, and edition are explicit. <!-- mw-todo:P14-008 -->
+- [ ] Ingest the first rights-cleared Arabic hadith/report collection with exact citation hierarchy and source-preserving matn, without using a secondary website as authority by default. <!-- mw-todo:P14-007 -->
+- [ ] Add separately sourced human English and Indonesian hadith/report translations only where republication rights, translator, and edition are explicit. <!-- mw-todo:P14-008 -->
 - [x] Model isnad/transmission as source-attributed assertions and chains, never as automatically verified biography or historical fact. <!-- mw-todo:P14-009 -->
 - [x] Audit and ingest a rights-cleared Quran commentary/tafsir lane as commentary linked to Quran passages, never as Quran source text. <!-- mw-todo:P14-010 -->
 - [x] Audit and ingest a rights-cleared Mishnah source lane, preserving tractate/chapter/mishnah citations and Hebrew/Aramaic distinctions. <!-- mw-todo:P14-011 -->

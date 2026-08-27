@@ -4,7 +4,7 @@ import path from 'node:path'
 import type { CorpusRecord } from '@moonwitness/corpus-core'
 import type { RecipeHooks } from '@moonwitness/corpus-ingestion'
 
-const COMMIT = 'cf0dac3b59a3f9b1d4829acb311e303f1eb6bba6'
+const COMMIT = 'cf0dac3b59a3f9d0f36e465109b3f0cf697bae'
 const INSTITUTION = 'mw:institution:suttacentral'
 const PROVENANCE = 'mw:provenance:suttacentral:sn-an-sujato'
 type Collection = 'sn' | 'an'
@@ -24,7 +24,8 @@ async function parseManifest(bytes: Uint8Array, location: string): Promise<Parse
   if (manifest.formatVersion !== '1' || manifest.upstream.repository !== 'suttacentral/bilara-data' || manifest.upstream.branch !== 'published' || manifest.upstream.commit !== COMMIT || manifest.files.length !== 3227) throw new Error('Unexpected SN/AN source manifest')
   const root = path.dirname(location); const byId = new Map<string, Sutta>()
   for (const source of manifest.files) {
-    const file = path.resolve(root, source.file)
+    const sourcePath = source.file.replaceAll('\\', '/')
+    const file = path.resolve(root, sourcePath)
     if (!file.startsWith(`${path.resolve(root)}${path.sep}`)) throw new Error(`Unsafe source path ${source.file}`)
     const raw = await readFile(file)
     if (raw.byteLength !== source.byteSize || sha(raw) !== source.sha256) throw new Error(`Checksum mismatch ${source.file}`)

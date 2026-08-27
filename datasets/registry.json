@@ -80,6 +80,16 @@
       "id": "mw:dataset:quran:tanzil-uthmani",
       "path": "datasets/quran-tanzil-uthmani",
       "status": "active"
+    },
+    {
+      "id": "mw:dataset:quranenc:english-rwwad",
+      "path": "datasets/quranenc-english-rwwad",
+      "status": "active"
+    },
+    {
+      "id": "mw:dataset:quranenc:indonesian-kemenag",
+      "path": "datasets/quranenc-indonesian-kemenag",
+      "status": "active"
     }
   ]
 }

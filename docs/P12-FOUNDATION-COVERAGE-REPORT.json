@@ -3,9 +3,9 @@
   "generatedAt": "2026-08-27T00:00:00Z",
   "scope": "P12 Foundation Text Corpus",
   "totals": {
-    "activeDatasets": 9,
-    "records": 432355,
-    "coveredUnits": 110902
+    "activeDatasets": 12,
+    "records": 444846,
+    "coveredUnits": 123383
   },
   "gates": {
     "noUnresolvedBundledRights": {
@@ -35,6 +35,16 @@
           "datasetId": "mw:dataset:dhammapada:sujato",
           "english": "complete",
           "indonesian": "missing"
+        },
+        {
+          "datasetId": "mw:dataset:quranenc:english-rwwad",
+          "english": "complete",
+          "indonesian": "missing"
+        },
+        {
+          "datasetId": "mw:dataset:quranenc:indonesian-kemenag",
+          "english": "missing",
+          "indonesian": "complete"
         }
       ]
     }
@@ -47,11 +57,11 @@
       "completeness": {
         "status": "external",
         "unit": "entity/assertion",
-        "covered": 146,
+        "covered": 148,
         "expected": null,
         "scope": "Non-exhaustive baseline; expansion is tracked by P13 coverage"
       },
-      "recordCount": 146,
+      "recordCount": 148,
       "sourceLanguage": null,
       "sourceLanguageStatus": "not_applicable",
       "english": "baseline",
@@ -68,8 +78,8 @@
       "sourceArtifact": {
         "revision": "Wikidata entity lastrevid manifest 2026-08-27",
         "path": "datasets/registries/snapshots/wikidata/snapshot-manifest.json",
-        "sha256": "e9e43842f28d93cb56b606c057aaebd2545f3f0218f6ddd304fa9ae598055793",
-        "byteSize": 15682
+        "sha256": "26790ea6d7239fc91db85de65563b92417cb20e2652141e01f0af0e7fad3d49d",
+        "byteSize": 16438
       }
     },
     {
@@ -294,6 +304,102 @@
         "path": "ingestion/recipes/dhammapada-sujato/source/source-manifest.json",
         "sha256": "3b667414243f5c66e0dc244d5b25947f8148fc510b3401e31cfd4f1d5b27fbba",
         "byteSize": 9927
+      }
+    },
+    {
+      "datasetId": "mw:dataset:world-religions:textual-evidence",
+      "workCollection": "Scoped religious-person textual evidence",
+      "datasetRole": "registry",
+      "completeness": {
+        "status": "external",
+        "unit": "assertion",
+        "covered": 7,
+        "expected": null,
+        "scope": "Bounded evidence lane; not an exhaustive religious-person or scripture index"
+      },
+      "recordCount": 9,
+      "sourceLanguage": null,
+      "sourceLanguageStatus": "not_applicable",
+      "english": "metadata",
+      "indonesian": "metadata",
+      "rights": {
+        "status": "verified_for_bundled_metadata_only",
+        "license": "Metadata links; dependency licenses govern source text",
+        "evidence": "datasets/world-religions-textual-evidence/manifest.json"
+      },
+      "alignment": {
+        "status": "complete",
+        "notes": "Seven scoped role assertions point to exact P12 content IDs across Quran, WLC, and SBLGNT."
+      },
+      "sourceArtifact": {
+        "revision": "local deterministic materializer",
+        "path": "scripts/materialize-p13-textual-evidence.ts",
+        "sha256": "5428d18df4aecdf59140651c74a7005f0f2cb5e663ba27faedc9cbbaedffba3e",
+        "byteSize": 3425
+      }
+    },
+    {
+      "datasetId": "mw:dataset:quranenc:english-rwwad",
+      "workCollection": "Quran",
+      "datasetRole": "translation",
+      "completeness": {
+        "status": "complete",
+        "unit": "ayah",
+        "covered": 6236,
+        "expected": 6236,
+        "scope": "114 surahs; exact ayah links to Tanzil Quran passage IDs"
+      },
+      "recordCount": 6240,
+      "sourceLanguage": "ar",
+      "sourceLanguageStatus": "provided_by_dependency_quran_tanzil",
+      "english": "complete",
+      "indonesian": "missing",
+      "rights": {
+        "status": "verified_for_bundled_source_preserving_redistribution",
+        "license": "QuranEnc source-preserving republication terms",
+        "evidence": "datasets/quranenc-english-rwwad/README.md"
+      },
+      "alignment": {
+        "status": "complete",
+        "notes": "Arabic↔English joins use exact sura/ayah target IDs."
+      },
+      "sourceArtifact": {
+        "revision": "QuranEnc API v1",
+        "path": "ingestion/recipes/quranenc/source/english_rwwad/source-manifest.json",
+        "sha256": "a1f0320a9ba31e0457708b9c6a18700e566b469bd7e598d73ec5ca709ef4a5d8",
+        "byteSize": 19524
+      }
+    },
+    {
+      "datasetId": "mw:dataset:quranenc:indonesian-kemenag",
+      "workCollection": "Quran",
+      "datasetRole": "translation",
+      "completeness": {
+        "status": "complete",
+        "unit": "ayah",
+        "covered": 6236,
+        "expected": 6236,
+        "scope": "114 surahs; exact ayah links to Tanzil Quran passage IDs"
+      },
+      "recordCount": 6240,
+      "sourceLanguage": "ar",
+      "sourceLanguageStatus": "provided_by_dependency_quran_tanzil",
+      "english": "missing",
+      "indonesian": "complete",
+      "rights": {
+        "status": "verified_for_bundled_source_preserving_redistribution",
+        "license": "QuranEnc source-preserving republication terms",
+        "evidence": "datasets/quranenc-indonesian-kemenag/README.md"
+      },
+      "alignment": {
+        "status": "complete",
+        "notes": "Arabic↔Indonesian joins use exact sura/ayah target IDs."
+      },
+      "sourceArtifact": {
+        "revision": "QuranEnc API v1",
+        "path": "ingestion/recipes/quranenc/source/indonesian_affairs/source-manifest.json",
+        "sha256": "e84cc21a85abb441d39a5ce19438129feb38ddee3d8fc96142b00443a83a7851",
+        "byteSize": 19529
       }
     },
     {

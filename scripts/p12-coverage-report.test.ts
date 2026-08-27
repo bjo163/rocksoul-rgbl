@@ -12,8 +12,8 @@ test('P12 coverage report is synchronized and exposes unresolved language gates'
     gates: { noUnresolvedBundledRights: { status: string }; requiredSourceEnglishIndonesian: { status: string; gaps: unknown[] } }
     datasets: unknown[]
   }
-  assert.equal(report.totals.activeDatasets, 9)
-  assert.equal(report.totals.records, 432355)
+  assert.equal(report.totals.activeDatasets, 12)
+  assert.equal(report.totals.records, 444846)
   assert.equal(report.datasets.length, report.totals.activeDatasets)
   assert.equal(report.gates.noUnresolvedBundledRights.status, 'pass')
   assert.equal(report.gates.requiredSourceEnglishIndonesian.status, 'blocked')

@@ -215,6 +215,38 @@
       "alignmentCoverage": { "status": "complete", "notes": "Seven scoped role assertions point to exact P12 content IDs across Quran, WLC, and SBLGNT." }
     },
     {
+      "datasetId": "mw:dataset:quranenc:english-rwwad",
+      "path": "datasets/quranenc-english-rwwad",
+      "workCollection": "Quran",
+      "datasetRole": "translation",
+      "availability": "bundled",
+      "language": { "tag": "en", "script": "Latn", "coverageRole": "translation" },
+      "expression": { "label": "QuranEnc English — Rowwad", "edition": "QuranEnc API translation/english_rwwad snapshot 2026-08-27" },
+      "completeness": { "status": "complete", "unit": "ayah", "covered": 6236, "expected": 6236, "scope": "114 surahs; exact ayah links to Tanzil Quran passage IDs" },
+      "sourceArtifact": { "revision": "QuranEnc API v1", "path": "ingestion/recipes/quranenc/source/english_rwwad/source-manifest.json", "sha256": "a1f0320a9ba31e0457708b9c6a18700e566b469bd7e598d73ec5ca709ef4a5d8", "byteSize": 19524 },
+      "rights": { "status": "verified_for_bundled_source_preserving_redistribution", "license": "QuranEnc source-preserving republication terms", "evidence": "datasets/quranenc-english-rwwad/README.md" },
+      "provenance": { "manifest": "datasets/quranenc-english-rwwad/manifest.json", "checksums": "datasets/quranenc-english-rwwad/CHECKSUMS.sha256", "recipe": "scripts/materialize-quranenc.ts" },
+      "sourceLanguageCoverage": { "language": "ar", "status": "provided_by_dependency_quran_tanzil" },
+      "translationCoverage": { "en": "complete", "id": "missing" },
+      "alignmentCoverage": { "status": "complete", "notes": "Arabic↔English joins use exact sura/ayah target IDs." }
+    },
+    {
+      "datasetId": "mw:dataset:quranenc:indonesian-kemenag",
+      "path": "datasets/quranenc-indonesian-kemenag",
+      "workCollection": "Quran",
+      "datasetRole": "translation",
+      "availability": "bundled",
+      "language": { "tag": "id", "script": "Latn", "coverageRole": "translation" },
+      "expression": { "label": "QuranEnc Indonesian — Kementerian Agama", "edition": "QuranEnc API translation/indonesian_affairs snapshot 2026-08-27" },
+      "completeness": { "status": "complete", "unit": "ayah", "covered": 6236, "expected": 6236, "scope": "114 surahs; exact ayah links to Tanzil Quran passage IDs" },
+      "sourceArtifact": { "revision": "QuranEnc API v1", "path": "ingestion/recipes/quranenc/source/indonesian_affairs/source-manifest.json", "sha256": "e84cc21a85abb441d39a5ce19438129feb38ddee3d8fc96142b00443a83a7851", "byteSize": 19529 },
+      "rights": { "status": "verified_for_bundled_source_preserving_redistribution", "license": "QuranEnc source-preserving republication terms", "evidence": "datasets/quranenc-indonesian-kemenag/README.md" },
+      "provenance": { "manifest": "datasets/quranenc-indonesian-kemenag/manifest.json", "checksums": "datasets/quranenc-indonesian-kemenag/CHECKSUMS.sha256", "recipe": "scripts/materialize-quranenc.ts" },
+      "sourceLanguageCoverage": { "language": "ar", "status": "provided_by_dependency_quran_tanzil" },
+      "translationCoverage": { "en": "missing", "id": "complete" },
+      "alignmentCoverage": { "status": "complete", "notes": "Arabic↔Indonesian joins use exact sura/ayah target IDs." }
+    },
+    {
       "datasetId": "mw:dataset:quran:tanzil-uthmani",
       "path": "datasets/quran-tanzil-uthmani",
       "workCollection": "Quran",

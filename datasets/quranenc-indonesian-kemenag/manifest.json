@@ -1,0 +1,7 @@
+{
+  "id": "mw:dataset:quranenc:indonesian-kemenag", "datasetVersion": "0.1.0", "specVersion": "0.1", "profiles": ["textual@0.1", "source@0.1"],
+  "dependencies": [{ "dataset": "mw:dataset:quran:tanzil-uthmani", "version": "0.1.0" }],
+  "partitions": [{ "recordType": "resource", "path": "data/core/resources/*.jsonl" }, { "recordType": "provenance", "path": "data/core/provenance/*.jsonl" }],
+  "sources": ["QuranEnc API translation/indonesian_affairs, pinned per-surah JSON", "ingestion/recipes/quranenc/source/indonesian_affairs/source-manifest.json"],
+  "rights": "Source-preserving republication under QuranEnc terms: no modification, publisher/source/version attribution, retained notices, and updates required.", "availability": "bundled"
+}

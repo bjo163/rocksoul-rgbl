@@ -341,7 +341,7 @@ P17 connects P12–P16 through explainable, reviewable evidence rather than opaq
 - [x] Require every graph edge to expose source dataset/version, exact target/selector, method, assertion status, reviewer state, and provenance. <!-- mw-todo:P17-002 -->
 - [x] Define identity/equivalence/dependence guardrails: lexical or embedding similarity can create candidates but never canonical conclusions. <!-- mw-todo:P17-003 -->
 - [x] Add machine-readable graph-source registry and coverage matrix by edge type, tradition pair, language pair, evidence quality, and unresolved candidates. <!-- mw-todo:P17-004 -->
-- [x] Add deterministic mention extraction candidates linking P12/P14/P16 passages to P13 persons, traditions, places, and institutions. <!-- mw-todo:P17-005 -->
+- [ ] Add deterministic mention extraction candidates linking P12/P14/P16 passages to P13 persons, traditions, places, and institutions. <!-- mw-todo:P17-005 -->
 - [x] Add exact quotation and explicit citation links where a source itself identifies the cited work/passage. <!-- mw-todo:P17-006 -->
 - [x] Add reviewed allusion/intertext candidates with confidence and scholarly provenance; never label model similarity as established allusion. <!-- mw-todo:P17-007 -->
 - [x] Add commentary/exegesis links from tafsir, midrash, commentary, scholia, and other interpretation datasets to exact target passages. <!-- mw-todo:P17-008 -->

@@ -1,0 +1,7 @@
+{
+  "id": "mw:dataset:dhammapada:indonesian-wikisource", "datasetVersion": "0.1.0", "specVersion": "0.1", "profiles": ["textual@0.1", "source@0.1"],
+  "dependencies": [{ "dataset": "mw:dataset:dhammapada:sujato", "version": "0.2.0" }],
+  "partitions": [{ "recordType": "entity", "path": "data/core/entities/*.jsonl" }, { "recordType": "resource", "path": "data/core/resources/*.jsonl" }, { "recordType": "provenance", "path": "data/core/provenance/*.jsonl" }],
+  "sources": ["id.wikisource.org Dhammapada revision 198106; pinned API response; stanza 359 absent in upstream page"],
+  "rights": "CC BY-SA 4.0; retain attribution and identify changes.", "availability": "bundled"
+}

@@ -216,6 +216,22 @@
       }
     },
     {
+      "datasetId": "mw:dataset:dhammapada:indonesian-wikisource",
+      "path": "datasets/dhammapada-indonesian-wikisource",
+      "workCollection": "Dhammapada",
+      "datasetRole": "translation",
+      "availability": "bundled",
+      "language": { "tag": "id", "script": "Latn", "coverageRole": "translation" },
+      "expression": { "label": "Dhammapada Bahasa Indonesia — Wikisumber", "edition": "Wikisource revision 198106" },
+      "completeness": { "status": "partial", "unit": "stanza", "covered": 422, "expected": 423, "scope": "422/423 numbered stanzas; stanza 359 is absent upstream and remains an explicit gap." },
+      "sourceArtifact": { "revision": "id.wikisource.org revision 198106", "path": "ingestion/recipes/dhammapada-indonesian-wikisource/source/Dhammapada.wikitext", "sha256": "cb4f797ab426c3de4a312b41d1d1897fa3fb1a3ba4e38dc215fd4b6439b42d1d", "byteSize": 87297 },
+      "rights": { "status": "verified_for_bundled_licensed_redistribution", "license": "CC-BY-SA-4.0", "evidence": "datasets/dhammapada-indonesian-wikisource/README.md" },
+      "provenance": { "manifest": "datasets/dhammapada-indonesian-wikisource/manifest.json", "checksums": "datasets/dhammapada-indonesian-wikisource/CHECKSUMS.sha256", "recipe": "scripts/materialize-dhammapada-indonesian-wikisource.ts" },
+      "sourceLanguageCoverage": { "language": "pli", "status": "provided_by_dependency_dhammapada_sujato_metadata_only" },
+      "translationCoverage": { "en": "missing", "id": "partial_422_of_423" },
+      "alignmentCoverage": { "status": "complete_for_422_structural_stanza_links", "notes": "Correspondence is structural only; no semantic or translation identity asserted." }
+    },
+    {
       "datasetId": "mw:dataset:world-religions:textual-evidence",
       "path": "datasets/world-religions-textual-evidence",
       "workCollection": "Scoped religious-person textual evidence",

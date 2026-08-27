@@ -3,9 +3,9 @@
   "generatedAt": "2026-08-27T00:00:00Z",
   "scope": "P12 Foundation Text Corpus",
   "totals": {
-    "activeDatasets": 13,
-    "records": 506715,
-    "coveredUnits": 144032
+    "activeDatasets": 14,
+    "records": 507570,
+    "coveredUnits": 144460
   },
   "gates": {
     "noUnresolvedBundledRights": {
@@ -42,6 +42,11 @@
           "indonesian": "missing"
         },
         {
+          "datasetId": "mw:dataset:dhammapada:indonesian-wikisource",
+          "english": "missing",
+          "indonesian": "partial_422_of_423"
+        },
+        {
           "datasetId": "mw:dataset:quranenc:english-rwwad",
           "english": "complete",
           "indonesian": "missing"
@@ -62,11 +67,11 @@
       "completeness": {
         "status": "external",
         "unit": "entity/assertion",
-        "covered": 148,
+        "covered": 154,
         "expected": null,
         "scope": "Non-exhaustive baseline; expansion is tracked by P13 coverage"
       },
-      "recordCount": 148,
+      "recordCount": 154,
       "sourceLanguage": null,
       "sourceLanguageStatus": "not_applicable",
       "english": "baseline",
@@ -83,8 +88,8 @@
       "sourceArtifact": {
         "revision": "Wikidata entity lastrevid manifest 2026-08-27",
         "path": "datasets/registries/snapshots/wikidata/snapshot-manifest.json",
-        "sha256": "26790ea6d7239fc91db85de65563b92417cb20e2652141e01f0af0e7fad3d49d",
-        "byteSize": 16438
+        "sha256": "597ee2994231e02875455221e253e7c1a623e359dbc538e62f2a71b0dea6fae8",
+        "byteSize": 18048
       }
     },
     {
@@ -341,6 +346,38 @@
         "path": "ingestion/recipes/dhammapada-sujato/source/source-manifest.json",
         "sha256": "3b667414243f5c66e0dc244d5b25947f8148fc510b3401e31cfd4f1d5b27fbba",
         "byteSize": 9927
+      }
+    },
+    {
+      "datasetId": "mw:dataset:dhammapada:indonesian-wikisource",
+      "workCollection": "Dhammapada",
+      "datasetRole": "translation",
+      "completeness": {
+        "status": "partial",
+        "unit": "stanza",
+        "covered": 422,
+        "expected": 423,
+        "scope": "422/423 numbered stanzas; stanza 359 is absent upstream and remains an explicit gap."
+      },
+      "recordCount": 849,
+      "sourceLanguage": "pli",
+      "sourceLanguageStatus": "provided_by_dependency_dhammapada_sujato_metadata_only",
+      "english": "missing",
+      "indonesian": "partial_422_of_423",
+      "rights": {
+        "status": "verified_for_bundled_licensed_redistribution",
+        "license": "CC-BY-SA-4.0",
+        "evidence": "datasets/dhammapada-indonesian-wikisource/README.md"
+      },
+      "alignment": {
+        "status": "complete_for_422_structural_stanza_links",
+        "notes": "Correspondence is structural only; no semantic or translation identity asserted."
+      },
+      "sourceArtifact": {
+        "revision": "id.wikisource.org revision 198106",
+        "path": "ingestion/recipes/dhammapada-indonesian-wikisource/source/Dhammapada.wikitext",
+        "sha256": "cb4f797ab426c3de4a312b41d1d1897fa3fb1a3ba4e38dc215fd4b6439b42d1d",
+        "byteSize": 87297
       }
     },
     {

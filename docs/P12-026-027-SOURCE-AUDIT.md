@@ -4,7 +4,9 @@
 
 Candidate: *Kitab Suci Dhammapada*, LP2KBI under Bimas Buddha Kementerian Agama, 2011. The public mirror identifies the original government source and describes the work as public domain in Indonesia. The source PDF is 200 pages and was visually inspected at its cover page.
 
-Current decision: do not ingest extracted verse text yet. The repository runtime has no `pdftotext` or Indonesian OCR language model, and the PDF is image-oriented. A future ingestion must preserve page/verse provenance and independently verify OCR against the rendered pages. Until then this remains a rights-verified, extraction-pending candidate rather than a falsely complete text dataset.
+Current decision: keep the LP2KBI PDF as an extraction-pending candidate. The repository runtime has no `pdftotext` or Indonesian OCR language model, and the PDF is image-oriented. A future ingestion must preserve page/verse provenance and independently verify OCR against the rendered pages.
+
+Alternative now bundled: `mw:dataset:dhammapada:indonesian-wikisource` pins Wikisource revision 198106 and provides a human Indonesian expression with 422/423 numbered stanzas. Wikisource's page contains a formatting exception for stanza 165 and no stanza 359; the latter is recorded as an explicit gap. The dataset is CC BY-SA 4.0, has deterministic source checksums, and structurally aligns the 422 available stanza numbers to the existing Sujato passage IDs without asserting semantic equivalence. This strengthens the corpus while keeping the LP2KBI candidate and the missing stanza auditable.
 
 Reference: Wikimedia Commons file `Kitab_Suci_Dhammapada.pdf`, source URL in its metadata.
 

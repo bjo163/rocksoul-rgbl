@@ -17,6 +17,11 @@
       "status": "supplemental"
     },
     {
+      "id": "mw:dataset:lexicon:dhammapada-core",
+      "path": "datasets/dhammapada-lexicon",
+      "status": "supplemental"
+    },
+    {
       "id": "mw:dataset:example:minimal",
       "path": "datasets/examples/minimal",
       "status": "fixture"

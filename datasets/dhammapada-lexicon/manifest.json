@@ -1,0 +1,14 @@
+{
+  "id": "mw:dataset:lexicon:dhammapada-core", "datasetVersion": "0.1.0", "specVersion": "0.1", "profiles": ["lexicon@0.1"],
+  "dependencies": [
+    { "dataset": "mw:dataset:dhammapada:sujato", "version": "0.2.0" },
+    { "dataset": "mw:dataset:dhammapada:indonesian-wikisource", "version": "0.1.0" }
+  ],
+  "partitions": [
+    { "recordType": "resource", "path": "data/core/resources/*.jsonl" },
+    { "recordType": "provenance", "path": "data/core/provenance/*.jsonl" }
+  ],
+  "sources": ["Curated English/Indonesian Dhammapada occurrence seed from two pinned source datasets"],
+  "rights": "Metadata and curation records are CC0 repository data; source text remains governed by the dependent datasets.",
+  "availability": "bundled"
+}

@@ -377,6 +377,26 @@ export async function getParallelReaderData(scriptureKey: string, sectionParam?:
     return a.id.localeCompare(b.id, undefined, { numeric: true })
   })
 
+  // Find all datasets related to this scripture to query contents quickly and dynamically
+  const allDatasets = await repository.listDatasets()
+  const relevantDatasets = allDatasets.filter((d) => {
+    const dId = d.manifest.id.toLowerCase()
+    const wId = cleanKey.toLowerCase()
+    return dId.includes(wId) || wId.includes(dId.replace(/^mw:dataset:/, '').split(':')[0]) || dId.includes('quran') && wId.includes('quran') || dId.includes('dhammapada') && wId.includes('dhammapada') || dId.includes('gita') && wId.includes('gita') || dId.includes('hadith') && wId.includes('hadith') || dId.includes('devotional') && wId.includes('devotional')
+  }).map((d) => d.manifest.id)
+
+  const contentMap = new Map<CanonicalId, Resource[]>()
+  for await (const r of repository.iterateRecords({ datasetIds: relevantDatasets.length > 0 ? relevantDatasets : undefined, recordTypes: ['resource'], kinds: ['textual.content'] })) {
+    if (r.record_type !== 'resource') continue
+    const payload = textualPayload(r)
+    const target = payload?.target as CanonicalId | undefined
+    if (target) {
+      const list = contentMap.get(target) ?? []
+      list.push(r)
+      contentMap.set(target, list)
+    }
+  }
+
   // Assemble parallel representations
   const verses: ParallelVerse[] = matchingPassages.map((passage) => {
     const payload = textualPayload(passage) ?? {}
@@ -384,7 +404,7 @@ export async function getParallelReaderData(scriptureKey: string, sectionParam?:
     const citation = citations[0]?.reference ?? passage.id.split(':').pop() ?? ''
     const label = ('labels' in passage && passage.labels && passage.labels[0]?.value) ? passage.labels[0].value : undefined
 
-    const contents = contentIndex.get(passage.id) ?? []
+    const contents = contentMap.get(passage.id) ?? []
     let sourceText: ParallelVerse['sourceText']
     let indonesianText: ParallelVerse['indonesianText']
     let englishText: ParallelVerse['englishText']

@@ -223,7 +223,8 @@ async function packPackage(
 
   const packageDir = join(releaseDir, 'packages')
   await mkdir(packageDir, { recursive: true })
-  const { stdout } = await execFileAsync('npm', ['pack', '--silent', '--pack-destination', packageDir], { cwd: stageRoot })
+  const npmExecutable = process.platform === 'win32' ? 'npm.cmd' : 'npm'
+  const { stdout } = await execFileAsync(npmExecutable, ['pack', '--silent', '--pack-destination', packageDir], { cwd: stageRoot, shell: process.platform === 'win32' })
   const filename = stdout.trim().split(/\r?\n/).filter(Boolean).at(-1)
   if (!filename) throw new Error(`npm pack did not return a filename for ${pkg.name}`)
   const artifactPath = join(packageDir, filename)

@@ -4,7 +4,7 @@ import path from 'node:path'
 import type { CorpusRecord } from '@moonwitness/corpus-core'
 import type { RecipeHooks } from '@moonwitness/corpus-ingestion'
 
-const COMMIT = 'cf0dac3b59a3f9d0f36e465109b3f0cf697bae'
+const COMMIT = 'cf0dac3b59a3f9b1d4829acb311e303f1eb6bba6'
 const INSTITUTION = 'mw:institution:suttacentral'
 const PROVENANCE = 'mw:provenance:suttacentral:sn-an-sujato'
 type Collection = 'sn' | 'an'

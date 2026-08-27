@@ -21,6 +21,7 @@ import {
   type SourceRecordSnapshot
 } from './source-profile.js'
 import { CONTEXTUAL_PROFILE_ID, CONTEXTUAL_SCHEMA_FILE_BY_KIND } from './contextual-profile.js'
+import { ADVANCED_PROFILE_BY_KIND } from './advanced-profile.js'
 
 export interface ValidationFinding {
   file: string
@@ -142,6 +143,24 @@ export async function validateRepository(root = process.cwd()): Promise<Validati
     contextualValidators.set(
       kind,
       ajv.compile(JSON.parse(await readFile(path.join(contextualSchemaDir, fileName), 'utf8')) as object)
+    )
+  }
+  const advancedValidators = new Map<string, ReturnType<typeof ajv.compile>>()
+  const advancedDirectories = [...new Set(
+    Object.entries(ADVANCED_PROFILE_BY_KIND)
+      .filter(([kind]) => !kind.startsWith('contextual.'))
+      .map(([, definition]) => definition.directory)
+  )]
+  for (const directory of advancedDirectories) {
+    const profileDir = path.join(root, 'spec/v0.1/schemas/profiles', directory)
+    ajv.addSchema(JSON.parse(await readFile(path.join(profileDir, 'common.schema.json'), 'utf8')) as object)
+  }
+  for (const [kind, definition] of Object.entries(ADVANCED_PROFILE_BY_KIND)) {
+    if (kind.startsWith('contextual.')) continue
+    const profileDir = path.join(root, 'spec/v0.1/schemas/profiles', definition.directory)
+    advancedValidators.set(
+      kind,
+      ajv.compile(JSON.parse(await readFile(path.join(profileDir, definition.schemaFile), 'utf8')) as object)
     )
   }
 
@@ -396,6 +415,25 @@ export async function validateRepository(root = process.cwd()): Promise<Validati
               message: ajv.errorsText(validateContextualResource.errors, { separator: '; ' })
             })
           }
+        }
+      }
+
+      if (
+        schemaValid && recordType === 'resource' && typeof kind === 'string' &&
+        !kind.startsWith('contextual.') && advancedValidators.has(kind)
+      ) {
+        const definition = ADVANCED_PROFILE_BY_KIND[kind]
+        const validateAdvancedResource = advancedValidators.get(kind)!
+        if (!sourceDataset?.profiles.has(definition.profileId)) {
+          report.findings.push({
+            file: relative(root, file), line: index + 1, code: 'undeclared-advanced-profile',
+            message: `Resource kind ${kind} requires dataset profile ${definition.profileId}`
+          })
+        } else if (!validateAdvancedResource(record)) {
+          report.findings.push({
+            file: relative(root, file), line: index + 1, code: 'advanced-profile-schema-validation',
+            message: ajv.errorsText(validateAdvancedResource.errors, { separator: '; ' })
+          })
         }
       }
 

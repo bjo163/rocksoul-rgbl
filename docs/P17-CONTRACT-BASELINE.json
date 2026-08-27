@@ -41,6 +41,13 @@
     "supersededAndRetractedFindingsRetained": true,
     "contradictoryStatesRequireReconciliation": true
   },
+  "validationPolicy": {
+    "danglingReferences": "error",
+    "dependencyScope": "error",
+    "selectorValidity": "error",
+    "contradictoryLifecycleStates": "error",
+    "acyclicEdgeTypes": ["role", "term_usage"]
+  },
   "guardrails": {
     "similarityIsCandidateOnly": true,
     "identityRequiresSource": true,

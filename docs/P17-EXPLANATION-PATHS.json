@@ -1,0 +1,13 @@
+{
+  "formatVersion": "1",
+  "scope": "Deterministic explanation-path projection for every bundled P17 evidence edge.",
+  "sourcePartition": "data/core/evidence/graph.jsonl",
+  "pathCount": 16,
+  "requiredHops": ["edge.id", "edge.target", "edge.selector.passage", "edge.extensions.graph.sourceDataset", "edge.extensions.graph.sourceVersion", "edge.provenance"],
+  "projections": [
+    { "canonicalEdgeType": "role", "records": 7, "path": "edge→P13 assertion→exact source passage→graph provenance" },
+    { "canonicalEdgeType": "term_usage", "records": 7, "path": "edge→P15 usage record→exact source passage→graph provenance" },
+    { "canonicalEdgeType": "parallel_passage", "records": 2, "legacyEdgeType": "textual_alignment", "path": "edge→P12 alignment record→exact mapped passage→graph provenance" }
+  ],
+  "rule": "A derived registry/comparison claim is explainable only when its graph record exposes the full required hop set; missing hops are validation errors."
+}

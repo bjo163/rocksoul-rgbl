@@ -1,0 +1,30 @@
+{
+  "formatVersion": "1",
+  "scope": "Deterministic P17 benchmark query fixtures. A fixture may intentionally expect an unresolved result when the required source lane is not yet bundled.",
+  "fixtures": [
+    {
+      "id": "person-role-passage",
+      "shape": "person→role→passage",
+      "query": { "person": "mw:person:moses", "role": "mw:role:prophet" },
+      "expected": { "status": "confirmed", "edgeId": "mw:evidence:p17:p13-role:1", "passage": "mw:content:quran:2:87:ar-uthmani" }
+    },
+    {
+      "id": "term-concept-usage",
+      "shape": "term→concept→usage",
+      "query": { "term": "mw:lexicon.term:quran:allah" },
+      "expected": { "status": "confirmed", "usageEdgeId": "mw:evidence:p17:p15-term-usage:1", "passage": "mw:content:quran:10:3:ar-uthmani" }
+    },
+    {
+      "id": "prayer-source-community",
+      "shape": "prayer→source→community",
+      "query": { "genre": "prayer" },
+      "expected": { "status": "unresolved", "reason": "No P16 devotional source dataset is bundled yet; the benchmark must return an explicit gap rather than fabricate a prayer/community edge." }
+    },
+    {
+      "id": "passage-commentary-citation",
+      "shape": "passage→commentary→citation",
+      "query": { "passage": "mw:content:quran:1:2:ar-uthmani" },
+      "expected": { "status": "unresolved", "reason": "No rights-cleared P14 commentary/exegesis graph lane is bundled yet; the benchmark must return an explicit gap." }
+    }
+  ]
+}

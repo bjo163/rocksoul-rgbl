@@ -1,0 +1,17 @@
+{
+  "formatVersion": "1",
+  "datasetId": "mw:dataset:research-graph:baseline",
+  "scope": "Export policy for canonical research-graph partitions.",
+  "partitions": [
+    { "recordType": "evidence", "path": "data/core/evidence/*.jsonl", "canonical": true },
+    { "recordType": "resource", "path": "data/core/resources/*.jsonl", "canonical": true },
+    { "recordType": "provenance", "path": "data/core/provenance/*.jsonl", "canonical": true }
+  ],
+  "excludedFromCanonical": ["generated_summary", "model_opinion", "model_reasoning", "embedding_only_conclusion", "unsourced_similarity_claim"],
+  "rules": {
+    "generatedTextCannotBecomeCanonicalFact": true,
+    "modelOpinionCannotBecomeCanonicalFact": true,
+    "automatedCandidateMustRemainCandidateUntilReviewed": true,
+    "sourceAndProvenanceMustRemainExported": true
+  }
+}

@@ -187,7 +187,7 @@ P9–P11 are intentionally deferred while this data-first milestone is active. E
 - [x] Add WEB↔SBLGNT New Testament passage alignment with edition and verse-boundary differences explicit. <!-- mw-todo:P12-016 -->
 - [ ] Expand SuttaCentral CC0 Bhikkhu Sujato English translations to Dīgha Nikāya and Majjhima Nikāya from a pinned `published` commit. <!-- mw-todo:P12-017 -->
 - [ ] Expand SuttaCentral CC0 Bhikkhu Sujato English translations to Saṁyutta Nikāya and Aṅguttara Nikāya from a pinned `published` commit. <!-- mw-todo:P12-018 -->
-- [ ] Add deterministic completeness/count/checksum tests plus rights/provenance gates for every P12 dataset. <!-- mw-todo:P12-019 -->
+- [x] Add deterministic completeness/count/checksum tests plus rights/provenance gates for every P12 dataset. <!-- mw-todo:P12-019 -->
 - [ ] Produce the Foundation Text Corpus coverage report and pass both the no-unresolved-bundled-rights gate and the required source-language + `en` + `id` translation-coverage gate. <!-- mw-todo:P12-020 -->
 - [ ] Enforce source-language + human-published English (`en`) + Indonesian (`id`) minimum coverage for every major P12 work/collection; machine/LLM translation must not satisfy canonical coverage. <!-- mw-todo:P12-021 -->
 - [ ] Pin and ingest Quran English translation from QuranEnc / Rowwad Translation Center under exact source-preserving republication terms. <!-- mw-todo:P12-022 -->

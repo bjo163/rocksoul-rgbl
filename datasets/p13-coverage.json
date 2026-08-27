@@ -9,11 +9,13 @@
     "hinduism": { "traditionEntity": "mw:tradition:hinduism", "personCount": 1, "textualEvidenceAssertions": 0 },
     "jainism": { "traditionEntity": "mw:tradition:jainism", "personCount": 1, "textualEvidenceAssertions": 0 },
     "sikhism": { "traditionEntity": "mw:tradition:sikhism", "personCount": 1, "textualEvidenceAssertions": 0 },
-    "bahai-faith": { "traditionEntity": "mw:tradition:bahai-faith", "personCount": 0, "textualEvidenceAssertions": 0 },
+    "bahai-faith": { "traditionEntity": "mw:tradition:bahai-faith", "personCount": 1, "textualEvidenceAssertions": 0 },
     "zoroastrianism": { "traditionEntity": "mw:tradition:zoroastrianism", "personCount": 1, "textualEvidenceAssertions": 0 },
     "daoism": { "traditionEntity": "mw:tradition:daoism", "personCount": 1, "textualEvidenceAssertions": 0 },
     "confucianism": { "traditionEntity": "mw:tradition:confucianism", "personCount": 1, "textualEvidenceAssertions": 0 },
-    "shinto": { "traditionEntity": "mw:tradition:shinto", "personCount": 0, "textualEvidenceAssertions": 0 }
+    "shinto": { "traditionEntity": "mw:tradition:shinto", "personCount": 0, "textualEvidenceAssertions": 0 },
+    "modern-and-new-movements": { "traditionEntity": null, "personCount": 3, "textualEvidenceAssertions": 0 },
+    "indigenous-and-traditional": { "traditionEntity": null, "personCount": 1, "textualEvidenceAssertions": 0 }
   },
   "gates": {
     "noGlobalRoleAssertions": "pass",

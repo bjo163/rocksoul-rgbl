@@ -9,6 +9,14 @@
   ],
   "entities": [
     {
+      "qid": "Q101054",
+      "lastRevision": 2533511258,
+      "modified": "2026-08-20T02:15:26Z",
+      "file": "entities/Q101054.json",
+      "byteSize": 130410,
+      "sha256": "a1fe12a708ece4a1950351606e68e9e520f2d679b81d43e897e8babaaca41453"
+    },
+    {
       "qid": "Q1068640",
       "lastRevision": 2535680903,
       "modified": "2026-08-24T05:18:21Z",
@@ -121,6 +129,14 @@
       "sha256": "0929cab8c55bfc1296e5d49d0a0c83902b2b7b6c37c683da3e21e3645a626d3d"
     },
     {
+      "qid": "Q235069",
+      "lastRevision": 2533009873,
+      "modified": "2026-08-19T03:18:28Z",
+      "file": "entities/Q235069.json",
+      "byteSize": 137858,
+      "sha256": "b86c1bbf71fdcd007225317a0c66bf2459ef9020e9451ec6afcc834883a1b4cb"
+    },
+    {
       "qid": "Q23540",
       "lastRevision": 2534319702,
       "modified": "2026-08-21T17:14:52Z",
@@ -151,6 +167,14 @@
       "file": "entities/Q2914617.json",
       "byteSize": 15518,
       "sha256": "7c9e77ef38ff48c9a088cdb0fe0a61e870c91a2219a3110f1d8eaa6c6465448f"
+    },
+    {
+      "qid": "Q292290",
+      "lastRevision": 2517661521,
+      "modified": "2026-07-15T05:45:32Z",
+      "file": "entities/Q292290.json",
+      "byteSize": 145667,
+      "sha256": "64b9cb3149f542ccabfc5f96240fcd91ff80450c4764f18ca5fc8df8703e25c4"
     },
     {
       "qid": "Q29520",
@@ -201,6 +225,14 @@
       "sha256": "97278f090a05bfc7fcc842d7b8bc9c173abf09342b11c42bc4a03e86c005c09e"
     },
     {
+      "qid": "Q41178",
+      "lastRevision": 2533020270,
+      "modified": "2026-08-19T03:55:14Z",
+      "file": "entities/Q41178.json",
+      "byteSize": 206230,
+      "sha256": "069c5b7ecfc1dbf5c43f15f1399b9728467bd9a3c737c43ea8005e115650491b"
+    },
+    {
       "qid": "Q424",
       "lastRevision": 2532456227,
       "modified": "2026-08-17T19:09:01Z",
@@ -239,6 +271,14 @@
       "file": "entities/Q4604.json",
       "byteSize": 262086,
       "sha256": "ffd1d832f810ba0063337a9672fbe7a54074b3220cfae10bc6cf47afe2868875"
+    },
+    {
+      "qid": "Q47102",
+      "lastRevision": 2533451388,
+      "modified": "2026-08-19T22:36:28Z",
+      "file": "entities/Q47102.json",
+      "byteSize": 182360,
+      "sha256": "347c0626015d3ea8ceee6d9ae346565f6672566c917c2f8d8794fd1150e62952"
     },
     {
       "qid": "Q47280",
@@ -295,6 +335,14 @@
       "file": "entities/Q5310255.json",
       "byteSize": 6545,
       "sha256": "2435bbe5a1bd27f381001560853c3ef2d4cb05da2de491635406110f705e951a"
+    },
+    {
+      "qid": "Q558420",
+      "lastRevision": 2507725028,
+      "modified": "2026-06-19T03:57:52Z",
+      "file": "entities/Q558420.json",
+      "byteSize": 29399,
+      "sha256": "c17a0c5e1adb683d53fd1e6e8fda6d1e9c920c848eb4e1b8de9cb562301f1ae7"
     },
     {
       "qid": "Q5891",

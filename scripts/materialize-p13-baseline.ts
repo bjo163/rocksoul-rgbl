@@ -8,7 +8,7 @@ const root = process.cwd(); const snap = path.join(root, 'datasets/registries/sn
 const artifact = 'mw:artifact:wikidata:p13-baseline-2026-08-27'; const provenance = 'mw:provenance:wikidata:p13-baseline-2026-08-27'
 const traditions: Record<string, string> = { Q5043: 'christianity', Q432: 'islam', Q9268: 'judaism', Q748: 'buddhism', Q9089: 'hinduism', Q9232: 'jainism', Q9316: 'sikhism', Q22679: 'bahai-faith', Q9601: 'zoroastrianism', Q9598: 'daoism', Q9581: 'confucianism', Q812767: 'shinto' }
 const movements: Record<string, string> = { Q483654: 'sunni-islam', Q9585: 'shia-islam', Q132265: 'theravada', Q48362: 'mahayana', Q9592: 'catholic-church', Q23540: 'protestantism' }
-const people: Record<string, string> = { Q302: 'jesus', Q9458: 'muhammad', Q9077: 'moses', Q9181: 'abraham', Q9441: 'gautama-buddha', Q9422: 'mahavira', Q9333: 'laozi', Q4604: 'confucius', Q42891: 'krishna', Q35811: 'zoroaster', Q83322: 'guru-nanak', Q9200: 'paul-the-apostle' }
+const people: Record<string, string> = { Q302: 'jesus', Q9458: 'muhammad', Q9077: 'moses', Q9181: 'abraham', Q9441: 'gautama-buddha', Q9422: 'mahavira', Q9333: 'laozi', Q4604: 'confucius', Q42891: 'krishna', Q35811: 'zoroaster', Q83322: 'guru-nanak', Q9200: 'paul-the-apostle', Q101054: 'bahaullah', Q47102: 'joseph-smith', Q558420: 'wovoka', Q235069: 'mary-baker-eddy', Q292290: 'ellen-g-white', Q41178: 'haile-selassie' }
 const roleClaims = [
   ['muhammad', 'prophet', 'islam'], ['jesus', 'scriptural_figure', 'christianity'], ['jesus', 'prophet', 'islam'],
   ['moses', 'prophet', 'judaism'], ['moses', 'prophet', 'christianity'], ['moses', 'prophet', 'islam'],

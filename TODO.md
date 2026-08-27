@@ -291,7 +291,7 @@ P15 separates lexical forms from source-scoped meanings and from P13 entities. P
 - [ ] Extract and review Pali/Sanskrit Buddhist terms with school, canon, translation, and commentarial scope explicit. <!-- mw-todo:P15-014 -->
 - [ ] Add Sanskrit and regional-language Hindu concept/name coverage without flattening deity, epithet, avatara, philosophical school, or practice distinctions. <!-- mw-todo:P15-015 -->
 - [ ] Add Jain, Sikh, Baháʼí, Zoroastrian, Daoist, Confucian, and Shinto term/name lanes with native script and community scope. <!-- mw-todo:P15-016 -->
-- [x] Add rights- and consent-reviewed indigenous/local terminology metadata without publishing restricted names or meanings. <!-- mw-todo:P15-017 -->
+- [ ] Add rights- and consent-reviewed indigenous/local terminology metadata without publishing restricted names or meanings. <!-- mw-todo:P15-017 -->
 - [ ] Add human-published English and Indonesian glosses/definitions as attributed expressions; machine glosses remain derived non-canonical candidates. <!-- mw-todo:P15-018 -->
 - [ ] Add passage-level term occurrence and definition evidence linked to P12/P14 content without changing source text. <!-- mw-todo:P15-019 -->
 - [x] Add deterministic duplicate, spelling-variant, transliteration, homograph, and possible-concept-match reports without automatic merges. <!-- mw-todo:P15-020 -->
@@ -315,7 +315,7 @@ P16 expands sourced prayers and lived-practice material while separating text, p
 - [ ] Audit and ingest rights-cleared Christian prayers, creeds, hymns, lectionary/liturgy fragments, and denominational variants. <!-- mw-todo:P16-008 -->
 - [ ] Audit and ingest rights-cleared Buddhist paritta, sutra chant, aspiration, dedication, liturgy, and meditation-manual excerpts with school scope. <!-- mw-todo:P16-009 -->
 - [ ] Audit and ingest rights-cleared Hindu mantra, stotra, puja, vrata, and devotional hymn candidates with deity/sampradaya/source scope. <!-- mw-todo:P16-010 -->
-- [x] Audit and ingest Jain prayer/ritual, Sikh bani/ardas/kirtan, Baháʼí prayer, and Zoroastrian liturgical candidates under exact rights. <!-- mw-todo:P16-011 -->
+- [ ] Audit and ingest Jain prayer/ritual, Sikh bani/ardas/kirtan, Baháʼí prayer, and Zoroastrian liturgical candidates under exact rights. <!-- mw-todo:P16-011 -->
 - [x] Audit Daoist, Confucian, Shinto, and East Asian ritual/devotional candidates with temple/school/community and language context. <!-- mw-todo:P16-012 -->
 - [x] Add indigenous/local/oral devotional discovery under consent-first policy; restricted performance text remains metadata-only unless explicitly permitted. <!-- mw-todo:P16-013 -->
 - [ ] Model ritual/practice participants, roles, actions, sequence, objects, place, time, calendar, and community as sourced contextual assertions. <!-- mw-todo:P16-014 -->

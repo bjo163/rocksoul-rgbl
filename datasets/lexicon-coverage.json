@@ -10,5 +10,7 @@
     { "tradition": "Hinduism", "semanticDomain": ["deities", "epithets", "schools", "practice"], "language": "sa/mul", "script": "Deva/multiple", "english": "planned", "indonesian": "planned", "evidenceState": "P15-015" },
     { "tradition": "Jain/Sikh/Bahai/Zoroastrian/Daoist/Confucian/Shinto", "semanticDomain": ["names", "titles", "concepts", "practice"], "language": "mul", "script": "multiple", "english": "planned", "indonesian": "planned", "evidenceState": "P15-016" }
   ],
+  "reconciliationReport": "docs/P15-RECONCILIATION-REPORT.json",
+  "reconciliationPolicy": { "automaticMerge": false, "reportsAreCandidatesOnly": true, "crossTraditionEquivalenceRequiresSource": true },
   "contractCoverage": { "concept": true, "term": true, "sacredName": true, "epithet": true, "title": true, "honorific": true, "definition": true, "usage": true, "transliteration": true, "etymology": true, "relation": true, "designationToP13": true }
 }

@@ -1,0 +1,42 @@
+{
+  "formatVersion": "1",
+  "datasets": [
+    "datasets/dhammapada-lexicon/data/core/resources/lexicon.jsonl",
+    "datasets/quran-arabic-lexicon/data/core/resources/lexicon.jsonl"
+  ],
+  "automaticMerge": false,
+  "counts": {
+    "terms": 5,
+    "concepts": 5,
+    "transliterations": 2,
+    "duplicates": 0,
+    "spellingVariants": 0,
+    "homographs": 0,
+    "possibleConceptMatches": 0
+  },
+  "duplicates": [],
+  "spellingVariants": [],
+  "transliterations": [
+    {
+      "id": "mw:lexicon.transliteration:quran:allah",
+      "sourceForm": "mw:lexicon.term:quran:allah",
+      "value": "Allāh",
+      "scheme": "IJMES",
+      "schemeVersion": "2009"
+    },
+    {
+      "id": "mw:lexicon.transliteration:quran:rabb",
+      "sourceForm": "mw:lexicon.term:quran:rabb",
+      "value": "rabb",
+      "scheme": "Buckwalter-like pedagogical Latin",
+      "schemeVersion": "1"
+    }
+  ],
+  "homographs": [],
+  "possibleConceptMatches": [],
+  "guardrails": {
+    "reportsAreCandidatesOnly": true,
+    "noAutomaticMerge": true,
+    "crossTraditionEquivalenceRequiresSource": true
+  }
+}

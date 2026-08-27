@@ -171,7 +171,7 @@ P9–P11 are intentionally deferred while this data-first milestone is active. E
 
 - [x] Add a machine-readable coverage/completeness matrix for all real datasets. <!-- mw-todo:P12-001 -->
 - [x] Re-verify the Quran Tanzil Uthmani baseline: 6,236 ayah, pinned source checksum, rights evidence, and source-preserving text. <!-- mw-todo:P12-002 -->
-- [ ] Complete the Bhikkhu Sujato English Dhammapada from SuttaCentral Bilara `published@cf0dac3b59a3f9b1d4829acb311e303f1eb6bba6`. <!-- mw-todo:P12-003 -->
+- [x] Complete the Bhikkhu Sujato English Dhammapada from SuttaCentral Bilara `published@cf0dac3b59a3f9b1d4829acb311e303f1eb6bba6`. <!-- mw-todo:P12-003 -->
 - [ ] Audit the exact SuttaCentral Pali Dhammapada root edition/source and redistribution rights independently from translation licensing. <!-- mw-todo:P12-004 -->
 - [ ] Ingest the full Pali Dhammapada as a separate expression only if P12-004 permits bundling; otherwise record it as external/metadata-only. <!-- mw-todo:P12-005 -->
 - [ ] Add Pali↔English Dhammapada segment alignment when both representations are legally available, without asserting semantic identity. <!-- mw-todo:P12-006 -->
@@ -232,26 +232,6 @@ P13 runs in parallel with P12. It builds an open-ended registry, not a final uni
 - [ ] Produce the P13 v0.1 coverage report and pass the no-global-prophet/no-final-taxonomy/no-name-only-identity exit gates. <!-- mw-todo:P13-027 -->
 
 **Exit gate:** P13 provides reproducible open registries of traditions and religious/scriptural persons with `en` + `id` coverage reporting, external identifiers, source-attributed hierarchy/role assertions, exact textual evidence where available, deterministic reconciliation, and no claim that a finite taxonomy is literally “all religions” or that a religious role is universally true.
-
-## P9 — MoonWitness integration
-
-This work belongs primarily in the `moonwitness` repository, not in canonical corpus core.
-
-- [ ] Create MoonWitness-side corpus adapter package. <!-- mw-todo:P9-001 -->
-- [ ] Pin a released `moonwitness-corpus` package/dataset version. <!-- mw-todo:P9-002 -->
-- [ ] Map canonical Entity → `wx.entity` using semantic canonical key. <!-- mw-todo:P9-003 -->
-- [ ] Map labels/identifiers to entity aliases/identifiers. <!-- mw-todo:P9-004 -->
-- [ ] Map Assertion → `wx.assertion`. <!-- mw-todo:P9-005 -->
-- [ ] Map Resource/source metadata → `wx.source`. <!-- mw-todo:P9-006 -->
-- [ ] Map Provenance → `wx.provenance`. <!-- mw-todo:P9-007 -->
-- [ ] Map textual Passage/Content to generalized MoonWitness passage/content models. <!-- mw-todo:P9-008 -->
-- [ ] Import dataset manifest into source-manifest/runtime audit layer. <!-- mw-todo:P9-009 -->
-- [ ] Keep `wx.source.policy` and normative engine weighting outside corpus imports. <!-- mw-todo:P9-010 -->
-- [ ] Make import transactional and idempotent. <!-- mw-todo:P9-011 -->
-- [ ] Add cross-repo fixture/contract tests. <!-- mw-todo:P9-012 -->
-- [ ] Replace live-source production seeding with pinned corpus release ingestion. <!-- mw-todo:P9-013 -->
-
-**Exit gate:** a clean MoonWitness database can be rebuilt deterministically from a pinned corpus release without calling upstream religious-text APIs at runtime.
 
 ## P10 — advanced profiles (after v0.1 proof)
 

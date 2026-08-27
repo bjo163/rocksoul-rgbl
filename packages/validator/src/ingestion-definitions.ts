@@ -6,6 +6,7 @@ import fg from 'fast-glob'
 
 export interface IngestionDefinitionFinding { file: string; code: string; message: string }
 
+function canonicalAbsolute(file: string): string { return path.resolve(file).replaceAll('\\', '/').toLowerCase() }
 function rel(root: string, file: string): string { return path.relative(root, file).replaceAll(path.sep, '/') }
 function inside(root: string, relativePath: string): string | null {
   if (path.isAbsolute(relativePath)) return null
@@ -42,7 +43,7 @@ export async function validateIngestionDefinitions(root: string): Promise<Ingest
     const recipeDir = inside(root, entry.path)
     if (!recipeDir) { findings.push({ file: rel(root, registryFile), code: 'recipe-path-escape', message: `Recipe path escapes repository: ${entry.path}` }); continue }
     const recipeFile = path.join(recipeDir, 'recipe.json')
-    registeredRecipeFiles.add(recipeFile)
+    registeredRecipeFiles.add(canonicalAbsolute(recipeFile))
     let recipe: Record<string, unknown>
     try { recipe = JSON.parse(await readFile(recipeFile, 'utf8')) as Record<string, unknown> } catch { findings.push({ file: rel(root, recipeFile), code: 'recipe-json', message: 'Missing or invalid recipe.json' }); continue }
     if (!validateRecipe(recipe)) findings.push({ file: rel(root, recipeFile), code: 'recipe-schema', message: ajv.errorsText(validateRecipe.errors, { separator: '; ' }) })
@@ -74,6 +75,6 @@ export async function validateIngestionDefinitions(root: string): Promise<Ingest
   }
 
   const discovered = await fg('ingestion/recipes/**/recipe.json', { cwd: root, absolute: true, onlyFiles: true })
-  for (const file of discovered) if (!registeredRecipeFiles.has(file)) findings.push({ file: rel(root, file), code: 'unregistered-ingestion-recipe', message: 'Recipe is not declared in ingestion/registry.json' })
+  for (const file of discovered) if (!registeredRecipeFiles.has(canonicalAbsolute(file))) findings.push({ file: rel(root, file), code: 'unregistered-ingestion-recipe', message: 'Recipe is not declared in ingestion/registry.json' })
   return findings
 }

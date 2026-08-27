@@ -188,20 +188,21 @@ export default async function ParallelScriptureReaderPage({
 
                 {/* 1. Primary Source Text (Arabic / Sanskrit / Pali / Greek / Hebrew) */}
                 {verse.sourceText && (
-                  <div style={{ marginBottom: '20px' }}>
-                    <div
+                  <div style={{ marginBottom: '18px' }}>
+                    <p
                       style={{
-                        fontSize: isRtl ? '1.75rem' : '1.25rem',
-                        lineHeight: isRtl ? '2.3' : '1.8',
-                        color: '#f8fafc',
+                        fontSize: isRtl ? '1.85rem' : '1.3rem',
+                        lineHeight: isRtl ? '2.4' : '1.8',
+                        color: '#ffffff',
                         fontWeight: 600,
                         direction: isRtl ? 'rtl' : 'ltr',
                         textAlign: isRtl ? 'right' : 'left',
-                        fontFamily: isRtl ? "'Amiri', 'Traditional Arabic', 'SBL Hebrew', serif" : 'inherit'
+                        fontFamily: isRtl ? "'Amiri', 'Traditional Arabic', 'SBL Hebrew', serif" : 'inherit',
+                        margin: 0
                       }}
                     >
                       {verse.sourceText.text}
-                    </div>
+                    </p>
                   </div>
                 )}
 
@@ -209,17 +210,17 @@ export default async function ParallelScriptureReaderPage({
                 {verse.indonesianText && (
                   <div
                     style={{
-                      background: 'rgba(14, 165, 233, 0.05)',
+                      background: 'rgba(14, 165, 233, 0.06)',
                       borderLeft: '3px solid var(--accent-primary)',
                       borderRadius: '0 8px 8px 0',
-                      padding: '12px 16px',
+                      padding: '14px 18px',
                       marginBottom: verse.englishText ? '12px' : '0'
                     }}
                   >
-                    <small style={{ color: 'var(--accent-primary)', fontWeight: 700, textTransform: 'uppercase', fontSize: '0.72rem', letterSpacing: '0.05em', display: 'block', marginBottom: '4px' }}>
+                    <small style={{ color: 'var(--accent-primary)', fontWeight: 700, textTransform: 'uppercase', fontSize: '0.75rem', letterSpacing: '0.05em', display: 'block', marginBottom: '4px' }}>
                       🇮🇩 Terjemahan Bahasa Indonesia
                     </small>
-                    <p style={{ fontSize: '1.05rem', color: '#e2e8f0', lineHeight: '1.65', margin: 0 }}>
+                    <p style={{ fontSize: '1.05rem', color: '#f1f5f9', lineHeight: '1.65', margin: 0 }}>
                       {verse.indonesianText.text}
                     </p>
                   </div>
@@ -232,10 +233,10 @@ export default async function ParallelScriptureReaderPage({
                       background: 'rgba(255, 255, 255, 0.02)',
                       borderLeft: '3px solid var(--text-muted)',
                       borderRadius: '0 8px 8px 0',
-                      padding: '10px 16px'
+                      padding: '12px 18px'
                     }}
                   >
-                    <small style={{ color: 'var(--text-muted)', fontWeight: 700, textTransform: 'uppercase', fontSize: '0.72rem', letterSpacing: '0.05em', display: 'block', marginBottom: '4px' }}>
+                    <small style={{ color: 'var(--text-muted)', fontWeight: 700, textTransform: 'uppercase', fontSize: '0.75rem', letterSpacing: '0.05em', display: 'block', marginBottom: '4px' }}>
                       🇬🇧 English Translation
                     </small>
                     <p style={{ fontSize: '0.95rem', color: 'var(--text-secondary)', fontStyle: 'italic', lineHeight: '1.6', margin: 0 }}>
@@ -248,7 +249,7 @@ export default async function ParallelScriptureReaderPage({
                 {verse.otherTexts.map((other, oIdx) => (
                   <div key={oIdx} style={{ marginTop: '10px', fontSize: '0.9rem', color: 'var(--text-muted)' }}>
                     <small style={{ fontWeight: 600 }}>{other.language}: </small>
-                    {other.text}
+                    <span>{other.text}</span>
                   </div>
                 ))}
               </article>

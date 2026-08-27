@@ -2,11 +2,66 @@
   "formatVersion": "1",
   "scope": "All datasets/registry.json entries whose status is active must appear exactly once in this matrix. Fixture datasets are excluded.",
   "translationPolicy": {
-    "requiredCanonicalLanguages": ["source", "en", "id"],
+    "requiredCanonicalLanguages": [
+      "source",
+      "en",
+      "id"
+    ],
     "machineTranslationCountsAsCanonicalCoverage": false,
     "policyDocument": "docs/TRANSLATION_TARGETS.md"
   },
   "datasets": [
+    {
+      "datasetId": "mw:dataset:dhammapada:sujato",
+      "path": "datasets/dhammapada-sujato",
+      "workCollection": "Dhammapada",
+      "datasetRole": "translation",
+      "availability": "bundled",
+      "language": {
+        "tag": "en",
+        "script": "Latn",
+        "coverageRole": "translation"
+      },
+      "expression": {
+        "label": "Sayings of the Dhamma — Bhikkhu Sujato",
+        "edition": "SuttaCentral Bilara published@cf0dac3b59a3f9b1d4829acb311e303f1eb6bba6"
+      },
+      "completeness": {
+        "status": "complete",
+        "unit": "stanza",
+        "covered": 423,
+        "expected": 423,
+        "scope": "Complete Dhammapada, 26 chapters and 423 stanzas"
+      },
+      "sourceArtifact": {
+        "revision": "suttacentral/bilara-data@cf0dac3b59a3f9b1d4829acb311e303f1eb6bba6",
+        "path": "ingestion/recipes/dhammapada-sujato/source/source-manifest.json",
+        "sha256": "3b667414243f5c66e0dc244d5b25947f8148fc510b3401e31cfd4f1d5b27fbba",
+        "byteSize": 9927
+      },
+      "rights": {
+        "status": "verified_for_bundled_redistribution",
+        "license": "CC0-1.0",
+        "evidence": "datasets/dhammapada-sujato/LICENSES/SUTTACENTRAL-CC0.md"
+      },
+      "provenance": {
+        "manifest": "datasets/dhammapada-sujato/manifest.json",
+        "checksums": "datasets/dhammapada-sujato/CHECKSUMS.sha256",
+        "recipe": "ingestion/recipes/dhammapada-sujato"
+      },
+      "sourceLanguageCoverage": {
+        "language": "pli",
+        "status": "missing_pending_rights_audit"
+      },
+      "translationCoverage": {
+        "en": "complete",
+        "id": "missing"
+      },
+      "alignmentCoverage": {
+        "status": "blocked_pending_source_language_rights_audit",
+        "notes": "Pali↔English alignment must wait for the independent Pali root source/rights decision."
+      }
+    },
     {
       "datasetId": "mw:dataset:quran:tanzil-uthmani",
       "path": "datasets/quran-tanzil-uthmani",
@@ -52,57 +107,6 @@
       "alignmentCoverage": {
         "status": "not_started",
         "notes": "Arabic↔English↔Indonesian alignment is deferred until independently sourced translations are ingested."
-      }
-    },
-    {
-      "datasetId": "mw:dataset:dhammapada:sujato-1-20",
-      "path": "datasets/dhammapada-sujato-1-20",
-      "workCollection": "Dhammapada",
-      "datasetRole": "translation",
-      "availability": "bundled",
-      "language": {
-        "tag": "en",
-        "script": "Latn",
-        "coverageRole": "translation"
-      },
-      "expression": {
-        "label": "Sayings of the Dhamma — Bhikkhu Sujato",
-        "edition": "SuttaCentral Bilara published@cf0dac3b59a3f9b1d4829acb311e303f1eb6bba6"
-      },
-      "completeness": {
-        "status": "partial",
-        "unit": "stanza",
-        "covered": 20,
-        "expected": 423,
-        "scope": "Dhammapada stanzas 1–20 of 423"
-      },
-      "sourceArtifact": {
-        "revision": "suttacentral/bilara-data@cf0dac3b59a3f9b1d4829acb311e303f1eb6bba6",
-        "path": "ingestion/recipes/dhammapada-sujato-1-20/source/dhammapada-1-20-en-sujato.json",
-        "sha256": "0f4104ecc71702f56dd8a84ee3b3adbdfe3c544e10bbcf7a1d22c9b0c0975ac3",
-        "byteSize": 4943
-      },
-      "rights": {
-        "status": "verified_for_bundled_redistribution",
-        "license": "CC0-1.0",
-        "evidence": "datasets/dhammapada-sujato-1-20/LICENSES/SUTTACENTRAL-CC0.md"
-      },
-      "provenance": {
-        "manifest": "datasets/dhammapada-sujato-1-20/manifest.json",
-        "checksums": "datasets/dhammapada-sujato-1-20/CHECKSUMS.sha256",
-        "recipe": "ingestion/recipes/dhammapada-sujato-1-20"
-      },
-      "sourceLanguageCoverage": {
-        "language": "pli",
-        "status": "missing_pending_rights_audit"
-      },
-      "translationCoverage": {
-        "en": "partial",
-        "id": "missing"
-      },
-      "alignmentCoverage": {
-        "status": "blocked_pending_source_language_rights_audit",
-        "notes": "Pali↔English alignment must wait for the independent Pali root source/rights decision."
       }
     }
   ]

@@ -1,0 +1,244 @@
+{
+  "formatVersion": "1",
+  "upstream": {
+    "repository": "suttacentral/bilara-data",
+    "branch": "published",
+    "commit": "cf0dac3b59a3f9b1d4829acb311e303f1eb6bba6"
+  },
+  "files": [
+    {
+      "file": "dhp1-20_translation-en-sujato.json",
+      "upstreamPath": "translation/en/sujato/sutta/kn/dhp/dhp1-20_translation-en-sujato.json",
+      "start": 1,
+      "end": 20,
+      "byteSize": 4943,
+      "sha256": "0f4104ecc71702f56dd8a84ee3b3adbdfe3c544e10bbcf7a1d22c9b0c0975ac3",
+      "gitBlobSha1": "d63d1a563a69c73a74a22cd877c8e57d95480818"
+    },
+    {
+      "file": "dhp21-32_translation-en-sujato.json",
+      "upstreamPath": "translation/en/sujato/sutta/kn/dhp/dhp21-32_translation-en-sujato.json",
+      "start": 21,
+      "end": 32,
+      "byteSize": 2757,
+      "sha256": "f096c59006e49b44d89f31f1832ef972e208dbf9df1fb29cfc1a790062aa0e7d",
+      "gitBlobSha1": "db6b266d6d929c0d18d4843f394c556681844a23"
+    },
+    {
+      "file": "dhp33-43_translation-en-sujato.json",
+      "upstreamPath": "translation/en/sujato/sutta/kn/dhp/dhp33-43_translation-en-sujato.json",
+      "start": 33,
+      "end": 43,
+      "byteSize": 2359,
+      "sha256": "31a489eefb5efeee94e4f80a61393a586e312e6bc20657c1f1d5f58c6afee3e6",
+      "gitBlobSha1": "2d9c1ecf7a92df7cba3a55cf5c18110c41b5e5ae"
+    },
+    {
+      "file": "dhp44-59_translation-en-sujato.json",
+      "upstreamPath": "translation/en/sujato/sutta/kn/dhp/dhp44-59_translation-en-sujato.json",
+      "start": 44,
+      "end": 59,
+      "byteSize": 3506,
+      "sha256": "1be53faceb24db2f3c2c24f5a557df40fde1cfe12f101686a329403ea109ebac",
+      "gitBlobSha1": "1079c78d6e9c59eda14c368d4dde11f2370242f1"
+    },
+    {
+      "file": "dhp60-75_translation-en-sujato.json",
+      "upstreamPath": "translation/en/sujato/sutta/kn/dhp/dhp60-75_translation-en-sujato.json",
+      "start": 60,
+      "end": 75,
+      "byteSize": 3843,
+      "sha256": "61c8b0d8afbbc8a69c365b299b4340ccb8361f8ee10a2f0808b3079781ceb36b",
+      "gitBlobSha1": "fca36115d9961fc6fcb3e230c2a213dd3fd337e8"
+    },
+    {
+      "file": "dhp76-89_translation-en-sujato.json",
+      "upstreamPath": "translation/en/sujato/sutta/kn/dhp/dhp76-89_translation-en-sujato.json",
+      "start": 76,
+      "end": 89,
+      "byteSize": 3264,
+      "sha256": "f62251cf03af5cf3b355546f0a47a7f9faa6549bfc4ca34bb866979dd33a44ae",
+      "gitBlobSha1": "2911e70c980579b1e427482ff570decd405f5e03"
+    },
+    {
+      "file": "dhp90-99_translation-en-sujato.json",
+      "upstreamPath": "translation/en/sujato/sutta/kn/dhp/dhp90-99_translation-en-sujato.json",
+      "start": 90,
+      "end": 99,
+      "byteSize": 2458,
+      "sha256": "66e453e1140b9a60d0efb040205878522503a5a031ea33d35e34d8a8b0180506",
+      "gitBlobSha1": "5e6ee41877c60c855da4bf098be39f2cf51b8815"
+    },
+    {
+      "file": "dhp100-115_translation-en-sujato.json",
+      "upstreamPath": "translation/en/sujato/sutta/kn/dhp/dhp100-115_translation-en-sujato.json",
+      "start": 100,
+      "end": 115,
+      "byteSize": 3637,
+      "sha256": "b9c52d3a794187900007211c6006caf6cae68456791cea7c2246b90fc6676a8a",
+      "gitBlobSha1": "3a4abfb726f52d75330ac37b1ea02a9839e04e86"
+    },
+    {
+      "file": "dhp116-128_translation-en-sujato.json",
+      "upstreamPath": "translation/en/sujato/sutta/kn/dhp/dhp116-128_translation-en-sujato.json",
+      "start": 116,
+      "end": 128,
+      "byteSize": 3157,
+      "sha256": "78b70cd2217cc0008f5f4aca04f921214ba8c1e44aa445f013047134a266857c",
+      "gitBlobSha1": "b9d5771a5997b56ee6bdb1b010508e8bbf172326"
+    },
+    {
+      "file": "dhp129-145_translation-en-sujato.json",
+      "upstreamPath": "translation/en/sujato/sutta/kn/dhp/dhp129-145_translation-en-sujato.json",
+      "start": 129,
+      "end": 145,
+      "byteSize": 3722,
+      "sha256": "0a9af9c21322aee07d46cdc296a75b3b0f4a7585062737d4550631966854d166",
+      "gitBlobSha1": "298cc3486f206edfbe202c6af492e3e0676a66b2"
+    },
+    {
+      "file": "dhp146-156_translation-en-sujato.json",
+      "upstreamPath": "translation/en/sujato/sutta/kn/dhp/dhp146-156_translation-en-sujato.json",
+      "start": 146,
+      "end": 156,
+      "byteSize": 2511,
+      "sha256": "f6e80908d7371ef4d6351c78b6454fe40498641259e7434e0765647e422aeb0d",
+      "gitBlobSha1": "66a74e60c6c095fdab79906b9dba79ae5bb26f5f"
+    },
+    {
+      "file": "dhp157-166_translation-en-sujato.json",
+      "upstreamPath": "translation/en/sujato/sutta/kn/dhp/dhp157-166_translation-en-sujato.json",
+      "start": 157,
+      "end": 166,
+      "byteSize": 2531,
+      "sha256": "d52783478ba6dfca20319b46c8a8b326e94a6579c73ccde2be2ae106b1745821",
+      "gitBlobSha1": "621cae2ab6820df6a8a640c1359a88a96c013432"
+    },
+    {
+      "file": "dhp167-178_translation-en-sujato.json",
+      "upstreamPath": "translation/en/sujato/sutta/kn/dhp/dhp167-178_translation-en-sujato.json",
+      "start": 167,
+      "end": 178,
+      "byteSize": 2663,
+      "sha256": "7024141c6fe1d2426eea0c0431fd39f5d347fcf88f44407db1cba2f67145553c",
+      "gitBlobSha1": "800b4f83abbad61209dec357730d2f9e52dd1a46"
+    },
+    {
+      "file": "dhp179-196_translation-en-sujato.json",
+      "upstreamPath": "translation/en/sujato/sutta/kn/dhp/dhp179-196_translation-en-sujato.json",
+      "start": 179,
+      "end": 196,
+      "byteSize": 4194,
+      "sha256": "249d0fb2dd3dc278339adfd252f65be40b7b3b721419fd368a42fca7205087b9",
+      "gitBlobSha1": "d72e2440d8b91e3075e8ba99e6b807b583b8a023"
+    },
+    {
+      "file": "dhp197-208_translation-en-sujato.json",
+      "upstreamPath": "translation/en/sujato/sutta/kn/dhp/dhp197-208_translation-en-sujato.json",
+      "start": 197,
+      "end": 208,
+      "byteSize": 2729,
+      "sha256": "70d5735a6cf64d690e8ad3f5017a42fbac574370f2548c34167194d097abb230",
+      "gitBlobSha1": "affda20ba8c4baff54e0f244b4ac71328932dd8d"
+    },
+    {
+      "file": "dhp209-220_translation-en-sujato.json",
+      "upstreamPath": "translation/en/sujato/sutta/kn/dhp/dhp209-220_translation-en-sujato.json",
+      "start": 209,
+      "end": 220,
+      "byteSize": 2754,
+      "sha256": "1960779aa7616dc81e6f79075173450a53988de255986936b41230719cf55e3a",
+      "gitBlobSha1": "1a7743086899dbea44b87a63147e1e2cbf8a2775"
+    },
+    {
+      "file": "dhp221-234_translation-en-sujato.json",
+      "upstreamPath": "translation/en/sujato/sutta/kn/dhp/dhp221-234_translation-en-sujato.json",
+      "start": 221,
+      "end": 234,
+      "byteSize": 3117,
+      "sha256": "27d3d62b326b8939447d05f79b3ddd2d8a3732a32e1c4a3238f649589402014c",
+      "gitBlobSha1": "6f86e557e075172e45e4029c21731507079e95f2"
+    },
+    {
+      "file": "dhp235-255_translation-en-sujato.json",
+      "upstreamPath": "translation/en/sujato/sutta/kn/dhp/dhp235-255_translation-en-sujato.json",
+      "start": 235,
+      "end": 255,
+      "byteSize": 4695,
+      "sha256": "bc407e870de2cf008308fc12424f034222332735c6c2bb8a3fa8bbc17ae0284f",
+      "gitBlobSha1": "e186b87daed3c8294020678e1d25741872310f56"
+    },
+    {
+      "file": "dhp256-272_translation-en-sujato.json",
+      "upstreamPath": "translation/en/sujato/sutta/kn/dhp/dhp256-272_translation-en-sujato.json",
+      "start": 256,
+      "end": 272,
+      "byteSize": 3856,
+      "sha256": "ef8a25889adf8115cd5d50a9cb0d1285bc8dfd71d54911685d262fcd65811a52",
+      "gitBlobSha1": "54d1fc079e33bf01cb177d2e2572d55e5fe9337e"
+    },
+    {
+      "file": "dhp273-289_translation-en-sujato.json",
+      "upstreamPath": "translation/en/sujato/sutta/kn/dhp/dhp273-289_translation-en-sujato.json",
+      "start": 273,
+      "end": 289,
+      "byteSize": 3999,
+      "sha256": "c142644fd1b1ca994e7b0579a050af30ad71fd72d28a264bc3dcff546da3aac3",
+      "gitBlobSha1": "448f9611fdedbb205bbc02806d744a5c95f6805c"
+    },
+    {
+      "file": "dhp290-305_translation-en-sujato.json",
+      "upstreamPath": "translation/en/sujato/sutta/kn/dhp/dhp290-305_translation-en-sujato.json",
+      "start": 290,
+      "end": 305,
+      "byteSize": 3583,
+      "sha256": "b50dc5cc2fc6f0b3c24ff8509ddd2f325e17498f5e3bcde62b2ad41f2e596828",
+      "gitBlobSha1": "8af77cd1df76e322cf8f22c5423778a27d1a9fbc"
+    },
+    {
+      "file": "dhp306-319_translation-en-sujato.json",
+      "upstreamPath": "translation/en/sujato/sutta/kn/dhp/dhp306-319_translation-en-sujato.json",
+      "start": 306,
+      "end": 319,
+      "byteSize": 3175,
+      "sha256": "8cf2825c829d933a4083ca426fdcc9bfd8b2e4d0c1f55d9558f0fa1ac9ce5fe4",
+      "gitBlobSha1": "8cf97fc14d34a58bdc08dd8d925c9c2ddb73c510"
+    },
+    {
+      "file": "dhp320-333_translation-en-sujato.json",
+      "upstreamPath": "translation/en/sujato/sutta/kn/dhp/dhp320-333_translation-en-sujato.json",
+      "start": 320,
+      "end": 333,
+      "byteSize": 3314,
+      "sha256": "cbda4277a55820b037ed758d86e9040aec6826fe8cfef35094e90fd7aadf44bd",
+      "gitBlobSha1": "48da531d85b21d8f15a31fb197d6ee356ed7dc23"
+    },
+    {
+      "file": "dhp334-359_translation-en-sujato.json",
+      "upstreamPath": "translation/en/sujato/sutta/kn/dhp/dhp334-359_translation-en-sujato.json",
+      "start": 334,
+      "end": 359,
+      "byteSize": 6291,
+      "sha256": "752dd239e5f047adbc9ddb684f5234fc93694130210a7831eb9e0b192566f14b",
+      "gitBlobSha1": "c6dc4d7d2f9e1fb7c3582268a520d688729d50dd"
+    },
+    {
+      "file": "dhp360-382_translation-en-sujato.json",
+      "upstreamPath": "translation/en/sujato/sutta/kn/dhp/dhp360-382_translation-en-sujato.json",
+      "start": 360,
+      "end": 382,
+      "byteSize": 5331,
+      "sha256": "45de02e10876988df63e468e47ec211ddea44fc8d315fa607bb35ddc564879f9",
+      "gitBlobSha1": "d40278c1afc56f28b6ee6c4525d6ef34710f3668"
+    },
+    {
+      "file": "dhp383-423_translation-en-sujato.json",
+      "upstreamPath": "translation/en/sujato/sutta/kn/dhp/dhp383-423_translation-en-sujato.json",
+      "start": 383,
+      "end": 423,
+      "byteSize": 10898,
+      "sha256": "763b866edbd9f5b6587b1eb916674c4f556bff5d44a3b429681a3e09dbe6a10f",
+      "gitBlobSha1": "d3485610d7069b1ab66b78353169b540f125a7af"
+    }
+  ]
+}

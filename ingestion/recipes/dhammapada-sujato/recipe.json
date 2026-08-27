@@ -1,0 +1,22 @@
+{
+  "id": "mw:recipe:dhammapada:sujato",
+  "version": "1.0.0",
+  "specVersion": "0.1",
+  "source": {
+    "kind": "filesystem",
+    "path": "source/source-manifest.json",
+    "sha256": "3b667414243f5c66e0dc244d5b25947f8148fc510b3401e31cfd4f1d5b27fbba",
+    "byte_size": 9927,
+    "media_type": "application/json"
+  },
+  "implementation": {
+    "module": "recipe.ts",
+    "parserVersion": "1",
+    "normalizerVersion": "identity-1",
+    "mapperVersion": "1",
+    "validatorVersion": "1"
+  },
+  "output": {
+    "path": "../../../dist/ingestion/dhammapada-sujato.jsonl"
+  }
+}

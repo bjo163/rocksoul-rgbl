@@ -12,6 +12,7 @@
       "path": "datasets/quran-tanzil-uthmani",
       "workCollection": "Quran",
       "datasetRole": "source_text",
+      "availability": "bundled",
       "language": {
         "tag": "ar",
         "script": "Arab",
@@ -58,6 +59,7 @@
       "path": "datasets/dhammapada-sujato-1-20",
       "workCollection": "Dhammapada",
       "datasetRole": "translation",
+      "availability": "bundled",
       "language": {
         "tag": "en",
         "script": "Latn",

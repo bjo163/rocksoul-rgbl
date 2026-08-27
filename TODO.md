@@ -278,12 +278,12 @@ P15 separates lexical forms from source-scoped meanings and from P13 entities. P
 - [x] Define separate schemas/contracts for concept, term, sacred name, epithet, title, honorific, definition, and usage evidence. <!-- mw-todo:P15-001 -->
 - [x] Define an anti-equivalence policy: shared translation, spelling, or function never automatically equates concepts across sources or traditions. <!-- mw-todo:P15-002 -->
 - [x] Add a machine-readable P15 source registry and coverage matrix by tradition, semantic domain, language, script, `en`/`id`, and evidence state. <!-- mw-todo:P15-003 -->
-- [ ] Add language/script-aware preferred terms, aliases, grammatical metadata, and source-local identifiers without normalizing away meaningful distinctions. <!-- mw-todo:P15-004 -->
-- [ ] Add transliteration records with scheme, version, source form, reversibility/lossiness, and provenance. <!-- mw-todo:P15-005 -->
-- [ ] Add sourced etymology and historical-form assertions without treating reconstructed derivations as certain facts. <!-- mw-todo:P15-006 -->
-- [ ] Add sourced definitions and usage notes scoped to work, passage, tradition, community, period, and language. <!-- mw-todo:P15-007 -->
-- [ ] Add broader/narrower/related/contrasted-with/translated-as relations as provenance-bearing assertions rather than universal ontology edges. <!-- mw-todo:P15-008 -->
-- [ ] Add contested, polysemous, homographic, obsolete, pejorative, reclaimed, and community-preferred term states with review notes. <!-- mw-todo:P15-009 -->
+- [x] Add language/script-aware preferred terms, aliases, grammatical metadata, and source-local identifiers without normalizing away meaningful distinctions. <!-- mw-todo:P15-004 -->
+- [x] Add transliteration records with scheme, version, source form, reversibility/lossiness, and provenance. <!-- mw-todo:P15-005 -->
+- [x] Add sourced etymology and historical-form assertions without treating reconstructed derivations as certain facts. <!-- mw-todo:P15-006 -->
+- [x] Add sourced definitions and usage notes scoped to work, passage, tradition, community, period, and language. <!-- mw-todo:P15-007 -->
+- [x] Add broader/narrower/related/contrasted-with/translated-as relations as provenance-bearing assertions rather than universal ontology edges. <!-- mw-todo:P15-008 -->
+- [x] Add contested, polysemous, homographic, obsolete, pejorative, reclaimed, and community-preferred term states with review notes. <!-- mw-todo:P15-009 -->
 - [ ] Link sacred names, epithets, and titles to P13 entities only through sourced designation assertions; never merge entity identity from a name match. <!-- mw-todo:P15-010 -->
 - [ ] Extract and review Quran/Islamic Arabic terms, divine names, roles, practices, and theological vocabulary from exact P12/P14 evidence. <!-- mw-todo:P15-011 -->
 - [ ] Extract and review Hebrew/Aramaic Jewish terms, divine designations, offices, practices, and covenant/legal vocabulary from exact evidence. <!-- mw-todo:P15-012 -->

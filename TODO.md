@@ -237,10 +237,10 @@ P13 runs in parallel with P12. It builds an open-ended registry, not a final uni
 
 P14 increases diversity of texts, fragments, genres, languages, and communities without treating record count as coverage. Detailed policy and source-lane boundaries are in [`docs/DATASET_DIVERSITY_TARGETS.md`](docs/DATASET_DIVERSITY_TARGETS.md).
 
-- [ ] Define a machine-readable P14 diversity matrix covering tradition/community, genre, source language, `en`/`id`, text scale, rights state, and unresolved gaps. <!-- mw-todo:P14-001 -->
-- [ ] Add a source-discovery registry that records candidate source, authority, edition, retrieval method, checksum, rights decision, and bundle/metadata-only disposition. <!-- mw-todo:P14-002 -->
-- [ ] Add a reusable complete-work versus bounded-fragment contract; fragments must retain parent work, edition, citation range, completeness statement, rights, and provenance. <!-- mw-todo:P14-003 -->
-- [ ] Add deterministic source/rights gates that prohibit bundling a candidate merely because it is downloadable. <!-- mw-todo:P14-004 -->
+- [x] Define a machine-readable P14 diversity matrix covering tradition/community, genre, source language, `en`/`id`, text scale, rights state, and unresolved gaps. <!-- mw-todo:P14-001 -->
+- [x] Add a source-discovery registry that records candidate source, authority, edition, retrieval method, checksum, rights decision, and bundle/metadata-only disposition. <!-- mw-todo:P14-002 -->
+- [x] Add a reusable complete-work versus bounded-fragment contract; fragments must retain parent work, edition, citation range, completeness statement, rights, and provenance. <!-- mw-todo:P14-003 -->
+- [x] Add deterministic source/rights gates that prohibit bundling a candidate merely because it is downloadable. <!-- mw-todo:P14-004 -->
 - [ ] Add genre vocabulary and profiles for scripture, hadith/report, commentary, legal text, ritual/manual, hymn/prayer, biography, chronicle, philosophical text, and oral-tradition metadata. <!-- mw-todo:P14-005 -->
 - [ ] Audit and pin openly redistributable Arabic hadith/report source candidates; keep collection, book, chapter, report, matn, and isnad/transmitter layers distinct. <!-- mw-todo:P14-006 -->
 - [ ] Ingest the first rights-cleared Arabic hadith/report collection with exact citation hierarchy and source-preserving matn, without using a secondary website as authority by default. <!-- mw-todo:P14-007 -->

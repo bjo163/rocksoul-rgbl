@@ -180,9 +180,9 @@ P9–P11 are intentionally deferred while this data-first milestone is active. E
 - [ ] Ingest OSHB lemma/morphology as separate annotation data linked to source tokens, preserving source token IDs. <!-- mw-todo:P12-009 -->
 - [ ] Pin the official SBLGNT v1.2 source commit/artifacts and CC BY 4.0 attribution evidence. <!-- mw-todo:P12-010 -->
 - [ ] Ingest the full SBL Greek New Testament v1.2 as a specific Greek expression/edition. <!-- mw-todo:P12-011 -->
-- [x] Pin the eBible World English Bible Classic 2020 stable full-ecumenical artifact, checksum, and public-domain/trademark evidence. <!-- mw-todo:P12-012 -->
-- [x] Ingest World English Bible Classic 2020 full ecumenical book set as a separate English expression/edition. <!-- mw-todo:P12-013 -->
-- [x] Represent WEB book-set membership/order as edition/collection metadata rather than one universal Bible canon. <!-- mw-todo:P12-014 -->
+- [ ] Pin the eBible World English Bible Classic 2020 stable full-ecumenical artifact, checksum, and public-domain/trademark evidence. <!-- mw-todo:P12-012 -->
+- [ ] Ingest World English Bible Classic 2020 full ecumenical book set as a separate English expression/edition. <!-- mw-todo:P12-013 -->
+- [ ] Represent WEB book-set membership/order as edition/collection metadata rather than one universal Bible canon. <!-- mw-todo:P12-014 -->
 - [x] Add WEB↔OSHB passage alignment for overlapping Hebrew Bible books with versification differences explicit. <!-- mw-todo:P12-015 -->
 - [x] Add WEB↔SBLGNT New Testament passage alignment with edition and verse-boundary differences explicit. <!-- mw-todo:P12-016 -->
 - [ ] Expand SuttaCentral CC0 Bhikkhu Sujato English translations to Dīgha Nikāya and Majjhima Nikāya from a pinned `published` commit. <!-- mw-todo:P12-017 -->

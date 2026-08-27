@@ -190,6 +190,22 @@ async function getAssessmentIndex(): Promise<Map<CanonicalId, Assessment[]>> {
   return assessmentIndexPromise
 }
 
+let passageIndexPromise: Promise<Map<CanonicalId, CorpusRecord>> | undefined
+
+async function getPassageIndex(): Promise<Map<CanonicalId, CorpusRecord>> {
+  if (!passageIndexPromise) {
+    passageIndexPromise = (async () => {
+      const repository = await getRepository()
+      const index = new Map<CanonicalId, CorpusRecord>()
+      for await (const record of repository.iterateRecords({ recordTypes: ['resource'], kinds: ['textual.passage'] })) {
+        index.set(record.id, record)
+      }
+      return index
+    })()
+  }
+  return passageIndexPromise
+}
+
 export async function assessmentsForTarget(id: CanonicalId): Promise<Assessment[]> {
   const index = await getAssessmentIndex()
   return index.get(id) ?? []
@@ -344,10 +360,11 @@ export async function getParallelReaderData(scriptureKey: string, sectionParam?:
     ? `${prefix}${currentSection}:`
     : prefix
 
-  // Find all passages matching current section prefix
+  // Find all passages matching current section prefix from in-memory index
+  const passageIndex = await getPassageIndex()
   const matchingPassages: CorpusRecord[] = []
-  for await (const record of repository.iterateRecords({ recordTypes: ['resource'], kinds: ['textual.passage'] })) {
-    if (record.id.startsWith(effectivePrefix)) {
+  for (const [id, record] of passageIndex) {
+    if (id.startsWith(effectivePrefix)) {
       matchingPassages.push(record)
     }
   }

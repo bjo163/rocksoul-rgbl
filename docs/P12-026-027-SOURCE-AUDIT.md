@@ -14,4 +14,6 @@ Reference: Wikimedia Commons file `Kitab_Suci_Dhammapada.pdf`, source URL in its
 
 SuttaCentral history confirms Indonesian publication activity and identifies Dīgha coverage plus partial Saṃyutta coverage, but the discovery result does not establish a redistributable license for a complete human Indonesian corpus. The existing pinned Sujato data is English CC0 and cannot be relabeled as Indonesian.
 
-Current decision: keep Indonesian DN/MN/SN/AN gaps explicit. No machine translation, scraped mirror, or unlicensed republication is added. Ingest can proceed when a publisher/source provides a complete human translation with redistribution terms or a compatible public repository license.
+The Indonesian Wikisource Sutta Piṭaka portal is now pinned as a discovery lead. It exposes DN/MN/SN/AN index structure and CC BY-SA notices, but it does not establish complete page-level Indonesian text availability; linked units include redlinks/index-only pages. The reproducible audit is in [`docs/P12-027-INDONESIAN-NIKAYA-AUDIT.md`](P12-027-INDONESIAN-NIKAYA-AUDIT.md).
+
+Current decision: keep Indonesian DN/MN/SN/AN gaps explicit. No machine translation, incomplete index, scraped mirror, or unlicensed republication is added. Ingest can proceed when a complete human translation is enumerated with per-page revision/checksum, translation provenance, and redistribution terms.

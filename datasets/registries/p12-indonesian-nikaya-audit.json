@@ -1,0 +1,20 @@
+{
+  "formatVersion": "1",
+  "task": "P12-027",
+  "policy": "Human-published Indonesian coverage only; no machine translation and no completeness inference from an index page.",
+  "disposition": "metadata_only_pending_complete_source",
+  "source": "id.wikisource.org Sutta Piṭaka portal and four Nikāya index pages",
+  "rights": "Portal and index pages display CC BY-SA licensing; individual text availability and provenance must be verified per page before bundling.",
+  "retrievedAt": "2026-08-27T00:00:00Z",
+  "collections": [
+    { "id": "dn", "title": "Dīgha Nikāya", "url": "https://id.wikisource.org/wiki/D%C4%ABgha_Nik%C4%81ya", "revision": 29894, "timestamp": "2012-01-09T11:18:59Z", "listedUnits": 34, "bundledUnits": 0, "status": "index_only" },
+    { "id": "mn", "title": "Majjhima Nikāya", "url": "https://id.wikisource.org/wiki/Majjhima_Nik%C4%81ya", "revision": 66484, "timestamp": "2021-02-02T07:18:07Z", "listedUnits": 152, "bundledUnits": 0, "status": "index_only" },
+    { "id": "sn", "title": "Saṃyutta Nikāya", "url": "https://id.wikisource.org/wiki/Sa%E1%B9%83yutta_Nik%C4%81ya", "revision": 29896, "timestamp": "2012-01-09T11:24:46Z", "listedBooks": 5, "bundledUnits": 0, "status": "index_only" },
+    { "id": "an", "title": "Aṅguttara Nikāya", "url": "https://id.wikisource.org/wiki/A%E1%B9%85guttara_Nik%C4%81ya", "revision": 29866, "timestamp": "2012-01-08T15:56:12Z", "listedBooks": 11, "bundledUnits": 0, "status": "index_only" }
+  ],
+  "openGaps": [
+    "No complete, page-level Indonesian translation snapshot was identified for all four Nikāyas.",
+    "Individual page authorship/translation provenance and per-page revision checksums are not yet assembled.",
+    "Index licensing does not by itself prove that every linked text is available or complete for redistribution."
+  ]
+}

@@ -170,7 +170,7 @@ For rationale, dependencies, acceptance criteria, and later phases, see [`docs/R
 P9–P11 are intentionally deferred while this data-first milestone is active. Exact sources, license evidence, and acceptance boundaries are documented in [`docs/DATASET_TARGETS.md`](docs/DATASET_TARGETS.md), with the required English/Indonesian policy in [`docs/TRANSLATION_TARGETS.md`](docs/TRANSLATION_TARGETS.md).
 
 - [x] Add a machine-readable coverage/completeness matrix for all real datasets. <!-- mw-todo:P12-001 -->
-- [ ] Re-verify the Quran Tanzil Uthmani baseline: 6,236 ayah, pinned source checksum, rights evidence, and source-preserving text. <!-- mw-todo:P12-002 -->
+- [x] Re-verify the Quran Tanzil Uthmani baseline: 6,236 ayah, pinned source checksum, rights evidence, and source-preserving text. <!-- mw-todo:P12-002 -->
 - [ ] Complete the Bhikkhu Sujato English Dhammapada from SuttaCentral Bilara `published@cf0dac3b59a3f9b1d4829acb311e303f1eb6bba6`. <!-- mw-todo:P12-003 -->
 - [ ] Audit the exact SuttaCentral Pali Dhammapada root edition/source and redistribution rights independently from translation licensing. <!-- mw-todo:P12-004 -->
 - [ ] Ingest the full Pali Dhammapada as a separate expression only if P12-004 permits bundling; otherwise record it as external/metadata-only. <!-- mw-todo:P12-005 -->

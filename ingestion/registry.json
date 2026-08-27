@@ -30,6 +30,11 @@
       "id": "mw:recipe:sblgnt:v1-2",
       "path": "ingestion/recipes/sblgnt-v1-2",
       "status": "active"
+    },
+    {
+      "id": "mw:recipe:web-classic:2020",
+      "path": "ingestion/recipes/web-classic-2020",
+      "status": "active"
     }
   ]
 }

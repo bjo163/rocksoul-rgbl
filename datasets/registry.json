@@ -42,6 +42,11 @@
       "status": "active"
     },
     {
+      "id": "mw:dataset:web-classic:2020",
+      "path": "datasets/web-classic-2020",
+      "status": "active"
+    },
+    {
       "id": "mw:dataset:quran:tanzil-uthmani",
       "path": "datasets/quran-tanzil-uthmani",
       "status": "active"

@@ -1,0 +1,14 @@
+{
+  "id": "mw:dataset:web-classic:2020",
+  "datasetVersion": "0.1.0",
+  "specVersion": "0.1",
+  "profiles": ["textual@0.1", "source@0.1"],
+  "partitions": [
+    { "recordType": "entity", "path": "data/core/entities/*.jsonl" },
+    { "recordType": "resource", "path": "data/core/resources/*.jsonl" },
+    { "recordType": "provenance", "path": "data/core/provenance/*.jsonl" }
+  ],
+  "sources": ["eBible.org World English Bible Classic 2020 stable text", "eng-web_vpl.zip SHA-256 2dee3ce71cd1e459bbad81c0195f0121690f5364c4b391c64282018106d60f53", "ingestion/recipes/web-classic-2020/source/source-manifest.json"],
+  "rights": "World English Bible Classic text is dedicated to the public domain; World English Bible is an eBible.org trademark, so modified text must not use the unchanged edition name.",
+  "availability": "bundled"
+}

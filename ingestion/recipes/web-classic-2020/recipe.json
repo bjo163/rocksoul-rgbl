@@ -1,0 +1,8 @@
+{
+  "id": "mw:recipe:web-classic:2020",
+  "version": "1.0.0",
+  "specVersion": "0.1",
+  "source": { "kind": "filesystem", "path": "source/source-manifest.json", "sha256": "638c0e870502c8a19d343ce13906cd2683081c13cb8aa3b45424606021f21349", "byte_size": 489, "media_type": "application/json" },
+  "implementation": { "module": "recipe.ts", "parserVersion": "ebible-vpl-1", "normalizerVersion": "identity-1", "mapperVersion": "1", "validatorVersion": "1" },
+  "output": { "path": "../../../dist/ingestion/web-classic-2020.jsonl" }
+}

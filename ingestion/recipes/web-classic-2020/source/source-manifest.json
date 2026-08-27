@@ -1,0 +1,15 @@
+{
+  "formatVersion": "1",
+  "upstream": {
+    "publisher": "eBible.org",
+    "edition": "World English Bible Classic 2020 stable text",
+    "url": "https://ebible.org/Scriptures/eng-web_vpl.zip",
+    "archiveSha256": "2dee3ce71cd1e459bbad81c0195f0121690f5364c4b391c64282018106d60f53",
+    "archiveByteSize": 5343520
+  },
+  "file": {
+    "path": "eng-web-vpl.txt",
+    "byteSize": 5309591,
+    "sha256": "9ca8d36eca0a3f8901a25b700da22349c8c8f05d4b379cce9b07bb4811a116c4"
+  }
+}

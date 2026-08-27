@@ -12,6 +12,22 @@
   },
   "datasets": [
     {
+      "datasetId": "mw:dataset:web-classic:2020",
+      "path": "datasets/web-classic-2020",
+      "workCollection": "Bible (WEB Classic ecumenical book set)",
+      "datasetRole": "translation",
+      "availability": "bundled",
+      "language": { "tag": "en", "script": "Latn", "coverageRole": "translation" },
+      "expression": { "label": "World English Bible Classic", "edition": "2020 stable text edition" },
+      "completeness": { "status": "complete", "unit": "reference slot", "covered": 38058, "expected": 38058, "scope": "Full eBible WEB Classic ecumenical VPL source set; includes 29 explicit empty slots" },
+      "sourceArtifact": { "revision": "eBible eng-web_vpl.zip, 2020 stable text edition", "path": "ingestion/recipes/web-classic-2020/source/source-manifest.json", "sha256": "638c0e870502c8a19d343ce13906cd2683081c13cb8aa3b45424606021f21349", "byteSize": 489 },
+      "rights": { "status": "verified_for_bundled_public_domain", "license": "Public Domain; World English Bible trademark notice", "evidence": "docs/P12-012-014-WEB-CLASSIC.md" },
+      "provenance": { "manifest": "datasets/web-classic-2020/manifest.json", "checksums": "datasets/web-classic-2020/CHECKSUMS.sha256", "recipe": "ingestion/recipes/web-classic-2020" },
+      "sourceLanguageCoverage": { "language": "multiple", "status": "separate_WLC_and_SBLGNT_datasets" },
+      "translationCoverage": { "en": "complete", "id": "missing" },
+      "alignmentCoverage": { "status": "not_started", "notes": "WEB↔WLC and WEB↔SBLGNT must model verse and book-set differences explicitly." }
+    },
+    {
       "datasetId": "mw:dataset:sblgnt:v1-2",
       "path": "datasets/sblgnt-v1-2",
       "workCollection": "New Testament",

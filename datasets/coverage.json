@@ -18,8 +18,8 @@
       "datasetRole": "registry", "availability": "bundled",
       "language": { "tag": "mul", "script": "Zyyy", "coverageRole": "metadata" },
       "expression": { "label": "Wikidata CC0 bounded baseline", "edition": "snapshot 2026-08-27" },
-      "completeness": { "status": "external", "unit": "entity/assertion", "covered": 146, "expected": null, "scope": "Non-exhaustive baseline; expansion is tracked by P13 coverage" },
-      "sourceArtifact": { "revision": "Wikidata entity lastrevid manifest 2026-08-27", "path": "datasets/registries/snapshots/wikidata/snapshot-manifest.json", "sha256": "e9e43842f28d93cb56b606c057aaebd2545f3f0218f6ddd304fa9ae598055793", "byteSize": 15682 },
+      "completeness": { "status": "external", "unit": "entity/assertion", "covered": 148, "expected": null, "scope": "Non-exhaustive baseline; expansion is tracked by P13 coverage" },
+      "sourceArtifact": { "revision": "Wikidata entity lastrevid manifest 2026-08-27", "path": "datasets/registries/snapshots/wikidata/snapshot-manifest.json", "sha256": "26790ea6d7239fc91db85de65563b92417cb20e2652141e01f0af0e7fad3d49d", "byteSize": 16438 },
       "rights": { "status": "verified_for_bundled_metadata_only", "license": "CC0-1.0", "evidence": "datasets/registries/snapshots/wikidata/README.md" },
       "provenance": { "manifest": "datasets/world-religions-baseline/manifest.json", "checksums": "datasets/world-religions-baseline/CHECKSUMS.sha256", "recipe": "scripts/materialize-p13-baseline.ts" },
       "translationCoverage": { "en": "baseline", "id": "baseline" },
@@ -198,6 +198,21 @@
         "status": "blocked_pending_source_language_rights_audit",
         "notes": "Pali↔English alignment must wait for the independent Pali root source/rights decision."
       }
+    },
+    {
+      "datasetId": "mw:dataset:world-religions:textual-evidence",
+      "path": "datasets/world-religions-textual-evidence",
+      "workCollection": "Scoped religious-person textual evidence",
+      "datasetRole": "registry",
+      "availability": "bundled",
+      "language": { "tag": "mul", "script": "Zyyy", "coverageRole": "metadata" },
+      "expression": { "label": "P13 person-role links to exact P12 passages", "edition": "deterministic reviewed links 2026-08-27" },
+      "completeness": { "status": "external", "unit": "assertion", "covered": 7, "expected": null, "scope": "Bounded evidence lane; not an exhaustive religious-person or scripture index" },
+      "sourceArtifact": { "revision": "local deterministic materializer", "path": "scripts/materialize-p13-textual-evidence.ts", "sha256": "5428d18df4aecdf59140651c74a7005f0f2cb5e663ba27faedc9cbbaedffba3e", "byteSize": 3425 },
+      "rights": { "status": "verified_for_bundled_metadata_only", "license": "Metadata links; dependency licenses govern source text", "evidence": "datasets/world-religions-textual-evidence/manifest.json" },
+      "provenance": { "manifest": "datasets/world-religions-textual-evidence/manifest.json", "checksums": "datasets/world-religions-textual-evidence/CHECKSUMS.sha256", "recipe": "scripts/materialize-p13-textual-evidence.ts" },
+      "translationCoverage": { "en": "metadata", "id": "metadata" },
+      "alignmentCoverage": { "status": "complete", "notes": "Seven scoped role assertions point to exact P12 content IDs across Quran, WLC, and SBLGNT." }
     },
     {
       "datasetId": "mw:dataset:quran:tanzil-uthmani",

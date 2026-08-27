@@ -1,0 +1,7 @@
+{
+  "formatVersion": "1",
+  "generatedBy": "scripts/materialize-p13-baseline.ts plus pinned Wikidata snapshot",
+  "policy": "Candidates are review inputs only; automatic merges and name-only equivalence are disabled.",
+  "candidates": [],
+  "reviewedExternalIds": ["Q302", "Q9458", "Q9077", "Q9181", "Q9441", "Q9422", "Q9333", "Q4604", "Q42891", "Q35811", "Q83322", "Q9200"]
+}

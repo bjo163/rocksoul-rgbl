@@ -1,0 +1,20 @@
+{
+  "id": "mw:dataset:world-religions:textual-evidence",
+  "datasetVersion": "0.1.0",
+  "specVersion": "0.1",
+  "profiles": [],
+  "partitions": [
+    { "recordType": "assertion", "path": "data/core/assertions/*.jsonl" },
+    { "recordType": "resource", "path": "data/core/resources/*.jsonl" },
+    { "recordType": "provenance", "path": "data/core/provenance/*.jsonl" }
+  ],
+  "dependencies": [
+    { "dataset": "mw:dataset:world-religions:baseline", "version": "0.1.0" },
+    { "dataset": "mw:dataset:quran:tanzil-uthmani", "version": "0.1.0" },
+    { "dataset": "mw:dataset:oshb:wlc", "version": "0.1.0" },
+    { "dataset": "mw:dataset:sblgnt:v1-2", "version": "0.1.0" }
+  ],
+  "sources": ["Pinned P12 passage IDs; no source text duplicated"],
+  "rights": "Metadata-only evidence links; source text remains governed by dependency dataset manifests.",
+  "availability": "bundled"
+}

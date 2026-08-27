@@ -239,7 +239,7 @@ P13 runs in parallel with P12. It builds an open-ended registry, not a final uni
 - [x] Geographical/place profile. <!-- mw-todo:P10-002 -->
 - [x] Bibliographic profile. <!-- mw-todo:P10-003 -->
 - [x] Manuscript/folio/line profile. <!-- mw-todo:P10-004 -->
-- [ ] IIIF artifact references. <!-- mw-todo:P10-005 -->
+- [x] IIIF artifact references. <!-- mw-todo:P10-005 -->
 - [ ] Media/audio/video selectors. <!-- mw-todo:P10-006 -->
 - [ ] Lineage/genealogy/transmission profile. <!-- mw-todo:P10-007 -->
 - [ ] Structured textual-variant apparatus. <!-- mw-todo:P10-008 -->

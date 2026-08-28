@@ -7,6 +7,7 @@ Pusat dokumentasi arsitektur, spesifikasi teknis, pedoman upstream ingestion, da
 ## 🗺️ Index & Navigation
 
 ### 1. 🌐 Upstream Ingestion & Data Architecture
+- [**Panduan Metode Ingestion (Upstream vs Recipe)**](./INGESTION_METHODS_GUIDE.md) — Penjelasan detail metode penarikan hulu vs resep kanonik.
 - [**Upstream Architecture & Policy**](./UPSTREAM_ARCHITECTURE.md) — Arsitektur streaming pagination, checksum pinning, dan registry hulu.
 - [**Upstream System Registry**](../config/upstream-registry.json) — Registry resmi URL endpoint, git remotes, dan lisensi 12 tradisi dunia.
 - [**Dataset Target & Coverage**](./DATASET_TARGETS.md) — Matriks target kitab suci, hadits, tafsir, dan korpus filosofis.
@@ -39,6 +40,22 @@ Pusat dokumentasi arsitektur, spesifikasi teknis, pedoman upstream ingestion, da
 - [**Lexicon Coverage & Bridges**](./P15-COVERAGE-REPORT.md) — Kamus bahasa suci: Arab, Ibrani, Yunani Koine, Sanskerta, Pali.
 - [**Intertextual Evidence Graph**](./INTERTEXTUAL_EVIDENCE_GRAPH_TARGETS.md) — Relasi paralel dan alignment antar tradisi.
 - [**Terminology Review Workflow**](./P15-TERMINOLOGY-REVIEW-WORKFLOW.json) — Tata kelola istilah, desensitisasi, dan tinjauan penerjemahan.
+
+### 5. 🏛️ Architecture Decision Records (ADRs) & Reviews
+- [**ADR-0001: Canonical JSON & JSONL**](./decisions/ADR-0001-canonical-json-jsonl.md) — Format kanonik immutable korpus.
+- [**ADR-0002: Disposable Indexes & No Database Truth**](./decisions/ADR-0002-no-canonical-database.md) — Database sebagai proyeksi turunan, bukan kebenaran mutlak.
+- [**ADR-0003: Assertions Not Global Facts**](./decisions/ADR-0003-assertions-not-global-facts.md) — Pemisahan klaim kontekstual dari kebenaran universal.
+- [**ADR-0004: Engine Policy Outside Corpus**](./decisions/ADR-0004-engine-policy-outside-corpus.md) — Isolasi aturan engine dari data naskah suci.
+- [**ADR-0005: Modular Fastify 5 REST Engine**](./decisions/ADR-0005-fastify-api-engine.md) — Transisi ke Fastify untuk startup instan dan kueri < 1ms.
+- [**ADR-0006: Universal Upstream Registry & Recipes**](./decisions/ADR-0006-universal-upstream-registry.md) — Registry sumber resmi dan resep ingestion.
+- [**ADR-0007: OpenTelemetry Distributed Tracing**](./decisions/ADR-0007-opentelemetry-w3c-tracing.md) — Integrasi W3C tracing dan metrik Prometheus.
+- [**P5 Universality Review**](./reviews/P5-universality-review.md) — Tinjauan universalitas teks lintas tradisi awal.
+- [**P16-P17 Multi-Tradition Review**](./reviews/P16-P17-multi-tradition-review.md) — Tinjauan hak cipta dan integritas 12 tradisi dunia.
+
+### 6. 🤖 Automation, CI/CD & Auto-Sync
+- [**Continuous Integration (`ci.yml`)**](../.github/workflows/ci.yml) — Validasi, pengujian unit, dan *smoke test* Fastify API runtime.
+- [**Upstream Auto-Sync Cron (`upstream-sync.yml`)**](../.github/workflows/upstream-sync.yml) — Sinkronisasi mingguan data hulu otomatis.
+- [**TODO & Issues Sync (`todo-issues-sync.yml`)**](../.github/workflows/todo-issues-sync.yml) — Sinkronisasi dwiarah TODO.md dengan GitHub Issues.
 
 ---
 

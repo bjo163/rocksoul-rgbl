@@ -1,0 +1,54 @@
+name: Upstream Auto-Sync & Health Audit
+
+on:
+  schedule:
+    # Run every Sunday at midnight UTC
+    - cron: '0 0 * * 0'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - run: corepack enable
+      - run: pnpm install --no-frozen-lockfile
+
+      - name: Audit Upstream API Connectivity & Latency
+        run: pnpm upstream:audit
+        env:
+          UMMAH_API_KEY: ${{ secrets.UMMAH_API_KEY }}
+
+      - name: Synchronize All Upstream Sacred Text Sources
+        run: pnpm sync:all
+        env:
+          UMMAH_API_KEY: ${{ secrets.UMMAH_API_KEY }}
+
+      - name: Rebuild & Validate Master Corpus Pipeline
+        run: pnpm check
+
+      - name: Check for upstream updates & commit
+        shell: bash
+        run: |
+          if git diff --quiet; then
+            echo "No upstream source updates detected. Everything is up to date."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add ingestion/recipes/ datasets/ dist/
+          git commit -m "chore(upstream): auto-sync latest scriptures and recipes from official hulu sources"
+          git push origin main

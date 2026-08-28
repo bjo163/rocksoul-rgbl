@@ -34,6 +34,8 @@
     { "id": "etana-dl", "name": "Electronic Tools and Ancient Near Eastern Archives (ETANA)", "sourceType": "academic_archive", "authorityLevel": "academic", "officiality": "institutional", "homepage": "http://www.etana.org" },
     { "id": "gutenberg-lit", "name": "Project Gutenberg Classical Digital Editions", "sourceType": "open_data_repository", "authorityLevel": "community", "officiality": "open_data", "homepage": "https://www.gutenberg.org" },
     { "id": "univ-penn-museum", "name": "University of Pennsylvania Museum Digital Collections", "sourceType": "academic_archive", "authorityLevel": "academic", "officiality": "institutional", "homepage": "https://www.penn.museum" },
-    { "id": "indigenous-americas-digital", "name": "Indigenous Americas Digital Text Collection", "sourceType": "academic_archive", "authorityLevel": "institutional", "officiality": "academic", "homepage": "https://indigenous.lib.utexas.edu" }
+    { "id": "indigenous-americas-digital", "name": "Indigenous Americas Digital Text Collection", "sourceType": "academic_archive", "authorityLevel": "institutional", "officiality": "academic", "homepage": "https://indigenous.lib.utexas.edu" },
+    { "id": "celt-ucc-ie", "name": "CELT Corpus of Electronic Texts (University College Cork)", "sourceType": "academic_archive", "authorityLevel": "academic", "officiality": "institutional", "homepage": "https://celt.ucc.ie" },
+    { "id": "turfan-bbaw", "name": "Berlin-Brandenburg Academy of Sciences Turfan Digital Archive", "sourceType": "academic_archive", "authorityLevel": "academic", "officiality": "institutional", "homepage": "http://turfan.bbaw.de" }
   ]
 }

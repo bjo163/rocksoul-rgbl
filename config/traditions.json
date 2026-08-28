@@ -338,6 +338,94 @@
       "primaryLanguage": "gu",
       "scripts": ["Gujr", "Deva", "Latn"],
       "classification": ["dharmic_tradition", "vaishnava_vedanta"]
+    },
+    {
+      "id": "alevi-bektashi",
+      "name": "Alevism and Bektashi Tradition",
+      "family": "abrahimic_mystical",
+      "primaryLanguage": "ota",
+      "scripts": ["Arab", "Latn"],
+      "classification": ["mystical_islamic", "anatolian_tradition", "tasawwuf_corpus"]
+    },
+    {
+      "id": "alawite-tradition",
+      "name": "Alawite Tradition (Nusayrism)",
+      "family": "abrahimic_mystical",
+      "primaryLanguage": "ar",
+      "scripts": ["Arab", "Latn"],
+      "classification": ["esoteric_islamic", "syrian_tradition", "gnostic_shia"]
+    },
+    {
+      "id": "sogdian-tradition",
+      "name": "Sogdian Religious & Textual Tradition",
+      "family": "central_asian",
+      "primaryLanguage": "sog",
+      "scripts": ["Sogd", "Mani", "Latn"],
+      "classification": ["silk_road_historical", "iranian_central_asian", "multilingual_manuscripts"]
+    },
+    {
+      "id": "ravidassia",
+      "name": "Ravidassia Dharm",
+      "family": "dharmic",
+      "primaryLanguage": "pa",
+      "scripts": ["Guru", "Deva", "Latn"],
+      "classification": ["dharmic_tradition", "bhakti_movement", "sant_parampara"]
+    },
+    {
+      "id": "kabir-panth",
+      "name": "Kabir Panth Tradition",
+      "family": "dharmic",
+      "primaryLanguage": "hi",
+      "scripts": ["Deva", "Latn"],
+      "classification": ["dharmic_tradition", "nirguna_bhakti", "sant_mat"]
+    },
+    {
+      "id": "ayyavazhi",
+      "name": "Ayyavazhi Tradition",
+      "family": "dharmic",
+      "primaryLanguage": "ta",
+      "scripts": ["Taml", "Latn"],
+      "classification": ["dharmic_tradition", "monotheistic_hindu_reform", "tamil_sacred_corpus"]
+    },
+    {
+      "id": "ryukyuan-tradition",
+      "name": "Ryukyuan Indigenous Religion",
+      "family": "east_asian",
+      "primaryLanguage": "ryu",
+      "scripts": ["Jpan", "Latn"],
+      "classification": ["east_asian_indigenous", "animism_ancestor_worship", "omoro_chant_tradition"]
+    },
+    {
+      "id": "dogon-tradition",
+      "name": "Dogon Traditional Cosmogony",
+      "family": "west_african",
+      "primaryLanguage": "dgo",
+      "scripts": ["Latn"],
+      "classification": ["west_african_traditional", "sacred_cosmogony", "nommo_mythos"]
+    },
+    {
+      "id": "haudenosaunee-tradition",
+      "name": "Haudenosaunee (Iroquois) Sacred Tradition",
+      "family": "indigenous_americas",
+      "primaryLanguage": "moh",
+      "scripts": ["Latn"],
+      "classification": ["indigenous_americas", "longhouse_religion", "sacred_wampum_covenants"]
+    },
+    {
+      "id": "ugaritic-religion",
+      "name": "Ugaritic Canaanite Religion",
+      "family": "ancient_near_eastern",
+      "primaryLanguage": "uga",
+      "scripts": ["Ugar", "Latn"],
+      "classification": ["ancient_near_eastern", "canaanite_bronze_age", "ras_shamra_tablets"]
+    },
+    {
+      "id": "celtic-religion",
+      "name": "Celtic Sacred & Mythological Tradition",
+      "family": "european_historical",
+      "primaryLanguage": "sga",
+      "scripts": ["Latn", "Ogam"],
+      "classification": ["european_historical", "insular_celtic", "mythological_cycles"]
     }
   ]
 }

@@ -471,6 +471,111 @@
     { "id": "satsangi-jeevan-en-baps", "workId": "satsangi-jeevan", "name": "Satsangi Jeevan English Translation (BAPS Sanstha)", "editionType": "official_publication", "language": "en", "script": "Latn", "translationOf": "satsangi-jeevan" },
 
     { "id": "huehuetlatolli-nahuatl-ed", "workId": "huehuetlatolli", "name": "Huehuetlatolli Classical Nahuatl Text", "editionType": "original_script", "language": "nah", "script": "Latn" },
-    { "id": "huehuetlatolli-en-leon-portilla", "workId": "huehuetlatolli", "name": "Huehuetlatolli: Ancient Word of the Nahuas English (Miguel León-Portilla)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "huehuetlatolli" }
+    { "id": "huehuetlatolli-en-leon-portilla", "workId": "huehuetlatolli", "name": "Huehuetlatolli: Ancient Word of the Nahuas English (Miguel León-Portilla)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "huehuetlatolli" },
+
+    { "id": "buyruk-ottoman-ed", "workId": "buyruk-imam-jafar", "name": "Buyruk-i Imam Ja'far al-Sadiq Ottoman Edition", "editionType": "original_script", "language": "ota", "script": "Arab" },
+    { "id": "buyruk-turkish-en", "workId": "buyruk-imam-jafar", "name": "The Buyruk of Imam Ja'far English Translation", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "buyruk-imam-jafar" },
+
+    { "id": "divan-khatai-azeri-ed", "workId": "divan-i-khatai", "name": "Divan-i Khatai Classical Azeri-Turkish Edition", "editionType": "original_script", "language": "ota", "script": "Arab" },
+    { "id": "divan-khatai-en", "workId": "divan-i-khatai", "name": "Divan of Khatai Sacred Poems English Translation", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "divan-i-khatai" },
+
+    { "id": "makalat-bektash-turkish-ed", "workId": "makalat-haji-bektash", "name": "Makalat of Haji Bektash Veli Turkish Edition", "editionType": "original_script", "language": "tr", "script": "Latn" },
+    { "id": "makalat-bektash-en", "workId": "makalat-haji-bektash", "name": "Makalat: The Four Gateways and Forty Stations English", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "makalat-haji-bektash" },
+
+    { "id": "kitab-al-majmu-arabic-ed", "workId": "kitab-al-majmu", "name": "Kitab al-Majmu Arabic Classical Text", "editionType": "original_script", "language": "ar", "script": "Arab" },
+    { "id": "kitab-al-majmu-en-dus", "workId": "kitab-al-majmu", "name": "Kitab al-Majmu English Translation (Rene Dussaud)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "kitab-al-majmu" },
+
+    { "id": "kitab-haft-arabic-ed", "workId": "kitab-al-haft-al-sharif", "name": "Kitab al-Haft wa al-Azilla Arabic Edition", "editionType": "original_script", "language": "ar", "script": "Arab" },
+    { "id": "kitab-haft-en", "workId": "kitab-al-haft-al-sharif", "name": "The Book of the Seven and the Shadows English", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "kitab-al-haft-al-sharif" },
+
+    { "id": "vessantara-sogdian-ed", "workId": "vessantara-jataka-sogdian", "name": "Sogdian Vessantara Jataka Manuscript Edition", "editionType": "original_script", "language": "sog", "script": "Sogd" },
+    { "id": "vessantara-sogdian-en-gauthiot", "workId": "vessantara-jataka-sogdian", "name": "The Sogdian Vessantara Jataka English Translation (Robert Gauthiot)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "vessantara-jataka-sogdian" },
+
+    { "id": "sogdian-letters-ed", "workId": "sogdian-ancient-letters", "name": "Sogdian Ancient Letters Dunhuang Edition", "editionType": "critical_edition", "language": "sog", "script": "Sogd" },
+    { "id": "sogdian-letters-en-sims-williams", "workId": "sogdian-ancient-letters", "name": "Sogdian Ancient Letters English Translation (Nicholas Sims-Williams)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "sogdian-ancient-letters" },
+
+    { "id": "amritbani-ravidass-gurmukhi-ed", "workId": "amritbani-guru-ravidass", "name": "Amritbani Satguru Ravidass Maharaj Ji Gurmukhi Edition", "editionType": "original_script", "language": "pa", "script": "Guru" },
+    { "id": "amritbani-ravidass-en", "workId": "amritbani-guru-ravidass", "name": "Amritbani Guru Ravidass Ji English Translation", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "amritbani-guru-ravidass" },
+
+    { "id": "bijak-kabir-hindi-ed", "workId": "bijak-of-kabir", "name": "The Bijak of Kabir Eastern Hindi Edition", "editionType": "original_script", "language": "hi", "script": "Deva" },
+    { "id": "bijak-kabir-en-hess", "workId": "bijak-of-kabir", "name": "The Bijak of Kabir English Translation (Linda Hess & Shukdev Singh)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "bijak-of-kabir" },
+
+    { "id": "anurag-sagar-hindi-ed", "workId": "anurag-sagar", "name": "Anurag Sagar Hindi Sacred Edition", "editionType": "original_script", "language": "hi", "script": "Deva" },
+    { "id": "anurag-sagar-en", "workId": "anurag-sagar", "name": "Anurag Sagar (Ocean of Love) English Translation", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "anurag-sagar" },
+
+    { "id": "kabir-sakhi-hindi-ed", "workId": "kabir-sakhi-granth", "name": "Kabir Sakhi Granth Hindi Classical Edition", "editionType": "original_script", "language": "hi", "script": "Deva" },
+    { "id": "kabir-sakhi-en", "workId": "kabir-sakhi-granth", "name": "The Sacred Sakhis of Kabir English Translation", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "kabir-sakhi-granth" },
+
+    { "id": "akilathirattu-tamil-ed", "workId": "akilathirattu-ammanai", "name": "Akilathirattu Ammanai Palm Leaf Tamil Edition", "editionType": "original_script", "language": "ta", "script": "Taml" },
+    { "id": "akilathirattu-en", "workId": "akilathirattu-ammanai", "name": "Akilathirattu Ammanai English Translation", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "akilathirattu-ammanai" },
+
+    { "id": "arul-nool-tamil-ed", "workId": "arul-nool", "name": "Arul Nool Tamil Canonical Edition", "editionType": "original_script", "language": "ta", "script": "Taml" },
+    { "id": "arul-nool-en", "workId": "arul-nool", "name": "Arul Nool (The Book of Grace) English Translation", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "arul-nool" },
+
+    { "id": "omoro-soshi-ryukyuan-ed", "workId": "omoro-soshi", "name": "Omoro Sōshi Classical Ryukyuan Edition", "editionType": "original_script", "language": "ryu", "script": "Jpan" },
+    { "id": "omoro-soshi-en-sakihara", "workId": "omoro-soshi", "name": "Omoro Sōshi: Ancient Songs of Ryukyu English (Mitsugu Sakihara)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "omoro-soshi" },
+
+    { "id": "pale-fox-dogon-ed", "workId": "pale-fox-nommo-cosmogony", "name": "The Pale Fox Dogon Oral Recitation Records", "editionType": "original_script", "language": "dgo", "script": "Latn" },
+    { "id": "pale-fox-en-griaule", "workId": "pale-fox-nommo-cosmogony", "name": "The Pale Fox: Dogon Cosmogony English (Marcel Griaule & Germaine Dieterlen)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "pale-fox-nommo-cosmogony" },
+
+    { "id": "great-law-haudenosaunee-ed", "workId": "great-law-of-peace", "name": "Gayanashagowa Mohawk & Onondaga Recitation Edition", "editionType": "canonical_sacred", "language": "moh", "script": "Latn" },
+    { "id": "great-law-peace-en-parker", "workId": "great-law-of-peace", "name": "The Constitution of the Five Nations English (Arthur C. Parker)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "great-law-of-peace" },
+
+    { "id": "handsome-lake-seneca-ed", "workId": "code-of-handsome-lake", "name": "Gaiwiio Seneca Sacred Recitation Edition", "editionType": "original_script", "language": "moh", "script": "Latn" },
+    { "id": "handsome-lake-en-parker", "workId": "code-of-handsome-lake", "name": "The Code of Handsome Lake English Translation (Arthur C. Parker)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "code-of-handsome-lake" },
+
+    { "id": "iroquois-cosmogony-ed", "workId": "iroquois-creation-story", "name": "Iroquois Sacred Cosmogony Text", "editionType": "original_script", "language": "moh", "script": "Latn" },
+    { "id": "iroquois-cosmogony-en-hewitt", "workId": "iroquois-creation-story", "name": "Iroquoian Cosmology English Translation (J.N.B. Hewitt)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "iroquois-creation-story" },
+
+    { "id": "baal-cycle-cuneiform-ed", "workId": "baal-cycle-ugaritic", "name": "The Baal Cycle Ugaritic Alphabetic Cuneiform Edition", "editionType": "original_script", "language": "uga", "script": "Ugar" },
+    { "id": "baal-cycle-en-smith", "workId": "baal-cycle-ugaritic", "name": "The Ugaritic Baal Cycle English Translation (Mark S. Smith)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "baal-cycle-ugaritic" },
+
+    { "id": "kirta-ugaritic-ed", "workId": "epic-of-kirta", "name": "The Epic of Kirta Ugaritic Cuneiform Edition", "editionType": "original_script", "language": "uga", "script": "Ugar" },
+    { "id": "kirta-epic-en-pardee", "workId": "epic-of-kirta", "name": "The Epic of Kirta English Translation (Dennis Pardee)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "epic-of-kirta" },
+
+    { "id": "aqhat-ugaritic-ed", "workId": "tale-of-aqhat", "name": "The Tale of Aqhat Ugaritic Cuneiform Edition", "editionType": "original_script", "language": "uga", "script": "Ugar" },
+    { "id": "aqhat-epic-en-wright", "workId": "tale-of-aqhat", "name": "The Tale of Aqhat English Translation (David P. Wright)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "tale-of-aqhat" },
+
+    { "id": "lebor-gabala-old-irish-ed", "workId": "lebor-gabala-erenn", "name": "Lebor Gabála Érenn Old Irish Critical Edition", "editionType": "original_script", "language": "sga", "script": "Latn" },
+    { "id": "lebor-gabala-en-macalister", "workId": "lebor-gabala-erenn", "name": "Lebor Gabála Érenn English Translation (R.A.S. Macalister)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "lebor-gabala-erenn" },
+
+    { "id": "mabinogion-middle-welsh-ed", "workId": "mabinogion-sacred-tales", "name": "The Mabinogion Middle Welsh Edition (White Book of Rhydderch)", "editionType": "original_script", "language": "cy", "script": "Latn" },
+    { "id": "mabinogion-en-guest", "workId": "mabinogion-sacred-tales", "name": "The Mabinogion English Translation (Lady Charlotte Guest)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "mabinogion-sacred-tales" },
+
+    { "id": "cath-maige-old-irish-ed", "workId": "cath-maige-tuired", "name": "Cath Maige Tuired Old Irish Edition", "editionType": "original_script", "language": "sga", "script": "Latn" },
+    { "id": "cath-maige-en-gray", "workId": "cath-maige-tuired", "name": "The Second Battle of Mag Tuired English Translation (Elizabeth A. Gray)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "cath-maige-tuired" },
+
+    { "id": "book-of-bee-syriac-ed", "workId": "book-of-the-bee", "name": "The Book of the Bee Syriac Edition", "editionType": "original_script", "language": "syr", "script": "Syrc" },
+    { "id": "book-of-bee-en-budge", "workId": "book-of-the-bee", "name": "The Book of the Bee English Translation (E.A. Wallis Budge)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "book-of-the-bee" },
+
+    { "id": "mezegebe-haymanot-geez-ed", "workId": "mezegebe-haymanot", "name": "Mezegebe Haymanot Ge'ez Canonical Edition", "editionType": "original_script", "language": "gez", "script": "Ethi" },
+    { "id": "mezegebe-haymanot-en", "workId": "mezegebe-haymanot", "name": "Mezegebe Haymanot English Translation", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "mezegebe-haymanot" },
+
+    { "id": "amduat-hieroglyphic-ed", "workId": "amduat-book-of-the-netherworld", "name": "The Book of the Amduat Egyptian Hieroglyphic Edition", "editionType": "original_script", "language": "egy", "script": "Egyp" },
+    { "id": "amduat-en-budge", "workId": "amduat-book-of-the-netherworld", "name": "The Egyptian Book of Am-Tuat English Translation (E.A. Wallis Budge)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "amduat-book-of-the-netherworld" },
+
+    { "id": "lugalbanda-cuneiform-ed", "workId": "lugalbanda-epic", "name": "Lugalbanda in the Mountain Cave Sumerian Cuneiform Text", "editionType": "original_script", "language": "sux", "script": "Xsux" },
+    { "id": "lugalbanda-en-black", "workId": "lugalbanda-epic", "name": "The Epic of Lugalbanda English Translation (ETCSL Jeremy Black)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "lugalbanda-epic" },
+
+    { "id": "cicero-de-natura-deorum-latin-ed", "workId": "cicero-de-natura-deorum", "name": "De Natura Deorum Latin Critical Edition", "editionType": "original_script", "language": "la", "script": "Latn" },
+    { "id": "cicero-de-natura-deorum-en", "workId": "cicero-de-natura-deorum", "name": "On the Nature of the Gods English Translation (Francis Brooks)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "cicero-de-natura-deorum" },
+
+    { "id": "lokasenna-old-norse-ed", "workId": "lokasenna", "name": "Lokasenna Old Norse Eddic Edition", "editionType": "original_script", "language": "non", "script": "Latn" },
+    { "id": "lokasenna-en-bellows", "workId": "lokasenna", "name": "Lokasenna: The Flyting of Loki English (Henry Adams Bellows)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "lokasenna" },
+
+    { "id": "memorial-solola-cakchiquel-ed", "workId": "memorial-de-solola", "name": "Memorial de Sololá Cakchiquel Sacred Manuscript Edition", "editionType": "original_script", "language": "myn", "script": "Latn" },
+    { "id": "memorial-solola-en-brinton", "workId": "memorial-de-solola", "name": "The Annals of the Cakchiquels English (Daniel G. Brinton)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "memorial-de-solola" },
+
+    { "id": "historia-tolteca-nahuatl-ed", "workId": "historia-tolteca-chichimeca", "name": "Historia Tolteca-Chichimeca Classical Nahuatl Edition", "editionType": "original_script", "language": "nah", "script": "Latn" },
+    { "id": "historia-tolteca-en-kirchhoff", "workId": "historia-tolteca-chichimeca", "name": "Historia Tolteca-Chichimeca English/Spanish Scholarly Edition", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "historia-tolteca-chichimeca" },
+
+    { "id": "avila-dioses-quechua-ed", "workId": "dioses-y-hombres-huarochiri", "name": "Dioses y Hombres de Huarochirí Quechua Edition", "editionType": "original_script", "language": "que", "script": "Latn" },
+    { "id": "avila-dioses-en", "workId": "dioses-y-hombres-huarochiri", "name": "Dioses y Hombres de Huarochirí English (Arguedas & Salomon)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "dioses-y-hombres-huarochiri" },
+
+    { "id": "channabasava-kannada-ed", "workId": "channabasaveshwara-vachanas", "name": "Vachanas of Channabasaveshwara Kannada Edition", "editionType": "original_script", "language": "kn", "script": "Knda" },
+    { "id": "channabasava-en", "workId": "channabasaveshwara-vachanas", "name": "Vachanas of Channabasavanna English Translation", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "channabasaveshwara-vachanas" },
+
+    { "id": "bhaktachintamani-gujarati-ed", "workId": "bhaktachintamani", "name": "Bhaktachintamani Gujarati Sacred Edition", "editionType": "original_script", "language": "gu", "script": "Gujr" },
+    { "id": "bhaktachintamani-en", "workId": "bhaktachintamani", "name": "Bhaktachintamani English Translation", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "bhaktachintamani" }
   ]
 }

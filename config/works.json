@@ -169,6 +169,53 @@
     { "id": "rabinal-achi", "traditionId": "mayan-religion", "name": "Rabinal Achí (Maya Sacred Dance-Drama)", "workType": "sacred_drama", "canonicalStatus": "sacred_oral_corpus", "structure": { "levels": ["act", "scene"] } },
     { "id": "sunyasampadane", "traditionId": "lingayatism", "name": "Sunyasampadane (The Theological Vachana Dialogues)", "workType": "theological_dialogue", "canonicalStatus": "primary_scripture", "structure": { "levels": ["upadesha", "vachana"] } },
     { "id": "satsangi-jeevan", "traditionId": "swaminarayan", "name": "Satsangi Jeevan", "workType": "scripture", "canonicalStatus": "primary_scripture", "structure": { "levels": ["prakarana", "adhyaya", "sloka"] } },
-    { "id": "huehuetlatolli", "traditionId": "nahua-aztec", "name": "Huehuetlatolli (Ancient Nahuatl Wisdom of the Elders)", "workType": "wisdom_aphorisms", "canonicalStatus": "sacred_oral_corpus", "structure": { "levels": ["discourse"] } }
+    { "id": "huehuetlatolli", "traditionId": "nahua-aztec", "name": "Huehuetlatolli (Ancient Nahuatl Wisdom of the Elders)", "workType": "wisdom_aphorisms", "canonicalStatus": "sacred_oral_corpus", "structure": { "levels": ["discourse"] } },
+
+    { "id": "buyruk-imam-jafar", "traditionId": "alevi-bektashi", "name": "Buyruk of Imam Ja'far al-Sadiq", "workType": "canonical_corpus", "canonicalStatus": "canonical", "structure": { "levels": ["bab", "fasl"] } },
+    { "id": "divan-i-khatai", "traditionId": "alevi-bektashi", "name": "Divan-i Khatai (Sacred Poems of Shah Ismail)", "workType": "sacred_literature", "canonicalStatus": "liturgical", "structure": { "levels": ["poem", "couplet"] } },
+    { "id": "makalat-haji-bektash", "traditionId": "alevi-bektashi", "name": "Makalat of Haji Bektash Veli (The Four Gateways)", "workType": "philosophical_text", "canonicalStatus": "recognized_scripture", "structure": { "levels": ["gateway", "station"] } },
+
+    { "id": "kitab-al-majmu", "traditionId": "alawite-tradition", "name": "Kitab al-Majmu (The Alawite Sacred Book)", "workType": "sacred_literature", "canonicalStatus": "canonical", "structure": { "levels": ["surah", "verse"] } },
+    { "id": "kitab-al-haft-al-sharif", "traditionId": "alawite-tradition", "name": "Kitab al-Haft wa al-Azilla (The Book of Seven and Shadows)", "workType": "esoteric_tradition", "canonicalStatus": "recognized_scripture", "structure": { "levels": ["chapter", "section"] } },
+
+    { "id": "vessantara-jataka-sogdian", "traditionId": "sogdian-tradition", "name": "The Sogdian Vessantara Jātaka Manuscript", "workType": "sacred_literature", "canonicalStatus": "historical_religious_corpus", "structure": { "levels": ["folio", "line"] } },
+    { "id": "sogdian-ancient-letters", "traditionId": "sogdian-tradition", "name": "Sogdian Ancient Letters & Sacred Inscriptions", "workType": "historical_religious_corpus", "canonicalStatus": "historical", "structure": { "levels": ["letter", "line"] } },
+
+    { "id": "amritbani-guru-ravidass", "traditionId": "ravidassia", "name": "Amritbani Guru Ravidass Ji", "workType": "scripture", "canonicalStatus": "canonical", "structure": { "levels": ["bani", "pada", "line"] } },
+
+    { "id": "bijak-of-kabir", "traditionId": "kabir-panth", "name": "The Bijak of Kabir", "workType": "scripture", "canonicalStatus": "canonical", "structure": { "levels": ["section", "ramaini", "sakhi"] } },
+    { "id": "anurag-sagar", "traditionId": "kabir-panth", "name": "Anurag Sagar (Ocean of Love)", "workType": "sacred_literature", "canonicalStatus": "recognized_scripture", "structure": { "levels": ["adhyaya", "chaupai"] } },
+    { "id": "kabir-sakhi-granth", "traditionId": "kabir-panth", "name": "Kabir Sakhi Granth (Sacred Aphorisms)", "workType": "wisdom_aphorisms", "canonicalStatus": "sacred_literature", "structure": { "levels": ["sakhi"] } },
+
+    { "id": "akilathirattu-ammanai", "traditionId": "ayyavazhi", "name": "Akilathirattu Ammanai (The Universal History)", "workType": "scripture", "canonicalStatus": "canonical", "structure": { "levels": ["part", "yuga", "stanza"] } },
+    { "id": "arul-nool", "traditionId": "ayyavazhi", "name": "Arul Nool (The Book of Grace)", "workType": "sacred_literature", "canonicalStatus": "recognized_scripture", "structure": { "levels": ["section", "verse"] } },
+
+    { "id": "omoro-soshi", "traditionId": "ryukyuan-tradition", "name": "Omoro Sōshi (Ancient Sacred Poems of Ryukyu)", "workType": "liturgical_corpus", "canonicalStatus": "canonical_corpus", "structure": { "levels": ["volume", "omoro"] } },
+
+    { "id": "pale-fox-nommo-cosmogony", "traditionId": "dogon-tradition", "name": "The Pale Fox Nommo Cosmogony (Le Renard Pâle)", "workType": "oral_corpus", "canonicalStatus": "sacred_oral", "structure": { "levels": ["cycle", "mythos"] } },
+
+    { "id": "great-law-of-peace", "traditionId": "haudenosaunee-tradition", "name": "Gayanashagowa (The Great Law of Peace)", "workType": "canonical_corpus", "canonicalStatus": "canonical", "structure": { "levels": ["wampum", "clause"] } },
+    { "id": "code-of-handsome-lake", "traditionId": "haudenosaunee-tradition", "name": "Gaiwiio (The Code of Handsome Lake)", "workType": "sacred_literature", "canonicalStatus": "recognized_scripture", "structure": { "levels": ["section"] } },
+    { "id": "iroquois-creation-story", "traditionId": "haudenosaunee-tradition", "name": "Haudenosaunee Cosmogony & Sky Woman Story", "workType": "oral_corpus", "canonicalStatus": "sacred_oral", "structure": { "levels": ["episode"] } },
+
+    { "id": "baal-cycle-ugaritic", "traditionId": "ugaritic-religion", "name": "The Ugaritic Baal Cycle (KTU 1.1-1.6)", "workType": "historical_religious_corpus", "canonicalStatus": "canonical", "structure": { "levels": ["tablet", "column", "line"] } },
+    { "id": "epic-of-kirta", "traditionId": "ugaritic-religion", "name": "The Epic of Kirta (KTU 1.14-1.16)", "workType": "historical_religious_corpus", "canonicalStatus": "historical_sacred", "structure": { "levels": ["tablet", "column", "line"] } },
+    { "id": "tale-of-aqhat", "traditionId": "ugaritic-religion", "name": "The Tale of Aqhat (KTU 1.17-1.19)", "workType": "historical_religious_corpus", "canonicalStatus": "historical_sacred", "structure": { "levels": ["tablet", "column", "line"] } },
+
+    { "id": "lebor-gabala-erenn", "traditionId": "celtic-religion", "name": "Lebor Gabála Érenn (The Book of Invasions)", "workType": "historical_religious_corpus", "canonicalStatus": "historical_sacred", "structure": { "levels": ["part", "paragraph"] } },
+    { "id": "mabinogion-sacred-tales", "traditionId": "celtic-religion", "name": "The Four Branches of the Mabinogi", "workType": "sacred_literature", "canonicalStatus": "historical_sacred", "structure": { "levels": ["branch", "section"] } },
+    { "id": "cath-maige-tuired", "traditionId": "celtic-religion", "name": "Cath Maige Tuired (The Battle of Mag Tuired)", "workType": "historical_religious_corpus", "canonicalStatus": "historical_sacred", "structure": { "levels": ["paragraph"] } },
+
+    { "id": "book-of-the-bee", "traditionId": "syriac-christianity", "name": "The Book of the Bee (Solomon of Akhlat)", "workType": "sacred_chronicle", "canonicalStatus": "historical_sacred", "structure": { "levels": ["chapter"] } },
+    { "id": "mezegebe-haymanot", "traditionId": "ethiopian-orthodox", "name": "Mezegebe Haymanot (Treasury of the Faith)", "workType": "theological_treatise", "canonicalStatus": "canonical_ecclesiastical", "structure": { "levels": ["section"] } },
+    { "id": "amduat-book-of-the-netherworld", "traditionId": "ancient-egyptian", "name": "The Book of the Amduat (Treatise of the Hidden Room)", "workType": "sacred_literature", "canonicalStatus": "historical_sacred", "structure": { "levels": ["hour", "scene"] } },
+    { "id": "lugalbanda-epic", "traditionId": "mesopotamian", "name": "The Epic of Lugalbanda in the Mountain Cave", "workType": "mythological_epic", "canonicalStatus": "historical_sacred", "structure": { "levels": ["line"] } },
+    { "id": "cicero-de-natura-deorum", "traditionId": "greco-roman-paganism", "name": "Cicero: De Natura Deorum (On the Nature of the Gods)", "workType": "philosophical_treatise", "canonicalStatus": "historical_sacred", "structure": { "levels": ["book", "section"] } },
+    { "id": "lokasenna", "traditionId": "norse-germanic", "name": "Lokasenna (The Flyting of Loki)", "workType": "mythological_poetry", "canonicalStatus": "historical_sacred", "structure": { "levels": ["stanza"] } },
+    { "id": "memorial-de-solola", "traditionId": "mayan-religion", "name": "Memorial de Sololá (Annals of the Cakchiquels)", "workType": "sacred_chronicle", "canonicalStatus": "historical_sacred", "structure": { "levels": ["section"] } },
+    { "id": "historia-tolteca-chichimeca", "traditionId": "nahua-aztec", "name": "Historia Tolteca-Chichimeca", "workType": "sacred_chronicle", "canonicalStatus": "historical_sacred", "structure": { "levels": ["paragraph"] } },
+    { "id": "dioses-y-hombres-huarochiri", "traditionId": "andean-inca", "name": "Dioses y Hombres de Huarochirí (Quechua Traditions of Avila)", "workType": "sacred_oral_corpus", "canonicalStatus": "historical_sacred", "structure": { "levels": ["chapter"] } },
+    { "id": "channabasaveshwara-vachanas", "traditionId": "lingayatism", "name": "Vachanas of Channabasaveshwara", "workType": "sacred_poetry", "canonicalStatus": "primary_scripture", "structure": { "levels": ["vachana"] } },
+    { "id": "bhaktachintamani", "traditionId": "swaminarayan", "name": "Bhaktachintamani (Sacred History of Swaminarayan)", "workType": "sacred_literature", "canonicalStatus": "primary_scripture", "structure": { "levels": ["prakarana", "sloka"] } }
   ]
 }

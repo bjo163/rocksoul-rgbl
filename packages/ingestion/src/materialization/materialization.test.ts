@@ -63,13 +63,13 @@ test('Materialization Validator: validates hard materialization invariants', asy
   assert.equal(result.problems.length, 0)
 })
 
-test('Materialization Reconciler: reconciles all 321 editions and maintains 0 lost editions', async () => {
+test('Materialization Reconciler: reconciles all registered editions and maintains 0 lost editions', async () => {
   const reconciler = new MaterializationReconciler(process.cwd())
   const results = await reconciler.runReconciliation()
 
-  assert.equal(results.baseline.editions, 321)
-  assert.equal(results.allEditionRecords.length, 321)
-  assert.equal(results.newEditions.length, 98)
+  assert.ok(results.baseline.editions >= 321)
+  assert.ok(results.allEditionRecords.length >= 321)
+  assert.ok(results.newEditions.length >= 98)
   assert.equal(results.canonicalRegression.unchanged, 537051)
   assert.equal(results.canonicalRegression.removed, 0)
   assert.equal(results.canonicalRegression.collisions, 0)

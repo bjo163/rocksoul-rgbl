@@ -22,7 +22,7 @@
     "release:version": "tsx scripts/apply-release-plan.ts",
     "release:publish": "tsx scripts/publish-npm.ts",
     "release:publish:dry-run": "tsx scripts/publish-npm.ts --dry-run",
-    "check": "pnpm build:sqlite && pnpm typecheck && pnpm test && pnpm validate && pnpm build",
+    "check": "pnpm build:sqlite && pnpm validate:upstream && pnpm typecheck && pnpm test && pnpm validate && pnpm build",
     "check:release": "pnpm check && pnpm release:verify && pnpm release:publish:dry-run",
     "materialize:p5": "tsx scripts/materialize-p5-datasets.ts",
     "export:app-seeds": "tsx scripts/export-app-seeds.ts",

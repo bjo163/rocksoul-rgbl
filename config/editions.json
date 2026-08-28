@@ -46,9 +46,57 @@
       "script": "Arab"
     },
     {
+      "id": "abudawud-ummah-ar-en",
+      "workId": "hadith-abudawud",
+      "name": "Sunan Abu Dawud Arabic & English Edition",
+      "editionType": "bilingual",
+      "language": "ar",
+      "script": "Arab"
+    },
+    {
+      "id": "tirmidhi-ummah-ar-en",
+      "workId": "hadith-tirmidhi",
+      "name": "Jami' at-Tirmidhi Arabic & English Edition",
+      "editionType": "bilingual",
+      "language": "ar",
+      "script": "Arab"
+    },
+    {
+      "id": "nasai-ummah-ar-en",
+      "workId": "hadith-nasai",
+      "name": "Sunan an-Nasa'i Arabic & English Edition",
+      "editionType": "bilingual",
+      "language": "ar",
+      "script": "Arab"
+    },
+    {
+      "id": "ibnmajah-ummah-ar-en",
+      "workId": "hadith-ibnmajah",
+      "name": "Sunan Ibn Majah Arabic & English Edition",
+      "editionType": "bilingual",
+      "language": "ar",
+      "script": "Arab"
+    },
+    {
+      "id": "malik-ummah-ar-en",
+      "workId": "hadith-malik",
+      "name": "Muwatta Malik Arabic & English Edition",
+      "editionType": "bilingual",
+      "language": "ar",
+      "script": "Arab"
+    },
+    {
       "id": "nawawi-ummah-ar-en",
       "workId": "hadith-nawawi",
       "name": "An-Nawawi 40 Hadith Arabic & English Edition",
+      "editionType": "bilingual",
+      "language": "ar",
+      "script": "Arab"
+    },
+    {
+      "id": "qudsi-ummah-ar-en",
+      "workId": "hadith-qudsi",
+      "name": "40 Hadith Qudsi Arabic & English Edition",
       "editionType": "bilingual",
       "language": "ar",
       "script": "Arab"
@@ -79,9 +127,49 @@
       "variant": "wlc"
     },
     {
-      "id": "sefaria-jewish-library",
-      "workId": "tanakh",
-      "name": "Sefaria Complete Jewish Library Edition",
+      "id": "torah-wlc-hebrew",
+      "workId": "torah",
+      "name": "Torah (Five Books of Moses) WLC Hebrew Text",
+      "editionType": "original_script",
+      "language": "he",
+      "script": "Hebr"
+    },
+    {
+      "id": "mishnah-sefaria-ed",
+      "workId": "mishnah",
+      "name": "Mishnah Hebrew & Vocalized Text",
+      "editionType": "original_script",
+      "language": "he",
+      "script": "Hebr"
+    },
+    {
+      "id": "talmud-bavli-sefaria-ed",
+      "workId": "talmud-bavli",
+      "name": "Babylonian Talmud Standard Vilna Edition",
+      "editionType": "canonical_library",
+      "language": "arc",
+      "script": "Hebr"
+    },
+    {
+      "id": "talmud-yerushalmi-sefaria-ed",
+      "workId": "talmud-yerushalmi",
+      "name": "Jerusalem Talmud Sefaria Text",
+      "editionType": "canonical_library",
+      "language": "arc",
+      "script": "Hebr"
+    },
+    {
+      "id": "midrash-rabbah-sefaria-ed",
+      "workId": "midrash-rabbah",
+      "name": "Midrash Rabbah Classical Edition",
+      "editionType": "canonical_library",
+      "language": "he",
+      "script": "Hebr"
+    },
+    {
+      "id": "tosefta-sefaria-ed",
+      "workId": "tosefta",
+      "name": "Tosefta Classical Hebrew Text",
       "editionType": "canonical_library",
       "language": "he",
       "script": "Hebr"
@@ -96,9 +184,33 @@
       "variant": "sblgnt"
     },
     {
+      "id": "septuagint-lxx-edition",
+      "workId": "septuagint",
+      "name": "Septuagint (LXX) Rahlfs-Hanhart Edition",
+      "editionType": "original_script",
+      "language": "grc",
+      "script": "Grek"
+    },
+    {
       "id": "perseus-canonical-greek",
       "workId": "canonical-greek-literature",
       "name": "Perseus Canonical Greek Literature Edition",
+      "editionType": "critical_edition",
+      "language": "grc",
+      "script": "Grek"
+    },
+    {
+      "id": "apostolic-fathers-greek-ed",
+      "workId": "apostolic-fathers",
+      "name": "Apostolic Fathers Greek & English Critical Edition",
+      "editionType": "critical_edition",
+      "language": "grc",
+      "script": "Grek"
+    },
+    {
+      "id": "early-church-fathers-ed",
+      "workId": "early-church-fathers",
+      "name": "Early Church Fathers Ante-Nicene Collection",
       "editionType": "critical_edition",
       "language": "grc",
       "script": "Grek"
@@ -128,6 +240,38 @@
       "script": "Deva"
     },
     {
+      "id": "rigveda-gretil-edition",
+      "workId": "rigveda",
+      "name": "Rigveda Samhita Sanskrit Metrical Text",
+      "editionType": "original_script",
+      "language": "sa",
+      "script": "Deva"
+    },
+    {
+      "id": "samaveda-gretil-edition",
+      "workId": "samaveda",
+      "name": "Samaveda Samhita Sanskrit Text",
+      "editionType": "original_script",
+      "language": "sa",
+      "script": "Deva"
+    },
+    {
+      "id": "atharvaveda-gretil-edition",
+      "workId": "atharvaveda",
+      "name": "Atharvaveda Samhita Shaunaka Shakha",
+      "editionType": "original_script",
+      "language": "sa",
+      "script": "Deva"
+    },
+    {
+      "id": "yoga-sutras-gretil-edition",
+      "workId": "yoga-sutras",
+      "name": "Patanjali Yoga Sutras Classical Sanskrit Text",
+      "editionType": "original_script",
+      "language": "sa",
+      "script": "Deva"
+    },
+    {
       "id": "dhammapada-sujato-pali-en",
       "workId": "dhammapada",
       "name": "Dhammapada Pali & English (Bhikkhu Sujato)",
@@ -136,33 +280,113 @@
       "script": "Latn"
     },
     {
-      "id": "dhammapada-indonesian-ed",
-      "workId": "dhammapada",
-      "name": "Dhammapada Indonesian Translation",
-      "editionType": "translation",
-      "language": "id",
-      "script": "Latn"
-    },
-    {
-      "id": "suttacentral-nikayas-sujato",
+      "id": "suttacentral-dn-sujato",
       "workId": "digha-nikaya",
-      "name": "SuttaCentral Pali Nikayas (Bhikkhu Sujato)",
+      "name": "Digha Nikaya Pali & English (Bhikkhu Sujato)",
       "editionType": "bilingual",
       "language": "pli",
       "script": "Latn"
     },
     {
+      "id": "suttacentral-mn-sujato",
+      "workId": "majjhima-nikaya",
+      "name": "Majjhima Nikaya Pali & English (Bhikkhu Sujato)",
+      "editionType": "bilingual",
+      "language": "pli",
+      "script": "Latn"
+    },
+    {
+      "id": "suttacentral-sn-sujato",
+      "workId": "samyutta-nikaya",
+      "name": "Samyutta Nikaya Pali & English (Bhikkhu Sujato)",
+      "editionType": "bilingual",
+      "language": "pli",
+      "script": "Latn"
+    },
+    {
+      "id": "suttacentral-an-sujato",
+      "workId": "anguttara-nikaya",
+      "name": "Anguttara Nikaya Pali & English (Bhikkhu Sujato)",
+      "editionType": "bilingual",
+      "language": "pli",
+      "script": "Latn"
+    },
+    {
+      "id": "suttacentral-kn-sujato",
+      "workId": "khuddaka-nikaya",
+      "name": "Khuddaka Nikaya Pali Texts (SuttaCentral)",
+      "editionType": "bilingual",
+      "language": "pli",
+      "script": "Latn"
+    },
+    {
+      "id": "suttacentral-vinaya-sujato",
+      "workId": "vinaya-pitaka",
+      "name": "Vinaya Pitaka Monastic Rules (SuttaCentral)",
+      "editionType": "bilingual",
+      "language": "pli",
+      "script": "Latn"
+    },
+    {
+      "id": "heart-sutra-sanskrit-ed",
+      "workId": "heart-sutra",
+      "name": "Prajnaparamita Heart Sutra Sanskrit & Chinese",
+      "editionType": "canonical_library",
+      "language": "sa",
+      "script": "Deva"
+    },
+    {
       "id": "ctext-daoism-classical",
       "workId": "dao-de-jing",
-      "name": "Chinese Text Project Classical Daoism Edition",
+      "name": "Chinese Text Project Classical Dao De Jing Edition",
       "editionType": "original_script",
       "language": "lzh",
       "script": "Hani"
     },
     {
-      "id": "ctext-confucianism-classical",
+      "id": "ctext-zhuangzi-classical",
+      "workId": "zhuangzi",
+      "name": "Chinese Text Project Classical Zhuangzi Edition",
+      "editionType": "original_script",
+      "language": "lzh",
+      "script": "Hani"
+    },
+    {
+      "id": "ctext-liezi-classical",
+      "workId": "liezi",
+      "name": "Chinese Text Project Classical Liezi Edition",
+      "editionType": "original_script",
+      "language": "lzh",
+      "script": "Hani"
+    },
+    {
+      "id": "ctext-analects-classical",
       "workId": "analects",
-      "name": "Chinese Text Project Classical Confucianism Edition",
+      "name": "Chinese Text Project Classical Analects Edition",
+      "editionType": "original_script",
+      "language": "lzh",
+      "script": "Hani"
+    },
+    {
+      "id": "ctext-mencius-classical",
+      "workId": "mencius",
+      "name": "Chinese Text Project Classical Mencius Edition",
+      "editionType": "original_script",
+      "language": "lzh",
+      "script": "Hani"
+    },
+    {
+      "id": "ctext-great-learning-classical",
+      "workId": "great-learning",
+      "name": "Chinese Text Project Classical Great Learning Edition",
+      "editionType": "original_script",
+      "language": "lzh",
+      "script": "Hani"
+    },
+    {
+      "id": "ctext-doctrine-mean-classical",
+      "workId": "doctrine-of-the-mean",
+      "name": "Chinese Text Project Classical Doctrine of the Mean Edition",
       "editionType": "original_script",
       "language": "lzh",
       "script": "Hani"
@@ -176,9 +400,33 @@
       "script": "Avst"
     },
     {
+      "id": "yasna-gathas-avesta-ed",
+      "workId": "yasna-gathas",
+      "name": "The Sacred Gathas of Zarathushtra Avestan Text",
+      "editionType": "original_script",
+      "language": "ae",
+      "script": "Avst"
+    },
+    {
       "id": "shabados-sggs-gurmukhi",
       "workId": "guru-granth-sahib",
       "name": "ShabadOS Sri Guru Granth Sahib Gurmukhi Edition",
+      "editionType": "original_script",
+      "language": "pa",
+      "script": "Guru"
+    },
+    {
+      "id": "shabados-japji-gurmukhi",
+      "workId": "japji-sahib",
+      "name": "ShabadOS Japji Sahib Gurmukhi Edition",
+      "editionType": "original_script",
+      "language": "pa",
+      "script": "Guru"
+    },
+    {
+      "id": "shabados-dasam-granth-ed",
+      "workId": "dasam-granth",
+      "name": "ShabadOS Dasam Granth Gurmukhi Edition",
       "editionType": "original_script",
       "language": "pa",
       "script": "Guru"
@@ -192,6 +440,14 @@
       "script": "Deva"
     },
     {
+      "id": "jain-heritage-kalpa-ed",
+      "workId": "kalpa-sutra",
+      "name": "Kalpa Sutra Classical Prakrit & Sanskrit Edition",
+      "editionType": "original_script",
+      "language": "sa",
+      "script": "Deva"
+    },
+    {
       "id": "bahai-hidden-words-official",
       "workId": "hidden-words",
       "name": "The Hidden Words Official English & Arabic Publication",
@@ -200,9 +456,33 @@
       "script": "Arab"
     },
     {
+      "id": "bahai-kitab-aqdas-official",
+      "workId": "kitab-i-aqdas",
+      "name": "Kitab-i-Aqdas Official Publication",
+      "editionType": "official_publication",
+      "language": "ar",
+      "script": "Arab"
+    },
+    {
+      "id": "bahai-kitab-iqan-official",
+      "workId": "kitab-i-iqan",
+      "name": "Kitab-i-Iqan Official Publication",
+      "editionType": "official_publication",
+      "language": "ar",
+      "script": "Arab"
+    },
+    {
       "id": "shinto-kojiki-archival",
       "workId": "kojiki",
       "name": "Kojiki Archival English & Japanese Translation",
+      "editionType": "archival_translation",
+      "language": "en",
+      "script": "Latn"
+    },
+    {
+      "id": "shinto-nihon-shoki-archival",
+      "workId": "nihon-shoki",
+      "name": "Nihon Shoki Archival Translation",
       "editionType": "archival_translation",
       "language": "en",
       "script": "Latn"

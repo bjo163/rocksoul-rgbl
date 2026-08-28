@@ -25,6 +25,26 @@ export interface UncoveredWorksReport {
   }>
 }
 
+export interface CorpusDepthReport {
+  schemaVersion: '1.0.0'
+  generatedAt: string
+  before: {
+    works: number
+  }
+  after: {
+    works: number
+    editions: number
+    sources: number
+    endpoints: number
+  }
+  coverage: {
+    worksWithExecutableUpstream: number
+    worksWithoutExecutableUpstream: number
+    coveragePercent: number
+  }
+  newWorksByTradition: Record<string, number>
+}
+
 export class UniversalCorpusRegistry {
   private readonly configDir: string
   private traditionsMap = new Map<string, TraditionRecord>()
@@ -283,6 +303,39 @@ export class UniversalCorpusRegistry {
     }
   }
 
+  generateCorpusDepthReport(): CorpusDepthReport {
+    const works = this.getWorks()
+    const traditions = this.getTraditions()
+    const newWorksByTradition: Record<string, number> = {}
+
+    for (const t of traditions) {
+      const count = this.resolveTraditionWorks(t.id).length
+      newWorksByTradition[t.id] = count
+    }
+
+    const coverage = this.generateWorkCoverageReport()
+
+    return {
+      schemaVersion: '1.0.0',
+      generatedAt: new Date().toISOString(),
+      before: {
+        works: 27
+      },
+      after: {
+        works: works.length,
+        editions: this.editionsMap.size,
+        sources: this.sourcesMap.size,
+        endpoints: this.endpointsMap.size
+      },
+      coverage: {
+        worksWithExecutableUpstream: coverage.worksWithUpstream,
+        worksWithoutExecutableUpstream: coverage.worksWithoutUpstream,
+        coveragePercent: coverage.coveragePercent
+      },
+      newWorksByTradition
+    }
+  }
+
   async writeWorkCoverageReport(outDir: string = path.join(process.cwd(), 'dist')): Promise<string> {
     await mkdir(outDir, { recursive: true })
     const report = this.generateWorkCoverageReport()
@@ -292,6 +345,10 @@ export class UniversalCorpusRegistry {
     const uncoveredReport = this.generateUncoveredWorksReport()
     const uncoveredFile = path.join(outDir, 'uncovered-works.json')
     await writeFile(uncoveredFile, JSON.stringify(uncoveredReport, null, 2) + '\n', 'utf8')
+
+    const depthReport = this.generateCorpusDepthReport()
+    const depthFile = path.join(outDir, 'corpus-depth-report.json')
+    await writeFile(depthFile, JSON.stringify(depthReport, null, 2) + '\n', 'utf8')
 
     return targetFile
   }

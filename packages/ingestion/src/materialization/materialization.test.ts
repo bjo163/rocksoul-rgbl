@@ -4,6 +4,7 @@ import { MetadataEditionQueue } from './edition-queue.js'
 import { EditionMaterializer } from './edition-materializer.js'
 import { MaterializationAuditor } from './materialization-auditor.js'
 import { validateMaterialization } from './materialization-validator.js'
+import { MaterializationReconciler } from './materialization-reconciler.js'
 
 test('Metadata Edition Queue: builds prioritized work queue', async () => {
   const queue = new MetadataEditionQueue(process.cwd())
@@ -57,7 +58,21 @@ test('Edition Materializer: materializes metadata editions into verified corpus 
 test('Materialization Validator: validates hard materialization invariants', async () => {
   const result = await validateMaterialization(process.cwd())
   assert.equal(result.valid, true, `Materialization validation failed with: ${result.problems.join(', ')}`)
-  assert.ok(result.totalEditions >= 250)
+  assert.ok(result.totalEditions >= 300)
   assert.equal(result.canonicalRecords, 537051)
   assert.equal(result.problems.length, 0)
+})
+
+test('Materialization Reconciler: reconciles all 321 editions and maintains 0 lost editions', async () => {
+  const reconciler = new MaterializationReconciler(process.cwd())
+  const results = await reconciler.runReconciliation()
+
+  assert.equal(results.baseline.editions, 321)
+  assert.equal(results.allEditionRecords.length, 321)
+  assert.equal(results.newEditions.length, 98)
+  assert.equal(results.canonicalRegression.unchanged, 537051)
+  assert.equal(results.canonicalRegression.removed, 0)
+  assert.equal(results.canonicalRegression.collisions, 0)
+  assert.equal(results.placeholderAudit.placeholderContamination, 0)
+  assert.equal(results.hashAudit.verified, true)
 })

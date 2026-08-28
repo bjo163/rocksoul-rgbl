@@ -28,6 +28,8 @@
     "report:quality": "tsx scripts/report-quality.ts",
     "report:editions": "tsx scripts/report-editions.ts",
     "report:materialization": "tsx scripts/report-materialization.ts",
+    "report:materialization:delta": "tsx scripts/report-materialization-delta.ts",
+    "reconcile:materialization": "tsx scripts/reconcile-materialization.ts",
     "discovery:workers": "tsx scripts/generate-discovery-workers.ts",
     "align:editions": "tsx scripts/align-editions.ts",
     "corpus:status": "tsx scripts/corpus-status.ts",

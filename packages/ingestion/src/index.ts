@@ -11,6 +11,8 @@ export * from './connectors/http.js'
 
 // Universal Corpus Registry
 export * from './registry/index.js'
+export * from './identity/index.js'
+export * from './quality/index.js'
 
 // Upstream Engine
 export * from './upstream/types.js'

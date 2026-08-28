@@ -13,6 +13,7 @@
     "typecheck": "tsc --noEmit",
     "test": "tsx --test packages/*/src/*.test.ts apps/*/src/*.test.ts scripts/*.test.ts",
     "validate": "tsx packages/validator/src/cli.ts",
+    "validate:upstream": "tsx scripts/validate-upstream-registry.ts",
     "todo:sync": "tsx scripts/sync-todo-issues.ts todo-to-issues",
     "todo:sync:issue": "tsx scripts/reconcile-issue-status.ts",
     "todo:check": "tsx scripts/sync-todo-issues.ts check",

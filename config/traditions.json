@@ -426,6 +426,94 @@
       "primaryLanguage": "sga",
       "scripts": ["Latn", "Ogam"],
       "classification": ["european_historical", "insular_celtic", "mythological_cycles"]
+    },
+    {
+      "id": "radhasoami",
+      "name": "Radhasoami Satsang Tradition",
+      "family": "dharmic",
+      "primaryLanguage": "hi",
+      "scripts": ["Deva", "Latn"],
+      "classification": ["dharmic", "sant_mat", "radhasoami_movement"]
+    },
+    {
+      "id": "brahmo-samaj",
+      "name": "Brahmo Samaj Tradition",
+      "family": "dharmic",
+      "primaryLanguage": "bn",
+      "scripts": ["Beng", "Latn"],
+      "classification": ["dharmic", "bengal_renaissance", "monotheistic_hindu_reform"]
+    },
+    {
+      "id": "arya-samaj",
+      "name": "Arya Samaj Tradition",
+      "family": "dharmic",
+      "primaryLanguage": "hi",
+      "scripts": ["Deva", "Latn"],
+      "classification": ["dharmic", "vedic_revivalism", "arya_movement"]
+    },
+    {
+      "id": "hoa-hao",
+      "name": "Phật Giáo Hòa Hảo (Hoa Hao Tradition)",
+      "family": "east_asian",
+      "primaryLanguage": "vi",
+      "scripts": ["Latn"],
+      "classification": ["east_asian", "vietnamese_indigenous_religion", "buddhist_reform"]
+    },
+    {
+      "id": "vodun-tradition",
+      "name": "Fon & Vodun Religious Tradition",
+      "family": "west_african",
+      "primaryLanguage": "fon",
+      "scripts": ["Latn"],
+      "classification": ["west_african", "traditional_religion", "fa_divination_corpus"]
+    },
+    {
+      "id": "dinka-tradition",
+      "name": "Dinka Traditional Religion & Cosmogony",
+      "family": "east_african",
+      "primaryLanguage": "din",
+      "scripts": ["Latn"],
+      "classification": ["african_traditional", "nilotic_religion", "nhialic_invocations"]
+    },
+    {
+      "id": "lakota-tradition",
+      "name": "Lakota Sacred Ceremonial Tradition",
+      "family": "indigenous_americas",
+      "primaryLanguage": "lkt",
+      "scripts": ["Latn"],
+      "classification": ["indigenous_americas", "plains_tradition", "seven_sacred_rites"]
+    },
+    {
+      "id": "dine-navajo-tradition",
+      "name": "Diné (Navajo) Sacred Tradition",
+      "family": "indigenous_americas",
+      "primaryLanguage": "nav",
+      "scripts": ["Latn"],
+      "classification": ["indigenous_americas", "southwestern_tradition", "blessingway_cosmogony"]
+    },
+    {
+      "id": "samoan-tradition",
+      "name": "Samoan Sacred Cosmogony & Oral Lore",
+      "family": "polynesian",
+      "primaryLanguage": "smo",
+      "scripts": ["Latn"],
+      "classification": ["polynesian", "oceanian_indigenous", "tagaloa_cosmogony"]
+    },
+    {
+      "id": "etruscan-religion",
+      "name": "Etruscan Sacred & Ritual Tradition",
+      "family": "classical_mediterranean",
+      "primaryLanguage": "ett",
+      "scripts": ["Ital", "Latn"],
+      "classification": ["classical_mediterranean", "historical_italy", "etrusca_disciplina"]
+    },
+    {
+      "id": "mithraism",
+      "name": "Mithraic Mysteries & Liturgical Tradition",
+      "family": "hellenistic_esoteric",
+      "primaryLanguage": "grc",
+      "scripts": ["Grek", "Latn"],
+      "classification": ["hellenistic_esoteric", "mystery_cults", "mithraic_liturgy"]
     }
   ]
 }

@@ -216,6 +216,55 @@
     { "id": "historia-tolteca-chichimeca", "traditionId": "nahua-aztec", "name": "Historia Tolteca-Chichimeca", "workType": "sacred_chronicle", "canonicalStatus": "historical_sacred", "structure": { "levels": ["paragraph"] } },
     { "id": "dioses-y-hombres-huarochiri", "traditionId": "andean-inca", "name": "Dioses y Hombres de Huarochirí (Quechua Traditions of Avila)", "workType": "sacred_oral_corpus", "canonicalStatus": "historical_sacred", "structure": { "levels": ["chapter"] } },
     { "id": "channabasaveshwara-vachanas", "traditionId": "lingayatism", "name": "Vachanas of Channabasaveshwara", "workType": "sacred_poetry", "canonicalStatus": "primary_scripture", "structure": { "levels": ["vachana"] } },
-    { "id": "bhaktachintamani", "traditionId": "swaminarayan", "name": "Bhaktachintamani (Sacred History of Swaminarayan)", "workType": "sacred_literature", "canonicalStatus": "primary_scripture", "structure": { "levels": ["prakarana", "sloka"] } }
+    { "id": "bhaktachintamani", "traditionId": "swaminarayan", "name": "Bhaktachintamani (Sacred History of Swaminarayan)", "workType": "sacred_literature", "canonicalStatus": "primary_scripture", "structure": { "levels": ["prakarana", "sloka"] } },
+
+    { "id": "sar-bachan-radhasoami", "traditionId": "radhasoami", "name": "Sar Bachan Radhasoami (Shiv Dayal Singh)", "workType": "scripture", "canonicalStatus": "canonical", "structure": { "levels": ["bachan", "shabad"] } },
+    { "id": "prem-bani-radhasoami", "traditionId": "radhasoami", "name": "Prem Bani Radhasoami (Rai Saligram)", "workType": "sacred_literature", "canonicalStatus": "recognized_scripture", "structure": { "levels": ["volume", "shabad"] } },
+    { "id": "radhasoami-mat-prakash", "traditionId": "radhasoami", "name": "Radhasoami Mat Prakash (The Teachings of Radhasoami Faith)", "workType": "theological_treatise", "canonicalStatus": "recognized_scripture", "structure": { "levels": ["chapter"] } },
+
+    { "id": "brahma-dharma-grantha", "traditionId": "brahmo-samaj", "name": "Brahma Dharma Grantha (Debendranath Tagore)", "workType": "canonical_corpus", "canonicalStatus": "canonical", "structure": { "levels": ["khanda", "chapter", "sloka"] } },
+    { "id": "tattwabodhini-patrika", "traditionId": "brahmo-samaj", "name": "Tattwabodhini Sacred Discourses (Ram Mohan Roy & Debendranath)", "workType": "theological_treatise", "canonicalStatus": "recognized_scripture", "structure": { "levels": ["discourse"] } },
+    { "id": "brahmo-upasana", "traditionId": "brahmo-samaj", "name": "Brahmo Upasana & Stotra (Liturgy of the Brahmo Samaj)", "workType": "liturgical_corpus", "canonicalStatus": "liturgical", "structure": { "levels": ["hymn", "verse"] } },
+
+    { "id": "satyarth-prakash", "traditionId": "arya-samaj", "name": "Satyarth Prakash (The Light of Truth by Swami Dayananda Saraswati)", "workType": "theological_treatise", "canonicalStatus": "canonical", "structure": { "levels": ["samullasa"] } },
+    { "id": "rigvedadi-bhashya-bhumika", "traditionId": "arya-samaj", "name": "Rigvedadi Bhashya Bhumika (Introduction to the Commentary on the Vedas)", "workType": "theological_treatise", "canonicalStatus": "recognized_scripture", "structure": { "levels": ["chapter"] } },
+    { "id": "sanskar-vidhi", "traditionId": "arya-samaj", "name": "Sanskar Vidhi (Vedic Ritual Manual of Dayananda)", "workType": "liturgical_corpus", "canonicalStatus": "liturgical", "structure": { "levels": ["sanskar", "mantra"] } },
+
+    { "id": "sam-giang-khuyen-tu", "traditionId": "hoa-hao", "name": "Sấm Giảng Khuyên Tu (Prophetic Teachings of Đức Thầy)", "workType": "scripture", "canonicalStatus": "canonical", "structure": { "levels": ["volume", "poem"] } },
+    { "id": "ton-chi-hanh-dao", "traditionId": "hoa-hao", "name": "Tôn Chỉ Hành Đạo (Principles of Practice for Hoa Hao Followers)", "workType": "theological_treatise", "canonicalStatus": "canonical", "structure": { "levels": ["chapter", "article"] } },
+    { "id": "thi-van-giao-ly", "traditionId": "hoa-hao", "name": "Thi Văn Giáo Lý Toàn Bộ (Collected Sacred Poetry & Teachings)", "workType": "sacred_literature", "canonicalStatus": "recognized_scripture", "structure": { "levels": ["section", "verse"] } },
+
+    { "id": "fa-du-vodun-corpus", "traditionId": "vodun-tradition", "name": "Fa Kpó: The 256 Du Signs and Sacred Invocations of Fon-Vodun", "workType": "oral_corpus", "canonicalStatus": "sacred_oral", "structure": { "levels": ["du", "invocation"] } },
+    { "id": "hungan-vodun-chants", "traditionId": "vodun-tradition", "name": "Hungan Ritual Chants & Liturgies of the Vodun Pantheons", "workType": "liturgical_corpus", "canonicalStatus": "ritual_corpus", "structure": { "levels": ["chant"] } },
+    { "id": "legba-mawulisa-cosmogony", "traditionId": "vodun-tradition", "name": "Mawu-Lisa & Legba Cosmogonic Traditions of Dahomey", "workType": "oral_corpus", "canonicalStatus": "sacred_oral", "structure": { "levels": ["episode"] } },
+
+    { "id": "nihialic-dinka-hymns", "traditionId": "dinka-tradition", "name": "Nhialic Hymns & Invocations of Divinity (Lienhardt Corpus)", "workType": "oral_corpus", "canonicalStatus": "sacred_oral", "structure": { "levels": ["song", "stanza"] } },
+    { "id": "dinka-creation-cosmogony", "traditionId": "dinka-tradition", "name": "The Separation of Earth and Sky: Dinka Cosmogonic Mythos", "workType": "oral_corpus", "canonicalStatus": "sacred_oral", "structure": { "levels": ["section"] } },
+    { "id": "spear-master-prayers", "traditionId": "dinka-tradition", "name": "Sacred Prayers and Blessings of the Masters of the Fishing Spear", "workType": "liturgical_corpus", "canonicalStatus": "ritual_corpus", "structure": { "levels": ["prayer"] } },
+
+    { "id": "sacred-pipe-black-elk", "traditionId": "lakota-tradition", "name": "The Sacred Pipe: Black Elk's Account of the Seven Rites of the Oglala Sioux", "workType": "oral_corpus", "canonicalStatus": "sacred_oral", "structure": { "levels": ["rite", "narrative"] } },
+    { "id": "sun-dance-wiwanyag-wachipi", "traditionId": "lakota-tradition", "name": "Wiwányag Wačhípi: Sacred Sun Dance Chants & Ritual Traditions", "workType": "liturgical_corpus", "canonicalStatus": "ritual_corpus", "structure": { "levels": ["song"] } },
+    { "id": "woope-sacred-teachings", "traditionId": "lakota-tradition", "name": "The Teachings of White Buffalo Calf Woman (Ptesáŋwiŋ)", "workType": "sacred_literature", "canonicalStatus": "sacred_oral", "structure": { "levels": ["covenant"] } },
+
+    { "id": "dine-bahane-creation-story", "traditionId": "dine-navajo-tradition", "name": "Diné Bahaneʼ: The Navajo Emergence and Creation Story", "workType": "oral_corpus", "canonicalStatus": "sacred_oral", "structure": { "levels": ["world", "chapter"] } },
+    { "id": "blessingway-hozhonji", "traditionId": "dine-navajo-tradition", "name": "Hózhóójí: The Blessingway Sacred Ceremony & Songs", "workType": "liturgical_corpus", "canonicalStatus": "ritual_corpus", "structure": { "levels": ["chant", "prayer"] } },
+    { "id": "nightway-kletji-chants", "traditionId": "dine-navajo-tradition", "name": "Tłʼééʼjí: The Nightway Sacred Healing Chants", "workType": "liturgical_corpus", "canonicalStatus": "ritual_corpus", "structure": { "levels": ["night", "song"] } },
+
+    { "id": "tala-o-le-foafoaga-samoan", "traditionId": "samoan-tradition", "name": "O le Tala i le Foafoaga o le Lalolagi (Samoan Sacred Creation Lore)", "workType": "oral_corpus", "canonicalStatus": "sacred_oral", "structure": { "levels": ["genealogy", "narrative"] } },
+    { "id": "solo-o-le-va-cosmic-hymn", "traditionId": "samoan-tradition", "name": "Solo o le Vā: The Ancient Cosmogonic Chant of Tagaloa-a-Lagi", "workType": "liturgical_corpus", "canonicalStatus": "sacred_oral", "structure": { "levels": ["stanza"] } },
+    { "id": "faalupega-sacred-salutations", "traditionId": "samoan-tradition", "name": "Fa'alupega: Sacred Ceremonial Salutations & Mythological Lineages", "workType": "liturgical_corpus", "canonicalStatus": "ritual_corpus", "structure": { "levels": ["village", "salutation"] } },
+
+    { "id": "liber-linteus-zagrebiensis", "traditionId": "etruscan-religion", "name": "Liber Linteus Zagrebiensis (The Zagreb Linen Book Ritual Calendar)", "workType": "liturgical_corpus", "canonicalStatus": "canonical", "structure": { "levels": ["column", "line"] } },
+    { "id": "tabula-cortonensis", "traditionId": "etruscan-religion", "name": "Tabula Cortonensis Sacred Legal & Ritual Inscription", "workType": "historical_religious_corpus", "canonicalStatus": "historical_sacred", "structure": { "levels": ["side", "line"] } },
+    { "id": "pyrgia-tablets", "traditionId": "etruscan-religion", "name": "The Pyrgi Bilingual Dedicatory Inscriptions (Uni/Astarte)", "workType": "historical_religious_corpus", "canonicalStatus": "historical_sacred", "structure": { "levels": ["tablet", "line"] } },
+
+    { "id": "mithras-liturgy-papyrus", "traditionId": "mithraism", "name": "The Mithras Liturgy (Great Paris Magical Papyrus PGM IV 475-820)", "workType": "liturgical_corpus", "canonicalStatus": "canonical", "structure": { "levels": ["invocation", "instruction"] } },
+    { "id": "santa-prisca-mithraic-hymns", "traditionId": "mithraism", "name": "The Mithraic Dipinti and Inscribed Hymns of Santa Prisca", "workType": "historical_religious_corpus", "canonicalStatus": "historical_sacred", "structure": { "levels": ["verse"] } },
+    { "id": "porphyry-de-antro-nympbarum", "traditionId": "mithraism", "name": "Porphyry: On the Cave of the Nymphs (De Antro Nympharum)", "workType": "philosophical_treatise", "canonicalStatus": "historical_sacred", "structure": { "levels": ["section"] } },
+
+    { "id": "haymanote-abew", "traditionId": "ethiopian-orthodox", "name": "Haymanote Abew (The Faith of the Fathers)", "workType": "theological_treatise", "canonicalStatus": "canonical_ecclesiastical", "structure": { "levels": ["homily"] } },
+    { "id": "enuma-anu-enlil", "traditionId": "mesopotamian", "name": "Enuma Anu Enlil (Cuneiform Celestial & Divinatory Series)", "workType": "historical_religious_corpus", "canonicalStatus": "historical_sacred", "structure": { "levels": ["tablet", "omen"] } },
+    { "id": "title-of-totonicapan", "traditionId": "mayan-religion", "name": "Title of Totonicapán (K'iche' Sacred Mythological Chronicle)", "workType": "sacred_chronicle", "canonicalStatus": "historical_sacred", "structure": { "levels": ["folio"] } },
+    { "id": "tirumandiram", "traditionId": "hinduism", "name": "Tirumandiram of Tirumular (Shaiva Siddhanta Canonical Masterwork)", "workType": "sacred_poetry", "canonicalStatus": "canonical", "structure": { "levels": ["tantra", "verse"] } }
   ]
 }

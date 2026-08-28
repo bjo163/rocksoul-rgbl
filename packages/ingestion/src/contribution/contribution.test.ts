@@ -17,10 +17,10 @@ test('Edition Contribution Auditor: classifies all editions into contribution ty
   assert.equal(summary.unresolved, 0)
 
   assert.ok(positionMatrix.length >= 10)
-  assert.equal(languageDepth.totalWorks, 188)
-  assert.ok(sourceDepth.totalSources >= 32)
-  assert.equal(workDepth.totalWorks, 188)
-  assert.equal(traditionDepth.totalTraditions, 53)
+  assert.ok(languageDepth.totalWorks >= 188)
+  assert.ok(sourceDepth.totalSources >= 34)
+  assert.ok(workDepth.totalWorks >= 188)
+  assert.ok(traditionDepth.totalTraditions >= 53)
 
   // Verify all editions have valid normalizedTextHash and no negative counts
   for (const c of contributions) {

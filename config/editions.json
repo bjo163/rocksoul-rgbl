@@ -576,6 +576,117 @@
     { "id": "channabasava-en", "workId": "channabasaveshwara-vachanas", "name": "Vachanas of Channabasavanna English Translation", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "channabasaveshwara-vachanas" },
 
     { "id": "bhaktachintamani-gujarati-ed", "workId": "bhaktachintamani", "name": "Bhaktachintamani Gujarati Sacred Edition", "editionType": "original_script", "language": "gu", "script": "Gujr" },
-    { "id": "bhaktachintamani-en", "workId": "bhaktachintamani", "name": "Bhaktachintamani English Translation", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "bhaktachintamani" }
+    { "id": "bhaktachintamani-en", "workId": "bhaktachintamani", "name": "Bhaktachintamani English Translation", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "bhaktachintamani" },
+
+    { "id": "sar-bachan-hindi-ed", "workId": "sar-bachan-radhasoami", "name": "Sar Bachan Radhasoami Hindi Critical Edition", "editionType": "original_script", "language": "hi", "script": "Deva" },
+    { "id": "sar-bachan-en", "workId": "sar-bachan-radhasoami", "name": "Sar Bachan Radhasoami Prose and Poetry English Translation", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "sar-bachan-radhasoami" },
+
+    { "id": "prem-bani-hindi-ed", "workId": "prem-bani-radhasoami", "name": "Prem Bani Radhasoami Hindi Canonical Text", "editionType": "original_script", "language": "hi", "script": "Deva" },
+    { "id": "prem-bani-en", "workId": "prem-bani-radhasoami", "name": "Prem Bani Radhasoami English Translation", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "prem-bani-radhasoami" },
+
+    { "id": "mat-prakash-en-saligram", "workId": "radhasoami-mat-prakash", "name": "Radhasoami Mat Prakash English Canonical Edition (Huzur Maharaj)", "editionType": "original_script", "language": "en", "script": "Latn" },
+    { "id": "mat-prakash-hindi-ed", "workId": "radhasoami-mat-prakash", "name": "Radhasoami Mat Prakash Hindi Translation", "editionType": "translation", "language": "hi", "script": "Deva", "translationOf": "radhasoami-mat-prakash" },
+
+    { "id": "brahma-dharma-bengali-ed", "workId": "brahma-dharma-grantha", "name": "Brahma Dharma Grantha Bengali Original Edition", "editionType": "original_script", "language": "bn", "script": "Beng" },
+    { "id": "brahma-dharma-en-tagore", "workId": "brahma-dharma-grantha", "name": "Brahma Dharma: The Religion of the Brahmo Samaj English", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "brahma-dharma-grantha" },
+
+    { "id": "tattwabodhini-bengali-ed", "workId": "tattwabodhini-patrika", "name": "Tattwabodhini Patrika Sacred Bengali Papers", "editionType": "original_script", "language": "bn", "script": "Beng" },
+    { "id": "tattwabodhini-en", "workId": "tattwabodhini-patrika", "name": "Tattwabodhini Papers English Translation", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "tattwabodhini-patrika" },
+
+    { "id": "brahmo-upasana-bengali-ed", "workId": "brahmo-upasana", "name": "Brahmo Upasana Bengali Prayer Book", "editionType": "original_script", "language": "bn", "script": "Beng" },
+    { "id": "brahmo-upasana-en", "workId": "brahmo-upasana", "name": "Brahmo Public and Private Liturgy English Translation", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "brahmo-upasana" },
+
+    { "id": "satyarth-prakash-hindi-ed", "workId": "satyarth-prakash", "name": "Satyarth Prakash Hindi Canonical Text (Dayananda Saraswati)", "editionType": "original_script", "language": "hi", "script": "Deva" },
+    { "id": "satyarth-prakash-en-bharadwaja", "workId": "satyarth-prakash", "name": "The Light of Truth: English Translation of Satyarth Prakash (Chiranjiva Bharadwaja)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "satyarth-prakash" },
+
+    { "id": "rigvedadi-bhumika-hindi-ed", "workId": "rigvedadi-bhashya-bhumika", "name": "Rigvedadi Bhashya Bhumika Sanskrit-Hindi Critical Edition", "editionType": "original_script", "language": "hi", "script": "Deva" },
+    { "id": "rigvedadi-bhumika-en", "workId": "rigvedadi-bhashya-bhumika", "name": "Introduction to the Commentary on the Vedas English Translation", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "rigvedadi-bhashya-bhumika" },
+
+    { "id": "sanskar-vidhi-sanskrit-hindi-ed", "workId": "sanskar-vidhi", "name": "Sanskar Vidhi Sanskrit-Hindi Vedic Sacraments Edition", "editionType": "original_script", "language": "hi", "script": "Deva" },
+    { "id": "sanskar-vidhi-en", "workId": "sanskar-vidhi", "name": "Sanskar Vidhi: The Vedic Sacraments English Translation", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "sanskar-vidhi" },
+
+    { "id": "sam-giang-vietnamese-ed", "workId": "sam-giang-khuyen-tu", "name": "Sấm Giảng Khuyên Tu Vietnamese Canonical Text", "editionType": "original_script", "language": "vi", "script": "Latn" },
+    { "id": "sam-giang-en", "workId": "sam-giang-khuyen-tu", "name": "Oracles and Moral Precepts of Huynh Phu So English Translation", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "sam-giang-khuyen-tu" },
+
+    { "id": "ton-chi-vietnamese-ed", "workId": "ton-chi-hanh-dao", "name": "Tôn Chỉ Hành Đạo Vietnamese Official Manual", "editionType": "official_publication", "language": "vi", "script": "Latn" },
+    { "id": "ton-chi-en", "workId": "ton-chi-hanh-dao", "name": "Charter and Rules of Practice of Hoa Hao Buddhism English", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "ton-chi-hanh-dao" },
+
+    { "id": "thi-van-vietnamese-ed", "workId": "thi-van-giao-ly", "name": "Thi Văn Giáo Lý Toàn Bộ Vietnamese Compilation", "editionType": "original_script", "language": "vi", "script": "Latn" },
+    { "id": "thi-van-en", "workId": "thi-van-giao-ly", "name": "Complete Sacred Poetry and Teachings English Translation", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "thi-van-giao-ly" },
+
+    { "id": "fa-du-fon-ed", "workId": "fa-du-vodun-corpus", "name": "Fa Kpó 256 Du Signs Fon Invocations Archive", "editionType": "original_script", "language": "fon", "script": "Latn" },
+    { "id": "fa-du-en-maupoil", "workId": "fa-du-vodun-corpus", "name": "La Géomancie à l'ancienne Côte des Esclaves & Fa Du English/French (Bernard Maupoil)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "fa-du-vodun-corpus" },
+
+    { "id": "hungan-fon-ed", "workId": "hungan-vodun-chants", "name": "Hungan Fon Ritual Songs & Chants Text", "editionType": "original_script", "language": "fon", "script": "Latn" },
+    { "id": "hungan-en", "workId": "hungan-vodun-chants", "name": "Sacred Songs and Liturgies of the Vodun Priesthood English", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "hungan-vodun-chants" },
+
+    { "id": "legba-cosmogony-fon-ed", "workId": "legba-mawulisa-cosmogony", "name": "Mawu-Lisa & Legba Fon Cosmogony Records", "editionType": "original_script", "language": "fon", "script": "Latn" },
+    { "id": "legba-cosmogony-en-herskovits", "workId": "legba-mawulisa-cosmogony", "name": "Dahomean Narrative: A Cross-Cultural Analysis English (Melville & Frances Herskovits)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "legba-mawulisa-cosmogony" },
+
+    { "id": "nhialic-dinka-ed", "workId": "nihialic-dinka-hymns", "name": "Nhialic Dinka Hymns and Invocations Native Text", "editionType": "original_script", "language": "din", "script": "Latn" },
+    { "id": "nhialic-dinka-en-lienhardt", "workId": "nihialic-dinka-hymns", "name": "Divinity and Experience: The Religion of the Dinka English (Godfrey Lienhardt)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "nihialic-dinka-hymns" },
+
+    { "id": "dinka-cosmogony-ed", "workId": "dinka-creation-cosmogony", "name": "Dinka Cosmogonic Mythos Native Transcriptions", "editionType": "original_script", "language": "din", "script": "Latn" },
+    { "id": "dinka-cosmogony-en", "workId": "dinka-creation-cosmogony", "name": "Dinka Cosmogony and Mythological Lore English Translation", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "dinka-creation-cosmogony" },
+
+    { "id": "spear-master-dinka-ed", "workId": "spear-master-prayers", "name": "Beny Bith (Master of the Spear) Sacred Prayers Dinka Text", "editionType": "original_script", "language": "din", "script": "Latn" },
+    { "id": "spear-master-en", "workId": "spear-master-prayers", "name": "Prayers of the Dinka Spear-Masters English Translation", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "spear-master-prayers" },
+
+    { "id": "sacred-pipe-lakota-ed", "workId": "sacred-pipe-black-elk", "name": "Čhaŋnúŋpa Wakȟáŋ Lakota Sacred Pipe Records", "editionType": "original_script", "language": "lkt", "script": "Latn" },
+    { "id": "sacred-pipe-en-brown", "workId": "sacred-pipe-black-elk", "name": "The Sacred Pipe: Black Elk's Account of the Seven Rites of the Oglala Sioux (Joseph Epes Brown)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "sacred-pipe-black-elk" },
+
+    { "id": "sun-dance-lakota-ed", "workId": "sun-dance-wiwanyag-wachipi", "name": "Wiwányag Wačhípi Lakota Sun Dance Songs", "editionType": "original_script", "language": "lkt", "script": "Latn" },
+    { "id": "sun-dance-en-walker", "workId": "sun-dance-wiwanyag-wachipi", "name": "The Sun Dance and Other Ceremonies of the Oglala Division English (J.R. Walker)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "sun-dance-wiwanyag-wachipi" },
+
+    { "id": "woope-teachings-lakota-ed", "workId": "woope-sacred-teachings", "name": "Ptesáŋwiŋ Sacred Covenants Lakota Text", "editionType": "original_script", "language": "lkt", "script": "Latn" },
+    { "id": "woope-teachings-en", "workId": "woope-sacred-teachings", "name": "Teachings of the White Buffalo Calf Maiden English Translation", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "woope-sacred-teachings" },
+
+    { "id": "dine-bahane-navajo-ed", "workId": "dine-bahane-creation-story", "name": "Diné Bahaneʼ Navajo Emergence Text", "editionType": "original_script", "language": "nav", "script": "Latn" },
+    { "id": "dine-bahane-en-zolbrod", "workId": "dine-bahane-creation-story", "name": "Diné Bahaneʼ: The Navajo Creation Story English Translation (Paul G. Zolbrod)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "dine-bahane-creation-story" },
+
+    { "id": "blessingway-navajo-ed", "workId": "blessingway-hozhonji", "name": "Hózhóójí Navajo Blessingway Songs and Prayers", "editionType": "original_script", "language": "nav", "script": "Latn" },
+    { "id": "blessingway-en-wyman", "workId": "blessingway-hozhonji", "name": "Blessingway: Recorded and Translated by Father Berard Haile (Leland C. Wyman)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "blessingway-hozhonji" },
+
+    { "id": "nightway-navajo-ed", "workId": "nightway-kletji-chants", "name": "Tłʼééʼjí Navajo Night Chant Ceremony Text", "editionType": "original_script", "language": "nav", "script": "Latn" },
+    { "id": "nightway-en-matthews", "workId": "nightway-kletji-chants", "name": "The Night Chant: A Navaho Ceremony English Translation (Washington Matthews)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "nightway-kletji-chants" },
+
+    { "id": "tala-foafoaga-samoan-ed", "workId": "tala-o-le-foafoaga-samoan", "name": "O le Tala i le Foafoaga o le Lalolagi Samoan Text", "editionType": "original_script", "language": "smo", "script": "Latn" },
+    { "id": "tala-foafoaga-en-kramer", "workId": "tala-o-le-foafoaga-samoan", "name": "The Samoa Islands: Sacred Lore and Cosmogony English (Augustin Krämer)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "tala-o-le-foafoaga-samoan" },
+
+    { "id": "solo-o-le-va-samoan-ed", "workId": "solo-o-le-va-cosmic-hymn", "name": "Solo o le Vā Ancient Samoan Creation Chant", "editionType": "original_script", "language": "smo", "script": "Latn" },
+    { "id": "solo-o-le-va-en-pratt", "workId": "solo-o-le-va-cosmic-hymn", "name": "The Genealogy of the Kings and Creation of Samoa English (George Pratt & John Fraser)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "solo-o-le-va-cosmic-hymn" },
+
+    { "id": "faalupega-samoan-ed", "workId": "faalupega-sacred-salutations", "name": "O le Tusi Fa'alupega o Samoa Canonical Text", "editionType": "original_script", "language": "smo", "script": "Latn" },
+    { "id": "faalupega-en", "workId": "faalupega-sacred-salutations", "name": "Fa'alupega: Sacred Ceremonial Salutations of Samoa English", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "faalupega-sacred-salutations" },
+
+    { "id": "liber-linteus-etruscan-ed", "workId": "liber-linteus-zagrebiensis", "name": "Liber Linteus Zagreb Mummy Linen Etruscan Inscriptions", "editionType": "original_script", "language": "ett", "script": "Ital" },
+    { "id": "liber-linteus-en-van-der-meer", "workId": "liber-linteus-zagrebiensis", "name": "Liber Linteus Zagrabiensis: The Etruscan Ritual Calendar English (L.B. van der Meer)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "liber-linteus-zagrebiensis" },
+
+    { "id": "tabula-cortonensis-etruscan-ed", "workId": "tabula-cortonensis", "name": "Tabula Cortonensis Etruscan Bronze Inscription", "editionType": "original_script", "language": "ett", "script": "Ital" },
+    { "id": "tabula-cortonensis-en-riggi", "workId": "tabula-cortonensis", "name": "The Tabula Cortonensis English Scholarly Edition (Luciano Agostiniani)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "tabula-cortonensis" },
+
+    { "id": "pyrgi-bilingual-etruscan-ed", "workId": "pyrgia-tablets", "name": "The Pyrgi Gold Tablets Etruscan & Phoenician Inscription", "editionType": "original_script", "language": "ett", "script": "Ital" },
+    { "id": "pyrgi-tablets-en", "workId": "pyrgia-tablets", "name": "The Pyrgi Inscriptions English Translation", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "pyrgia-tablets" },
+
+    { "id": "mithras-liturgy-greek-ed", "workId": "mithras-liturgy-papyrus", "name": "The Mithras Liturgy Greek Papyrus Text (PGM IV 475-820)", "editionType": "original_script", "language": "grc", "script": "Grek" },
+    { "id": "mithras-liturgy-en-meyer", "workId": "mithras-liturgy-papyrus", "name": "The Mithras Liturgy English Translation (Marvin W. Meyer)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "mithras-liturgy-papyrus" },
+
+    { "id": "santa-prisca-latin-ed", "workId": "santa-prisca-mithraic-hymns", "name": "Santa Prisca Mithraeum Latin Inscriptions & Hymns", "editionType": "original_script", "language": "la", "script": "Latn" },
+    { "id": "santa-prisca-mithraic-en-vermaseren", "workId": "santa-prisca-mithraic-hymns", "name": "The Excavations in the Mithraeum of the Church of Santa Prisca English (M.J. Vermaseren)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "santa-prisca-mithraic-hymns" },
+
+    { "id": "porphyry-antro-greek-ed", "workId": "porphyry-de-antro-nympbarum", "name": "De Antro Nympharum Greek Text (Porphyry)", "editionType": "original_script", "language": "grc", "script": "Grek" },
+    { "id": "porphyry-antro-en-taylor", "workId": "porphyry-de-antro-nympbarum", "name": "On the Cave of the Nymphs in the Odyssey English (Thomas Taylor)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "porphyry-de-antro-nympbarum" },
+
+    { "id": "haymanote-abew-geez-ed", "workId": "haymanote-abew", "name": "Haymanote Abew Ge'ez Canonical Homiletic Edition", "editionType": "original_script", "language": "gez", "script": "Ethi" },
+    { "id": "haymanote-abew-en", "workId": "haymanote-abew", "name": "The Faith of the Fathers (Haymanote Abew) English Translation", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "haymanote-abew" },
+
+    { "id": "enuma-anu-enlil-cuneiform-ed", "workId": "enuma-anu-enlil", "name": "Enuma Anu Enlil Akkadian Cuneiform Series", "editionType": "original_script", "language": "akk", "script": "Xsux" },
+    { "id": "enuma-anu-enlil-en-reiner", "workId": "enuma-anu-enlil", "name": "Babylonian Planetary Omens: Enuma Anu Enlil English (Erica Reiner & David Pingree)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "enuma-anu-enlil" },
+
+    { "id": "totonicapan-kiche-ed", "workId": "title-of-totonicapan", "name": "Título de Totonicapán K'iche' Sacred Chronicle", "editionType": "original_script", "language": "quc", "script": "Latn" },
+    { "id": "totonicapan-en-carmack", "workId": "title-of-totonicapan", "name": "The Title of Totonicapán: Sacred K'iche' History English (Robert M. Carmack & James L. Mondloch)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "title-of-totonicapan" },
+
+    { "id": "tirumandiram-tamil-ed", "workId": "tirumandiram", "name": "Tirumandiram Tamil Canonical Verses (Tirumular)", "editionType": "original_script", "language": "ta", "script": "Taml" },
+    { "id": "tirumandiram-en-natarajan", "workId": "tirumandiram", "name": "Tirumantiram: A Tamil Scriptural Classic English (B. Natarajan)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "tirumandiram" }
   ]
 }

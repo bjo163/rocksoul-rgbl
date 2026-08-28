@@ -32,7 +32,7 @@
     "upstream:list": "tsx scripts/upstream-manager.ts list",
     "upstream:audit": "tsx scripts/upstream-manager.ts audit",
     "fetch:upstream": "tsx scripts/fetch-upstream-scriptures.ts",
-    "ingest:ummah": "tsx scripts/ingest-ummah-api.ts",
+    "ingest:ummah": "tsx scripts/ingest-ummah-hadiths.ts",
     "serve": "tsx apps/api/src/server.ts",
     "api:dev": "pnpm --filter @moonwitness/corpus-api dev",
     "cli": "tsx packages/cli/src/cli.ts"

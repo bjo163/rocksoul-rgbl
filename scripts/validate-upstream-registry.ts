@@ -1,4 +1,5 @@
 import { readFile } from 'node:fs/promises'
+import { existsSync } from 'node:fs'
 import path from 'node:path'
 
 interface Endpoint {
@@ -8,6 +9,8 @@ interface Endpoint {
   repoUrl?: unknown
   url?: unknown
   license?: unknown
+  enabled?: unknown
+  required?: unknown
 }
 
 interface Tradition {
@@ -23,27 +26,46 @@ interface Registry {
   traditions?: Record<string, Tradition>
 }
 
-const registryPath = path.join(process.cwd(), 'config/upstream-registry.json')
+interface ExecutorJob {
+  id?: unknown
+  name?: unknown
+  enabled?: unknown
+  endpointIds?: unknown
+  script?: unknown
+  recipeId?: unknown
+  adapterId?: unknown
+  required?: unknown
+}
+
+interface ExecutorRegistry {
+  version?: unknown
+  defaults?: unknown
+  jobs?: ExecutorJob[]
+}
+
+const root = process.cwd()
+const registryPath = path.join(root, 'config/upstream-registry.json')
+const executorsPath = path.join(root, 'config/upstream-executors.json')
 
 function fail(message: string): never {
   throw new Error(`[registry] ${message}`)
 }
 
 async function main() {
-  const raw = await readFile(registryPath, 'utf8')
+  const rawRegistry = await readFile(registryPath, 'utf8')
   let registry: Registry
 
   try {
-    registry = JSON.parse(raw) as Registry
+    registry = JSON.parse(rawRegistry) as Registry
   } catch (error) {
-    fail(`Invalid JSON: ${error instanceof Error ? error.message : String(error)}`)
+    fail(`Invalid JSON in upstream-registry.json: ${error instanceof Error ? error.message : String(error)}`)
   }
 
-  if (!registry.version) fail('Missing top-level version')
-  if (!registry.title) fail('Missing top-level title')
-  if (!registry.traditions || typeof registry.traditions !== 'object') fail('Missing traditions object')
+  if (!registry.version) fail('Missing top-level version in upstream-registry.json')
+  if (!registry.title) fail('Missing top-level title in upstream-registry.json')
+  if (!registry.traditions || typeof registry.traditions !== 'object') fail('Missing traditions object in upstream-registry.json')
 
-  const ids = new Set<string>()
+  const endpointIds = new Set<string>()
   const problems: string[] = []
   let endpointCount = 0
 
@@ -63,8 +85,8 @@ async function main() {
       const id = typeof endpoint.id === 'string' ? endpoint.id : ''
 
       if (!id) problems.push(`${traditionId}: endpoint missing id`)
-      else if (ids.has(id)) problems.push(`duplicate endpoint id: ${id}`)
-      else ids.add(id)
+      else if (endpointIds.has(id)) problems.push(`duplicate endpoint id: ${id}`)
+      else endpointIds.add(id)
 
       const type = typeof endpoint.type === 'string' ? endpoint.type : ''
       const hasUrl = [endpoint.baseUrl, endpoint.repoUrl, endpoint.url]
@@ -82,13 +104,59 @@ async function main() {
     }
   }
 
+  // 2. Validate upstream-executors.json if present
+  let jobCount = 0
+  if (existsSync(executorsPath)) {
+    const rawExecutors = await readFile(executorsPath, 'utf8')
+    let executors: ExecutorRegistry
+
+    try {
+      executors = JSON.parse(rawExecutors) as ExecutorRegistry
+    } catch (error) {
+      fail(`Invalid JSON in upstream-executors.json: ${error instanceof Error ? error.message : String(error)}`)
+    }
+
+    if (!executors.version) problems.push('upstream-executors.json: missing version')
+    if (!Array.isArray(executors.jobs)) problems.push('upstream-executors.json: jobs must be an array')
+    else {
+      jobCount = executors.jobs.length
+      const jobIds = new Set<string>()
+
+      for (const job of executors.jobs) {
+        const jobId = typeof job.id === 'string' ? job.id : ''
+        if (!jobId) problems.push('executor job missing id')
+        else if (jobIds.has(jobId)) problems.push(`duplicate executor job id: ${jobId}`)
+        else jobIds.add(jobId)
+
+        if (!job.name) problems.push(`job ${jobId}: missing name`)
+        if (!Array.isArray(job.endpointIds) || job.endpointIds.length === 0) {
+          problems.push(`job ${jobId}: endpointIds must be non-empty array`)
+        } else {
+          for (const epId of job.endpointIds as string[]) {
+            if (!endpointIds.has(epId)) {
+              problems.push(`job ${jobId}: references unknown endpoint '${epId}'`)
+            }
+          }
+        }
+
+        if (job.script) {
+          const scriptFile = path.join(root, String(job.script))
+          if (!existsSync(scriptFile)) {
+            problems.push(`job ${jobId}: script file not found at ${job.script}`)
+          }
+        }
+      }
+    }
+  }
+
   console.log(JSON.stringify({
     valid: problems.length === 0,
     registryPath,
     registryVersion: registry.version,
     traditions: Object.keys(registry.traditions ?? {}).length,
     endpoints: endpointCount,
-    uniqueEndpointIds: ids.size,
+    uniqueEndpointIds: endpointIds.size,
+    executorJobs: jobCount,
     problems
   }, null, 2))
 

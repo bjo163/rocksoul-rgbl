@@ -81,19 +81,22 @@ export class CorpusAuditor {
         }
       }
 
-      // If work has live data or active recipe representation
+      // Compute estimated / canonical record counts per tradition
       const isQuran = work.id === 'quran'
       const isHadith = work.id.startsWith('hadith-') || work.id === 'duas-hisnul-muslim' || work.id === 'asmaul-husna'
       const isTanakh = work.id === 'tanakh' || work.id === 'torah'
-      const isGreek = work.id === 'greek-new-testament' || work.id === 'canonical-greek-literature'
-      const isDhammapada = work.id === 'dhammapada' || work.id.includes('nikaya')
-      const isGita = work.id === 'bhagavad-gita' || work.id === 'principal-upanishads'
+      const isGreek = work.id === 'greek-new-testament' || work.id === 'canonical-greek-literature' || work.id === 'septuagint'
+      const isDhammapada = work.id === 'dhammapada' || work.id.includes('nikaya') || work.id === 'vinaya-pitaka'
+      const isGita = work.id === 'bhagavad-gita' || work.id === 'principal-upanishads' || work.id === 'rigveda' || work.id === 'samaveda' || work.id === 'atharvaveda'
       const isAvesta = work.id === 'avesta' || work.id === 'yasna-gathas'
-      const isSikh = work.id === 'guru-granth-sahib' || work.id === 'japji-sahib'
+      const isSikh = work.id === 'guru-granth-sahib' || work.id === 'japji-sahib' || work.id === 'dasam-granth'
       const isJain = work.id === 'tattvartha-sutra' || work.id === 'kalpa-sutra'
       const isBahai = work.id === 'hidden-words' || work.id.startsWith('kitab-')
       const isShinto = work.id === 'kojiki' || work.id === 'nihon-shoki'
-      const isEastAsia = work.id === 'dao-de-jing' || work.id === 'zhuangzi' || work.id === 'analects' || work.id === 'mencius'
+      const isEastAsia = work.id === 'dao-de-jing' || work.id === 'zhuangzi' || work.id === 'analects' || work.id === 'mencius' || work.id === 'liezi'
+      const isGnostic = work.traditionId === 'gnosticism' || work.traditionId === 'hermeticism' || work.traditionId === 'theosophy'
+      const isAfrican = work.traditionId === 'yoruba-ifa'
+      const isPolynesian = work.traditionId === 'maori-tradition'
 
       if (isQuran) totalRecords = 6236
       else if (isHadith) totalRecords = 1200
@@ -107,6 +110,9 @@ export class CorpusAuditor {
       else if (isBahai) totalRecords = 153
       else if (isShinto) totalRecords = 180
       else if (isEastAsia) totalRecords = 500
+      else if (isGnostic) totalRecords = 256
+      else if (isAfrican) totalRecords = 256
+      else if (isPolynesian) totalRecords = 300
       else totalRecords = 100
 
       const executionPathCoverage = endpointIds.length > 0 && sourceIds.length > 0
@@ -327,5 +333,8 @@ export class CorpusAuditor {
       JSON.stringify(qualityReport, null, 2) + '\n',
       'utf8'
     )
+
+    // Write tradition discovery and coverage reports
+    await this.universalRegistry.writeWorkCoverageReport(outDir)
   }
 }

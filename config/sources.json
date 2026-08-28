@@ -3,133 +3,31 @@
   "version": "1.0.0",
   "title": "MoonWitness Universal Upstream Sources Registry",
   "sources": [
-    {
-      "id": "tanzil",
-      "name": "Tanzil Project",
-      "sourceType": "community_project",
-      "authorityLevel": "community",
-      "officiality": "official_project",
-      "homepage": "https://tanzil.net"
-    },
-    {
-      "id": "quranenc",
-      "name": "QuranEnc Translation Center",
-      "sourceType": "translation_portal",
-      "authorityLevel": "institutional",
-      "officiality": "official",
-      "homepage": "https://quranenc.com"
-    },
-    {
-      "id": "ummah-api",
-      "name": "UmmahAPI Unified Islamic Data Project",
-      "sourceType": "api_platform",
-      "authorityLevel": "community",
-      "officiality": "open_data",
-      "homepage": "https://ummahapi.com"
-    },
-    {
-      "id": "sefaria",
-      "name": "Sefaria Living Library of Jewish Texts",
-      "sourceType": "digital_library",
-      "authorityLevel": "institutional",
-      "officiality": "official",
-      "homepage": "https://www.sefaria.org"
-    },
-    {
-      "id": "openscriptures",
-      "name": "Open Scriptures Hebrew Bible Project",
-      "sourceType": "academic_repository",
-      "authorityLevel": "academic",
-      "officiality": "academic",
-      "homepage": "https://github.com/openscriptures"
-    },
-    {
-      "id": "morphgnt",
-      "name": "MorphGNT Biblical Greek Project",
-      "sourceType": "academic_repository",
-      "authorityLevel": "academic",
-      "officiality": "academic",
-      "homepage": "https://github.com/morphgnt"
-    },
-    {
-      "id": "perseus",
-      "name": "Perseus Digital Library at Tufts University",
-      "sourceType": "academic_repository",
-      "authorityLevel": "academic",
-      "officiality": "institutional",
-      "homepage": "https://github.com/PerseusDL"
-    },
-    {
-      "id": "gretil",
-      "name": "Göttingen Register of Electronic Texts in Indian Languages (GRETIL)",
-      "sourceType": "academic_archive",
-      "authorityLevel": "academic",
-      "officiality": "institutional",
-      "homepage": "https://gretil.sub.uni-goettingen.de"
-    },
-    {
-      "id": "vedic-scriptures",
-      "name": "Vedic Scriptures Open Data Project",
-      "sourceType": "open_data_repository",
-      "authorityLevel": "community",
-      "officiality": "open_data",
-      "homepage": "https://github.com/vedicscriptures"
-    },
-    {
-      "id": "suttacentral",
-      "name": "SuttaCentral Early Buddhist Texts",
-      "sourceType": "digital_library",
-      "authorityLevel": "institutional",
-      "officiality": "official",
-      "homepage": "https://suttacentral.net"
-    },
-    {
-      "id": "ctext",
-      "name": "Chinese Text Project",
-      "sourceType": "academic_library",
-      "authorityLevel": "academic",
-      "officiality": "academic",
-      "homepage": "https://ctext.org"
-    },
-    {
-      "id": "avesta-org",
-      "name": "Avesta.org Digital Archive",
-      "sourceType": "archival_repository",
-      "authorityLevel": "community",
-      "officiality": "archival",
-      "homepage": "http://www.avesta.org"
-    },
-    {
-      "id": "shabados",
-      "name": "ShabadOS Open Guru Granth Sahib Database",
-      "sourceType": "open_data_repository",
-      "authorityLevel": "community",
-      "officiality": "official_project",
-      "homepage": "https://github.com/shabados"
-    },
-    {
-      "id": "jain-heritage-library",
-      "name": "Jain Heritage Open Digital Library",
-      "sourceType": "digital_library",
-      "authorityLevel": "community",
-      "officiality": "archival",
-      "homepage": "https://jainlibrary.org"
-    },
-    {
-      "id": "bahai-ref-library",
-      "name": "Bahá'í Reference Library",
-      "sourceType": "official_digital_library",
-      "authorityLevel": "official",
-      "officiality": "official",
-      "homepage": "https://www.bahai.org/library/"
-    },
-    {
-      "id": "sacred-texts",
-      "name": "Internet Sacred Text Archive",
-      "sourceType": "archival_repository",
-      "authorityLevel": "archival",
-      "officiality": "non_official",
-      "homepage": "https://sacred-texts.com"
-    }
+    { "id": "tanzil", "name": "Tanzil Project", "sourceType": "community_project", "authorityLevel": "community", "officiality": "official_project", "homepage": "https://tanzil.net" },
+    { "id": "quranenc", "name": "QuranEnc Translation Center", "sourceType": "translation_portal", "authorityLevel": "institutional", "officiality": "official", "homepage": "https://quranenc.com" },
+    { "id": "ummah-api", "name": "UmmahAPI Unified Islamic Data Project", "sourceType": "api_platform", "authorityLevel": "community", "officiality": "open_data", "homepage": "https://ummahapi.com" },
+    { "id": "sefaria", "name": "Sefaria Living Library of Jewish Texts", "sourceType": "digital_library", "authorityLevel": "institutional", "officiality": "official", "homepage": "https://www.sefaria.org" },
+    { "id": "openscriptures", "name": "Open Scriptures Hebrew Bible Project", "sourceType": "academic_repository", "authorityLevel": "academic", "officiality": "academic", "homepage": "https://github.com/openscriptures" },
+    { "id": "morphgnt", "name": "MorphGNT Biblical Greek Project", "sourceType": "academic_repository", "authorityLevel": "academic", "officiality": "academic", "homepage": "https://github.com/morphgnt" },
+    { "id": "perseus", "name": "Perseus Digital Library at Tufts University", "sourceType": "academic_repository", "authorityLevel": "academic", "officiality": "institutional", "homepage": "https://github.com/PerseusDL" },
+    { "id": "gretil", "name": "Göttingen Register of Electronic Texts in Indian Languages (GRETIL)", "sourceType": "academic_archive", "authorityLevel": "academic", "officiality": "institutional", "homepage": "https://gretil.sub.uni-goettingen.de" },
+    { "id": "vedic-scriptures", "name": "Vedic Scriptures Open Data Project", "sourceType": "open_data_repository", "authorityLevel": "community", "officiality": "open_data", "homepage": "https://github.com/vedicscriptures" },
+    { "id": "suttacentral", "name": "SuttaCentral Early Buddhist Texts", "sourceType": "digital_library", "authorityLevel": "institutional", "officiality": "official", "homepage": "https://suttacentral.net" },
+    { "id": "ctext", "name": "Chinese Text Project", "sourceType": "academic_library", "authorityLevel": "academic", "officiality": "academic", "homepage": "https://ctext.org" },
+    { "id": "avesta-org", "name": "Avesta.org Digital Archive", "sourceType": "archival_repository", "authorityLevel": "community", "officiality": "archival", "homepage": "http://www.avesta.org" },
+    { "id": "shabados", "name": "ShabadOS Open Guru Granth Sahib Database", "sourceType": "open_data_repository", "authorityLevel": "community", "officiality": "official_project", "homepage": "https://github.com/shabados" },
+    { "id": "jain-heritage-library", "name": "Jain Heritage Open Digital Library", "sourceType": "digital_library", "authorityLevel": "community", "officiality": "archival", "homepage": "https://jainlibrary.org" },
+    { "id": "bahai-ref-library", "name": "Bahá'í Reference Library", "sourceType": "official_digital_library", "authorityLevel": "official", "officiality": "official", "homepage": "https://www.bahai.org/library/" },
+    { "id": "sacred-texts", "name": "Internet Sacred Text Archive", "sourceType": "archival_repository", "authorityLevel": "archival", "officiality": "non_official", "homepage": "https://sacred-texts.com" },
+    { "id": "nag-hammadi-archive", "name": "The Nag Hammadi Digital Coptic & Gnostic Archive", "sourceType": "academic_archive", "authorityLevel": "academic", "officiality": "academic", "homepage": "http://www.gnosis.org/naghamm/nhl.html" },
+    { "id": "samaritan-portal", "name": "Samaritan Heritage & Digital Texts Portal", "sourceType": "digital_library", "authorityLevel": "institutional", "officiality": "official_project", "homepage": "https://www.israelite-samaritans.com" },
+    { "id": "mandaean-open-source", "name": "Mandaean Digital Scriptural Repository", "sourceType": "academic_archive", "authorityLevel": "academic", "officiality": "academic", "homepage": "https://mandaean.org" },
+    { "id": "theosophical-society", "name": "Theosophical Society International Archive", "sourceType": "official_digital_library", "authorityLevel": "official", "officiality": "official", "homepage": "https://www.theosociety.org" },
+    { "id": "korean-classics-db", "name": "National Institute of Korean History Digital Classics", "sourceType": "academic_repository", "authorityLevel": "institutional", "officiality": "official", "homepage": "https://db.itkc.or.kr" },
+    { "id": "unesco-ifa-archive", "name": "UNESCO Intangible Cultural Heritage Ifá Divination Archive", "sourceType": "academic_archive", "authorityLevel": "institutional", "officiality": "official", "homepage": "https://ich.unesco.org" },
+    { "id": "nz-electronic-text-centre", "name": "New Zealand Electronic Text Collection (NZETC)", "sourceType": "academic_archive", "authorityLevel": "academic", "officiality": "institutional", "homepage": "http://nzetc.victoria.ac.nz" },
+    { "id": "tenrikyo-overseas-dept", "name": "Tenrikyo Official Digital Library", "sourceType": "official_digital_library", "authorityLevel": "official", "officiality": "official", "homepage": "https://www.tenrikyo.or.jp" },
+    { "id": "caodai-overseas-mission", "name": "Cao Dai Official Scriptural Library", "sourceType": "official_digital_library", "authorityLevel": "official", "officiality": "official", "homepage": "http://www.daotam.info" },
+    { "id": "won-buddhism-intl", "name": "Won Buddhism International Publishing Center", "sourceType": "official_digital_library", "authorityLevel": "official", "officiality": "official", "homepage": "https://wonbuddhism.org" }
   ]
 }

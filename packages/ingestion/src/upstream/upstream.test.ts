@@ -2,7 +2,7 @@ import assert from 'node:assert/strict'
 import test from 'node:test'
 import { UpstreamPlanner } from './planner.js'
 import { RecipeResolver } from './recipe-resolver.js'
-import { buildRunManifest, buildCoverageReport } from './manifest.js'
+import { buildRunManifest, buildCoverageReport, buildCoverageAuditReport } from './manifest.js'
 import {
   defaultUpstreamAdapterRegistry,
   UpstreamAdapterRegistry,
@@ -233,6 +233,10 @@ test('Test 8: manifest category mismatch / accounting invariant failure', () => 
   assert.equal(manifest.accountingValid, true)
   assert.equal(manifest.totals.planned, 1)
   assert.equal(manifest.totals.remoteSynced, 1)
+
+  const auditReport = buildCoverageAuditReport(manifest)
+  assert.equal(auditReport.totalEndpoints, 1)
+  assert.equal(auditReport.endpoints[0].remoteReachable, true)
 })
 
 test('Test 9: duplicate job IDs rejected', () => {
@@ -277,86 +281,129 @@ test('Test 9: duplicate job IDs rejected', () => {
   }, /Duplicate upstream job ID/)
 })
 
-test('Test 10: duplicate acquisition result envelope rejected', () => {
-  const job: UpstreamJobResult = {
-    id: 'test:duplicate-envelope',
-    traditionId: 'test',
-    endpointId: 'duplicate-envelope',
-    mode: 'script',
+test('Test 10: 17/17 full remote success coverage model', () => {
+  const full17Jobs: UpstreamJobResult[] = Array.from({ length: 17 }, (_, i) => ({
+    id: `job-${i + 1}`,
+    traditionId: `trad-${i + 1}`,
+    endpointId: `ep-${i + 1}`,
+    mode: 'adapter',
     executionStatus: 'PROCESS_SUCCEEDED',
-    status: 'failed',
-    acquisitionStatus: 'REMOTE_FAILED',
+    status: 'succeeded',
+    acquisitionStatus: 'REMOTE_SYNCED',
     required: false,
     allowFallback: false,
     allowCache: false,
-    durationMs: 10,
-    error: 'INVALID_ACQUISITION_RESULT: Duplicate MOONWITNESS_RESULT payloads emitted'
-  }
+    durationMs: 50,
+    sourceSha256: `sha256-${i}`
+  }))
 
-  assert.equal(job.status, 'failed')
-  assert.equal(job.acquisitionStatus, 'REMOTE_FAILED')
+  const manifest = buildRunManifest({
+    runId: 'test-full-17',
+    startedAt: '2026-08-29T00:00:00Z',
+    completedAt: '2026-08-29T00:01:00Z',
+    registryVersion: '1.0.0',
+    workers: 4,
+    jobs: full17Jobs
+  })
+
+  const coverage = buildCoverageReport(manifest)
+  assert.equal(coverage.planned, 17)
+  assert.equal(coverage.remoteSynced, 17)
+  assert.equal(coverage.remoteCoveragePercent, 100)
+  assert.equal(coverage.partial, false)
 })
 
-test('Test 11 & 12: required failure vs optional failure', () => {
-  const reqFail: UpstreamJobResult = {
-    id: 'test:req-fail',
-    traditionId: 'test',
-    endpointId: 'req-fail',
-    mode: 'adapter',
-    executionStatus: 'PROCESS_FAILED',
-    status: 'failed',
-    acquisitionStatus: 'REMOTE_FAILED',
-    required: true,
-    allowFallback: false,
-    allowCache: false,
-    durationMs: 10
-  }
-  const optFail: UpstreamJobResult = {
-    id: 'test:opt-fail',
-    traditionId: 'test',
-    endpointId: 'opt-fail',
-    mode: 'adapter',
-    executionStatus: 'PROCESS_FAILED',
-    status: 'failed',
-    acquisitionStatus: 'REMOTE_FAILED',
-    required: false,
-    allowFallback: false,
-    allowCache: false,
-    durationMs: 10
-  }
+test('Test 11: 16/17 success + 1 optional failure coverage model', () => {
+  const mixedJobs: UpstreamJobResult[] = [
+    ...Array.from({ length: 16 }, (_, i) => ({
+      id: `job-${i + 1}`,
+      traditionId: `trad-${i + 1}`,
+      endpointId: `ep-${i + 1}`,
+      mode: 'adapter' as const,
+      executionStatus: 'PROCESS_SUCCEEDED' as const,
+      status: 'succeeded' as const,
+      acquisitionStatus: 'REMOTE_SYNCED' as const,
+      required: false,
+      allowFallback: false,
+      allowCache: false,
+      durationMs: 50
+    })),
+    {
+      id: 'job-17-opt-fail',
+      traditionId: 'trad-17',
+      endpointId: 'ep-17',
+      mode: 'adapter',
+      executionStatus: 'PROCESS_FAILED',
+      status: 'failed',
+      acquisitionStatus: 'REMOTE_FAILED',
+      required: false,
+      allowFallback: false,
+      allowCache: false,
+      durationMs: 50,
+      error: 'HTTP 404'
+    }
+  ]
 
-  assert.equal(reqFail.required, true)
-  assert.equal(optFail.required, false)
+  const manifest = buildRunManifest({
+    runId: 'test-16-1',
+    startedAt: '2026-08-29T00:00:00Z',
+    completedAt: '2026-08-29T00:01:00Z',
+    registryVersion: '1.0.0',
+    workers: 4,
+    jobs: mixedJobs
+  })
+
+  const coverage = buildCoverageReport(manifest)
+  assert.equal(coverage.planned, 17)
+  assert.equal(coverage.remoteSynced, 16)
+  assert.equal(coverage.failed, 1)
+  assert.equal(coverage.partial, true)
 })
 
-test('Test 13 & 14: required fallback vs optional fallback', () => {
-  const reqFallback: UpstreamJobResult = {
-    id: 'test:req-fallback',
-    traditionId: 'test',
-    endpointId: 'req-fallback',
-    mode: 'script',
+test('Test 12: Git commit and HTTP provenance integrity', () => {
+  const gitJob: UpstreamJobResult = {
+    id: 'christianity:sblgnt',
+    traditionId: 'christianity',
+    endpointId: 'sblgnt',
+    mode: 'adapter',
     executionStatus: 'PROCESS_SUCCEEDED',
-    status: 'fallback',
-    acquisitionStatus: 'LOCAL_FALLBACK',
-    required: true,
-    allowFallback: true,
-    allowCache: false,
-    durationMs: 10
-  }
-  const optFallback: UpstreamJobResult = {
-    id: 'test:opt-fallback',
-    traditionId: 'test',
-    endpointId: 'opt-fallback',
-    mode: 'script',
-    executionStatus: 'PROCESS_SUCCEEDED',
-    status: 'fallback',
-    acquisitionStatus: 'LOCAL_FALLBACK',
+    status: 'succeeded',
+    acquisitionStatus: 'REMOTE_SYNCED',
     required: false,
-    allowFallback: true,
+    allowFallback: false,
     allowCache: false,
-    durationMs: 10
+    durationMs: 200,
+    requestedUrl: 'https://github.com/morphgnt/sblgnt.git',
+    resolvedUrl: 'https://github.com/morphgnt/sblgnt.git',
+    sourceSha256: 'aaed91e57c8e4a8dc9a2383e129ca5e75fe6393d',
+    repoUrl: 'https://github.com/morphgnt/sblgnt.git',
+    resolvedCommit: 'aaed91e57c8e4a8dc9a2383e129ca5e75fe6393d',
+    ref: 'HEAD',
+    defaultBranch: 'master'
   }
 
-  assert.equal(reqFallback.required, true)
-  assert.equal(optFallback.required, false)
+  const httpJob: UpstreamJobResult = {
+    id: 'zoroastrianism:avesta-archive',
+    traditionId: 'zoroastrianism',
+    endpointId: 'avesta-archive',
+    mode: 'adapter',
+    executionStatus: 'PROCESS_SUCCEEDED',
+    status: 'succeeded',
+    acquisitionStatus: 'REMOTE_SYNCED',
+    required: false,
+    allowFallback: false,
+    allowCache: false,
+    durationMs: 300,
+    requestedUrl: 'http://www.avesta.org',
+    resolvedUrl: 'https://www.avesta.org/',
+    sourceSha256: '322df8bac9ff9d4d1ec4d38a7d3623871db78931011f22b44c183b36c204a571',
+    contentType: 'text/html',
+    byteCount: 34295,
+    etag: '"85f7-659c1aa5c4d80-gzip"',
+    lastModified: 'Mon, 24 Aug 2026 02:23:02 GMT'
+  }
+
+  assert.equal(gitJob.resolvedCommit, 'aaed91e57c8e4a8dc9a2383e129ca5e75fe6393d')
+  assert.equal(httpJob.contentType, 'text/html')
+  assert.ok((httpJob.byteCount ?? 0) > 0)
 })

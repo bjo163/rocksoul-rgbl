@@ -13,6 +13,23 @@ export interface ManifestGenerationOptions {
   outDir?: string
 }
 
+export interface EndpointCoverageAuditItem {
+  tradition: string
+  endpointId: string
+  name: string
+  requestedUrl: string
+  actualSource: string
+  sourceType: string
+  authorityLevel: string
+  remoteReachable: boolean
+  remoteAcquirable: boolean
+  adapter: string
+  recipe: string
+  acquisitionStatus: string
+  executionStatus: string
+  reason: string
+}
+
 export function buildRunManifest(options: ManifestGenerationOptions): UpstreamRunManifest {
   // Check for duplicate job IDs
   const seenIds = new Set<string>()
@@ -105,6 +122,47 @@ export function buildCoverageReport(manifest: UpstreamRunManifest): UpstreamCove
   }
 }
 
+export function buildCoverageAuditReport(manifest: UpstreamRunManifest): {
+  schemaVersion: string
+  generatedAt: string
+  runId: string
+  totalEndpoints: number
+  endpoints: EndpointCoverageAuditItem[]
+} {
+  const endpoints: EndpointCoverageAuditItem[] = manifest.jobs.map((job) => {
+    const isRemote = job.acquisitionStatus === 'REMOTE_SYNCED' || job.acquisitionStatus === 'REMOTE_NOT_MODIFIED'
+    let authorityLevel = 'Institutional / Academic Repository'
+    if (job.traditionId === 'islam' || job.traditionId === 'judaism' || job.traditionId === 'christianity' || job.traditionId === 'buddhism') {
+      authorityLevel = 'Official / Canonical Authority'
+    }
+
+    return {
+      tradition: job.traditionId,
+      endpointId: job.endpointId,
+      name: job.id,
+      requestedUrl: job.requestedUrl || 'unknown',
+      actualSource: job.resolvedUrl || job.requestedUrl || 'unknown',
+      sourceType: job.mode,
+      authorityLevel,
+      remoteReachable: isRemote,
+      remoteAcquirable: job.acquisitionStatus !== 'UNSUPPORTED',
+      adapter: job.provenance?.adapterId || job.mode,
+      recipe: job.provenance?.recipeId || 'none',
+      acquisitionStatus: job.acquisitionStatus,
+      executionStatus: job.executionStatus,
+      reason: job.fallbackReason || job.error || 'ok'
+    }
+  })
+
+  return {
+    schemaVersion: '1.0.0',
+    generatedAt: manifest.completedAt,
+    runId: manifest.runId,
+    totalEndpoints: endpoints.length,
+    endpoints
+  }
+}
+
 export async function writeRunManifest(
   manifest: UpstreamRunManifest,
   outDir: string = path.join(process.cwd(), 'dist')
@@ -116,6 +174,10 @@ export async function writeRunManifest(
   const coverageReport = buildCoverageReport(manifest)
   const coverageFile = path.join(outDir, 'upstream-coverage.json')
   await writeFile(coverageFile, JSON.stringify(coverageReport, null, 2) + '\n', 'utf8')
+
+  const auditReport = buildCoverageAuditReport(manifest)
+  const auditFile = path.join(outDir, 'upstream-coverage-audit.json')
+  await writeFile(auditFile, JSON.stringify(auditReport, null, 2) + '\n', 'utf8')
 
   return targetFile
 }

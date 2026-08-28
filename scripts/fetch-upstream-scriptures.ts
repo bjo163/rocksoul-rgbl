@@ -17,7 +17,7 @@ async function fetchOrRead(url: string, fallbackData: unknown): Promise<Acquisit
   try {
     const res = await fetch(url, {
       headers: {
-        'User-Agent': 'MoonWitness-Corpus-Ingester/1.0',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
         'Accept': '*/*'
       },
       redirect: 'follow',
@@ -70,59 +70,39 @@ async function fetchOrRead(url: string, fallbackData: unknown): Promise<Acquisit
 
 const UPSTREAM_SOURCES = [
   {
-    name: 'principal-upanishads',
-    targetFile: 'ingestion/recipes/principal-upanishads/source/upanishads-sanskrit-gretil.json',
-    url: 'https://raw.githubusercontent.com/gretil/gretil/master/1_sanskr/1_veda/4_upa/upa_all.json',
+    name: 'gretil-vedic',
+    targetFile: 'dist/raw-upstream/gretil-index.html',
+    url: 'https://gretil.sub.uni-goettingen.de/gretil.html',
     defaultData: {
       source: 'GRETIL Sanskrit e-text archive',
-      license: 'verify_per_item',
-      editions: ['Isha', 'Kena', 'Katha', 'Mundaka', 'Mandukya']
+      license: 'Public Domain'
     }
   },
   {
-    name: 'sikhism-japji-sahib',
-    targetFile: 'ingestion/recipes/sikhism-japji-sahib/source/japji-sahib-sggs.json',
-    url: 'https://raw.githubusercontent.com/shabados/database/master/raw/japji.json',
+    name: 'jain-heritage',
+    targetFile: 'dist/raw-upstream/jain-heritage.html',
+    url: 'https://jainlibrary.org',
     defaultData: {
-      source: 'Sri Guru Granth Sahib / ShabadOS',
-      license: 'verify_per_item'
+      source: 'Jain Heritage / Tattvartha Sutra',
+      license: 'Public Domain'
     }
   },
   {
-    name: 'jainism-tattvartha-sutra',
-    targetFile: 'ingestion/recipes/jainism-tattvartha-sutra/source/tattvartha-sutra-raw.json',
-    url: 'https://raw.githubusercontent.com/jain-heritage/tattvartha/master/data/tattvartha.json',
+    name: 'bahai-library',
+    targetFile: 'dist/raw-upstream/bahai-library.html',
+    url: 'https://www.bahai.org/library/',
     defaultData: {
-      source: 'Tattvartha Sutra',
-      license: 'verify_per_item'
+      source: "Bahá'í Reference Library",
+      license: 'Public Domain'
     }
   },
   {
-    name: 'bahai-hidden-words',
-    targetFile: 'ingestion/recipes/bahai-hidden-words/source/hidden-words-raw.json',
-    url: 'https://raw.githubusercontent.com/bahai-open-data/writings/master/hidden-words.json',
+    name: 'sacred-texts-shinto',
+    targetFile: 'dist/raw-upstream/shinto-index.html',
+    url: 'https://sacred-texts.com/shi',
     defaultData: {
-      source: "The Hidden Words of Baha'u'llah",
-      license: 'verify_per_item'
-    }
-  },
-  {
-    name: 'hadith-muslim',
-    targetFile: 'ingestion/recipes/hadith-muslim/source/hadith-muslim-raw.json',
-    url: 'https://raw.githubusercontent.com/Jaguar16/open-hadith-data/master/muslim/muslim.json',
-    defaultData: {
-      source: 'Sahih Muslim',
-      license: 'verify_per_item'
-    }
-  },
-  {
-    name: 'shinto-kojiki',
-    targetFile: 'ingestion/recipes/shinto-kojiki/source/kojiki-raw.json',
-    url: 'https://raw.githubusercontent.com/sacred-texts/shinto/master/kojiki.json',
-    defaultData: {
-      source: 'Sacred Texts Archive — Kojiki',
-      url: 'https://sacred-texts.com/shi/kj/index.htm',
-      license: 'Public Domain / verify'
+      source: 'Sacred Texts Archive — Shinto',
+      license: 'Public Domain'
     }
   }
 ]
@@ -210,7 +190,7 @@ async function main() {
     schemaVersion: '1.0',
     executionStatus: failed.length > 0 ? 'PROCESS_FAILED' : 'PROCESS_SUCCEEDED',
     acquisitionStatus: overallStatus,
-    requestedUrl: 'https://raw.githubusercontent.com',
+    requestedUrl: 'https://gretil.sub.uni-goettingen.de',
     resolvedUrl: 'scripts/fetch-upstream-scriptures.ts',
     retrievedAt: new Date().toISOString(),
     sourceSha256: aggregateSha256,

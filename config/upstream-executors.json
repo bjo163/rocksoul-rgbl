@@ -57,12 +57,10 @@
     },
     {
       "id": "universal-heritage",
-      "name": "Universal Heritage",
+      "name": "Universal Heritage Discovery Feeds",
       "enabled": true,
       "endpointIds": [
         "gretil-vedic",
-        "gita-open-data",
-        "shabados",
         "jain-heritage",
         "bahai-library",
         "sacred-texts-shinto"

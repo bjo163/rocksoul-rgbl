@@ -5,10 +5,10 @@ import path from 'node:path'
 const BASE_URL = 'https://ctext.org/api.pl'
 
 async function fetchCtext(urn: string): Promise<{ text: string; sha256: string; bytes: number }> {
-  const url = `${BASE_URL}?if=en&remap=gb&urn=${encodeURIComponent(urn)}`
+  const url = `${BASE_URL}?if=en&urn=${urn}`
   console.log(`[CText API] Fetching: ${urn} -> ${url}`)
 
-  const res = await fetch(url, { headers: { 'Accept': 'application/xml, text/xml, */*', 'User-Agent': 'MoonWitness-Corpus/1.0' } })
+  const res = await fetch(url, { headers: { 'Accept': 'application/xml, text/xml, */*' } })
   if (!res.ok) {
     throw new Error(`CText API HTTP ${res.status}: ${res.statusText}`)
   }

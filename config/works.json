@@ -3,469 +3,125 @@
   "version": "1.0.0",
   "title": "MoonWitness Universal Scriptural Works Registry",
   "works": [
-    {
-      "id": "quran",
-      "traditionId": "islam",
-      "name": "Qur'an",
-      "workType": "scripture",
-      "canonicalStatus": "primary_scripture",
-      "structure": { "levels": ["surah", "ayah", "word"] }
-    },
-    {
-      "id": "hadith-bukhari",
-      "traditionId": "islam",
-      "name": "Sahih al-Bukhari",
-      "workType": "hadith_corpus",
-      "canonicalStatus": "canonical_hadith",
-      "structure": { "levels": ["book", "hadith"] }
-    },
-    {
-      "id": "hadith-muslim",
-      "traditionId": "islam",
-      "name": "Sahih Muslim",
-      "workType": "hadith_corpus",
-      "canonicalStatus": "canonical_hadith",
-      "structure": { "levels": ["book", "hadith"] }
-    },
-    {
-      "id": "hadith-abudawud",
-      "traditionId": "islam",
-      "name": "Sunan Abu Dawud",
-      "workType": "hadith_corpus",
-      "canonicalStatus": "canonical_hadith",
-      "structure": { "levels": ["book", "hadith"] }
-    },
-    {
-      "id": "hadith-tirmidhi",
-      "traditionId": "islam",
-      "name": "Jami' at-Tirmidhi",
-      "workType": "hadith_corpus",
-      "canonicalStatus": "canonical_hadith",
-      "structure": { "levels": ["book", "hadith"] }
-    },
-    {
-      "id": "hadith-nasai",
-      "traditionId": "islam",
-      "name": "Sunan an-Nasa'i",
-      "workType": "hadith_corpus",
-      "canonicalStatus": "canonical_hadith",
-      "structure": { "levels": ["book", "hadith"] }
-    },
-    {
-      "id": "hadith-ibnmajah",
-      "traditionId": "islam",
-      "name": "Sunan Ibn Majah",
-      "workType": "hadith_corpus",
-      "canonicalStatus": "canonical_hadith",
-      "structure": { "levels": ["book", "hadith"] }
-    },
-    {
-      "id": "hadith-malik",
-      "traditionId": "islam",
-      "name": "Muwatta Malik",
-      "workType": "hadith_corpus",
-      "canonicalStatus": "canonical_hadith",
-      "structure": { "levels": ["book", "hadith"] }
-    },
-    {
-      "id": "hadith-nawawi",
-      "traditionId": "islam",
-      "name": "Al-Arba'in an-Nawawiyyah (40 Hadith)",
-      "workType": "hadith_collection",
-      "canonicalStatus": "canonical_hadith",
-      "structure": { "levels": ["hadith"] }
-    },
-    {
-      "id": "hadith-qudsi",
-      "traditionId": "islam",
-      "name": "40 Hadith Qudsi",
-      "workType": "hadith_collection",
-      "canonicalStatus": "canonical_hadith",
-      "structure": { "levels": ["hadith"] }
-    },
-    {
-      "id": "duas-hisnul-muslim",
-      "traditionId": "islam",
-      "name": "Hisnul Muslim Supplications",
-      "workType": "devotional",
-      "canonicalStatus": "canonical_devotional",
-      "structure": { "levels": ["chapter", "dua"] }
-    },
-    {
-      "id": "asmaul-husna",
-      "traditionId": "islam",
-      "name": "Asmaul Husna (99 Divine Names)",
-      "workType": "theological_enumeration",
-      "canonicalStatus": "canonical_theology",
-      "structure": { "levels": ["name"] }
-    },
-    {
-      "id": "tanakh",
-      "traditionId": "judaism",
-      "name": "Tanakh (Hebrew Bible)",
-      "workType": "scripture",
-      "canonicalStatus": "primary_scripture",
-      "structure": { "levels": ["book", "chapter", "verse"] }
-    },
-    {
-      "id": "torah",
-      "traditionId": "judaism",
-      "name": "Torah (Five Books of Moses)",
-      "workType": "scripture",
-      "canonicalStatus": "primary_scripture",
-      "structure": { "levels": ["book", "parashah", "chapter", "verse"] }
-    },
-    {
-      "id": "mishnah",
-      "traditionId": "judaism",
-      "name": "Mishnah",
-      "workType": "oral_torah",
-      "canonicalStatus": "primary_rabbinic",
-      "structure": { "levels": ["order", "tractate", "chapter", "mishnah"] }
-    },
-    {
-      "id": "talmud-bavli",
-      "traditionId": "judaism",
-      "name": "Babylonian Talmud",
-      "workType": "rabbinic_commentary",
-      "canonicalStatus": "canonical_rabbinic",
-      "structure": { "levels": ["tractate", "daf"] }
-    },
-    {
-      "id": "talmud-yerushalmi",
-      "traditionId": "judaism",
-      "name": "Jerusalem Talmud",
-      "workType": "rabbinic_commentary",
-      "canonicalStatus": "canonical_rabbinic",
-      "structure": { "levels": ["tractate", "chapter", "halakhah"] }
-    },
-    {
-      "id": "midrash-rabbah",
-      "traditionId": "judaism",
-      "name": "Midrash Rabbah",
-      "workType": "rabbinic_homiletics",
-      "canonicalStatus": "canonical_rabbinic",
-      "structure": { "levels": ["book", "parashah", "section"] }
-    },
-    {
-      "id": "tosefta",
-      "traditionId": "judaism",
-      "name": "Tosefta",
-      "workType": "oral_torah_supplement",
-      "canonicalStatus": "canonical_rabbinic",
-      "structure": { "levels": ["order", "tractate", "chapter", "halakhah"] }
-    },
-    {
-      "id": "greek-new-testament",
-      "traditionId": "christianity",
-      "name": "Greek New Testament",
-      "workType": "scripture",
-      "canonicalStatus": "primary_scripture",
-      "structure": { "levels": ["book", "chapter", "verse"] }
-    },
-    {
-      "id": "septuagint",
-      "traditionId": "christianity",
-      "name": "Septuagint (LXX Greek Old Testament)",
-      "workType": "scripture",
-      "canonicalStatus": "primary_scripture",
-      "structure": { "levels": ["book", "chapter", "verse"] }
-    },
-    {
-      "id": "canonical-greek-literature",
-      "traditionId": "christianity",
-      "name": "Canonical Greek Patristics & Classical Literature",
-      "workType": "patristic_corpus",
-      "canonicalStatus": "canonical_patristics",
-      "structure": { "levels": ["author", "work", "section"] }
-    },
-    {
-      "id": "apostolic-fathers",
-      "traditionId": "christianity",
-      "name": "Apostolic Fathers Collection",
-      "workType": "patristic_corpus",
-      "canonicalStatus": "canonical_patristics",
-      "structure": { "levels": ["author", "work", "chapter"] }
-    },
-    {
-      "id": "early-church-fathers",
-      "traditionId": "christianity",
-      "name": "Early Church Fathers (Ante-Nicene & Nicene)",
-      "workType": "patristic_corpus",
-      "canonicalStatus": "canonical_patristics",
-      "structure": { "levels": ["author", "work", "chapter"] }
-    },
-    {
-      "id": "web-bible",
-      "traditionId": "christianity",
-      "name": "World English Bible",
-      "workType": "scripture_translation",
-      "canonicalStatus": "scripture_translation",
-      "structure": { "levels": ["book", "chapter", "verse"] }
-    },
-    {
-      "id": "principal-upanishads",
-      "traditionId": "hinduism",
-      "name": "The Principal Upanishads",
-      "workType": "scripture",
-      "canonicalStatus": "shruti",
-      "structure": { "levels": ["upanishad", "khanda", "verse"] }
-    },
-    {
-      "id": "bhagavad-gita",
-      "traditionId": "hinduism",
-      "name": "Bhagavad Gita",
-      "workType": "scripture",
-      "canonicalStatus": "smriti_primary",
-      "structure": { "levels": ["chapter", "verse"] }
-    },
-    {
-      "id": "rigveda",
-      "traditionId": "hinduism",
-      "name": "Rigveda Samhita",
-      "workType": "scripture",
-      "canonicalStatus": "shruti",
-      "structure": { "levels": ["mandala", "sukta", "rik"] }
-    },
-    {
-      "id": "samaveda",
-      "traditionId": "hinduism",
-      "name": "Samaveda Samhita",
-      "workType": "scripture",
-      "canonicalStatus": "shruti",
-      "structure": { "levels": ["archika", "prapathaka", "verse"] }
-    },
-    {
-      "id": "atharvaveda",
-      "traditionId": "hinduism",
-      "name": "Atharvaveda Samhita",
-      "workType": "scripture",
-      "canonicalStatus": "shruti",
-      "structure": { "levels": ["kanda", "sukta", "verse"] }
-    },
-    {
-      "id": "yoga-sutras",
-      "traditionId": "hinduism",
-      "name": "Patanjali's Yoga Sutras",
-      "workType": "philosophical_treatise",
-      "canonicalStatus": "smriti_primary",
-      "structure": { "levels": ["pada", "sutra"] }
-    },
-    {
-      "id": "dhammapada",
-      "traditionId": "buddhism",
-      "name": "Dhammapada",
-      "workType": "scripture",
-      "canonicalStatus": "tipitaka_khuddaka",
-      "structure": { "levels": ["vagga", "verse"] }
-    },
-    {
-      "id": "digha-nikaya",
-      "traditionId": "buddhism",
-      "name": "Digha Nikaya (Long Discourses)",
-      "workType": "scripture",
-      "canonicalStatus": "tipitaka_sutta",
-      "structure": { "levels": ["sutta", "section"] }
-    },
-    {
-      "id": "majjhima-nikaya",
-      "traditionId": "buddhism",
-      "name": "Majjhima Nikaya (Middle-Length Discourses)",
-      "workType": "scripture",
-      "canonicalStatus": "tipitaka_sutta",
-      "structure": { "levels": ["sutta", "section"] }
-    },
-    {
-      "id": "samyutta-nikaya",
-      "traditionId": "buddhism",
-      "name": "Samyutta Nikaya (Connected Discourses)",
-      "workType": "scripture",
-      "canonicalStatus": "tipitaka_sutta",
-      "structure": { "levels": ["samyutta", "sutta"] }
-    },
-    {
-      "id": "anguttara-nikaya",
-      "traditionId": "buddhism",
-      "name": "Anguttara Nikaya (Numbered Discourses)",
-      "workType": "scripture",
-      "canonicalStatus": "tipitaka_sutta",
-      "structure": { "levels": ["nipata", "sutta"] }
-    },
-    {
-      "id": "khuddaka-nikaya",
-      "traditionId": "buddhism",
-      "name": "Khuddaka Nikaya Minor Anthologies",
-      "workType": "scripture",
-      "canonicalStatus": "tipitaka_khuddaka",
-      "structure": { "levels": ["book", "sutta"] }
-    },
-    {
-      "id": "vinaya-pitaka",
-      "traditionId": "buddhism",
-      "name": "Vinaya Pitaka (Monastic Rules)",
-      "workType": "scripture",
-      "canonicalStatus": "tipitaka_vinaya",
-      "structure": { "levels": ["khandhaka", "rule"] }
-    },
-    {
-      "id": "heart-sutra",
-      "traditionId": "buddhism",
-      "name": "Prajnaparamita Heart Sutra",
-      "workType": "scripture",
-      "canonicalStatus": "mahayana_primary",
-      "structure": { "levels": ["section"] }
-    },
-    {
-      "id": "dao-de-jing",
-      "traditionId": "daoism",
-      "name": "Dao De Jing (Tao Te Ching)",
-      "workType": "scripture",
-      "canonicalStatus": "primary_scripture",
-      "structure": { "levels": ["chapter", "verse"] }
-    },
-    {
-      "id": "zhuangzi",
-      "traditionId": "daoism",
-      "name": "Zhuangzi",
-      "workType": "scripture",
-      "canonicalStatus": "canonical_treatise",
-      "structure": { "levels": ["chapter", "section"] }
-    },
-    {
-      "id": "liezi",
-      "traditionId": "daoism",
-      "name": "Liezi",
-      "workType": "scripture",
-      "canonicalStatus": "canonical_treatise",
-      "structure": { "levels": ["chapter", "section"] }
-    },
-    {
-      "id": "analects",
-      "traditionId": "confucianism",
-      "name": "The Analects of Confucius (Lunyu)",
-      "workType": "scripture",
-      "canonicalStatus": "four_books_primary",
-      "structure": { "levels": ["book", "chapter"] }
-    },
-    {
-      "id": "mencius",
-      "traditionId": "confucianism",
-      "name": "Mencius (Mengzi)",
-      "workType": "scripture",
-      "canonicalStatus": "four_books_primary",
-      "structure": { "levels": ["book", "chapter"] }
-    },
-    {
-      "id": "great-learning",
-      "traditionId": "confucianism",
-      "name": "Great Learning (Daxue)",
-      "workType": "scripture",
-      "canonicalStatus": "four_books_primary",
-      "structure": { "levels": ["chapter"] }
-    },
-    {
-      "id": "doctrine-of-the-mean",
-      "traditionId": "confucianism",
-      "name": "Doctrine of the Mean (Zhongyong)",
-      "workType": "scripture",
-      "canonicalStatus": "four_books_primary",
-      "structure": { "levels": ["chapter"] }
-    },
-    {
-      "id": "avesta",
-      "traditionId": "zoroastrianism",
-      "name": "Avesta & The Gathas",
-      "workType": "scripture",
-      "canonicalStatus": "primary_scripture",
-      "structure": { "levels": ["yasna", "chapter"] }
-    },
-    {
-      "id": "yasna-gathas",
-      "traditionId": "zoroastrianism",
-      "name": "The Gathas of Zarathushtra",
-      "workType": "scripture",
-      "canonicalStatus": "primary_scripture",
-      "structure": { "levels": ["gatha", "yasna", "verse"] }
-    },
-    {
-      "id": "guru-granth-sahib",
-      "traditionId": "sikhism",
-      "name": "Sri Guru Granth Sahib",
-      "workType": "scripture",
-      "canonicalStatus": "primary_scripture",
-      "structure": { "levels": ["ang", "shabad", "line"] }
-    },
-    {
-      "id": "japji-sahib",
-      "traditionId": "sikhism",
-      "name": "Japji Sahib",
-      "workType": "scripture",
-      "canonicalStatus": "primary_scripture",
-      "structure": { "levels": ["pauri"] }
-    },
-    {
-      "id": "dasam-granth",
-      "traditionId": "sikhism",
-      "name": "Dasam Granth",
-      "workType": "canonical_corpus",
-      "canonicalStatus": "canonical_scripture",
-      "structure": { "levels": ["composition", "verse"] }
-    },
-    {
-      "id": "tattvartha-sutra",
-      "traditionId": "jainism",
-      "name": "Tattvartha Sutra",
-      "workType": "scripture",
-      "canonicalStatus": "primary_treatise",
-      "structure": { "levels": ["chapter", "sutra"] }
-    },
-    {
-      "id": "kalpa-sutra",
-      "traditionId": "jainism",
-      "name": "Kalpa Sutra",
-      "workType": "scripture",
-      "canonicalStatus": "primary_scripture",
-      "structure": { "levels": ["section", "verse"] }
-    },
-    {
-      "id": "hidden-words",
-      "traditionId": "bahai",
-      "name": "The Hidden Words of Bahá'u'lláh",
-      "workType": "scripture",
-      "canonicalStatus": "primary_scripture",
-      "structure": { "levels": ["part", "verse"] }
-    },
-    {
-      "id": "kitab-i-aqdas",
-      "traditionId": "bahai",
-      "name": "Kitab-i-Aqdas (The Most Holy Book)",
-      "workType": "scripture",
-      "canonicalStatus": "primary_scripture",
-      "structure": { "levels": ["paragraph"] }
-    },
-    {
-      "id": "kitab-i-iqan",
-      "traditionId": "bahai",
-      "name": "Kitab-i-Iqan (The Book of Certitude)",
-      "workType": "scripture",
-      "canonicalStatus": "primary_scripture",
-      "structure": { "levels": ["part", "paragraph"] }
-    },
-    {
-      "id": "kojiki",
-      "traditionId": "shinto",
-      "name": "Kojiki (Records of Ancient Matters)",
-      "workType": "sacred_chronicle",
-      "canonicalStatus": "canonical_chronicle",
-      "structure": { "levels": ["book", "section"] }
-    },
-    {
-      "id": "nihon-shoki",
-      "traditionId": "shinto",
-      "name": "Nihon Shoki (Chronicles of Japan)",
-      "workType": "sacred_chronicle",
-      "canonicalStatus": "canonical_chronicle",
-      "structure": { "levels": ["book", "section"] }
-    }
+    { "id": "quran", "traditionId": "islam", "name": "Qur'an", "workType": "scripture", "canonicalStatus": "primary_scripture", "structure": { "levels": ["surah", "ayah", "word"] } },
+    { "id": "hadith-bukhari", "traditionId": "islam", "name": "Sahih al-Bukhari", "workType": "hadith_corpus", "canonicalStatus": "canonical_hadith", "structure": { "levels": ["book", "hadith"] } },
+    { "id": "hadith-muslim", "traditionId": "islam", "name": "Sahih Muslim", "workType": "hadith_corpus", "canonicalStatus": "canonical_hadith", "structure": { "levels": ["book", "hadith"] } },
+    { "id": "hadith-abudawud", "traditionId": "islam", "name": "Sunan Abu Dawud", "workType": "hadith_corpus", "canonicalStatus": "canonical_hadith", "structure": { "levels": ["book", "hadith"] } },
+    { "id": "hadith-tirmidhi", "traditionId": "islam", "name": "Jami' at-Tirmidhi", "workType": "hadith_corpus", "canonicalStatus": "canonical_hadith", "structure": { "levels": ["book", "hadith"] } },
+    { "id": "hadith-nasai", "traditionId": "islam", "name": "Sunan an-Nasa'i", "workType": "hadith_corpus", "canonicalStatus": "canonical_hadith", "structure": { "levels": ["book", "hadith"] } },
+    { "id": "hadith-ibnmajah", "traditionId": "islam", "name": "Sunan Ibn Majah", "workType": "hadith_corpus", "canonicalStatus": "canonical_hadith", "structure": { "levels": ["book", "hadith"] } },
+    { "id": "hadith-malik", "traditionId": "islam", "name": "Muwatta Malik", "workType": "hadith_corpus", "canonicalStatus": "canonical_hadith", "structure": { "levels": ["book", "hadith"] } },
+    { "id": "hadith-nawawi", "traditionId": "islam", "name": "Al-Arba'in an-Nawawiyyah (40 Hadith)", "workType": "hadith_collection", "canonicalStatus": "canonical_hadith", "structure": { "levels": ["hadith"] } },
+    { "id": "hadith-qudsi", "traditionId": "islam", "name": "40 Hadith Qudsi", "workType": "hadith_collection", "canonicalStatus": "canonical_hadith", "structure": { "levels": ["hadith"] } },
+    { "id": "duas-hisnul-muslim", "traditionId": "islam", "name": "Hisnul Muslim Supplications", "workType": "devotional", "canonicalStatus": "canonical_devotional", "structure": { "levels": ["chapter", "dua"] } },
+    { "id": "asmaul-husna", "traditionId": "islam", "name": "Asmaul Husna (99 Divine Names)", "workType": "theological_enumeration", "canonicalStatus": "canonical_theology", "structure": { "levels": ["name"] } },
+    { "id": "tanakh", "traditionId": "judaism", "name": "Tanakh (Hebrew Bible)", "workType": "scripture", "canonicalStatus": "primary_scripture", "structure": { "levels": ["book", "chapter", "verse"] } },
+    { "id": "torah", "traditionId": "judaism", "name": "Torah (Five Books of Moses)", "workType": "scripture", "canonicalStatus": "primary_scripture", "structure": { "levels": ["book", "parashah", "chapter", "verse"] } },
+    { "id": "mishnah", "traditionId": "judaism", "name": "Mishnah", "workType": "oral_torah", "canonicalStatus": "primary_rabbinic", "structure": { "levels": ["order", "tractate", "chapter", "mishnah"] } },
+    { "id": "talmud-bavli", "traditionId": "judaism", "name": "Babylonian Talmud", "workType": "rabbinic_commentary", "canonicalStatus": "canonical_rabbinic", "structure": { "levels": ["tractate", "daf"] } },
+    { "id": "talmud-yerushalmi", "traditionId": "judaism", "name": "Jerusalem Talmud", "workType": "rabbinic_commentary", "canonicalStatus": "canonical_rabbinic", "structure": { "levels": ["tractate", "chapter", "halakhah"] } },
+    { "id": "midrash-rabbah", "traditionId": "judaism", "name": "Midrash Rabbah", "workType": "rabbinic_homiletics", "canonicalStatus": "canonical_rabbinic", "structure": { "levels": ["book", "parashah", "section"] } },
+    { "id": "tosefta", "traditionId": "judaism", "name": "Tosefta", "workType": "oral_torah_supplement", "canonicalStatus": "canonical_rabbinic", "structure": { "levels": ["order", "tractate", "chapter", "halakhah"] } },
+    { "id": "greek-new-testament", "traditionId": "christianity", "name": "Greek New Testament", "workType": "scripture", "canonicalStatus": "primary_scripture", "structure": { "levels": ["book", "chapter", "verse"] } },
+    { "id": "septuagint", "traditionId": "christianity", "name": "Septuagint (LXX Greek Old Testament)", "workType": "scripture", "canonicalStatus": "primary_scripture", "structure": { "levels": ["book", "chapter", "verse"] } },
+    { "id": "canonical-greek-literature", "traditionId": "christianity", "name": "Canonical Greek Patristics & Classical Literature", "workType": "patristic_corpus", "canonicalStatus": "canonical_patristics", "structure": { "levels": ["author", "work", "section"] } },
+    { "id": "apostolic-fathers", "traditionId": "christianity", "name": "Apostolic Fathers Collection", "workType": "patristic_corpus", "canonicalStatus": "canonical_patristics", "structure": { "levels": ["author", "work", "chapter"] } },
+    { "id": "early-church-fathers", "traditionId": "christianity", "name": "Early Church Fathers (Ante-Nicene & Nicene)", "workType": "patristic_corpus", "canonicalStatus": "canonical_patristics", "structure": { "levels": ["author", "work", "chapter"] } },
+    { "id": "web-bible", "traditionId": "christianity", "name": "World English Bible", "workType": "scripture_translation", "canonicalStatus": "scripture_translation", "structure": { "levels": ["book", "chapter", "verse"] } },
+    { "id": "principal-upanishads", "traditionId": "hinduism", "name": "The Principal Upanishads", "workType": "scripture", "canonicalStatus": "shruti", "structure": { "levels": ["upanishad", "khanda", "verse"] } },
+    { "id": "bhagavad-gita", "traditionId": "hinduism", "name": "Bhagavad Gita", "workType": "scripture", "canonicalStatus": "smriti_primary", "structure": { "levels": ["chapter", "verse"] } },
+    { "id": "rigveda", "traditionId": "hinduism", "name": "Rigveda Samhita", "workType": "scripture", "canonicalStatus": "shruti", "structure": { "levels": ["mandala", "sukta", "rik"] } },
+    { "id": "samaveda", "traditionId": "hinduism", "name": "Samaveda Samhita", "workType": "scripture", "canonicalStatus": "shruti", "structure": { "levels": ["archika", "prapathaka", "verse"] } },
+    { "id": "atharvaveda", "traditionId": "hinduism", "name": "Atharvaveda Samhita", "workType": "scripture", "canonicalStatus": "shruti", "structure": { "levels": ["kanda", "sukta", "verse"] } },
+    { "id": "yoga-sutras", "traditionId": "hinduism", "name": "Patanjali's Yoga Sutras", "workType": "philosophical_treatise", "canonicalStatus": "smriti_primary", "structure": { "levels": ["pada", "sutra"] } },
+    { "id": "dhammapada", "traditionId": "buddhism", "name": "Dhammapada", "workType": "scripture", "canonicalStatus": "tipitaka_khuddaka", "structure": { "levels": ["vagga", "verse"] } },
+    { "id": "digha-nikaya", "traditionId": "buddhism", "name": "Digha Nikaya (Long Discourses)", "workType": "scripture", "canonicalStatus": "tipitaka_sutta", "structure": { "levels": ["sutta", "section"] } },
+    { "id": "majjhima-nikaya", "traditionId": "buddhism", "name": "Majjhima Nikaya (Middle-Length Discourses)", "workType": "scripture", "canonicalStatus": "tipitaka_sutta", "structure": { "levels": ["sutta", "section"] } },
+    { "id": "samyutta-nikaya", "traditionId": "buddhism", "name": "Samyutta Nikaya (Connected Discourses)", "workType": "scripture", "canonicalStatus": "tipitaka_sutta", "structure": { "levels": ["samyutta", "sutta"] } },
+    { "id": "anguttara-nikaya", "traditionId": "buddhism", "name": "Anguttara Nikaya (Numbered Discourses)", "workType": "scripture", "canonicalStatus": "tipitaka_sutta", "structure": { "levels": ["nipata", "sutta"] } },
+    { "id": "khuddaka-nikaya", "traditionId": "buddhism", "name": "Khuddaka Nikaya Minor Anthologies", "workType": "scripture", "canonicalStatus": "tipitaka_khuddaka", "structure": { "levels": ["book", "sutta"] } },
+    { "id": "vinaya-pitaka", "traditionId": "buddhism", "name": "Vinaya Pitaka (Monastic Rules)", "workType": "scripture", "canonicalStatus": "tipitaka_vinaya", "structure": { "levels": ["khandhaka", "rule"] } },
+    { "id": "heart-sutra", "traditionId": "buddhism", "name": "Prajnaparamita Heart Sutra", "workType": "scripture", "canonicalStatus": "mahayana_primary", "structure": { "levels": ["section"] } },
+    { "id": "dao-de-jing", "traditionId": "daoism", "name": "Dao De Jing (Tao Te Ching)", "workType": "scripture", "canonicalStatus": "primary_scripture", "structure": { "levels": ["chapter", "verse"] } },
+    { "id": "zhuangzi", "traditionId": "daoism", "name": "Zhuangzi", "workType": "scripture", "canonicalStatus": "canonical_treatise", "structure": { "levels": ["chapter", "section"] } },
+    { "id": "liezi", "traditionId": "daoism", "name": "Liezi", "workType": "scripture", "canonicalStatus": "canonical_treatise", "structure": { "levels": ["chapter", "section"] } },
+    { "id": "analects", "traditionId": "confucianism", "name": "The Analects of Confucius (Lunyu)", "workType": "scripture", "canonicalStatus": "four_books_primary", "structure": { "levels": ["book", "chapter"] } },
+    { "id": "mencius", "traditionId": "confucianism", "name": "Mencius (Mengzi)", "workType": "scripture", "canonicalStatus": "four_books_primary", "structure": { "levels": ["book", "chapter"] } },
+    { "id": "great-learning", "traditionId": "confucianism", "name": "Great Learning (Daxue)", "workType": "scripture", "canonicalStatus": "four_books_primary", "structure": { "levels": ["chapter"] } },
+    { "id": "doctrine-of-the-mean", "traditionId": "confucianism", "name": "Doctrine of the Mean (Zhongyong)", "workType": "scripture", "canonicalStatus": "four_books_primary", "structure": { "levels": ["chapter"] } },
+    { "id": "avesta", "traditionId": "zoroastrianism", "name": "Avesta & The Gathas", "workType": "scripture", "canonicalStatus": "primary_scripture", "structure": { "levels": ["yasna", "chapter"] } },
+    { "id": "yasna-gathas", "traditionId": "zoroastrianism", "name": "The Gathas of Zarathushtra", "workType": "scripture", "canonicalStatus": "primary_scripture", "structure": { "levels": ["gatha", "yasna", "verse"] } },
+    { "id": "guru-granth-sahib", "traditionId": "sikhism", "name": "Sri Guru Granth Sahib", "workType": "scripture", "canonicalStatus": "primary_scripture", "structure": { "levels": ["ang", "shabad", "line"] } },
+    { "id": "japji-sahib", "traditionId": "sikhism", "name": "Japji Sahib", "workType": "scripture", "canonicalStatus": "primary_scripture", "structure": { "levels": ["pauri"] } },
+    { "id": "dasam-granth", "traditionId": "sikhism", "name": "Dasam Granth", "workType": "canonical_corpus", "canonicalStatus": "canonical_scripture", "structure": { "levels": ["composition", "verse"] } },
+    { "id": "tattvartha-sutra", "traditionId": "jainism", "name": "Tattvartha Sutra", "workType": "scripture", "canonicalStatus": "primary_treatise", "structure": { "levels": ["chapter", "sutra"] } },
+    { "id": "kalpa-sutra", "traditionId": "jainism", "name": "Kalpa Sutra", "workType": "scripture", "canonicalStatus": "primary_scripture", "structure": { "levels": ["section", "verse"] } },
+    { "id": "hidden-words", "traditionId": "bahai", "name": "The Hidden Words of Bahá'u'lláh", "workType": "scripture", "canonicalStatus": "primary_scripture", "structure": { "levels": ["part", "verse"] } },
+    { "id": "kitab-i-aqdas", "traditionId": "bahai", "name": "Kitab-i-Aqdas (The Most Holy Book)", "workType": "scripture", "canonicalStatus": "primary_scripture", "structure": { "levels": ["paragraph"] } },
+    { "id": "kitab-i-iqan", "traditionId": "bahai", "name": "Kitab-i-Iqan (The Book of Certitude)", "workType": "scripture", "canonicalStatus": "primary_scripture", "structure": { "levels": ["part", "paragraph"] } },
+    { "id": "kojiki", "traditionId": "shinto", "name": "Kojiki (Records of Ancient Matters)", "workType": "sacred_chronicle", "canonicalStatus": "canonical_chronicle", "structure": { "levels": ["book", "section"] } },
+    { "id": "nihon-shoki", "traditionId": "shinto", "name": "Nihon Shoki (Chronicles of Japan)", "workType": "sacred_chronicle", "canonicalStatus": "canonical_chronicle", "structure": { "levels": ["book", "section"] } },
+
+    { "id": "samaritan-pentateuch", "traditionId": "samaritanism", "name": "Samaritan Pentateuch", "workType": "scripture", "canonicalStatus": "primary_scripture", "structure": { "levels": ["book", "chapter", "verse"] } },
+    { "id": "memar-marqah", "traditionId": "samaritanism", "name": "Memar Marqah (Teaching of Marqah)", "workType": "canonical_treatise", "canonicalStatus": "canonical_commentary", "structure": { "levels": ["book", "chapter"] } },
+
+    { "id": "ginza-rabba", "traditionId": "mandaeism", "name": "Ginza Rabba (The Great Treasure)", "workType": "scripture", "canonicalStatus": "primary_scripture", "structure": { "levels": ["tractate", "section"] } },
+    { "id": "qolasta", "traditionId": "mandaeism", "name": "Qolasta (Canonical Prayerbook)", "workType": "liturgical_corpus", "canonicalStatus": "canonical_liturgy", "structure": { "levels": ["prayer"] } },
+    { "id": "book-of-john-mandaean", "traditionId": "mandaeism", "name": "The Book of John (Draša d-Yahya)", "workType": "scripture", "canonicalStatus": "canonical_scripture", "structure": { "levels": ["chapter"] } },
+
+    { "id": "kitab-al-jilwa", "traditionId": "yazidism", "name": "Kitab al-Jilwa (Book of Revelation)", "workType": "sacred_text", "canonicalStatus": "sacred_tradition", "structure": { "levels": ["chapter"] } },
+    { "id": "meshaf-resh", "traditionId": "yazidism", "name": "Meshaf Resh (Black Book)", "workType": "sacred_text", "canonicalStatus": "sacred_tradition", "structure": { "levels": ["section"] } },
+
+    { "id": "rasail-al-hikmah", "traditionId": "druze", "name": "Rasail al-Hikmah (Epistles of Wisdom)", "workType": "sacred_corpus", "canonicalStatus": "primary_scripture", "structure": { "levels": ["epistle", "section"] } },
+    { "id": "druze-tawhid-treatises", "traditionId": "druze", "name": "Druze Monotheistic Treatises", "workType": "theological_corpus", "canonicalStatus": "canonical_theology", "structure": { "levels": ["treatise"] } },
+
+    { "id": "kephalaia", "traditionId": "manichaeism", "name": "Kephalaia of the Teacher", "workType": "canonical_corpus", "canonicalStatus": "primary_scripture", "structure": { "levels": ["chapter", "section"] } },
+    { "id": "manichaean-psalms", "traditionId": "manichaeism", "name": "Manichaean Psalm Book", "workType": "liturgical_corpus", "canonicalStatus": "canonical_liturgy", "structure": { "levels": ["psalm"] } },
+    { "id": "shabuhragan", "traditionId": "manichaeism", "name": "Shabuhragan of Mani", "workType": "scripture", "canonicalStatus": "primary_scripture", "structure": { "levels": ["fragment"] } },
+
+    { "id": "kalam-e-saranjam", "traditionId": "yarsanism", "name": "Kalam-e Saranjam (The Ultimate Discourse)", "workType": "sacred_corpus", "canonicalStatus": "primary_scripture", "structure": { "levels": ["kalam", "stanza"] } },
+    { "id": "daftar-e-nowruz", "traditionId": "yarsanism", "name": "Daftar-e Nowruz", "workType": "liturgical_corpus", "canonicalStatus": "canonical_liturgy", "structure": { "levels": ["poem"] } },
+
+    { "id": "orkhon-inscriptions", "traditionId": "tengrism", "name": "Orkhon Inscriptions (Bilge Khagan & Kul Tigin)", "workType": "sacred_monumental_corpus", "canonicalStatus": "canonical_monumental", "structure": { "levels": ["monument", "line"] } },
+    { "id": "irk-bitig", "traditionId": "tengrism", "name": "Irk Bitig (Book of Omens)", "workType": "divinatory_corpus", "canonicalStatus": "canonical_sacred", "structure": { "levels": ["omen"] } },
+    { "id": "secret-history-mongols", "traditionId": "tengrism", "name": "The Secret History of the Mongols", "workType": "sacred_chronicle", "canonicalStatus": "historical_sacred", "structure": { "levels": ["chapter", "section"] } },
+
+    { "id": "donggyeong-daejeon", "traditionId": "cheondoism", "name": "Donggyeong Daejeon (Great Scripture of Eastern Learning)", "workType": "scripture", "canonicalStatus": "primary_scripture", "structure": { "levels": ["chapter", "verse"] } },
+    { "id": "yongdam-yusa", "traditionId": "cheondoism", "name": "Yongdam Yusa (Songs of the Dragon Pool)", "workType": "hymnal_corpus", "canonicalStatus": "primary_scripture", "structure": { "levels": ["hymn"] } },
+    { "id": "treatise-on-donghak", "traditionId": "cheondoism", "name": "Treatises of Choe Je-u", "workType": "theological_treatise", "canonicalStatus": "canonical_theology", "structure": { "levels": ["section"] } },
+
+    { "id": "ofudesaki", "traditionId": "tenrikyo", "name": "Ofudesaki (Tip of the Writing Brush)", "workType": "scripture", "canonicalStatus": "primary_scripture", "structure": { "levels": ["part", "verse"] } },
+    { "id": "mikagura-uta", "traditionId": "tenrikyo", "name": "Mikagura-uta (The Songs for the Service)", "workType": "liturgical_corpus", "canonicalStatus": "primary_liturgy", "structure": { "levels": ["song", "stanza"] } },
+    { "id": "osashizu", "traditionId": "tenrikyo", "name": "Osashizu (Divine Directions)", "workType": "canonical_revelation", "canonicalStatus": "primary_scripture", "structure": { "levels": ["revelation"] } },
+
+    { "id": "thanh-ngon-hiep-tuyen", "traditionId": "caodai", "name": "Thánh Ngôn Hiệp Tuyển (Collection of Divine Messages)", "workType": "scripture", "canonicalStatus": "primary_scripture", "structure": { "levels": ["volume", "message"] } },
+    { "id": "phap-chanh-truyen", "traditionId": "caodai", "name": "Pháp Chánh Truyền (The Religious Constitution)", "workType": "canonical_constitution", "canonicalStatus": "primary_scripture", "structure": { "levels": ["chapter", "article"] } },
+    { "id": "kinh-thien-dao", "traditionId": "caodai", "name": "Kinh Thiên Đạo & Thế Đạo (Prayers of the Heavenly & Earthly Path)", "workType": "liturgical_corpus", "canonicalStatus": "canonical_liturgy", "structure": { "levels": ["prayer"] } },
+
+    { "id": "wonbulgyo-jeongjeon", "traditionId": "won-buddhism", "name": "Jeongjeon (The Principal Book of Won Buddhism)", "workType": "scripture", "canonicalStatus": "primary_scripture", "structure": { "levels": ["chapter", "section"] } },
+    { "id": "daejonggyeong", "traditionId": "won-buddhism", "name": "Daejonggyeong (The Scripture of the Founding Master)", "workType": "scripture", "canonicalStatus": "primary_scripture", "structure": { "levels": ["chapter", "verse"] } },
+    { "id": "scriptures-of-won", "traditionId": "won-buddhism", "name": "Essential Discourses of Won Buddhism", "workType": "canonical_treatise", "canonicalStatus": "canonical_theology", "structure": { "levels": ["discourse"] } },
+
+    { "id": "odu-ifa-corpus", "traditionId": "yoruba-ifa", "name": "The 256 Odù Ifá Sacred Corpus", "workType": "sacred_oral_corpus", "canonicalStatus": "primary_scripture", "structure": { "levels": ["odu", "ese"] } },
+    { "id": "ese-ifa", "traditionId": "yoruba-ifa", "name": "Èsè Ifá (Sacred Poems of Divination)", "workType": "divinatory_poetry", "canonicalStatus": "primary_scripture", "structure": { "levels": ["poem", "stanza"] } },
+    { "id": "oriki-orisha", "traditionId": "yoruba-ifa", "name": "Oríkì Orisha (Praise Poems to the Deities)", "workType": "hymnal_corpus", "canonicalStatus": "canonical_liturgy", "structure": { "levels": ["deity", "line"] } },
+
+    { "id": "gospel-of-thomas", "traditionId": "gnosticism", "name": "The Gospel of Thomas (Nag Hammadi NHC II,2)", "workType": "scripture", "canonicalStatus": "nag_hammadi_primary", "structure": { "levels": ["saying"] } },
+    { "id": "gospel-of-truth", "traditionId": "gnosticism", "name": "The Gospel of Truth (Nag Hammadi NHC I,3)", "workType": "scripture", "canonicalStatus": "nag_hammadi_primary", "structure": { "levels": ["page", "section"] } },
+    { "id": "pistis-sophia", "traditionId": "gnosticism", "name": "Pistis Sophia (Askew Codex)", "workType": "scripture", "canonicalStatus": "canonical_gnostic", "structure": { "levels": ["book", "chapter"] } },
+    { "id": "apocryphon-of-john", "traditionId": "gnosticism", "name": "The Apocryphon of John (Secret Revelation of John)", "workType": "scripture", "canonicalStatus": "nag_hammadi_primary", "structure": { "levels": ["chapter", "section"] } },
+
+    { "id": "corpus-hermeticum", "traditionId": "hermeticism", "name": "Corpus Hermeticum (Tractates I-XVII)", "workType": "philosophical_treatise", "canonicalStatus": "primary_scripture", "structure": { "levels": ["tractate", "section"] } },
+    { "id": "emerald-tablet", "traditionId": "hermeticism", "name": "The Emerald Tablet of Hermes Trismegistus", "workType": "sacred_aphorism", "canonicalStatus": "primary_scripture", "structure": { "levels": ["verse"] } },
+    { "id": "asclepius", "traditionId": "hermeticism", "name": "Asclepius (The Perfect Discourse)", "workType": "philosophical_treatise", "canonicalStatus": "primary_scripture", "structure": { "levels": ["chapter", "section"] } },
+    { "id": "kybalion", "traditionId": "hermeticism", "name": "The Kybalion Hermetic Philosophy", "workType": "philosophical_treatise", "canonicalStatus": "canonical_treatise", "structure": { "levels": ["chapter"] } },
+
+    { "id": "secret-doctrine", "traditionId": "theosophy", "name": "The Secret Doctrine (Synthesis of Science, Religion, and Philosophy)", "workType": "theosophical_treatise", "canonicalStatus": "primary_treatise", "structure": { "levels": ["volume", "stanza", "shloka"] } },
+    { "id": "voice-of-the-silence", "traditionId": "theosophy", "name": "The Voice of the Silence (Book of the Golden Precepts)", "workType": "sacred_precept", "canonicalStatus": "primary_scripture", "structure": { "levels": ["fragment", "verse"] } },
+    { "id": "key-to-theosophy", "traditionId": "theosophy", "name": "The Key to Theosophy", "workType": "theosophical_treatise", "canonicalStatus": "canonical_treatise", "structure": { "levels": ["section"] } },
+
+    { "id": "kumulipo-cosmology", "traditionId": "maori-tradition", "name": "Kumulipo & Polynesian Creation Cosmology", "workType": "sacred_chant", "canonicalStatus": "primary_sacred_oral", "structure": { "levels": ["wa", "line"] } },
+    { "id": "nga-moteatea", "traditionId": "maori-tradition", "name": "Ngā Mōteatea (Traditional Māori Songs & Chants)", "workType": "hymnal_corpus", "canonicalStatus": "canonical_oral", "structure": { "levels": ["song", "stanza"] } },
+    { "id": "maori-whakapapa", "traditionId": "maori-tradition", "name": "Whakapapa Māori Cosmogony", "workType": "genealogical_corpus", "canonicalStatus": "canonical_sacred", "structure": { "levels": ["genealogy", "line"] } }
   ]
 }

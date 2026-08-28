@@ -98,6 +98,134 @@
       "primaryLanguage": "ja",
       "scripts": ["Jpan", "Latn"],
       "classification": ["major_world_religion", "east_asian_tradition"]
+    },
+    {
+      "id": "samaritanism",
+      "name": "Samaritanism",
+      "family": "abrahamic",
+      "primaryLanguage": "sam",
+      "scripts": ["Samr", "Hebr"],
+      "classification": ["near_eastern_tradition", "israelite_tradition", "monotheism"]
+    },
+    {
+      "id": "mandaeism",
+      "name": "Mandaeism",
+      "family": "near_eastern_gnostic",
+      "primaryLanguage": "mid",
+      "scripts": ["Mand"],
+      "classification": ["gnostic_tradition", "near_eastern_monotheism"]
+    },
+    {
+      "id": "yazidism",
+      "name": "Yazidism",
+      "family": "indo_iranian",
+      "primaryLanguage": "ku",
+      "scripts": ["Arab", "Latn"],
+      "classification": ["mesopotamian_tradition", "kurdish_monotheism"]
+    },
+    {
+      "id": "druze",
+      "name": "Druze (Tawhid)",
+      "family": "abrahamic",
+      "primaryLanguage": "ar",
+      "scripts": ["Arab"],
+      "classification": ["esoteric_abrahamic", "unitarian_monotheism"]
+    },
+    {
+      "id": "manichaeism",
+      "name": "Manichaeism",
+      "family": "historical_dualist",
+      "primaryLanguage": "syr",
+      "scripts": ["Syrc", "Mani", "Latn"],
+      "classification": ["historical_world_religion", "gnostic_dualism"]
+    },
+    {
+      "id": "yarsanism",
+      "name": "Yarsanism (Ahl-e Haqq)",
+      "family": "indo_iranian",
+      "primaryLanguage": "ku",
+      "scripts": ["Arab", "Latn"],
+      "classification": ["esoteric_iranian", "kurdish_tradition"]
+    },
+    {
+      "id": "tengrism",
+      "name": "Tengrism",
+      "family": "central_asian",
+      "primaryLanguage": "otk",
+      "scripts": ["Orkh", "Latn"],
+      "classification": ["central_asian_tradition", "turko_mongolic_religion"]
+    },
+    {
+      "id": "cheondoism",
+      "name": "Cheondoism (Donghak)",
+      "family": "east_asian",
+      "primaryLanguage": "ko",
+      "scripts": ["Hang", "Hani"],
+      "classification": ["korean_new_religion", "donghak_movement"]
+    },
+    {
+      "id": "tenrikyo",
+      "name": "Tenrikyo",
+      "family": "east_asian",
+      "primaryLanguage": "ja",
+      "scripts": ["Jpan", "Latn"],
+      "classification": ["japanese_new_religion", "shinto_derived"]
+    },
+    {
+      "id": "caodai",
+      "name": "Cao Dai (Đại Đạo Tam Kỳ Phổ Độ)",
+      "family": "east_asian",
+      "primaryLanguage": "vi",
+      "scripts": ["Latn"],
+      "classification": ["vietnamese_syncretism", "east_asian_new_religion"]
+    },
+    {
+      "id": "won-buddhism",
+      "name": "Won Buddhism",
+      "family": "dharmic",
+      "primaryLanguage": "ko",
+      "scripts": ["Hang", "Latn"],
+      "classification": ["reformed_buddhism", "korean_tradition"]
+    },
+    {
+      "id": "yoruba-ifa",
+      "name": "Yoruba Religion (Ifá)",
+      "family": "west_african",
+      "primaryLanguage": "yo",
+      "scripts": ["Latn"],
+      "classification": ["west_african_traditional", "orisha_tradition"]
+    },
+    {
+      "id": "gnosticism",
+      "name": "Gnosticism",
+      "family": "hellenistic_esoteric",
+      "primaryLanguage": "cop",
+      "scripts": ["Copt", "Grek", "Latn"],
+      "classification": ["late_antiquity_esoteric", "nag_hammadi_corpus"]
+    },
+    {
+      "id": "hermeticism",
+      "name": "Hermeticism",
+      "family": "hellenistic_esoteric",
+      "primaryLanguage": "grc",
+      "scripts": ["Grek", "Latn"],
+      "classification": ["greco_egyptian_esotericism", "philosophical_corpus"]
+    },
+    {
+      "id": "theosophy",
+      "name": "Theosophy",
+      "family": "modern_esoteric",
+      "primaryLanguage": "en",
+      "scripts": ["Latn"],
+      "classification": ["modern_esoteric_synthesis", "universalist_corpus"]
+    },
+    {
+      "id": "maori-tradition",
+      "name": "Māori Traditional Religion",
+      "family": "polynesian",
+      "primaryLanguage": "mi",
+      "scripts": ["Latn"],
+      "classification": ["polynesian_indigenous", "pacific_tradition"]
     }
   ]
 }

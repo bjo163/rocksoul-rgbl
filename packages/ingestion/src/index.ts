@@ -9,6 +9,9 @@ export type { AdapterKind, AdapterContext, UpstreamAdapter as IngestionAdapter }
 export * from './connectors/filesystem.js'
 export * from './connectors/http.js'
 
+// Universal Corpus Registry
+export * from './registry/index.js'
+
 // Upstream Engine
 export * from './upstream/types.js'
 export * from './upstream/adapter-registry.js'

@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "version": "1.0.0",
+  "title": "MoonWitness Universal Traditions Registry",
+  "traditions": [
+    {
+      "id": "islam",
+      "name": "Islam",
+      "family": "abrahamic",
+      "primaryLanguage": "ar",
+      "scripts": ["Arab"],
+      "classification": ["major_world_religion", "abrahamic_monotheism"]
+    },
+    {
+      "id": "judaism",
+      "name": "Judaism",
+      "family": "abrahamic",
+      "primaryLanguage": "he",
+      "scripts": ["Hebr"],
+      "classification": ["major_world_religion", "abrahamic_monotheism"]
+    },
+    {
+      "id": "christianity",
+      "name": "Christianity",
+      "family": "abrahamic",
+      "primaryLanguage": "grc",
+      "scripts": ["Grek", "Latn"],
+      "classification": ["major_world_religion", "abrahamic_monotheism"]
+    },
+    {
+      "id": "hinduism",
+      "name": "Hinduism",
+      "family": "dharmic",
+      "primaryLanguage": "sa",
+      "scripts": ["Deva", "Latn"],
+      "classification": ["major_world_religion", "dharmic_tradition"]
+    },
+    {
+      "id": "buddhism",
+      "name": "Buddhism",
+      "family": "dharmic",
+      "primaryLanguage": "pli",
+      "scripts": ["Latn", "Deva"],
+      "classification": ["major_world_religion", "dharmic_tradition"]
+    },
+    {
+      "id": "daoism",
+      "name": "Daoism",
+      "family": "east_asian",
+      "primaryLanguage": "lzh",
+      "scripts": ["Hani"],
+      "classification": ["major_world_religion", "east_asian_tradition"]
+    },
+    {
+      "id": "confucianism",
+      "name": "Confucianism",
+      "family": "east_asian",
+      "primaryLanguage": "lzh",
+      "scripts": ["Hani"],
+      "classification": ["major_world_religion", "east_asian_tradition"]
+    },
+    {
+      "id": "zoroastrianism",
+      "name": "Zoroastrianism",
+      "family": "indo_iranian",
+      "primaryLanguage": "ae",
+      "scripts": ["Avst", "Latn"],
+      "classification": ["major_world_religion", "indo_iranian_monotheism"]
+    },
+    {
+      "id": "sikhism",
+      "name": "Sikhism",
+      "family": "dharmic",
+      "primaryLanguage": "pa",
+      "scripts": ["Guru"],
+      "classification": ["major_world_religion", "dharmic_monotheism"]
+    },
+    {
+      "id": "jainism",
+      "name": "Jainism",
+      "family": "dharmic",
+      "primaryLanguage": "sa",
+      "scripts": ["Deva"],
+      "classification": ["major_world_religion", "dharmic_tradition"]
+    },
+    {
+      "id": "bahai",
+      "name": "Bahá'í Faith",
+      "family": "abrahamic",
+      "primaryLanguage": "ar",
+      "scripts": ["Arab", "Latn"],
+      "classification": ["major_world_religion", "abrahamic_monotheism"]
+    },
+    {
+      "id": "shinto",
+      "name": "Shinto",
+      "family": "east_asian",
+      "primaryLanguage": "ja",
+      "scripts": ["Jpan", "Latn"],
+      "classification": ["major_world_religion", "east_asian_tradition"]
+    }
+  ]
+}

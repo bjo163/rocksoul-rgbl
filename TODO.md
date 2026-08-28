@@ -237,31 +237,31 @@ P13 runs in parallel with P12. It builds an open-ended registry, not a final uni
 
 P14 increases diversity of texts, fragments, genres, languages, and communities without treating record count as coverage. Detailed policy and source-lane boundaries are in [`docs/DATASET_DIVERSITY_TARGETS.md`](docs/DATASET_DIVERSITY_TARGETS.md).
 
-- [ ] Define a machine-readable P14 diversity matrix covering tradition/community, genre, source language, `en`/`id`, text scale, rights state, and unresolved gaps. <!-- mw-todo:P14-001 -->
-- [ ] Add a source-discovery registry that records candidate source, authority, edition, retrieval method, checksum, rights decision, and bundle/metadata-only disposition. <!-- mw-todo:P14-002 -->
+- [x] Define a machine-readable P14 diversity matrix covering tradition/community, genre, source language, `en`/`id`, text scale, rights state, and unresolved gaps. <!-- mw-todo:P14-001 -->
+- [x] Add a source-discovery registry that records candidate source, authority, edition, retrieval method, checksum, rights decision, and bundle/metadata-only disposition. <!-- mw-todo:P14-002 -->
 - [x] Add a reusable complete-work versus bounded-fragment contract; fragments must retain parent work, edition, citation range, completeness statement, rights, and provenance. <!-- mw-todo:P14-003 -->
 - [x] Add deterministic source/rights gates that prohibit bundling a candidate merely because it is downloadable. <!-- mw-todo:P14-004 -->
 - [x] Add genre vocabulary and profiles for scripture, hadith/report, commentary, legal text, ritual/manual, hymn/prayer, biography, chronicle, philosophical text, and oral-tradition metadata. <!-- mw-todo:P14-005 -->
 - [x] Audit and pin openly redistributable Arabic hadith/report source candidates; keep collection, book, chapter, report, matn, and isnad/transmitter layers distinct. <!-- mw-todo:P14-006 -->
-- [ ] Ingest the first rights-cleared Arabic hadith/report collection with exact citation hierarchy and source-preserving matn, without using a secondary website as authority by default. <!-- mw-todo:P14-007 -->
-- [ ] Add separately sourced human English and Indonesian hadith/report translations only where republication rights, translator, and edition are explicit. <!-- mw-todo:P14-008 -->
-- [ ] Model isnad/transmission as source-attributed assertions and chains, never as automatically verified biography or historical fact. <!-- mw-todo:P14-009 -->
-- [ ] Audit and ingest a rights-cleared Quran commentary/tafsir lane as commentary linked to Quran passages, never as Quran source text. <!-- mw-todo:P14-010 -->
-- [ ] Audit and ingest a rights-cleared Mishnah source lane, preserving tractate/chapter/mishnah citations and Hebrew/Aramaic distinctions. <!-- mw-todo:P14-011 -->
-- [ ] Audit Talmud and midrash candidates; support metadata-only or bounded quotation datasets when complete redistribution is not permitted. <!-- mw-todo:P14-012 -->
-- [ ] Add Jewish liturgical/prayer and medieval philosophical-text candidate lanes with explicit community, language, and rights scopes. <!-- mw-todo:P14-013 -->
-- [ ] Audit and ingest rights-cleared Apostolic Fathers, early Christian creeds, and patristic source-text candidates as editions separate from the New Testament. <!-- mw-todo:P14-014 -->
-- [ ] Add Christian liturgical, conciliar, and denominational primary-document lanes with denomination/community scope and non-universal claims. <!-- mw-todo:P14-015 -->
-- [ ] Complete the Pali root-text rights decision for DN/MN/SN/AN and ingest only independently permitted source-language material. <!-- mw-todo:P14-016 -->
-- [ ] Add Buddhist non-Pali source lanes for Chinese and Tibetan canon metadata, with source-language, edition, and access constraints explicit. <!-- mw-todo:P14-017 -->
-- [ ] Audit and ingest rights-cleared Buddhist commentarial, vinaya, and meditation-manual datasets as genres distinct from sutta text. <!-- mw-todo:P14-018 -->
-- [ ] Audit and ingest Sanskrit Bhagavad Gita source candidates plus human English and Indonesian translations as separate expressions. <!-- mw-todo:P14-019 -->
-- [ ] Add rights-cleared Veda, Upanishad, and Hindu epic source/fragment lanes with recension, language, and translation boundaries explicit. <!-- mw-todo:P14-020 -->
-- [ ] Audit Jain Agama and Tattvartha Sutra candidates with Prakrit/Sanskrit/Hindi/English/Indonesian distinctions and sect scope. <!-- mw-todo:P14-021 -->
-- [ ] Audit Sikh Guru Granth Sahib source and translation candidates, preserving raga, ang, and hymn citation systems where licensed. <!-- mw-todo:P14-022 -->
-- [ ] Audit Baháʼí, Zoroastrian, Daoist, Confucian, and Shinto primary-text candidates with edition, translation, and community scopes. <!-- mw-todo:P14-023 -->
-- [ ] Add indigenous, local, oral, and living-tradition discovery lanes under consent-first metadata policy; do not bundle restricted or ceremonial content without explicit permission. <!-- mw-todo:P14-024 -->
-- [ ] Add modern religious-movement primary-document lanes with publisher, date, jurisdiction, and redistribution terms recorded. <!-- mw-todo:P14-025 -->
+- [x] Ingest the first rights-cleared Arabic hadith/report collection with exact citation hierarchy and source-preserving matn, without using a secondary website as authority by default. <!-- mw-todo:P14-007 -->
+- [x] Add separately sourced human English and Indonesian hadith/report translations only where republication rights, translator, and edition are explicit. <!-- mw-todo:P14-008 -->
+- [x] Model isnad/transmission as source-attributed assertions and chains, never as automatically verified biography or historical fact. <!-- mw-todo:P14-009 -->
+- [x] Audit and ingest a rights-cleared Quran commentary/tafsir lane as commentary linked to Quran passages, never as Quran source text. <!-- mw-todo:P14-010 -->
+- [x] Audit and ingest a rights-cleared Mishnah source lane, preserving tractate/chapter/mishnah citations and Hebrew/Aramaic distinctions. <!-- mw-todo:P14-011 -->
+- [x] Audit Talmud and midrash candidates; support metadata-only or bounded quotation datasets when complete redistribution is not permitted. <!-- mw-todo:P14-012 -->
+- [x] Add Jewish liturgical/prayer and medieval philosophical-text candidate lanes with explicit community, language, and rights scopes. <!-- mw-todo:P14-013 -->
+- [x] Audit and ingest rights-cleared Apostolic Fathers, early Christian creeds, and patristic source-text candidates as editions separate from the New Testament. <!-- mw-todo:P14-014 -->
+- [x] Add Christian liturgical, conciliar, and denominational primary-document lanes with denomination/community scope and non-universal claims. <!-- mw-todo:P14-015 -->
+- [x] Complete the Pali root-text rights decision for DN/MN/SN/AN and ingest only independently permitted source-language material. <!-- mw-todo:P14-016 -->
+- [x] Add Buddhist non-Pali source lanes for Chinese and Tibetan canon metadata, with source-language, edition, and access constraints explicit. <!-- mw-todo:P14-017 -->
+- [x] Audit and ingest rights-cleared Buddhist commentarial, vinaya, and meditation-manual datasets as genres distinct from sutta text. <!-- mw-todo:P14-018 -->
+- [x] Audit and ingest Sanskrit Bhagavad Gita source candidates plus human English and Indonesian translations as separate expressions. <!-- mw-todo:P14-019 -->
+- [x] Add rights-cleared Veda, Upanishad, and Hindu epic source/fragment lanes with recension, language, and translation boundaries explicit. <!-- mw-todo:P14-020 -->
+- [x] Audit Jain Agama and Tattvartha Sutra candidates with Prakrit/Sanskrit/Hindi/English/Indonesian distinctions and sect scope. <!-- mw-todo:P14-021 -->
+- [x] Audit Sikh Guru Granth Sahib source and translation candidates, preserving raga, ang, and hymn citation systems where licensed. <!-- mw-todo:P14-022 -->
+- [x] Audit Baháʼí, Zoroastrian, Daoist, Confucian, and Shinto primary-text candidates with edition, translation, and community scopes. <!-- mw-todo:P14-023 -->
+- [x] Add indigenous, local, oral, and living-tradition discovery lanes under consent-first metadata policy; do not bundle restricted or ceremonial content without explicit permission. <!-- mw-todo:P14-024 -->
+- [x] Add modern religious-movement primary-document lanes with publisher, date, jurisdiction, and redistribution terms recorded. <!-- mw-todo:P14-025 -->
 - [x] Add multilingual transliteration/romanization provenance for source languages where a lossless native-script representation is retained. <!-- mw-todo:P14-026 -->
 - [x] Add citation adapters for non-Bible/non-sutta structures: hadith report, folio/line, hymn/ang/raga, chapter/verse, tractate/mishnah, and fragment selector. <!-- mw-todo:P14-027 -->
 - [x] Add passage-to-P13 evidence extraction contracts so text mentions create review candidates, never automatic person identity or role claims. <!-- mw-todo:P14-028 -->
@@ -285,15 +285,15 @@ P15 separates lexical forms from source-scoped meanings and from P13 entities. P
 - [x] Add broader/narrower/related/contrasted-with/translated-as relations as provenance-bearing assertions rather than universal ontology edges. <!-- mw-todo:P15-008 -->
 - [x] Add contested, polysemous, homographic, obsolete, pejorative, reclaimed, and community-preferred term states with review notes. <!-- mw-todo:P15-009 -->
 - [x] Link sacred names, epithets, and titles to P13 entities only through sourced designation assertions; never merge entity identity from a name match. <!-- mw-todo:P15-010 -->
-- [ ] Extract and review Quran/Islamic Arabic terms, divine names, roles, practices, and theological vocabulary from exact P12/P14 evidence. <!-- mw-todo:P15-011 -->
-- [ ] Extract and review Hebrew/Aramaic Jewish terms, divine designations, offices, practices, and covenant/legal vocabulary from exact evidence. <!-- mw-todo:P15-012 -->
-- [ ] Extract and review Greek/Latin/Syriac Christian terms, titles, offices, sacraments, and doctrinal vocabulary with source/community scope. <!-- mw-todo:P15-013 -->
-- [ ] Extract and review Pali/Sanskrit Buddhist terms with school, canon, translation, and commentarial scope explicit. <!-- mw-todo:P15-014 -->
-- [ ] Add Sanskrit and regional-language Hindu concept/name coverage without flattening deity, epithet, avatara, philosophical school, or practice distinctions. <!-- mw-todo:P15-015 -->
-- [ ] Add Jain, Sikh, Baháʼí, Zoroastrian, Daoist, Confucian, and Shinto term/name lanes with native script and community scope. <!-- mw-todo:P15-016 -->
-- [ ] Add rights- and consent-reviewed indigenous/local terminology metadata without publishing restricted names or meanings. <!-- mw-todo:P15-017 -->
-- [ ] Add human-published English and Indonesian glosses/definitions as attributed expressions; machine glosses remain derived non-canonical candidates. <!-- mw-todo:P15-018 -->
-- [ ] Add passage-level term occurrence and definition evidence linked to P12/P14 content without changing source text. <!-- mw-todo:P15-019 -->
+- [x] Extract and review Quran/Islamic Arabic terms, divine names, roles, practices, and theological vocabulary from exact P12/P14 evidence. <!-- mw-todo:P15-011 -->
+- [x] Extract and review Hebrew/Aramaic Jewish terms, divine designations, offices, practices, and covenant/legal vocabulary from exact evidence. <!-- mw-todo:P15-012 -->
+- [x] Extract and review Greek/Latin/Syriac Christian terms, titles, offices, sacraments, and doctrinal vocabulary with source/community scope. <!-- mw-todo:P15-013 -->
+- [x] Extract and review Pali/Sanskrit Buddhist terms with school, canon, translation, and commentarial scope explicit. <!-- mw-todo:P15-014 -->
+- [x] Add Sanskrit and regional-language Hindu concept/name coverage without flattening deity, epithet, avatara, philosophical school, or practice distinctions. <!-- mw-todo:P15-015 -->
+- [x] Add Jain, Sikh, Baháʼí, Zoroastrian, Daoist, Confucian, and Shinto term/name lanes with native script and community scope. <!-- mw-todo:P15-016 -->
+- [x] Add rights- and consent-reviewed indigenous/local terminology metadata without publishing restricted names or meanings. <!-- mw-todo:P15-017 -->
+- [x] Add human-published English and Indonesian glosses/definitions as attributed expressions; machine glosses remain derived non-canonical candidates. <!-- mw-todo:P15-018 -->
+- [x] Add passage-level term occurrence and definition evidence linked to P12/P14 content without changing source text. <!-- mw-todo:P15-019 -->
 - [x] Add deterministic duplicate, spelling-variant, transliteration, homograph, and possible-concept-match reports without automatic merges. <!-- mw-todo:P15-020 -->
 - [x] Add terminology review workflow for community-preferred naming, deprecated labels, sensitive language, and disputed translations. <!-- mw-todo:P15-021 -->
 - [x] Add deterministic ingestion/count/checksum/rights/provenance and source-evidence tests for every P15 dataset. <!-- mw-todo:P15-022 -->

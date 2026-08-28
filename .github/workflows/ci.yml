@@ -41,3 +41,30 @@ jobs:
           grep -q 'Dataset catalog' /tmp/datasets.html
           curl --fail --silent --show-error 'http://127.0.0.1:3000/search?q=quran' > /tmp/search.html
           grep -q 'Results for' /tmp/search.html
+
+      - name: Smoke test Fastify API Engine runtime & OpenTelemetry
+        shell: bash
+        run: |
+          pnpm serve > /tmp/moonwitness-api.log 2>&1 &
+          API_PID=$!
+          trap 'kill "$API_PID" 2>/dev/null || true' EXIT
+
+          ready=0
+          for attempt in {1..30}; do
+            if curl --fail --silent --show-error http://127.0.0.1:3000/v1/health > /tmp/health.json; then
+              ready=1
+              break
+            fi
+            sleep 1
+          done
+
+          if [ "$ready" -ne 1 ]; then
+            cat /tmp/moonwitness-api.log
+            exit 1
+          fi
+
+          grep -q '"status":"healthy"' /tmp/health.json
+          curl --fail --silent --show-error http://127.0.0.1:3000/metrics | grep -q 'corpus_indexed_records_total'
+          curl --fail --silent --show-error http://127.0.0.1:3000/v1/traditions | grep -q '"success":true'
+          curl --fail --silent --show-error 'http://127.0.0.1:3000/v1/search?q=mercy' | grep -q '"success":true'
+

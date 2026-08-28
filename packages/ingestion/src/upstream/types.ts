@@ -3,6 +3,7 @@ import type { IngestionRecipe } from '../types.js'
 
 export type ExecutionMode = 'recipe' | 'adapter' | 'script'
 export type ExecutionStatus = 'READY' | 'UNMAPPED' | 'UNSUPPORTED_ADAPTER' | 'INVALID_RECIPE' | 'DISABLED'
+export type ProcessExecutionStatus = 'PROCESS_SUCCEEDED' | 'PROCESS_FAILED'
 
 export type UpstreamAcquisitionStatus =
   | 'REMOTE_SYNCED'
@@ -22,7 +23,7 @@ export interface UpstreamPolicy {
 export interface UpstreamEndpoint extends UpstreamPolicy {
   id: string
   name: string
-  type: 'rest_api' | 'git_repository' | 'open_data_archive' | 'sparql_endpoint' | 'file_download' | string
+  type: 'rest_api' | 'git_repository' | 'git_repo' | 'open_data_archive' | 'sparql_endpoint' | 'raw_archive' | 'file_download' | string
   license: string
   enabled?: boolean
   baseUrl?: string
@@ -111,6 +112,18 @@ export interface UpstreamAcquisitionResult {
   fallbackSource?: string
 }
 
+export interface UpstreamScriptPayload {
+  acquisitionStatus: UpstreamAcquisitionStatus
+  sourceUrl?: string
+  resolvedUrl?: string
+  retrievedAt?: string
+  sourceSha256?: string
+  byteCount?: number
+  fallbackReason?: string
+  fallbackSource?: string
+  error?: string
+}
+
 export interface UpstreamAdapter {
   readonly id: string
   readonly kind: string
@@ -148,6 +161,7 @@ export interface UpstreamJobResult {
   traditionId: string
   endpointId: string
   mode: ExecutionMode
+  executionStatus: ProcessExecutionStatus
   status: 'succeeded' | 'not_modified' | 'cache' | 'fallback' | 'failed' | 'unsupported'
   acquisitionStatus: UpstreamAcquisitionStatus
   required: boolean
@@ -186,4 +200,22 @@ export interface UpstreamRunManifest {
     unsupported: number
   }
   jobs: UpstreamJobResult[]
+}
+
+export interface UpstreamCoverageReport {
+  schemaVersion: '1.0.0'
+  generatedAt: string
+  runId: string
+  registryVersion: string
+  planned: number
+  remoteSynced: number
+  notModified: number
+  cache: number
+  fallback: number
+  failed: number
+  unsupported: number
+  remoteCoveragePercent: number
+  validatedCoveragePercent: number
+  fallbackPercent: number
+  failurePercent: number
 }

@@ -1,4 +1,5 @@
 import { createHash } from 'node:crypto'
+import { execFileSync } from 'node:child_process'
 import type {
   UpstreamAdapter,
   UpstreamAdapterContext,
@@ -89,7 +90,7 @@ export const httpJsonAdapter: UpstreamAdapter = {
 export const rawTextAdapter: UpstreamAdapter = {
   id: 'raw-text',
   kind: 'file_download',
-  supports: (ep) => ep.type === 'file_download' || ep.type === 'open_data_archive',
+  supports: (ep) => ep.type === 'file_download' || ep.type === 'raw_archive' || ep.type === 'open_data_archive',
   async acquire(endpoint, context): Promise<UpstreamAcquisitionResult> {
     const targetUrl = endpoint.url || endpoint.baseUrl
     if (!targetUrl) throw new Error(`Endpoint ${endpoint.id} has no url`)
@@ -123,17 +124,30 @@ export const rawTextAdapter: UpstreamAdapter = {
   }
 }
 
-// 3. Git Repository Adapter
+// 3. Verifiable Git Repository Adapter
 export const gitAdapter: UpstreamAdapter = {
   id: 'git-repository',
   kind: 'git_repository',
-  supports: (ep) => ep.type === 'git_repository' || Boolean(ep.repoUrl),
+  supports: (ep) => ep.type === 'git_repository' || ep.type === 'git_repo' || Boolean(ep.repoUrl),
   async acquire(endpoint): Promise<UpstreamAcquisitionResult> {
     const repoUrl = endpoint.repoUrl || endpoint.url
     if (!repoUrl) throw new Error(`Git endpoint ${endpoint.id} missing repoUrl`)
 
-    const payload = new TextEncoder().encode(JSON.stringify({ repoUrl, status: 'synced' }))
-    const sha256 = createHash('sha256').update(payload).digest('hex')
+    let headCommit: string
+    try {
+      const output = execFileSync('git', ['ls-remote', repoUrl, 'HEAD'], {
+        encoding: 'utf8',
+        timeout: 20000,
+        stdio: ['ignore', 'pipe', 'pipe']
+      })
+      const match = output.match(/^([0-9a-fA-F]{40})\s+HEAD/m)
+      if (!match) throw new Error(`Could not parse HEAD commit from remote git repository`)
+      headCommit = match[1]
+    } catch (err: any) {
+      throw new Error(`Git remote verification failed for ${repoUrl}: ${err.stderr?.toString().trim() || err.message}`)
+    }
+
+    const payload = new TextEncoder().encode(JSON.stringify({ repoUrl, headCommit, verifiedAt: new Date().toISOString() }))
 
     return {
       bytes: payload,
@@ -141,7 +155,7 @@ export const gitAdapter: UpstreamAdapter = {
       sourceUrl: repoUrl,
       resolvedLocation: repoUrl,
       retrievedAt: new Date().toISOString(),
-      sourceSha256: sha256,
+      sourceSha256: headCommit,
       byteSize: payload.byteLength
     }
   }

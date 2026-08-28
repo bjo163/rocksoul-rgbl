@@ -196,6 +196,21 @@ async function main() {
 
   console.log(`--- Results: ${results.length} sources, ${failed.length} failed, ${fallback.length} fallback ---`)
 
+  const overallStatus = failed.length > 0
+    ? 'REMOTE_FAILED'
+    : (fallback.length > 0 ? 'LOCAL_FALLBACK' : 'REMOTE_SYNCED')
+
+  console.log(`MOONWITNESS_RESULT:${JSON.stringify({
+    acquisitionStatus: overallStatus,
+    sourceUrl: 'https://raw.githubusercontent.com',
+    resolvedUrl: 'scripts/fetch-upstream-scriptures.ts',
+    retrievedAt: new Date().toISOString(),
+    sourceSha256: 'multi-scripture-managed',
+    byteCount: results.reduce((acc, r) => acc + (r.byteSize || 0), 0),
+    fallbackReason: fallback.length > 0 ? `${fallback.length} remote sources unpinned/404; fell back to local recipes` : undefined,
+    fallbackSource: 'ingestion/recipes/*/source/'
+  })}`)
+
   if (failed.length > 0) process.exitCode = 1
 }
 

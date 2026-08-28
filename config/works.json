@@ -1,0 +1,223 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "version": "1.0.0",
+  "title": "MoonWitness Universal Scriptural Works Registry",
+  "works": [
+    {
+      "id": "quran",
+      "traditionId": "islam",
+      "name": "Qur'an",
+      "workType": "scripture",
+      "canonicalStatus": "primary_scripture",
+      "structure": { "levels": ["surah", "ayah", "word"] }
+    },
+    {
+      "id": "hadith-bukhari",
+      "traditionId": "islam",
+      "name": "Sahih al-Bukhari",
+      "workType": "hadith_corpus",
+      "canonicalStatus": "canonical_hadith",
+      "structure": { "levels": ["book", "hadith"] }
+    },
+    {
+      "id": "hadith-muslim",
+      "traditionId": "islam",
+      "name": "Sahih Muslim",
+      "workType": "hadith_corpus",
+      "canonicalStatus": "canonical_hadith",
+      "structure": { "levels": ["book", "hadith"] }
+    },
+    {
+      "id": "hadith-nawawi",
+      "traditionId": "islam",
+      "name": "Al-Arba'in an-Nawawiyyah (40 Hadith)",
+      "workType": "hadith_collection",
+      "canonicalStatus": "canonical_hadith",
+      "structure": { "levels": ["hadith"] }
+    },
+    {
+      "id": "duas-hisnul-muslim",
+      "traditionId": "islam",
+      "name": "Hisnul Muslim Supplications",
+      "workType": "devotional",
+      "canonicalStatus": "canonical_devotional",
+      "structure": { "levels": ["chapter", "dua"] }
+    },
+    {
+      "id": "asmaul-husna",
+      "traditionId": "islam",
+      "name": "Asmaul Husna (99 Divine Names)",
+      "workType": "theological_enumeration",
+      "canonicalStatus": "canonical_theology",
+      "structure": { "levels": ["name"] }
+    },
+    {
+      "id": "tanakh",
+      "traditionId": "judaism",
+      "name": "Tanakh (Hebrew Bible)",
+      "workType": "scripture",
+      "canonicalStatus": "primary_scripture",
+      "structure": { "levels": ["book", "chapter", "verse"] }
+    },
+    {
+      "id": "mishnah",
+      "traditionId": "judaism",
+      "name": "Mishnah",
+      "workType": "oral_torah",
+      "canonicalStatus": "primary_rabbinic",
+      "structure": { "levels": ["order", "tractate", "chapter", "mishnah"] }
+    },
+    {
+      "id": "talmud-bavli",
+      "traditionId": "judaism",
+      "name": "Babylonian Talmud",
+      "workType": "rabbinic_commentary",
+      "canonicalStatus": "canonical_rabbinic",
+      "structure": { "levels": ["tractate", "daf"] }
+    },
+    {
+      "id": "greek-new-testament",
+      "traditionId": "christianity",
+      "name": "Greek New Testament",
+      "workType": "scripture",
+      "canonicalStatus": "primary_scripture",
+      "structure": { "levels": ["book", "chapter", "verse"] }
+    },
+    {
+      "id": "canonical-greek-literature",
+      "traditionId": "christianity",
+      "name": "Canonical Greek Patristics & Classical Literature",
+      "workType": "patristic_corpus",
+      "canonicalStatus": "canonical_patristics",
+      "structure": { "levels": ["author", "work", "section"] }
+    },
+    {
+      "id": "web-bible",
+      "traditionId": "christianity",
+      "name": "World English Bible",
+      "workType": "scripture_translation",
+      "canonicalStatus": "scripture_translation",
+      "structure": { "levels": ["book", "chapter", "verse"] }
+    },
+    {
+      "id": "principal-upanishads",
+      "traditionId": "hinduism",
+      "name": "The Principal Upanishads",
+      "workType": "scripture",
+      "canonicalStatus": "shruti",
+      "structure": { "levels": ["upanishad", "khanda", "verse"] }
+    },
+    {
+      "id": "bhagavad-gita",
+      "traditionId": "hinduism",
+      "name": "Bhagavad Gita",
+      "workType": "scripture",
+      "canonicalStatus": "smriti_primary",
+      "structure": { "levels": ["chapter", "verse"] }
+    },
+    {
+      "id": "dhammapada",
+      "traditionId": "buddhism",
+      "name": "Dhammapada",
+      "workType": "scripture",
+      "canonicalStatus": "tipitaka_khuddaka",
+      "structure": { "levels": ["vagga", "verse"] }
+    },
+    {
+      "id": "digha-nikaya",
+      "traditionId": "buddhism",
+      "name": "Digha Nikaya (Long Discourses)",
+      "workType": "scripture",
+      "canonicalStatus": "tipitaka_sutta",
+      "structure": { "levels": ["sutta", "section"] }
+    },
+    {
+      "id": "majjhima-nikaya",
+      "traditionId": "buddhism",
+      "name": "Majjhima Nikaya (Middle-Length Discourses)",
+      "workType": "scripture",
+      "canonicalStatus": "tipitaka_sutta",
+      "structure": { "levels": ["sutta", "section"] }
+    },
+    {
+      "id": "samyutta-nikaya",
+      "traditionId": "buddhism",
+      "name": "Samyutta Nikaya (Connected Discourses)",
+      "workType": "scripture",
+      "canonicalStatus": "tipitaka_sutta",
+      "structure": { "levels": ["samyutta", "sutta"] }
+    },
+    {
+      "id": "anguttara-nikaya",
+      "traditionId": "buddhism",
+      "name": "Anguttara Nikaya (Numbered Discourses)",
+      "workType": "scripture",
+      "canonicalStatus": "tipitaka_sutta",
+      "structure": { "levels": ["nipata", "sutta"] }
+    },
+    {
+      "id": "dao-de-jing",
+      "traditionId": "daoism",
+      "name": "Dao De Jing (Tao Te Ching)",
+      "workType": "scripture",
+      "canonicalStatus": "primary_scripture",
+      "structure": { "levels": ["chapter", "verse"] }
+    },
+    {
+      "id": "zhuangzi",
+      "traditionId": "daoism",
+      "name": "Zhuangzi",
+      "workType": "scripture",
+      "canonicalStatus": "canonical_treatise",
+      "structure": { "levels": ["chapter", "section"] }
+    },
+    {
+      "id": "analects",
+      "traditionId": "confucianism",
+      "name": "The Analects of Confucius (Lunyu)",
+      "workType": "scripture",
+      "canonicalStatus": "four_books_primary",
+      "structure": { "levels": ["book", "chapter"] }
+    },
+    {
+      "id": "avesta",
+      "traditionId": "zoroastrianism",
+      "name": "Avesta & The Gathas",
+      "workType": "scripture",
+      "canonicalStatus": "primary_scripture",
+      "structure": { "levels": ["yasna", "chapter"] }
+    },
+    {
+      "id": "guru-granth-sahib",
+      "traditionId": "sikhism",
+      "name": "Sri Guru Granth Sahib",
+      "workType": "scripture",
+      "canonicalStatus": "primary_scripture",
+      "structure": { "levels": ["ang", "shabad", "line"] }
+    },
+    {
+      "id": "tattvartha-sutra",
+      "traditionId": "jainism",
+      "name": "Tattvartha Sutra",
+      "workType": "scripture",
+      "canonicalStatus": "primary_treatise",
+      "structure": { "levels": ["chapter", "sutra"] }
+    },
+    {
+      "id": "hidden-words",
+      "traditionId": "bahai",
+      "name": "The Hidden Words of Bahá'u'lláh",
+      "workType": "scripture",
+      "canonicalStatus": "primary_scripture",
+      "structure": { "levels": ["part", "verse"] }
+    },
+    {
+      "id": "kojiki",
+      "traditionId": "shinto",
+      "name": "Kojiki (Records of Ancient Matters)",
+      "workType": "sacred_chronicle",
+      "canonicalStatus": "canonical_chronicle",
+      "structure": { "levels": ["book", "section"] }
+    }
+  ]
+}

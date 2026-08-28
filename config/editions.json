@@ -1,0 +1,211 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "version": "1.0.0",
+  "title": "MoonWitness Universal Editions Registry",
+  "editions": [
+    {
+      "id": "quran-tanzil-uthmani",
+      "workId": "quran",
+      "name": "Qur'an Uthmani Canonical Text",
+      "editionType": "original_script",
+      "language": "ar",
+      "script": "Arab",
+      "variant": "uthmani"
+    },
+    {
+      "id": "quran-saheeh-international",
+      "workId": "quran",
+      "name": "Qur'an English Translation (Saheeh International)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "quran"
+    },
+    {
+      "id": "quran-ummah-ar-en",
+      "workId": "quran",
+      "name": "Qur'an Arabic & English Unified Feed",
+      "editionType": "bilingual",
+      "language": "ar",
+      "script": "Arab"
+    },
+    {
+      "id": "bukhari-ummah-ar-en",
+      "workId": "hadith-bukhari",
+      "name": "Sahih al-Bukhari Arabic & English Edition",
+      "editionType": "bilingual",
+      "language": "ar",
+      "script": "Arab"
+    },
+    {
+      "id": "muslim-ummah-ar-en",
+      "workId": "hadith-muslim",
+      "name": "Sahih Muslim Arabic & English Edition",
+      "editionType": "bilingual",
+      "language": "ar",
+      "script": "Arab"
+    },
+    {
+      "id": "nawawi-ummah-ar-en",
+      "workId": "hadith-nawawi",
+      "name": "An-Nawawi 40 Hadith Arabic & English Edition",
+      "editionType": "bilingual",
+      "language": "ar",
+      "script": "Arab"
+    },
+    {
+      "id": "duas-hisnul-muslim-canonical",
+      "workId": "duas-hisnul-muslim",
+      "name": "Hisnul Muslim Authentic Duas Arabic & English",
+      "editionType": "bilingual",
+      "language": "ar",
+      "script": "Arab"
+    },
+    {
+      "id": "asmaul-husna-canonical",
+      "workId": "asmaul-husna",
+      "name": "Asmaul Husna Arabic & Multilingual Commentary",
+      "editionType": "theological_enumeration",
+      "language": "ar",
+      "script": "Arab"
+    },
+    {
+      "id": "tanakh-wlc-hebrew",
+      "workId": "tanakh",
+      "name": "Westminster Leningrad Codex (WLC)",
+      "editionType": "original_script",
+      "language": "he",
+      "script": "Hebr",
+      "variant": "wlc"
+    },
+    {
+      "id": "sefaria-jewish-library",
+      "workId": "tanakh",
+      "name": "Sefaria Complete Jewish Library Edition",
+      "editionType": "canonical_library",
+      "language": "he",
+      "script": "Hebr"
+    },
+    {
+      "id": "sblgnt-greek-edition",
+      "workId": "greek-new-testament",
+      "name": "Society of Biblical Literature Greek New Testament",
+      "editionType": "original_script",
+      "language": "grc",
+      "script": "Grek",
+      "variant": "sblgnt"
+    },
+    {
+      "id": "perseus-canonical-greek",
+      "workId": "canonical-greek-literature",
+      "name": "Perseus Canonical Greek Literature Edition",
+      "editionType": "critical_edition",
+      "language": "grc",
+      "script": "Grek"
+    },
+    {
+      "id": "web-classic-edition",
+      "workId": "web-bible",
+      "name": "World English Bible Classic Edition",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn"
+    },
+    {
+      "id": "gretil-sanskrit-upanishads",
+      "workId": "principal-upanishads",
+      "name": "GRETIL Classical Sanskrit Upanishads Edition",
+      "editionType": "original_script",
+      "language": "sa",
+      "script": "Deva"
+    },
+    {
+      "id": "gita-multilingual-edition",
+      "workId": "bhagavad-gita",
+      "name": "Bhagavad Gita Sanskrit & Multilingual Translations",
+      "editionType": "multilingual",
+      "language": "sa",
+      "script": "Deva"
+    },
+    {
+      "id": "dhammapada-sujato-pali-en",
+      "workId": "dhammapada",
+      "name": "Dhammapada Pali & English (Bhikkhu Sujato)",
+      "editionType": "bilingual",
+      "language": "pli",
+      "script": "Latn"
+    },
+    {
+      "id": "dhammapada-indonesian-ed",
+      "workId": "dhammapada",
+      "name": "Dhammapada Indonesian Translation",
+      "editionType": "translation",
+      "language": "id",
+      "script": "Latn"
+    },
+    {
+      "id": "suttacentral-nikayas-sujato",
+      "workId": "digha-nikaya",
+      "name": "SuttaCentral Pali Nikayas (Bhikkhu Sujato)",
+      "editionType": "bilingual",
+      "language": "pli",
+      "script": "Latn"
+    },
+    {
+      "id": "ctext-daoism-classical",
+      "workId": "dao-de-jing",
+      "name": "Chinese Text Project Classical Daoism Edition",
+      "editionType": "original_script",
+      "language": "lzh",
+      "script": "Hani"
+    },
+    {
+      "id": "ctext-confucianism-classical",
+      "workId": "analects",
+      "name": "Chinese Text Project Classical Confucianism Edition",
+      "editionType": "original_script",
+      "language": "lzh",
+      "script": "Hani"
+    },
+    {
+      "id": "avesta-canonical-archive",
+      "workId": "avesta",
+      "name": "Avesta.org Canonical Zoroastrian Edition",
+      "editionType": "original_script",
+      "language": "ae",
+      "script": "Avst"
+    },
+    {
+      "id": "shabados-sggs-gurmukhi",
+      "workId": "guru-granth-sahib",
+      "name": "ShabadOS Sri Guru Granth Sahib Gurmukhi Edition",
+      "editionType": "original_script",
+      "language": "pa",
+      "script": "Guru"
+    },
+    {
+      "id": "jain-heritage-tattvartha-ed",
+      "workId": "tattvartha-sutra",
+      "name": "Jain Heritage Tattvartha Sutra Classical Edition",
+      "editionType": "original_script",
+      "language": "sa",
+      "script": "Deva"
+    },
+    {
+      "id": "bahai-hidden-words-official",
+      "workId": "hidden-words",
+      "name": "The Hidden Words Official English & Arabic Publication",
+      "editionType": "official_publication",
+      "language": "ar",
+      "script": "Arab"
+    },
+    {
+      "id": "shinto-kojiki-archival",
+      "workId": "kojiki",
+      "name": "Kojiki Archival English & Japanese Translation",
+      "editionType": "archival_translation",
+      "language": "en",
+      "script": "Latn"
+    }
+  ]
+}

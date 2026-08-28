@@ -1,6 +1,7 @@
 import { readFile } from 'node:fs/promises'
 import { existsSync } from 'node:fs'
 import path from 'node:path'
+import { UniversalCorpusRegistry } from '@moonwitness/corpus-ingestion'
 
 interface Endpoint {
   id?: unknown
@@ -58,94 +59,111 @@ function fail(message: string): never {
 }
 
 async function main() {
-  const rawRegistry = await readFile(registryPath, 'utf8')
-  let registry: Registry
+  const problems: string[] = []
 
+  // 1. Validate Legacy/Runtime Upstream Master Registry
+  if (!existsSync(registryPath)) fail(`Missing registry at ${registryPath}`)
+
+  const raw = await readFile(registryPath, 'utf8')
+  let registry: Registry
   try {
-    registry = JSON.parse(rawRegistry) as Registry
+    registry = JSON.parse(raw)
   } catch (error) {
-    fail(`Invalid JSON in upstream-registry.json: ${error instanceof Error ? error.message : String(error)}`)
+    fail(`Invalid JSON in ${registryPath}: ${error}`)
   }
 
-  if (!registry.version) fail('Missing top-level version in upstream-registry.json')
-  if (!registry.title) fail('Missing top-level title in upstream-registry.json')
-  if (!registry.traditions || typeof registry.traditions !== 'object') fail('Missing traditions object in upstream-registry.json')
+  if (typeof registry !== 'object' || registry === null) fail('Registry must be an object')
+  if (typeof registry.version !== 'string') problems.push('missing version string')
+  if (typeof registry.title !== 'string') problems.push('missing title string')
+  if (typeof registry.traditions !== 'object' || registry.traditions === null) {
+    problems.push('missing traditions object')
+  }
 
   const endpointIds = new Set<string>()
-  const problems: string[] = []
   let endpointCount = 0
 
-  for (const [traditionId, tradition] of Object.entries(registry.traditions)) {
-    if (!tradition.name) problems.push(`${traditionId}: missing name`)
-    if (!tradition.primaryLanguage) problems.push(`${traditionId}: missing primaryLanguage`)
-    if (!Array.isArray(tradition.scripts) || tradition.scripts.length === 0) {
-      problems.push(`${traditionId}: scripts must be a non-empty array`)
-    }
-    if (!Array.isArray(tradition.endpoints)) {
-      problems.push(`${traditionId}: endpoints must be an array`)
-      continue
-    }
-
-    for (const endpoint of tradition.endpoints as Endpoint[]) {
-      endpointCount++
-      const id = typeof endpoint.id === 'string' ? endpoint.id : ''
-
-      if (!id) problems.push(`${traditionId}: endpoint missing id`)
-      else if (endpointIds.has(id)) problems.push(`duplicate endpoint id: ${id}`)
-      else endpointIds.add(id)
-
-      const type = typeof endpoint.type === 'string' ? endpoint.type : ''
-      const hasUrl = [endpoint.baseUrl, endpoint.repoUrl, endpoint.url]
-        .some(value => typeof value === 'string' && value.length > 0)
-
-      if (!hasUrl) problems.push(`${traditionId}/${id || '<unknown>'}: endpoint has no URL`)
-      if (!type) problems.push(`${traditionId}/${id || '<unknown>'}: endpoint missing type`)
-      if (!endpoint.license) problems.push(`${traditionId}/${id || '<unknown>'}: endpoint missing license`)
-
-      if (type === 'rest_api' && !endpoint.baseUrl) problems.push(`${traditionId}/${id}: rest_api requires baseUrl`)
-      if (type === 'git_repo' && !endpoint.repoUrl) problems.push(`${traditionId}/${id}: git_repo requires repoUrl`)
-      if (type === 'raw_archive' && !(endpoint.url || endpoint.baseUrl)) {
-        problems.push(`${traditionId}/${id}: raw_archive requires url or baseUrl`)
+  if (registry.traditions && typeof registry.traditions === 'object') {
+    for (const [traditionId, tradition] of Object.entries(registry.traditions)) {
+      if (typeof tradition !== 'object' || tradition === null) {
+        problems.push(`tradition ${traditionId}: must be an object`)
+        continue
       }
 
-      if (endpoint.allowFallback !== undefined && typeof endpoint.allowFallback !== 'boolean') {
-        problems.push(`${traditionId}/${id}: allowFallback must be boolean`)
+      if (!tradition.name) problems.push(`tradition ${traditionId}: missing name`)
+      if (!tradition.primaryLanguage) problems.push(`tradition ${traditionId}: missing primaryLanguage`)
+      if (!Array.isArray(tradition.scripts) || tradition.scripts.length === 0) {
+        problems.push(`tradition ${traditionId}: scripts must be a non-empty array`)
       }
-      if (endpoint.allowRemote !== undefined && typeof endpoint.allowRemote !== 'boolean') {
-        problems.push(`${traditionId}/${id}: allowRemote must be boolean`)
+
+      if (!Array.isArray(tradition.endpoints)) {
+        problems.push(`tradition ${traditionId}: endpoints must be an array`)
+        continue
       }
-      if (endpoint.allowCache !== undefined && typeof endpoint.allowCache !== 'boolean') {
-        problems.push(`${traditionId}/${id}: allowCache must be boolean`)
-      }
-      if (endpoint.required !== undefined && typeof endpoint.required !== 'boolean') {
-        problems.push(`${traditionId}/${id}: required must be boolean`)
+
+      for (const endpoint of tradition.endpoints as Endpoint[]) {
+        endpointCount++
+        const epId = String(endpoint.id || '')
+        if (!epId) {
+          problems.push(`tradition ${traditionId}: endpoint missing id`)
+          continue
+        }
+
+        if (endpointIds.has(epId)) {
+          problems.push(`duplicate endpoint ID: ${epId}`)
+        }
+        endpointIds.add(epId)
+
+        if (!endpoint.type) problems.push(`endpoint ${epId}: missing type`)
+        if (!endpoint.license) problems.push(`endpoint ${epId}: missing license`)
+
+        const hasLocation = Boolean(endpoint.baseUrl || endpoint.repoUrl || endpoint.url)
+        if (!hasLocation) {
+          problems.push(`endpoint ${epId}: must define baseUrl, repoUrl, or url`)
+        }
+
+        if (endpoint.enabled !== undefined && typeof endpoint.enabled !== 'boolean') {
+          problems.push(`endpoint ${epId}: enabled must be boolean`)
+        }
+        if (endpoint.required !== undefined && typeof endpoint.required !== 'boolean') {
+          problems.push(`endpoint ${epId}: required must be boolean`)
+        }
+        if (endpoint.allowRemote !== undefined && typeof endpoint.allowRemote !== 'boolean') {
+          problems.push(`endpoint ${epId}: allowRemote must be boolean`)
+        }
+        if (endpoint.allowCache !== undefined && typeof endpoint.allowCache !== 'boolean') {
+          problems.push(`endpoint ${epId}: allowCache must be boolean`)
+        }
+        if (endpoint.allowFallback !== undefined && typeof endpoint.allowFallback !== 'boolean') {
+          problems.push(`endpoint ${epId}: allowFallback must be boolean`)
+        }
       }
     }
   }
 
-  // 2. Validate upstream-executors.json if present
+  // 2. Validate Executors Registry
   let jobCount = 0
   if (existsSync(executorsPath)) {
     const rawExecutors = await readFile(executorsPath, 'utf8')
     let executors: ExecutorRegistry
-
     try {
-      executors = JSON.parse(rawExecutors) as ExecutorRegistry
+      executors = JSON.parse(rawExecutors)
     } catch (error) {
-      fail(`Invalid JSON in upstream-executors.json: ${error instanceof Error ? error.message : String(error)}`)
+      fail(`Invalid JSON in ${executorsPath}: ${error}`)
     }
 
-    if (!executors.version) problems.push('upstream-executors.json: missing version')
-    if (!Array.isArray(executors.jobs)) problems.push('upstream-executors.json: jobs must be an array')
-    else {
-      jobCount = executors.jobs.length
+    if (executors.jobs && Array.isArray(executors.jobs)) {
       const jobIds = new Set<string>()
-
       for (const job of executors.jobs) {
-        const jobId = typeof job.id === 'string' ? job.id : ''
-        if (!jobId) problems.push('executor job missing id')
-        else if (jobIds.has(jobId)) problems.push(`duplicate executor job id: ${jobId}`)
-        else jobIds.add(jobId)
+        jobCount++
+        const jobId = String(job.id || '')
+        if (!jobId) {
+          problems.push('executor job missing id')
+          continue
+        }
+        if (jobIds.has(jobId)) {
+          problems.push(`duplicate executor job ID: ${jobId}`)
+        }
+        jobIds.add(jobId)
 
         if (!job.name) problems.push(`job ${jobId}: missing name`)
         if (!Array.isArray(job.endpointIds) || job.endpointIds.length === 0) {
@@ -164,30 +182,28 @@ async function main() {
             problems.push(`job ${jobId}: script file not found at ${job.script}`)
           }
         }
-
-        if (job.allowFallback !== undefined && typeof job.allowFallback !== 'boolean') {
-          problems.push(`job ${jobId}: allowFallback must be boolean`)
-        }
-        if (job.allowRemote !== undefined && typeof job.allowRemote !== 'boolean') {
-          problems.push(`job ${jobId}: allowRemote must be boolean`)
-        }
-        if (job.allowCache !== undefined && typeof job.allowCache !== 'boolean') {
-          problems.push(`job ${jobId}: allowCache must be boolean`)
-        }
-        if (job.required !== undefined && typeof job.required !== 'boolean') {
-          problems.push(`job ${jobId}: required must be boolean`)
-        }
       }
     }
   }
+
+  // 3. Validate Normalized Universal Corpus Registry (Traditions, Works, Editions, Sources, Endpoints)
+  const universal = new UniversalCorpusRegistry(path.join(root, 'config'))
+  await universal.loadAll()
+  const universalValidation = universal.validateRegistry()
+  problems.push(...universalValidation.problems)
+
+  // Generate dist/work-coverage.json
+  await universal.writeWorkCoverageReport(path.join(root, 'dist'))
 
   console.log(JSON.stringify({
     valid: problems.length === 0,
     registryPath,
     registryVersion: registry.version,
-    traditions: Object.keys(registry.traditions ?? {}).length,
-    endpoints: endpointCount,
-    uniqueEndpointIds: endpointIds.size,
+    traditions: universalValidation.traditionCount,
+    works: universalValidation.workCount,
+    editions: universalValidation.editionCount,
+    sources: universalValidation.sourceCount,
+    endpoints: universalValidation.endpointCount,
     executorJobs: jobCount,
     problems
   }, null, 2))

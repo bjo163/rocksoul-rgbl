@@ -1,0 +1,135 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "version": "1.0.0",
+  "title": "MoonWitness Universal Upstream Sources Registry",
+  "sources": [
+    {
+      "id": "tanzil",
+      "name": "Tanzil Project",
+      "sourceType": "community_project",
+      "authorityLevel": "community",
+      "officiality": "official_project",
+      "homepage": "https://tanzil.net"
+    },
+    {
+      "id": "quranenc",
+      "name": "QuranEnc Translation Center",
+      "sourceType": "translation_portal",
+      "authorityLevel": "institutional",
+      "officiality": "official",
+      "homepage": "https://quranenc.com"
+    },
+    {
+      "id": "ummah-api",
+      "name": "UmmahAPI Unified Islamic Data Project",
+      "sourceType": "api_platform",
+      "authorityLevel": "community",
+      "officiality": "open_data",
+      "homepage": "https://ummahapi.com"
+    },
+    {
+      "id": "sefaria",
+      "name": "Sefaria Living Library of Jewish Texts",
+      "sourceType": "digital_library",
+      "authorityLevel": "institutional",
+      "officiality": "official",
+      "homepage": "https://www.sefaria.org"
+    },
+    {
+      "id": "openscriptures",
+      "name": "Open Scriptures Hebrew Bible Project",
+      "sourceType": "academic_repository",
+      "authorityLevel": "academic",
+      "officiality": "academic",
+      "homepage": "https://github.com/openscriptures"
+    },
+    {
+      "id": "morphgnt",
+      "name": "MorphGNT Biblical Greek Project",
+      "sourceType": "academic_repository",
+      "authorityLevel": "academic",
+      "officiality": "academic",
+      "homepage": "https://github.com/morphgnt"
+    },
+    {
+      "id": "perseus",
+      "name": "Perseus Digital Library at Tufts University",
+      "sourceType": "academic_repository",
+      "authorityLevel": "academic",
+      "officiality": "institutional",
+      "homepage": "https://github.com/PerseusDL"
+    },
+    {
+      "id": "gretil",
+      "name": "Göttingen Register of Electronic Texts in Indian Languages (GRETIL)",
+      "sourceType": "academic_archive",
+      "authorityLevel": "academic",
+      "officiality": "institutional",
+      "homepage": "https://gretil.sub.uni-goettingen.de"
+    },
+    {
+      "id": "vedic-scriptures",
+      "name": "Vedic Scriptures Open Data Project",
+      "sourceType": "open_data_repository",
+      "authorityLevel": "community",
+      "officiality": "open_data",
+      "homepage": "https://github.com/vedicscriptures"
+    },
+    {
+      "id": "suttacentral",
+      "name": "SuttaCentral Early Buddhist Texts",
+      "sourceType": "digital_library",
+      "authorityLevel": "institutional",
+      "officiality": "official",
+      "homepage": "https://suttacentral.net"
+    },
+    {
+      "id": "ctext",
+      "name": "Chinese Text Project",
+      "sourceType": "academic_library",
+      "authorityLevel": "academic",
+      "officiality": "academic",
+      "homepage": "https://ctext.org"
+    },
+    {
+      "id": "avesta-org",
+      "name": "Avesta.org Digital Archive",
+      "sourceType": "archival_repository",
+      "authorityLevel": "community",
+      "officiality": "archival",
+      "homepage": "http://www.avesta.org"
+    },
+    {
+      "id": "shabados",
+      "name": "ShabadOS Open Guru Granth Sahib Database",
+      "sourceType": "open_data_repository",
+      "authorityLevel": "community",
+      "officiality": "official_project",
+      "homepage": "https://github.com/shabados"
+    },
+    {
+      "id": "jain-heritage-library",
+      "name": "Jain Heritage Open Digital Library",
+      "sourceType": "digital_library",
+      "authorityLevel": "community",
+      "officiality": "archival",
+      "homepage": "https://jainlibrary.org"
+    },
+    {
+      "id": "bahai-ref-library",
+      "name": "Bahá'í Reference Library",
+      "sourceType": "official_digital_library",
+      "authorityLevel": "official",
+      "officiality": "official",
+      "homepage": "https://www.bahai.org/library/"
+    },
+    {
+      "id": "sacred-texts",
+      "name": "Internet Sacred Text Archive",
+      "sourceType": "archival_repository",
+      "authorityLevel": "archival",
+      "officiality": "non_official",
+      "homepage": "https://sacred-texts.com"
+    }
+  ]
+}

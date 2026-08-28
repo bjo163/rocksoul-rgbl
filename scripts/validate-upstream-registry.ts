@@ -11,6 +11,9 @@ interface Endpoint {
   license?: unknown
   enabled?: unknown
   required?: unknown
+  allowRemote?: unknown
+  allowCache?: unknown
+  allowFallback?: unknown
 }
 
 interface Tradition {
@@ -35,6 +38,9 @@ interface ExecutorJob {
   recipeId?: unknown
   adapterId?: unknown
   required?: unknown
+  allowRemote?: unknown
+  allowCache?: unknown
+  allowFallback?: unknown
 }
 
 interface ExecutorRegistry {
@@ -101,6 +107,19 @@ async function main() {
       if (type === 'raw_archive' && !(endpoint.url || endpoint.baseUrl)) {
         problems.push(`${traditionId}/${id}: raw_archive requires url or baseUrl`)
       }
+
+      if (endpoint.allowFallback !== undefined && typeof endpoint.allowFallback !== 'boolean') {
+        problems.push(`${traditionId}/${id}: allowFallback must be boolean`)
+      }
+      if (endpoint.allowRemote !== undefined && typeof endpoint.allowRemote !== 'boolean') {
+        problems.push(`${traditionId}/${id}: allowRemote must be boolean`)
+      }
+      if (endpoint.allowCache !== undefined && typeof endpoint.allowCache !== 'boolean') {
+        problems.push(`${traditionId}/${id}: allowCache must be boolean`)
+      }
+      if (endpoint.required !== undefined && typeof endpoint.required !== 'boolean') {
+        problems.push(`${traditionId}/${id}: required must be boolean`)
+      }
     }
   }
 
@@ -144,6 +163,19 @@ async function main() {
           if (!existsSync(scriptFile)) {
             problems.push(`job ${jobId}: script file not found at ${job.script}`)
           }
+        }
+
+        if (job.allowFallback !== undefined && typeof job.allowFallback !== 'boolean') {
+          problems.push(`job ${jobId}: allowFallback must be boolean`)
+        }
+        if (job.allowRemote !== undefined && typeof job.allowRemote !== 'boolean') {
+          problems.push(`job ${jobId}: allowRemote must be boolean`)
+        }
+        if (job.allowCache !== undefined && typeof job.allowCache !== 'boolean') {
+          problems.push(`job ${jobId}: allowCache must be boolean`)
+        }
+        if (job.required !== undefined && typeof job.required !== 'boolean') {
+          problems.push(`job ${jobId}: required must be boolean`)
         }
       }
     }

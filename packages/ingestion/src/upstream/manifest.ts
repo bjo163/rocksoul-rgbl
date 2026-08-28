@@ -9,6 +9,7 @@ export interface ManifestGenerationOptions {
   registryVersion: string
   workers: number
   jobs: UpstreamJobResult[]
+  defaultAllowFallback?: boolean
   outDir?: string
 }
 
@@ -18,11 +19,12 @@ export function buildRunManifest(options: ManifestGenerationOptions): UpstreamRu
 
   const totals = {
     planned: sortedJobs.length,
-    succeeded: sortedJobs.filter(j => j.status === 'succeeded').length,
-    notModified: sortedJobs.filter(j => j.status === 'not_modified').length,
-    failed: sortedJobs.filter(j => j.status === 'failed').length,
-    unsupported: sortedJobs.filter(j => j.status === 'unsupported').length,
-    fallback: sortedJobs.filter(j => j.status === 'fallback').length
+    remoteSynced: sortedJobs.filter(j => j.acquisitionStatus === 'REMOTE_SYNCED').length,
+    notModified: sortedJobs.filter(j => j.acquisitionStatus === 'REMOTE_NOT_MODIFIED').length,
+    cache: sortedJobs.filter(j => j.acquisitionStatus === 'LOCAL_CACHE').length,
+    fallback: sortedJobs.filter(j => j.acquisitionStatus === 'LOCAL_FALLBACK').length,
+    failed: sortedJobs.filter(j => j.acquisitionStatus === 'REMOTE_FAILED' || j.status === 'failed').length,
+    unsupported: sortedJobs.filter(j => j.acquisitionStatus === 'UNSUPPORTED' || j.status === 'unsupported').length
   }
 
   return {
@@ -32,6 +34,9 @@ export function buildRunManifest(options: ManifestGenerationOptions): UpstreamRu
     completedAt: options.completedAt,
     registryVersion: options.registryVersion,
     workers: options.workers,
+    policy: {
+      defaultAllowFallback: options.defaultAllowFallback ?? false
+    },
     totals,
     jobs: sortedJobs
   }

@@ -15,6 +15,7 @@ export interface PlannerOptions {
   registryPath?: string
   executorsPath?: string
   adapterRegistry?: UpstreamAdapterRegistry
+  defaultAllowFallback?: boolean
 }
 
 export class UpstreamPlanner {
@@ -23,6 +24,7 @@ export class UpstreamPlanner {
   private readonly executorsPath: string
   private readonly recipeResolver: RecipeResolver
   private readonly adapterRegistry: UpstreamAdapterRegistry
+  private readonly defaultAllowFallback: boolean
 
   constructor(options: PlannerOptions = {}) {
     this.rootDir = options.rootDir || process.cwd()
@@ -30,6 +32,7 @@ export class UpstreamPlanner {
     this.executorsPath = options.executorsPath || path.join(this.rootDir, 'config/upstream-executors.json')
     this.recipeResolver = new RecipeResolver(this.rootDir)
     this.adapterRegistry = options.adapterRegistry || defaultUpstreamAdapterRegistry
+    this.defaultAllowFallback = options.defaultAllowFallback ?? (process.env.MOONWITNESS_ALLOW_FALLBACK === '1')
   }
 
   async loadMasterRegistry(): Promise<UpstreamMasterRegistry> {
@@ -53,6 +56,7 @@ export class UpstreamPlanner {
     plans: UpstreamExecutionPlan[]
     unmappedEndpointCount: number
     readyCount: number
+    defaultAllowFallback: boolean
   }> {
     const masterRegistry = await this.loadMasterRegistry()
     const executorsRegistry = await this.loadExecutorsRegistry()
@@ -72,7 +76,15 @@ export class UpstreamPlanner {
     for (const [traditionId, tradition] of Object.entries(masterRegistry.traditions)) {
       for (const endpoint of tradition.endpoints) {
         const endpointEnabled = endpoint.enabled !== false
-        const isRequired = endpoint.required === true
+
+        // Policy resolution: Executor overrides Endpoint overrides Defaults
+        const executor = executorByEndpoint.get(endpoint.id)
+
+        const isRequired = executor?.job.required ?? endpoint.required ?? false
+        const allowRemote = executor?.job.allowRemote ?? endpoint.allowRemote ?? true
+        const allowCache = executor?.job.allowCache ?? endpoint.allowCache ?? false
+        const allowFallback = executor?.job.allowFallback ?? endpoint.allowFallback ?? this.defaultAllowFallback
+        const fallbackSource = executor?.job.fallbackSource ?? endpoint.fallbackSource
 
         let status: ExecutionStatus = 'UNMAPPED'
         let mode: UpstreamExecutionPlan['mode'] = 'adapter'
@@ -81,7 +93,6 @@ export class UpstreamPlanner {
         let script: string | undefined
 
         // 1. Check if there is an explicit script executor
-        const executor = executorByEndpoint.get(endpoint.id)
         if (executor && executor.job.enabled) {
           script = executor.job.script
           mode = 'script'
@@ -129,10 +140,14 @@ export class UpstreamPlanner {
           recipeId,
           adapterId,
           script,
+          fallbackSource,
           mode,
           status,
           enabled: endpointEnabled,
-          required: isRequired
+          required: isRequired,
+          allowRemote,
+          allowCache,
+          allowFallback
         })
       }
     }
@@ -144,7 +159,8 @@ export class UpstreamPlanner {
       version: masterRegistry.version,
       plans,
       unmappedEndpointCount: plans.filter(p => p.status === 'UNMAPPED' || p.status === 'UNSUPPORTED_ADAPTER').length,
-      readyCount: plans.filter(p => p.status === 'READY').length
+      readyCount: plans.filter(p => p.status === 'READY').length,
+      defaultAllowFallback: this.defaultAllowFallback
     }
   }
 }

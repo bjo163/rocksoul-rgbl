@@ -1,11 +1,7 @@
-import { readFile } from 'node:fs/promises'
-import path from 'node:path'
 import process from 'node:process'
 import {
   UpstreamPlanner,
-  UpstreamRunner,
-  type UpstreamMasterRegistry,
-  type ExecutorRegistry
+  UpstreamRunner
 } from '@moonwitness/corpus-ingestion'
 
 async function main() {
@@ -13,7 +9,7 @@ async function main() {
   const planner = new UpstreamPlanner({ rootDir: root })
   const masterRegistry = await planner.loadMasterRegistry()
   const executorsRegistry = await planner.loadExecutorsRegistry()
-  const { plans, readyCount, unmappedEndpointCount } = await planner.buildPlan()
+  const { plans, readyCount, unmappedEndpointCount, defaultAllowFallback } = await planner.buildPlan()
 
   console.log('========================================================================')
   console.log('🌐 MoonWitness Master Universal Upstream Synchronization Engine')
@@ -23,6 +19,7 @@ async function main() {
   console.log(`Planned Endpoints: ${plans.length}`)
   console.log(`Ready to Execute : ${readyCount}`)
   console.log(`Unmapped/Disabled: ${unmappedEndpointCount}`)
+  console.log(`Fallback Policy  : ${defaultAllowFallback ? 'ALLOW_FALLBACK (explicit)' : 'STRICT_PRODUCTION (default)'}`)
   console.log('========================================================================\n')
 
   const concurrency = Math.max(1, Math.min(8, executorsRegistry.defaults?.concurrency ?? 8))
@@ -33,26 +30,34 @@ async function main() {
     concurrency,
     timeoutMs,
     plans,
-    registryVersion: masterRegistry.version
+    registryVersion: masterRegistry.version,
+    defaultAllowFallback
   })
 
   console.log(`🚀 Starting parallel worker pool (${concurrency} workers)...`)
-  const { manifest, manifestPath, hasRequiredFailures } = await runner.run()
+  const { manifest, manifestPath, hasFailures, failureReasons } = await runner.run()
 
   console.log('\n------------------------------------------------------------------------')
-  console.log(`✅ Succeeded    : ${manifest.totals.succeeded}`)
-  console.log(`⏸ Not Modified : ${manifest.totals.notModified}`)
-  console.log(`🔄 Fallback     : ${manifest.totals.fallback}`)
-  console.log(`❌ Failed       : ${manifest.totals.failed}`)
-  console.log(`⚠ Unsupported  : ${manifest.totals.unsupported}`)
+  console.log('📊 UPSTREAM SYNCHRONIZATION RESULTS:')
+  console.log('------------------------------------------------------------------------')
+  console.log(`  REMOTE SYNCED : ${manifest.totals.remoteSynced}`)
+  console.log(`  NOT MODIFIED  : ${manifest.totals.notModified}`)
+  console.log(`  CACHE         : ${manifest.totals.cache}`)
+  console.log(`  FALLBACK      : ${manifest.totals.fallback}`)
+  console.log(`  FAILED        : ${manifest.totals.failed}`)
+  console.log(`  UNSUPPORTED   : ${manifest.totals.unsupported}`)
+  console.log('------------------------------------------------------------------------')
   console.log(`📄 Manifest Path: ${manifestPath}`)
   console.log('------------------------------------------------------------------------\n')
 
-  if (hasRequiredFailures) {
-    console.error('❌ One or more required upstream jobs failed!')
+  if (hasFailures) {
+    console.error('❌ UPSTREAM SYNCHRONIZATION GATE FAILED:')
+    for (const reason of failureReasons) {
+      console.error(`  - ${reason}`)
+    }
     process.exitCode = 1
   } else {
-    console.log('✨ Universal Upstream Synchronization Complete.')
+    console.log('✨ Universal Upstream Synchronization Complete (All Integrity Policies Passed).')
   }
 }
 

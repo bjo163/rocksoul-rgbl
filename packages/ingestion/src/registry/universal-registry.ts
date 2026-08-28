@@ -10,6 +10,21 @@ import type {
   WorkCoverageReport
 } from './types.js'
 
+export interface UncoveredWorksReport {
+  totalWorks: number
+  coveredWorks: number
+  uncoveredWorks: number
+  works: Array<{
+    workId: string
+    traditionId: string
+    name: string
+    editionCandidates: string[]
+    existingSources: string[]
+    possibleUpstreamType: string
+    reasonCurrentlyUncovered: string
+  }>
+}
+
 export class UniversalCorpusRegistry {
   private readonly configDir: string
   private traditionsMap = new Map<string, TraditionRecord>()
@@ -193,6 +208,37 @@ export class UniversalCorpusRegistry {
     }
   }
 
+  generateUncoveredWorksReport(): UncoveredWorksReport {
+    const works = this.getWorks()
+    const uncovered: UncoveredWorksReport['works'] = []
+    let coveredCount = 0
+
+    for (const w of works) {
+      const endpoints = this.resolveWorkEndpoints(w.id)
+      if (endpoints.length > 0) {
+        coveredCount++
+      } else {
+        const editions = this.resolveWorkEditions(w.id)
+        uncovered.push({
+          workId: w.id,
+          traditionId: w.traditionId,
+          name: w.name,
+          editionCandidates: editions.map(e => e.id),
+          existingSources: [],
+          possibleUpstreamType: 'rest_api / git_repository / open_data',
+          reasonCurrentlyUncovered: 'Endpoint mapping pending acquisition contract'
+        })
+      }
+    }
+
+    return {
+      totalWorks: works.length,
+      coveredWorks: coveredCount,
+      uncoveredWorks: uncovered.length,
+      works: uncovered
+    }
+  }
+
   generateWorkCoverageReport(): WorkCoverageReport {
     const works = this.getWorks()
     const traditions = this.getTraditions()
@@ -242,6 +288,11 @@ export class UniversalCorpusRegistry {
     const report = this.generateWorkCoverageReport()
     const targetFile = path.join(outDir, 'work-coverage.json')
     await writeFile(targetFile, JSON.stringify(report, null, 2) + '\n', 'utf8')
+
+    const uncoveredReport = this.generateUncoveredWorksReport()
+    const uncoveredFile = path.join(outDir, 'uncovered-works.json')
+    await writeFile(uncoveredFile, JSON.stringify(uncoveredReport, null, 2) + '\n', 'utf8')
+
     return targetFile
   }
 }

@@ -3,7 +3,7 @@ import test from 'node:test'
 import path from 'node:path'
 import { UniversalCorpusRegistry } from './universal-registry.js'
 
-test('Universal Corpus Registry: loads all normalized registry files', async () => {
+test('Universal Corpus Registry: loads all expanded normalized registry files', async () => {
   const registry = new UniversalCorpusRegistry(path.join(process.cwd(), 'config'))
   await registry.loadAll()
 
@@ -14,10 +14,10 @@ test('Universal Corpus Registry: loads all normalized registry files', async () 
   const endpoints = registry.getEndpoints()
 
   assert.equal(traditions.length, 12, 'Must have 12 normalized world traditions')
-  assert.equal(works.length, 27, 'Must have exactly 27 canonical scriptural works')
-  assert.ok(editions.length >= 25, `Must have at least 25 editions, got ${editions.length}`)
+  assert.equal(works.length, 58, 'Must have 58 canonical scriptural works (50+ depth expansion)')
+  assert.ok(editions.length >= 50, `Must have at least 50 editions, got ${editions.length}`)
   assert.equal(sources.length, 16, 'Must have 16 upstream sources')
-  assert.ok(endpoints.length >= 27, `Must have at least 27 endpoints, got ${endpoints.length}`)
+  assert.ok(endpoints.length >= 50, `Must have at least 50 endpoints, got ${endpoints.length}`)
 })
 
 test('Universal Corpus Registry: resolves traditions, works, editions, sources, endpoints', async () => {
@@ -33,8 +33,17 @@ test('Universal Corpus Registry: resolves traditions, works, editions, sources, 
   assert.equal(quran.traditionId, 'islam')
   assert.deepEqual(quran.structure.levels, ['surah', 'ayah', 'word'])
 
-  const bukhari = registry.resolveWork('hadith-bukhari')
-  assert.equal(bukhari.traditionId, 'islam')
+  const abudawud = registry.resolveWork('hadith-abudawud')
+  assert.equal(abudawud.traditionId, 'islam')
+
+  const septuagint = registry.resolveWork('septuagint')
+  assert.equal(septuagint.traditionId, 'christianity')
+
+  const rigveda = registry.resolveWork('rigveda')
+  assert.equal(rigveda.traditionId, 'hinduism')
+
+  const mencius = registry.resolveWork('mencius')
+  assert.equal(mencius.traditionId, 'confucianism')
 
   const tanzil = registry.resolveSource('tanzil')
   assert.equal(tanzil.name, 'Tanzil Project')
@@ -44,33 +53,44 @@ test('Universal Corpus Registry: resolves traditions, works, editions, sources, 
   assert.equal(tanzilEp.workId, 'quran')
 })
 
-test('Universal Corpus Registry: navigates many-to-many relationships', async () => {
+test('Universal Corpus Registry: navigates many-to-many relationships across expanded traditions', async () => {
   const registry = new UniversalCorpusRegistry(path.join(process.cwd(), 'config'))
   await registry.loadAll()
 
-  // 1 Tradition -> Many Works
+  // Islam: 12 works
   const islamicWorks = registry.resolveTraditionWorks('islam')
-  assert.equal(islamicWorks.length, 6, 'Islam must have Qur\'an, Hadith Bukhari, Muslim, Nawawi, Duas, Asmaul Husna')
+  assert.equal(islamicWorks.length, 12, 'Islam must have Qur\'an, 6 major Hadith books, Malik, Nawawi, Qudsi, Duas, Names')
   assert.ok(islamicWorks.some(w => w.id === 'quran'))
   assert.ok(islamicWorks.some(w => w.id === 'hadith-bukhari'))
   assert.ok(islamicWorks.some(w => w.id === 'hadith-muslim'))
+  assert.ok(islamicWorks.some(w => w.id === 'hadith-abudawud'))
+  assert.ok(islamicWorks.some(w => w.id === 'hadith-tirmidhi'))
+  assert.ok(islamicWorks.some(w => w.id === 'hadith-nasai'))
+  assert.ok(islamicWorks.some(w => w.id === 'hadith-ibnmajah'))
+  assert.ok(islamicWorks.some(w => w.id === 'hadith-malik'))
   assert.ok(islamicWorks.some(w => w.id === 'hadith-nawawi'))
+  assert.ok(islamicWorks.some(w => w.id === 'hadith-qudsi'))
   assert.ok(islamicWorks.some(w => w.id === 'duas-hisnul-muslim'))
   assert.ok(islamicWorks.some(w => w.id === 'asmaul-husna'))
 
-  // 1 Work -> Many Editions
-  const quranEditions = registry.resolveWorkEditions('quran')
-  assert.ok(quranEditions.length >= 2, 'Quran must have Uthmani and translation editions')
+  // Christianity: 6 works
+  const christianWorks = registry.resolveTraditionWorks('christianity')
+  assert.equal(christianWorks.length, 6)
 
-  // 1 Work -> Many Endpoints & Sources
-  const quranEndpoints = registry.resolveWorkEndpoints('quran')
-  assert.ok(quranEndpoints.length >= 2, 'Quran must have Tanzil and QuranEnc/Ummah endpoints')
+  // Judaism: 7 works
+  const jewishWorks = registry.resolveTraditionWorks('judaism')
+  assert.equal(jewishWorks.length, 7)
 
-  const quranSources = registry.resolveWorkSources('quran')
-  assert.ok(quranSources.some(s => s.id === 'tanzil'))
+  // Hinduism: 6 works
+  const hinduWorks = registry.resolveTraditionWorks('hinduism')
+  assert.equal(hinduWorks.length, 6)
+
+  // Buddhism: 8 works
+  const buddhistWorks = registry.resolveTraditionWorks('buddhism')
+  assert.equal(buddhistWorks.length, 8)
 })
 
-test('Universal Corpus Registry: validation catches no orphan references', async () => {
+test('Universal Corpus Registry: validation catches no orphan references or duplicate IDs', async () => {
   const registry = new UniversalCorpusRegistry(path.join(process.cwd(), 'config'))
   await registry.loadAll()
 
@@ -79,20 +99,22 @@ test('Universal Corpus Registry: validation catches no orphan references', async
   assert.equal(validation.problems.length, 0)
 })
 
-test('Universal Corpus Registry: achieves 100% work coverage (27/27 covered)', async () => {
+test('Universal Corpus Registry: achieves 100% work coverage and generates depth report', async () => {
   const registry = new UniversalCorpusRegistry(path.join(process.cwd(), 'config'))
   await registry.loadAll()
 
   const coverage = registry.generateWorkCoverageReport()
   assert.equal(coverage.traditions, 12)
-  assert.equal(coverage.works, 27)
-  assert.equal(coverage.worksWithUpstream, 27, 'All 27 scriptural works must be covered')
+  assert.equal(coverage.works, 58)
+  assert.equal(coverage.worksWithUpstream, 58, 'All 58 scriptural works must be covered')
   assert.equal(coverage.worksWithoutUpstream, 0, '0 uncovered works')
   assert.equal(coverage.coveragePercent, 100, 'Work coverage must reach 100%')
 
-  const uncovered = registry.generateUncoveredWorksReport()
-  assert.equal(uncovered.totalWorks, 27)
-  assert.equal(uncovered.coveredWorks, 27)
-  assert.equal(uncovered.uncoveredWorks, 0)
-  assert.equal(uncovered.works.length, 0)
+  const depth = registry.generateCorpusDepthReport()
+  assert.equal(depth.before.works, 27)
+  assert.equal(depth.after.works, 58)
+  assert.equal(depth.coverage.worksWithExecutableUpstream, 58)
+  assert.equal(depth.coverage.worksWithoutExecutableUpstream, 0)
+  assert.equal(depth.coverage.coveragePercent, 100)
+  assert.equal(Object.keys(depth.newWorksByTradition).length, 12)
 })

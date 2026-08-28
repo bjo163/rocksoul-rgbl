@@ -29,8 +29,6 @@ async function main() {
     rootDir: root,
     concurrency,
     timeoutMs,
-    plans,
-    registryVersion: masterRegistry.version,
     defaultAllowFallback
   })
 

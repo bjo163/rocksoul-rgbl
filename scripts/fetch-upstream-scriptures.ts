@@ -1,6 +1,7 @@
 import { mkdir, writeFile } from 'node:fs/promises'
 import { createHash } from 'node:crypto'
 import path from 'node:path'
+import type { UpstreamFailureClass, UpstreamScriptPayload } from '../packages/ingestion/src/upstream/types.js'
 
 interface AcquisitionResult {
   data: string
@@ -8,6 +9,7 @@ interface AcquisitionResult {
   byteSize: number
   status: 'REMOTE_SYNCED' | 'LOCAL_FALLBACK'
   httpStatus?: number
+  failureClass?: UpstreamFailureClass
   error?: string
 }
 
@@ -17,8 +19,8 @@ async function fetchOrRead(url: string, fallbackData: unknown): Promise<Acquisit
   try {
     const res = await fetch(url, {
       headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-        'Accept': '*/*'
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
       },
       redirect: 'follow',
       signal: AbortSignal.timeout(30000)
@@ -36,8 +38,17 @@ async function fetchOrRead(url: string, fallbackData: unknown): Promise<Acquisit
       }
     }
 
+    let failureClass: UpstreamFailureClass = 'REMOTE_NETWORK_ERROR'
+    if (res.status === 403) failureClass = 'REMOTE_FORBIDDEN'
+    else if (res.status === 404) failureClass = 'REMOTE_NOT_FOUND'
+    else if (res.status === 429) failureClass = 'REMOTE_RATE_LIMITED'
+
     const error = `HTTP ${res.status} ${res.statusText}`
-    if (!ALLOW_LOCAL_FALLBACK) throw new Error(error)
+    if (!ALLOW_LOCAL_FALLBACK) {
+      const err = new Error(error) as any
+      err.failureClass = failureClass
+      throw err
+    }
 
     const text = typeof fallbackData === 'string'
       ? fallbackData
@@ -49,9 +60,10 @@ async function fetchOrRead(url: string, fallbackData: unknown): Promise<Acquisit
       byteSize: Buffer.byteLength(text),
       status: 'LOCAL_FALLBACK',
       httpStatus: res.status,
+      failureClass,
       error
     }
-  } catch (error) {
+  } catch (error: any) {
     if (!ALLOW_LOCAL_FALLBACK) throw error
 
     const text = typeof fallbackData === 'string'
@@ -63,6 +75,7 @@ async function fetchOrRead(url: string, fallbackData: unknown): Promise<Acquisit
       sha256: createHash('sha256').update(text).digest('hex'),
       byteSize: Buffer.byteLength(text),
       status: 'LOCAL_FALLBACK',
+      failureClass: error?.failureClass || 'REMOTE_NETWORK_ERROR',
       error: error instanceof Error ? error.message : String(error)
     }
   }
@@ -74,7 +87,7 @@ const UPSTREAM_SOURCES = [
     targetFile: 'dist/raw-upstream/gretil-index.html',
     url: 'https://gretil.sub.uni-goettingen.de/gretil.html',
     defaultData: {
-      source: 'GRETIL Sanskrit e-text archive',
+      source: 'GRETIL Sanskrit e-text archive catalog',
       license: 'Public Domain'
     }
   },
@@ -83,16 +96,16 @@ const UPSTREAM_SOURCES = [
     targetFile: 'dist/raw-upstream/jain-heritage.html',
     url: 'https://jainlibrary.org',
     defaultData: {
-      source: 'Jain Heritage / Tattvartha Sutra',
+      source: 'Jain Heritage / Tattvartha Sutra Digital Library',
       license: 'Public Domain'
     }
   },
   {
     name: 'bahai-library',
     targetFile: 'dist/raw-upstream/bahai-library.html',
-    url: 'https://www.bahai.org/library/',
+    url: 'https://www.bahai.org/library/authoritative-texts/bahaullah/hidden-words/',
     defaultData: {
-      source: "Bahá'í Reference Library",
+      source: "Bahá'í Reference Library Official Publication",
       license: 'Public Domain'
     }
   },
@@ -101,7 +114,7 @@ const UPSTREAM_SOURCES = [
     targetFile: 'dist/raw-upstream/shinto-index.html',
     url: 'https://sacred-texts.com/shi',
     defaultData: {
-      source: 'Sacred Texts Archive — Shinto',
+      source: 'Sacred Texts Archive — Shinto (Archival Mirror)',
       license: 'Public Domain'
     }
   }
@@ -119,6 +132,7 @@ async function main() {
     sha256?: string
     byteSize?: number
     httpStatus?: number
+    failureClass?: UpstreamFailureClass
     error?: string
   }> = []
 
@@ -140,18 +154,20 @@ async function main() {
         sha256: result.sha256,
         byteSize: result.byteSize,
         httpStatus: result.httpStatus,
+        failureClass: result.failureClass,
         error: result.error
       })
 
       const marker = result.status === 'REMOTE_SYNCED' ? '✓' : '⚠'
       console.log(`${marker} ${src.name}: ${result.status} ${result.byteSize} bytes (SHA-256: ${result.sha256.slice(0, 16)}...)`)
-    } catch (error) {
+    } catch (error: any) {
       const message = error instanceof Error ? error.message : String(error)
       results.push({
         name: src.name,
         targetFile: src.targetFile,
         url: src.url,
         status: 'FAILED',
+        failureClass: error?.failureClass || 'REMOTE_NETWORK_ERROR',
         error: message
       })
       console.error(`✗ ${src.name}: REMOTE_FAILED — ${message}`)
@@ -186,18 +202,21 @@ async function main() {
   }
   const aggregateSha256 = aggregateHash.digest('hex')
 
-  console.log(`MOONWITNESS_RESULT:${JSON.stringify({
+  const payload: UpstreamScriptPayload = {
     schemaVersion: '1.0',
     executionStatus: failed.length > 0 ? 'PROCESS_FAILED' : 'PROCESS_SUCCEEDED',
     acquisitionStatus: overallStatus,
+    failureClass: fallback.length > 0 ? fallback[0].failureClass : undefined,
     requestedUrl: 'https://gretil.sub.uni-goettingen.de',
     resolvedUrl: 'scripts/fetch-upstream-scriptures.ts',
     retrievedAt: new Date().toISOString(),
     sourceSha256: aggregateSha256,
     byteCount: results.reduce((acc, r) => acc + (r.byteSize || 0), 0),
-    fallbackReason: fallback.length > 0 ? `${fallback.length} remote sources unpinned/404; fell back to local recipes` : undefined,
+    fallbackReason: fallback.length > 0 ? `${fallback.length} remote sources unpinned/403; fell back to local recipes` : undefined,
     fallbackSource: 'ingestion/recipes/*/source/'
-  })}`)
+  }
+
+  console.log(`MOONWITNESS_RESULT:${JSON.stringify(payload)}`)
 
   if (failed.length > 0) process.exitCode = 1
 }

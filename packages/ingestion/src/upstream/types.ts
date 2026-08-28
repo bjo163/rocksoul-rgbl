@@ -13,6 +13,18 @@ export type UpstreamAcquisitionStatus =
   | 'REMOTE_FAILED'
   | 'UNSUPPORTED'
 
+export type UpstreamFailureClass =
+  | 'REMOTE_NOT_FOUND'
+  | 'REMOTE_RATE_LIMITED'
+  | 'REMOTE_UNAUTHORIZED'
+  | 'REMOTE_FORBIDDEN'
+  | 'REMOTE_AUTH_REQUIRED'
+  | 'REMOTE_TIMEOUT'
+  | 'REMOTE_NETWORK_ERROR'
+  | 'REMOTE_PROTOCOL_ERROR'
+  | 'REMOTE_PARSE_ERROR'
+  | 'REMOTE_UNAVAILABLE'
+
 export interface UpstreamPolicy {
   allowRemote?: boolean
   allowCache?: boolean
@@ -31,6 +43,10 @@ export interface UpstreamEndpoint extends UpstreamPolicy {
   url?: string
   rateLimit?: string
   authRequired?: boolean
+  requiresAuth?: boolean
+  authEnv?: string
+  authType?: string
+  authHeader?: string
   documentation?: string
   outputRecipeId?: string
   fallbackSource?: string
@@ -59,6 +75,8 @@ export interface ExecutorJobDefinition extends UpstreamPolicy {
   recipeId?: string
   adapterId?: string
   timeoutMs?: number
+  requiresAuth?: boolean
+  authEnv?: string
   fallbackSource?: string
 }
 
@@ -87,6 +105,8 @@ export interface UpstreamExecutionPlan extends UpstreamPolicy {
   status: ExecutionStatus
   enabled: boolean
   script?: string
+  requiresAuth?: boolean
+  authEnv?: string
   fallbackSource?: string
 }
 
@@ -101,6 +121,7 @@ export interface UpstreamAdapterContext {
 export interface UpstreamAcquisitionResult {
   bytes: Uint8Array
   status: UpstreamAcquisitionStatus
+  failureClass?: UpstreamFailureClass
   sourceUrl?: string
   resolvedLocation: string
   retrievedAt: string
@@ -121,6 +142,7 @@ export interface UpstreamScriptPayload {
   schemaVersion?: string
   executionStatus?: ProcessExecutionStatus
   acquisitionStatus: UpstreamAcquisitionStatus
+  failureClass?: UpstreamFailureClass
   requestedUrl?: string
   sourceUrl?: string
   resolvedUrl?: string
@@ -179,6 +201,7 @@ export interface UpstreamJobResult {
   executionStatus: ProcessExecutionStatus
   status: 'succeeded' | 'not_modified' | 'cache' | 'fallback' | 'failed' | 'unsupported'
   acquisitionStatus: UpstreamAcquisitionStatus
+  failureClass?: UpstreamFailureClass
   required: boolean
   allowFallback: boolean
   allowCache: boolean
@@ -224,6 +247,7 @@ export interface UpstreamRunManifest {
     failed: number
     unsupported: number
   }
+  failureClasses?: Partial<Record<UpstreamFailureClass, number>>
   jobs: UpstreamJobResult[]
 }
 
@@ -244,5 +268,6 @@ export interface UpstreamCoverageReport {
   validatedCoveragePercent: number
   fallbackPercent: number
   failurePercent: number
-  partial: boolean
+  status: 'COMPLETE' | 'PARTIAL' | 'FAILED'
+  failureClasses?: Partial<Record<UpstreamFailureClass, number>>
 }

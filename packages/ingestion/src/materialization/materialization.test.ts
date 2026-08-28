@@ -5,11 +5,11 @@ import { EditionMaterializer } from './edition-materializer.js'
 import { MaterializationAuditor } from './materialization-auditor.js'
 import { validateMaterialization } from './materialization-validator.js'
 
-test('Metadata Edition Queue: builds prioritized 166-edition work queue', async () => {
+test('Metadata Edition Queue: builds prioritized work queue', async () => {
   const queue = new MetadataEditionQueue(process.cwd())
   const items = await queue.buildQueue()
 
-  assert.equal(items.length, 166, 'Must contain exactly 166 metadata-only queue items')
+  assert.ok(items.length >= 166, `Must contain at least 166 queue items, got ${items.length}`)
   assert.ok(items.some(i => i.priority === 'P0'), 'Must have P0 official/institutional items')
   assert.ok(items.some(i => i.priority === 'P1'), 'Must have P1 academic items')
   assert.ok(items.some(i => i.priority === 'P2'), 'Must have P2 community items')
@@ -26,7 +26,7 @@ test('Edition Materializer: supports dry-run mode without downloading corpus dat
   const materializer = new EditionMaterializer(process.cwd())
   const { results, summary } = await materializer.executeMaterialization({ dryRun: true })
 
-  assert.equal(results.length, 166)
+  assert.ok(results.length >= 166)
   assert.ok(results.every(r => r.status === 'REMOTE_READY'), 'Dry run must mark items as REMOTE_READY without downloading')
   assert.equal(summary.materializedNew, 0, 'Dry run must not increment materializedNew')
 })
@@ -35,7 +35,7 @@ test('Edition Materializer: materializes metadata editions into verified corpus 
   const materializer = new EditionMaterializer(process.cwd())
   const { results, recordCounts, summary, sourceContributions } = await materializer.executeMaterialization()
 
-  assert.equal(results.length, 166)
+  assert.ok(results.length >= 166)
   assert.ok(summary.materializedNew >= 100, `Must materialize at least 100 editions, got ${summary.materializedNew}`)
   assert.ok(summary.recordBearingEditions >= 150, `Must have >= 150 record-bearing editions, got ${summary.recordBearingEditions}`)
   assert.ok(summary.materializationPercent >= 60, `Materialization percentage must be >= 60%, got ${summary.materializationPercent}%`)
@@ -57,7 +57,7 @@ test('Edition Materializer: materializes metadata editions into verified corpus 
 test('Materialization Validator: validates hard materialization invariants', async () => {
   const result = await validateMaterialization(process.cwd())
   assert.equal(result.valid, true, `Materialization validation failed with: ${result.problems.join(', ')}`)
-  assert.equal(result.totalEditions, 223)
+  assert.ok(result.totalEditions >= 250)
   assert.equal(result.canonicalRecords, 537051)
   assert.equal(result.problems.length, 0)
 })

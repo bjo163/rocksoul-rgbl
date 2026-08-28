@@ -324,6 +324,120 @@
     { "id": "nga-moteatea-english-ngata", "workId": "nga-moteatea", "name": "Ngā Mōteatea The Songs English Translations (Apirana Ngata)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "nga-moteatea" },
 
     { "id": "maori-whakapapa-ed", "workId": "maori-whakapapa", "name": "Whakapapa Māori Cosmogony Canonical Records", "editionType": "canonical_sacred", "language": "mi", "script": "Latn" },
-    { "id": "maori-whakapapa-english", "workId": "maori-whakapapa", "name": "Māori Cosmogony and Whakapapa English Translation", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "maori-whakapapa" }
+    { "id": "maori-whakapapa-english", "workId": "maori-whakapapa", "name": "Māori Cosmogony and Whakapapa English Translation", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "maori-whakapapa" },
+
+    { "id": "peshitta-syriac-ed", "workId": "peshitta-syriac", "name": "Peshitta Syriac Bible Canonical Text", "editionType": "original_script", "language": "syr", "script": "Syrc" },
+    { "id": "peshitta-syriac-en-lamsa", "workId": "peshitta-syriac", "name": "Holy Bible from the Ancient Eastern Text English (George M. Lamsa)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "peshitta-syriac" },
+
+    { "id": "odes-of-solomon-syriac-ed", "workId": "odes-of-solomon", "name": "Odes of Solomon Syriac Edition", "editionType": "critical_edition", "language": "syr", "script": "Syrc" },
+    { "id": "odes-of-solomon-en-charlesworth", "workId": "odes-of-solomon", "name": "The Odes of Solomon English Translation (James H. Charlesworth)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "odes-of-solomon" },
+
+    { "id": "hymns-ephrem-syriac-ed", "workId": "hymns-ephrem-syrian", "name": "Hymns of St. Ephrem the Syrian Madrashe Syriac Edition", "editionType": "critical_edition", "language": "syr", "script": "Syrc" },
+    { "id": "hymns-ephrem-en-mcvey", "workId": "hymns-ephrem-syrian", "name": "Ephrem the Syrian: Hymns English Translation (Kathleen E. McVey)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "hymns-ephrem-syrian" },
+
+    { "id": "book-of-enoch-geez-ed", "workId": "book-of-enoch", "name": "1 Enoch Ge'ez Canonical Ethiopic Text", "editionType": "original_script", "language": "gez", "script": "Ethi" },
+    { "id": "book-of-enoch-en-laurence", "workId": "book-of-enoch", "name": "The Book of Enoch the Prophet English (Richard Laurence)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "book-of-enoch" },
+
+    { "id": "book-of-jubilees-geez-ed", "workId": "book-of-jubilees", "name": "Book of Jubilees (Mashafa Kufale) Ge'ez Text", "editionType": "original_script", "language": "gez", "script": "Ethi" },
+    { "id": "book-of-jubilees-en-charles", "workId": "book-of-jubilees", "name": "The Book of Jubilees English Translation (R.H. Charles)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "book-of-jubilees" },
+
+    { "id": "kebra-nagast-geez-ed", "workId": "kebra-nagast", "name": "Kebra Nagast Ge'ez Classical Ethiopic Edition", "editionType": "original_script", "language": "gez", "script": "Ethi" },
+    { "id": "kebra-nagast-en-budge", "workId": "kebra-nagast", "name": "The Queen of Sheba & Her Only Son Menyelek English (E.A. Wallis Budge)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "kebra-nagast" },
+
+    { "id": "egyptian-book-of-dead-ani-ed", "workId": "egyptian-book-of-the-dead", "name": "The Papyrus of Ani Egyptian Book of the Dead Hieroglyphic Edition", "editionType": "original_script", "language": "egy", "script": "Egyp" },
+    { "id": "egyptian-book-of-dead-en-budge", "workId": "egyptian-book-of-the-dead", "name": "The Book of the Dead English Translation (E.A. Wallis Budge)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "egyptian-book-of-the-dead" },
+
+    { "id": "pyramid-texts-hieroglyphic-ed", "workId": "pyramid-texts", "name": "The Pyramid Texts Saqqara Inscriptions Edition", "editionType": "original_script", "language": "egy", "script": "Egyp" },
+    { "id": "pyramid-texts-en-faulkner", "workId": "pyramid-texts", "name": "The Ancient Egyptian Pyramid Texts English (R.O. Faulkner)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "pyramid-texts" },
+
+    { "id": "coffin-texts-hieroglyphic-ed", "workId": "coffin-texts", "name": "The Ancient Egyptian Coffin Texts De Buck Edition", "editionType": "critical_edition", "language": "egy", "script": "Egyp" },
+    { "id": "coffin-texts-en-faulkner", "workId": "coffin-texts", "name": "The Ancient Egyptian Coffin Texts English (R.O. Faulkner)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "coffin-texts" },
+
+    { "id": "gilgamesh-babylonian-ed", "workId": "epic-of-gilgamesh", "name": "The Epic of Gilgamesh Standard Babylonian Cuneiform Text", "editionType": "original_script", "language": "akk", "script": "Xsux" },
+    { "id": "gilgamesh-en-george", "workId": "epic-of-gilgamesh", "name": "The Epic of Gilgamesh English Translation (Andrew George)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "epic-of-gilgamesh" },
+
+    { "id": "enuma-elish-cuneiform-ed", "workId": "enuma-elish", "name": "Enûma Eliš Seven Tablets of Creation Akkadian Cuneiform", "editionType": "original_script", "language": "akk", "script": "Xsux" },
+    { "id": "enuma-elish-en-king", "workId": "enuma-elish", "name": "Enuma Elish The Seven Tablets of Creation English (L.W. King)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "enuma-elish" },
+
+    { "id": "descent-of-inanna-sumerian-ed", "workId": "descent-of-inanna", "name": "The Descent of Inanna Sumerian Cuneiform Edition", "editionType": "original_script", "language": "sux", "script": "Xsux" },
+    { "id": "descent-of-inanna-en-kramer", "workId": "descent-of-inanna", "name": "Inanna Queen of Heaven and Earth English (Samuel Noah Kramer & Diane Wolkstein)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "descent-of-inanna" },
+
+    { "id": "homeric-hymns-greek-ed", "workId": "homeric-hymns", "name": "The Homeric Hymns Greek Critical Edition", "editionType": "original_script", "language": "grc", "script": "Grek" },
+    { "id": "homeric-hymns-en-evelyn-white", "workId": "homeric-hymns", "name": "The Homeric Hymns English Translation (Hugh G. Evelyn-White)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "homeric-hymns" },
+
+    { "id": "hesiod-theogony-greek-ed", "workId": "hesiod-theogony", "name": "Hesiod Theogony & Works and Days Greek Critical Text", "editionType": "original_script", "language": "grc", "script": "Grek" },
+    { "id": "hesiod-theogony-en-evelyn-white", "workId": "hesiod-theogony", "name": "Hesiod: Theogony and Works and Days English (Hugh G. Evelyn-White)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "hesiod-theogony" },
+
+    { "id": "orphic-hymns-greek-ed", "workId": "orphic-hymns", "name": "The Orphic Hymns Classical Greek Edition (Quandts Recension)", "editionType": "original_script", "language": "grc", "script": "Grek" },
+    { "id": "orphic-hymns-en-taylor", "workId": "orphic-hymns", "name": "The Mystical Hymns of Orpheus English (Thomas Taylor)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "orphic-hymns" },
+
+    { "id": "poetic-edda-old-norse-ed", "workId": "poetic-edda", "name": "Codex Regius Poetic Edda Old Norse Edition", "editionType": "original_script", "language": "non", "script": "Latn" },
+    { "id": "poetic-edda-en-bellows", "workId": "poetic-edda", "name": "The Poetic Edda English Translation (Henry Adams Bellows)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "poetic-edda" },
+
+    { "id": "prose-edda-old-norse-ed", "workId": "prose-edda", "name": "Snorra Edda Old Norse Edition", "editionType": "original_script", "language": "non", "script": "Latn" },
+    { "id": "prose-edda-en-brodeur", "workId": "prose-edda", "name": "The Prose Edda of Snorri Sturluson English (Arthur Gilchrist Brodeur)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "prose-edda" },
+
+    { "id": "havamal-old-norse-ed", "workId": "havamal", "name": "Hávamál Sayings of the High One Old Norse Text", "editionType": "original_script", "language": "non", "script": "Latn" },
+    { "id": "havamal-en-bellows", "workId": "havamal", "name": "Hávamál The Ballad of the High One English (Henry Adams Bellows)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "havamal" },
+
+    { "id": "primary-chronicle-old-slavic-ed", "workId": "primary-chronicle-slavic", "name": "The Tale of Bygone Years Old Church Slavonic Edition", "editionType": "original_script", "language": "chu", "script": "Cyrl" },
+    { "id": "primary-chronicle-en-cross", "workId": "primary-chronicle-slavic", "name": "The Russian Primary Chronicle English (Samuel Hazzard Cross)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "primary-chronicle-slavic" },
+
+    { "id": "slavic-tales-and-songs-ed", "workId": "slavic-tales-and-songs", "name": "Songs of the Russian People Mythological Chants", "editionType": "canonical_oral", "language": "chu", "script": "Cyrl" },
+    { "id": "slavic-tales-and-songs-en-ralston", "workId": "slavic-tales-and-songs", "name": "The Songs of the Russian People English (W.R.S. Ralston)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "slavic-tales-and-songs" },
+
+    { "id": "popol-vuh-kiche-ed", "workId": "popol-vuh", "name": "Popol Vuh K'iche' Maya Original Text", "editionType": "original_script", "language": "quc", "script": "Latn" },
+    { "id": "popol-vuh-en-tedlock", "workId": "popol-vuh", "name": "Popol Vuh: The Mayan Book of the Dawn of Life English (Dennis Tedlock)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "popol-vuh" },
+
+    { "id": "chilam-balam-maya-ed", "workId": "books-of-chilam-balam", "name": "The Book of Chilam Balam of Chumayel Maya Text", "editionType": "sacred_chronicle", "language": "myn", "script": "Latn" },
+    { "id": "chilam-balam-en-roys", "workId": "books-of-chilam-balam", "name": "The Book of Chilam Balam of Chumayel English (Ralph L. Roys)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "books-of-chilam-balam" },
+
+    { "id": "cantares-mexicanos-nahuatl-ed", "workId": "cantares-mexicanos", "name": "Cantares Mexicanos Nahuatl Sacred Songs Edition", "editionType": "original_script", "language": "nah", "script": "Latn" },
+    { "id": "cantares-mexicanos-en-bierhorst", "workId": "cantares-mexicanos", "name": "Cantares Mexicanos: Songs of the Aztecs English (John Bierhorst)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "cantares-mexicanos" },
+
+    { "id": "florentine-codex-gods-nahuatl-ed", "workId": "florentine-codex-gods", "name": "Florentine Codex Book I & II Nahuatl Text", "editionType": "critical_edition", "language": "nah", "script": "Latn" },
+    { "id": "florentine-codex-gods-en-dibble", "workId": "florentine-codex-gods", "name": "Florentine Codex: The Gods and The Ceremonies English (Arthur J.O. Anderson & Charles E. Dibble)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "florentine-codex-gods" },
+
+    { "id": "huarochiri-quechua-ed", "workId": "huarochiri-manuscript", "name": "The Huarochirí Manuscript Quechua Sacred Text", "editionType": "original_script", "language": "que", "script": "Latn" },
+    { "id": "huarochiri-en-salomon", "workId": "huarochiri-manuscript", "name": "The Huarochirí Manuscript: A Testament of Ancient and Colonial Andean Religion English (Frank Salomon)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "huarochiri-manuscript" },
+
+    { "id": "ollantay-quechua-ed", "workId": "ollantay-sacred-drama", "name": "Ollantay Sacred Drama Quechua Text", "editionType": "original_script", "language": "que", "script": "Latn" },
+    { "id": "ollantay-en-markham", "workId": "ollantay-sacred-drama", "name": "Ollanta: An Ancient Ynca Drama English (Clements R. Markham)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "ollantay-sacred-drama" },
+
+    { "id": "akan-anansi-twi-ed", "workId": "akan-anansi-mythos", "name": "Akan-Ashanti Sacred Folktales Twi Edition", "editionType": "sacred_oral", "language": "aka", "script": "Latn" },
+    { "id": "akan-anansi-en-rattray", "workId": "akan-anansi-mythos", "name": "Akan-Ashanti Folk-Tales English (R.S. Rattray)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "akan-anansi-mythos" },
+
+    { "id": "akan-proverbs-twi-ed", "workId": "akan-proverbs-and-maxims", "name": "Akan Wisdom Literature & Proverbs Twi Text", "editionType": "wisdom_aphorisms", "language": "aka", "script": "Latn" },
+    { "id": "akan-proverbs-en-appiah", "workId": "akan-proverbs-and-maxims", "name": "Bu Me Bé: Proverbs of the Akan English (Peggy Appiah & Kwame Anthony Appiah)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "akan-proverbs-and-maxims" },
+
+    { "id": "kumulipo-chant-hawaiian-ed", "workId": "kumulipo-creation-chant", "name": "He Kumulipo Hawaiian Cosmogonic Chant Text", "editionType": "primary_sacred_oral", "language": "haw", "script": "Latn" },
+    { "id": "kumulipo-chant-en-beckwith", "workId": "kumulipo-creation-chant", "name": "The Kumulipo: A Hawaiian Creation Chant English (Martha Warren Beckwith)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "kumulipo-creation-chant" },
+
+    { "id": "hawaiian-hula-chants-ed", "workId": "hawaiian-hula-chants", "name": "Sacred Hawaiian Chants and Prayers of Pele Hawaiian Text", "editionType": "liturgical", "language": "haw", "script": "Latn" },
+    { "id": "hawaiian-hula-chants-en-emerson", "workId": "hawaiian-hula-chants", "name": "Unwritten Literature of Hawaii: The Sacred Songs of the Hula English (Nathaniel B. Emerson)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "hawaiian-hula-chants" },
+
+    { "id": "vachanas-basavanna-kannada-ed", "workId": "vachanas-basavanna", "name": "Lord Basaveshwara Vachana Sahitya Kannada Canonical Edition", "editionType": "original_script", "language": "kn", "script": "Knda" },
+    { "id": "vachanas-basavanna-en-ramanuian", "workId": "vachanas-basavanna", "name": "Speaking of Siva: Basavanna Vachanas English (A.K. Ramanujan)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "vachanas-basavanna" },
+
+    { "id": "vachanas-allama-prabhu-kannada-ed", "workId": "vachanas-allama-prabhu", "name": "Allama Prabhu Vachana Sahitya Kannada Canonical Edition", "editionType": "original_script", "language": "kn", "script": "Knda" },
+    { "id": "vachanas-allama-prabhu-en-ramanuian", "workId": "vachanas-allama-prabhu", "name": "Speaking of Siva: Allama Prabhu Vachanas English (A.K. Ramanujan)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "vachanas-allama-prabhu" },
+
+    { "id": "vachanas-akka-mahadevi-kannada-ed", "workId": "vachanas-akka-mahadevi", "name": "Akka Mahadevi Vachana Sahitya Kannada Canonical Edition", "editionType": "original_script", "language": "kn", "script": "Knda" },
+    { "id": "vachanas-akka-mahadevi-en-ramanuian", "workId": "vachanas-akka-mahadevi", "name": "Speaking of Siva: Akka Mahadevi Vachanas English (A.K. Ramanujan)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "vachanas-akka-mahadevi" },
+
+    { "id": "vachanamrut-gujarati-ed", "workId": "vachanamrut", "name": "The Vachanamrut Gujarati Canonical Edition", "editionType": "original_script", "language": "gu", "script": "Gujr" },
+    { "id": "vachanamrut-english-baps", "workId": "vachanamrut", "name": "The Vachanamrut English Translation (BAPS Swaminarayan Sanstha)", "editionType": "official_publication", "language": "en", "script": "Latn", "translationOf": "vachanamrut" },
+
+    { "id": "shikshapatri-sanskrit-ed", "workId": "shikshapatri", "name": "The Shikshapatri Sanskrit Canonical Slokas Edition", "editionType": "original_script", "language": "sa", "script": "Deva" },
+    { "id": "shikshapatri-english-monier-williams", "workId": "shikshapatri", "name": "The Shikshapatri English Translation (Monier Williams)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "shikshapatri" },
+
+    { "id": "great-hymn-aten-hieroglyphic-ed", "workId": "great-hymn-to-aten", "name": "The Great Hymn to the Aten Hieroglyphic Text", "editionType": "original_script", "language": "egy", "script": "Egyp" },
+    { "id": "great-hymn-aten-en-breasted", "workId": "great-hymn-to-aten", "name": "The Great Hymn to the Aten English (James Henry Breasted)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "great-hymn-to-aten" },
+
+    { "id": "atrahasis-cuneiform-ed", "workId": "atrahasis-epic", "name": "Atrahasis Epic Old Babylonian Cuneiform Edition", "editionType": "original_script", "language": "akk", "script": "Xsux" },
+    { "id": "atrahasis-en-lambert", "workId": "atrahasis-epic", "name": "Atrahasis: The Babylonian Story of the Deluge English (W.G. Lambert & A.R. Millard)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "atrahasis-epic" },
+
+    { "id": "voluspa-old-norse-ed", "workId": "voluspa", "name": "Völuspá Old Norse Edition", "editionType": "original_script", "language": "non", "script": "Latn" },
+    { "id": "voluspa-en-bellows", "workId": "voluspa", "name": "Völuspá: The Poetic Edda English Translation (Henry Adams Bellows)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "voluspa" }
   ]
 }

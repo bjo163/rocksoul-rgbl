@@ -12,7 +12,7 @@ test('Alignment Key: builds deterministic alignment and edition keys', () => {
   assert.equal(edKey, 'mw:edition:quran:id:kemenag')
 })
 
-test('Alignment Engine: audits 200+ editions and validates multilingual alignment', async () => {
+test('Alignment Engine: audits 250+ editions and validates multilingual alignment', async () => {
   const engine = new AlignmentEngine(process.cwd())
   const {
     alignmentReport,
@@ -21,8 +21,8 @@ test('Alignment Engine: audits 200+ editions and validates multilingual alignmen
     editionCoverageReport
   } = await engine.runAlignment()
 
-  assert.ok(editionAuditReport.totalEditions >= 200, `Total editions must be >= 200, got ${editionAuditReport.totalEditions}`)
-  assert.equal(editionAuditReport.totalWorks, 104)
+  assert.ok(editionAuditReport.totalEditions >= 250, `Total editions must be >= 250, got ${editionAuditReport.totalEditions}`)
+  assert.ok(editionAuditReport.totalWorks >= 140, `Total works must be >= 140, got ${editionAuditReport.totalWorks}`)
   assert.ok(editionAuditReport.worksWithMultipleEditions >= 50)
   assert.ok(editionAuditReport.worksWithMultipleLanguages >= 40)
 
@@ -52,8 +52,8 @@ test('Alignment Engine: audits 200+ editions and validates multilingual alignmen
 test('Alignment Validator: validates hard edition invariants', async () => {
   const result = await validateEditions(process.cwd())
   assert.equal(result.valid, true, `Edition validation failed with: ${result.problems.join(', ')}`)
-  assert.equal(result.totalWorks, 104)
-  assert.ok(result.totalEditions >= 200)
+  assert.ok(result.totalWorks >= 140)
+  assert.ok(result.totalEditions >= 250)
   assert.ok(result.totalLanguages >= 15)
   assert.equal(result.problems.length, 0)
 })

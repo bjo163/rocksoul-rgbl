@@ -226,6 +226,118 @@
       "primaryLanguage": "mi",
       "scripts": ["Latn"],
       "classification": ["polynesian_indigenous", "pacific_tradition"]
+    },
+    {
+      "id": "syriac-christianity",
+      "name": "Syriac Christianity",
+      "family": "abrahamic",
+      "primaryLanguage": "syr",
+      "scripts": ["Syrc", "Latn"],
+      "classification": ["near_eastern_tradition", "oriental_christianity"]
+    },
+    {
+      "id": "ethiopian-orthodox",
+      "name": "Ethiopian Orthodox Tewahedo Tradition",
+      "family": "abrahamic",
+      "primaryLanguage": "gez",
+      "scripts": ["Ethi", "Latn"],
+      "classification": ["near_eastern_tradition", "oriental_orthodox", "geez_literature"]
+    },
+    {
+      "id": "ancient-egyptian",
+      "name": "Ancient Egyptian Religion",
+      "family": "ancient_near_eastern",
+      "primaryLanguage": "egy",
+      "scripts": ["Egyp", "Latn"],
+      "classification": ["historical_religious_corpus", "ancient_polytheism"]
+    },
+    {
+      "id": "mesopotamian",
+      "name": "Mesopotamian Religion (Sumerian & Akkadian)",
+      "family": "ancient_near_eastern",
+      "primaryLanguage": "akk",
+      "scripts": ["Xsux", "Latn"],
+      "classification": ["historical_religious_corpus", "cuneiform_mythology"]
+    },
+    {
+      "id": "greco-roman-paganism",
+      "name": "Classical Greco-Roman Religion",
+      "family": "classical_mediterranean",
+      "primaryLanguage": "grc",
+      "scripts": ["Grek", "Latn"],
+      "classification": ["historical_religious_corpus", "hellenic_polytheism"]
+    },
+    {
+      "id": "norse-germanic",
+      "name": "Norse & Germanic Religion",
+      "family": "northern_european",
+      "primaryLanguage": "non",
+      "scripts": ["Runr", "Latn"],
+      "classification": ["historical_religious_corpus", "scandinavian_mythology"]
+    },
+    {
+      "id": "slavic-tradition",
+      "name": "Slavic Religious & Traditional Literature",
+      "family": "eastern_european",
+      "primaryLanguage": "chu",
+      "scripts": ["Cyrl", "Glag", "Latn"],
+      "classification": ["historical_religious_corpus", "slavic_traditional"]
+    },
+    {
+      "id": "mayan-religion",
+      "name": "Maya Traditional Religion",
+      "family": "indigenous_americas",
+      "primaryLanguage": "quc",
+      "scripts": ["Maya", "Latn"],
+      "classification": ["mesoamerican_tradition", "indigenous_sacred_corpus"]
+    },
+    {
+      "id": "nahua-aztec",
+      "name": "Nahua & Aztec Religious Tradition",
+      "family": "indigenous_americas",
+      "primaryLanguage": "nah",
+      "scripts": ["Latn"],
+      "classification": ["mesoamerican_tradition", "indigenous_sacred_corpus"]
+    },
+    {
+      "id": "andean-inca",
+      "name": "Andean & Inca Religious Tradition",
+      "family": "indigenous_americas",
+      "primaryLanguage": "que",
+      "scripts": ["Latn"],
+      "classification": ["south_american_indigenous", "sacred_oral_corpus"]
+    },
+    {
+      "id": "akan-tradition",
+      "name": "Akan Traditional Religion",
+      "family": "west_african",
+      "primaryLanguage": "aka",
+      "scripts": ["Latn"],
+      "classification": ["west_african_traditional", "sacred_oral_corpus"]
+    },
+    {
+      "id": "hawaiian-tradition",
+      "name": "Hawaiian Traditional Religion",
+      "family": "polynesian",
+      "primaryLanguage": "haw",
+      "scripts": ["Latn"],
+      "classification": ["polynesian_indigenous", "sacred_chant_corpus"]
+    },
+    {
+      "id": "lingayatism",
+      "name": "Lingayatism (Veerashaiva Tradition)",
+      "family": "dharmic",
+      "primaryLanguage": "kn",
+      "scripts": ["Knda", "Latn"],
+      "classification": ["dharmic_tradition", "shiva_bhakti_monism"]
+    },
+    {
+      "id": "swaminarayan",
+      "name": "Swaminarayan Sampradaya",
+      "family": "dharmic",
+      "primaryLanguage": "gu",
+      "scripts": ["Gujr", "Deva", "Latn"],
+      "classification": ["dharmic_tradition", "vaishnava_vedanta"]
     }
   ]
 }

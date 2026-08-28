@@ -28,6 +28,12 @@
     { "id": "nz-electronic-text-centre", "name": "New Zealand Electronic Text Collection (NZETC)", "sourceType": "academic_archive", "authorityLevel": "academic", "officiality": "institutional", "homepage": "http://nzetc.victoria.ac.nz" },
     { "id": "tenrikyo-overseas-dept", "name": "Tenrikyo Official Digital Library", "sourceType": "official_digital_library", "authorityLevel": "official", "officiality": "official", "homepage": "https://www.tenrikyo.or.jp" },
     { "id": "caodai-overseas-mission", "name": "Cao Dai Official Scriptural Library", "sourceType": "official_digital_library", "authorityLevel": "official", "officiality": "official", "homepage": "http://www.daotam.info" },
-    { "id": "won-buddhism-intl", "name": "Won Buddhism International Publishing Center", "sourceType": "official_digital_library", "authorityLevel": "official", "officiality": "official", "homepage": "https://wonbuddhism.org" }
+    { "id": "won-buddhism-intl", "name": "Won Buddhism International Publishing Center", "sourceType": "official_digital_library", "authorityLevel": "official", "officiality": "official", "homepage": "https://wonbuddhism.org" },
+    { "id": "duke-papyrus", "name": "Duke Databank of Documentary Papyri & Epigraphy", "sourceType": "academic_archive", "authorityLevel": "academic", "officiality": "institutional", "homepage": "https://papyri.info" },
+    { "id": "thelatinlibrary", "name": "The Latin Library Classical Texts Archive", "sourceType": "academic_archive", "authorityLevel": "academic", "officiality": "academic", "homepage": "https://www.thelatinlibrary.com" },
+    { "id": "etana-dl", "name": "Electronic Tools and Ancient Near Eastern Archives (ETANA)", "sourceType": "academic_archive", "authorityLevel": "academic", "officiality": "institutional", "homepage": "http://www.etana.org" },
+    { "id": "gutenberg-lit", "name": "Project Gutenberg Classical Digital Editions", "sourceType": "open_data_repository", "authorityLevel": "community", "officiality": "open_data", "homepage": "https://www.gutenberg.org" },
+    { "id": "univ-penn-museum", "name": "University of Pennsylvania Museum Digital Collections", "sourceType": "academic_archive", "authorityLevel": "academic", "officiality": "institutional", "homepage": "https://www.penn.museum" },
+    { "id": "indigenous-americas-digital", "name": "Indigenous Americas Digital Text Collection", "sourceType": "academic_archive", "authorityLevel": "institutional", "officiality": "academic", "homepage": "https://indigenous.lib.utexas.edu" }
   ]
 }

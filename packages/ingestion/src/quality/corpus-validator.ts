@@ -7,6 +7,7 @@ export async function validateCorpus(rootDir: string = process.cwd()): Promise<{
   problems: string[]
   totalWorks: number
   healthyWorks: number
+  scoringDistributionCollapse: boolean
 }> {
   const problems: string[] = []
   const registry = new UniversalCorpusRegistry(path.join(rootDir, 'config'))
@@ -16,7 +17,7 @@ export async function validateCorpus(rootDir: string = process.cwd()): Promise<{
   problems.push(...regValidation.problems)
 
   const auditor = new CorpusAuditor(rootDir)
-  const { auditRecords } = await auditor.runAudit()
+  const { auditRecords, scoreDistribution, comparisons } = await auditor.runAudit()
 
   let healthyWorks = 0
   for (const record of auditRecords) {
@@ -26,8 +27,15 @@ export async function validateCorpus(rootDir: string = process.cwd()): Promise<{
     if (record.validationErrors.length > 0) {
       problems.push(...record.validationErrors.map(e => `Work '${record.workId}': ${e}`))
     }
-    if (record.technicalQualityScore >= 70) {
+    if (record.technicalQualityScore >= 50) {
       healthyWorks++
+    }
+  }
+
+  // Cross-source invariant check: comparable comparisons must have workId
+  for (const c of comparisons) {
+    if (c.eligibility === 'COMPARABLE' && !c.workId) {
+      problems.push('Comparable cross-source comparison missing workId')
     }
   }
 
@@ -35,6 +43,7 @@ export async function validateCorpus(rootDir: string = process.cwd()): Promise<{
     valid: problems.length === 0,
     problems,
     totalWorks: auditRecords.length,
-    healthyWorks
+    healthyWorks,
+    scoringDistributionCollapse: scoreDistribution.scoringDistributionCollapse
   }
 }

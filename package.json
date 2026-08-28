@@ -18,6 +18,7 @@
     "validate:quality": "tsx scripts/validate-quality.ts",
     "validate:editions": "tsx scripts/validate-editions.ts",
     "validate:materialization": "tsx scripts/validate-materialization.ts",
+    "materialize:editions": "tsx scripts/materialize-editions.ts",
     "audit:corpus": "tsx scripts/audit-corpus.ts",
     "audit:quality": "tsx scripts/audit-quality.ts",
     "audit:editions": "tsx scripts/audit-editions.ts",

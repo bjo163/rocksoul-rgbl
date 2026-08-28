@@ -2,11 +2,18 @@ name: CI
 
 on:
   push:
+    branches: [main, dev]
   pull_request:
+    branches: [main, dev]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   check:
     runs-on: self-hosted
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -19,13 +26,14 @@ jobs:
       - name: Smoke test Fastify API Engine runtime & OpenTelemetry
         shell: bash
         run: |
+          export PORT=3199
           pnpm serve > /tmp/moonwitness-api.log 2>&1 &
           API_PID=$!
-          trap 'kill "$API_PID" 2>/dev/null || true' EXIT
+          trap 'kill -9 "$API_PID" 2>/dev/null || true' EXIT
 
           ready=0
           for attempt in {1..30}; do
-            if curl --fail --silent --show-error http://127.0.0.1:3000/v1/health > /tmp/health.json; then
+            if curl --fail --silent --show-error http://127.0.0.1:3199/v1/health > /tmp/health.json; then
               ready=1
               break
             fi
@@ -38,7 +46,6 @@ jobs:
           fi
 
           grep -q '"status":"healthy"' /tmp/health.json
-          curl --fail --silent --show-error http://127.0.0.1:3000/metrics | grep -q 'corpus_indexed_records_total'
-          curl --fail --silent --show-error http://127.0.0.1:3000/v1/traditions | grep -q '"success":true'
-          curl --fail --silent --show-error 'http://127.0.0.1:3000/v1/search?q=mercy' | grep -q '"success":true'
-
+          curl --fail --silent --show-error http://127.0.0.1:3199/metrics | grep -q 'corpus_indexed_records_total'
+          curl --fail --silent --show-error http://127.0.0.1:3199/v1/traditions | grep -q '"success":true'
+          curl --fail --silent --show-error 'http://127.0.0.1:3199/v1/search?q=mercy' | grep -q '"success":true'

@@ -3,6 +3,7 @@ import { existsSync } from 'node:fs'
 import path from 'node:path'
 import { UniversalCorpusRegistry } from '../registry/universal-registry.js'
 import { AlignmentEngine } from '../alignment/alignment-engine.js'
+import { MaterializationAuditor } from '../materialization/materialization-auditor.js'
 import type {
   WorkCorpusAuditRecord,
   WorkQualityGrade,
@@ -18,11 +19,13 @@ export class CorpusAuditor {
   private readonly rootDir: string
   private readonly universalRegistry: UniversalCorpusRegistry
   private readonly alignmentEngine: AlignmentEngine
+  private readonly materializationAuditor: MaterializationAuditor
 
   constructor(rootDir: string = process.cwd()) {
     this.rootDir = rootDir
     this.universalRegistry = new UniversalCorpusRegistry(path.join(rootDir, 'config'))
     this.alignmentEngine = new AlignmentEngine(rootDir)
+    this.materializationAuditor = new MaterializationAuditor(rootDir)
   }
 
   async runAudit(): Promise<{
@@ -461,5 +464,8 @@ export class CorpusAuditor {
 
     // Write edition audit, language coverage, and alignment reports
     await this.alignmentEngine.writeAllEditionArtifacts(outDir)
+
+    // Write edition materialization artifacts
+    await this.materializationAuditor.writeAllMaterializationArtifacts(outDir)
   }
 }

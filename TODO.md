@@ -329,7 +329,7 @@ P16 expands sourced prayers and lived-practice material while separating text, p
 - [ ] Add deterministic alignment and gap reports across source, transliteration, `en`, and `id` devotional expressions. <!-- mw-todo:P16-022 -->
 - [x] Add safety and ethics review preventing canonical records from becoming unsourced ritual instructions or exposing restricted content. <!-- mw-todo:P16-023 -->
 - [ ] Add deterministic ingestion/count/checksum/rights/provenance/sensitivity tests for every P16 dataset. <!-- mw-todo:P16-024 -->
-- [x] Produce the P16 devotional/practice report and pass no-unscoped-normativity/no-restricted-content/no-performance-as-text gates. <!-- mw-todo:P16-025 -->
+- [ ] Produce the P16 devotional/practice report and pass no-unscoped-normativity/no-restricted-content/no-performance-as-text gates. <!-- mw-todo:P16-025 -->
 
 **Exit gate:** P16 provides diverse, rights-safe devotional and practice data while preserving textual variants, community scope, performance boundaries, consent, and sensitivity controls.
 

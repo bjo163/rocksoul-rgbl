@@ -1,92 +1,115 @@
 import { spawn } from 'node:child_process'
-import { randomUUID } from 'node:crypto'
 import path from 'node:path'
+import { randomUUID } from 'node:crypto'
+import { UpstreamPlanner } from './planner.js'
+import { defaultUpstreamAdapterRegistry, UpstreamAdapterRegistry } from './adapter-registry.js'
+import { RecipeResolver } from './recipe-resolver.js'
+import { buildRunManifest, writeRunManifest } from './manifest.js'
 import type {
   UpstreamExecutionPlan,
   UpstreamJobResult,
   UpstreamRunManifest,
-  UpstreamScriptPayload,
+  ProcessExecutionStatus,
   UpstreamAcquisitionStatus,
-  ProcessExecutionStatus
+  UpstreamScriptPayload,
+  UpstreamFailureClass
 } from './types.js'
-import { buildRunManifest, writeRunManifest } from './manifest.js'
-import { UpstreamPlanner } from './planner.js'
-import { defaultUpstreamAdapterRegistry, UpstreamAdapterRegistry } from './adapter-registry.js'
+
+export function classifyFailure(errStr?: string, status?: number): UpstreamFailureClass {
+  if (!errStr && !status) return 'REMOTE_NETWORK_ERROR'
+  const text = (errStr || '').toLowerCase()
+
+  if (status === 404 || text.includes('404') || text.includes('not found')) {
+    return 'REMOTE_NOT_FOUND'
+  }
+  if (status === 429 || text.includes('429') || text.includes('rate limit') || text.includes('too many requests')) {
+    return 'REMOTE_RATE_LIMITED'
+  }
+  if (status === 401 || text.includes('401') || text.includes('unauthorized')) {
+    return 'REMOTE_UNAUTHORIZED'
+  }
+  if (status === 403 || text.includes('403') || text.includes('forbidden') || text.includes('cloudflare')) {
+    return 'REMOTE_FORBIDDEN'
+  }
+  if (text.includes('auth_required') || text.includes('requires an api key') || text.includes('missing api key')) {
+    return 'REMOTE_AUTH_REQUIRED'
+  }
+  if (text.includes('timeout') || text.includes('timed out') || text.includes('etimedout')) {
+    return 'REMOTE_TIMEOUT'
+  }
+  if (text.includes('econnrefused') || text.includes('enotfound') || text.includes('network') || text.includes('fetch failed')) {
+    return 'REMOTE_NETWORK_ERROR'
+  }
+  if (text.includes('parse') || text.includes('json') || text.includes('syntaxerror')) {
+    return 'REMOTE_PARSE_ERROR'
+  }
+  if (text.includes('unavailable') || text.includes('unreachable') || text.includes('503')) {
+    return 'REMOTE_UNAVAILABLE'
+  }
+
+  return 'REMOTE_NETWORK_ERROR'
+}
 
 export interface RunnerOptions {
-  rootDir?: string
+  workers?: number
   concurrency?: number
-  timeoutMs?: number
-  allowNetwork?: boolean
-  adapterRegistry?: UpstreamAdapterRegistry
-  plans?: UpstreamExecutionPlan[]
-  registryVersion?: string
   defaultAllowFallback?: boolean
+  outDir?: string
 }
 
 export class UpstreamRunner {
   private readonly rootDir: string
-  private readonly concurrency: number
-  private readonly timeoutMs: number
-  private readonly adapterRegistry: UpstreamAdapterRegistry
+  private readonly workers: number
   private readonly defaultAllowFallback: boolean
+  private readonly adapterRegistry: UpstreamAdapterRegistry
+  private readonly recipeResolver: RecipeResolver
+  private readonly timeoutMs: number
 
-  constructor(options: RunnerOptions = {}) {
+  constructor(options: {
+    rootDir?: string
+    workers?: number
+    concurrency?: number
+    defaultAllowFallback?: boolean
+    adapterRegistry?: UpstreamAdapterRegistry
+    recipeResolver?: RecipeResolver
+    timeoutMs?: number
+  } = {}) {
     this.rootDir = options.rootDir || process.cwd()
-    this.concurrency = options.concurrency || 8
-    this.timeoutMs = options.timeoutMs || 900000 // 15 mins default
+    this.workers = options.workers || options.concurrency || 3
+    this.defaultAllowFallback = options.defaultAllowFallback ?? false
     this.adapterRegistry = options.adapterRegistry || defaultUpstreamAdapterRegistry
-    this.defaultAllowFallback = options.defaultAllowFallback ?? (process.env.MOONWITNESS_ALLOW_FALLBACK === '1')
+    this.recipeResolver = options.recipeResolver || new RecipeResolver(this.rootDir)
+    this.timeoutMs = options.timeoutMs || 900000
   }
 
-  async runJob(plan: UpstreamExecutionPlan, runId: string): Promise<UpstreamJobResult> {
+  async executePlan(plan: UpstreamExecutionPlan, runId: string): Promise<UpstreamJobResult> {
     const started = Date.now()
-    const targetUrl = plan.endpoint.url || plan.endpoint.baseUrl || plan.endpoint.repoUrl
+    const targetUrl = plan.endpoint.baseUrl || plan.endpoint.repoUrl || plan.endpoint.url
 
-    if (plan.status !== 'READY' || !plan.enabled) {
-      const acqStatus: UpstreamAcquisitionStatus = plan.status === 'DISABLED' ? 'REMOTE_NOT_MODIFIED' : 'UNSUPPORTED'
-      return {
-        id: plan.id,
-        traditionId: plan.traditionId,
-        endpointId: plan.endpointId,
-        mode: plan.mode,
-        executionStatus: 'PROCESS_SUCCEEDED',
-        status: plan.status === 'DISABLED' ? 'not_modified' : 'unsupported',
-        acquisitionStatus: acqStatus,
-        required: plan.required ?? false,
-        allowFallback: plan.allowFallback ?? this.defaultAllowFallback,
-        allowCache: plan.allowCache ?? false,
-        durationMs: 0,
-        requestedUrl: targetUrl,
-        resolvedUrl: targetUrl,
-        retrievedAt: new Date().toISOString()
-      }
-    }
-
-    // 1. Script execution mode
+    // 1. Script Execution Mode
     if (plan.mode === 'script' && plan.script) {
-      const tsxCli = path.join(this.rootDir, 'node_modules/tsx/dist/cli.mjs')
-      const scriptPath = path.isAbsolute(plan.script) ? plan.script : path.join(this.rootDir, plan.script)
-      const args = [tsxCli, scriptPath]
-
+      const scriptPath = path.resolve(this.rootDir, plan.script)
       return new Promise<UpstreamJobResult>((resolve) => {
-        let timedOut = false
-        const child = spawn(process.execPath, args, {
-          cwd: this.rootDir,
-          env: {
-            ...process.env,
-            RUN_ID: runId,
-            UPSTREAM_ENDPOINT: plan.endpointId,
-            MOONWITNESS_ALLOW_LOCAL_FALLBACK: plan.allowFallback ? '1' : '0'
-          },
-          stdio: 'pipe',
-          shell: false
-        })
-
         let stdout = ''
         let stderr = ''
-        child.stdout.on('data', d => stdout += d.toString())
-        child.stderr.on('data', d => stderr += d.toString())
+        let timedOut = false
+
+        const env = {
+          ...process.env,
+          MOONWITNESS_UPSTREAM_RUN_ID: runId,
+          MOONWITNESS_UPSTREAM_TRADITION: plan.traditionId,
+          MOONWITNESS_UPSTREAM_ENDPOINT: plan.endpointId,
+          MOONWITNESS_ALLOW_LOCAL_FALLBACK: (plan.allowFallback ?? this.defaultAllowFallback) ? '1' : '0'
+        }
+
+        const child = spawn('node', ['--import', 'tsx', scriptPath], {
+          cwd: this.rootDir,
+          env,
+          stdio: ['ignore', 'pipe', 'pipe']
+        })
+
+        child.stdout.on('data', (d) => { stdout += d.toString() })
+        child.stderr.on('data', (d) => { stderr += d.toString() })
 
         const timer = setTimeout(() => {
           timedOut = true
@@ -99,7 +122,7 @@ export class UpstreamRunner {
           let executionStatus: ProcessExecutionStatus = code === 0 ? 'PROCESS_SUCCEEDED' : 'PROCESS_FAILED'
           if (timedOut) executionStatus = 'PROCESS_TIMEOUT'
 
-          // Task 3: Machine-readable child-process result matching
+          // Machine-readable child-process result matching
           const regex = /^MOONWITNESS_RESULT[:=](.+)$/gm
           const rawMatches: string[] = []
           let match: RegExpExecArray | null
@@ -110,6 +133,7 @@ export class UpstreamRunner {
           let acqStatus: UpstreamAcquisitionStatus = 'REMOTE_FAILED'
           let jobStatus: UpstreamJobResult['status'] = 'failed'
           let parsedPayload: UpstreamScriptPayload | null = null
+          let failureClass: UpstreamFailureClass | undefined
           let fallbackReason: string | undefined
           let fallbackSource: string | undefined = plan.fallbackSource
           let sourceSha256: string | undefined
@@ -128,23 +152,27 @@ export class UpstreamRunner {
           if (executionStatus === 'PROCESS_TIMEOUT') {
             acqStatus = 'REMOTE_FAILED'
             jobStatus = 'failed'
+            failureClass = 'REMOTE_TIMEOUT'
             errorMsg = `Process timed out after ${this.timeoutMs}ms`
             fallbackReason = 'PROCESS_TIMEOUT'
           } else if (executionStatus === 'PROCESS_FAILED') {
             acqStatus = 'REMOTE_FAILED'
             jobStatus = 'failed'
             errorMsg = stderr.trim() || `Script exited with code ${code}`
+            failureClass = classifyFailure(errorMsg)
             fallbackReason = `Process failed with exit code ${code}`
           } else if (rawMatches.length === 0) {
             // Process exited 0 but emitted no structured result
             acqStatus = 'REMOTE_FAILED'
             jobStatus = 'failed'
+            failureClass = 'REMOTE_PARSE_ERROR'
             errorMsg = 'INVALID_ACQUISITION_RESULT: Missing MOONWITNESS_RESULT payload'
             fallbackReason = 'INVALID_ACQUISITION_RESULT'
           } else if (rawMatches.length > 1) {
             // Duplicate results emitted
             acqStatus = 'REMOTE_FAILED'
             jobStatus = 'failed'
+            failureClass = 'REMOTE_PARSE_ERROR'
             errorMsg = 'INVALID_ACQUISITION_RESULT: Duplicate MOONWITNESS_RESULT payloads emitted'
             fallbackReason = 'DUPLICATE_ACQUISITION_RESULT'
           } else {
@@ -155,6 +183,7 @@ export class UpstreamRunner {
                 throw new Error('Missing acquisitionStatus in payload')
               }
               acqStatus = parsedPayload.acquisitionStatus
+              failureClass = parsedPayload.failureClass
               fallbackReason = parsedPayload.fallbackReason
               if (parsedPayload.fallbackSource) fallbackSource = parsedPayload.fallbackSource
               if (parsedPayload.sourceSha256) sourceSha256 = parsedPayload.sourceSha256
@@ -170,6 +199,10 @@ export class UpstreamRunner {
               if (parsedPayload.retrievedAt) retrievedAt = parsedPayload.retrievedAt
               if (parsedPayload.error) errorMsg = parsedPayload.error
 
+              if (acqStatus === 'REMOTE_FAILED' && !failureClass) {
+                failureClass = classifyFailure(errorMsg || fallbackReason)
+              }
+
               const statusMap: Record<UpstreamAcquisitionStatus, UpstreamJobResult['status']> = {
                 REMOTE_SYNCED: 'succeeded',
                 REMOTE_NOT_MODIFIED: 'not_modified',
@@ -182,6 +215,7 @@ export class UpstreamRunner {
             } catch (err: any) {
               acqStatus = 'REMOTE_FAILED'
               jobStatus = 'failed'
+              failureClass = 'REMOTE_PARSE_ERROR'
               errorMsg = `INVALID_ACQUISITION_RESULT: Malformed JSON: ${err.message}`
               fallbackReason = 'MALFORMED_RESULT_JSON'
             }
@@ -195,6 +229,7 @@ export class UpstreamRunner {
             executionStatus,
             status: jobStatus,
             acquisitionStatus: acqStatus,
+            failureClass,
             required: plan.required ?? false,
             allowFallback: plan.allowFallback ?? this.defaultAllowFallback,
             allowCache: plan.allowCache ?? false,
@@ -236,6 +271,7 @@ export class UpstreamRunner {
             executionStatus: 'PROCESS_FAILED',
             status: 'failed',
             acquisitionStatus: 'REMOTE_FAILED',
+            failureClass: classifyFailure(err.message),
             required: plan.required ?? false,
             allowFallback: plan.allowFallback ?? this.defaultAllowFallback,
             allowCache: plan.allowCache ?? false,
@@ -249,10 +285,10 @@ export class UpstreamRunner {
       })
     }
 
-    // 2. Adapter acquisition mode
+    // 2. Adapter Execution Mode
     if (plan.mode === 'adapter' && plan.adapterId) {
+      const adapter = this.adapterRegistry.resolve(plan.adapterId)
       try {
-        const adapter = this.adapterRegistry.resolve(plan.adapterId)
         const acq = await adapter.acquire(plan.endpoint, {
           endpoint: plan.endpoint,
           traditionId: plan.traditionId,
@@ -276,6 +312,7 @@ export class UpstreamRunner {
           executionStatus: 'PROCESS_SUCCEEDED',
           status: statusMap[acq.status] ?? 'succeeded',
           acquisitionStatus: acq.status,
+          failureClass: acq.failureClass,
           required: plan.required ?? false,
           allowFallback: plan.allowFallback ?? this.defaultAllowFallback,
           allowCache: plan.allowCache ?? false,
@@ -316,6 +353,7 @@ export class UpstreamRunner {
           executionStatus: 'PROCESS_FAILED',
           status: 'failed',
           acquisitionStatus: 'REMOTE_FAILED',
+          failureClass: classifyFailure(err.message),
           required: plan.required ?? false,
           allowFallback: plan.allowFallback ?? this.defaultAllowFallback,
           allowCache: plan.allowCache ?? false,
@@ -358,87 +396,58 @@ export class UpstreamRunner {
       rootDir: this.rootDir,
       defaultAllowFallback: this.defaultAllowFallback
     })
-    const { plans, version } = await planner.buildPlan()
 
-    const activePlans = (options.plans || plans).filter(p => p.enabled && p.status === 'READY')
-    const results: UpstreamJobResult[] = []
+    const { plans } = await planner.buildPlan()
+    const activePlans = plans.filter(p => p.enabled)
 
-    // Parallel bounded concurrency worker pool
+    const jobResults: UpstreamJobResult[] = []
     const queue = [...activePlans]
-    const workers = Array.from({ length: Math.min(this.concurrency, queue.length || 1) }, async () => {
+    const workersCount = options.workers || this.workers
+
+    const worker = async () => {
       while (queue.length > 0) {
-        const item = queue.shift()
-        if (!item) break
-        const result = await this.runJob(item, runId)
-        results.push(result)
-      }
-    })
-
-    await Promise.all(workers)
-
-    // Add skipped/disabled/unmapped items
-    for (const plan of plans) {
-      if (!results.some(r => r.id === plan.id)) {
-        const acqStatus: UpstreamAcquisitionStatus = plan.status === 'DISABLED' ? 'REMOTE_NOT_MODIFIED' : 'UNSUPPORTED'
-        results.push({
-          id: plan.id,
-          traditionId: plan.traditionId,
-          endpointId: plan.endpointId,
-          mode: plan.mode,
-          executionStatus: 'PROCESS_SUCCEEDED',
-          status: plan.status === 'DISABLED' ? 'not_modified' : 'unsupported',
-          acquisitionStatus: acqStatus,
-          required: plan.required ?? false,
-          allowFallback: plan.allowFallback ?? this.defaultAllowFallback,
-          allowCache: plan.allowCache ?? false,
-          durationMs: 0,
-          requestedUrl: plan.endpoint.url || plan.endpoint.baseUrl || plan.endpoint.repoUrl,
-          retrievedAt: new Date().toISOString()
-        })
+        const plan = queue.shift()
+        if (!plan) break
+        const result = await this.executePlan(plan, runId)
+        jobResults.push(result)
       }
     }
 
+    const workerPromises = Array.from({ length: workersCount }, () => worker())
+    await Promise.all(workerPromises)
+
     const completedAt = new Date().toISOString()
+
     const manifest = buildRunManifest({
       runId,
       startedAt,
       completedAt,
-      registryVersion: options.registryVersion || version,
-      workers: this.concurrency,
-      defaultAllowFallback: this.defaultAllowFallback,
-      jobs: results
+      registryVersion: '1.0.0',
+      workers: workersCount,
+      jobs: jobResults,
+      defaultAllowFallback: this.defaultAllowFallback
     })
 
-    const manifestPath = await writeRunManifest(manifest, path.join(this.rootDir, 'dist'))
+    const manifestPath = await writeRunManifest(manifest, options.outDir || path.join(this.rootDir, 'dist'))
 
-    // Strict Evaluation Gate:
     const failureReasons: string[] = []
+    let hasFailures = false
 
-    for (const job of results) {
-      // 1. Required job failed
-      if (job.required && (job.status === 'failed' || job.acquisitionStatus === 'REMOTE_FAILED')) {
-        failureReasons.push(`Required job '${job.id}' failed: ${job.error || 'Remote acquisition failure'}`)
-      }
-      // 2. Required job fell back
-      if (job.required && (job.status === 'fallback' || job.acquisitionStatus === 'LOCAL_FALLBACK')) {
-        failureReasons.push(`Required job '${job.id}' fell back to local data. Required jobs must be REMOTE_SYNCED or REMOTE_NOT_MODIFIED.`)
-      }
-      // 3. Unexpected fallback (fallback occurred when allowFallback is false)
-      if (job.acquisitionStatus === 'LOCAL_FALLBACK' && !job.allowFallback) {
-        failureReasons.push(`Unexpected fallback in job '${job.id}' (allowFallback=false).`)
-      }
-      // 4. Unsupported required endpoint
-      if (job.required && (job.status === 'unsupported' || job.acquisitionStatus === 'UNSUPPORTED')) {
-        failureReasons.push(`Required endpoint '${job.id}' is unsupported by the executor graph.`)
-      }
-      // 5. Unexpected cache hit when allowCache is false
-      if (job.acquisitionStatus === 'LOCAL_CACHE' && !job.allowCache && job.required) {
-        failureReasons.push(`Unexpected local cache hit for required job '${job.id}' (allowCache=false).`)
+    for (const job of jobResults) {
+      if (job.required && (job.acquisitionStatus === 'REMOTE_FAILED' || job.acquisitionStatus === 'LOCAL_FALLBACK')) {
+        hasFailures = true
+        failureReasons.push(`Required job ${job.id} did not remotely sync: ${job.acquisitionStatus} (${job.error || job.fallbackReason})`)
+      } else if (!job.allowFallback && job.acquisitionStatus === 'LOCAL_FALLBACK') {
+        hasFailures = true
+        failureReasons.push(`Job ${job.id} fell back when allowFallback=false`)
       }
     }
 
-    const hasFailures = failureReasons.length > 0
-
-    return { manifest, manifestPath, hasFailures, failureReasons }
+    return {
+      manifest,
+      manifestPath,
+      hasFailures,
+      failureReasons
+    }
   }
 }

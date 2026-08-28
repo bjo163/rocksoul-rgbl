@@ -3,6 +3,7 @@ import test from 'node:test'
 import { UpstreamPlanner } from './planner.js'
 import { RecipeResolver } from './recipe-resolver.js'
 import { buildRunManifest, buildCoverageReport, buildCoverageAuditReport } from './manifest.js'
+import { classifyFailure } from './runner.js'
 import {
   defaultUpstreamAdapterRegistry,
   UpstreamAdapterRegistry,
@@ -10,7 +11,7 @@ import {
   rawTextAdapter,
   gitAdapter
 } from './adapter-registry.js'
-import type { UpstreamJobResult, UpstreamExecutionPlan } from './types.js'
+import type { UpstreamJobResult, UpstreamExecutionPlan, UpstreamFailureClass } from './types.js'
 
 test('Upstream Architecture: RecipeResolver loads registered recipes', async () => {
   const resolver = new RecipeResolver()
@@ -310,7 +311,7 @@ test('Test 10: 17/17 full remote success coverage model', () => {
   assert.equal(coverage.planned, 17)
   assert.equal(coverage.remoteSynced, 17)
   assert.equal(coverage.remoteCoveragePercent, 100)
-  assert.equal(coverage.partial, false)
+  assert.equal(coverage.status, 'COMPLETE')
 })
 
 test('Test 11: 16/17 success + 1 optional failure coverage model', () => {
@@ -336,6 +337,7 @@ test('Test 11: 16/17 success + 1 optional failure coverage model', () => {
       executionStatus: 'PROCESS_FAILED',
       status: 'failed',
       acquisitionStatus: 'REMOTE_FAILED',
+      failureClass: 'REMOTE_NOT_FOUND',
       required: false,
       allowFallback: false,
       allowCache: false,
@@ -357,7 +359,8 @@ test('Test 11: 16/17 success + 1 optional failure coverage model', () => {
   assert.equal(coverage.planned, 17)
   assert.equal(coverage.remoteSynced, 16)
   assert.equal(coverage.failed, 1)
-  assert.equal(coverage.partial, true)
+  assert.equal(coverage.status, 'PARTIAL')
+  assert.equal(coverage.failureClasses?.REMOTE_NOT_FOUND, 1)
 })
 
 test('Test 12: Git commit and HTTP provenance integrity', () => {
@@ -406,4 +409,16 @@ test('Test 12: Git commit and HTTP provenance integrity', () => {
   assert.equal(gitJob.resolvedCommit, 'aaed91e57c8e4a8dc9a2383e129ca5e75fe6393d')
   assert.equal(httpJob.contentType, 'text/html')
   assert.ok((httpJob.byteCount ?? 0) > 0)
+})
+
+test('Test 13: Error Taxonomy classification helper', () => {
+  assert.equal(classifyFailure('HTTP 404 Not Found', 404), 'REMOTE_NOT_FOUND')
+  assert.equal(classifyFailure('HTTP 429 Too Many Requests', 429), 'REMOTE_RATE_LIMITED')
+  assert.equal(classifyFailure('HTTP 401 Unauthorized', 401), 'REMOTE_UNAUTHORIZED')
+  assert.equal(classifyFailure('HTTP 403 Forbidden', 403), 'REMOTE_FORBIDDEN')
+  assert.equal(classifyFailure('REMOTE_AUTH_REQUIRED: CTEXT_API_KEY required'), 'REMOTE_AUTH_REQUIRED')
+  assert.equal(classifyFailure('ETIMEDOUT connect to server'), 'REMOTE_TIMEOUT')
+  assert.equal(classifyFailure('ENOTFOUND api.domain.org'), 'REMOTE_NETWORK_ERROR')
+  assert.equal(classifyFailure('SyntaxError: Unexpected token < in JSON'), 'REMOTE_PARSE_ERROR')
+  assert.equal(classifyFailure('HTTP 503 Service Unavailable'), 'REMOTE_UNAVAILABLE')
 })

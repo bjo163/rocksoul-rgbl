@@ -1,6 +1,11 @@
 import { mkdir, writeFile } from 'node:fs/promises'
 import path from 'node:path'
-import type { UpstreamJobResult, UpstreamRunManifest, UpstreamCoverageReport } from './types.js'
+import type {
+  UpstreamJobResult,
+  UpstreamRunManifest,
+  UpstreamCoverageReport,
+  UpstreamFailureClass
+} from './types.js'
 
 export interface ManifestGenerationOptions {
   runId: string
@@ -27,6 +32,7 @@ export interface EndpointCoverageAuditItem {
   recipe: string
   acquisitionStatus: string
   executionStatus: string
+  failureClass?: UpstreamFailureClass
   reason: string
 }
 
@@ -53,7 +59,7 @@ export function buildRunManifest(options: ManifestGenerationOptions): UpstreamRu
     unsupported: sortedJobs.filter(j => j.acquisitionStatus === 'UNSUPPORTED').length
   }
 
-  // Task 1: Hard Accounting Invariant Assertions
+  // Hard Accounting Invariant Assertions
   const sum = totals.remoteSynced + totals.notModified + totals.cache + totals.fallback + totals.failed + totals.unsupported
   const accountingValid = (sum === totals.planned)
 
@@ -73,6 +79,14 @@ export function buildRunManifest(options: ManifestGenerationOptions): UpstreamRu
     throw new Error('Manifest individual category count mismatch against job details')
   }
 
+  // Compute breakdown of failure classes
+  const failureClasses: Partial<Record<UpstreamFailureClass, number>> = {}
+  for (const job of sortedJobs) {
+    if (job.failureClass) {
+      failureClasses[job.failureClass] = (failureClasses[job.failureClass] || 0) + 1
+    }
+  }
+
   return {
     schemaVersion: '1.0.0',
     valid: true,
@@ -86,12 +100,13 @@ export function buildRunManifest(options: ManifestGenerationOptions): UpstreamRu
       defaultAllowFallback: options.defaultAllowFallback ?? false
     },
     totals,
+    failureClasses: Object.keys(failureClasses).length > 0 ? failureClasses : undefined,
     jobs: sortedJobs
   }
 }
 
 export function buildCoverageReport(manifest: UpstreamRunManifest): UpstreamCoverageReport {
-  const { totals, runId, registryVersion } = manifest
+  const { totals, runId, registryVersion, failureClasses } = manifest
   const planned = totals.planned || 1
 
   const remoteCoveragePercent = Number(((totals.remoteSynced + totals.notModified) / planned * 100).toFixed(4))
@@ -99,7 +114,13 @@ export function buildCoverageReport(manifest: UpstreamRunManifest): UpstreamCove
   const validatedCoveragePercent = Number(((totals.remoteSynced + totals.notModified + totals.cache) / planned * 100).toFixed(4))
   const fallbackPercent = Number((totals.fallback / planned * 100).toFixed(4))
   const failurePercent = Number((totals.failed / planned * 100).toFixed(4))
-  const partial = (totals.remoteSynced + totals.notModified) < totals.planned
+
+  let status: 'COMPLETE' | 'PARTIAL' | 'FAILED' = 'PARTIAL'
+  if (totals.remoteSynced + totals.notModified === totals.planned) {
+    status = 'COMPLETE'
+  } else if (totals.remoteSynced + totals.notModified === 0) {
+    status = 'FAILED'
+  }
 
   return {
     schemaVersion: '1.0.0',
@@ -118,7 +139,8 @@ export function buildCoverageReport(manifest: UpstreamRunManifest): UpstreamCove
     validatedCoveragePercent,
     fallbackPercent,
     failurePercent,
-    partial
+    status,
+    failureClasses
   }
 }
 
@@ -134,6 +156,8 @@ export function buildCoverageAuditReport(manifest: UpstreamRunManifest): {
     let authorityLevel = 'Institutional / Academic Repository'
     if (job.traditionId === 'islam' || job.traditionId === 'judaism' || job.traditionId === 'christianity' || job.traditionId === 'buddhism') {
       authorityLevel = 'Official / Canonical Authority'
+    } else if (job.endpointId === 'sacred-texts-shinto') {
+      authorityLevel = 'Archival / Community Repository (Non-Official)'
     }
 
     return {
@@ -150,6 +174,7 @@ export function buildCoverageAuditReport(manifest: UpstreamRunManifest): {
       recipe: job.provenance?.recipeId || 'none',
       acquisitionStatus: job.acquisitionStatus,
       executionStatus: job.executionStatus,
+      failureClass: job.failureClass,
       reason: job.fallbackReason || job.error || 'ok'
     }
   })

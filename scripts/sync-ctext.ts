@@ -1,22 +1,23 @@
-import { mkdir, writeFile } from 'node:fs/promises'
 import { createHash } from 'node:crypto'
-import path from 'node:path'
+import type { UpstreamScriptPayload } from '../packages/ingestion/src/upstream/types.js'
 
 const BASE_URL = 'https://ctext.org/api.pl'
+const CTEXT_API_KEY = process.env.CTEXT_API_KEY
 
 async function fetchCtext(urn: string): Promise<{ text: string; sha256: string; bytes: number }> {
-  const url = `${BASE_URL}?if=en&urn=${urn}`
-  console.log(`[CText API] Fetching: ${urn} -> ${url}`)
+  const apiKeyParam = CTEXT_API_KEY ? `&key=${encodeURIComponent(CTEXT_API_KEY)}` : ''
+  const url = `${BASE_URL}?if=en&urn=${urn}${apiKeyParam}`
+  console.log(`[CText API] Fetching: ${urn} -> ${url.replace(CTEXT_API_KEY || '____', '***')}`)
 
   const res = await fetch(url, { headers: { 'Accept': 'application/xml, text/xml, */*' } })
   if (!res.ok) {
     throw new Error(`CText API HTTP ${res.status}: ${res.statusText}`)
   }
 
-  const rawText = await res.text()
-  const sha256 = createHash('sha256').update(rawText).digest('hex')
-
-  return { text: rawText, sha256, bytes: Buffer.byteLength(rawText) }
+  const text = await res.text()
+  const bytes = Buffer.byteLength(text)
+  const sha256 = createHash('sha256').update(text).digest('hex')
+  return { text, sha256, bytes }
 }
 
 async function main() {
@@ -24,51 +25,70 @@ async function main() {
   console.log('☯️ Chinese Text Project API Automated Upstream Seeding Engine')
   console.log('========================================================================\n')
 
-  const targetDir = path.join(process.cwd(), 'ingestion/recipes/ctext/source')
-  await mkdir(targetDir, { recursive: true })
+  if (!CTEXT_API_KEY) {
+    console.log('⚠ No CTEXT_API_KEY provided. CText API requires authentication for automated batch queries.')
+    const result: UpstreamScriptPayload = {
+      schemaVersion: '1.0',
+      executionStatus: 'PROCESS_SUCCEEDED',
+      acquisitionStatus: 'REMOTE_FAILED',
+      failureClass: 'REMOTE_AUTH_REQUIRED',
+      requestedUrl: 'https://ctext.org/api.pl',
+      resolvedUrl: 'https://ctext.org/api.pl',
+      retrievedAt: new Date().toISOString(),
+      sourceSha256: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
+      byteCount: 0,
+      fallbackReason: 'CText API requires an API key (CTEXT_API_KEY). Unauthenticated requests are rate-limited or forbidden.',
+      error: 'REMOTE_AUTH_REQUIRED: CTEXT_API_KEY environment variable not configured'
+    }
+    console.log(`\nMOONWITNESS_RESULT:${JSON.stringify(result)}`)
+    return
+  }
 
-  const targets = [
-    { urn: 'ctp:dao-de-jing', file: 'dao-de-jing-raw.xml', desc: 'Tao Te Ching (Laozi 81 Chapters)' },
-    { urn: 'ctp:analects', file: 'analects-raw.xml', desc: 'Analects of Confucius (Complete)' },
-    { urn: 'ctp:zhuangzi', file: 'zhuangzi-raw.xml', desc: 'Zhuangzi (Daoist Master Zhuang)' }
+  const textsToSync = [
+    { urn: 'ctp:dao-de-jing', title: 'Dao De Jing (道德經)' },
+    { urn: 'ctp:analects', title: 'The Analects of Confucius (論語)' },
+    { urn: 'ctp:zhuangzi', title: 'Zhuangzi (莊子)' }
   ]
 
   let totalBytes = 0
   const aggregateHash = createHash('sha256')
   let successfulFetches = 0
 
-  for (const t of targets) {
+  for (const item of textsToSync) {
     try {
-      const { text, sha256, bytes } = await fetchCtext(t.urn)
-      await writeFile(path.join(targetDir, t.file), text, 'utf8')
-      totalBytes += bytes
-      aggregateHash.update(text)
+      const data = await fetchCtext(item.urn)
+      totalBytes += data.bytes
+      aggregateHash.update(data.sha256)
       successfulFetches++
-      console.log(`✓ Synchronized ${t.urn} (${t.desc}): ${bytes} bytes (SHA-256: ${sha256.slice(0, 16)}...) -> ${t.file}`)
+      console.log(`✓ Fetched ${item.title}: ${data.bytes} bytes (SHA-256: ${data.sha256.slice(0, 16)}...)`)
     } catch (err: any) {
-      console.warn(`⚠ Could not fetch ${t.urn}: ${err.message}`)
+      console.warn(`⚠ Could not fetch ${item.urn}: ${err.message}`)
     }
   }
 
-  const finalSha256 = aggregateHash.digest('hex')
+  const aggregateSha256 = aggregateHash.digest('hex')
+  const acquisitionStatus = successfulFetches > 0 ? 'REMOTE_SYNCED' : 'REMOTE_FAILED'
+
+  const result: UpstreamScriptPayload = {
+    schemaVersion: '1.0',
+    executionStatus: 'PROCESS_SUCCEEDED',
+    acquisitionStatus,
+    failureClass: acquisitionStatus === 'REMOTE_FAILED' ? 'REMOTE_RATE_LIMITED' : undefined,
+    requestedUrl: 'https://ctext.org/api.pl',
+    resolvedUrl: 'https://ctext.org/api.pl',
+    retrievedAt: new Date().toISOString(),
+    sourceSha256: successfulFetches > 0 ? aggregateSha256 : 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
+    byteCount: totalBytes,
+    fallbackReason: acquisitionStatus === 'REMOTE_FAILED' ? 'CText API queries failed or returned 403' : undefined
+  }
 
   console.log('\n========================================================================')
   console.log('✨ Chinese Text Project Upstream Ingestion Complete!')
   console.log('========================================================================\n')
-
-  console.log(`MOONWITNESS_RESULT:${JSON.stringify({
-    schemaVersion: '1.0',
-    executionStatus: 'PROCESS_SUCCEEDED',
-    acquisitionStatus: successfulFetches > 0 ? 'REMOTE_SYNCED' : 'REMOTE_FAILED',
-    requestedUrl: BASE_URL,
-    resolvedUrl: BASE_URL,
-    retrievedAt: new Date().toISOString(),
-    sourceSha256: finalSha256,
-    byteCount: totalBytes
-  })}`)
+  console.log(`MOONWITNESS_RESULT:${JSON.stringify(result)}`)
 }
 
-main().catch(err => {
+main().catch((err) => {
   console.error(err)
   process.exit(1)
 })

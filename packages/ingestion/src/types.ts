@@ -1,5 +1,12 @@
 import type { CanonicalId, CorpusRecord } from '@moonwitness/corpus-core'
 
+export type AcquisitionStatus =
+  | 'REMOTE_SYNCED'
+  | 'REMOTE_NOT_MODIFIED'
+  | 'REMOTE_FAILED'
+  | 'LOCAL_CACHE'
+  | 'LOCAL_FALLBACK'
+
 export type AcquisitionDescriptor = FilesystemAcquisition | HttpAcquisition
 
 export interface FilesystemAcquisition {
@@ -23,6 +30,7 @@ export interface IngestionRecipe {
   version: string
   specVersion: '0.1'
   source: AcquisitionDescriptor
+  adapter?: string
   implementation: {
     module: string
     parserVersion: string
@@ -34,12 +42,25 @@ export interface IngestionRecipe {
   output: { path: string }
 }
 
+export interface AcquisitionProvenance {
+  status: AcquisitionStatus
+  source_url?: string
+  resolved_location: string
+  retrieved_at?: string
+  source_version?: string
+  etag?: string
+  last_modified?: string
+  source_sha256: string
+}
+
 export interface AcquisitionResult {
   bytes: Uint8Array
   source: AcquisitionDescriptor
   resolved_location: string
   retrieved_at?: string
   sha256: string
+  status?: AcquisitionStatus
+  provenance?: AcquisitionProvenance
 }
 
 export interface ParserContext { recipe: IngestionRecipe; acquisition: AcquisitionResult }

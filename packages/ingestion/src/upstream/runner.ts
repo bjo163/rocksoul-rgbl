@@ -18,6 +18,7 @@ export interface RunnerOptions {
   adapterRegistry?: UpstreamAdapterRegistry
   plans?: UpstreamExecutionPlan[]
   registryVersion?: string
+  defaultAllowFallback?: boolean
 }
 
 export class UpstreamRunner {
@@ -25,16 +26,19 @@ export class UpstreamRunner {
   private readonly concurrency: number
   private readonly timeoutMs: number
   private readonly adapterRegistry: UpstreamAdapterRegistry
+  private readonly defaultAllowFallback: boolean
 
   constructor(options: RunnerOptions = {}) {
     this.rootDir = options.rootDir || process.cwd()
     this.concurrency = options.concurrency || 8
     this.timeoutMs = options.timeoutMs || 900000 // 15 mins default
     this.adapterRegistry = options.adapterRegistry || defaultUpstreamAdapterRegistry
+    this.defaultAllowFallback = options.defaultAllowFallback ?? (process.env.MOONWITNESS_ALLOW_FALLBACK === '1')
   }
 
   async runJob(plan: UpstreamExecutionPlan, runId: string): Promise<UpstreamJobResult> {
     const started = Date.now()
+    const targetUrl = plan.endpoint.url || plan.endpoint.baseUrl || plan.endpoint.repoUrl
 
     if (plan.status !== 'READY' || !plan.enabled) {
       return {
@@ -43,9 +47,14 @@ export class UpstreamRunner {
         endpointId: plan.endpointId,
         mode: plan.mode,
         status: plan.status === 'DISABLED' ? 'not_modified' : 'unsupported',
-        acquisitionStatus: 'LOCAL_CACHE',
-        required: plan.required,
-        durationMs: 0
+        acquisitionStatus: plan.status === 'DISABLED' ? 'REMOTE_NOT_MODIFIED' : 'UNSUPPORTED',
+        required: plan.required ?? false,
+        allowFallback: plan.allowFallback ?? this.defaultAllowFallback,
+        allowCache: plan.allowCache ?? false,
+        durationMs: 0,
+        requestedUrl: targetUrl,
+        resolvedUrl: targetUrl,
+        retrievedAt: new Date().toISOString()
       }
     }
 
@@ -58,7 +67,12 @@ export class UpstreamRunner {
       return new Promise<UpstreamJobResult>((resolve) => {
         const child = spawn(process.execPath, args, {
           cwd: this.rootDir,
-          env: { ...process.env, RUN_ID: runId, UPSTREAM_ENDPOINT: plan.endpointId },
+          env: {
+            ...process.env,
+            RUN_ID: runId,
+            UPSTREAM_ENDPOINT: plan.endpointId,
+            MOONWITNESS_ALLOW_LOCAL_FALLBACK: plan.allowFallback ? '1' : '0'
+          },
           stdio: 'pipe',
           shell: false
         })
@@ -77,21 +91,43 @@ export class UpstreamRunner {
           const durationMs = Date.now() - started
           const success = code === 0
 
+          // Determine precise acquisition status from child execution output
+          let acqStatus: UpstreamJobResult['acquisitionStatus'] = 'REMOTE_SYNCED'
+          let jobStatus: UpstreamJobResult['status'] = 'succeeded'
+          let fallbackReason: string | undefined
+
+          if (!success) {
+            acqStatus = 'REMOTE_FAILED'
+            jobStatus = 'failed'
+            fallbackReason = stderr.trim() || `Script exited with code ${code}`
+          } else if (stdout.includes('LOCAL_FALLBACK') || stdout.includes('REMOTE_FAILED')) {
+            acqStatus = 'LOCAL_FALLBACK'
+            jobStatus = 'fallback'
+            fallbackReason = 'Remote source failed or unpinned; fell back to local dataset'
+          }
+
           resolve({
             id: plan.id,
             traditionId: plan.traditionId,
             endpointId: plan.endpointId,
             mode: 'script',
-            status: success ? 'succeeded' : (plan.required ? 'failed' : 'fallback'),
-            acquisitionStatus: success ? 'REMOTE_SYNCED' : 'LOCAL_FALLBACK',
-            required: plan.required,
+            status: jobStatus,
+            acquisitionStatus: acqStatus,
+            required: plan.required ?? false,
+            allowFallback: plan.allowFallback ?? this.defaultAllowFallback,
+            allowCache: plan.allowCache ?? false,
             durationMs,
             error: success ? undefined : (stderr.trim() || `Process exited with code ${code}`),
+            fallbackReason,
+            fallbackSource: plan.fallbackSource,
+            requestedUrl: targetUrl,
+            resolvedUrl: plan.script,
+            retrievedAt: new Date().toISOString(),
             provenance: {
               runId,
               traditionId: plan.traditionId,
               endpointId: plan.endpointId,
-              sourceUrl: plan.endpoint.url || plan.endpoint.baseUrl || plan.endpoint.repoUrl,
+              sourceUrl: targetUrl,
               resolvedLocation: plan.script || 'unknown',
               retrievedAt: new Date().toISOString(),
               sourceSha256: 'script-managed'
@@ -106,11 +142,15 @@ export class UpstreamRunner {
             traditionId: plan.traditionId,
             endpointId: plan.endpointId,
             mode: 'script',
-            status: plan.required ? 'failed' : 'fallback',
-            acquisitionStatus: 'LOCAL_FALLBACK',
-            required: plan.required,
+            status: 'failed',
+            acquisitionStatus: 'REMOTE_FAILED',
+            required: plan.required ?? false,
+            allowFallback: plan.allowFallback ?? this.defaultAllowFallback,
+            allowCache: plan.allowCache ?? false,
             durationMs: Date.now() - started,
-            error: err.message
+            error: err.message,
+            requestedUrl: targetUrl,
+            retrievedAt: new Date().toISOString()
           })
         })
       })
@@ -123,19 +163,35 @@ export class UpstreamRunner {
         const acq = await adapter.acquire(plan.endpoint, {
           endpoint: plan.endpoint,
           traditionId: plan.traditionId,
-          allowNetwork: true
+          allowNetwork: plan.allowRemote ?? true
         })
+
+        const statusMap: Record<string, UpstreamJobResult['status']> = {
+          REMOTE_SYNCED: 'succeeded',
+          REMOTE_NOT_MODIFIED: 'not_modified',
+          LOCAL_CACHE: 'cache',
+          LOCAL_FALLBACK: 'fallback',
+          REMOTE_FAILED: 'failed',
+          UNSUPPORTED: 'unsupported'
+        }
 
         return {
           id: plan.id,
           traditionId: plan.traditionId,
           endpointId: plan.endpointId,
           mode: 'adapter',
-          status: 'succeeded',
+          status: statusMap[acq.status] ?? 'succeeded',
           acquisitionStatus: acq.status,
-          required: plan.required,
+          required: plan.required ?? false,
+          allowFallback: plan.allowFallback ?? this.defaultAllowFallback,
+          allowCache: plan.allowCache ?? false,
           durationMs: Date.now() - started,
           byteCount: acq.byteSize,
+          requestedUrl: targetUrl,
+          resolvedUrl: acq.resolvedLocation,
+          retrievedAt: acq.retrievedAt,
+          fallbackReason: acq.fallbackReason,
+          fallbackSource: acq.fallbackSource,
           provenance: {
             runId,
             traditionId: plan.traditionId,
@@ -155,11 +211,15 @@ export class UpstreamRunner {
           traditionId: plan.traditionId,
           endpointId: plan.endpointId,
           mode: 'adapter',
-          status: plan.required ? 'failed' : 'fallback',
+          status: 'failed',
           acquisitionStatus: 'REMOTE_FAILED',
-          required: plan.required,
+          required: plan.required ?? false,
+          allowFallback: plan.allowFallback ?? this.defaultAllowFallback,
+          allowCache: plan.allowCache ?? false,
           durationMs: Date.now() - started,
-          error: err.message
+          error: err.message,
+          requestedUrl: targetUrl,
+          retrievedAt: new Date().toISOString()
         }
       }
     }
@@ -169,21 +229,30 @@ export class UpstreamRunner {
       traditionId: plan.traditionId,
       endpointId: plan.endpointId,
       mode: plan.mode,
-      status: 'succeeded',
+      status: 'cache',
       acquisitionStatus: 'LOCAL_CACHE',
-      required: plan.required,
-      durationMs: Date.now() - started
+      required: plan.required ?? false,
+      allowFallback: plan.allowFallback ?? this.defaultAllowFallback,
+      allowCache: plan.allowCache ?? false,
+      durationMs: Date.now() - started,
+      requestedUrl: targetUrl,
+      resolvedUrl: targetUrl,
+      retrievedAt: new Date().toISOString()
     }
   }
 
   async run(options: RunnerOptions = {}): Promise<{
     manifest: UpstreamRunManifest
     manifestPath: string
-    hasRequiredFailures: boolean
+    hasFailures: boolean
+    failureReasons: string[]
   }> {
     const runId = randomUUID()
     const startedAt = new Date().toISOString()
-    const planner = new UpstreamPlanner({ rootDir: this.rootDir })
+    const planner = new UpstreamPlanner({
+      rootDir: this.rootDir,
+      defaultAllowFallback: this.defaultAllowFallback
+    })
     const { plans, version } = await planner.buildPlan()
 
     const activePlans = (options.plans || plans).filter(p => p.enabled && p.status === 'READY')
@@ -202,7 +271,7 @@ export class UpstreamRunner {
 
     await Promise.all(workers)
 
-    // Add skipped/disabled items
+    // Add skipped/disabled/unmapped items
     for (const plan of plans) {
       if (!results.some(r => r.id === plan.id)) {
         results.push({
@@ -211,9 +280,13 @@ export class UpstreamRunner {
           endpointId: plan.endpointId,
           mode: plan.mode,
           status: plan.status === 'DISABLED' ? 'not_modified' : 'unsupported',
-          acquisitionStatus: 'LOCAL_CACHE',
-          required: plan.required,
-          durationMs: 0
+          acquisitionStatus: plan.status === 'DISABLED' ? 'REMOTE_NOT_MODIFIED' : 'UNSUPPORTED',
+          required: plan.required ?? false,
+          allowFallback: plan.allowFallback ?? this.defaultAllowFallback,
+          allowCache: plan.allowCache ?? false,
+          durationMs: 0,
+          requestedUrl: plan.endpoint.url || plan.endpoint.baseUrl || plan.endpoint.repoUrl,
+          retrievedAt: new Date().toISOString()
         })
       }
     }
@@ -225,12 +298,40 @@ export class UpstreamRunner {
       completedAt,
       registryVersion: options.registryVersion || version,
       workers: this.concurrency,
+      defaultAllowFallback: this.defaultAllowFallback,
       jobs: results
     })
 
     const manifestPath = await writeRunManifest(manifest, path.join(this.rootDir, 'dist'))
-    const hasRequiredFailures = results.some(r => r.required && r.status === 'failed')
 
-    return { manifest, manifestPath, hasRequiredFailures }
+    // Strict Evaluation Gate:
+    const failureReasons: string[] = []
+
+    for (const job of results) {
+      // 1. Required job failed
+      if (job.required && (job.status === 'failed' || job.acquisitionStatus === 'REMOTE_FAILED')) {
+        failureReasons.push(`Required job '${job.id}' failed: ${job.error || 'Remote acquisition failure'}`)
+      }
+      // 2. Required job fell back
+      if (job.required && (job.status === 'fallback' || job.acquisitionStatus === 'LOCAL_FALLBACK')) {
+        failureReasons.push(`Required job '${job.id}' fell back to local data. Required jobs must be REMOTE_SYNCED or REMOTE_NOT_MODIFIED.`)
+      }
+      // 3. Unexpected fallback (fallback occurred when allowFallback is false)
+      if (job.acquisitionStatus === 'LOCAL_FALLBACK' && !job.allowFallback) {
+        failureReasons.push(`Unexpected fallback in job '${job.id}' (allowFallback=false).`)
+      }
+      // 4. Unsupported required endpoint
+      if (job.required && (job.status === 'unsupported' || job.acquisitionStatus === 'UNSUPPORTED')) {
+        failureReasons.push(`Required endpoint '${job.id}' is unsupported by the executor graph.`)
+      }
+      // 5. Unexpected cache hit when allowCache is false
+      if (job.acquisitionStatus === 'LOCAL_CACHE' && !job.allowCache && job.required) {
+        failureReasons.push(`Unexpected local cache hit for required job '${job.id}' (allowCache=false).`)
+      }
+    }
+
+    const hasFailures = failureReasons.length > 0
+
+    return { manifest, manifestPath, hasFailures, failureReasons }
   }
 }

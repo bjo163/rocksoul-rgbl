@@ -1,16 +1,30 @@
 import type { CanonicalId, CorpusRecord } from '@moonwitness/corpus-core'
-import type { AcquisitionStatus, IngestionRecipe } from '../types.js'
+import type { IngestionRecipe } from '../types.js'
 
 export type ExecutionMode = 'recipe' | 'adapter' | 'script'
 export type ExecutionStatus = 'READY' | 'UNMAPPED' | 'UNSUPPORTED_ADAPTER' | 'INVALID_RECIPE' | 'DISABLED'
 
-export interface UpstreamEndpoint {
+export type UpstreamAcquisitionStatus =
+  | 'REMOTE_SYNCED'
+  | 'REMOTE_NOT_MODIFIED'
+  | 'LOCAL_CACHE'
+  | 'LOCAL_FALLBACK'
+  | 'REMOTE_FAILED'
+  | 'UNSUPPORTED'
+
+export interface UpstreamPolicy {
+  allowRemote?: boolean
+  allowCache?: boolean
+  allowFallback?: boolean
+  required?: boolean
+}
+
+export interface UpstreamEndpoint extends UpstreamPolicy {
   id: string
   name: string
   type: 'rest_api' | 'git_repository' | 'open_data_archive' | 'sparql_endpoint' | 'file_download' | string
   license: string
   enabled?: boolean
-  required?: boolean
   baseUrl?: string
   repoUrl?: string
   url?: string
@@ -18,6 +32,7 @@ export interface UpstreamEndpoint {
   authRequired?: boolean
   documentation?: string
   outputRecipeId?: string
+  fallbackSource?: string
 }
 
 export interface UpstreamTradition {
@@ -34,7 +49,7 @@ export interface UpstreamMasterRegistry {
   traditions: Record<string, UpstreamTradition>
 }
 
-export interface ExecutorJobDefinition {
+export interface ExecutorJobDefinition extends UpstreamPolicy {
   id: string
   name: string
   enabled: boolean
@@ -42,8 +57,8 @@ export interface ExecutorJobDefinition {
   script?: string
   recipeId?: string
   adapterId?: string
-  required?: boolean
   timeoutMs?: number
+  fallbackSource?: string
 }
 
 export interface ExecutorRegistry {
@@ -52,11 +67,14 @@ export interface ExecutorRegistry {
     concurrency?: number
     shell?: boolean
     timeoutMs?: number
+    allowRemote?: boolean
+    allowCache?: boolean
+    allowFallback?: boolean
   }
   jobs: ExecutorJobDefinition[]
 }
 
-export interface UpstreamExecutionPlan {
+export interface UpstreamExecutionPlan extends UpstreamPolicy {
   id: string
   traditionId: string
   endpointId: string
@@ -67,8 +85,8 @@ export interface UpstreamExecutionPlan {
   mode: ExecutionMode
   status: ExecutionStatus
   enabled: boolean
-  required: boolean
   script?: string
+  fallbackSource?: string
 }
 
 export interface UpstreamAdapterContext {
@@ -81,7 +99,7 @@ export interface UpstreamAdapterContext {
 
 export interface UpstreamAcquisitionResult {
   bytes: Uint8Array
-  status: AcquisitionStatus
+  status: UpstreamAcquisitionStatus
   sourceUrl?: string
   resolvedLocation: string
   retrievedAt: string
@@ -89,6 +107,8 @@ export interface UpstreamAcquisitionResult {
   byteSize: number
   etag?: string
   lastModified?: string
+  fallbackReason?: string
+  fallbackSource?: string
 }
 
 export interface UpstreamAdapter {
@@ -128,11 +148,18 @@ export interface UpstreamJobResult {
   traditionId: string
   endpointId: string
   mode: ExecutionMode
-  status: 'succeeded' | 'not_modified' | 'failed' | 'unsupported' | 'fallback'
-  acquisitionStatus: AcquisitionStatus
+  status: 'succeeded' | 'not_modified' | 'cache' | 'fallback' | 'failed' | 'unsupported'
+  acquisitionStatus: UpstreamAcquisitionStatus
   required: boolean
+  allowFallback: boolean
+  allowCache: boolean
   durationMs: number
   error?: string
+  fallbackReason?: string
+  fallbackSource?: string
+  requestedUrl?: string
+  resolvedUrl?: string
+  retrievedAt?: string
   provenance?: UpstreamJobProvenance
   recordCount?: number
   byteCount?: number
@@ -146,13 +173,17 @@ export interface UpstreamRunManifest {
   completedAt: string
   registryVersion: string
   workers: number
+  policy: {
+    defaultAllowFallback: boolean
+  }
   totals: {
     planned: number
-    succeeded: number
+    remoteSynced: number
     notModified: number
+    cache: number
+    fallback: number
     failed: number
     unsupported: number
-    fallback: number
   }
   jobs: UpstreamJobResult[]
 }

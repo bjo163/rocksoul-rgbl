@@ -148,7 +148,9 @@ async function main() {
 
     try {
       const result = await fetchOrRead(src.url, src.defaultData)
-      await writeFile(fullPath, result.data, 'utf8')
+      if (result.status === 'REMOTE_SYNCED') {
+        await writeFile(fullPath, result.data, 'utf8')
+      }
 
       results.push({
         name: src.name,

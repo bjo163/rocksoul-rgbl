@@ -1,0 +1,28 @@
+{
+  "id": "mw:dataset:hadith:bukhari-core",
+  "datasetVersion": "0.1.0",
+  "specVersion": "0.2",
+  "profiles": [
+    "textual@0.1",
+    "source@0.1"
+  ],
+  "partitions": [
+    {
+      "recordType": "resource",
+      "path": "data/core/resources/*.jsonl"
+    },
+    {
+      "recordType": "provenance",
+      "path": "data/core/provenance/*.jsonl"
+    },
+    {
+      "recordType": "assertion",
+      "path": "data/core/assertions/*.jsonl"
+    }
+  ],
+  "sources": [
+    "Sahih al-Bukhari Classical Public Domain Compilation via UmmahAPI"
+  ],
+  "rights": "CC0-1.0; classical public domain Islamic hadith compilation by Imam Muhammad al-Bukhari (d. 256 AH).",
+  "availability": "bundled"
+}

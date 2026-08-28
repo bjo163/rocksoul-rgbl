@@ -8,6 +8,6 @@
     "types": ["node", "react", "react-dom"],
     "plugins": [{ "name": "next" }]
   },
-  "include": ["next-env.d.ts", ".next/types/**/*.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", ".next/types/**/*.ts", "**/*.ts", "**/*.tsx", "../../packages/**/*.d.ts"],
   "exclude": ["node_modules"]
 }

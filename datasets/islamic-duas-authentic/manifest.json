@@ -1,0 +1,24 @@
+{
+  "id": "mw:dataset:islam:duas-authentic",
+  "datasetVersion": "0.1.0",
+  "specVersion": "0.2",
+  "profiles": [
+    "textual@0.1",
+    "source@0.1"
+  ],
+  "partitions": [
+    {
+      "recordType": "resource",
+      "path": "data/core/resources/*.jsonl"
+    },
+    {
+      "recordType": "provenance",
+      "path": "data/core/provenance/*.jsonl"
+    }
+  ],
+  "sources": [
+    "UmmahAPI Authentic Islamic Duas Collection (126 Duas across 27 Categories)"
+  ],
+  "rights": "CC0-1.0; classical public domain Quranic and Sunnah supplications.",
+  "availability": "bundled"
+}

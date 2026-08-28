@@ -24,5 +24,11 @@
     "Public domain classical devotional prayers, mantras, and chants across world traditions"
   ],
   "rights": "CC0-1.0; classical public domain religious prayers and chants with human English and Indonesian translations.",
-  "availability": "bundled"
+  "availability": "bundled",
+  "dependencies": [
+    {
+      "dataset": "mw:dataset:world-religions:baseline",
+      "version": "0.1.0"
+    }
+  ]
 }

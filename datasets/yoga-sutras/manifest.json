@@ -1,0 +1,24 @@
+{
+  "id": "mw:dataset:hinduism:yoga-sutras",
+  "datasetVersion": "0.1.0",
+  "specVersion": "0.2",
+  "profiles": [
+    "textual@0.1",
+    "source@0.1"
+  ],
+  "partitions": [
+    {
+      "recordType": "resource",
+      "path": "data/core/resources/*.jsonl"
+    },
+    {
+      "recordType": "provenance",
+      "path": "data/core/provenance/*.jsonl"
+    }
+  ],
+  "sources": [
+    "Yoga Sūtras of Patañjali (Pātañjalayogasūtra) Classical Sanskrit & Translation Corpus"
+  ],
+  "rights": "CC0-1.0 / Public Domain; ancient foundational Sanskrit text of classical Yoga philosophy (c. 400 CE).",
+  "availability": "bundled"
+}

@@ -22,21 +22,21 @@ const writingItems = [
     label: 'Didache 1:1 (The Two Ways)',
     grc: 'Ὁδοὶ δύο εἰσί, μία τῆς ζωῆς καὶ μία τοῦ θανάτου, διαφορὰ δὲ πολλὴ μεταξὺ τῶν δύο ὁδῶν.',
     en: 'There are two ways, one of life and one of death, but a great difference between the two ways.',
-    id: 'Ada dua jalan, satu jalan kehidupan dan satu jalan kematian, namun terdapat perbedaan besar di antara kedua jalan tersebut.'
+    id_text: 'Ada dua jalan, satu jalan kehidupan dan satu jalan kematian, namun terdapat perbedaan besar di antara kedua jalan tersebut.'
   },
   {
     id: 'creed:apostles',
     label: 'Apostles’ Creed / Pengakuan Iman Rasuli',
     grc: 'Credo in Deum Patrem omnipotentem, Creatorem caeli et terrae. Et in Iesum Christum, Filium eius unicum, Dominum nostrum...',
     en: 'I believe in God, the Father almighty, creator of heaven and earth. I believe in Jesus Christ, his only Son, our Lord...',
-    id: 'Aku percaya kepada Allah Bapa Yang Mahakuasa, Khalik langit dan bumi. Dan kepada Yesus Kristus, Anak-Nya yang tunggal, Tuhan kita...'
+    id_text: 'Aku percaya kepada Allah Bapa Yang Mahakuasa, Khalik langit dan bumi. Dan kepada Yesus Kristus, Anak-Nya yang tunggal, Tuhan kita...'
   },
   {
     id: 'creed:nicene',
     label: 'Nicene Creed / Pengakuan Iman Nicea-Konstantinopel',
     grc: 'Πιστεύομεν εἰς ἕνα Θεόν, Πατέρα Παντοκράτορα, ποιητὴν οὐρανοῦ καὶ γῆς, ὁρατῶν τε πάντων καὶ ἀοράτων. Καὶ εἰς ἕνα Κύριον Ἰησοῦν Χριστόν...',
     en: 'We believe in one God, the Father Almighty, Maker of heaven and earth, and of all things visible and invisible. And in one Lord Jesus Christ...',
-    id: 'Kami percaya kepada satu Allah, Bapa Yang Mahakuasa, Pencipta langit dan bumi, segala yang kelihatan dan yang tidak kelihatan. Dan kepada satu Tuhan, Yesus Kristus...'
+    id_text: 'Kami percaya kepada satu Allah, Bapa Yang Mahakuasa, Pencipta langit dan bumi, segala yang kelihatan dan yang tidak kelihatan. Dan kepada satu Tuhan, Yesus Kristus...'
   }
 ]
 
@@ -207,7 +207,7 @@ for (const item of writingItems) {
         language: 'id',
         script: 'Latn',
         representation: 'translation',
-        text: item.id,
+        text: item.id_text,
         derived_from: contentGrcId
       }
     }

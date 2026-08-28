@@ -1,0 +1,24 @@
+{
+  "id": "mw:dataset:zoroastrianism:gathas",
+  "datasetVersion": "0.1.0",
+  "specVersion": "0.2",
+  "profiles": [
+    "textual@0.1",
+    "source@0.1"
+  ],
+  "partitions": [
+    {
+      "recordType": "resource",
+      "path": "data/core/resources/*.jsonl"
+    },
+    {
+      "recordType": "provenance",
+      "path": "data/core/provenance/*.jsonl"
+    }
+  ],
+  "sources": [
+    "Gathas of Zarathustra (Yasna 28-34, 43-51, 53) Avestan & English Translation (L.H. Mills, 1887)"
+  ],
+  "rights": "CC0-1.0 / Public Domain; ancient prophetic hymns of Zarathustra Spitama composed in Old Avestan (c. 1200–1000 BCE).",
+  "availability": "bundled"
+}

@@ -6,6 +6,12 @@
     "textual@0.1",
     "source@0.1"
   ],
+  "dependencies": [
+    {
+      "dataset": "mw:dataset:world-religions:baseline",
+      "version": "0.1.0"
+    }
+  ],
   "partitions": [
     {
       "recordType": "resource",

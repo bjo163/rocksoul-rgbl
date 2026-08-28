@@ -45,6 +45,11 @@
       "id": "mw:recipe:suttacentral:sn-an-sujato",
       "path": "ingestion/recipes/suttacentral-sn-an",
       "status": "active"
+    },
+    {
+      "id": "mw:recipe:shinto:kojiki",
+      "path": "ingestion/recipes/shinto-kojiki",
+      "status": "active"
     }
   ]
 }

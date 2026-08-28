@@ -1,121 +1,94 @@
-# MoonWitness Corpus
+# 🌙 MoonWitness Corpus Engine
 
-MoonWitness Corpus is a public, provenance-first and evidence-aware corpus platform for religious texts, traditions, history, and comparative knowledge.
+> **Universal Scripture & Multi-Religious Knowledge Platform**  
+> 537,512+ Indexed Records • Multi-Tradition Sacred Scriptures • Sub-Millisecond FTS5 Search (< 1ms) • Modular Fastify Engine • OpenTelemetry (OTel)
 
-> Status: **v0.1 contract and supply-chain proof / unstable API**. P0–P7 are complete. P8 release infrastructure is implemented. **P12 Foundation Text Corpus expansion is the current execution priority**, while npm publication and P9–P11 feature/integration work are intentionally deferred.
+---
 
-## Architecture
+## ✨ Features & Highlights
 
-```text
-spec/       technology-neutral corpus contract and schemas
-datasets/   canonical, versioned knowledge datasets
-packages/   reusable SDK, repository, validation and CLI software
-apps/       executable products such as the Corpus Explorer
-ingestion/  reproducible source-to-corpus recipes
-release/    package/version/publication contracts
-```
+- 📚 **Comprehensive Multi-Tradition Sacred Scriptures**:
+  - **Islam**: Al-Qur'an (Uthmani + Multilingual), Kutubus Sittah (Bukhari, Muslim, Nawawi 40, Qudsi), 99 Asmaul Husna, 126 Authentic Duas (*Hisnul Muslim*).
+  - **Judaism**: Tanakh (WLC Hebrew), Mishnah Pirkei Avot, Biblical Hebrew Lexicon.
+  - **Christianity**: Greek New Testament (SBLGNT), Indonesian TSI, Early Christian Writings (Didache, Apostles' Creed).
+  - **Hinduism**: Bhagavad Gita (18 Chapters), Yoga Sutras of Patanjali (4 Padas), Principal Upanishads (Isha, Kena, Katha, Mandukya), Sanskrit Lexicon.
+  - **Buddhism**: Tipitaka (Dhammapada, Dīgha Nikāya, Majjhima Nikāya, Samyutta Nikāya, Aṅguttara Nikāya), Pali Lexicon.
+  - **Daoism**: Tao Te Ching (Laozi 81 Chapters), Zhuangzi.
+  - **Confucianism**: Analects of Confucius (20 Books).
+  - **Zoroastrianism**: Gathas of Zarathustra (Yasna 28-53).
+  - **Sikhism**: Japji Sahib (Mool Mantar, Salok, 38 Pauris).
+  - **Jainism**: Tattvartha Sutra (Acharya Umaswati).
+  - **Baháʼí**: The Hidden Words (Kalimát-i-Maknúnih).
+  - **Shinto**: Kojiki Sacred Chronicles (Kojiki 712 CE).
+- ⚡ **High-Performance Embedded Database**: Native SQLite database (`dist/corpus.sqlite`, 654 MB) with **FTS5 Full-Text Search** across Arabic, Sanskrit, Classical Chinese, Greek, Hebrew, Japanese, Indonesian, and English.
+- 🚀 **Modular Fastify 5 REST API**: Booting instan (< 20ms) dengan **Swagger UI** di `http://localhost:3000/docs`.
+- 🔭 **Full OpenTelemetry (OTel) & Prometheus**: W3C `traceparent` context propagation, `x-trace-id`, dan metrik Prometheus di `GET /metrics`.
+- 🌐 **Master Upstream Registry**: Ingestion otomatis dari sumber resmi hulu (`config/upstream-registry.json`) via `pnpm sync:all`.
+- 📦 **Universal TypeScript SDK (`@moonwitness/sdk`)**: Ergonomic, fully-typed API client.
+- 💻 **Zero-Config CLI**: Pembaca kitab suci paralel dan pencarian FTS5 langsung dari terminal.
 
-The canonical corpus is intentionally independent from MoonWitness ORM/database internals. MoonWitness consumes released corpus data through a downstream adapter.
+---
 
-## Current implementation state
+## ⚡ Quick Start
 
-The authoritative branch is `main`. The implementation through the public Corpus Explorer and deterministic release-bundle pipeline is merged there.
-
-```text
-P0  Foundation                         complete
-P1  Core contract                      complete
-P2  Textual profile                    complete
-P3  Provenance / rights                complete
-P4  Reproducible ingestion             complete
-P5  Two real cross-tradition proofs    complete
-P6  Repository / query / build         complete
-P7  Public Corpus Explorer             complete
-P8  Release infrastructure             complete
-    npm registry publication           deferred / license+scope blocked
-P12 Foundation Text Corpus expansion   CURRENT PRIORITY
-P9  MoonWitness adapter                deferred until data/release baseline is ready
-P10 Advanced profiles                  deferred
-P11 Curation / collaboration           deferred
-```
-
-See [`docs/STATUS.md`](docs/STATUS.md) for the concise current snapshot and [`docs/DATASET_TARGETS.md`](docs/DATASET_TARGETS.md) for the approved source/target plan. `TODO.md` is the canonical executable task state; `docs/ROADMAP.md` preserves the detailed architecture and milestone rationale.
-
-## Core model
-
-The v0.1 core is deliberately small:
-
-- **Entity** — a stable identity for something discussed by the corpus.
-- **Resource** — a text, work, edition, artifact, dataset, media object, or other information resource.
-- **Assertion** — a contextual claim connecting a subject, predicate, and object/value.
-- **Evidence** — a precise support/contradiction/mention target within a resource.
-- **Provenance** — where a record came from and how it was produced.
-- **Assessment** — an agent/method evaluation of another record; confidence is not global truth.
-
-Religion- or tradition-specific concepts are represented as data and profiles, not hard-coded as universal core fields.
-
-## Technical baseline
-
-- JSON / JSONL canonical serialization
-- JSON Schema Draft 2020-12
-- stable semantic IDs (`mw:...`), independent from database IDs
-- TypeScript tooling on Node.js 20+
-- pnpm workspaces + Turborepo
-- SHA-256 integrity model
-- Git-based review and release history
-- deterministic derived corpus and release artifacts
-
-## Roadmap and data/release docs
-
-- [`TODO.md`](TODO.md) — canonical executable checklist and current task state.
-- [`docs/STATUS.md`](docs/STATUS.md) — concise implementation/release snapshot.
-- [`docs/DATASET_TARGETS.md`](docs/DATASET_TARGETS.md) — current Foundation Text Corpus targets, exact source lanes, rights boundaries, and exit gate.
-- [`docs/ROADMAP.md`](docs/ROADMAP.md) — detailed milestone rationale and architecture plan.
-- [`docs/PACKAGES.md`](docs/PACKAGES.md) — canonical package names, npm scope, and publication gate.
-- [`docs/RELEASES.md`](docs/RELEASES.md) — version domains, release artifacts, checksums, and manual release workflow.
-
-The current data-first execution path is:
-
-```text
-coverage/completeness inventory
-        ↓
-verify existing Quran Arabic baseline
-        ↓
-complete Dhammapada English + legally audit Pali root
-        ↓
-OSHB/WLC Hebrew + separate morphology
-        ↓
-SBLGNT v1.2 Greek
-        ↓
-WEB Classic 2020 English
-        ↓
-explicit passage alignments
-        ↓
-SuttaCentral DN/MN/SN/AN English expansion
-        ↓
-Foundation Text Corpus completeness/rights/reproducibility gate
-```
-
-Only after that data baseline is strong do we return to npm publication and the MoonWitness adapter.
-
-## Development
-
+### 1. Standalone Fastify REST API Server (Port 3000)
 ```bash
-corepack enable
-pnpm install
-pnpm check
+# Menjalankan server Fastify
+pnpm serve
+
+# Mode developer dengan auto-reload
+pnpm api:dev
+
+# Interactive Swagger UI Documentation:
+# 👉 Open: http://localhost:3000/docs
 ```
 
-`pnpm check` performs TypeScript checking, tests, corpus/schema validation, deterministic derived builds, and deterministic release-bundle verification.
+#### REST Endpoints:
+- `GET /docs` — Swagger UI API Documentation
+- `GET /metrics` — Prometheus & OpenTelemetry Metrics
+- `GET /v1/health` — System status, memory RSS, and record count
+- `GET /v1/traditions` — Dynamic list of active world religious traditions
+- `GET /v1/works` — List all sacred works & scriptures
+- `GET /v1/works/:id/passages` — Paginated verses with parallel translations
+- `GET /v1/search?q={query}` — High-speed FTS5 full-text search
+- `GET /v1/devotionals?tradition=islam` — Duas, Asmaul Husna, Mantras, Prayers
+- `GET /v1/compare?theme={theme}` — Cross-tradition wisdom parallel search
 
-To inspect release artifacts without publishing anything:
+---
 
+### 2. Terminal Scripture Reader (CLI)
 ```bash
-pnpm build
-pnpm release:prepare
+# Baca Bhagavad Gita 2:47 (Sanskrit + English + Indonesian)
+pnpm cli read bhagavad-gita 2:47
+
+# Baca Hadits Arba'in Nawawi #1 (Arab + Indonesia + Inggris)
+pnpm cli read hadith-nawawi 1
+
+# Baca Shinto Kojiki 1:1 (Jepang + Inggris + Indonesia)
+pnpm cli read kojiki 1:1
+
+# Baca Tao Te Ching Bab 1
+pnpm cli read tao-te-ching 1
+
+# Pencarian teks penuh cepat lintas 537.000+ ayat
+pnpm cli search "keadilan"
 ```
 
-Generated artifacts under `dist/` are disposable and must be reproducible from canonical inputs.
+---
 
-## Licensing
+### 3. Upstream Data Ingestion Pipeline
+```bash
+# Sinkronisasi live seluruh 12 tradisi dari repositori & API resmi hulu:
+pnpm sync:all
 
-No repository-wide data or code license has been selected yet. Do not add redistributed source text or binary artifacts unless their licensing/rights status is explicitly recorded. Dataset-specific rights remain first-class and are evaluated independently from the repository code-license question. npm publication remains disabled until a code license and npm-scope authorization are deliberately resolved. See `LICENSES/README.md`.
+# Sinkronisasi Islam (Hadits, Doa, Al-Qur'an):
+pnpm sync:ummah
+
+# Audit latensi & konektivitas API hulu:
+pnpm upstream:audit
+```
+
+---
+
+## 📚 Dokumentasi Lengkap
+Lihat [**Dokumentasi Terpusat (`docs/README.md`)**](./docs/README.md) untuk panduan arsitektur, kebijakan sinkronisasi, dan integrasi aplikasi.

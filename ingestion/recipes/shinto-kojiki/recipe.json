@@ -1,0 +1,22 @@
+{
+  "id": "mw:recipe:shinto:kojiki",
+  "version": "1.0.0",
+  "specVersion": "0.1",
+  "source": {
+    "kind": "filesystem",
+    "path": "source/kojiki-raw.json",
+    "sha256": "a2c7b8c0abbb6ce35fc75f5cefc0c0ef5135549e83a3f92e2357c9ec79c159a5",
+    "byte_size": 2776,
+    "media_type": "application/json"
+  },
+  "implementation": {
+    "module": "recipe.ts",
+    "parserVersion": "1",
+    "normalizerVersion": "identity-1",
+    "mapperVersion": "1",
+    "validatorVersion": "1"
+  },
+  "output": {
+    "path": "../../../dist/ingestion/shinto-kojiki.jsonl"
+  }
+}

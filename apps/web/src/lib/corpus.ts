@@ -8,13 +8,14 @@ import type {
   Provenance,
   Resource
 } from '@moonwitness/corpus-core'
-import { FileSystemCorpusRepository } from '@moonwitness/corpus-node'
+import { existsSync } from 'node:fs'
+import { FileSystemCorpusRepository, SqliteCorpusRepository } from '@moonwitness/corpus-node'
 import type { CorpusRepository, DatasetDescriptor } from '@moonwitness/corpus-repository'
 import { displayName, getDatasetFriendlyMeta, textualPayload } from './presentation.js'
 
 declare global {
   // eslint-disable-next-line no-var
-  var __moonwitness_repository__: Promise<FileSystemCorpusRepository> | undefined
+  var __moonwitness_repository__: Promise<CorpusRepository> | undefined
   // eslint-disable-next-line no-var
   var __moonwitness_root__: Promise<string> | undefined
 }
@@ -48,9 +49,16 @@ export async function getCorpusRoot(): Promise<string> {
   return globalThis.__moonwitness_root__
 }
 
-export async function getRepository(): Promise<FileSystemCorpusRepository> {
+export async function getRepository(): Promise<CorpusRepository> {
   if (!globalThis.__moonwitness_repository__) {
-    globalThis.__moonwitness_repository__ = getCorpusRoot().then((root) => FileSystemCorpusRepository.open(root))
+    globalThis.__moonwitness_repository__ = (async () => {
+      const root = await getCorpusRoot()
+      const sqlitePath = resolve(root, 'dist/corpus.sqlite')
+      if (existsSync(sqlitePath)) {
+        return SqliteCorpusRepository.open(sqlitePath)
+      }
+      return FileSystemCorpusRepository.open(root)
+    })()
   }
   return globalThis.__moonwitness_repository__
 }
@@ -314,7 +322,7 @@ export async function listAvailableScriptureWorks(): Promise<DynamicScriptureWor
           ? w.labels.find((l) => l.language === 'en' && l.role === 'preferred')?.value
           : undefined
         const native = ('labels' in w && Array.isArray(w.labels))
-          ? w.labels.find((l) => ['ar', 'sa', 'he', 'pi', 'zh', 'el'].includes(l.language) && l.role === 'preferred')?.value
+          ? w.labels.find((l) => l.language && ['ar', 'sa', 'he', 'pi', 'zh', 'el'].includes(l.language) && l.role === 'preferred')?.value
           : undefined
 
         const title = idLabel ?? enLabel ?? displayName(w)
@@ -424,7 +432,7 @@ export async function getParallelReaderData(scriptureKey: string, sectionParam?:
 
   // Assemble parallel representations
   const verses: ParallelVerse[] = matchingPassages.map((passage) => {
-    const payload = textualPayload(passage) ?? {}
+    const payload = textualPayload(passage as any) ?? {}
     const citations = Array.isArray(payload.citations) ? payload.citations as Array<{ reference?: string }> : []
     const citation = citations[0]?.reference ?? passage.id.split(':').pop() ?? ''
     const label = ('labels' in passage && passage.labels && passage.labels[0]?.value) ? passage.labels[0].value : undefined
@@ -436,10 +444,11 @@ export async function getParallelReaderData(scriptureKey: string, sectionParam?:
     const otherTexts: ParallelVerse['otherTexts'] = []
 
     for (const c of contents) {
-      const textMeta = textualPayload(c) ?? {}
+      const textMeta = textualPayload(c as any) ?? {}
       const text = typeof textMeta.text === 'string' ? textMeta.text : ''
       const lang = typeof textMeta.language === 'string' ? textMeta.language : ''
       const script = typeof textMeta.script === 'string' ? textMeta.script : undefined
+      const rep = typeof textMeta.representation === 'string' ? textMeta.representation : ''
       if (lang === 'id' || lang === 'ind' || lang === 'indonesian') {
         indonesianText = { language: lang, text, datasetId: c.id }
       } else if (lang === 'en' || lang === 'eng' || lang === 'english') {
@@ -613,7 +622,7 @@ export async function getDynamicCorpusCatalog(): Promise<DynamicCorpusCatalog> {
       }>()
 
       for (const dataset of datasets) {
-        const meta = getDatasetFriendlyMeta(dataset.manifest.id, dataset.manifest)
+        const meta = getDatasetFriendlyMeta(dataset.manifest.id, dataset.manifest as any)
         const dId = dataset.manifest.id.toLowerCase()
 
         // Resolve tradition entity:
@@ -665,7 +674,7 @@ export async function getDynamicCorpusCatalog(): Promise<DynamicCorpusCatalog> {
           const enLabel = entityRecord.labels.find((l) => l.language === 'en' && l.role === 'preferred')?.value
           traditionName = idLabel ? `Tradisi ${idLabel}` : enLabel ? `Tradisi ${enLabel}` : traditionName
 
-          const native = entityRecord.labels.find((l) => ['ar', 'sa', 'he', 'pi', 'zh', 'el'].includes(l.language) && l.role === 'preferred')?.value
+          const native = entityRecord.labels.find((l) => l.language && ['ar', 'sa', 'he', 'pi', 'zh', 'el'].includes(l.language) && l.role === 'preferred')?.value
           nativeName = native
         }
 

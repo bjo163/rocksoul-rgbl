@@ -1,0 +1,28 @@
+{
+  "id": "mw:dataset:bahai:hidden-words",
+  "datasetVersion": "0.1.0",
+  "specVersion": "0.2",
+  "profiles": [
+    "textual@0.1",
+    "source@0.1"
+  ],
+  "partitions": [
+    {
+      "recordType": "entity",
+      "path": "data/core/entities/*.jsonl"
+    },
+    {
+      "recordType": "resource",
+      "path": "data/core/resources/*.jsonl"
+    },
+    {
+      "recordType": "provenance",
+      "path": "data/core/provenance/*.jsonl"
+    }
+  ],
+  "sources": [
+    "The Hidden Words (Kalimat-i-Maknunih) of Baha'u'llah in Arabic and Persian with Shoghi Effendi translations."
+  ],
+  "rights": "CC0-1.0; Public domain sacred Baha'i writings; translation by Shoghi Effendi in public domain.",
+  "availability": "bundled"
+}

@@ -69,19 +69,73 @@ if (command === 'validate') {
   const repository = await FileSystemCorpusRepository.open(process.cwd())
   const results = await repository.search({ text, limit: integerOption('--limit', 20) })
   for (const result of results) console.log(JSON.stringify(result))
-} else if (command === 'passage') {
-  const reference = args[0]
-  if (!reference) throw new Error('Usage: moonwitness-corpus passage <reference> [--scheme <canonical-id>] [--container <canonical-id>] [--limit <n>]')
-  const scheme = canonicalOption('--scheme')
-  const container = canonicalOption('--container')
-  const repository = await FileSystemCorpusRepository.open(process.cwd())
-  const matches = await repository.lookupPassages({
-    reference,
-    scheme,
-    container,
-    limit: integerOption('--limit', 20)
-  })
-  for (const match of matches) console.log(JSON.stringify(match))
+} else if (command === 'read') {
+  const scripture = args[0]
+  const ref = args[1]
+  if (!scripture) throw new Error('Usage: moonwitness-corpus read <scripture> [chapter:verse]')
+
+  const queryId = ref ? `${scripture}:${ref}` : scripture
+  const dbPath = path.join(process.cwd(), 'dist/corpus.sqlite')
+  const { SqliteCorpusRepository } = await import('@moonwitness/corpus-node')
+  const repo = SqliteCorpusRepository.open(dbPath)
+
+  let resolvedId = queryId.startsWith('mw:') ? queryId : `mw:passage:${queryId}`
+  if (queryId.startsWith('bhagavad-gita:') || queryId.startsWith('gita:')) {
+    resolvedId = `mw:passage:hinduism:bhagavad-gita:${queryId.split(':').slice(1).join(':')}`
+  } else if (queryId.startsWith('yoga-sutras:') || queryId.startsWith('yoga:')) {
+    resolvedId = `mw:passage:hinduism:yoga-sutras:${queryId.split(':').slice(1).join(':')}`
+  } else if (queryId.startsWith('upanishad:') || queryId.startsWith('upanishads:')) {
+    const parts = queryId.split(':').slice(1)
+    resolvedId = `mw:passage:hinduism:principal-upanishads:${parts.join(':')}`
+  } else if (queryId.startsWith('isha:')) {
+    resolvedId = `mw:passage:hinduism:principal-upanishads:isha:${queryId.split(':').pop()}`
+  } else if (queryId.startsWith('katha:')) {
+    resolvedId = `mw:passage:hinduism:principal-upanishads:katha:${queryId.split(':').slice(1).join('_')}`
+  } else if (queryId.startsWith('mandukya:')) {
+    resolvedId = `mw:passage:hinduism:principal-upanishads:mandukya:${queryId.split(':').pop()}`
+  } else if (queryId.startsWith('japji:') || queryId.startsWith('japji-sahib:') || queryId.startsWith('sikh:')) {
+    const rawRef = queryId.split(':').slice(1).join(':')
+    const formatted = rawRef === '1' ? 'pauri_1' : (rawRef === '2' ? 'pauri_2' : (rawRef === 'mool' ? 'mool_mantar' : rawRef))
+    resolvedId = `mw:passage:sikhism:japji-sahib:${formatted}`
+  } else if (queryId.startsWith('tattvartha:') || queryId.startsWith('tattvartha-sutra:') || queryId.startsWith('jain:')) {
+    resolvedId = `mw:passage:jainism:tattvartha-sutra:${queryId.split(':').slice(1).join('_')}`
+  } else if (queryId.startsWith('hidden-words:') || queryId.startsWith('bahai:')) {
+    const rawRef = queryId.split(':').slice(1).join(':')
+    const formatted = rawRef.startsWith('ar') ? `arabic_${rawRef.replace(/[^0-9]/g, '')}` : (rawRef.startsWith('fa') ? `persian_${rawRef.replace(/[^0-9]/g, '')}` : (rawRef.includes('_') ? rawRef : `arabic_${rawRef}`))
+    resolvedId = `mw:passage:bahai:hidden-words:${formatted}`
+  } else if (queryId.startsWith('hadith-muslim:') || queryId.startsWith('sahih-muslim:') || queryId.startsWith('muslim:')) {
+    resolvedId = `mw:passage:hadith:muslim:${queryId.split(':').pop()}`
+  } else if (queryId.startsWith('hadith-bukhari:') || queryId.startsWith('sahih-bukhari:') || queryId.startsWith('bukhari:')) {
+    resolvedId = `mw:passage:hadith:bukhari:${queryId.split(':').pop()}`
+  } else if (queryId.startsWith('tao-te-ching:') || queryId.startsWith('tao:')) {
+    resolvedId = `mw:passage:taoism:tao-te-ching:${queryId.split(':').slice(1).join(':')}`
+  } else if (queryId.startsWith('analects:') || queryId.startsWith('lunyu:')) {
+    resolvedId = `mw:passage:confucianism:analects:${queryId.split(':').slice(1).join(':')}`
+  } else if (queryId.startsWith('gathas:') || queryId.startsWith('yasna:')) {
+    resolvedId = `mw:passage:zoroastrianism:gathas:${queryId.split(':').slice(1).join(':')}`
+  } else if (queryId.startsWith('hadith-nawawi:') || queryId.startsWith('hadith-nawawi-40:') || queryId.startsWith('hadith:nawawi-40:') || queryId.startsWith('nawawi:')) {
+    resolvedId = `mw:passage:hadith:nawawi-40:${queryId.split(':').pop()}`
+  } else if (queryId.startsWith('kojiki:') || queryId.startsWith('shinto:')) {
+    resolvedId = `mw:passage:shinto:kojiki:${queryId.split(':').slice(1).join(':')}`
+  }
+
+  const result = repo.getPassageWithContents(resolvedId as any)
+  if (!result) {
+    console.error(`Passage not found for: ${queryId} (${resolvedId})`)
+    process.exitCode = 1
+  } else {
+    const label = result.passage.labels?.[0]?.value || result.passage.id
+    console.log(`\n================================================================`)
+    console.log(`📖 ${label}`)
+    console.log(`================================================================`)
+    for (const c of result.contents) {
+      const ext = (c as any).extensions?.textual ?? {}
+      const lang = (ext.language || '').toUpperCase()
+      console.log(`\n[${lang}]:\n${ext.text || ''}`)
+    }
+    console.log(`\n----------------------------------------------------------------\n`)
+  }
+  repo.close()
 } else {
-  console.log('Usage: moonwitness-corpus <validate|checksum|ingest|get|search|passage>')
+  console.log('Usage: moonwitness-corpus <validate|checksum|ingest|get|search|passage|read>')
 }

@@ -160,6 +160,71 @@
       "id": "mw:dataset:lexicon:sanskrit-hindu-core",
       "path": "datasets/sanskrit-hindu-lexicon",
       "status": "supplemental"
+    },
+    {
+      "id": "mw:dataset:islam:asmaul-husna-99",
+      "path": "datasets/asmaul-husna-99",
+      "status": "supplemental"
+    },
+    {
+      "id": "mw:dataset:islam:duas-authentic",
+      "path": "datasets/islamic-duas-authentic",
+      "status": "supplemental"
+    },
+    {
+      "id": "mw:dataset:hadith:bukhari",
+      "path": "datasets/hadith-bukhari",
+      "status": "supplemental"
+    },
+    {
+      "id": "mw:dataset:hadith:muslim",
+      "path": "datasets/hadith-muslim",
+      "status": "supplemental"
+    },
+    {
+      "id": "mw:dataset:taoism:tao-te-ching",
+      "path": "datasets/tao-te-ching",
+      "status": "supplemental"
+    },
+    {
+      "id": "mw:dataset:confucianism:analects",
+      "path": "datasets/analects-confucius",
+      "status": "supplemental"
+    },
+    {
+      "id": "mw:dataset:hinduism:yoga-sutras",
+      "path": "datasets/yoga-sutras",
+      "status": "supplemental"
+    },
+    {
+      "id": "mw:dataset:hinduism:principal-upanishads",
+      "path": "datasets/principal-upanishads",
+      "status": "supplemental"
+    },
+    {
+      "id": "mw:dataset:zoroastrianism:gathas",
+      "path": "datasets/gathas-zarathustra",
+      "status": "supplemental"
+    },
+    {
+      "id": "mw:dataset:sikhism:japji-sahib",
+      "path": "datasets/sikhism-japji-sahib",
+      "status": "supplemental"
+    },
+    {
+      "id": "mw:dataset:jainism:tattvartha-sutra",
+      "path": "datasets/jainism-tattvartha-sutra",
+      "status": "supplemental"
+    },
+    {
+      "id": "mw:dataset:bahai:hidden-words",
+      "path": "datasets/bahai-hidden-words",
+      "status": "supplemental"
+    },
+    {
+      "id": "mw:dataset:shinto:kojiki",
+      "path": "datasets/shinto-kojiki-baseline",
+      "status": "supplemental"
     }
   ]
 }

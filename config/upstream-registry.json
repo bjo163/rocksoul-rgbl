@@ -1,0 +1,241 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "version": "1.0.0",
+  "title": "MoonWitness Universal Scripture Upstream System Registry",
+  "description": "Authoritative registry of official upstream repository URLs, API endpoints, git remotes, and open-data feeds across all 12 world religions.",
+  "traditions": {
+    "islam": {
+      "name": "Islam (Islamic Canonical Heritage)",
+      "primaryLanguage": "ar",
+      "scripts": ["Arab"],
+      "endpoints": [
+        {
+          "id": "ummah-api",
+          "name": "UmmahAPI Unified Islamic Endpoint",
+          "type": "rest_api",
+          "baseUrl": "https://ummahapi.com/api",
+          "authType": "header",
+          "authHeader": "x-api-key",
+          "authEnv": "UMMAH_API_KEY",
+          "license": "CC0-1.0",
+          "collections": [
+            { "name": "quran", "path": "/quran", "desc": "114 Surahs, Uthmani script & translations" },
+            { "name": "bukhari", "path": "/hadith/bukhari", "desc": "Sahih al-Bukhari (7,580 hadiths)" },
+            { "name": "muslim", "path": "/hadith/muslim", "desc": "Sahih Muslim (7,360 hadiths)" },
+            { "name": "nawawi", "path": "/hadith/nawawi", "desc": "An-Nawawi 40 Hadiths (42 hadiths)" },
+            { "name": "qudsi", "path": "/hadith/qudsi", "desc": "40 Hadith Qudsi" },
+            { "name": "abudawud", "path": "/hadith/abudawud", "desc": "Sunan Abu Dawud (5,272 hadiths)" },
+            { "name": "tirmidhi", "path": "/hadith/tirmidhi", "desc": "Jami at-Tirmidhi (3,926 hadiths)" },
+            { "name": "nasai", "path": "/hadith/nasai", "desc": "Sunan an-Nasa'i (5,679 hadiths)" },
+            { "name": "ibnmajah", "path": "/hadith/ibnmajah", "desc": "Sunan Ibn Majah (4,340 hadiths)" },
+            { "name": "malik", "path": "/hadith/malik", "desc": "Muwatta Malik (1,829 hadiths)" },
+            { "name": "duas", "path": "/duas", "desc": "126 Authentic Supplications (Hisnul Muslim)" },
+            { "name": "names", "path": "/names", "desc": "Asmaul Husna & Sacred Attributes" }
+          ]
+        },
+        {
+          "id": "tanzil-quran",
+          "name": "Tanzil Project Uthmani Quran",
+          "type": "raw_archive",
+          "url": "https://tanzil.net/pub/download/quran-uthmani.txt",
+          "license": "CC-BY-3.0"
+        },
+        {
+          "id": "quranenc",
+          "name": "QuranEnc Translation Center",
+          "type": "rest_api",
+          "baseUrl": "https://quranenc.com/api/v1/translation",
+          "license": "CC-BY-3.0"
+        }
+      ]
+    },
+    "judaism": {
+      "name": "Judaism (Tanakh, Mishnah & Talmud)",
+      "primaryLanguage": "he",
+      "scripts": ["Hebr"],
+      "endpoints": [
+        {
+          "id": "sefaria-api",
+          "name": "Sefaria Living Library of Jewish Texts",
+          "type": "rest_api",
+          "baseUrl": "https://www.sefaria.org/api",
+          "authType": "none",
+          "license": "CC-BY-SA-3.0",
+          "collections": [
+            { "name": "tanakh", "path": "/texts/Tanakh", "desc": "Complete Hebrew Bible (Torah, Nevi'im, Ketuvim)" },
+            { "name": "mishnah", "path": "/texts/Mishnah", "desc": "Six Orders of the Mishnah" },
+            { "name": "talmud", "path": "/texts/Talmud", "desc": "Babylonian & Jerusalem Talmud" }
+          ]
+        },
+        {
+          "id": "oshb-wlc",
+          "name": "Open Scriptures Hebrew Bible (Westminster Leningrad Codex)",
+          "type": "git_repo",
+          "repoUrl": "https://github.com/openscriptures/morphhb.git",
+          "license": "CC-BY-4.0"
+        }
+      ]
+    },
+    "christianity": {
+      "name": "Christianity (Greek NT & Patristics)",
+      "primaryLanguage": "grc",
+      "scripts": ["Grek", "Latn"],
+      "endpoints": [
+        {
+          "id": "sblgnt",
+          "name": "Society of Biblical Literature Greek New Testament",
+          "type": "git_repo",
+          "repoUrl": "https://github.com/logos/sblgnt.git",
+          "license": "CC-BY-4.0"
+        },
+        {
+          "id": "perseus-patristics",
+          "name": "Perseus Digital Library Early Christian Writings",
+          "type": "raw_archive",
+          "baseUrl": "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit",
+          "license": "CC-BY-SA-3.0"
+        }
+      ]
+    },
+    "hinduism": {
+      "name": "Hinduism (Vedas, Upanishads & Gita)",
+      "primaryLanguage": "sa",
+      "scripts": ["Deva", "Latn"],
+      "endpoints": [
+        {
+          "id": "gretil-vedic",
+          "name": "GRETIL Göttingen Sanskrit e-Text Archive",
+          "type": "raw_archive",
+          "baseUrl": "https://gretil.sub.uni-goettingen.de/gretil/1_sanskr",
+          "license": "Public Domain"
+        },
+        {
+          "id": "gita-open-data",
+          "name": "Bhagavad Gita Classical Sanskrit & Multilingual API",
+          "type": "git_repo",
+          "repoUrl": "https://github.com/gita/gita.git",
+          "license": "CC0-1.0"
+        }
+      ]
+    },
+    "buddhism": {
+      "name": "Buddhism (Tipitaka & Suttas)",
+      "primaryLanguage": "pli",
+      "scripts": ["Latn", "Deva"],
+      "endpoints": [
+        {
+          "id": "suttacentral-bilara",
+          "name": "SuttaCentral Bilara Open Pali Canon",
+          "type": "git_repo",
+          "repoUrl": "https://github.com/suttacentral/bilara-data.git",
+          "license": "CC0-1.0",
+          "collections": [
+            { "name": "dhammapada", "desc": "423 Verses of the Dhammapada (Pali + Bhikkhu Sujato)" },
+            { "name": "digha-nikaya", "desc": "34 Long Discourses (DN)" },
+            { "name": "majjhima-nikaya", "desc": "152 Middle-length Discourses (MN)" },
+            { "name": "samyutta-nikaya", "desc": "Connected Discourses (SN)" },
+            { "name": "anguttara-nikaya", "desc": "Numbered Discourses (AN)" }
+          ]
+        }
+      ]
+    },
+    "daoism": {
+      "name": "Daoism (Tao Te Ching & Zhuangzi)",
+      "primaryLanguage": "lzh",
+      "scripts": ["Hani"],
+      "endpoints": [
+        {
+          "id": "ctext-daoism",
+          "name": "Chinese Text Project Daoism Collection",
+          "type": "rest_api",
+          "baseUrl": "https://ctext.org/api.pl",
+          "license": "Public Domain"
+        }
+      ]
+    },
+    "confucianism": {
+      "name": "Confucianism (Analects & Four Books)",
+      "primaryLanguage": "lzh",
+      "scripts": ["Hani"],
+      "endpoints": [
+        {
+          "id": "ctext-confucianism",
+          "name": "Chinese Text Project Confucian Classics",
+          "type": "rest_api",
+          "baseUrl": "https://ctext.org/api.pl",
+          "license": "Public Domain"
+        }
+      ]
+    },
+    "zoroastrianism": {
+      "name": "Zoroastrianism (Avesta & Gathas)",
+      "primaryLanguage": "ae",
+      "scripts": ["Avst", "Latn"],
+      "endpoints": [
+        {
+          "id": "avesta-archive",
+          "name": "Avesta.org Digital Archive",
+          "type": "raw_archive",
+          "baseUrl": "http://www.avesta.org",
+          "license": "Public Domain"
+        }
+      ]
+    },
+    "sikhism": {
+      "name": "Sikhism (Guru Granth Sahib & Japji Sahib)",
+      "primaryLanguage": "pa",
+      "scripts": ["Guru"],
+      "endpoints": [
+        {
+          "id": "shabados",
+          "name": "ShabadOS Open Guru Granth Sahib Database",
+          "type": "git_repo",
+          "repoUrl": "https://github.com/shabados/database.git",
+          "license": "GPL-3.0"
+        }
+      ]
+    },
+    "jainism": {
+      "name": "Jainism (Tattvartha Sutra & Agamas)",
+      "primaryLanguage": "sa",
+      "scripts": ["Deva"],
+      "endpoints": [
+        {
+          "id": "jain-heritage",
+          "name": "Jain Heritage Open Library & Gretil Jain Section",
+          "type": "raw_archive",
+          "baseUrl": "https://jainlibrary.org",
+          "license": "Public Domain"
+        }
+      ]
+    },
+    "bahai": {
+      "name": "Bahá'í (The Hidden Words & Sacred Writings)",
+      "primaryLanguage": "ar",
+      "scripts": ["Arab", "Latn"],
+      "endpoints": [
+        {
+          "id": "bahai-library",
+          "name": "Bahá'í Reference Library Digital Archive",
+          "type": "raw_archive",
+          "baseUrl": "https://www.bahai.org/library",
+          "license": "Public Domain"
+        }
+      ]
+    },
+    "shinto": {
+      "name": "Shinto (Kojiki & Nihon Shoki)",
+      "primaryLanguage": "ja",
+      "scripts": ["Jpan", "Latn"],
+      "endpoints": [
+        {
+          "id": "sacred-texts-shinto",
+          "name": "Internet Sacred Text Archive (Shinto Section)",
+          "type": "raw_archive",
+          "baseUrl": "https://sacred-texts.com/shi",
+          "license": "Public Domain"
+        }
+      ]
+    }
+  }
+}

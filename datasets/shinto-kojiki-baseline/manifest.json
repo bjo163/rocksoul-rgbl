@@ -1,0 +1,28 @@
+{
+  "id": "mw:dataset:shinto:kojiki",
+  "datasetVersion": "0.1.0",
+  "specVersion": "0.2",
+  "profiles": [
+    "textual@0.1",
+    "source@0.1"
+  ],
+  "partitions": [
+    {
+      "recordType": "entity",
+      "path": "data/core/entities/*.jsonl"
+    },
+    {
+      "recordType": "resource",
+      "path": "data/core/resources/*.jsonl"
+    },
+    {
+      "recordType": "provenance",
+      "path": "data/core/provenance/*.jsonl"
+    }
+  ],
+  "sources": [
+    "Sacred Texts Archive — Kojiki (712 CE), Translated by Basil Hall Chamberlain (1882)"
+  ],
+  "rights": "CC0-1.0; Public domain classical Shinto Kojiki chronicle.",
+  "availability": "bundled"
+}

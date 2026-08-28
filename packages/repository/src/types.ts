@@ -79,6 +79,7 @@ export interface AssertionEvidenceTraversal {
 
 export interface CorpusSearchQuery {
   text?: string
+  tradition?: string
   recordTypes?: CorpusRecordType[]
   kinds?: string[]
   datasetIds?: CanonicalId[]

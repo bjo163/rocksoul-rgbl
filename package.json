@@ -21,8 +21,21 @@
     "release:version": "tsx scripts/apply-release-plan.ts",
     "release:publish": "tsx scripts/publish-npm.ts",
     "release:publish:dry-run": "tsx scripts/publish-npm.ts --dry-run",
-    "check": "pnpm typecheck && pnpm test && pnpm validate && pnpm build && pnpm release:verify && pnpm release:publish:dry-run",
-    "materialize:p5": "tsx scripts/materialize-p5-datasets.ts"
+    "check": "pnpm build:sqlite && pnpm typecheck && pnpm test && pnpm validate && pnpm build && pnpm release:verify && pnpm release:publish:dry-run",
+    "materialize:p5": "tsx scripts/materialize-p5-datasets.ts",
+    "export:app-seeds": "tsx scripts/export-app-seeds.ts",
+    "build:sqlite": "tsx scripts/build-sqlite-database.ts",
+    "benchmark": "tsx scripts/benchmark-corpus.ts",
+    "sync:all": "tsx scripts/sync-all-upstream.ts",
+    "sync:upstream": "tsx scripts/sync-upstream-sources.ts",
+    "sync:ummah": "tsx scripts/sync-ummah-upstream.ts",
+    "upstream:list": "tsx scripts/upstream-manager.ts list",
+    "upstream:audit": "tsx scripts/upstream-manager.ts audit",
+    "fetch:upstream": "tsx scripts/fetch-upstream-scriptures.ts",
+    "ingest:ummah": "tsx scripts/ingest-ummah-api.ts",
+    "serve": "tsx apps/api/src/server.ts",
+    "api:dev": "pnpm --filter @moonwitness/corpus-api dev",
+    "cli": "tsx packages/cli/src/cli.ts"
   },
   "devDependencies": {
     "@moonwitness/corpus-build": "workspace:*",

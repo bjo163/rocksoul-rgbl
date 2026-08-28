@@ -1,0 +1,1012 @@
+{
+  "total": 210,
+  "page": 1,
+  "limit": 100,
+  "total_pages": 3,
+  "filters": {
+    "gender": null,
+    "origin": null
+  },
+  "names": [
+    {
+      "id": 1,
+      "name": "Muhammad",
+      "arabic": "مُحَمَّد",
+      "gender": "male",
+      "meaning": "Praised, commendable",
+      "origin": "Arabic",
+      "root": "ح م د",
+      "note": "The name of the Final Prophet (ﷺ). Most common Islamic name worldwide."
+    },
+    {
+      "id": 2,
+      "name": "Ahmad",
+      "arabic": "أَحْمَد",
+      "gender": "male",
+      "meaning": "Most praiseworthy",
+      "origin": "Arabic",
+      "root": "ح م د",
+      "note": "Another name of the Prophet (ﷺ) mentioned in the Quran (61:6)."
+    },
+    {
+      "id": 3,
+      "name": "Ali",
+      "arabic": "عَلِيّ",
+      "gender": "male",
+      "meaning": "Elevated, exalted, noble",
+      "origin": "Arabic",
+      "root": "ع ل و",
+      "note": "Name of the fourth Caliph and cousin of the Prophet (ﷺ)."
+    },
+    {
+      "id": 4,
+      "name": "Umar",
+      "arabic": "عُمَر",
+      "gender": "male",
+      "meaning": "Long-lived, flourishing life",
+      "origin": "Arabic",
+      "root": "ع م ر",
+      "note": "Name of the second Caliph, Umar ibn al-Khattab (رضي الله عنه)."
+    },
+    {
+      "id": 5,
+      "name": "Uthman",
+      "arabic": "عُثْمَان",
+      "gender": "male",
+      "meaning": "Baby bustard, loyal companion",
+      "origin": "Arabic",
+      "root": "ع ث م",
+      "note": "Name of the third Caliph, Uthman ibn Affan (رضي الله عنه)."
+    },
+    {
+      "id": 6,
+      "name": "Abu Bakr",
+      "arabic": "أَبُو بَكْر",
+      "gender": "male",
+      "meaning": "Father of the young camel; father of Bakr",
+      "origin": "Arabic",
+      "root": "ب ك ر",
+      "note": "Kunya of the first Caliph, Abdallah ibn Abi Quhafa (رضي الله عنه)."
+    },
+    {
+      "id": 7,
+      "name": "Ibrahim",
+      "arabic": "إِبْرَاهِيم",
+      "gender": "male",
+      "meaning": "Father of many nations",
+      "origin": "Hebrew/Arabic",
+      "root": null,
+      "note": "Prophet Abraham (عليه السلام), called Khalilullah (Friend of Allah)."
+    },
+    {
+      "id": 8,
+      "name": "Ismail",
+      "arabic": "إِسْمَاعِيل",
+      "gender": "male",
+      "meaning": "God will hear",
+      "origin": "Hebrew/Arabic",
+      "root": null,
+      "note": "Son of Prophet Ibrahim (عليه السلام), ancestor of the Arabs."
+    },
+    {
+      "id": 9,
+      "name": "Yusuf",
+      "arabic": "يُوسُف",
+      "gender": "male",
+      "meaning": "God increases, God will add",
+      "origin": "Hebrew/Arabic",
+      "root": null,
+      "note": "Prophet Joseph (عليه السلام), his story is told in Surah Yusuf."
+    },
+    {
+      "id": 10,
+      "name": "Hassan",
+      "arabic": "حَسَن",
+      "gender": "male",
+      "meaning": "Good, beautiful, handsome",
+      "origin": "Arabic",
+      "root": "ح س ن",
+      "note": "Grandson of the Prophet (ﷺ), son of Ali and Fatima."
+    },
+    {
+      "id": 11,
+      "name": "Hussain",
+      "arabic": "حُسَيْن",
+      "gender": "male",
+      "meaning": "Good, beautiful (diminutive)",
+      "origin": "Arabic",
+      "root": "ح س ن",
+      "note": "Grandson of the Prophet (ﷺ), son of Ali and Fatima, martyred at Karbala."
+    },
+    {
+      "id": 12,
+      "name": "Abdullah",
+      "arabic": "عَبْدُ اللّٰه",
+      "gender": "male",
+      "meaning": "Servant of Allah",
+      "origin": "Arabic",
+      "root": "ع ب د",
+      "note": "The name of the Prophet's (ﷺ) father. Most virtuous compound name."
+    },
+    {
+      "id": 13,
+      "name": "Abdul Rahman",
+      "arabic": "عَبْدُ الرَّحْمَن",
+      "gender": "male",
+      "meaning": "Servant of the Most Merciful",
+      "origin": "Arabic",
+      "root": "ع ب د",
+      "note": "One of the most beloved names to Allah according to hadith."
+    },
+    {
+      "id": 14,
+      "name": "Khalid",
+      "arabic": "خَالِد",
+      "gender": "male",
+      "meaning": "Eternal, immortal, everlasting",
+      "origin": "Arabic",
+      "root": "خ ل د",
+      "note": "Name of the famous Companion and general Khalid ibn al-Walid."
+    },
+    {
+      "id": 15,
+      "name": "Bilal",
+      "arabic": "بِلَال",
+      "gender": "male",
+      "meaning": "Moisture, freshness, water",
+      "origin": "Arabic",
+      "root": "ب ل ل",
+      "note": "Bilal ibn Rabah (رضي الله عنه), the first muezzin of Islam."
+    },
+    {
+      "id": 16,
+      "name": "Salman",
+      "arabic": "سَلْمَان",
+      "gender": "male",
+      "meaning": "Safe, peaceful, sound",
+      "origin": "Arabic",
+      "root": "س ل م",
+      "note": "Salman al-Farisi (رضي الله عنه), the Persian Companion of the Prophet (ﷺ)."
+    },
+    {
+      "id": 17,
+      "name": "Tariq",
+      "arabic": "طَارِق",
+      "gender": "male",
+      "meaning": "Morning star, night visitor",
+      "origin": "Arabic",
+      "root": "ط ر ق",
+      "note": "Named after the star. Also the name of the Andalusian conqueror Tariq ibn Ziyad."
+    },
+    {
+      "id": 18,
+      "name": "Zayd",
+      "arabic": "زَيْد",
+      "gender": "male",
+      "meaning": "Growth, abundance, increase",
+      "origin": "Arabic",
+      "root": "ز ي د",
+      "note": "Zayd ibn Haritha (رضي الله عنه), the adopted son of the Prophet (ﷺ)."
+    },
+    {
+      "id": 19,
+      "name": "Hamza",
+      "arabic": "حَمْزَة",
+      "gender": "male",
+      "meaning": "Lion, steadfast, strong",
+      "origin": "Arabic",
+      "root": "ح م ز",
+      "note": "Uncle of the Prophet (ﷺ), known as the 'Lion of Allah', martyred at Uhud."
+    },
+    {
+      "id": 20,
+      "name": "Musa",
+      "arabic": "مُوسَى",
+      "gender": "male",
+      "meaning": "Drawn from the water",
+      "origin": "Hebrew/Arabic",
+      "root": null,
+      "note": "Prophet Moses (عليه السلام), most mentioned prophet in the Quran."
+    },
+    {
+      "id": 21,
+      "name": "Isa",
+      "arabic": "عِيسَى",
+      "gender": "male",
+      "meaning": "Allah saves",
+      "origin": "Aramaic/Arabic",
+      "root": null,
+      "note": "Prophet Jesus (عليه السلام), born of Maryam (Mary), called Ruhullah (Spirit of Allah)."
+    },
+    {
+      "id": 22,
+      "name": "Yahya",
+      "arabic": "يَحْيَى",
+      "gender": "male",
+      "meaning": "He lives, God is gracious",
+      "origin": "Arabic",
+      "root": "ح ي ي",
+      "note": "Prophet John the Baptist (عليه السلام), son of Zakariya."
+    },
+    {
+      "id": 23,
+      "name": "Dawud",
+      "arabic": "دَاوُود",
+      "gender": "male",
+      "meaning": "Beloved",
+      "origin": "Hebrew/Arabic",
+      "root": null,
+      "note": "Prophet David (عليه السلام), king and prophet, to whom the Psalms (Zabur) were revealed."
+    },
+    {
+      "id": 24,
+      "name": "Sulayman",
+      "arabic": "سُلَيْمَان",
+      "gender": "male",
+      "meaning": "Peaceful, man of peace",
+      "origin": "Hebrew/Arabic",
+      "root": null,
+      "note": "Prophet Solomon (عليه السلام), son of Dawud, who was given power over jinn and animals."
+    },
+    {
+      "id": 25,
+      "name": "Idris",
+      "arabic": "إِدْرِيس",
+      "gender": "male",
+      "meaning": "Studious, learner",
+      "origin": "Arabic",
+      "root": "د ر س",
+      "note": "Prophet Enoch (عليه السلام), mentioned in the Quran as a man of truth and a prophet."
+    },
+    {
+      "id": 26,
+      "name": "Nuh",
+      "arabic": "نُوح",
+      "gender": "male",
+      "meaning": "Rest, comfort, repose",
+      "origin": "Hebrew/Arabic",
+      "root": null,
+      "note": "Prophet Noah (عليه السلام), builder of the Ark, one of the five Ulul Azm prophets."
+    },
+    {
+      "id": 27,
+      "name": "Adam",
+      "arabic": "آدَم",
+      "gender": "male",
+      "meaning": "Earth, man, skin",
+      "origin": "Hebrew/Arabic",
+      "root": null,
+      "note": "The first human and first prophet (عليه السلام), created from clay by Allah."
+    },
+    {
+      "id": 28,
+      "name": "Harun",
+      "arabic": "هَارُون",
+      "gender": "male",
+      "meaning": "Warrior, mountaineer",
+      "origin": "Hebrew/Arabic",
+      "root": null,
+      "note": "Prophet Aaron (عليه السلام), brother and helper of Musa."
+    },
+    {
+      "id": 29,
+      "name": "Ilyas",
+      "arabic": "إِلْيَاس",
+      "gender": "male",
+      "meaning": "My God is the Lord",
+      "origin": "Hebrew/Arabic",
+      "root": null,
+      "note": "Prophet Elijah (عليه السلام), mentioned in the Quran as one of the righteous."
+    },
+    {
+      "id": 30,
+      "name": "Zakariya",
+      "arabic": "زَكَرِيَّا",
+      "gender": "male",
+      "meaning": "Allah remembers, God recalled",
+      "origin": "Hebrew/Arabic",
+      "root": null,
+      "note": "Prophet Zechariah (عليه السلام), father of Yahya."
+    },
+    {
+      "id": 31,
+      "name": "Salih",
+      "arabic": "صَالِح",
+      "gender": "male",
+      "meaning": "Virtuous, righteous, pious",
+      "origin": "Arabic",
+      "root": "ص ل ح",
+      "note": "Prophet Salih (عليه السلام), sent to the people of Thamud."
+    },
+    {
+      "id": 32,
+      "name": "Hud",
+      "arabic": "هُود",
+      "gender": "male",
+      "meaning": "Repentance, guidance",
+      "origin": "Arabic",
+      "root": "ه و د",
+      "note": "Prophet Hud (عليه السلام), sent to the people of 'Ad. A surah is named after him."
+    },
+    {
+      "id": 33,
+      "name": "Shuaib",
+      "arabic": "شُعَيْب",
+      "gender": "male",
+      "meaning": "One who shows the way",
+      "origin": "Arabic",
+      "root": "ش ع ب",
+      "note": "Prophet Shu'ayb (عليه السلام), sent to the people of Madyan."
+    },
+    {
+      "id": 34,
+      "name": "Luqman",
+      "arabic": "لُقْمَان",
+      "gender": "male",
+      "meaning": "Wise, thoughtful",
+      "origin": "Arabic",
+      "root": "ل ق م",
+      "note": "A wise man mentioned in the Quran, whose advice to his son forms Surah Luqman."
+    },
+    {
+      "id": 35,
+      "name": "Ameen",
+      "arabic": "أَمِين",
+      "gender": "male",
+      "meaning": "Trustworthy, faithful, reliable",
+      "origin": "Arabic",
+      "root": "أ م ن",
+      "note": "A title of the Prophet (ﷺ) before prophethood. Means the Trustworthy One."
+    },
+    {
+      "id": 36,
+      "name": "Anas",
+      "arabic": "أَنَس",
+      "gender": "male",
+      "meaning": "Friendliness, intimacy, companionship",
+      "origin": "Arabic",
+      "root": "أ ن س",
+      "note": "Anas ibn Malik (رضي الله عنه), personal servant of the Prophet (ﷺ) for 10 years."
+    },
+    {
+      "id": 37,
+      "name": "Qasim",
+      "arabic": "قَاسِم",
+      "gender": "male",
+      "meaning": "Distributor, one who divides",
+      "origin": "Arabic",
+      "root": "ق س م",
+      "note": "Name of the Prophet's (ﷺ) first son, from whom his kunya Abu Qasim comes."
+    },
+    {
+      "id": 38,
+      "name": "Talha",
+      "arabic": "طَلْحَة",
+      "gender": "male",
+      "meaning": "Fruit-bearing tree, acacia tree",
+      "origin": "Arabic",
+      "root": "ط ل ح",
+      "note": "Talha ibn Ubaydillah (رضي الله عنه), one of the ten promised paradise."
+    },
+    {
+      "id": 39,
+      "name": "Zubayr",
+      "arabic": "زُبَيْر",
+      "gender": "male",
+      "meaning": "Brave, strong, man of iron",
+      "origin": "Arabic",
+      "root": "ز ب ر",
+      "note": "Al-Zubayr ibn al-Awwam (رضي الله عنه), one of the ten promised paradise."
+    },
+    {
+      "id": 40,
+      "name": "Muaz",
+      "arabic": "مُعَاذ",
+      "gender": "male",
+      "meaning": "Protected, one who seeks refuge",
+      "origin": "Arabic",
+      "root": "ع و ذ",
+      "note": "Muaz ibn Jabal (رضي الله عنه), highly knowledgeable Companion of the Prophet (ﷺ)."
+    },
+    {
+      "id": 41,
+      "name": "Walid",
+      "arabic": "وَلِيد",
+      "gender": "male",
+      "meaning": "Newborn, newly arrived",
+      "origin": "Arabic",
+      "root": "و ل د",
+      "note": "A classical Arabic name meaning one who is newly born or newly arrived."
+    },
+    {
+      "id": 42,
+      "name": "Faisal",
+      "arabic": "فَيْصَل",
+      "gender": "male",
+      "meaning": "Decisive, separator of right from wrong",
+      "origin": "Arabic",
+      "root": "ف ص ل",
+      "note": "Carries the meaning of a judge or arbitrator who separates truth from falsehood."
+    },
+    {
+      "id": 43,
+      "name": "Malik",
+      "arabic": "مَالِك",
+      "gender": "male",
+      "meaning": "Owner, king, master",
+      "origin": "Arabic",
+      "root": "م ل ك",
+      "note": "Malik ibn Anas (رحمه الله), founder of the Maliki school of Islamic law."
+    },
+    {
+      "id": 44,
+      "name": "Jamal",
+      "arabic": "جَمَال",
+      "gender": "male",
+      "meaning": "Beauty, elegance",
+      "origin": "Arabic",
+      "root": "ج م ل",
+      "note": "From the hadith: Allah is Beautiful and loves beauty."
+    },
+    {
+      "id": 45,
+      "name": "Imran",
+      "arabic": "عِمْرَان",
+      "gender": "male",
+      "meaning": "Prosperity, long life, population",
+      "origin": "Arabic",
+      "root": "ع م ر",
+      "note": "The father of Maryam (Mary), mother of Isa (عليه السلام). Surah Al-Imran is named after his family."
+    },
+    {
+      "id": 46,
+      "name": "Saad",
+      "arabic": "سَعْد",
+      "gender": "male",
+      "meaning": "Happiness, good fortune, luck",
+      "origin": "Arabic",
+      "root": "س ع د",
+      "note": "Saad ibn Abi Waqqas (رضي الله عنه), one of the ten promised paradise."
+    },
+    {
+      "id": 47,
+      "name": "Taha",
+      "arabic": "طَهٰ",
+      "gender": "male",
+      "meaning": "Pure, O man (Quranic letters)",
+      "origin": "Arabic",
+      "root": "ط ه",
+      "note": "Title of a surah (Surah 20). Often interpreted as a name or Quranic initials (huruf muqattaat)."
+    },
+    {
+      "id": 48,
+      "name": "Aziz",
+      "arabic": "عَزِيز",
+      "gender": "male",
+      "meaning": "Dear, mighty, powerful, respected",
+      "origin": "Arabic",
+      "root": "ع ز ز",
+      "note": "One of the 99 Names of Allah (Al-Aziz). Used as a personal name by Muslims."
+    },
+    {
+      "id": 49,
+      "name": "Kareem",
+      "arabic": "كَرِيم",
+      "gender": "male",
+      "meaning": "Generous, noble, magnanimous",
+      "origin": "Arabic",
+      "root": "ك ر م",
+      "note": "One of the 99 Names of Allah (Al-Kareem). Common personal name across the Muslim world."
+    },
+    {
+      "id": 50,
+      "name": "Rashid",
+      "arabic": "رَاشِد",
+      "gender": "male",
+      "meaning": "Rightly guided, on the right path",
+      "origin": "Arabic",
+      "root": "ر ش د",
+      "note": "One of the 99 Names of Allah (Al-Rashid). Reflects guidance and righteousness."
+    },
+    {
+      "id": 51,
+      "name": "Nasir",
+      "arabic": "نَاصِر",
+      "gender": "male",
+      "meaning": "Helper, supporter, protector",
+      "origin": "Arabic",
+      "root": "ن ص ر",
+      "note": "Reflects the concept of divine help and support in Islam."
+    },
+    {
+      "id": 52,
+      "name": "Nabil",
+      "arabic": "نَبِيل",
+      "gender": "male",
+      "meaning": "Noble, honorable, distinguished",
+      "origin": "Arabic",
+      "root": "ن ب ل",
+      "note": "A name reflecting nobility of character and lineage."
+    },
+    {
+      "id": 53,
+      "name": "Kamal",
+      "arabic": "كَمَال",
+      "gender": "male",
+      "meaning": "Perfection, completeness, excellence",
+      "origin": "Arabic",
+      "root": "ك م ل",
+      "note": "Represents the Islamic ideal of striving for excellence in character and deeds."
+    },
+    {
+      "id": 54,
+      "name": "Ayman",
+      "arabic": "أَيْمَن",
+      "gender": "male",
+      "meaning": "Blessed, righteous, right-handed",
+      "origin": "Arabic",
+      "root": "ي م ن",
+      "note": "Carries connotations of blessedness and good fortune."
+    },
+    {
+      "id": 55,
+      "name": "Faris",
+      "arabic": "فَارِس",
+      "gender": "male",
+      "meaning": "Knight, horseman, cavalier",
+      "origin": "Arabic",
+      "root": "ف ر س",
+      "note": "Traditionally associated with chivalry, bravery, and nobility."
+    },
+    {
+      "id": 56,
+      "name": "Ghalib",
+      "arabic": "غَالِب",
+      "gender": "male",
+      "meaning": "Victorious, dominant, conqueror",
+      "origin": "Arabic",
+      "root": "غ ل ب",
+      "note": "Reflects triumph and victory. Also the pen name of the great Urdu poet Mirza Ghalib."
+    },
+    {
+      "id": 57,
+      "name": "Jafar",
+      "arabic": "جَعْفَر",
+      "gender": "male",
+      "meaning": "Small stream, rivulet",
+      "origin": "Arabic",
+      "root": "ج ع ف",
+      "note": "Jafar ibn Abi Talib (رضي الله عنه), cousin of the Prophet (ﷺ), martyred at Mu'ta."
+    },
+    {
+      "id": 58,
+      "name": "Layth",
+      "arabic": "لَيْث",
+      "gender": "male",
+      "meaning": "Lion",
+      "origin": "Arabic",
+      "root": "ل ي ث",
+      "note": "A name symbolizing courage, strength, and bravery."
+    },
+    {
+      "id": 59,
+      "name": "Mansur",
+      "arabic": "مَنْصُور",
+      "gender": "male",
+      "meaning": "Victorious, helped by God",
+      "origin": "Arabic",
+      "root": "ن ص ر",
+      "note": "Reflects divine aid and victory given by Allah to the believer."
+    },
+    {
+      "id": 60,
+      "name": "Sabir",
+      "arabic": "صَابِر",
+      "gender": "male",
+      "meaning": "Patient, enduring, steadfast",
+      "origin": "Arabic",
+      "root": "ص ب ر",
+      "note": "Sabr (patience) is among the highest virtues in Islam. Allah is with the patient."
+    },
+    {
+      "id": 61,
+      "name": "Tawfiq",
+      "arabic": "تَوْفِيق",
+      "gender": "male",
+      "meaning": "Success, divine guidance, prosperity",
+      "origin": "Arabic",
+      "root": "و ف ق",
+      "note": "Refers to the success and guidance that comes from Allah alone."
+    },
+    {
+      "id": 62,
+      "name": "Haidar",
+      "arabic": "حَيْدَر",
+      "gender": "male",
+      "meaning": "Lion, powerful",
+      "origin": "Arabic",
+      "root": "ح ي د",
+      "note": "A title given to Ali ibn Abi Talib (رضي الله عنه) for his bravery."
+    },
+    {
+      "id": 63,
+      "name": "Furqan",
+      "arabic": "فُرْقَان",
+      "gender": "male",
+      "meaning": "Criterion, separator of truth from falsehood",
+      "origin": "Arabic",
+      "root": "ف ر ق",
+      "note": "A name of the Quran mentioned in Surah Al-Furqan (25). Refers to discernment."
+    },
+    {
+      "id": 64,
+      "name": "Rafiq",
+      "arabic": "رَفِيق",
+      "gender": "male",
+      "meaning": "Companion, gentle, kind friend",
+      "origin": "Arabic",
+      "root": "ر ف ق",
+      "note": "The Prophet (ﷺ) said: Allah is Rafiq (gentle) and loves gentleness in all things."
+    },
+    {
+      "id": 65,
+      "name": "Numan",
+      "arabic": "نُعْمَان",
+      "gender": "male",
+      "meaning": "Blood, grace, man of blessings",
+      "origin": "Arabic",
+      "root": "ن ع م",
+      "note": "Al-Numan ibn Bashir (رضي الله عنه), Companion of the Prophet (ﷺ)."
+    },
+    {
+      "id": 66,
+      "name": "Rida",
+      "arabic": "رِضَا",
+      "gender": "male",
+      "meaning": "Contentment, satisfaction, approval",
+      "origin": "Arabic",
+      "root": "ر ض ي",
+      "note": "Represents the Islamic ideal of being content with Allah's decree (Ridha bil qadha)."
+    },
+    {
+      "id": 67,
+      "name": "Sufyan",
+      "arabic": "سُفْيَان",
+      "gender": "male",
+      "meaning": "Swift, light-footed",
+      "origin": "Arabic",
+      "root": "س ف ن",
+      "note": "Sufyan al-Thawri (رحمه الله), one of the greatest scholars of hadith."
+    },
+    {
+      "id": 68,
+      "name": "Imad",
+      "arabic": "عِمَاد",
+      "gender": "male",
+      "meaning": "Pillar, support, backbone",
+      "origin": "Arabic",
+      "root": "ع م د",
+      "note": "Refers to being a pillar of strength and support."
+    },
+    {
+      "id": 69,
+      "name": "Ghazi",
+      "arabic": "غَازِي",
+      "gender": "male",
+      "meaning": "Warrior, one who fights in the way of Allah",
+      "origin": "Arabic",
+      "root": "غ ز و",
+      "note": "Historically given to warriors who fought for the defense of Islam."
+    },
+    {
+      "id": 70,
+      "name": "Bakr",
+      "arabic": "بَكْر",
+      "gender": "male",
+      "meaning": "Young camel, firstling, youthful",
+      "origin": "Arabic",
+      "root": "ب ك ر",
+      "note": "The name of a prominent Arab tribe. Abu Bakr's father's name was Abi Quhafa, but the kunya refers to Bakr."
+    },
+    {
+      "id": 71,
+      "name": "Jabir",
+      "arabic": "جَابِر",
+      "gender": "male",
+      "meaning": "Comforter, one who sets bones, restorer",
+      "origin": "Arabic",
+      "root": "ج ب ر",
+      "note": "Jabir ibn Abdullah (رضي الله عنه), Companion who narrated many hadiths."
+    },
+    {
+      "id": 72,
+      "name": "Kazim",
+      "arabic": "كَاظِم",
+      "gender": "male",
+      "meaning": "One who controls anger, who swallows rage",
+      "origin": "Arabic",
+      "root": "ك ظ م",
+      "note": "The Quran (3:134) praises those who suppress their anger. A great virtue in Islam."
+    },
+    {
+      "id": 73,
+      "name": "Rayan",
+      "arabic": "رَيَّان",
+      "gender": "male",
+      "meaning": "Luxuriant, watered, full of life",
+      "origin": "Arabic",
+      "root": "ر ي ي",
+      "note": "One of the gates of Jannah mentioned in hadith, entered by those who fast."
+    },
+    {
+      "id": 74,
+      "name": "Siraj",
+      "arabic": "سِرَاج",
+      "gender": "male",
+      "meaning": "Lamp, light, torch",
+      "origin": "Arabic",
+      "root": "س ر ج",
+      "note": "The Quran describes the Prophet (ﷺ) as Siraj Munir — a shining lamp (33:46)."
+    },
+    {
+      "id": 75,
+      "name": "Ziyad",
+      "arabic": "زِيَاد",
+      "gender": "male",
+      "meaning": "Growth, increase, abundance",
+      "origin": "Arabic",
+      "root": "ز ي د",
+      "note": "A classical Arabic name representing blessing and increase in all goodness."
+    },
+    {
+      "id": 76,
+      "name": "Talib",
+      "arabic": "طَالِب",
+      "gender": "male",
+      "meaning": "Seeker of knowledge, student",
+      "origin": "Arabic",
+      "root": "ط ل ب",
+      "note": "Seeking knowledge is an obligation in Islam. Abu Talib was the Prophet's (ﷺ) uncle."
+    },
+    {
+      "id": 77,
+      "name": "Marwan",
+      "arabic": "مَرْوَان",
+      "gender": "male",
+      "meaning": "Solid stone, flint",
+      "origin": "Arabic",
+      "root": "م ر و",
+      "note": "A classical name suggesting firmness and strength of character."
+    },
+    {
+      "id": 78,
+      "name": "Kamil",
+      "arabic": "كَامِل",
+      "gender": "male",
+      "meaning": "Complete, perfect, whole",
+      "origin": "Arabic",
+      "root": "ك م ل",
+      "note": "Represents the Islamic aspiration for completeness in faith and character."
+    },
+    {
+      "id": 79,
+      "name": "Badr",
+      "arabic": "بَدْر",
+      "gender": "male",
+      "meaning": "Full moon",
+      "origin": "Arabic",
+      "root": "ب د ر",
+      "note": "The Battle of Badr was the first major battle of Islam. The full moon symbolizes beauty and guidance."
+    },
+    {
+      "id": 80,
+      "name": "Dawoud",
+      "arabic": "دَاوُود",
+      "gender": "male",
+      "meaning": "Beloved",
+      "origin": "Hebrew/Arabic",
+      "root": null,
+      "note": "Alternate transliteration of Dawud. Prophet David (عليه السلام)."
+    },
+    {
+      "id": 81,
+      "name": "Harith",
+      "arabic": "حَارِث",
+      "gender": "male",
+      "meaning": "Ploughman, cultivator, farmer",
+      "origin": "Arabic",
+      "root": "ح ر ث",
+      "note": "A common pre-Islamic name retained in Islam. Associated with hard work and diligence."
+    },
+    {
+      "id": 82,
+      "name": "Murtada",
+      "arabic": "مُرْتَضَى",
+      "gender": "male",
+      "meaning": "Approved, the one who is satisfied",
+      "origin": "Arabic",
+      "root": "ر ض ي",
+      "note": "A name of Ali ibn Abi Talib (رضي الله عنه) meaning the one with whom Allah is pleased."
+    },
+    {
+      "id": 83,
+      "name": "Nawaf",
+      "arabic": "نَوَاف",
+      "gender": "male",
+      "meaning": "High, elevated, towering",
+      "origin": "Arabic",
+      "root": "ن و ف",
+      "note": "Represents elevation in status, character, and rank."
+    },
+    {
+      "id": 84,
+      "name": "Samir",
+      "arabic": "سَامِر",
+      "gender": "male",
+      "meaning": "Entertaining companion, one who converses at night",
+      "origin": "Arabic",
+      "root": "س م ر",
+      "note": "In Arabic tradition, Samir refers to a companion who entertains with stories."
+    },
+    {
+      "id": 85,
+      "name": "Ubayda",
+      "arabic": "عُبَيْدَة",
+      "gender": "male",
+      "meaning": "Servant (diminutive), little servant",
+      "origin": "Arabic",
+      "root": "ع ب د",
+      "note": "Abu Ubayda ibn al-Jarrah (رضي الله عنه), one of the ten promised paradise, the trustee of the Ummah."
+    },
+    {
+      "id": 86,
+      "name": "Waqas",
+      "arabic": "وَقَّاص",
+      "gender": "male",
+      "meaning": "Warrior, young and strong",
+      "origin": "Arabic",
+      "root": "و ق ص",
+      "note": "Related to Saad ibn Abi Waqqas (رضي الله عنه), one of the ten promised paradise."
+    },
+    {
+      "id": 87,
+      "name": "Yasin",
+      "arabic": "يَاسِين",
+      "gender": "male",
+      "meaning": "O man (Quranic letters)",
+      "origin": "Arabic",
+      "root": "ي س",
+      "note": "Title of Surah 36, sometimes called the heart of the Quran. Often interpreted as a name for the Prophet (ﷺ)."
+    },
+    {
+      "id": 88,
+      "name": "Zafar",
+      "arabic": "ظَفَر",
+      "gender": "male",
+      "meaning": "Victory, triumph, success",
+      "origin": "Arabic",
+      "root": "ظ ف ر",
+      "note": "A name reflecting triumph and victory, popular across the Muslim world."
+    },
+    {
+      "id": 89,
+      "name": "Ihsan",
+      "arabic": "إِحْسَان",
+      "gender": "male",
+      "meaning": "Excellence, perfection in worship",
+      "origin": "Arabic",
+      "root": "ح س ن",
+      "note": "In hadith Jibril, Ihsan is defined as worshipping Allah as if you see Him."
+    },
+    {
+      "id": 90,
+      "name": "Aqil",
+      "arabic": "عَاقِل",
+      "gender": "male",
+      "meaning": "Wise, intelligent, rational",
+      "origin": "Arabic",
+      "root": "ع ق ل",
+      "note": "Reflects the importance of reason and wisdom in Islamic thought."
+    },
+    {
+      "id": 91,
+      "name": "Bassam",
+      "arabic": "بَسَّام",
+      "gender": "male",
+      "meaning": "Smiling, one who always smiles",
+      "origin": "Arabic",
+      "root": "ب س م",
+      "note": "Smiling is a sunnah of the Prophet (ﷺ), who said a smile is charity."
+    },
+    {
+      "id": 92,
+      "name": "Dawlat",
+      "arabic": "دَوْلَت",
+      "gender": "male",
+      "meaning": "Wealth, state, good fortune",
+      "origin": "Arabic",
+      "root": "د و ل",
+      "note": "Common in South and Central Asian Muslim communities."
+    },
+    {
+      "id": 93,
+      "name": "Fadl",
+      "arabic": "فَضْل",
+      "gender": "male",
+      "meaning": "Grace, favor, bounty",
+      "origin": "Arabic",
+      "root": "ف ض ل",
+      "note": "Refers to the grace and bounty of Allah bestowed upon His servants."
+    },
+    {
+      "id": 94,
+      "name": "Hisham",
+      "arabic": "هِشَام",
+      "gender": "male",
+      "meaning": "Generous, crushing, breaking bread",
+      "origin": "Arabic",
+      "root": "ه ش م",
+      "note": "A name from a noble Arab tribe. Hisham ibn Abd al-Malik was an Umayyad caliph."
+    },
+    {
+      "id": 95,
+      "name": "Iqbal",
+      "arabic": "إِقْبَال",
+      "gender": "male",
+      "meaning": "Prosperity, good fortune, turning toward",
+      "origin": "Arabic/Urdu",
+      "root": "ق ب ل",
+      "note": "Muhammad Iqbal (رحمه الله), the great poet-philosopher of the Muslim world."
+    },
+    {
+      "id": 96,
+      "name": "Jibril",
+      "arabic": "جِبْرِيل",
+      "gender": "male",
+      "meaning": "Servant of Allah, mighty one of God",
+      "origin": "Hebrew/Arabic",
+      "root": null,
+      "note": "Angel Gabriel, the archangel who delivered revelation to the prophets."
+    },
+    {
+      "id": 97,
+      "name": "Mikail",
+      "arabic": "مِيكَائِيل",
+      "gender": "male",
+      "meaning": "He who is like God",
+      "origin": "Hebrew/Arabic",
+      "root": null,
+      "note": "Angel Michael, responsible for natural phenomena and sustenance according to Islamic tradition."
+    },
+    {
+      "id": 98,
+      "name": "Raed",
+      "arabic": "رَائِد",
+      "gender": "male",
+      "meaning": "Pioneer, leader, explorer",
+      "origin": "Arabic",
+      "root": "ر و د",
+      "note": "Represents leadership and being first in exploring new paths."
+    },
+    {
+      "id": 99,
+      "name": "Shafiq",
+      "arabic": "شَفِيق",
+      "gender": "male",
+      "meaning": "Compassionate, kind, tender",
+      "origin": "Arabic",
+      "root": "ش ف ق",
+      "note": "Compassion is a central virtue in Islam — the Quran begins with Bismillah al-Rahman al-Rahim."
+    },
+    {
+      "id": 100,
+      "name": "Wadud",
+      "arabic": "وَدُود",
+      "gender": "male",
+      "meaning": "Loving, affectionate, devoted",
+      "origin": "Arabic",
+      "root": "و د د",
+      "note": "One of the 99 Names of Allah (Al-Wadud). Refers to deep love and affection."
+    }
+  ]
+}

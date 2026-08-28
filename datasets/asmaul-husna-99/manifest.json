@@ -1,0 +1,24 @@
+{
+  "id": "mw:dataset:islam:asmaul-husna-99",
+  "datasetVersion": "0.1.0",
+  "specVersion": "0.1",
+  "profiles": [
+    "textual@0.1",
+    "source@0.1"
+  ],
+  "partitions": [
+    {
+      "recordType": "resource",
+      "path": "data/core/resources/*.jsonl"
+    },
+    {
+      "recordType": "provenance",
+      "path": "data/core/provenance/*.jsonl"
+    }
+  ],
+  "sources": [
+    "99 Names of Allah (al-Asma al-Husna) from Quran and authentic hadith. Public domain classical Islamic knowledge."
+  ],
+  "rights": "CC0-1.0; the 99 Names of Allah are from the Quran and authentic hadith — classical public domain Islamic knowledge.",
+  "availability": "bundled"
+}

@@ -191,3 +191,107 @@ P12 is complete only when:
 8. DN/MN/SN/AN English expansion is deterministic and source-pinned;
 9. every dataset reports completeness/counts/checksums and passes full CI;
 10. no bundled P12 content has unresolved redistribution rights.
+
+---
+
+## Seed data mapping — Corpus → App ORM
+
+Each corpus dataset maps to one or more `wx.*` ORM models in the MoonWitness app (`X:\REPO\moonwitness`). See `docs/APP_ORM_MAPPING.md` for the complete 51-model mapping.
+
+### Scripture datasets → `wx.scripture` + `wx.scripture.book` + `wx.scripture.verse`
+
+```text
+Corpus Dataset                    Religion        canonicalCode   type
+────────────────────────────────────────────────────────────────────────
+quran-tanzil-uthmani              Islam           QURAN           canonical
+oshb-wlc                         Judaism         TAWRAT          canonical
+sblgnt-v1-2                      Christianity    INJIL           canonical
+dhammapada-sujato                 Buddhism        (none)          additional
+suttacentral-dn-mn-sujato        Buddhism        (none)          additional
+suttacentral-sn-an-sujato        Buddhism        (none)          additional
+bhagavad-gita                     Hinduism        (none)          philosophy
+```
+
+### Translation datasets → `wx.scripture.verse` fields or `wx.content`
+
+```text
+Corpus Dataset                    Language   Maps to field
+────────────────────────────────────────────────────────────
+quranenc-english-rwwad            en         translationEn
+quranenc-indonesian-kemenag       id         translationId
+web-classic-2020                  en         translationEn
+bible-tsi-2021                    id         translationId
+dhammapada-indonesian-wikisource  id         translationId
+```
+
+### Tradition datasets → `wx.tradition` + `wx.tradition.item`
+
+```text
+Corpus Dataset                    Religion        Type
+────────────────────────────────────────────────────────
+hadith-nawawi-40                  Islam           Hadith
+quran-tafsir-sample               Islam           Commentary
+mishnah-pirkei-avot               Judaism         Rabbinic
+early-christian-writings          Christianity    Patristic
+```
+
+### Other mappings
+
+```text
+Corpus Dataset                    → App Model(s)
+────────────────────────────────────────────────────
+world-religions-baseline          → wx.religion, wx.entity, wx.figure
+world-religions-textual-evidence  → wx.evidence, wx.assertion
+quran-arabic-lexicon              → wx.lexeme, wx.root
+devotional-baseline               → wx.devotion
+research-graph-baseline           → wx.relation, wx.assertion
+```
+
+---
+
+## Expansion targets — Non-Abrahamic source lanes
+
+These are targets identified for multi-religion corpus expansion. Each has a rights-safe source identified but requires a source-specific audit before ingestion. Full details in `datasets/EXPANSION_TARGETS.json`.
+
+### B1 — Tao Te Ching (Daoism)
+
+- Source: ctext.org Chinese Text Project + James Legge English (1891, PD)
+- Format: 81 chapters, Classical Chinese + English
+- Rights: Public domain (ancient text, PD translation)
+- App target: `wx.scripture` (type=philosophy) + books + verses
+
+### B2 — Analects of Confucius (Confucianism)
+
+- Source: ctext.org + James Legge / Arthur Waley PD translations
+- Format: 20 books, ~500 passages
+- Rights: Public domain
+- App target: `wx.scripture` (type=philosophy) + books + verses
+
+### B3 — Yoga Sutras of Patanjali (Hinduism)
+
+- Source: Sacred Texts Archive / GRETIL Sanskrit + pre-1928 PD translations
+- Format: 196 sutras, 4 padas
+- Rights: Public domain (ancient text, PD translation)
+- App target: `wx.scripture` (type=philosophy) + books + verses
+
+### B4 — Gathas / Avesta (Zoroastrianism)
+
+- Source: avesta.org / Sacred Texts Archive
+- Format: 17 ha (Yasna 28-34, 43-51, 53), Avestan + English
+- Rights: PD ancient text; translations need per-edition audit
+- App target: `wx.scripture` (type=additional) + books + verses
+
+### B5 — Hadith Bukhari Arabic (Islam deepening)
+
+- Source: `Jaguar16/open-hadith-data` (CC0), pinned commit
+- Format: ~7,563 hadith, Arabic matn only (English excluded per rights)
+- Rights: CC0-1.0, already audited in `docs/P14-HADITH-SOURCE-AUDIT.json`
+- App target: `wx.tradition` + `wx.tradition.item` + `wx.tradition.corpus` + `wx.tradition.unit`
+
+### B6 — Asmaul Husna 99 Complete
+
+- Source: Quran references + scholarly consensus
+- Format: 99 names with Arabic, transliteration, EN, ID, Quran reference, meaning
+- Rights: Names are from the Quran (PD)
+- App target: `wx.asmaul.husna`
+

@@ -1,0 +1,28 @@
+{
+  "id": "mw:dataset:jainism:tattvartha-sutra",
+  "datasetVersion": "0.1.0",
+  "specVersion": "0.2",
+  "profiles": [
+    "textual@0.1",
+    "source@0.1"
+  ],
+  "partitions": [
+    {
+      "recordType": "entity",
+      "path": "data/core/entities/*.jsonl"
+    },
+    {
+      "recordType": "resource",
+      "path": "data/core/resources/*.jsonl"
+    },
+    {
+      "recordType": "provenance",
+      "path": "data/core/provenance/*.jsonl"
+    }
+  ],
+  "sources": [
+    "Tattvartha Sutra of Acharya Umaswati Sanskrit texts with J.L. Jaini English and Indonesian translations."
+  ],
+  "rights": "CC0-1.0; Public domain classical Jain philosophical treatise.",
+  "availability": "bundled"
+}

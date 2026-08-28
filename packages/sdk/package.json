@@ -1,0 +1,13 @@
+{
+  "name": "@moonwitness/sdk",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "description": "Universal Scripture & Multi-Religious Knowledge SDK for MoonWitness Corpus",
+  "dependencies": {
+    "@moonwitness/corpus-core": "workspace:*",
+    "@moonwitness/corpus-node": "workspace:*",
+    "@moonwitness/corpus-repository": "workspace:*"
+  }
+}

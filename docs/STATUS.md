@@ -1,8 +1,8 @@
 # MoonWitness Corpus — Current Status
 
-Snapshot date: 2026-08-27.
+Snapshot date: 2026-08-28.
 
-This file is a concise implementation/release snapshot. `TODO.md` remains the canonical executable task state, while `docs/ROADMAP.md` preserves the detailed architecture and milestone rationale. `docs/DATASET_TARGETS.md` defines the current data-first source/target plan.
+This file is a concise implementation/release snapshot. `TODO.md` remains the canonical executable task state, while `docs/ROADMAP.md` preserves the detailed architecture and milestone rationale. `docs/DATASET_TARGETS.md` defines the current data-first source/target plan. `docs/APP_INTEGRATION_ADVICE.md` defines the seed pathway to the MoonWitness app.
 
 ## Authoritative state
 
@@ -158,7 +158,45 @@ P12-017..018 SuttaCentral DN/MN/SN/AN English
       ↓
 P12-019..020 completeness / checksum / rights exit gate
       ↓
+── New: Seed & Multi-Religion Expansion ──
+      ↓
+P12-021 Seed data architecture (corpus → app bundle)
+      ↓
+P12-022 Asmaul Husna 99 complete
+      ↓
+P12-023 Hadith Bukhari Arabic (CC0, bounded)
+      ↓
+P12-024 Devotional baseline expansion (multi-religion)
+      ↓
+P12-025 Non-Abrahamic scripture ingestion
+        (Tao Te Ching, Analects, Yoga Sutras, Gathas)
+      ↓
+P12-026 Bhagavad Gita promote to active
+      ↓
 revisit npm publication and P9
 ```
 
-The project should not expand to additional source ecosystems merely because text is easy to scrape. Sanskrit/Hindu, Sikh, Avestan/Zoroastrian, Chinese Buddhist, Taoist/Confucian, and Quran-translation candidates remain audit-only until an exact rights-safe source is approved.
+The project should not expand to additional source ecosystems merely because text is easy to scrape. Sanskrit/Hindu, Sikh, Avestan/Zoroastrian, Chinese Buddhist, Taoist/Confucian, and Quran-translation candidates remain audit-only until an exact rights-safe source is approved. See `datasets/EXPANSION_TARGETS.json` for the full candidate list with rights status.
+
+## Seed data coverage (corpus → app)
+
+The corpus is the canonical seed data source for the MoonWitness app (`X:\REPO\moonwitness`). Current state:
+
+```text
+Traditions with complete baseline data: 12 / 12  (100%)
+Exported Static Seed Bundles:           10 / 10  (100%)
+Corpus to App Seed Path:                pnpm export:app-seeds (dual export to dist/app-seeds and packages/moon-witness/src/seed/data/)
+```
+
+## Milestone Status & Documentation (2026-08-28)
+
+```text
+docs/SEED_DATA_ARCHITECTURE.md    Corpus → App seed pathway design
+docs/APP_ORM_MAPPING.md           51 ORM models mapped to corpus datasets
+docs/APP_INTEGRATION_ADVICE.md    Bugs, fixes, and complete seed specs for 12 religions
+docs/SYNC_AND_UPSTREAM_POLICY.md  Immutability philosophy & development sync pipeline
+docs/SUNNAH_API_REQUEST_DRAFT.md  Ready-to-use template for sunnah-com/api GitHub issue
+datasets/EXPANSION_TARGETS.json   15 candidate datasets with sources and rights
+scripts/export-app-seeds.ts       CLI command (pnpm export:app-seeds) exporting 10 JSON bundles
+```
+

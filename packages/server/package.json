@@ -1,0 +1,15 @@
+{
+  "name": "@moonwitness/corpus-server",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "bin": {
+    "moonwitness-server": "./src/cli.ts"
+  },
+  "dependencies": {
+    "@moonwitness/corpus-core": "workspace:*",
+    "@moonwitness/corpus-node": "workspace:*",
+    "@moonwitness/corpus-repository": "workspace:*"
+  }
+}

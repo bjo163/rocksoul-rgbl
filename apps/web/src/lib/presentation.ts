@@ -12,12 +12,12 @@ export function encodeId(id: string): string {
   return encodeURIComponent(id)
 }
 
-export function canonicalHref(id: CanonicalId): string {
-  return `/record/${encodeId(id)}`
+export function canonicalHref(id: CanonicalId | string): string {
+  return `/record/${encodeId(id as CanonicalId)}`
 }
 
-export function datasetHref(id: CanonicalId): string {
-  return `/datasets/${encodeId(id)}`
+export function datasetHref(id: CanonicalId | string): string {
+  return `/datasets/${encodeId(id as CanonicalId)}`
 }
 
 export function hrefForRecord(id: CanonicalId, recordType: CorpusRecord['record_type'], kind?: string): string {

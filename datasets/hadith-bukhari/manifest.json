@@ -1,0 +1,24 @@
+{
+  "id": "mw:dataset:hadith:bukhari",
+  "datasetVersion": "0.2.0",
+  "specVersion": "0.2",
+  "profiles": [
+    "textual@0.1",
+    "source@0.1"
+  ],
+  "partitions": [
+    {
+      "recordType": "resource",
+      "path": "data/core/resources/*.jsonl"
+    },
+    {
+      "recordType": "provenance",
+      "path": "data/core/provenance/*.jsonl"
+    }
+  ],
+  "sources": [
+    "Sahih al-Bukhari Complete Classical Corpus (7,580 Hadiths) via UmmahAPI"
+  ],
+  "rights": "CC0-1.0; classical public domain Islamic hadith compilation by Imam Muhammad ibn Ismail al-Bukhari (d. 256 AH).",
+  "availability": "bundled"
+}

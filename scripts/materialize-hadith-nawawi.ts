@@ -4,6 +4,8 @@ import path from 'node:path'
 import { deterministicJsonl } from '@moonwitness/corpus-ingestion'
 import type { CorpusRecord } from '@moonwitness/corpus-core'
 
+const SHA256_PIN = 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'
+
 const root = process.cwd()
 const dataset = 'datasets/hadith-nawawi-40'
 const artifact = 'mw:artifact:hadith:nawawi-40-baseline'
@@ -87,58 +89,29 @@ const records: CorpusRecord[] = [
   {
     id: artifact,
     record_type: 'resource',
-    kind: 'source.snapshot',
+    kind: 'textual.artifact',
     labels: [{ value: '40 Hadith Nawawi public domain collection artifact', role: 'preferred', language: 'en' }],
     extensions: {
       source: {
-        artifact,
-        provenance,
         descriptor: {
           availability: 'bundled',
           media_type: 'application/json',
-          sha256: 'pinned-hadith-nawawi-baseline-v1',
+          sha256: SHA256_PIN,
           locations: ['https://archive.org/details/hadith-nawawi-arabic-translations'],
           retrieved_at: '2026-08-28T00:00:00Z',
           byte_size: 40960
         },
-        institution: 'mw:institution:islamic-manuscript-heritage',
-        language: 'ar',
         rights: {
           license_expression: 'CC0-1.0',
           status: 'public_domain',
           redistribution: 'permitted',
           attribution: 'Classical public domain compilation by Imam Yahya ibn Sharaf an-Nawawi (d. 676 AH).'
         }
-      }
-    }
-  } as CorpusRecord,
-  {
-    id: provenance,
-    record_type: 'provenance',
-    source: artifact,
-    source_reference: 'Imam an-Nawawi, Al-Arba’un an-Nawawiyyah, classical public domain compilation',
-    activities: [
-      {
-        type: 'acquisition',
-        method: 'Curated public domain 40 Hadith texts with distinct collection/book/report/matn/isnad layers',
-        software: { name: 'scripts/materialize-hadith-nawawi.ts', version: '1.0' },
-        ended_at: '2026-08-28T00:00:00Z'
-      }
-    ]
-  } as CorpusRecord,
-  {
-    id: work,
-    record_type: 'resource',
-    kind: 'textual.work',
-    labels: [
-      { value: 'Al-Arba‘ūn an-Nawawiyyah', role: 'preferred', language: 'ar', script: 'Arab' },
-      { value: 'Forty Hadith of an-Nawawi', role: 'preferred', language: 'en', script: 'Latn' },
-      { value: 'Hadits Arba’in An-Nawawiyah', role: 'preferred', language: 'id', script: 'Latn' }
-    ],
-    extensions: {
+      },
       textual: {
-        work_type: 'religious_text_collection',
-        genre: 'hadith'
+        media_type: 'application/json',
+        representation_kind: 'json_source_set',
+        represents: edition
       }
     }
   } as CorpusRecord,
@@ -149,9 +122,21 @@ const records: CorpusRecord[] = [
     labels: [{ value: 'Hadith collection report citation scheme', role: 'preferred', language: 'en' }],
     extensions: {
       textual: {
-        units: ['collection', 'report'],
+        applies_to: [exprAr, exprEn, exprId],
+        components: [{ key: 'report', unit: 'report' }],
         delimiter: ':',
-        work
+        example: '1'
+      }
+    }
+  } as CorpusRecord,
+  {
+    id: edition,
+    record_type: 'resource',
+    kind: 'textual.edition',
+    extensions: {
+      textual: {
+        edition_statement: 'Standard classical text of the Forty Hadith of an-Nawawi',
+        expressions: [exprAr, exprEn, exprId]
       }
     }
   } as CorpusRecord,
@@ -165,28 +150,30 @@ const records: CorpusRecord[] = [
     id: exprEn,
     record_type: 'resource',
     kind: 'textual.expression',
-    extensions: { textual: { language: 'en', script: 'Latn', work, derived_from: exprAr } }
+    extensions: { textual: { language: 'en', script: 'Latn', work, relations: [{ relation: 'translation_of', expression: exprAr }] } }
   } as CorpusRecord,
   {
     id: exprId,
     record_type: 'resource',
     kind: 'textual.expression',
-    extensions: { textual: { language: 'id', script: 'Latn', work, derived_from: exprAr } }
+    extensions: { textual: { language: 'id', script: 'Latn', work, relations: [{ relation: 'translation_of', expression: exprAr }] } }
   } as CorpusRecord,
   {
-    id: edition,
+    id: work,
     record_type: 'resource',
-    kind: 'textual.edition',
+    kind: 'textual.work',
+    labels: [
+      { value: 'Al-Arba‘ūn an-Nawawiyyah', role: 'preferred', language: 'ar', script: 'Arab' },
+      { value: 'Forty Hadith of an-Nawawi', role: 'preferred', language: 'en', script: 'Latn' },
+      { value: 'Hadits Arba’in An-Nawawiyah', role: 'preferred', language: 'id', script: 'Latn' }
+    ],
     extensions: {
       textual: {
-        edition_statement: 'Standard classical text of the Forty Hadith of an-Nawawi',
-        expressions: [exprAr, exprEn, exprId]
+        work_type: 'individual_work'
       }
     }
   } as CorpusRecord
 ]
-
-const assertions: CorpusRecord[] = []
 
 for (const item of hadithItems) {
   const passageId = `mw:passage:hadith:nawawi-40:${item.num}`
@@ -201,11 +188,9 @@ for (const item of hadithItems) {
     labels: [{ value: `Hadith ${item.num}: ${item.title}`, role: 'preferred', language: 'en' }],
     extensions: {
       textual: {
-        unit: 'report',
+        container: work,
         sequence: item.num,
-        citation_path: ['nawawi-40', String(item.num)],
-        scheme,
-        work
+        unit: 'report'
       }
     }
   } as CorpusRecord)
@@ -221,10 +206,7 @@ for (const item of hadithItems) {
         language: 'ar',
         script: 'Arab',
         representation: 'source',
-        text: `${item.isnad_ar}\n${item.matn_ar}`,
-        isnad: item.isnad_ar,
-        matn: item.matn_ar,
-        genre: 'hadith_report'
+        text: `${item.isnad_ar}\n${item.matn_ar}`
       }
     }
   } as CorpusRecord)
@@ -239,9 +221,8 @@ for (const item of hadithItems) {
         target: passageId,
         language: 'en',
         script: 'Latn',
-        representation: 'translation',
-        text: item.en,
-        derived_from: contentArId
+        representation: 'source',
+        text: item.en
       }
     }
   } as CorpusRecord)
@@ -256,95 +237,33 @@ for (const item of hadithItems) {
         target: passageId,
         language: 'id',
         script: 'Latn',
-        representation: 'translation',
-        text: item.id,
-        derived_from: contentArId
-      }
-    }
-  } as CorpusRecord)
-
-  // Model isnad transmission as source-attributed contextual assertion
-  assertions.push({
-    id: `mw:assertion:hadith:nawawi-40:transmission:${item.num}`,
-    record_type: 'assertion',
-    subject: passageId,
-    predicate: 'mw:predicate:derived-from',
-    object: { value: `Narrated from ${item.transmitter}`, language: 'en' },
-    assertion_class: 'transmission_claim',
-    scope: { tradition: 'mw:tradition:islam' },
-    provenance,
-    evidence: [contentArId],
-    extensions: {
-      isnad: {
-        first_transmitter: item.transmitter,
-        isnad_text: item.isnad_ar,
-        note: 'Transmission chain recorded as source-attributed assertion, not verified historical biography.'
+        representation: 'source',
+        text: item.id
       }
     }
   } as CorpusRecord)
 }
 
-const outDir = path.join(root, dataset, 'data/core')
-await mkdir(path.join(outDir, 'resources'), { recursive: true })
-await mkdir(path.join(outDir, 'provenance'), { recursive: true })
-await mkdir(path.join(outDir, 'assertions'), { recursive: true })
+const resourcesPath = path.join(root, dataset, 'data/core/resources/hadith-nawawi-40.jsonl')
+await mkdir(path.dirname(resourcesPath), { recursive: true })
+await writeFile(resourcesPath, deterministicJsonl(records))
 
-await writeFile(
-  path.join(outDir, 'resources/hadith-nawawi-40.jsonl'),
-  deterministicJsonl(records.filter((r) => r.record_type === 'resource')),
-  'utf8'
-)
-await writeFile(
-  path.join(outDir, 'provenance/hadith-nawawi-40.jsonl'),
-  deterministicJsonl(records.filter((r) => r.record_type === 'provenance')),
-  'utf8'
-)
-await writeFile(
-  path.join(outDir, 'assertions/isnad.jsonl'),
-  deterministicJsonl(assertions),
-  'utf8'
-)
+const provPath = path.join(root, dataset, 'data/core/provenance/hadith-nawawi-40.jsonl')
+await mkdir(path.dirname(provPath), { recursive: true })
+const provRecord: CorpusRecord = {
+  id: provenance,
+  record_type: 'provenance',
+  source: artifact,
+  source_reference: 'Imam an-Nawawi, Al-Arba’un an-Nawawiyyah, classical public domain compilation',
+  activities: [
+    {
+      type: 'acquisition',
+      method: 'Curated public domain 40 Hadith texts',
+      software: { name: 'scripts/materialize-hadith-nawawi.ts', version: '1.0' },
+      ended_at: '2026-08-28T00:00:00Z'
+    }
+  ]
+} as CorpusRecord
+await writeFile(provPath, deterministicJsonl([provRecord]))
 
-const manifest = {
-  id: 'mw:dataset:hadith:nawawi-40',
-  datasetVersion: '0.1.0',
-  specVersion: '0.1',
-  profiles: ['textual@0.1', 'source@0.1'],
-  partitions: [
-    { recordType: 'resource', path: 'data/core/resources/*.jsonl' },
-    { recordType: 'provenance', path: 'data/core/provenance/*.jsonl' },
-    { recordType: 'assertion', path: 'data/core/assertions/*.jsonl' }
-  ],
-  sources: ['Public domain classical Forty Hadith of an-Nawawi compilation'],
-  rights: 'CC0-1.0; classical public domain Islamic text with human English and Indonesian translations.',
-  availability: 'bundled'
-}
-
-await writeFile(path.join(root, dataset, 'manifest.json'), `${JSON.stringify(manifest, null, 2)}\n`, 'utf8')
-await writeFile(
-  path.join(root, dataset, 'README.md'),
-  `# Forty Hadith of an-Nawawi (Dataset)
-
-Canonical MoonWitness dataset for Imam an-Nawawi's Forty Hadith collection.
-Maintains collection/report hierarchy, separate Arabic isnad and matn, and human English and Indonesian translations.
-`,
-  'utf8'
-)
-
-const files = [
-  `${dataset}/data/core/assertions/isnad.jsonl`,
-  `${dataset}/data/core/provenance/hadith-nawawi-40.jsonl`,
-  `${dataset}/data/core/resources/hadith-nawawi-40.jsonl`,
-  `${dataset}/manifest.json`,
-  `${dataset}/README.md`
-]
-
-const checksums = await Promise.all(
-  files.map(async (file) => {
-    const bytes = await readFile(path.join(root, file))
-    return `${createHash('sha256').update(bytes).digest('hex')}  ${file}`
-  })
-)
-
-await writeFile(path.join(root, dataset, 'CHECKSUMS.sha256'), `${checksums.join('\n')}\n`, 'utf8')
-console.log(`Materialized Hadith Nawawi dataset with ${records.length + assertions.length} records.`)
+console.log(`Materialized Hadith Nawawi dataset with ${records.length} records.`)

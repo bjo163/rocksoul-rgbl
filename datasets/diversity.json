@@ -1,19 +1,286 @@
 {
-  "formatVersion": "1", "scope": "Baseline active corpus diversity; non-exhaustive",
-  "dimensions": ["tradition", "genre", "sourceLanguage", "en", "id", "textScale", "rightsState", "gaps"],
-  "coverage": [
-    { "collection": "Quran", "tradition": "Islam", "genre": "scripture", "sourceLanguage": "ar", "en": "rwwad-complete", "id": "kemenag-complete", "textScale": "complete", "rightsState": "bundled-reviewed" },
-    { "collection": "Hadith Nawawi 40", "tradition": "Islam", "genre": "hadith_report", "sourceLanguage": "ar", "en": "human-complete", "id": "human-complete", "textScale": "complete-collection", "rightsState": "bundled-reviewed" },
-    { "collection": "Tafsir Excerpts", "tradition": "Islam", "genre": "commentary", "sourceLanguage": "ar", "en": "human-sample", "id": "human-sample", "textScale": "bounded-excerpts", "rightsState": "bundled-reviewed" },
-    { "collection": "Hebrew Bible WLC", "tradition": "Judaism/Christian source use", "genre": "scripture", "sourceLanguage": "he", "en": "WEB-partial-by-book-set", "id": "tsi-complete-nt-partial-ot", "textScale": "complete-edition", "rightsState": "bundled-reviewed" },
-    { "collection": "Mishnah Pirkei Avot", "tradition": "Judaism", "genre": "legal_and_ethical_tradition", "sourceLanguage": "he", "en": "human-complete", "id": "human-complete", "textScale": "complete-tractate", "rightsState": "bundled-reviewed" },
-    { "collection": "SBLGNT", "tradition": "Christianity", "genre": "scripture", "sourceLanguage": "grc", "en": "WEB-complete-NT", "id": "tsi-complete-nt", "textScale": "complete-edition", "rightsState": "bundled-reviewed" },
-    { "collection": "Didache and Early Creeds", "tradition": "Christianity", "genre": "patristics_and_creeds", "sourceLanguage": "grc/la", "en": "human-complete", "id": "human-complete", "textScale": "complete-texts", "rightsState": "bundled-reviewed" },
-    { "collection": "Dhammapada", "tradition": "Buddhism", "genre": "scripture", "sourceLanguage": "pli-metadata-only", "en": "complete", "id": "wikisource-complete-359-gap", "textScale": "complete", "rightsState": "translation-bundled-root-metadata" },
-    { "collection": "DN/MN", "tradition": "Buddhism", "genre": "scripture", "sourceLanguage": "pli-metadata-only", "en": "complete", "id": "missing", "textScale": "complete-translation-set", "rightsState": "translation-bundled-root-unresolved" },
-    { "collection": "SN/AN", "tradition": "Buddhism", "genre": "scripture", "sourceLanguage": "pli-metadata-only", "en": "complete", "id": "missing", "textScale": "complete-translation-set", "rightsState": "translation-bundled-root-unresolved" },
-    { "collection": "Bhagavad Gita", "tradition": "Hinduism", "genre": "scripture_and_philosophy", "sourceLanguage": "sa", "en": "human-complete", "id": "human-complete", "textScale": "complete-representative-shlokas", "rightsState": "bundled-reviewed" }
+  "formatVersion": "2",
+  "scope": "Complete active corpus diversity including traditions with no primary text; non-exhaustive",
+  "dimensions": [
+    "tradition",
+    "genre",
+    "sourceLanguage",
+    "en",
+    "id",
+    "textScale",
+    "rightsState",
+    "appSeedStatus",
+    "gaps"
   ],
-  "highestPriorityGaps": ["source-language Buddhist roots with clear rights", "Talmud tractates (metadata/bounded)", "Jain/Sikh primary-text editions", "oral and living tradition consent workflows"]
+  "coverage": [
+    {
+      "collection": "Quran",
+      "tradition": "Islam",
+      "genre": "scripture",
+      "sourceLanguage": "ar",
+      "en": "rwwad-complete",
+      "id": "kemenag-complete",
+      "textScale": "complete",
+      "rightsState": "bundled-reviewed",
+      "appSeedStatus": "ready-corpus-bundle"
+    },
+    {
+      "collection": "Asmaul Husna 99",
+      "tradition": "Islam",
+      "genre": "devotional",
+      "sourceLanguage": "ar",
+      "en": "complete",
+      "id": "complete",
+      "textScale": "complete-99-names",
+      "rightsState": "bundled-reviewed",
+      "appSeedStatus": "ready-corpus-bundle"
+    },
+    {
+      "collection": "Authentic Islamic Duas",
+      "tradition": "Islam",
+      "genre": "devotional",
+      "sourceLanguage": "ar",
+      "en": "complete",
+      "id": "complete",
+      "textScale": "complete-126-duas",
+      "rightsState": "bundled-reviewed",
+      "appSeedStatus": "ready-corpus-bundle"
+    },
+    {
+      "collection": "Hadith Nawawi 40",
+      "tradition": "Islam",
+      "genre": "hadith_report",
+      "sourceLanguage": "ar",
+      "en": "human-complete",
+      "id": "human-complete",
+      "textScale": "complete-42-hadith",
+      "rightsState": "bundled-reviewed",
+      "appSeedStatus": "ready-corpus-bundle"
+    },
+    {
+      "collection": "Hadith Sahih al-Bukhari",
+      "tradition": "Islam",
+      "genre": "hadith",
+      "sourceLanguage": "ar",
+      "en": "complete",
+      "id": "core-baseline",
+      "textScale": "complete-7580-hadith",
+      "rightsState": "bundled-reviewed",
+      "appSeedStatus": "ready-corpus-bundle"
+    },
+    {
+      "collection": "Tafsir Excerpts",
+      "tradition": "Islam",
+      "genre": "commentary",
+      "sourceLanguage": "ar",
+      "en": "human-sample",
+      "id": "human-sample",
+      "textScale": "bounded-excerpts",
+      "rightsState": "bundled-reviewed",
+      "appSeedStatus": "not-seeded"
+    },
+    {
+      "collection": "Hebrew Bible WLC",
+      "tradition": "Judaism/Christian source use",
+      "genre": "scripture",
+      "sourceLanguage": "he",
+      "en": "WEB-partial-by-book-set",
+      "id": "tsi-complete-nt-partial-ot",
+      "textScale": "complete-edition",
+      "rightsState": "bundled-reviewed",
+      "appSeedStatus": "not-seeded"
+    },
+    {
+      "collection": "Mishnah Pirkei Avot",
+      "tradition": "Judaism",
+      "genre": "legal_and_ethical_tradition",
+      "sourceLanguage": "he",
+      "en": "human-complete",
+      "id": "human-complete",
+      "textScale": "complete-tractate",
+      "rightsState": "bundled-reviewed",
+      "appSeedStatus": "not-seeded"
+    },
+    {
+      "collection": "SBLGNT",
+      "tradition": "Christianity",
+      "genre": "scripture",
+      "sourceLanguage": "grc",
+      "en": "WEB-complete-NT",
+      "id": "tsi-complete-nt",
+      "textScale": "complete-edition",
+      "rightsState": "bundled-reviewed",
+      "appSeedStatus": "not-seeded"
+    },
+    {
+      "collection": "Didache and Early Creeds",
+      "tradition": "Christianity",
+      "genre": "patristics_and_creeds",
+      "sourceLanguage": "grc/la",
+      "en": "human-complete",
+      "id": "human-complete",
+      "textScale": "complete-texts",
+      "rightsState": "bundled-reviewed",
+      "appSeedStatus": "not-seeded"
+    },
+    {
+      "collection": "Dhammapada",
+      "tradition": "Buddhism",
+      "genre": "scripture",
+      "sourceLanguage": "pli-metadata-only",
+      "en": "complete",
+      "id": "wikisource-complete-359-gap",
+      "textScale": "complete",
+      "rightsState": "translation-bundled-root-metadata",
+      "appSeedStatus": "not-seeded"
+    },
+    {
+      "collection": "DN/MN",
+      "tradition": "Buddhism",
+      "genre": "scripture",
+      "sourceLanguage": "pli-metadata-only",
+      "en": "complete",
+      "id": "missing",
+      "textScale": "complete-translation-set",
+      "rightsState": "translation-bundled-root-unresolved",
+      "appSeedStatus": "not-seeded"
+    },
+    {
+      "collection": "SN/AN",
+      "tradition": "Buddhism",
+      "genre": "scripture",
+      "sourceLanguage": "pli-metadata-only",
+      "en": "complete",
+      "id": "missing",
+      "textScale": "complete-translation-set",
+      "rightsState": "translation-bundled-root-unresolved",
+      "appSeedStatus": "not-seeded"
+    },
+    {
+      "collection": "Bhagavad Gita",
+      "tradition": "Hinduism",
+      "genre": "scripture_and_philosophy",
+      "sourceLanguage": "sa",
+      "en": "complete-sivananda",
+      "id": "complete-transliteration",
+      "textScale": "complete-700-verses",
+      "rightsState": "bundled-reviewed",
+      "appSeedStatus": "ready-corpus-bundle"
+    },
+    {
+      "collection": "Yoga Sutras of Patanjali",
+      "tradition": "Hinduism",
+      "genre": "scripture_and_philosophy",
+      "sourceLanguage": "sa",
+      "en": "complete",
+      "id": "complete-4-padas",
+      "textScale": "complete-195-sutras",
+      "rightsState": "bundled-reviewed",
+      "appSeedStatus": "ready-corpus-bundle"
+    },
+    {
+      "collection": "Tao Te Ching",
+      "tradition": "Daoism",
+      "genre": "scripture_and_philosophy",
+      "sourceLanguage": "lzh",
+      "en": "complete-legge",
+      "id": "complete-81-chapters",
+      "textScale": "complete-81-chapters",
+      "rightsState": "bundled-reviewed",
+      "appSeedStatus": "ready-corpus-bundle"
+    },
+    {
+      "collection": "Analects of Confucius",
+      "tradition": "Confucianism",
+      "genre": "scripture_and_philosophy",
+      "sourceLanguage": "lzh",
+      "en": "complete-20-books",
+      "id": "complete",
+      "textScale": "complete-512-sayings",
+      "rightsState": "bundled-reviewed",
+      "appSeedStatus": "ready-corpus-bundle"
+    },
+    {
+      "collection": "Gathas of Zarathustra",
+      "tradition": "Zoroastrianism",
+      "genre": "scripture",
+      "sourceLanguage": "ae",
+      "en": "complete-mills",
+      "id": "complete-17-hymns",
+      "textScale": "complete-17-hymns",
+      "rightsState": "bundled-reviewed",
+      "appSeedStatus": "ready-corpus-bundle"
+    },
+    {
+      "collection": "Devotional Baseline",
+      "tradition": "12 World Traditions",
+      "genre": "devotional",
+      "sourceLanguage": "mul",
+      "en": "complete",
+      "id": "complete",
+      "textScale": "32-prayers-across-12-religions",
+      "rightsState": "bundled-reviewed",
+      "appSeedStatus": "ready-corpus-bundle"
+    },
+    {
+      "collection": "Principal Upanishads",
+      "tradition": "Hinduism",
+      "genre": "scripture_philosophy",
+      "sourceLanguage": "sa",
+      "en": "complete-vedic",
+      "id": "complete-sanskrit",
+      "textScale": "foundational-upanishads",
+      "rightsState": "bundled-reviewed",
+      "appSeedStatus": "ready-corpus-bundle"
+    },
+    {
+      "collection": "Japji Sahib",
+      "tradition": "Sikhism",
+      "genre": "scripture_devotional",
+      "sourceLanguage": "pa",
+      "en": "complete-khalsa",
+      "id": "complete-gurmukhi",
+      "textScale": "complete-mool-mantar-pauris",
+      "rightsState": "bundled-reviewed",
+      "appSeedStatus": "ready-corpus-bundle"
+    },
+    {
+      "collection": "Tattvartha Sutra",
+      "tradition": "Jainism",
+      "genre": "scripture_philosophy",
+      "sourceLanguage": "sa",
+      "en": "complete-jaini",
+      "id": "complete-sutras",
+      "textScale": "fundamental-sutras",
+      "rightsState": "bundled-reviewed",
+      "appSeedStatus": "ready-corpus-bundle"
+    },
+    {
+      "collection": "The Hidden Words",
+      "tradition": "Baháʼí",
+      "genre": "scripture_aphorisms",
+      "sourceLanguage": "ar/fa",
+      "en": "complete-shoghi",
+      "id": "complete-aphorisms",
+      "textScale": "complete-aphorisms",
+      "rightsState": "bundled-reviewed",
+      "appSeedStatus": "ready-corpus-bundle"
+    },
+    {
+      "collection": "Hadith Sahih Muslim",
+      "tradition": "Islam",
+      "genre": "hadith",
+      "sourceLanguage": "ar",
+      "en": "complete",
+      "id": "core-baseline",
+      "textScale": "core-foundational-hadith",
+      "rightsState": "bundled-reviewed",
+      "appSeedStatus": "ready-corpus-bundle"
+    }
+  ],
+  "highestPriorityGaps": [
+    "source-language Buddhist roots with clear rights",
+    "Talmud tractates (metadata/bounded)",
+    "oral and living tradition consent workflows"
+  ]
 }
-

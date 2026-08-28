@@ -1,0 +1,28 @@
+{
+  "id": "mw:dataset:sikhism:japji-sahib",
+  "datasetVersion": "0.1.0",
+  "specVersion": "0.2",
+  "profiles": [
+    "textual@0.1",
+    "source@0.1"
+  ],
+  "partitions": [
+    {
+      "recordType": "entity",
+      "path": "data/core/entities/*.jsonl"
+    },
+    {
+      "recordType": "resource",
+      "path": "data/core/resources/*.jsonl"
+    },
+    {
+      "recordType": "provenance",
+      "path": "data/core/provenance/*.jsonl"
+    }
+  ],
+  "sources": [
+    "Japji Sahib composition by Guru Nanak Dev Ji in Gurmukhi from Sri Guru Granth Sahib."
+  ],
+  "rights": "CC0-1.0; Public domain Sikh sacred literature; English translation by Sant Singh Khalsa (PD).",
+  "availability": "bundled"
+}

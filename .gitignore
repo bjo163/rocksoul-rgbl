@@ -1,10 +1,8 @@
 node_modules/
 dist/
 .turbo/
-.next/
 coverage/
 .pnpm-store/
-.vercel/
 *.tsbuildinfo
 .env
 .env.*

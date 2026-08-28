@@ -2,6 +2,7 @@ import { readFile, mkdir, writeFile } from 'node:fs/promises'
 import { existsSync } from 'node:fs'
 import path from 'node:path'
 import { UniversalCorpusRegistry } from '../registry/universal-registry.js'
+import { AlignmentEngine } from '../alignment/alignment-engine.js'
 import type {
   WorkCorpusAuditRecord,
   WorkQualityGrade,
@@ -16,10 +17,12 @@ import type {
 export class CorpusAuditor {
   private readonly rootDir: string
   private readonly universalRegistry: UniversalCorpusRegistry
+  private readonly alignmentEngine: AlignmentEngine
 
   constructor(rootDir: string = process.cwd()) {
     this.rootDir = rootDir
     this.universalRegistry = new UniversalCorpusRegistry(path.join(rootDir, 'config'))
+    this.alignmentEngine = new AlignmentEngine(rootDir)
   }
 
   async runAudit(): Promise<{
@@ -455,5 +458,8 @@ export class CorpusAuditor {
 
     // Write tradition discovery and coverage reports
     await this.universalRegistry.writeWorkCoverageReport(outDir)
+
+    // Write edition audit, language coverage, and alignment reports
+    await this.alignmentEngine.writeAllEditionArtifacts(outDir)
   }
 }

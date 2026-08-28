@@ -1,29 +1,32 @@
-import { MaterializationAuditor } from '@moonwitness/corpus-ingestion'
+import { EditionMaterializer } from '@moonwitness/corpus-ingestion'
 
 async function main() {
-  const auditor = new MaterializationAuditor(process.cwd())
-  const { summary, growthReport, sourceContributions } = await auditor.runAudit()
+  const materializer = new EditionMaterializer(process.cwd())
+  const { summary, sourceContributions } = await materializer.executeMaterialization()
 
   console.log('========================================================================')
-  console.log('📦 MOONWITNESS EDITION-TO-CORPUS MATERIALIZATION REPORT')
+  console.log('📦 MOONWITNESS EDITION MATERIALIZATION SUMMARY')
   console.log('========================================================================')
   console.log(`Total Registered Editions   : ${summary.totalEditions}`)
-  console.log(`  • FULL Materialized       : ${summary.full} editions (bundled verified datasets)`)
-  console.log(`  • PARTIAL Materialized    : ${summary.partial} editions (upstream recipe feeds)`)
-  console.log(`  • METADATA ONLY           : ${summary.metadataOnly} editions (zero-record registry entries)`)
-  console.log(`  • FAILED / UNAVAILABLE    : ${summary.failed + summary.unavailable} editions`)
+  console.log(`  • FULL Materialized       : ${summary.full} editions`)
+  console.log(`  • PARTIAL Materialized    : ${summary.partial} editions`)
+  console.log(`  • METADATA ONLY           : ${summary.metadataOnly} editions`)
+  console.log(`  • AUTH REQUIRED           : ${summary.authRequired} editions`)
+  console.log(`  • MANUAL ONLY             : ${summary.manualOnly} editions`)
+  console.log(`  • SOURCE UNAVAILABLE      : ${summary.sourceUnavailable} editions`)
+  console.log(`  • FAILED                  : ${summary.failed} editions`)
   console.log(`Materialization Percentage  : ${summary.materializationPercent}%`)
   console.log(`Record-Bearing Editions     : ${summary.recordBearingEditions} / ${summary.totalEditions}`)
-  console.log(`Zero-Record Editions        : ${summary.zeroRecordEditions} / ${summary.totalEditions}`)
   console.log('------------------------------------------------------------------------')
-  console.log('CANONICAL RECORD RECONCILIATION:')
-  console.log(`  • Total Canonical Records : ${growthReport.currentCanonicalRecords}`)
-  console.log(`  • Total Indexed Records   : ${growthReport.currentIndexedRecords}`)
-  console.log(`  • Explanation: ${growthReport.growthExplanation}`)
+  console.log('FOUR-METRIC CORPUS METRICS:')
+  console.log(`  • Canonical Positions     : ${summary.canonicalPositionsAfter}`)
+  console.log(`  • Edition Records         : ${summary.editionRecordsAfter} (Delta: +${summary.editionRecordsAfter - summary.editionRecordsBefore})`)
+  console.log(`  • Language Records        : ${summary.languageRecords}`)
+  console.log(`  • Source Witnesses        : ${summary.sourceWitnesses}`)
   console.log('------------------------------------------------------------------------')
   console.log('TOP CONTRIBUTING UPSTREAM SOURCES:')
   for (const s of sourceContributions.slice(0, 8)) {
-    console.log(`  • ${s.sourceName} (${s.sourceId}) -> ${s.canonicalRecordCount} canonical records across ${s.editionCount} editions [${s.authorityLevel}]`)
+    console.log(`  • ${s.sourceName} (${s.sourceId}) -> ${s.recordCount} edition records [${s.authorityLevel}]`)
   }
   console.log('========================================================================')
 }

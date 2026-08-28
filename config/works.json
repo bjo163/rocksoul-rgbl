@@ -158,6 +158,17 @@
     { "id": "shikshapatri", "traditionId": "swaminarayan", "name": "The Shikshapatri (Code of Precepts)", "workType": "sacred_code", "canonicalStatus": "primary_scripture", "structure": { "levels": ["sloka"] } },
     { "id": "great-hymn-to-aten", "traditionId": "ancient-egyptian", "name": "The Great Hymn to the Aten", "workType": "hymnal_corpus", "canonicalStatus": "historical_sacred", "structure": { "levels": ["stanza", "line"] } },
     { "id": "atrahasis-epic", "traditionId": "mesopotamian", "name": "The Epic of Atrahasis", "workType": "mythological_epic", "canonicalStatus": "historical_sacred", "structure": { "levels": ["tablet", "column", "line"] } },
-    { "id": "voluspa", "traditionId": "norse-germanic", "name": "Völuspá (Prophecy of the Völva)", "workType": "mythological_poetry", "canonicalStatus": "historical_sacred", "structure": { "levels": ["stanza"] } }
+    { "id": "voluspa", "traditionId": "norse-germanic", "name": "Völuspá (Prophecy of the Völva)", "workType": "mythological_poetry", "canonicalStatus": "historical_sacred", "structure": { "levels": ["stanza"] } },
+    { "id": "demonstrations-aphrahat", "traditionId": "syriac-christianity", "name": "Demonstrations of Aphrahat the Persian Sage", "workType": "theological_treatise", "canonicalStatus": "canonical_patristics", "structure": { "levels": ["demonstration", "section"] } },
+    { "id": "cave-of-treasures", "traditionId": "syriac-christianity", "name": "The Book of the Cave of Treasures (Me`ârath Gazzê)", "workType": "sacred_chronicle", "canonicalStatus": "historical_sacred", "structure": { "levels": ["chapter"] } },
+    { "id": "fetha-nagast", "traditionId": "ethiopian-orthodox", "name": "Fetha Nagast (The Law of the Kings)", "workType": "canonical_nomocanon", "canonicalStatus": "canonical_ecclesiastical", "structure": { "levels": ["part", "chapter"] } },
+    { "id": "maxims-of-ptahhotep", "traditionId": "ancient-egyptian", "name": "The Maxims of Ptahhotep (Instruction of Ptahhotep)", "workType": "wisdom_aphorisms", "canonicalStatus": "historical_sacred", "structure": { "levels": ["maxim"] } },
+    { "id": "code-of-hammurabi", "traditionId": "mesopotamian", "name": "The Code of Hammurabi Stela Inscription", "workType": "sacred_law_corpus", "canonicalStatus": "historical_sacred", "structure": { "levels": ["law"] } },
+    { "id": "plato-timaeus", "traditionId": "greco-roman-paganism", "name": "Plato's Timaeus (Sacred Cosmogony)", "workType": "philosophical_treatise", "canonicalStatus": "historical_sacred", "structure": { "levels": ["section", "stephanus"] } },
+    { "id": "grimnismal", "traditionId": "norse-germanic", "name": "Grímnismál (The Lay of Grimnir)", "workType": "mythological_poetry", "canonicalStatus": "historical_sacred", "structure": { "levels": ["stanza"] } },
+    { "id": "rabinal-achi", "traditionId": "mayan-religion", "name": "Rabinal Achí (Maya Sacred Dance-Drama)", "workType": "sacred_drama", "canonicalStatus": "sacred_oral_corpus", "structure": { "levels": ["act", "scene"] } },
+    { "id": "sunyasampadane", "traditionId": "lingayatism", "name": "Sunyasampadane (The Theological Vachana Dialogues)", "workType": "theological_dialogue", "canonicalStatus": "primary_scripture", "structure": { "levels": ["upadesha", "vachana"] } },
+    { "id": "satsangi-jeevan", "traditionId": "swaminarayan", "name": "Satsangi Jeevan", "workType": "scripture", "canonicalStatus": "primary_scripture", "structure": { "levels": ["prakarana", "adhyaya", "sloka"] } },
+    { "id": "huehuetlatolli", "traditionId": "nahua-aztec", "name": "Huehuetlatolli (Ancient Nahuatl Wisdom of the Elders)", "workType": "wisdom_aphorisms", "canonicalStatus": "sacred_oral_corpus", "structure": { "levels": ["discourse"] } }
   ]
 }

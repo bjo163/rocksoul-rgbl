@@ -438,6 +438,39 @@
     { "id": "atrahasis-en-lambert", "workId": "atrahasis-epic", "name": "Atrahasis: The Babylonian Story of the Deluge English (W.G. Lambert & A.R. Millard)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "atrahasis-epic" },
 
     { "id": "voluspa-old-norse-ed", "workId": "voluspa", "name": "Völuspá Old Norse Edition", "editionType": "original_script", "language": "non", "script": "Latn" },
-    { "id": "voluspa-en-bellows", "workId": "voluspa", "name": "Völuspá: The Poetic Edda English Translation (Henry Adams Bellows)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "voluspa" }
+    { "id": "voluspa-en-bellows", "workId": "voluspa", "name": "Völuspá: The Poetic Edda English Translation (Henry Adams Bellows)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "voluspa" },
+
+    { "id": "aphrahat-syriac-ed", "workId": "demonstrations-aphrahat", "name": "Demonstrations of Aphrahat Syriac Text", "editionType": "original_script", "language": "syr", "script": "Syrc" },
+    { "id": "aphrahat-en-parisot", "workId": "demonstrations-aphrahat", "name": "Demonstrations of Aphrahat English Translation (John Parisot)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "demonstrations-aphrahat" },
+
+    { "id": "cave-of-treasures-syriac-ed", "workId": "cave-of-treasures", "name": "The Book of the Cave of Treasures Syriac Edition", "editionType": "original_script", "language": "syr", "script": "Syrc" },
+    { "id": "cave-of-treasures-en-budge", "workId": "cave-of-treasures", "name": "The Book of the Cave of Treasures English (E.A. Wallis Budge)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "cave-of-treasures" },
+
+    { "id": "fetha-nagast-geez-ed", "workId": "fetha-nagast", "name": "Fetha Nagast Ge'ez Nomocanon Edition", "editionType": "original_script", "language": "gez", "script": "Ethi" },
+    { "id": "fetha-nagast-en-paul", "workId": "fetha-nagast", "name": "The Fetha Nagast: The Law of the Kings English (Peter L. Strauss & Paulos Tzadua)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "fetha-nagast" },
+
+    { "id": "ptahhotep-hieroglyphic-ed", "workId": "maxims-of-ptahhotep", "name": "The Maxims of Ptahhotep Papyrus Prisse Hieratic Edition", "editionType": "original_script", "language": "egy", "script": "Egyp" },
+    { "id": "ptahhotep-en-gunn", "workId": "maxims-of-ptahhotep", "name": "The Instruction of Ptah-Hotep English Translation (Battiscombe G. Gunn)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "maxims-of-ptahhotep" },
+
+    { "id": "hammurabi-cuneiform-ed", "workId": "code-of-hammurabi", "name": "The Code of Hammurabi Akkadian Cuneiform Text", "editionType": "original_script", "language": "akk", "script": "Xsux" },
+    { "id": "hammurabi-en-king", "workId": "code-of-hammurabi", "name": "The Code of Hammurabi English Translation (L.W. King)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "code-of-hammurabi" },
+
+    { "id": "timaeus-greek-ed", "workId": "plato-timaeus", "name": "Plato's Timaeus Greek Critical Edition (Burnet)", "editionType": "original_script", "language": "grc", "script": "Grek" },
+    { "id": "timaeus-en-jowett", "workId": "plato-timaeus", "name": "Timaeus English Translation (Benjamin Jowett)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "plato-timaeus" },
+
+    { "id": "grimnismal-old-norse-ed", "workId": "grimnismal", "name": "Grímnismál Old Norse Edition", "editionType": "original_script", "language": "non", "script": "Latn" },
+    { "id": "grimnismal-en-bellows", "workId": "grimnismal", "name": "Grímnismál The Ballad of Grimnir English (Henry Adams Bellows)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "grimnismal" },
+
+    { "id": "rabinal-achi-kiche-ed", "workId": "rabinal-achi", "name": "Rabinal Achí K'iche' Maya Sacred Dance Text", "editionType": "original_script", "language": "quc", "script": "Latn" },
+    { "id": "rabinal-achi-en-brasseur", "workId": "rabinal-achi", "name": "Rabinal Achí: A Mayan Drama English (Dennis Tedlock & Brasseur)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "rabinal-achi" },
+
+    { "id": "sunyasampadane-kannada-ed", "workId": "sunyasampadane", "name": "Sunyasampadane Kannada Critical Edition", "editionType": "original_script", "language": "kn", "script": "Knda" },
+    { "id": "sunyasampadane-en-menezes", "workId": "sunyasampadane", "name": "Sunyasampadane English Translation (Armando Menezes & S.M. Angadi)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "sunyasampadane" },
+
+    { "id": "satsangi-jeevan-sanskrit-ed", "workId": "satsangi-jeevan", "name": "Satsangi Jeevan Sanskrit Canonical Edition", "editionType": "original_script", "language": "sa", "script": "Deva" },
+    { "id": "satsangi-jeevan-en-baps", "workId": "satsangi-jeevan", "name": "Satsangi Jeevan English Translation (BAPS Sanstha)", "editionType": "official_publication", "language": "en", "script": "Latn", "translationOf": "satsangi-jeevan" },
+
+    { "id": "huehuetlatolli-nahuatl-ed", "workId": "huehuetlatolli", "name": "Huehuetlatolli Classical Nahuatl Text", "editionType": "original_script", "language": "nah", "script": "Latn" },
+    { "id": "huehuetlatolli-en-leon-portilla", "workId": "huehuetlatolli", "name": "Huehuetlatolli: Ancient Word of the Nahuas English (Miguel León-Portilla)", "editionType": "translation", "language": "en", "script": "Latn", "translationOf": "huehuetlatolli" }
   ]
 }

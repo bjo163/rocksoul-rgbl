@@ -2,11 +2,12 @@ import type { FastifyPluginAsync } from 'fastify'
 import { readFile } from 'node:fs/promises'
 import path from 'node:path'
 
-async function getUpstreamMetadata(): Promise<Record<string, any>> {
+async function getUpstreamMetadata(): Promise<Record<string, { name: string; primaryLanguage: string; scripts: string[] }>> {
   try {
-    const filePath = path.join(process.cwd(), 'config/upstream-registry.json')
-    const raw = JSON.parse(await readFile(filePath, 'utf8'))
-    return raw.traditions || {}
+    const registryPath = path.resolve(process.cwd(), 'config/upstream-registry.json')
+    const content = await readFile(registryPath, 'utf8')
+    const registry = JSON.parse(content) as { traditions: Record<string, any> }
+    return registry.traditions || {}
   } catch {
     return {}
   }
@@ -15,9 +16,9 @@ async function getUpstreamMetadata(): Promise<Record<string, any>> {
 export const traditionsRoutes: FastifyPluginAsync = async (fastify) => {
   fastify.get('/traditions', {
     schema: {
-      tags: ['Traditions'],
-      summary: 'List All Dynamic Active Traditions',
-      description: 'Dynamically aggregates all sacred traditions active in the corpus database along with their dataset counts, language, and scripture records.',
+      tags: ['Traditions & Heritage'],
+      summary: 'List World Religious Traditions',
+      description: 'Dynamically aggregates all active traditions loaded in the SQLite database and metadata registry.',
       response: {
         200: {
           type: 'object',
@@ -46,7 +47,7 @@ export const traditionsRoutes: FastifyPluginAsync = async (fastify) => {
     const dbTraditions = fastify.repo.getTraditions()
     const metadata = await getUpstreamMetadata()
 
-    const list = dbTraditions.map((t) => {
+    const list = dbTraditions.map((t: { tradition: string; dataset_count: number; total_records: number }) => {
       const meta = metadata[t.tradition] || {}
       return {
         id: t.tradition,

@@ -1,5 +1,4 @@
 export * from './server.js'
-export * from './openapi.js'
 
 import { startCorpusServer } from './server.js'
 

@@ -7,12 +7,12 @@ import path from 'node:path'
 import { SqliteCorpusRepository } from '@moonwitness/corpus-node'
 
 import { telemetryPlugin } from './plugins/telemetry.js'
-import { healthRoutes } from './modules/health/health.routes.js'
-import { traditionsRoutes } from './modules/traditions/traditions.routes.js'
-import { worksRoutes } from './modules/works/works.routes.js'
-import { searchRoutes } from './modules/search/search.routes.js'
-import { devotionalsRoutes } from './modules/devotionals/devotionals.routes.js'
-import { compareRoutes } from './modules/compare/compare.routes.js'
+import { healthRoutes } from './routes/health.js'
+import { traditionsRoutes } from './routes/traditions.js'
+import { worksRoutes } from './routes/works.js'
+import { searchRoutes } from './routes/search.js'
+import { devotionalsRoutes } from './routes/devotionals.js'
+import { compareRoutes } from './routes/compare.js'
 
 export async function buildApp(): Promise<FastifyInstance> {
   const app = fastify({
@@ -54,7 +54,7 @@ export async function buildApp(): Promise<FastifyInstance> {
     repo.close()
   })
 
-  // 4. API Modules (Mounted under /v1)
+  // 4. API Routes (Mounted under /v1)
   await app.register(async (v1) => {
     await v1.register(healthRoutes)
     await v1.register(traditionsRoutes)

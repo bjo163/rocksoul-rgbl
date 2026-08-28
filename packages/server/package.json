@@ -8,6 +8,7 @@
     "moonwitness-server": "./src/cli.ts"
   },
   "dependencies": {
+    "@moonwitness/corpus-api": "workspace:*",
     "@moonwitness/corpus-core": "workspace:*",
     "@moonwitness/corpus-node": "workspace:*",
     "@moonwitness/corpus-repository": "workspace:*"

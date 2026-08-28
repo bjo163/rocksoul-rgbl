@@ -17,7 +17,7 @@ export const compareRoutes: FastifyPluginAsync = async (fastify) => {
   }, async (req) => {
     const { theme = 'mercy', limit = 3 } = req.query as { theme?: string; limit?: number }
 
-    const activeTraditions = fastify.repo.getTraditions().map(t => t.tradition)
+    const activeTraditions = fastify.repo.getTraditions().map((t: { tradition: string }) => t.tradition)
     const results: Record<string, any[]> = {}
 
     for (const t of activeTraditions) {

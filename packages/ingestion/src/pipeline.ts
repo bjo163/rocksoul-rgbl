@@ -37,21 +37,45 @@ export async function runIngestion(options: IngestionRunOptions): Promise<Ingest
   const acquisition = recipe.source.kind === 'filesystem'
     ? await acquireFilesystem(recipe.source, recipeDir)
     : await acquireHttp(recipe.source, { allowNetwork: options.allowNetwork, fetchImpl: options.fetchImpl })
+
+  const enrichedAcquisition = {
+    ...acquisition,
+    status: acquisition.status ?? (recipe.source.kind === 'filesystem' ? 'LOCAL_CACHE' : 'REMOTE_SYNCED'),
+    provenance: acquisition.provenance ?? {
+      status: acquisition.status ?? (recipe.source.kind === 'filesystem' ? 'LOCAL_CACHE' : 'REMOTE_SYNCED'),
+      source_url: recipe.source.kind === 'http' ? recipe.source.url : undefined,
+      resolved_location: acquisition.resolved_location,
+      retrieved_at: acquisition.retrieved_at,
+      source_sha256: acquisition.sha256
+    }
+  }
+
   const hooks = await loadHooks(recipeDir, recipe.implementation.module)
-  const context = { recipe, acquisition }
-  const parsed = await hooks.parse(acquisition.bytes, context)
+  const context = { recipe, acquisition: enrichedAcquisition }
+  const parsed = await hooks.parse(enrichedAcquisition.bytes, context)
   const normalized = await hooks.normalize(parsed, context)
   const mapped = await hooks.map(normalized, context)
   const curated = applyCurationOverlays(mapped, await loadOverlays(recipeDir, recipe.overlays))
   const findings = hooks.validate ? await hooks.validate(curated.records, context) : []
   if (findings.length) throw new Error(`Recipe validation failed:\n${findings.map((finding) => `- ${finding}`).join('\n')}`)
+
   const output = deterministicJsonl(curated.records)
   const outputSha256 = sha256Bytes(new TextEncoder().encode(output))
+
   if (options.writeOutput !== false) {
     const outputPath = path.resolve(options.outputPath ?? path.join(recipeDir, recipe.output.path))
     await mkdir(path.dirname(outputPath), { recursive: true })
     await writeFile(outputPath, output, 'utf8')
   }
-  const { bytes: _bytes, ...acquisitionMetadata } = acquisition
-  return { recipe, records: curated.records, output, outputSha256, acquisition: acquisitionMetadata, appliedCorrections: curated.operations, findings }
+
+  const { bytes: _bytes, ...acquisitionMetadata } = enrichedAcquisition
+  return {
+    recipe,
+    records: curated.records,
+    output,
+    outputSha256,
+    acquisition: acquisitionMetadata,
+    appliedCorrections: curated.operations,
+    findings
+  }
 }

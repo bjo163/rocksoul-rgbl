@@ -200,12 +200,20 @@ async function main() {
     ? 'REMOTE_FAILED'
     : (fallback.length > 0 ? 'LOCAL_FALLBACK' : 'REMOTE_SYNCED')
 
+  const aggregateHash = createHash('sha256')
+  for (const r of results) {
+    aggregateHash.update(r.sha256 || '')
+  }
+  const aggregateSha256 = aggregateHash.digest('hex')
+
   console.log(`MOONWITNESS_RESULT:${JSON.stringify({
+    schemaVersion: '1.0',
+    executionStatus: failed.length > 0 ? 'PROCESS_FAILED' : 'PROCESS_SUCCEEDED',
     acquisitionStatus: overallStatus,
-    sourceUrl: 'https://raw.githubusercontent.com',
+    requestedUrl: 'https://raw.githubusercontent.com',
     resolvedUrl: 'scripts/fetch-upstream-scriptures.ts',
     retrievedAt: new Date().toISOString(),
-    sourceSha256: 'multi-scripture-managed',
+    sourceSha256: aggregateSha256,
     byteCount: results.reduce((acc, r) => acc + (r.byteSize || 0), 0),
     fallbackReason: fallback.length > 0 ? `${fallback.length} remote sources unpinned/404; fell back to local recipes` : undefined,
     fallbackSource: 'ingestion/recipes/*/source/'

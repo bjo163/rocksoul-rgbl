@@ -6,7 +6,8 @@ import type {
   UpstreamJobResult,
   UpstreamRunManifest,
   UpstreamScriptPayload,
-  UpstreamAcquisitionStatus
+  UpstreamAcquisitionStatus,
+  ProcessExecutionStatus
 } from './types.js'
 import { buildRunManifest, writeRunManifest } from './manifest.js'
 import { UpstreamPlanner } from './planner.js'
@@ -69,6 +70,7 @@ export class UpstreamRunner {
       const args = [tsxCli, scriptPath]
 
       return new Promise<UpstreamJobResult>((resolve) => {
+        let timedOut = false
         const child = spawn(process.execPath, args, {
           cwd: this.rootDir,
           env: {
@@ -87,47 +89,66 @@ export class UpstreamRunner {
         child.stderr.on('data', d => stderr += d.toString())
 
         const timer = setTimeout(() => {
+          timedOut = true
           child.kill('SIGTERM')
         }, this.timeoutMs)
 
         child.on('close', (code) => {
           clearTimeout(timer)
           const durationMs = Date.now() - started
-          const executionStatus = code === 0 ? 'PROCESS_SUCCEEDED' : 'PROCESS_FAILED'
+          let executionStatus: ProcessExecutionStatus = code === 0 ? 'PROCESS_SUCCEEDED' : 'PROCESS_FAILED'
+          if (timedOut) executionStatus = 'PROCESS_TIMEOUT'
 
-          // Task 2: Machine-readable contract parsing
-          const matches = stdout.match(/^MOONWITNESS_RESULT:(.+)$/gm)
+          // Task 3: Machine-readable child-process result matching
+          const regex = /^MOONWITNESS_RESULT[:=](.+)$/gm
+          const rawMatches: string[] = []
+          let match: RegExpExecArray | null
+          while ((match = regex.exec(stdout)) !== null) {
+            rawMatches.push(match[1])
+          }
 
           let acqStatus: UpstreamAcquisitionStatus = 'REMOTE_FAILED'
           let jobStatus: UpstreamJobResult['status'] = 'failed'
           let parsedPayload: UpstreamScriptPayload | null = null
           let fallbackReason: string | undefined
           let fallbackSource: string | undefined = plan.fallbackSource
-          let sourceSha256: string = 'script-managed'
+          let sourceSha256: string | undefined
           let byteCount: number | undefined
+          let contentType: string | undefined
+          let etag: string | undefined
+          let lastModified: string | undefined
+          let repoUrl: string | undefined
+          let resolvedCommit: string | undefined
+          let ref: string | undefined
+          let defaultBranch: string | undefined
           let resolvedUrl: string = plan.script || 'unknown'
           let retrievedAt: string = new Date().toISOString()
           let errorMsg: string | undefined
 
-          if (executionStatus === 'PROCESS_FAILED') {
+          if (executionStatus === 'PROCESS_TIMEOUT') {
+            acqStatus = 'REMOTE_FAILED'
+            jobStatus = 'failed'
+            errorMsg = `Process timed out after ${this.timeoutMs}ms`
+            fallbackReason = 'PROCESS_TIMEOUT'
+          } else if (executionStatus === 'PROCESS_FAILED') {
             acqStatus = 'REMOTE_FAILED'
             jobStatus = 'failed'
             errorMsg = stderr.trim() || `Script exited with code ${code}`
             fallbackReason = `Process failed with exit code ${code}`
-          } else if (!matches || matches.length === 0) {
-            // Exited 0 but missing structured payload
+          } else if (rawMatches.length === 0) {
+            // Process exited 0 but emitted no structured result
             acqStatus = 'REMOTE_FAILED'
             jobStatus = 'failed'
             errorMsg = 'INVALID_ACQUISITION_RESULT: Missing MOONWITNESS_RESULT payload'
-            fallbackReason = 'Missing structured result envelope'
-          } else if (matches.length > 1) {
-            // Duplicate payload emission
+            fallbackReason = 'INVALID_ACQUISITION_RESULT'
+          } else if (rawMatches.length > 1) {
+            // Duplicate results emitted
             acqStatus = 'REMOTE_FAILED'
             jobStatus = 'failed'
             errorMsg = 'INVALID_ACQUISITION_RESULT: Duplicate MOONWITNESS_RESULT payloads emitted'
-            fallbackReason = 'Duplicate result envelopes emitted'
+            fallbackReason = 'DUPLICATE_ACQUISITION_RESULT'
           } else {
-            const rawJson = matches[0].slice('MOONWITNESS_RESULT:'.length).trim()
+            const rawJson = rawMatches[0].trim()
             try {
               parsedPayload = JSON.parse(rawJson) as UpstreamScriptPayload
               if (!parsedPayload.acquisitionStatus) {
@@ -138,6 +159,13 @@ export class UpstreamRunner {
               if (parsedPayload.fallbackSource) fallbackSource = parsedPayload.fallbackSource
               if (parsedPayload.sourceSha256) sourceSha256 = parsedPayload.sourceSha256
               if (parsedPayload.byteCount !== undefined) byteCount = parsedPayload.byteCount
+              if (parsedPayload.contentType) contentType = parsedPayload.contentType
+              if (parsedPayload.etag) etag = parsedPayload.etag
+              if (parsedPayload.lastModified) lastModified = parsedPayload.lastModified
+              if (parsedPayload.repoUrl) repoUrl = parsedPayload.repoUrl
+              if (parsedPayload.resolvedCommit) resolvedCommit = parsedPayload.resolvedCommit
+              if (parsedPayload.ref) ref = parsedPayload.ref
+              if (parsedPayload.defaultBranch) defaultBranch = parsedPayload.defaultBranch
               if (parsedPayload.resolvedUrl) resolvedUrl = parsedPayload.resolvedUrl
               if (parsedPayload.retrievedAt) retrievedAt = parsedPayload.retrievedAt
               if (parsedPayload.error) errorMsg = parsedPayload.error
@@ -155,7 +183,7 @@ export class UpstreamRunner {
               acqStatus = 'REMOTE_FAILED'
               jobStatus = 'failed'
               errorMsg = `INVALID_ACQUISITION_RESULT: Malformed JSON: ${err.message}`
-              fallbackReason = 'Malformed result JSON'
+              fallbackReason = 'MALFORMED_RESULT_JSON'
             }
           }
 
@@ -178,6 +206,14 @@ export class UpstreamRunner {
             resolvedUrl,
             retrievedAt,
             byteCount,
+            sourceSha256,
+            contentType,
+            etag,
+            lastModified,
+            repoUrl,
+            resolvedCommit,
+            ref,
+            defaultBranch,
             provenance: {
               runId,
               traditionId: plan.traditionId,
@@ -185,7 +221,7 @@ export class UpstreamRunner {
               sourceUrl: targetUrl,
               resolvedLocation: resolvedUrl,
               retrievedAt,
-              sourceSha256
+              sourceSha256: sourceSha256 || 'script-managed'
             }
           })
         })
@@ -205,6 +241,7 @@ export class UpstreamRunner {
             allowCache: plan.allowCache ?? false,
             durationMs: Date.now() - started,
             error: err.message,
+            fallbackReason: err.message,
             requestedUrl: targetUrl,
             retrievedAt: new Date().toISOString()
           })
@@ -249,6 +286,14 @@ export class UpstreamRunner {
           retrievedAt: acq.retrievedAt,
           fallbackReason: acq.fallbackReason,
           fallbackSource: acq.fallbackSource,
+          sourceSha256: acq.sourceSha256,
+          contentType: acq.contentType,
+          etag: acq.etag,
+          lastModified: acq.lastModified,
+          repoUrl: acq.repoUrl,
+          resolvedCommit: acq.resolvedCommit,
+          ref: acq.ref,
+          defaultBranch: acq.defaultBranch,
           provenance: {
             runId,
             traditionId: plan.traditionId,

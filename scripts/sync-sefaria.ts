@@ -12,11 +12,11 @@ interface SefariaTextResponse {
   license: string
 }
 
-async function fetchSefariaText(ref: string): Promise<{ data: SefariaTextResponse; sha256: string; bytes: number }> {
+async function fetchSefariaText(ref: string): Promise<{ data: SefariaTextResponse; sha256: string; bytes: number; rawText: string }> {
   const url = `${BASE_URL}/texts/${encodeURIComponent(ref)}?context=0`
   console.log(`[Sefaria API] Fetching: ${ref} -> ${url}`)
 
-  const res = await fetch(url, { headers: { 'Accept': 'application/json' } })
+  const res = await fetch(url, { headers: { 'Accept': 'application/json', 'User-Agent': 'MoonWitness-Corpus/1.0' } })
   if (!res.ok) {
     throw new Error(`Sefaria API HTTP ${res.status}: ${res.statusText}`)
   }
@@ -25,7 +25,7 @@ async function fetchSefariaText(ref: string): Promise<{ data: SefariaTextRespons
   const sha256 = createHash('sha256').update(rawText).digest('hex')
   const data = JSON.parse(rawText) as SefariaTextResponse
 
-  return { data, sha256, bytes: Buffer.byteLength(rawText) }
+  return { data, sha256, bytes: Buffer.byteLength(rawText), rawText }
 }
 
 async function main() {
@@ -43,27 +43,38 @@ async function main() {
     { ref: 'Psalms 23', file: 'psalms-23.json' }
   ]
 
+  let totalBytes = 0
+  const aggregateHash = createHash('sha256')
+  let successfulFetches = 0
+
   for (const t of targets) {
     try {
-      const { data, sha256, bytes } = await fetchSefariaText(t.ref)
+      const { data, sha256, bytes, rawText } = await fetchSefariaText(t.ref)
       await writeFile(path.join(targetDir, t.file), JSON.stringify(data, null, 2), 'utf8')
+      totalBytes += bytes
+      aggregateHash.update(rawText)
+      successfulFetches++
       console.log(`✓ Synchronized ${t.ref}: ${bytes} bytes (SHA-256: ${sha256.slice(0, 16)}...) -> ${t.file}`)
     } catch (err: any) {
       console.warn(`⚠ Could not fetch ${t.ref}: ${err.message}`)
     }
   }
 
+  const finalSha256 = aggregateHash.digest('hex')
+
   console.log('\n========================================================================')
   console.log('✨ Sefaria Upstream Ingestion Complete!')
   console.log('========================================================================\n')
 
   console.log(`MOONWITNESS_RESULT:${JSON.stringify({
-    acquisitionStatus: 'REMOTE_SYNCED',
-    sourceUrl: BASE_URL,
+    schemaVersion: '1.0',
+    executionStatus: 'PROCESS_SUCCEEDED',
+    acquisitionStatus: successfulFetches > 0 ? 'REMOTE_SYNCED' : 'REMOTE_FAILED',
+    requestedUrl: BASE_URL,
     resolvedUrl: BASE_URL,
     retrievedAt: new Date().toISOString(),
-    sourceSha256: 'sefaria-verified',
-    byteCount: 38500
+    sourceSha256: finalSha256,
+    byteCount: totalBytes
   })}`)
 }
 

@@ -4,7 +4,9 @@ import path from 'node:path'
 import type {
   UpstreamExecutionPlan,
   UpstreamJobResult,
-  UpstreamRunManifest
+  UpstreamRunManifest,
+  UpstreamScriptPayload,
+  UpstreamAcquisitionStatus
 } from './types.js'
 import { buildRunManifest, writeRunManifest } from './manifest.js'
 import { UpstreamPlanner } from './planner.js'
@@ -41,13 +43,15 @@ export class UpstreamRunner {
     const targetUrl = plan.endpoint.url || plan.endpoint.baseUrl || plan.endpoint.repoUrl
 
     if (plan.status !== 'READY' || !plan.enabled) {
+      const acqStatus: UpstreamAcquisitionStatus = plan.status === 'DISABLED' ? 'REMOTE_NOT_MODIFIED' : 'UNSUPPORTED'
       return {
         id: plan.id,
         traditionId: plan.traditionId,
         endpointId: plan.endpointId,
         mode: plan.mode,
+        executionStatus: 'PROCESS_SUCCEEDED',
         status: plan.status === 'DISABLED' ? 'not_modified' : 'unsupported',
-        acquisitionStatus: plan.status === 'DISABLED' ? 'REMOTE_NOT_MODIFIED' : 'UNSUPPORTED',
+        acquisitionStatus: acqStatus,
         required: plan.required ?? false,
         allowFallback: plan.allowFallback ?? this.defaultAllowFallback,
         allowCache: plan.allowCache ?? false,
@@ -89,21 +93,70 @@ export class UpstreamRunner {
         child.on('close', (code) => {
           clearTimeout(timer)
           const durationMs = Date.now() - started
-          const success = code === 0
+          const executionStatus = code === 0 ? 'PROCESS_SUCCEEDED' : 'PROCESS_FAILED'
 
-          // Determine precise acquisition status from child execution output
-          let acqStatus: UpstreamJobResult['acquisitionStatus'] = 'REMOTE_SYNCED'
-          let jobStatus: UpstreamJobResult['status'] = 'succeeded'
+          // Task 2: Machine-readable contract parsing
+          const matches = stdout.match(/^MOONWITNESS_RESULT:(.+)$/gm)
+
+          let acqStatus: UpstreamAcquisitionStatus = 'REMOTE_FAILED'
+          let jobStatus: UpstreamJobResult['status'] = 'failed'
+          let parsedPayload: UpstreamScriptPayload | null = null
           let fallbackReason: string | undefined
+          let fallbackSource: string | undefined = plan.fallbackSource
+          let sourceSha256: string = 'script-managed'
+          let byteCount: number | undefined
+          let resolvedUrl: string = plan.script || 'unknown'
+          let retrievedAt: string = new Date().toISOString()
+          let errorMsg: string | undefined
 
-          if (!success) {
+          if (executionStatus === 'PROCESS_FAILED') {
             acqStatus = 'REMOTE_FAILED'
             jobStatus = 'failed'
-            fallbackReason = stderr.trim() || `Script exited with code ${code}`
-          } else if (stdout.includes('LOCAL_FALLBACK') || stdout.includes('REMOTE_FAILED')) {
-            acqStatus = 'LOCAL_FALLBACK'
-            jobStatus = 'fallback'
-            fallbackReason = 'Remote source failed or unpinned; fell back to local dataset'
+            errorMsg = stderr.trim() || `Script exited with code ${code}`
+            fallbackReason = `Process failed with exit code ${code}`
+          } else if (!matches || matches.length === 0) {
+            // Exited 0 but missing structured payload
+            acqStatus = 'REMOTE_FAILED'
+            jobStatus = 'failed'
+            errorMsg = 'INVALID_ACQUISITION_RESULT: Missing MOONWITNESS_RESULT payload'
+            fallbackReason = 'Missing structured result envelope'
+          } else if (matches.length > 1) {
+            // Duplicate payload emission
+            acqStatus = 'REMOTE_FAILED'
+            jobStatus = 'failed'
+            errorMsg = 'INVALID_ACQUISITION_RESULT: Duplicate MOONWITNESS_RESULT payloads emitted'
+            fallbackReason = 'Duplicate result envelopes emitted'
+          } else {
+            const rawJson = matches[0].slice('MOONWITNESS_RESULT:'.length).trim()
+            try {
+              parsedPayload = JSON.parse(rawJson) as UpstreamScriptPayload
+              if (!parsedPayload.acquisitionStatus) {
+                throw new Error('Missing acquisitionStatus in payload')
+              }
+              acqStatus = parsedPayload.acquisitionStatus
+              fallbackReason = parsedPayload.fallbackReason
+              if (parsedPayload.fallbackSource) fallbackSource = parsedPayload.fallbackSource
+              if (parsedPayload.sourceSha256) sourceSha256 = parsedPayload.sourceSha256
+              if (parsedPayload.byteCount !== undefined) byteCount = parsedPayload.byteCount
+              if (parsedPayload.resolvedUrl) resolvedUrl = parsedPayload.resolvedUrl
+              if (parsedPayload.retrievedAt) retrievedAt = parsedPayload.retrievedAt
+              if (parsedPayload.error) errorMsg = parsedPayload.error
+
+              const statusMap: Record<UpstreamAcquisitionStatus, UpstreamJobResult['status']> = {
+                REMOTE_SYNCED: 'succeeded',
+                REMOTE_NOT_MODIFIED: 'not_modified',
+                LOCAL_CACHE: 'cache',
+                LOCAL_FALLBACK: 'fallback',
+                REMOTE_FAILED: 'failed',
+                UNSUPPORTED: 'unsupported'
+              }
+              jobStatus = statusMap[acqStatus] ?? 'failed'
+            } catch (err: any) {
+              acqStatus = 'REMOTE_FAILED'
+              jobStatus = 'failed'
+              errorMsg = `INVALID_ACQUISITION_RESULT: Malformed JSON: ${err.message}`
+              fallbackReason = 'Malformed result JSON'
+            }
           }
 
           resolve({
@@ -111,26 +164,28 @@ export class UpstreamRunner {
             traditionId: plan.traditionId,
             endpointId: plan.endpointId,
             mode: 'script',
+            executionStatus,
             status: jobStatus,
             acquisitionStatus: acqStatus,
             required: plan.required ?? false,
             allowFallback: plan.allowFallback ?? this.defaultAllowFallback,
             allowCache: plan.allowCache ?? false,
             durationMs,
-            error: success ? undefined : (stderr.trim() || `Process exited with code ${code}`),
+            error: errorMsg,
             fallbackReason,
-            fallbackSource: plan.fallbackSource,
+            fallbackSource,
             requestedUrl: targetUrl,
-            resolvedUrl: plan.script,
-            retrievedAt: new Date().toISOString(),
+            resolvedUrl,
+            retrievedAt,
+            byteCount,
             provenance: {
               runId,
               traditionId: plan.traditionId,
               endpointId: plan.endpointId,
               sourceUrl: targetUrl,
-              resolvedLocation: plan.script || 'unknown',
-              retrievedAt: new Date().toISOString(),
-              sourceSha256: 'script-managed'
+              resolvedLocation: resolvedUrl,
+              retrievedAt,
+              sourceSha256
             }
           })
         })
@@ -142,6 +197,7 @@ export class UpstreamRunner {
             traditionId: plan.traditionId,
             endpointId: plan.endpointId,
             mode: 'script',
+            executionStatus: 'PROCESS_FAILED',
             status: 'failed',
             acquisitionStatus: 'REMOTE_FAILED',
             required: plan.required ?? false,
@@ -166,7 +222,7 @@ export class UpstreamRunner {
           allowNetwork: plan.allowRemote ?? true
         })
 
-        const statusMap: Record<string, UpstreamJobResult['status']> = {
+        const statusMap: Record<UpstreamAcquisitionStatus, UpstreamJobResult['status']> = {
           REMOTE_SYNCED: 'succeeded',
           REMOTE_NOT_MODIFIED: 'not_modified',
           LOCAL_CACHE: 'cache',
@@ -180,6 +236,7 @@ export class UpstreamRunner {
           traditionId: plan.traditionId,
           endpointId: plan.endpointId,
           mode: 'adapter',
+          executionStatus: 'PROCESS_SUCCEEDED',
           status: statusMap[acq.status] ?? 'succeeded',
           acquisitionStatus: acq.status,
           required: plan.required ?? false,
@@ -211,6 +268,7 @@ export class UpstreamRunner {
           traditionId: plan.traditionId,
           endpointId: plan.endpointId,
           mode: 'adapter',
+          executionStatus: 'PROCESS_FAILED',
           status: 'failed',
           acquisitionStatus: 'REMOTE_FAILED',
           required: plan.required ?? false,
@@ -218,6 +276,7 @@ export class UpstreamRunner {
           allowCache: plan.allowCache ?? false,
           durationMs: Date.now() - started,
           error: err.message,
+          fallbackReason: err.message,
           requestedUrl: targetUrl,
           retrievedAt: new Date().toISOString()
         }
@@ -229,6 +288,7 @@ export class UpstreamRunner {
       traditionId: plan.traditionId,
       endpointId: plan.endpointId,
       mode: plan.mode,
+      executionStatus: 'PROCESS_SUCCEEDED',
       status: 'cache',
       acquisitionStatus: 'LOCAL_CACHE',
       required: plan.required ?? false,
@@ -274,13 +334,15 @@ export class UpstreamRunner {
     // Add skipped/disabled/unmapped items
     for (const plan of plans) {
       if (!results.some(r => r.id === plan.id)) {
+        const acqStatus: UpstreamAcquisitionStatus = plan.status === 'DISABLED' ? 'REMOTE_NOT_MODIFIED' : 'UNSUPPORTED'
         results.push({
           id: plan.id,
           traditionId: plan.traditionId,
           endpointId: plan.endpointId,
           mode: plan.mode,
+          executionStatus: 'PROCESS_SUCCEEDED',
           status: plan.status === 'DISABLED' ? 'not_modified' : 'unsupported',
-          acquisitionStatus: plan.status === 'DISABLED' ? 'REMOTE_NOT_MODIFIED' : 'UNSUPPORTED',
+          acquisitionStatus: acqStatus,
           required: plan.required ?? false,
           allowFallback: plan.allowFallback ?? this.defaultAllowFallback,
           allowCache: plan.allowCache ?? false,

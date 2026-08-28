@@ -85,7 +85,7 @@
           "id": "sblgnt",
           "name": "Society of Biblical Literature Greek New Testament",
           "type": "git_repo",
-          "repoUrl": "https://github.com/logos/sblgnt.git",
+          "repoUrl": "https://github.com/morphgnt/sblgnt.git",
           "license": "CC-BY-4.0"
         },
         {

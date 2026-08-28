@@ -1,6 +1,6 @@
 import { mkdir, writeFile } from 'node:fs/promises'
 import path from 'node:path'
-import type { UpstreamJobResult, UpstreamRunManifest } from './types.js'
+import type { UpstreamJobResult, UpstreamRunManifest, UpstreamCoverageReport } from './types.js'
 
 export interface ManifestGenerationOptions {
   runId: string
@@ -23,8 +23,14 @@ export function buildRunManifest(options: ManifestGenerationOptions): UpstreamRu
     notModified: sortedJobs.filter(j => j.acquisitionStatus === 'REMOTE_NOT_MODIFIED').length,
     cache: sortedJobs.filter(j => j.acquisitionStatus === 'LOCAL_CACHE').length,
     fallback: sortedJobs.filter(j => j.acquisitionStatus === 'LOCAL_FALLBACK').length,
-    failed: sortedJobs.filter(j => j.acquisitionStatus === 'REMOTE_FAILED' || j.status === 'failed').length,
-    unsupported: sortedJobs.filter(j => j.acquisitionStatus === 'UNSUPPORTED' || j.status === 'unsupported').length
+    failed: sortedJobs.filter(j => j.acquisitionStatus === 'REMOTE_FAILED').length,
+    unsupported: sortedJobs.filter(j => j.acquisitionStatus === 'UNSUPPORTED').length
+  }
+
+  // Task 1: Invariant Assertion
+  const sum = totals.remoteSynced + totals.notModified + totals.cache + totals.fallback + totals.failed + totals.unsupported
+  if (sum !== totals.planned) {
+    throw new Error(`Manifest accounting invariant failed: sum(${sum}) !== planned(${totals.planned})`)
   }
 
   return {
@@ -42,6 +48,34 @@ export function buildRunManifest(options: ManifestGenerationOptions): UpstreamRu
   }
 }
 
+export function buildCoverageReport(manifest: UpstreamRunManifest): UpstreamCoverageReport {
+  const { totals, runId, registryVersion } = manifest
+  const planned = totals.planned || 1
+
+  const remoteCoveragePercent = Number(((totals.remoteSynced + totals.notModified) / planned * 100).toFixed(2))
+  const validatedCoveragePercent = Number(((totals.remoteSynced + totals.notModified + totals.cache) / planned * 100).toFixed(2))
+  const fallbackPercent = Number((totals.fallback / planned * 100).toFixed(2))
+  const failurePercent = Number((totals.failed / planned * 100).toFixed(2))
+
+  return {
+    schemaVersion: '1.0.0',
+    generatedAt: manifest.completedAt,
+    runId,
+    registryVersion,
+    planned: totals.planned,
+    remoteSynced: totals.remoteSynced,
+    notModified: totals.notModified,
+    cache: totals.cache,
+    fallback: totals.fallback,
+    failed: totals.failed,
+    unsupported: totals.unsupported,
+    remoteCoveragePercent,
+    validatedCoveragePercent,
+    fallbackPercent,
+    failurePercent
+  }
+}
+
 export async function writeRunManifest(
   manifest: UpstreamRunManifest,
   outDir: string = path.join(process.cwd(), 'dist')
@@ -49,5 +83,10 @@ export async function writeRunManifest(
   await mkdir(outDir, { recursive: true })
   const targetFile = path.join(outDir, 'upstream-sync-manifest.json')
   await writeFile(targetFile, JSON.stringify(manifest, null, 2) + '\n', 'utf8')
+
+  const coverageReport = buildCoverageReport(manifest)
+  const coverageFile = path.join(outDir, 'upstream-coverage.json')
+  await writeFile(coverageFile, JSON.stringify(coverageReport, null, 2) + '\n', 'utf8')
+
   return targetFile
 }

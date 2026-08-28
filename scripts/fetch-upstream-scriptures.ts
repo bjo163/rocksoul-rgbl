@@ -2,22 +2,70 @@ import { mkdir, writeFile } from 'node:fs/promises'
 import { createHash } from 'node:crypto'
 import path from 'node:path'
 
-// Helper to fetch from remote URL with fallback to local upstream archive
-async function fetchOrRead(url: string, fallbackData: any): Promise<{ data: string; sha256: string; byteSize: number }> {
-  try {
-    const res = await fetch(url, { headers: { 'User-Agent': 'MoonWitness-Corpus-Ingester/1.0' } })
-    if (res.ok) {
-      const text = await res.text()
-      const sha256 = createHash('sha256').update(text).digest('hex')
-      return { data: text, sha256, byteSize: Buffer.byteLength(text) }
-    }
-  } catch (err) {
-    // Network offline or endpoint unreachable: use authoritative upstream raw baseline
-  }
+interface AcquisitionResult {
+  data: string
+  sha256: string
+  byteSize: number
+  status: 'REMOTE_SYNCED' | 'LOCAL_FALLBACK'
+  httpStatus?: number
+  error?: string
+}
 
-  const text = typeof fallbackData === 'string' ? fallbackData : JSON.stringify(fallbackData, null, 2)
-  const sha256 = createHash('sha256').update(text).digest('hex')
-  return { data: text, sha256, byteSize: Buffer.byteLength(text) }
+const ALLOW_LOCAL_FALLBACK = process.env.MOONWITNESS_ALLOW_LOCAL_FALLBACK === '1'
+
+async function fetchOrRead(url: string, fallbackData: unknown): Promise<AcquisitionResult> {
+  try {
+    const res = await fetch(url, {
+      headers: {
+        'User-Agent': 'MoonWitness-Corpus-Ingester/1.0',
+        'Accept': '*/*'
+      },
+      redirect: 'follow',
+      signal: AbortSignal.timeout(30000)
+    })
+
+    const rawText = await res.text()
+
+    if (res.ok) {
+      return {
+        data: rawText,
+        sha256: createHash('sha256').update(rawText).digest('hex'),
+        byteSize: Buffer.byteLength(rawText),
+        status: 'REMOTE_SYNCED',
+        httpStatus: res.status
+      }
+    }
+
+    const error = `HTTP ${res.status} ${res.statusText}`
+    if (!ALLOW_LOCAL_FALLBACK) throw new Error(error)
+
+    const text = typeof fallbackData === 'string'
+      ? fallbackData
+      : JSON.stringify(fallbackData, null, 2)
+
+    return {
+      data: text,
+      sha256: createHash('sha256').update(text).digest('hex'),
+      byteSize: Buffer.byteLength(text),
+      status: 'LOCAL_FALLBACK',
+      httpStatus: res.status,
+      error
+    }
+  } catch (error) {
+    if (!ALLOW_LOCAL_FALLBACK) throw error
+
+    const text = typeof fallbackData === 'string'
+      ? fallbackData
+      : JSON.stringify(fallbackData, null, 2)
+
+    return {
+      data: text,
+      sha256: createHash('sha256').update(text).digest('hex'),
+      byteSize: Buffer.byteLength(text),
+      status: 'LOCAL_FALLBACK',
+      error: error instanceof Error ? error.message : String(error)
+    }
+  }
 }
 
 const UPSTREAM_SOURCES = [
@@ -26,8 +74,8 @@ const UPSTREAM_SOURCES = [
     targetFile: 'ingestion/recipes/principal-upanishads/source/upanishads-sanskrit-gretil.json',
     url: 'https://raw.githubusercontent.com/gretil/gretil/master/1_sanskr/1_veda/4_upa/upa_all.json',
     defaultData: {
-      source: 'GRETIL Sanskrit e-text archive (Göttingen Register of Electronic Texts in Indian Languages)',
-      license: 'Public Domain',
+      source: 'GRETIL Sanskrit e-text archive',
+      license: 'verify_per_item',
       editions: ['Isha', 'Kena', 'Katha', 'Mundaka', 'Mandukya']
     }
   },
@@ -36,8 +84,8 @@ const UPSTREAM_SOURCES = [
     targetFile: 'ingestion/recipes/sikhism-japji-sahib/source/japji-sahib-sggs.json',
     url: 'https://raw.githubusercontent.com/shabados/database/master/raw/japji.json',
     defaultData: {
-      source: 'Sri Guru Granth Sahib (Ang 1-8), ShabadOS Open Heritage',
-      license: 'Public Domain'
+      source: 'Sri Guru Granth Sahib / ShabadOS',
+      license: 'verify_per_item'
     }
   },
   {
@@ -45,8 +93,8 @@ const UPSTREAM_SOURCES = [
     targetFile: 'ingestion/recipes/jainism-tattvartha-sutra/source/tattvartha-sutra-raw.json',
     url: 'https://raw.githubusercontent.com/jain-heritage/tattvartha/master/data/tattvartha.json',
     defaultData: {
-      source: 'Acharya Umaswati Tattvartha Sutra Classical Texts',
-      license: 'Public Domain'
+      source: 'Tattvartha Sutra',
+      license: 'verify_per_item'
     }
   },
   {
@@ -54,8 +102,8 @@ const UPSTREAM_SOURCES = [
     targetFile: 'ingestion/recipes/bahai-hidden-words/source/hidden-words-raw.json',
     url: 'https://raw.githubusercontent.com/bahai-open-data/writings/master/hidden-words.json',
     defaultData: {
-      source: 'The Hidden Words of Baha\'u\'llah (Arabic & Persian)',
-      license: 'Public Domain'
+      source: "The Hidden Words of Baha'u'llah",
+      license: 'verify_per_item'
     }
   },
   {
@@ -63,8 +111,8 @@ const UPSTREAM_SOURCES = [
     targetFile: 'ingestion/recipes/hadith-muslim/source/hadith-muslim-raw.json',
     url: 'https://raw.githubusercontent.com/Jaguar16/open-hadith-data/master/muslim/muslim.json',
     defaultData: {
-      source: 'Sahih Muslim Classical Hadith Collection (Imam Muslim d. 261 AH)',
-      license: 'Public Domain'
+      source: 'Sahih Muslim',
+      license: 'verify_per_item'
     }
   },
   {
@@ -72,47 +120,84 @@ const UPSTREAM_SOURCES = [
     targetFile: 'ingestion/recipes/shinto-kojiki/source/kojiki-raw.json',
     url: 'https://raw.githubusercontent.com/sacred-texts/shinto/master/kojiki.json',
     defaultData: {
-      source: 'Sacred Texts Archive — Kojiki (712 CE), Translated by Basil Hall Chamberlain (1882)',
+      source: 'Sacred Texts Archive — Kojiki',
       url: 'https://sacred-texts.com/shi/kj/index.htm',
-      retrieved_at: '2026-08-29T00:00:00Z',
-      license: 'Public Domain',
-      entries: [
-        {
-          section: '1:1',
-          title: 'The Origin of Heaven and Earth (天地初発)',
-          japanese: '天地初発の時、高天原に成れる神の名は、天之御中主神。次に高御産巣日神。次に神産巣日神。此の三柱の神は、並独神と成り坐して、身を隠したまひき。',
-          english: 'The names of the Deities that were born in the Plain of High Heaven when the Heaven and Earth began were the Deity Master-of-the-August-Center-of-Heaven, next the High-August-Producing-Wondrous Deity, next the Divine-Producing-Wondrous Deity. These three Deities were all Deities that were born alone, and hid their persons.',
-          indonesian: 'Pada saat pemisahan awal langit dan bumi, dewa pertama yang terlahir di Dataran Tinggi Surga adalah Ame-no-Minakanushi (Dewa Penguasa Pusat Surga), kemudian Takamimusubi, dan Kamimusubi. Ketiga dewa primordial ini lahir secara mandiri dan menyembunyikan wujud mereka.'
-        },
-        {
-          section: '1:2',
-          title: 'The Birth of the Land and Seas (国生み)',
-          japanese: '次に国稚く浮ける脂の如くして、水母なす漂へる時に、葦牙の如く萌え騰る物に因りて成れる神の名は、宇摩志阿斯訶備比古遅神。次に天之常立神。',
-          english: 'Next, when the earth was young, like floating oil, and drifted about like a jellyfish, there was born from a thing that sprouted forth like a reed-shoot the Deity Pleasant-Reed-Shoot-Prince-Elder, next the Heavenly-Eternally-Standing Deity.',
-          indonesian: 'Ketika bumi masih muda, terapung seperti minyak di air dan mengapung laksana ubur-ubur, muncullah dari tunas yang tumbuh seperti pucuk alang-alang dewa Umashiashikabihikoji, kemudian dilanjutkan dengan terlahirnya dewa Amenotokotachi.'
-        },
-        {
-          section: '1:3',
-          title: 'The Divine Mirror and Virtue of Purity (八咫鏡と清浄)',
-          japanese: '八咫鏡を祭りて、常に心を清く保ち、正直を以て天下を治むべし。神道の本は清浄と正直にあり。',
-          english: 'Enshrine the Sacred Mirror (Yata no Kagami), keep the heart forever pure, and govern the realm with uprightness and sincerity. The essence of Shinto lies in purity (Seimeishin) and honesty.',
-          indonesian: 'Peliharalah Cermin Suci (Yata no Kagami), jagalah hati agar senantiasa suci dan murni, serta pimpinlah dengan kejujuran dan ketulusan. Hakikat dari Shinto bersumber pada kesucian batin (Seimeishin) dan kejujuran nurani.'
-        }
-      ]
+      license: 'Public Domain / verify'
     }
   }
 ]
 
 async function main() {
   console.log('--- Fetching Raw Upstream Sacred Texts & Data Sources ---')
+  console.log(`Local fallback: ${ALLOW_LOCAL_FALLBACK ? 'ENABLED (explicit opt-in)' : 'DISABLED'}`)
+
+  const results: Array<{
+    name: string
+    targetFile: string
+    url: string
+    status: AcquisitionResult['status'] | 'FAILED'
+    sha256?: string
+    byteSize?: number
+    httpStatus?: number
+    error?: string
+  }> = []
+
   for (const src of UPSTREAM_SOURCES) {
     const fullPath = path.join(process.cwd(), src.targetFile)
     await mkdir(path.dirname(fullPath), { recursive: true })
-    const { data, sha256, byteSize } = await fetchOrRead(src.url, src.defaultData)
-    await writeFile(fullPath, data, 'utf8')
-    console.log(`✓ Fetched ${src.name}: ${byteSize} bytes (SHA-256: ${sha256.slice(0, 16)}...) -> ${src.targetFile}`)
+
+    try {
+      const result = await fetchOrRead(src.url, src.defaultData)
+      await writeFile(fullPath, result.data, 'utf8')
+
+      results.push({
+        name: src.name,
+        targetFile: src.targetFile,
+        url: src.url,
+        status: result.status,
+        sha256: result.sha256,
+        byteSize: result.byteSize,
+        httpStatus: result.httpStatus,
+        error: result.error
+      })
+
+      const marker = result.status === 'REMOTE_SYNCED' ? '✓' : '⚠'
+      console.log(`${marker} ${src.name}: ${result.status} ${result.byteSize} bytes (SHA-256: ${result.sha256.slice(0, 16)}...)`)
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error)
+      results.push({
+        name: src.name,
+        targetFile: src.targetFile,
+        url: src.url,
+        status: 'FAILED',
+        error: message
+      })
+      console.error(`✗ ${src.name}: REMOTE_FAILED — ${message}`)
+    }
   }
-  console.log('--- All Upstream Raw Sources Synchronized & Pinned ---')
+
+  const reportDir = path.join(process.cwd(), 'dist')
+  await mkdir(reportDir, { recursive: true })
+  await writeFile(
+    path.join(reportDir, 'upstream-acquisition-manifest.json'),
+    `${JSON.stringify({
+      schemaVersion: '1.0.0',
+      generatedAt: new Date().toISOString(),
+      fallbackAllowed: ALLOW_LOCAL_FALLBACK,
+      results
+    }, null, 2)}\n`,
+    'utf8'
+  )
+
+  const failed = results.filter((result) => result.status === 'FAILED')
+  const fallback = results.filter((result) => result.status === 'LOCAL_FALLBACK')
+
+  console.log(`--- Results: ${results.length} sources, ${failed.length} failed, ${fallback.length} fallback ---`)
+
+  if (failed.length > 0) process.exitCode = 1
 }
 
-main().catch(console.error)
+main().catch((error) => {
+  console.error(error)
+  process.exitCode = 1
+})

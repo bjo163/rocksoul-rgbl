@@ -76,6 +76,7 @@ export const httpJsonAdapter: UpstreamAdapter = {
       retrievedAt: new Date().toISOString(),
       sourceSha256,
       byteSize: bytes.byteLength,
+      contentType: res.headers.get('content-type') || 'application/json',
       etag: res.headers.get('etag') || undefined,
       lastModified: res.headers.get('last-modified') || undefined
     }
@@ -115,6 +116,7 @@ export const rawTextAdapter: UpstreamAdapter = {
       retrievedAt: new Date().toISOString(),
       sourceSha256,
       byteSize: bytes.byteLength,
+      contentType: res.headers.get('content-type') || 'text/plain',
       etag: res.headers.get('etag') || undefined,
       lastModified: res.headers.get('last-modified') || undefined
     }
@@ -134,20 +136,41 @@ export const gitAdapter: UpstreamAdapter = {
     if (!repoUrl) throw new Error(`Git endpoint ${endpoint.id} missing repoUrl`)
 
     let headCommit: string
+    let defaultBranch = 'master'
     try {
-      const output = execFileSync('git', ['ls-remote', repoUrl, 'HEAD'], {
+      const output = execFileSync('git', ['ls-remote', '--symref', repoUrl, 'HEAD'], {
         encoding: 'utf8',
         timeout: 20000,
         stdio: ['ignore', 'pipe', 'pipe']
       })
-      const match = output.match(/^([0-9a-fA-F]{40})\s+HEAD/m)
-      if (!match) throw new Error(`Could not parse HEAD commit from remote git repository`)
-      headCommit = match[1]
+      const refMatch = output.match(/^ref:\s+refs\/heads\/([^\s]+)\s+HEAD/m)
+      if (refMatch) defaultBranch = refMatch[1]
+
+      const commitMatch = output.match(/^([0-9a-fA-F]{40})\s+HEAD/m)
+      if (!commitMatch) throw new Error(`Could not parse HEAD commit from remote git repository`)
+      headCommit = commitMatch[1]
     } catch (err: any) {
-      throw new Error(`Git remote verification failed for ${repoUrl}: ${err.stderr?.toString().trim() || err.message}`)
+      // Fallback to simple HEAD check if --symref is not supported by remote
+      try {
+        const simpleOutput = execFileSync('git', ['ls-remote', repoUrl, 'HEAD'], {
+          encoding: 'utf8',
+          timeout: 20000,
+          stdio: ['ignore', 'pipe', 'pipe']
+        })
+        const match = simpleOutput.match(/^([0-9a-fA-F]{40})\s+HEAD/m)
+        if (!match) throw new Error(`Could not parse HEAD commit from remote git repository`)
+        headCommit = match[1]
+      } catch (innerErr: any) {
+        throw new Error(`Git remote verification failed for ${repoUrl}: ${innerErr.stderr?.toString().trim() || innerErr.message}`)
+      }
     }
 
-    const payload = new TextEncoder().encode(JSON.stringify({ repoUrl, headCommit, verifiedAt: new Date().toISOString() }))
+    const payload = new TextEncoder().encode(JSON.stringify({
+      repoUrl,
+      headCommit,
+      defaultBranch,
+      verifiedAt: new Date().toISOString()
+    }))
 
     return {
       bytes: payload,
@@ -156,7 +179,11 @@ export const gitAdapter: UpstreamAdapter = {
       resolvedLocation: repoUrl,
       retrievedAt: new Date().toISOString(),
       sourceSha256: headCommit,
-      byteSize: payload.byteLength
+      byteSize: payload.byteLength,
+      repoUrl,
+      resolvedCommit: headCommit,
+      ref: 'HEAD',
+      defaultBranch
     }
   }
 }

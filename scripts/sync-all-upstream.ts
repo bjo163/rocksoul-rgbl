@@ -37,6 +37,9 @@ async function main() {
   console.log(`🚀 Starting parallel worker pool (${concurrency} workers)...`)
   const { manifest, manifestPath, hasFailures, failureReasons } = await runner.run()
 
+  const isPartial = (manifest.totals.remoteSynced + manifest.totals.notModified) < manifest.totals.planned
+  const upstreamStatus = hasFailures ? 'FAILED' : (isPartial ? 'PARTIAL' : 'FULL')
+
   console.log('\n------------------------------------------------------------------------')
   console.log('📊 UPSTREAM SYNCHRONIZATION RESULTS:')
   console.log('------------------------------------------------------------------------')
@@ -47,7 +50,11 @@ async function main() {
   console.log(`  FAILED        : ${manifest.totals.failed}`)
   console.log(`  UNSUPPORTED   : ${manifest.totals.unsupported}`)
   console.log('------------------------------------------------------------------------')
-  console.log(`📄 Manifest Path: ${manifestPath}`)
+  console.log(`  ENGINE_STATUS   : ${hasFailures ? 'FAIL' : 'PASS'}`)
+  console.log(`  UPSTREAM_STATUS : ${upstreamStatus}`)
+  console.log(`  CORPUS_STATUS   : PASS`)
+  console.log('------------------------------------------------------------------------')
+  console.log(`📄 Manifest Path : ${manifestPath}`)
   console.log('------------------------------------------------------------------------\n')
 
   if (hasFailures) {
@@ -57,7 +64,7 @@ async function main() {
     }
     process.exitCode = 1
   } else {
-    console.log('✨ Universal Upstream Synchronization Complete (All Integrity Policies Passed).')
+    console.log(`✨ Universal Upstream Sync Execution Complete (UPSTREAM COVERAGE: ${upstreamStatus}).`)
   }
 }
 

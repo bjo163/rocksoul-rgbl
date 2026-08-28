@@ -14,7 +14,16 @@ export interface ManifestGenerationOptions {
 }
 
 export function buildRunManifest(options: ManifestGenerationOptions): UpstreamRunManifest {
-  // Sort jobs deterministically by job ID, not completion order
+  // Check for duplicate job IDs
+  const seenIds = new Set<string>()
+  for (const job of options.jobs) {
+    if (seenIds.has(job.id)) {
+      throw new Error(`Duplicate upstream job ID in manifest: ${job.id}`)
+    }
+    seenIds.add(job.id)
+  }
+
+  // Sort jobs deterministically by job ID
   const sortedJobs = [...options.jobs].sort((a, b) => a.id.localeCompare(b.id))
 
   const totals = {
@@ -27,14 +36,30 @@ export function buildRunManifest(options: ManifestGenerationOptions): UpstreamRu
     unsupported: sortedJobs.filter(j => j.acquisitionStatus === 'UNSUPPORTED').length
   }
 
-  // Task 1: Invariant Assertion
+  // Task 1: Hard Accounting Invariant Assertions
   const sum = totals.remoteSynced + totals.notModified + totals.cache + totals.fallback + totals.failed + totals.unsupported
-  if (sum !== totals.planned) {
+  const accountingValid = (sum === totals.planned)
+
+  if (!accountingValid) {
     throw new Error(`Manifest accounting invariant failed: sum(${sum}) !== planned(${totals.planned})`)
+  }
+
+  // Additional sanity check on all category sums
+  if (
+    totals.remoteSynced !== sortedJobs.filter(j => j.acquisitionStatus === 'REMOTE_SYNCED').length ||
+    totals.notModified !== sortedJobs.filter(j => j.acquisitionStatus === 'REMOTE_NOT_MODIFIED').length ||
+    totals.cache !== sortedJobs.filter(j => j.acquisitionStatus === 'LOCAL_CACHE').length ||
+    totals.fallback !== sortedJobs.filter(j => j.acquisitionStatus === 'LOCAL_FALLBACK').length ||
+    totals.failed !== sortedJobs.filter(j => j.acquisitionStatus === 'REMOTE_FAILED').length ||
+    totals.unsupported !== sortedJobs.filter(j => j.acquisitionStatus === 'UNSUPPORTED').length
+  ) {
+    throw new Error('Manifest individual category count mismatch against job details')
   }
 
   return {
     schemaVersion: '1.0.0',
+    valid: true,
+    accountingValid: true,
     runId: options.runId,
     startedAt: options.startedAt,
     completedAt: options.completedAt,
@@ -52,10 +77,12 @@ export function buildCoverageReport(manifest: UpstreamRunManifest): UpstreamCove
   const { totals, runId, registryVersion } = manifest
   const planned = totals.planned || 1
 
-  const remoteCoveragePercent = Number(((totals.remoteSynced + totals.notModified) / planned * 100).toFixed(2))
-  const validatedCoveragePercent = Number(((totals.remoteSynced + totals.notModified + totals.cache) / planned * 100).toFixed(2))
-  const fallbackPercent = Number((totals.fallback / planned * 100).toFixed(2))
-  const failurePercent = Number((totals.failed / planned * 100).toFixed(2))
+  const remoteCoveragePercent = Number(((totals.remoteSynced + totals.notModified) / planned * 100).toFixed(4))
+  const remoteValidPercent = remoteCoveragePercent
+  const validatedCoveragePercent = Number(((totals.remoteSynced + totals.notModified + totals.cache) / planned * 100).toFixed(4))
+  const fallbackPercent = Number((totals.fallback / planned * 100).toFixed(4))
+  const failurePercent = Number((totals.failed / planned * 100).toFixed(4))
+  const partial = (totals.remoteSynced + totals.notModified) < totals.planned
 
   return {
     schemaVersion: '1.0.0',
@@ -70,9 +97,11 @@ export function buildCoverageReport(manifest: UpstreamRunManifest): UpstreamCove
     failed: totals.failed,
     unsupported: totals.unsupported,
     remoteCoveragePercent,
+    remoteValidPercent,
     validatedCoveragePercent,
     fallbackPercent,
-    failurePercent
+    failurePercent,
+    partial
   }
 }
 

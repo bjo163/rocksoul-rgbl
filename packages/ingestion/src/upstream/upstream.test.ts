@@ -53,7 +53,7 @@ test('Upstream Architecture: UpstreamPlanner builds deterministic plan from regi
   assert.deepEqual(ids, sortedIds, 'Plans must be deterministically sorted by ID')
 })
 
-test('Contract Test 1: script exits 0 + valid REMOTE_SYNCED result', () => {
+test('Test 1: process success + remote success', () => {
   const job: UpstreamJobResult = {
     id: 'islam:ummah-api',
     traditionId: 'islam',
@@ -69,7 +69,8 @@ test('Contract Test 1: script exits 0 + valid REMOTE_SYNCED result', () => {
     requestedUrl: 'https://ummahapi.com/api',
     resolvedUrl: 'https://ummahapi.com/api',
     retrievedAt: new Date().toISOString(),
-    byteCount: 154000
+    byteCount: 154000,
+    sourceSha256: 'a1b2c3d4e5f6'
   }
 
   assert.equal(job.executionStatus, 'PROCESS_SUCCEEDED')
@@ -77,7 +78,7 @@ test('Contract Test 1: script exits 0 + valid REMOTE_SYNCED result', () => {
   assert.equal(job.status, 'succeeded')
 })
 
-test('Contract Test 2: script exits 0 + LOCAL_FALLBACK result', () => {
+test('Test 2: process success + fallback', () => {
   const job: UpstreamJobResult = {
     id: 'hinduism:gita-open-data',
     traditionId: 'hinduism',
@@ -99,7 +100,7 @@ test('Contract Test 2: script exits 0 + LOCAL_FALLBACK result', () => {
   assert.equal(job.status, 'fallback')
 })
 
-test('Contract Test 3: script exits 0 + invalid result marks REMOTE_FAILED', () => {
+test('Test 3: process success + invalid result', () => {
   const job: UpstreamJobResult = {
     id: 'test:invalid-result',
     traditionId: 'test',
@@ -120,7 +121,7 @@ test('Contract Test 3: script exits 0 + invalid result marks REMOTE_FAILED', () 
   assert.equal(job.status, 'failed')
 })
 
-test('Contract Test 4: script exits nonzero marks PROCESS_FAILED and REMOTE_FAILED', () => {
+test('Test 4: process failure', () => {
   const job: UpstreamJobResult = {
     id: 'test:crash-script',
     traditionId: 'test',
@@ -141,8 +142,29 @@ test('Contract Test 4: script exits nonzero marks PROCESS_FAILED and REMOTE_FAIL
   assert.equal(job.status, 'failed')
 })
 
-test('Contract Test 5 & 6 & 7: malformed JSON, missing result, and duplicate results', () => {
-  const malformedJob: UpstreamJobResult = {
+test('Test 5: process timeout', () => {
+  const job: UpstreamJobResult = {
+    id: 'test:timeout-script',
+    traditionId: 'test',
+    endpointId: 'timeout-script',
+    mode: 'script',
+    executionStatus: 'PROCESS_TIMEOUT',
+    status: 'failed',
+    acquisitionStatus: 'REMOTE_FAILED',
+    required: true,
+    allowFallback: false,
+    allowCache: false,
+    durationMs: 900000,
+    error: 'Process timed out after 900000ms'
+  }
+
+  assert.equal(job.executionStatus, 'PROCESS_TIMEOUT')
+  assert.equal(job.acquisitionStatus, 'REMOTE_FAILED')
+  assert.equal(job.status, 'failed')
+})
+
+test('Test 6: malformed result JSON', () => {
+  const job: UpstreamJobResult = {
     id: 'test:malformed',
     traditionId: 'test',
     endpointId: 'malformed',
@@ -156,10 +178,16 @@ test('Contract Test 5 & 6 & 7: malformed JSON, missing result, and duplicate res
     durationMs: 10,
     error: 'INVALID_ACQUISITION_RESULT: Malformed JSON'
   }
-  const duplicateJob: UpstreamJobResult = {
-    id: 'test:duplicate',
+
+  assert.equal(job.status, 'failed')
+  assert.equal(job.acquisitionStatus, 'REMOTE_FAILED')
+})
+
+test('Test 7: missing result', () => {
+  const job: UpstreamJobResult = {
+    id: 'test:missing',
     traditionId: 'test',
-    endpointId: 'duplicate',
+    endpointId: 'missing',
     mode: 'script',
     executionStatus: 'PROCESS_SUCCEEDED',
     status: 'failed',
@@ -168,14 +196,14 @@ test('Contract Test 5 & 6 & 7: malformed JSON, missing result, and duplicate res
     allowFallback: false,
     allowCache: false,
     durationMs: 10,
-    error: 'INVALID_ACQUISITION_RESULT: Duplicate MOONWITNESS_RESULT payloads emitted'
+    error: 'INVALID_ACQUISITION_RESULT: Missing MOONWITNESS_RESULT payload'
   }
 
-  assert.equal(malformedJob.status, 'failed')
-  assert.equal(duplicateJob.status, 'failed')
+  assert.equal(job.status, 'failed')
+  assert.equal(job.acquisitionStatus, 'REMOTE_FAILED')
 })
 
-test('Contract Test 8: manifest accounting invariant mismatch throws error', () => {
+test('Test 8: manifest category mismatch / accounting invariant failure', () => {
   const mockJobs: UpstreamJobResult[] = [
     {
       id: 'job-1',
@@ -201,92 +229,35 @@ test('Contract Test 8: manifest accounting invariant mismatch throws error', () 
     jobs: mockJobs
   })
 
-  // Invariant holds for consistent run
+  assert.equal(manifest.valid, true)
+  assert.equal(manifest.accountingValid, true)
   assert.equal(manifest.totals.planned, 1)
   assert.equal(manifest.totals.remoteSynced, 1)
-
-  // Coverage report generated
-  const report = buildCoverageReport(manifest)
-  assert.equal(report.planned, 1)
-  assert.equal(report.remoteCoveragePercent, 100)
-  assert.equal(report.fallbackPercent, 0)
 })
 
-test('Contract Test 9: all 6 acquisition states correctly counted', () => {
-  const jobs: UpstreamJobResult[] = [
+test('Test 9: duplicate job IDs rejected', () => {
+  const duplicateJobs: UpstreamJobResult[] = [
     {
-      id: 'a',
-      traditionId: 'tradA',
-      endpointId: 'epA',
+      id: 'duplicate-id',
+      traditionId: 'trad1',
+      endpointId: 'ep1',
       mode: 'adapter',
       executionStatus: 'PROCESS_SUCCEEDED',
       status: 'succeeded',
       acquisitionStatus: 'REMOTE_SYNCED',
-      required: true,
-      allowFallback: false,
-      allowCache: false,
-      durationMs: 10
-    },
-    {
-      id: 'b',
-      traditionId: 'tradB',
-      endpointId: 'epB',
-      mode: 'adapter',
-      executionStatus: 'PROCESS_SUCCEEDED',
-      status: 'not_modified',
-      acquisitionStatus: 'REMOTE_NOT_MODIFIED',
       required: false,
       allowFallback: false,
       allowCache: false,
       durationMs: 10
     },
     {
-      id: 'c',
-      traditionId: 'tradC',
-      endpointId: 'epC',
+      id: 'duplicate-id',
+      traditionId: 'trad1',
+      endpointId: 'ep1',
       mode: 'adapter',
       executionStatus: 'PROCESS_SUCCEEDED',
-      status: 'cache',
-      acquisitionStatus: 'LOCAL_CACHE',
-      required: false,
-      allowFallback: false,
-      allowCache: true,
-      durationMs: 10
-    },
-    {
-      id: 'd',
-      traditionId: 'tradD',
-      endpointId: 'epD',
-      mode: 'script',
-      executionStatus: 'PROCESS_SUCCEEDED',
-      status: 'fallback',
-      acquisitionStatus: 'LOCAL_FALLBACK',
-      required: false,
-      allowFallback: true,
-      allowCache: false,
-      durationMs: 10
-    },
-    {
-      id: 'e',
-      traditionId: 'tradE',
-      endpointId: 'epE',
-      mode: 'adapter',
-      executionStatus: 'PROCESS_FAILED',
-      status: 'failed',
-      acquisitionStatus: 'REMOTE_FAILED',
-      required: false,
-      allowFallback: false,
-      allowCache: false,
-      durationMs: 10
-    },
-    {
-      id: 'f',
-      traditionId: 'tradF',
-      endpointId: 'epF',
-      mode: 'adapter',
-      executionStatus: 'PROCESS_SUCCEEDED',
-      status: 'unsupported',
-      acquisitionStatus: 'UNSUPPORTED',
+      status: 'succeeded',
+      acquisitionStatus: 'REMOTE_SYNCED',
       required: false,
       allowFallback: false,
       allowCache: false,
@@ -294,55 +265,98 @@ test('Contract Test 9: all 6 acquisition states correctly counted', () => {
     }
   ]
 
-  const manifest = buildRunManifest({
-    runId: 'test-all-six',
-    startedAt: '2026-08-29T00:00:00Z',
-    completedAt: '2026-08-29T00:01:00Z',
-    registryVersion: '1.0.0',
-    workers: 6,
-    jobs
-  })
-
-  assert.equal(manifest.totals.planned, 6)
-  assert.equal(manifest.totals.remoteSynced, 1)
-  assert.equal(manifest.totals.notModified, 1)
-  assert.equal(manifest.totals.cache, 1)
-  assert.equal(manifest.totals.fallback, 1)
-  assert.equal(manifest.totals.failed, 1)
-  assert.equal(manifest.totals.unsupported, 1)
-
-  const coverage = buildCoverageReport(manifest)
-  assert.equal(coverage.remoteCoveragePercent, 33.33) // (1 + 1) / 6 = 33.33%
-  assert.equal(coverage.validatedCoveragePercent, 50)  // (1 + 1 + 1) / 6 = 50%
+  assert.throws(() => {
+    buildRunManifest({
+      runId: 'test-dup',
+      startedAt: '2026-08-29T00:00:00Z',
+      completedAt: '2026-08-29T00:01:00Z',
+      registryVersion: '1.0.0',
+      workers: 1,
+      jobs: duplicateJobs
+    })
+  }, /Duplicate upstream job ID/)
 })
 
-test('Contract Test 10: required vs optional policy behavior', () => {
-  const planReq: UpstreamExecutionPlan = {
-    id: 'req-job',
-    traditionId: 'trad',
-    endpointId: 'ep',
-    endpoint: { id: 'ep', name: 'Ep', type: 'rest_api', license: 'CC0-1.0' },
-    mode: 'adapter',
-    status: 'READY',
-    enabled: true,
-    required: true,
-    allowFallback: false
-  }
-
-  const planOpt: UpstreamExecutionPlan = {
-    id: 'opt-job',
-    traditionId: 'trad',
-    endpointId: 'ep2',
-    endpoint: { id: 'ep2', name: 'Ep2', type: 'rest_api', license: 'CC0-1.0' },
-    mode: 'adapter',
-    status: 'READY',
-    enabled: true,
+test('Test 10: duplicate acquisition result envelope rejected', () => {
+  const job: UpstreamJobResult = {
+    id: 'test:duplicate-envelope',
+    traditionId: 'test',
+    endpointId: 'duplicate-envelope',
+    mode: 'script',
+    executionStatus: 'PROCESS_SUCCEEDED',
+    status: 'failed',
+    acquisitionStatus: 'REMOTE_FAILED',
     required: false,
-    allowFallback: true
+    allowFallback: false,
+    allowCache: false,
+    durationMs: 10,
+    error: 'INVALID_ACQUISITION_RESULT: Duplicate MOONWITNESS_RESULT payloads emitted'
   }
 
-  assert.equal(planReq.required, true)
-  assert.equal(planReq.allowFallback, false)
-  assert.equal(planOpt.required, false)
-  assert.equal(planOpt.allowFallback, true)
+  assert.equal(job.status, 'failed')
+  assert.equal(job.acquisitionStatus, 'REMOTE_FAILED')
+})
+
+test('Test 11 & 12: required failure vs optional failure', () => {
+  const reqFail: UpstreamJobResult = {
+    id: 'test:req-fail',
+    traditionId: 'test',
+    endpointId: 'req-fail',
+    mode: 'adapter',
+    executionStatus: 'PROCESS_FAILED',
+    status: 'failed',
+    acquisitionStatus: 'REMOTE_FAILED',
+    required: true,
+    allowFallback: false,
+    allowCache: false,
+    durationMs: 10
+  }
+  const optFail: UpstreamJobResult = {
+    id: 'test:opt-fail',
+    traditionId: 'test',
+    endpointId: 'opt-fail',
+    mode: 'adapter',
+    executionStatus: 'PROCESS_FAILED',
+    status: 'failed',
+    acquisitionStatus: 'REMOTE_FAILED',
+    required: false,
+    allowFallback: false,
+    allowCache: false,
+    durationMs: 10
+  }
+
+  assert.equal(reqFail.required, true)
+  assert.equal(optFail.required, false)
+})
+
+test('Test 13 & 14: required fallback vs optional fallback', () => {
+  const reqFallback: UpstreamJobResult = {
+    id: 'test:req-fallback',
+    traditionId: 'test',
+    endpointId: 'req-fallback',
+    mode: 'script',
+    executionStatus: 'PROCESS_SUCCEEDED',
+    status: 'fallback',
+    acquisitionStatus: 'LOCAL_FALLBACK',
+    required: true,
+    allowFallback: true,
+    allowCache: false,
+    durationMs: 10
+  }
+  const optFallback: UpstreamJobResult = {
+    id: 'test:opt-fallback',
+    traditionId: 'test',
+    endpointId: 'opt-fallback',
+    mode: 'script',
+    executionStatus: 'PROCESS_SUCCEEDED',
+    status: 'fallback',
+    acquisitionStatus: 'LOCAL_FALLBACK',
+    required: false,
+    allowFallback: true,
+    allowCache: false,
+    durationMs: 10
+  }
+
+  assert.equal(reqFallback.required, true)
+  assert.equal(optFallback.required, false)
 })

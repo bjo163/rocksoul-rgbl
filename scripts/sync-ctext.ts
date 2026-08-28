@@ -8,7 +8,7 @@ async function fetchCtext(urn: string): Promise<{ text: string; sha256: string; 
   const url = `${BASE_URL}?if=en&remap=gb&urn=${encodeURIComponent(urn)}`
   console.log(`[CText API] Fetching: ${urn} -> ${url}`)
 
-  const res = await fetch(url, { headers: { 'Accept': 'application/xml, text/xml, */*' } })
+  const res = await fetch(url, { headers: { 'Accept': 'application/xml, text/xml, */*', 'User-Agent': 'MoonWitness-Corpus/1.0' } })
   if (!res.ok) {
     throw new Error(`CText API HTTP ${res.status}: ${res.statusText}`)
   }
@@ -33,27 +33,38 @@ async function main() {
     { urn: 'ctp:zhuangzi', file: 'zhuangzi-raw.xml', desc: 'Zhuangzi (Daoist Master Zhuang)' }
   ]
 
+  let totalBytes = 0
+  const aggregateHash = createHash('sha256')
+  let successfulFetches = 0
+
   for (const t of targets) {
     try {
       const { text, sha256, bytes } = await fetchCtext(t.urn)
       await writeFile(path.join(targetDir, t.file), text, 'utf8')
+      totalBytes += bytes
+      aggregateHash.update(text)
+      successfulFetches++
       console.log(`✓ Synchronized ${t.urn} (${t.desc}): ${bytes} bytes (SHA-256: ${sha256.slice(0, 16)}...) -> ${t.file}`)
     } catch (err: any) {
       console.warn(`⚠ Could not fetch ${t.urn}: ${err.message}`)
     }
   }
 
+  const finalSha256 = aggregateHash.digest('hex')
+
   console.log('\n========================================================================')
   console.log('✨ Chinese Text Project Upstream Ingestion Complete!')
   console.log('========================================================================\n')
 
   console.log(`MOONWITNESS_RESULT:${JSON.stringify({
-    acquisitionStatus: 'REMOTE_SYNCED',
-    sourceUrl: BASE_URL,
+    schemaVersion: '1.0',
+    executionStatus: 'PROCESS_SUCCEEDED',
+    acquisitionStatus: successfulFetches > 0 ? 'REMOTE_SYNCED' : 'REMOTE_FAILED',
+    requestedUrl: BASE_URL,
     resolvedUrl: BASE_URL,
     retrievedAt: new Date().toISOString(),
-    sourceSha256: 'ctext-verified',
-    byteCount: 94000
+    sourceSha256: finalSha256,
+    byteCount: totalBytes
   })}`)
 }
 

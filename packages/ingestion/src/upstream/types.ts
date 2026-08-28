@@ -3,7 +3,7 @@ import type { IngestionRecipe } from '../types.js'
 
 export type ExecutionMode = 'recipe' | 'adapter' | 'script'
 export type ExecutionStatus = 'READY' | 'UNMAPPED' | 'UNSUPPORTED_ADAPTER' | 'INVALID_RECIPE' | 'DISABLED'
-export type ProcessExecutionStatus = 'PROCESS_SUCCEEDED' | 'PROCESS_FAILED'
+export type ProcessExecutionStatus = 'PROCESS_SUCCEEDED' | 'PROCESS_FAILED' | 'PROCESS_TIMEOUT'
 
 export type UpstreamAcquisitionStatus =
   | 'REMOTE_SYNCED'
@@ -106,19 +106,34 @@ export interface UpstreamAcquisitionResult {
   retrievedAt: string
   sourceSha256: string
   byteSize: number
+  contentType?: string
   etag?: string
   lastModified?: string
+  repoUrl?: string
+  resolvedCommit?: string
+  ref?: string
+  defaultBranch?: string
   fallbackReason?: string
   fallbackSource?: string
 }
 
 export interface UpstreamScriptPayload {
+  schemaVersion?: string
+  executionStatus?: ProcessExecutionStatus
   acquisitionStatus: UpstreamAcquisitionStatus
+  requestedUrl?: string
   sourceUrl?: string
   resolvedUrl?: string
   retrievedAt?: string
   sourceSha256?: string
   byteCount?: number
+  contentType?: string
+  etag?: string
+  lastModified?: string
+  repoUrl?: string
+  resolvedCommit?: string
+  ref?: string
+  defaultBranch?: string
   fallbackReason?: string
   fallbackSource?: string
   error?: string
@@ -175,13 +190,23 @@ export interface UpstreamJobResult {
   resolvedUrl?: string
   retrievedAt?: string
   provenance?: UpstreamJobProvenance
-  recordCount?: number
+  sourceSha256?: string
   byteCount?: number
+  contentType?: string
+  etag?: string
+  lastModified?: string
+  repoUrl?: string
+  resolvedCommit?: string
+  ref?: string
+  defaultBranch?: string
+  recordCount?: number
   outputFiles?: string[]
 }
 
 export interface UpstreamRunManifest {
   schemaVersion: '1.0.0'
+  valid: boolean
+  accountingValid: boolean
   runId: string
   startedAt: string
   completedAt: string
@@ -215,7 +240,9 @@ export interface UpstreamCoverageReport {
   failed: number
   unsupported: number
   remoteCoveragePercent: number
+  remoteValidPercent: number
   validatedCoveragePercent: number
   fallbackPercent: number
   failurePercent: number
+  partial: boolean
 }

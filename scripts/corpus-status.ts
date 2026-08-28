@@ -1,6 +1,7 @@
 import { CorpusAuditor } from '@moonwitness/corpus-ingestion'
 import { UniversalCorpusRegistry } from '@moonwitness/corpus-ingestion'
 import { AlignmentEngine } from '@moonwitness/corpus-ingestion'
+import { MaterializationAuditor } from '@moonwitness/corpus-ingestion'
 import path from 'node:path'
 
 async function main() {
@@ -13,6 +14,9 @@ async function main() {
 
   const engine = new AlignmentEngine(rootDir)
   const { editionAuditReport, languageCoverageReport } = await engine.runAlignment()
+
+  const matAuditor = new MaterializationAuditor(rootDir)
+  const { summary, growthReport } = await matAuditor.runAudit()
 
   const traditions = registry.getTraditions()
   const works = registry.getWorks()
@@ -30,6 +34,14 @@ async function main() {
   console.log(`Sources: ${sources.length}`)
   console.log(`Endpoints: ${endpoints.length}`)
   console.log('')
+  console.log('Edition Materialization:')
+  console.log(`Full: ${summary.full}`)
+  console.log(`Partial: ${summary.partial}`)
+  console.log(`Metadata-only: ${summary.metadataOnly}`)
+  console.log(`Failed: ${summary.failed}`)
+  console.log(`Unavailable: ${summary.unavailable}`)
+  console.log(`Record-bearing Editions: ${summary.recordBearingEditions} (${summary.recordBearingPercent}%)`)
+  console.log('')
   console.log('Registry Coverage: 100%')
   console.log('Execution Coverage: 100%')
   console.log('Live Remote Coverage: 64.7%')
@@ -44,9 +56,8 @@ async function main() {
   console.log(`D: ${qualityReport.gradeBreakdown.D}`)
   console.log(`F: ${qualityReport.gradeBreakdown.F}`)
   console.log('')
-  console.log('Records:')
-  console.log('Canonical: 537051')
-  console.log('Indexed: 537512')
+  console.log(`Canonical Records: ${growthReport.currentCanonicalRecords}`)
+  console.log(`Indexed Records: ${growthReport.currentIndexedRecords}`)
   console.log('')
   console.log('Empty Works: 0')
   console.log('Metadata-only: 0')

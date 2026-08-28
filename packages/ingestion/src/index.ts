@@ -16,6 +16,7 @@ export * from './quality/index.js'
 export * from './alignment/index.js'
 export * from './materialization/index.js'
 export * from './contribution/index.js'
+export * from './depth/index.js'
 
 // Upstream Engine
 export * from './upstream/types.js'

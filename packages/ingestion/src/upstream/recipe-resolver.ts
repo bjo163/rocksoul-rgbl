@@ -17,10 +17,22 @@ export class RecipeResolver {
     this.rootDir = rootDir
   }
 
+  private getResolvedRootDir(): string {
+    let curr = this.rootDir
+    while (curr !== path.dirname(curr)) {
+      if (existsSync(path.join(curr, 'ingestion/registry.json'))) {
+        return curr
+      }
+      curr = path.dirname(curr)
+    }
+    return this.rootDir
+  }
+
   async loadAllRecipes(): Promise<Map<string, IngestionRecipe>> {
     if (this.recipesCache) return this.recipesCache
 
-    const registryPath = path.join(this.rootDir, 'ingestion/registry.json')
+    const effectiveRoot = this.getResolvedRootDir()
+    const registryPath = path.join(effectiveRoot, 'ingestion/registry.json')
     const cache = new Map<string, IngestionRecipe>()
 
     if (!existsSync(registryPath)) {
@@ -29,18 +41,23 @@ export class RecipeResolver {
     }
 
     const raw = await readFile(registryPath, 'utf8')
-    const registry = JSON.parse(raw) as IngestionRegistryFile
+    const registry = JSON.parse(raw) as { specVersion?: string; recipes?: Array<{ id: string; path: string }> | Record<string, { path: string }> }
 
-    for (const [recipeId, entry] of Object.entries(registry.recipes || {})) {
-      const recipePath = path.isAbsolute(entry.path)
+    const recipeEntries = Array.isArray(registry.recipes)
+      ? registry.recipes
+      : Object.entries(registry.recipes || {}).map(([id, entry]) => ({ id, path: (entry as { path: string }).path }))
+
+    for (const entry of recipeEntries) {
+      const recipeDir = path.isAbsolute(entry.path)
         ? entry.path
-        : path.join(this.rootDir, 'ingestion', entry.path)
+        : path.resolve(effectiveRoot, entry.path)
 
-      if (existsSync(recipePath)) {
+      const recipeJsonPath = path.join(recipeDir, 'recipe.json')
+      if (existsSync(recipeJsonPath)) {
         try {
-          const content = await readFile(recipePath, 'utf8')
+          const content = await readFile(recipeJsonPath, 'utf8')
           const recipe = JSON.parse(content) as IngestionRecipe
-          cache.set(recipeId, recipe)
+          cache.set(entry.id, recipe)
         } catch {
           // invalid json handled by validator
         }

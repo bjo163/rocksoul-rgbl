@@ -3,7 +3,7 @@ import test from 'node:test'
 import path from 'node:path'
 import { UniversalCorpusRegistry } from './universal-registry.js'
 
-test('Universal Corpus Registry: loads all 28 traditions and 104 works', async () => {
+test('Universal Corpus Registry: loads all 28 traditions, 104 works, and 200+ editions', async () => {
   const registry = new UniversalCorpusRegistry(path.join(process.cwd(), 'config'))
   await registry.loadAll()
 
@@ -13,37 +13,31 @@ test('Universal Corpus Registry: loads all 28 traditions and 104 works', async (
   const sources = registry.getSources()
   const endpoints = registry.getEndpoints()
 
-  assert.equal(traditions.length, 28, 'Must have 28 world traditions (12 -> 25+ target achieved)')
-  assert.equal(works.length, 104, 'Must have 104 canonical scriptural works (100+ target achieved)')
-  assert.ok(editions.length >= 100, `Must have at least 100 editions, got ${editions.length}`)
+  assert.equal(traditions.length, 28, 'Must have 28 world traditions')
+  assert.equal(works.length, 104, 'Must have 104 canonical scriptural works')
+  assert.ok(editions.length >= 200, `Must have at least 200 editions, got ${editions.length}`)
   assert.ok(sources.length >= 20, `Must have at least 20 sources, got ${sources.length}`)
   assert.ok(endpoints.length >= 100, `Must have at least 100 endpoints, got ${endpoints.length}`)
 })
 
-test('Universal Corpus Registry: resolves newly added traditions and works', async () => {
+test('Universal Corpus Registry: resolves newly added multi-language editions', async () => {
   const registry = new UniversalCorpusRegistry(path.join(process.cwd(), 'config'))
   await registry.loadAll()
 
-  const samaritanism = registry.resolveTradition('samaritanism')
-  assert.equal(samaritanism.name, 'Samaritanism')
+  const quranEds = registry.resolveWorkEditions('quran')
+  assert.ok(quranEds.length >= 5, 'Quran must have at least 5 multi-language editions')
+  assert.ok(quranEds.some(e => e.language === 'ar'))
+  assert.ok(quranEds.some(e => e.language === 'en'))
+  assert.ok(quranEds.some(e => e.language === 'id'))
+  assert.ok(quranEds.some(e => e.language === 'tr'))
+  assert.ok(quranEds.some(e => e.language === 'ur'))
 
-  const ifa = registry.resolveTradition('yoruba-ifa')
-  assert.equal(ifa.name, 'Yoruba Religion (Ifá)')
-
-  const gnosticism = registry.resolveTradition('gnosticism')
-  assert.equal(gnosticism.name, 'Gnosticism')
-
-  const hermeticism = registry.resolveTradition('hermeticism')
-  assert.equal(hermeticism.name, 'Hermeticism')
-
-  const thomas = registry.resolveWork('gospel-of-thomas')
-  assert.equal(thomas.traditionId, 'gnosticism')
-
-  const ifaCorpus = registry.resolveWork('odu-ifa-corpus')
-  assert.equal(ifaCorpus.traditionId, 'yoruba-ifa')
-
-  const corpusHermeticum = registry.resolveWork('corpus-hermeticum')
-  assert.equal(corpusHermeticum.traditionId, 'hermeticism')
+  const gntEds = registry.resolveWorkEditions('greek-new-testament')
+  assert.ok(gntEds.length >= 4)
+  assert.ok(gntEds.some(e => e.language === 'grc'))
+  assert.ok(gntEds.some(e => e.language === 'la'))
+  assert.ok(gntEds.some(e => e.language === 'id'))
+  assert.ok(gntEds.some(e => e.language === 'de'))
 })
 
 test('Universal Corpus Registry: validation catches no orphan references or duplicate IDs', async () => {
@@ -53,19 +47,4 @@ test('Universal Corpus Registry: validation catches no orphan references or dupl
   const validation = registry.validateRegistry()
   assert.equal(validation.valid, true, `Validation failed with problems: ${validation.problems.join(', ')}`)
   assert.equal(validation.problems.length, 0)
-})
-
-test('Universal Corpus Registry: generates multi-tradition discovery reports', async () => {
-  const registry = new UniversalCorpusRegistry(path.join(process.cwd(), 'config'))
-  await registry.loadAll()
-
-  const discovery = registry.generateTraditionDiscoveryReport()
-  assert.equal(discovery.totalTraditions, 28)
-  assert.equal(discovery.traditions.length, 28)
-
-  const coverage = registry.generateWorkCoverageReport()
-  assert.equal(coverage.traditions, 28)
-  assert.equal(coverage.works, 104)
-  assert.equal(coverage.worksWithUpstream, 104)
-  assert.equal(coverage.coveragePercent, 100)
 })

@@ -13,6 +13,7 @@ export * from './connectors/http.js'
 export * from './registry/index.js'
 export * from './identity/index.js'
 export * from './quality/index.js'
+export * from './alignment/index.js'
 
 // Upstream Engine
 export * from './upstream/types.js'

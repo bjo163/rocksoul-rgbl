@@ -21,7 +21,7 @@ BASE DEV HEAD:
 095eaca92ddd8b8ee3b0ba276061477bc8524e07
 
 FINAL DEV HEAD:
-\${finalHead}
+${finalHead}
 
 TRADITIONS:
 ${summary.registryTotals.traditions}

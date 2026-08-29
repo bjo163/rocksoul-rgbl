@@ -1,0 +1,18 @@
+{
+  "datasetId": "mw:dataset:world-religions:timeline-wikidata",
+  "name": "Wikidata referenced timeline claims",
+  "version": "0.1.0",
+  "publisher": "Wikimedia Foundation and Wikidata contributors",
+  "locator": "https://www.wikidata.org/wiki/Wikidata:Data_access",
+  "license": "CC0-1.0",
+  "retrievedAt": "2026-08-27T00:00:00Z",
+  "sha256": "58d5d28e2e57af3573fc52fe4dbc2bcd09c0f6af60e51e26d95706a50ecb7b27",
+  "ingestion": {
+    "recordsEvaluated": 34,
+    "recordsAccepted": 33,
+    "recordsRejected": 1,
+    "rejectionReasons": [
+      "No referenced value claim for P569/P570"
+    ]
+  }
+}

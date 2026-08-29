@@ -97,6 +97,11 @@
       "status": "active"
     },
     {
+      "id": "mw:dataset:world-religions:timeline-wikidata",
+      "path": "datasets/world-religions-timeline-wikidata",
+      "status": "active"
+    },
+    {
       "id": "mw:dataset:world-religions:textual-evidence",
       "path": "datasets/world-religions-textual-evidence",
       "status": "active"

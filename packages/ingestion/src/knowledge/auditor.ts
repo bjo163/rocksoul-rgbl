@@ -58,6 +58,17 @@ export function auditKnowledgeRecords(records: Array<Record<string, any>>): Know
   }
   const count = (kind: string) => [...entities.values()].filter((value) => value === kind).length
   const ids = (kind: string) => [...entities.entries()].filter(([, value]) => value === kind).map(([id]) => id).sort()
+  const events = ids('event')
+  const eventRecords = records.filter((r) => typeof r.id === 'string' && events.includes(r.id))
+  const eventSources = new Map<string, Set<string>>()
+  const eventReferences = new Map<string, Set<string>>()
+  for (const r of records) {
+    const event = r.subject?.startsWith('mw:event:') ? r.subject : r.object?.entity?.startsWith('mw:event:') ? r.object.entity : undefined
+    if (event && typeof r.provenance === 'string') (eventSources.get(event) ?? (eventSources.set(event, new Set()), eventSources.get(event)!)).add(r.provenance)
+    if (event) for (const source of r.extensions?.timeline?.sourceIds ?? []) if (typeof source === 'string') (eventReferences.get(event) ?? (eventReferences.set(event, new Set()), eventReferences.get(event)!)).add(source)
+    if (r.id?.startsWith('mw:event:')) for (const source of r.extensions?.timeline?.sourceIds ?? []) if (typeof source === 'string') (eventReferences.get(r.id) ?? (eventReferences.set(r.id, new Set()), eventReferences.get(r.id)!)).add(source)
+  }
+  const temporal = eventRecords.map((r) => r.extensions?.timeline?.temporal).filter(Boolean)
   const depth = {
     traditionsWithPersons: new Set(records.flatMap((r) => typeof r.scope?.tradition === 'string' && prefix(r.scope.tradition) === 'tradition' && typeof r.subject === 'string' && prefix(r.subject) === 'person' ? [r.scope.tradition] : [])).size + new Set(records.filter((r) => r.subject && typeof r.object?.entity === 'string' && prefix(r.subject) === 'tradition' && prefix(r.object.entity) === 'person').map((r) => r.subject)).size,
     traditionsWithEvents: new Set(records.filter((r) => r.subject && typeof r.object?.entity === 'string' && prefix(r.subject) === 'tradition' && prefix(r.object.entity) === 'event').map((r) => r.subject)).size,
@@ -65,7 +76,13 @@ export function auditKnowledgeRecords(records: Array<Record<string, any>>): Know
     personsWithWorks: new Set(records.filter((r) => r.subject && typeof r.object?.entity === 'string' && prefix(r.subject) === 'person' && prefix(r.object.entity) === 'work').map((r) => r.subject)).size,
     personsWithEvents: new Set(records.filter((r) => r.subject && typeof r.object?.entity === 'string' && prefix(r.subject) === 'person' && prefix(r.object.entity) === 'event').map((r) => r.subject)).size,
     eventsWithTraditions: new Set(records.filter((r) => r.subject && typeof r.object?.entity === 'string' && prefix(r.subject) === 'event' && prefix(r.object.entity) === 'tradition').map((r) => r.subject)).size,
-    eventsWithPersons: new Set(records.filter((r) => r.subject && typeof r.object?.entity === 'string' && prefix(r.subject) === 'event' && prefix(r.object.entity) === 'person').map((r) => r.subject)).size
+    eventsWithPersons: new Set(records.filter((r) => r.subject && typeof r.object?.entity === 'string' && prefix(r.subject) === 'event' && prefix(r.object.entity) === 'person').map((r) => r.subject)).size,
+    worksWithEvents: new Set(records.flatMap((r) => [r.subject, r.object?.entity].filter((id) => typeof id === 'string' && prefix(id) === 'work' && ((r.subject && prefix(r.subject) === 'event') || prefix(r.object?.entity ?? '') === 'event')))).size,
+    erasWithEvents: new Set(records.flatMap((r) => [r.subject, r.object?.entity].filter((id) => typeof id === 'string' && prefix(id) === 'era' && ((r.subject && prefix(r.subject) === 'event') || prefix(r.object?.entity ?? '') === 'event')))).size,
+    placesWithEvents: new Set(records.flatMap((r) => [r.subject, r.object?.entity].filter((id) => typeof id === 'string' && prefix(id) === 'place' && ((r.subject && prefix(r.subject) === 'event') || prefix(r.object?.entity ?? '') === 'event')))).size,
+    eventsWithSources: events.filter((id) => (eventSources.get(id)?.size ?? 0) > 0 || (eventReferences.get(id)?.size ?? 0) > 0).length,
+    eventsWithMultipleSources: [...eventReferences.values()].filter((s) => s.size > 1).length,
+    eventsWithIndependentSources: [...eventReferences.values()].filter((s) => s.size > 1).length
   }
   return {
     schemaVersion: KNOWLEDGE_DOMAIN_SCHEMA_VERSION,
@@ -73,6 +90,6 @@ export function auditKnowledgeRecords(records: Array<Record<string, any>>): Know
     relationshipCounts: relationCounts,
     depth,
     orphans: { traditions: ids('tradition').filter((id) => !linked.has(id)), persons: ids('person').filter((id) => !linked.has(id)), events: ids('event').filter((id) => !linked.has(id)), works: ids('work').filter((id) => !linked.has(id)) },
-    temporal: { datedEvents: 0, approximateEvents: 0, disputedEvents: 0, undatedEvents: count('event') }
+    temporal: { datedEvents: temporal.filter((t) => t.precision && t.precision !== 'UNKNOWN').length, approximateEvents: temporal.filter((t) => t.precision === 'APPROXIMATE').length, disputedEvents: temporal.filter((t) => t.status === 'DISPUTED' || t.precision === 'DISPUTED').length, undatedEvents: count('event') - temporal.length }
   }
 }

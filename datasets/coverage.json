@@ -279,6 +279,21 @@
       "alignmentCoverage": { "status": "complete", "notes": "Arabic↔Indonesian joins use exact sura/ayah target IDs." }
     },
     {
+      "datasetId": "mw:dataset:world-religions:timeline-wikidata",
+      "path": "datasets/world-religions-timeline-wikidata",
+      "workCollection": "Referenced historical timeline claims",
+      "datasetRole": "registry",
+      "availability": "bundled",
+      "language": { "tag": "mul", "script": "Zyyy", "coverageRole": "metadata" },
+      "expression": { "label": "Wikidata birth/death claims", "edition": "pinned bounded snapshot 2026-08-27" },
+      "completeness": { "status": "external", "unit": "event", "covered": 33, "expected": null, "scope": "34 bounded P569/P570 slots evaluated; only referenced value claims accepted" },
+      "sourceArtifact": { "revision": "Wikidata Special:EntityData snapshot manifest 2026-08-27", "path": "datasets/world-religions-timeline-wikidata/source-manifest.json", "sha256": "34098ddb7df7be550cc9a4cb5562157d2f387cfed376ce2ef55fab6de8d01cbc", "byteSize": 758 },
+      "rights": { "status": "verified_for_bundled_metadata_only", "license": "CC0-1.0", "evidence": "datasets/world-religions-timeline-wikidata/source-manifest.json" },
+      "provenance": { "manifest": "datasets/world-religions-timeline-wikidata/manifest.json", "checksums": "datasets/world-religions-timeline-wikidata/CHECKSUMS.sha256", "recipe": "scripts/materialize-phase26-timeline.ts" },
+      "translationCoverage": { "en": "metadata", "id": "metadata" },
+      "alignmentCoverage": { "status": "not_applicable", "notes": "Historical metadata claims are not scripture alignments." }
+    },
+    {
       "datasetId": "mw:dataset:quran:tanzil-uthmani",
       "path": "datasets/quran-tanzil-uthmani",
       "workCollection": "Quran",

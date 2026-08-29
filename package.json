@@ -25,6 +25,8 @@
     "audit:materialization": "tsx scripts/audit-materialization.ts",
     "audit:phase23-endpoints": "tsx scripts/audit-phase23-endpoints.ts",
     "audit:knowledge": "tsx scripts/audit-knowledge-domain.ts",
+    "materialize:phase26-timeline": "tsx scripts/materialize-phase26-timeline.ts",
+    "audit:timeline": "tsx scripts/audit-knowledge-domain.ts",
     "audit:payloads": "tsx scripts/audit-payloads.ts",
     "validate:release-freeze": "tsx scripts/validate-release-freeze.ts",
     "audit:release": "pnpm audit:payloads && pnpm audit:phase23-endpoints && pnpm validate:release-freeze",

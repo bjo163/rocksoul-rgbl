@@ -2,6 +2,7 @@ import { createRequire } from 'node:module'
 import { readdir, readFile, mkdir, unlink, stat } from 'node:fs/promises'
 import { existsSync } from 'node:fs'
 import path from 'node:path'
+import { resolveRecordOwnership, computeNormalizedTextHash } from '../packages/ingestion/src/depth/edition-ownership-resolver.js'
 
 const require = createRequire(import.meta.url)
 const { DatabaseSync } = require('node:sqlite')
@@ -83,19 +84,35 @@ export async function buildSqliteCorpus(targetPath = dbPath): Promise<{ recordCo
     CREATE INDEX idx_passages_work_seq ON passages(work_id, sequence);
     CREATE INDEX idx_passages_dataset ON passages(dataset_id);
 
-    -- Contents (Parallel texts and translations)
+    -- Contents (Normalized records with deterministic edition ownership)
     CREATE TABLE contents (
       id TEXT PRIMARY KEY,
       passage_id TEXT NOT NULL,
       dataset_id TEXT NOT NULL,
+      work_id TEXT NOT NULL,
+      edition_id TEXT,
+      source_id TEXT,
+      tradition_id TEXT,
       language TEXT NOT NULL,
       script TEXT,
       representation TEXT NOT NULL,
-      text TEXT NOT NULL
+      text TEXT NOT NULL,
+      normalized_text_hash TEXT,
+      ownership_status TEXT NOT NULL DEFAULT 'UNRESOLVED'
     );
-    CREATE INDEX idx_contents_passage ON contents(passage_id);
+    CREATE INDEX idx_contents_edition ON contents(edition_id);
+    CREATE INDEX idx_contents_work ON contents(work_id);
+    CREATE INDEX idx_contents_source ON contents(source_id);
     CREATE INDEX idx_contents_lang ON contents(language);
+    CREATE INDEX idx_contents_passage ON contents(passage_id);
     CREATE INDEX idx_contents_passage_lang ON contents(passage_id, language);
+    CREATE INDEX idx_contents_hash ON contents(normalized_text_hash);
+    CREATE INDEX idx_contents_ownership ON contents(ownership_status);
+
+    -- Normalized Records View (direct queryable view of normalized scriptural records)
+    CREATE VIEW IF NOT EXISTS normalized_records AS
+    SELECT id, passage_id, dataset_id, work_id, edition_id, source_id, tradition_id, language, script, representation, text, normalized_text_hash, ownership_status
+    FROM contents;
 
     -- Devotionals (Duas, Asmaul Husna, Mantras, Prayers)
     CREATE TABLE devotionals (
@@ -180,8 +197,8 @@ export async function buildSqliteCorpus(targetPath = dbPath): Promise<{ recordCo
     VALUES (?, ?, ?, ?, ?, ?, ?)
   `)
   const insertContent = db.prepare(`
-    INSERT OR REPLACE INTO contents (id, passage_id, dataset_id, language, script, representation, text)
-    VALUES (?, ?, ?, ?, ?, ?, ?)
+    INSERT OR REPLACE INTO contents (id, passage_id, dataset_id, work_id, edition_id, source_id, tradition_id, language, script, representation, text, normalized_text_hash, ownership_status)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `)
   const insertDevotional = db.prepare(`
     INSERT OR REPLACE INTO devotionals (id, dataset_id, tradition, category, title, arabic_text, latin_text, english_text, indonesian_text, meaning, reference, number)
@@ -199,6 +216,11 @@ export async function buildSqliteCorpus(targetPath = dbPath): Promise<{ recordCo
     INSERT OR REPLACE INTO raw_records (id, dataset_id, record_type, kind, json)
     VALUES (?, ?, ?, ?, ?)
   `)
+
+  // Read config registries
+  const editionsList = (JSON.parse(await readFile(path.join(root, 'config/editions.json'), 'utf8')) as { editions: any[] }).editions
+  const worksList = (JSON.parse(await readFile(path.join(root, 'config/works.json'), 'utf8')) as { works: any[] }).works
+  const sourcesList = (JSON.parse(await readFile(path.join(root, 'config/sources.json'), 'utf8')) as { sources: any[] }).sources
 
   // Read registry
   const registryPath = path.join(root, 'datasets/registry.json')
@@ -309,14 +331,35 @@ export async function buildSqliteCorpus(targetPath = dbPath): Promise<{ recordCo
           } else if (rec.kind === 'textual.content') {
             const ext = rec.extensions?.textual ?? {}
             const text = ext.text ?? ''
+            const textHash = computeNormalizedTextHash(text)
+            const ownership = resolveRecordOwnership(
+              {
+                datasetId: manifest.id,
+                passageId: ext.target ?? '',
+                language: ext.language ?? '',
+                script: ext.script ?? null,
+                artifactRef: rec.extensions?.source?.artifact ?? null,
+                manifestTradition: tradition
+              },
+              editionsList,
+              worksList,
+              sourcesList
+            )
+
             insertContent.run(
               rec.id,
               ext.target ?? '',
               manifest.id,
+              ownership.workId,
+              ownership.editionId,
+              ownership.sourceId,
+              ownership.traditionId,
               ext.language ?? '',
               ext.script ?? null,
               ext.representation ?? 'source',
-              text
+              text,
+              textHash,
+              ownership.ownershipStatus
             )
             if (text && ext.target) {
               insertFts.run(ext.target, manifest.id, ext.language ?? '', text)

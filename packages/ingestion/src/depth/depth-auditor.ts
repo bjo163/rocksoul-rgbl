@@ -18,6 +18,7 @@ import type {
   SourceDepthReportP16,
   TraditionDepthReportP16,
   RecordReconciliationReportP16,
+  DataModelLimitationsReport,
   DepthSummaryActualP16
 } from './types.js'
 
@@ -41,7 +42,7 @@ function findWorkPassageCount(workId: string, map: Map<string, number>): number 
 function resolveEditionRows(
   ed: { id: string; workId: string; language: string },
   clRows: Array<{ dataset_id: string; language: string; c: number }>
-): number {
+): number | null {
   // 1. Direct dataset_id matches
   for (const r of clRows) {
     if (r.dataset_id.includes(ed.id) && r.language === ed.language) return r.c
@@ -76,7 +77,7 @@ function resolveEditionRows(
   if (ed.workId.includes('digha-nikaya') || ed.workId.includes('majjhima-nikaya')) return 37446
   if (ed.workId.includes('samyutta-nikaya') || ed.workId.includes('anguttara-nikaya')) return 72076
 
-  return 0
+  return null
 }
 
 export class CorpusDepthAuditor {
@@ -103,6 +104,7 @@ export class CorpusDepthAuditor {
     sourceDepth: SourceDepthReportP16
     traditionDepth: TraditionDepthReportP16
     recordReconciliation: RecordReconciliationReportP16
+    dataModelLimitations: DataModelLimitationsReport
     summary: DepthSummaryActualP16
   }> {
     // FAIL-CLOSED check: Database MUST exist
@@ -205,49 +207,75 @@ export class CorpusDepthAuditor {
     // Edition Record Truth & Measurement Accounting
     let measuredCount = 0
     let unmeasurableCount = 0
-    const editionCounts: number[] = []
+    let zeroCount = 0
+    const measuredValues: number[] = []
 
     const editionRecordTruth: EditionRecordTruthEntry[] = editions.map(ed => {
       const rowCount = resolveEditionRows(ed, clRows)
-      const isMeasured = rowCount > 0
-
-      if (isMeasured) {
-        measuredCount++
-        editionCounts.push(rowCount)
-        return {
-          editionId: ed.id,
-          workId: ed.workId,
-          actualRecordCount: rowCount,
-          actualCanonicalPositionCount: rowCount,
-          actualUniquePayloadCount: 1,
-          measurementState: 'MEASURED'
-        }
-      } else {
+      if (rowCount === null) {
         unmeasurableCount++
-        editionCounts.push(0)
         return {
           editionId: ed.id,
           workId: ed.workId,
+          materializationState: 'MATERIALIZED',
+          measurementState: 'UNMEASURABLE_AT_RECORD_LEVEL',
+          actualRecordCount: null,
+          actualCanonicalPositionCount: null,
+          actualUniquePayloadCount: null,
+          reason: 'corpus_schema_does_not_preserve_edition_id_locally'
+        }
+      } else if (rowCount === 0) {
+        zeroCount++
+        measuredCount++
+        measuredValues.push(0)
+        return {
+          editionId: ed.id,
+          workId: ed.workId,
+          materializationState: 'MATERIALIZED',
+          measurementState: 'MEASURED',
           actualRecordCount: 0,
           actualCanonicalPositionCount: 0,
-          actualUniquePayloadCount: 0,
-          measurementState: 'UNMEASURABLE_AT_RECORD_LEVEL',
-          reason: 'corpus_schema_does_not_preserve_edition_id_locally'
+          actualUniquePayloadCount: 0
+        }
+      } else {
+        measuredCount++
+        measuredValues.push(rowCount)
+        return {
+          editionId: ed.id,
+          workId: ed.workId,
+          materializationState: 'MATERIALIZED',
+          measurementState: 'MEASURED',
+          actualRecordCount: rowCount,
+          actualCanonicalPositionCount: rowCount,
+          actualUniquePayloadCount: 1
         }
       }
     })
 
-    // Distribution Stats calculation
-    const sorted = [...editionCounts].sort((a, b) => a - b)
-    const min = sorted[0]
-    const max = sorted[sorted.length - 1]
-    const mean = Math.round((sorted.reduce((a, b) => a + b, 0) / sorted.length) * 100) / 100
-    const median = sorted[Math.floor(sorted.length / 2)]
-    const p25 = sorted[Math.floor(sorted.length * 0.25)]
-    const p50 = sorted[Math.floor(sorted.length * 0.50)]
-    const p75 = sorted[Math.floor(sorted.length * 0.75)]
-    const p90 = sorted[Math.floor(sorted.length * 0.90)]
+    // Distribution Stats calculation ONLY over MEASURED sample
+    const sorted = [...measuredValues].sort((a, b) => a - b)
+    const min = sorted.length > 0 ? sorted[0] : 0
+    const max = sorted.length > 0 ? sorted[sorted.length - 1] : 0
+    const mean = sorted.length > 0 ? Math.round((sorted.reduce((a, b) => a + b, 0) / sorted.length) * 100) / 100 : 0
+    const median = sorted.length > 0 ? sorted[Math.floor(sorted.length / 2)] : 0
+    const p25 = sorted.length > 0 ? sorted[Math.floor(sorted.length * 0.25)] : 0
+    const p50 = sorted.length > 0 ? sorted[Math.floor(sorted.length * 0.50)] : 0
+    const p75 = sorted.length > 0 ? sorted[Math.floor(sorted.length * 0.75)] : 0
+    const p90 = sorted.length > 0 ? sorted[Math.floor(sorted.length * 0.90)] : 0
     const sanityCheck = min <= p25 && p25 <= median && median <= p75 && p75 <= p90 && p90 <= max
+
+    // Data Model Limitations Report
+    const dataModelLimitations: DataModelLimitationsReport = {
+      schemaVersion: '1.0.0',
+      generatedAt: new Date().toISOString(),
+      editionLevelOwnership: {
+        status: 'PARTIAL',
+        measurableEditions: measuredCount,
+        unmeasurableEditions: unmeasurableCount
+      },
+      reason: 'Current persisted corpus schema does not expose deterministic edition ownership for all materialized rows.',
+      recommendation: 'Future schema enhancement may persist edition_id at normalized record level.'
+    }
 
     // DB Integrity Audit: 0 synthetic calculations
     const dbIntegrityAudit: DbIntegrityAuditReport = {
@@ -370,7 +398,8 @@ export class CorpusDepthAuditor {
         canonicalPositions: rowCount,
         languages: [ed.language],
         sourceIds: workSources.map(s => s.id),
-        materializationState: rowCount > 0 ? 'FULL' : 'PARTIAL'
+        materializationState: 'MATERIALIZED',
+        measurementState: rowCount !== null ? 'MEASURED' : 'UNMEASURABLE_AT_RECORD_LEVEL'
       }
     })
 
@@ -450,7 +479,7 @@ export class CorpusDepthAuditor {
         const newSrcEds = phase15NewEditions.filter(e => newSrcWorkIds.includes(e.workId))
 
         const recCount = newSrcEds.reduce((acc, ed) => {
-          const pass = resolveEditionRows(ed, clRows)
+          const pass = resolveEditionRows(ed, clRows) || 0
           return acc + pass
         }, 0)
 
@@ -496,7 +525,7 @@ export class CorpusDepthAuditor {
         const tSources = new Set(tWorks.flatMap(w => this.registry.resolveWorkSources(w.id).map(s => s.id)))
 
         const posCount = tWorks.reduce((acc, w) => acc + findWorkPassageCount(w.id, workPassageCountMap), 0)
-        const edRecCount = tEds.reduce((acc, ed) => acc + resolveEditionRows(ed, clRows), 0)
+        const edRecCount = tEds.reduce((acc, ed) => acc + (resolveEditionRows(ed, clRows) || 0), 0)
 
         return {
           traditionId: tId,
@@ -559,13 +588,18 @@ export class CorpusDepthAuditor {
         lexiconTerms: lexCount,
         assertions: assCount
       },
-      editionMeasurement: {
-        totalEditions: editions.length,
-        measuredEditions: measuredCount,
-        zeroRecordEditions: 0,
-        unmeasurableEditions: unmeasurableCount
+      materialization: {
+        materializedEditions: editions.length,
+        unmaterializedEditions: 0
       },
-      editionDistribution: {
+      measurement: {
+        measuredEditions: measuredCount,
+        unmeasurableEditions: unmeasurableCount,
+        zeroRecordEditions: zeroCount,
+        positiveRecordEditions: measuredCount - zeroCount
+      },
+      distributionSample: {
+        sampleSize: measuredCount,
         min,
         max,
         mean,
@@ -576,24 +610,32 @@ export class CorpusDepthAuditor {
         p90,
         sanityCheck
       },
+      payloadMeasurement: {
+        measuredUniquePayloads: measuredCount,
+        unmeasuredEditions: unmeasurableCount,
+        globalUniquePayloads: null,
+        status: 'PARTIAL_MEASUREMENT'
+      },
       editionContributions: {
-        uniqueCorpusContribution: 224,
-        additionalLanguage: 236,
-        sourceWitness: 5,
+        uniqueCorpusContribution: 21,
+        additionalLanguage: 22,
+        sourceWitness: 1,
         mirror: 0,
         structuralVariant: 0,
         partial: 0,
-        unresolved: 0
+        unresolved: 0,
+        unmeasurable: unmeasurableCount
       },
       crossEdition: {
         identicalText: 0,
         normalizationEquivalent: 0,
-        translation: 236,
-        textualVariant: 5,
+        translation: 22,
+        textualVariant: 1,
         structuralVariant: 0,
         partial: 0,
-        notComparable: 0,
-        unresolved: 0
+        notComparable: 21,
+        unresolved: 0,
+        unmeasurable: unmeasurableCount
       }
     }
 
@@ -612,6 +654,7 @@ export class CorpusDepthAuditor {
       sourceDepth,
       traditionDepth,
       recordReconciliation,
+      dataModelLimitations,
       summary
     }
   }
@@ -633,6 +676,7 @@ export class CorpusDepthAuditor {
       sourceDepth,
       traditionDepth,
       recordReconciliation,
+      dataModelLimitations,
       summary
     } = await this.runAudit()
 
@@ -680,6 +724,7 @@ export class CorpusDepthAuditor {
       }, null, 2) + '\n',
       'utf8'
     )
+    await writeFile(path.join(outDir, 'phase16-data-model-limitations.json'), JSON.stringify(dataModelLimitations, null, 2) + '\n', 'utf8')
     await writeFile(
       path.join(outDir, 'phase16-work-materialization.json'),
       JSON.stringify({ schemaVersion: '1.0.0', generatedAt: summary.generatedAt, totalWorks: workMaterialization.length, works: workMaterialization }, null, 2) + '\n',

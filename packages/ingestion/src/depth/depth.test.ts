@@ -5,7 +5,7 @@ import { readFile } from 'node:fs/promises'
 import { CorpusDepthAuditor } from './depth-auditor.js'
 import { validateDepth } from './depth-validator.js'
 
-test('Corpus Depth Auditor: audits 37 Phase 15 new works with true record-level DB truth and exact distribution math', async () => {
+test('Corpus Depth Auditor: audits 37 Phase 15 new works with strict semantic accounting', async () => {
   const auditor = new CorpusDepthAuditor(process.cwd())
   const {
     delta,
@@ -22,6 +22,7 @@ test('Corpus Depth Auditor: audits 37 Phase 15 new works with true record-level 
     sourceDepth,
     traditionDepth,
     recordReconciliation,
+    dataModelLimitations,
     summary
   } = await auditor.runAudit()
 
@@ -42,13 +43,38 @@ test('Corpus Depth Auditor: audits 37 Phase 15 new works with true record-level 
   assert.equal(summary.totals.works, 225)
   assert.equal(summary.totals.editions, 465)
 
-  // Distribution sanity
-  assert.equal(summary.editionDistribution.sanityCheck, true, 'Distribution min <= p25 <= median <= p75 <= p90 <= max must be true')
+  // Materialization vs Measurement
+  assert.equal(summary.materialization.materializedEditions, 465)
+  assert.equal(summary.measurement.measuredEditions, 44)
+  assert.equal(summary.measurement.unmeasurableEditions, 421)
+  assert.equal(summary.measurement.zeroRecordEditions, 0)
+  assert.equal(summary.measurement.positiveRecordEditions, 44)
+
+  // Semantic Invariants
   assert.equal(
-    summary.editionMeasurement.measuredEditions + summary.editionMeasurement.unmeasurableEditions + summary.editionMeasurement.zeroRecordEditions,
-    summary.totals.editions,
-    'Accounting invariant: measured + unmeasurable + zero must equal total editions'
+    summary.measurement.zeroRecordEditions + summary.measurement.positiveRecordEditions,
+    summary.measurement.measuredEditions,
+    'zero + positive === measured'
   )
+  assert.equal(
+    summary.measurement.measuredEditions + summary.measurement.unmeasurableEditions,
+    summary.totals.editions,
+    'measured + unmeasurable === total'
+  )
+  assert.equal(
+    summary.distributionSample.sampleSize,
+    summary.measurement.measuredEditions,
+    'sampleSize === measuredEditions'
+  )
+  assert.equal(
+    summary.distributionSample.sanityCheck,
+    true,
+    'min <= p25 <= median <= p75 <= p90 <= max must be true'
+  )
+
+  // Limitations Report
+  assert.equal(dataModelLimitations.editionLevelOwnership.measurableEditions, 44)
+  assert.equal(dataModelLimitations.editionLevelOwnership.unmeasurableEditions, 421)
 
   // Index Composition checks
   assert.ok(indexComposition.scripturalRecords > 0)
@@ -94,7 +120,7 @@ test('Distinct Edition Record Counts: proves editions have individual record cou
   const { editionRecordTruth } = await auditor.runAudit()
 
   const measured = editionRecordTruth.filter(e => e.measurementState === 'MEASURED')
-  assert.ok(measured.length > 10, 'Must have measured editions with distinct counts')
+  assert.equal(measured.length, 44, 'Must have 44 measured editions')
 
   const uniqueCounts = new Set(measured.map(e => e.actualRecordCount))
   assert.ok(uniqueCounts.size > 5, 'Measured editions must have diverse, genuine counts')
@@ -107,6 +133,10 @@ test('Depth Validator: validates hard invariants for Phase 16 depth expansion an
   assert.equal(result.totalTraditions, 64)
   assert.equal(result.totalWorks, 225)
   assert.equal(result.totalEditions, 465)
+  assert.equal(result.materializedEditions, 465)
+  assert.equal(result.measuredEditions, 44)
+  assert.equal(result.unmeasurableEditions, 421)
+  assert.equal(result.distributionSampleSize, 44)
   assert.equal(result.phase15NewWorks, 37)
   assert.equal(result.phase15NewEditions, 74)
   assert.equal(result.syntheticCountCalculations, 0)

@@ -23,20 +23,36 @@ export async function validateDepth(rootDir: string = process.cwd()): Promise<De
     problems.push(`Expected >= 35 Phase 15 new works, got ${newWorks.length}`)
   }
 
-  // Distribution mathematical consistency invariants
-  if (!summary.editionDistribution.sanityCheck) {
-    problems.push(`Edition distribution failed sanity check: min <= p25 <= median <= p75 <= p90 <= max is false`)
+  // Materialization vs Measurement semantics
+  if (summary.materialization.materializedEditions !== summary.totals.editions) {
+    problems.push(
+      `Materialized editions (${summary.materialization.materializedEditions}) !== total editions (${summary.totals.editions})`
+    )
   }
 
-  const accountedEditions =
-    summary.editionMeasurement.measuredEditions +
-    summary.editionMeasurement.unmeasurableEditions +
-    summary.editionMeasurement.zeroRecordEditions
-
-  if (accountedEditions !== summary.totals.editions) {
+  // Measurement invariants
+  const accounted = summary.measurement.measuredEditions + summary.measurement.unmeasurableEditions
+  if (accounted !== summary.totals.editions) {
     problems.push(
-      `Edition measurement accounting mismatch: measured (${summary.editionMeasurement.measuredEditions}) + unmeasurable (${summary.editionMeasurement.unmeasurableEditions}) + zero (${summary.editionMeasurement.zeroRecordEditions}) != total (${summary.totals.editions})`
+      `Measurement accounting mismatch: measured (${summary.measurement.measuredEditions}) + unmeasurable (${summary.measurement.unmeasurableEditions}) !== total (${summary.totals.editions})`
     )
+  }
+
+  if (summary.measurement.zeroRecordEditions + summary.measurement.positiveRecordEditions !== summary.measurement.measuredEditions) {
+    problems.push(
+      `Zero (${summary.measurement.zeroRecordEditions}) + positive (${summary.measurement.positiveRecordEditions}) !== measured (${summary.measurement.measuredEditions})`
+    )
+  }
+
+  // Distribution Sample sanity
+  if (summary.distributionSample.sampleSize !== summary.measurement.measuredEditions) {
+    problems.push(
+      `Distribution sample size (${summary.distributionSample.sampleSize}) !== measured editions (${summary.measurement.measuredEditions})`
+    )
+  }
+
+  if (!summary.distributionSample.sanityCheck) {
+    problems.push(`Distribution failed sanity check: min <= p25 <= median <= p75 <= p90 <= max is false`)
   }
 
   if (dbIntegrityAudit.runtimeHardcodedCorpusMetrics > 0) {
@@ -69,8 +85,12 @@ export async function validateDepth(rootDir: string = process.cwd()): Promise<De
     totalTraditions: summary.totals.traditions,
     totalWorks: summary.totals.works,
     totalEditions: summary.totals.editions,
-    measuredEditions: summary.editionMeasurement.measuredEditions,
-    unmeasurableEditions: summary.editionMeasurement.unmeasurableEditions,
+    materializedEditions: summary.materialization.materializedEditions,
+    measuredEditions: summary.measurement.measuredEditions,
+    unmeasurableEditions: summary.measurement.unmeasurableEditions,
+    distributionSampleSize: summary.distributionSample.sampleSize,
+    zeroRecordEditions: summary.measurement.zeroRecordEditions,
+    positiveRecordEditions: summary.measurement.positiveRecordEditions,
     phase15NewWorks: newWorks.length,
     phase15NewEditions: 74,
     canonicalPositions: summary.corpus.canonicalPositions,

@@ -80,20 +80,22 @@ export interface NewWorkActualDetail {
 export interface EditionActualDetail {
   editionId: string
   workId: string
-  recordCount: number
-  canonicalPositions: number
+  recordCount: number | null
+  canonicalPositions: number | null
   languages: string[]
   sourceIds: string[]
-  materializationState: string
+  materializationState: 'MATERIALIZED' | 'UNMATERIALIZED'
+  measurementState: 'MEASURED' | 'UNMEASURABLE_AT_RECORD_LEVEL'
 }
 
 export interface EditionRecordTruthEntry {
   editionId: string
   workId: string
-  actualRecordCount: number
-  actualCanonicalPositionCount: number
-  actualUniquePayloadCount: number
-  measurementState: 'MEASURED' | 'UNMEASURABLE_AT_RECORD_LEVEL' | 'ZERO_RECORD'
+  materializationState: 'MATERIALIZED' | 'UNMATERIALIZED'
+  measurementState: 'MEASURED' | 'UNMEASURABLE_AT_RECORD_LEVEL'
+  actualRecordCount: number | null
+  actualCanonicalPositionCount: number | null
+  actualUniquePayloadCount: number | null
   reason?: string
 }
 
@@ -213,6 +215,18 @@ export interface RecordReconciliationReportP16 {
   }>
 }
 
+export interface DataModelLimitationsReport {
+  schemaVersion: string
+  generatedAt: string
+  editionLevelOwnership: {
+    status: 'PARTIAL'
+    measurableEditions: number
+    unmeasurableEditions: number
+  }
+  reason: string
+  recommendation: string
+}
+
 export interface DepthSummaryActualP16 {
   schemaVersion: string
   generatedAt: string
@@ -236,13 +250,18 @@ export interface DepthSummaryActualP16 {
     lexiconTerms: number
     assertions: number
   }
-  editionMeasurement: {
-    totalEditions: number
-    measuredEditions: number
-    zeroRecordEditions: number
-    unmeasurableEditions: number
+  materialization: {
+    materializedEditions: number
+    unmaterializedEditions: number
   }
-  editionDistribution: {
+  measurement: {
+    measuredEditions: number
+    unmeasurableEditions: number
+    zeroRecordEditions: number
+    positiveRecordEditions: number
+  }
+  distributionSample: {
+    sampleSize: number
     min: number
     max: number
     mean: number
@@ -253,6 +272,12 @@ export interface DepthSummaryActualP16 {
     p90: number
     sanityCheck: boolean
   }
+  payloadMeasurement: {
+    measuredUniquePayloads: number
+    unmeasuredEditions: number
+    globalUniquePayloads: number | null
+    status: 'PARTIAL_MEASUREMENT' | 'COMPLETE'
+  }
   editionContributions: {
     uniqueCorpusContribution: number
     additionalLanguage: number
@@ -261,6 +286,7 @@ export interface DepthSummaryActualP16 {
     structuralVariant: number
     partial: number
     unresolved: number
+    unmeasurable: number
   }
   crossEdition: {
     identicalText: number
@@ -271,6 +297,7 @@ export interface DepthSummaryActualP16 {
     partial: number
     notComparable: number
     unresolved: number
+    unmeasurable: number
   }
 }
 
@@ -280,11 +307,16 @@ export interface DepthValidationResult {
   totalTraditions: number
   totalWorks: number
   totalEditions: number
+  materializedEditions: number
   measuredEditions: number
   unmeasurableEditions: number
+  distributionSampleSize: number
+  zeroRecordEditions: number
+  positiveRecordEditions: number
   phase15NewWorks: number
   phase15NewEditions: number
   canonicalPositions: number
   editionRecords: number
   syntheticCountCalculations: number
 }
+

@@ -18,6 +18,7 @@ export * from './materialization/index.js'
 export * from './contribution/index.js'
 export * from './depth/index.js'
 export * from './metrics/semantics.js'
+export * from './knowledge/index.js'
 
 // Upstream Engine
 export * from './upstream/types.js'

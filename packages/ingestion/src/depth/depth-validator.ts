@@ -3,7 +3,7 @@ import type { DepthValidationResult } from './types.js'
 
 export async function validateDepth(rootDir: string = process.cwd()): Promise<DepthValidationResult> {
   const auditor = new CorpusDepthAuditor(rootDir)
-  const { summary, newWorks, workMaterialization, syntheticAudit } = await auditor.runAudit()
+  const { summary, newWorks, dbIntegrityAudit } = await auditor.runAudit()
 
   const problems: string[] = []
 
@@ -23,24 +23,28 @@ export async function validateDepth(rootDir: string = process.cwd()): Promise<De
     problems.push(`Expected >= 35 Phase 15 new works, got ${newWorks.length}`)
   }
 
-  if (syntheticAudit.hardcodedCorpusMetrics > 0) {
-    problems.push(`Found ${syntheticAudit.hardcodedCorpusMetrics} hardcoded corpus metrics`)
+  if (dbIntegrityAudit.runtimeHardcodedCorpusMetrics > 0) {
+    problems.push(`Found ${dbIntegrityAudit.runtimeHardcodedCorpusMetrics} hardcoded corpus metrics`)
   }
 
-  if (syntheticAudit.syntheticMultipliers > 0) {
-    problems.push(`Found ${syntheticAudit.syntheticMultipliers} synthetic multipliers`)
+  if (dbIntegrityAudit.syntheticMultipliers > 0) {
+    problems.push(`Found ${dbIntegrityAudit.syntheticMultipliers} synthetic multipliers`)
   }
 
-  if (syntheticAudit.defaultCorpusCounts > 0) {
-    problems.push(`Found ${syntheticAudit.defaultCorpusCounts} default corpus counts`)
+  if (dbIntegrityAudit.registryDerivedRecordCounts > 0) {
+    problems.push(`Found ${dbIntegrityAudit.registryDerivedRecordCounts} registry-derived record counts`)
   }
 
-  if (syntheticAudit.measurementIntegrity !== 'REAL_DATA') {
-    problems.push(`Measurement integrity is ${syntheticAudit.measurementIntegrity}, expected REAL_DATA`)
+  if (dbIntegrityAudit.fallbackRecordCounts > 0) {
+    problems.push(`Found ${dbIntegrityAudit.fallbackRecordCounts} fallback record counts`)
   }
 
-  if (syntheticAudit.status !== 'PASS') {
-    problems.push(`Synthetic count audit status is ${syntheticAudit.status}`)
+  if (dbIntegrityAudit.measurementIntegrity !== 'REAL_DATA') {
+    problems.push(`Measurement integrity is ${dbIntegrityAudit.measurementIntegrity}, expected REAL_DATA`)
+  }
+
+  if (dbIntegrityAudit.status !== 'PASS') {
+    problems.push(`DB integrity audit status is ${dbIntegrityAudit.status}`)
   }
 
   return {
@@ -53,6 +57,6 @@ export async function validateDepth(rootDir: string = process.cwd()): Promise<De
     phase15NewEditions: 74,
     canonicalPositions: summary.corpus.canonicalPositions,
     editionRecords: summary.corpus.editionRecords,
-    syntheticCountCalculations: syntheticAudit.hardcodedCorpusMetrics + syntheticAudit.syntheticMultipliers
+    syntheticCountCalculations: dbIntegrityAudit.runtimeHardcodedCorpusMetrics + dbIntegrityAudit.syntheticMultipliers
   }
 }

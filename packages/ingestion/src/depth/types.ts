@@ -87,6 +87,53 @@ export interface EditionActualDetail {
   materializationState: string
 }
 
+export interface EditionRecordTruthEntry {
+  editionId: string
+  workId: string
+  actualRecordCount: number
+  actualCanonicalPositionCount: number
+  actualUniquePayloadCount: number
+  measurementState: 'MEASURED' | 'DATA_UNAVAILABLE'
+}
+
+export interface RecordOwnershipEntry {
+  canonicalRecordId: string
+  workId: string
+  position: string
+  editionIds: string[]
+  sourceIds: string[]
+  languages: string[]
+}
+
+export interface IndexCompositionReport {
+  schemaVersion: string
+  generatedAt: string
+  scripturalRecords: number
+  devotionalRecords: number
+  lexiconTerms: number
+  assertions: number
+  rawRecords: number
+  totalIndexed: number
+}
+
+export interface DbIntegrityAuditReport {
+  runtimeHardcodedCorpusMetrics: number
+  syntheticMultipliers: number
+  registryDerivedRecordCounts: number
+  fallbackRecordCounts: number
+  actualSqlAggregations: number
+  actualRecordLevelMeasurements: number
+  measurementIntegrity: 'REAL_DATA'
+  status: 'PASS' | 'FAIL'
+}
+
+export interface SqlProvenanceEntry {
+  metric: string
+  table: string
+  query: string
+  result: number
+}
+
 export interface SyntheticCountAuditReport {
   hardcodedCorpusMetrics: number
   syntheticMultipliers: number
@@ -203,6 +250,10 @@ export interface DepthSummaryActualP16 {
     max: number
     mean: number
     median: number
+    p25: number
+    p50: number
+    p75: number
+    p90: number
     zeroRecordEditions: number
   }
   editionContributions: {

@@ -5,14 +5,32 @@ import { readFile } from 'node:fs/promises'
 import { CorpusDepthAuditor } from './depth-auditor.js'
 import { validateDepth } from './depth-validator.js'
 
-test('Corpus Depth Auditor: audits 37 Phase 15 new works with strict DB-first metrics', async () => {
+test('Corpus Depth Auditor V3: audits 37 Phase 15 new works with true record-level DB truth', async () => {
   const auditor = new CorpusDepthAuditor(process.cwd())
-  const { delta, newWorks, newWorksActual, editionActual, syntheticAudit, workMaterialization, languageDepth, sourceDepth, traditionDepth, recordReconciliation, summary } =
-    await auditor.runAudit()
+  const {
+    delta,
+    newWorks,
+    newWorksActual,
+    editionActual,
+    editionRecordTruth,
+    recordOwnership,
+    indexComposition,
+    dbIntegrityAudit,
+    sqlProvenance,
+    workMaterialization,
+    languageDepth,
+    sourceDepth,
+    traditionDepth,
+    recordReconciliation,
+    summary
+  } = await auditor.runAudit()
 
   assert.equal(newWorks.length, 37, `Expected 37 new works, got ${newWorks.length}`)
   assert.equal(newWorksActual.length, 37)
   assert.equal(editionActual.length, 465)
+  assert.equal(editionRecordTruth.length, 465)
+  assert.ok(recordOwnership.length > 0)
+  assert.ok(sqlProvenance.length >= 6)
   assert.equal(workMaterialization.length, 37)
   assert.ok(workMaterialization.every(wm => wm.materializationStatus === 'MATERIALIZED'))
   assert.equal(delta.comparisons.phase16.traditions, 64)
@@ -24,12 +42,20 @@ test('Corpus Depth Auditor: audits 37 Phase 15 new works with strict DB-first me
   assert.equal(summary.totals.works, 225)
   assert.equal(summary.totals.editions, 465)
 
-  // Synthetic check invariants
-  assert.equal(syntheticAudit.hardcodedCorpusMetrics, 0, 'Must have 0 hardcoded corpus metrics')
-  assert.equal(syntheticAudit.syntheticMultipliers, 0, 'Must have 0 synthetic multipliers')
-  assert.equal(syntheticAudit.defaultCorpusCounts, 0, 'Must have 0 default corpus counts')
-  assert.equal(syntheticAudit.measurementIntegrity, 'REAL_DATA')
-  assert.equal(syntheticAudit.status, 'PASS')
+  // Index Composition checks
+  assert.ok(indexComposition.scripturalRecords > 0)
+  assert.ok(indexComposition.rawRecords > 0)
+  assert.ok(indexComposition.totalIndexed > 0)
+
+  // DB Integrity checks
+  assert.equal(dbIntegrityAudit.runtimeHardcodedCorpusMetrics, 0, 'Must have 0 hardcoded corpus metrics')
+  assert.equal(dbIntegrityAudit.syntheticMultipliers, 0, 'Must have 0 synthetic multipliers')
+  assert.equal(dbIntegrityAudit.registryDerivedRecordCounts, 0, 'Must have 0 registry-derived record counts')
+  assert.equal(dbIntegrityAudit.fallbackRecordCounts, 0, 'Must have 0 fallback record counts')
+  assert.ok(dbIntegrityAudit.actualSqlAggregations > 0)
+  assert.equal(dbIntegrityAudit.actualRecordLevelMeasurements, 465)
+  assert.equal(dbIntegrityAudit.measurementIntegrity, 'REAL_DATA')
+  assert.equal(dbIntegrityAudit.status, 'PASS')
 })
 
 test('Fail-Closed: throws error if corpus database does not exist', async () => {
@@ -44,7 +70,7 @@ test('Fail-Closed: throws error if corpus database does not exist', async () => 
   )
 })
 
-test('Static Source Inspection: ensures depth-auditor does not contain synthetic multipliers', async () => {
+test('Static Source Inspection: ensures depth-auditor does not contain synthetic multipliers or forbidden patterns', async () => {
   const filePath = path.join(process.cwd(), 'packages/ingestion/src/depth/depth-auditor.ts')
   const content = await readFile(filePath, 'utf8')
 
@@ -52,6 +78,7 @@ test('Static Source Inspection: ensures depth-auditor does not contain synthetic
   assert.ok(!content.includes('canonicalPositions: 300'), 'depth-auditor.ts must not contain "canonicalPositions: 300"')
   assert.ok(!content.includes('editionRecords: 300'), 'depth-auditor.ts must not contain "editionRecords: 300"')
   assert.ok(!content.includes('|| wEds.length'), 'depth-auditor.ts must not contain "|| wEds.length"')
+  assert.ok(!content.includes('dbPassages * wEds.length'), 'depth-auditor.ts must not contain "dbPassages * wEds.length"')
 })
 
 test('Depth Validator: validates hard invariants for Phase 16 depth expansion and rejects synthetic calculations', async () => {

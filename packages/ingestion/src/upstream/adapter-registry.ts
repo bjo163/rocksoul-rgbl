@@ -178,7 +178,7 @@ export const gitAdapter: UpstreamAdapter = {
       sourceUrl: repoUrl,
       resolvedLocation: repoUrl,
       retrievedAt: new Date().toISOString(),
-      sourceSha256: headCommit,
+      sourceSha256: createHash('sha256').update(payload).digest('hex'),
       byteSize: payload.byteLength,
       repoUrl,
       resolvedCommit: headCommit,

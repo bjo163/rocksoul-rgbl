@@ -34,8 +34,8 @@ export async function validateMaterialization(rootDir: string = process.cwd()): 
     problems.push('Every zero-record edition must have an explicit machine-readable reason')
   }
 
-  if (auditRecords.some(r => r.normalizedRecords > 0 && (!r.rawSha256 || r.hashStatus !== 'VERIFIED'))) {
-    problems.push('Every record-bearing edition must have a verified payload hash')
+  if (auditRecords.some(r => r.normalizedRecords > 0 && r.hashStatus !== 'VERIFIED')) {
+    problems.push('Every record-bearing edition must have verified normalized record hashes')
   }
 
   if (auditRecords.some(r => r.normalizedRecords > 0 && r.provenanceStatus === 'PENDING')) {

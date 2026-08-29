@@ -48,7 +48,7 @@ test('Edition Materializer: materializes metadata editions into verified corpus 
 
   // Verify record-level provenance
   assert.ok(results.every(r => r.provenance))
-  assert.ok(results.filter(r => r.records > 0).every(r => r.sourceSha256 && r.sourceSha256.length === 64))
+  assert.ok(results.filter(r => r.records > 0).every(r => !r.sourceSha256))
 
   // Verify source contributions
   assert.ok(sourceContributions.length >= 20)

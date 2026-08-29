@@ -1,6 +1,6 @@
 import { spawn } from 'node:child_process'
 import path from 'node:path'
-import { randomUUID } from 'node:crypto'
+import { randomUUID, createHash } from 'node:crypto'
 import { mkdir, writeFile } from 'node:fs/promises'
 import { existsSync } from 'node:fs'
 import { UpstreamPlanner } from './planner.js'
@@ -84,9 +84,10 @@ export class UpstreamRunner {
     this.timeoutMs = options.timeoutMs || 900000
   }
 
-  private async retainPayload(bytes: Uint8Array, sha256: string): Promise<string> {
+  private async retainPayload(bytes: Uint8Array): Promise<string> {
     const dir = path.join(this.rootDir, 'dist', 'acquisition-payloads')
     await mkdir(dir, { recursive: true })
+    const sha256 = createHash('sha256').update(bytes).digest('hex')
     const file = path.join(dir, `${sha256}.bin`)
     if (!existsSync(file)) await writeFile(file, bytes)
     return path.relative(this.rootDir, file).replaceAll(path.sep, '/')
@@ -307,8 +308,8 @@ export class UpstreamRunner {
 
         // Acquisition is not materialization: retain the exact verified response so a
         // later parser/materializer can inspect it without re-downloading the endpoint.
-        const outputFiles = acq.bytes.byteLength > 0 && acq.sourceSha256
-          ? [await this.retainPayload(acq.bytes, acq.sourceSha256)]
+        const outputFiles = acq.bytes.byteLength > 0
+          ? [await this.retainPayload(acq.bytes)]
           : []
 
         const statusMap: Record<UpstreamAcquisitionStatus, UpstreamJobResult['status']> = {

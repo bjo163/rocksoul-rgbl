@@ -23,6 +23,22 @@ export async function validateDepth(rootDir: string = process.cwd()): Promise<De
     problems.push(`Expected >= 35 Phase 15 new works, got ${newWorks.length}`)
   }
 
+  // Distribution mathematical consistency invariants
+  if (!summary.editionDistribution.sanityCheck) {
+    problems.push(`Edition distribution failed sanity check: min <= p25 <= median <= p75 <= p90 <= max is false`)
+  }
+
+  const accountedEditions =
+    summary.editionMeasurement.measuredEditions +
+    summary.editionMeasurement.unmeasurableEditions +
+    summary.editionMeasurement.zeroRecordEditions
+
+  if (accountedEditions !== summary.totals.editions) {
+    problems.push(
+      `Edition measurement accounting mismatch: measured (${summary.editionMeasurement.measuredEditions}) + unmeasurable (${summary.editionMeasurement.unmeasurableEditions}) + zero (${summary.editionMeasurement.zeroRecordEditions}) != total (${summary.totals.editions})`
+    )
+  }
+
   if (dbIntegrityAudit.runtimeHardcodedCorpusMetrics > 0) {
     problems.push(`Found ${dbIntegrityAudit.runtimeHardcodedCorpusMetrics} hardcoded corpus metrics`)
   }
@@ -53,6 +69,8 @@ export async function validateDepth(rootDir: string = process.cwd()): Promise<De
     totalTraditions: summary.totals.traditions,
     totalWorks: summary.totals.works,
     totalEditions: summary.totals.editions,
+    measuredEditions: summary.editionMeasurement.measuredEditions,
+    unmeasurableEditions: summary.editionMeasurement.unmeasurableEditions,
     phase15NewWorks: newWorks.length,
     phase15NewEditions: 74,
     canonicalPositions: summary.corpus.canonicalPositions,

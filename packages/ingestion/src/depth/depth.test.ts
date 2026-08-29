@@ -5,7 +5,7 @@ import { readFile } from 'node:fs/promises'
 import { CorpusDepthAuditor } from './depth-auditor.js'
 import { validateDepth } from './depth-validator.js'
 
-test('Corpus Depth Auditor V3: audits 37 Phase 15 new works with true record-level DB truth', async () => {
+test('Corpus Depth Auditor: audits 37 Phase 15 new works with true record-level DB truth and exact distribution math', async () => {
   const auditor = new CorpusDepthAuditor(process.cwd())
   const {
     delta,
@@ -41,6 +41,14 @@ test('Corpus Depth Auditor V3: audits 37 Phase 15 new works with true record-lev
   assert.equal(summary.totals.traditions, 64)
   assert.equal(summary.totals.works, 225)
   assert.equal(summary.totals.editions, 465)
+
+  // Distribution sanity
+  assert.equal(summary.editionDistribution.sanityCheck, true, 'Distribution min <= p25 <= median <= p75 <= p90 <= max must be true')
+  assert.equal(
+    summary.editionMeasurement.measuredEditions + summary.editionMeasurement.unmeasurableEditions + summary.editionMeasurement.zeroRecordEditions,
+    summary.totals.editions,
+    'Accounting invariant: measured + unmeasurable + zero must equal total editions'
+  )
 
   // Index Composition checks
   assert.ok(indexComposition.scripturalRecords > 0)
@@ -79,6 +87,17 @@ test('Static Source Inspection: ensures depth-auditor does not contain synthetic
   assert.ok(!content.includes('editionRecords: 300'), 'depth-auditor.ts must not contain "editionRecords: 300"')
   assert.ok(!content.includes('|| wEds.length'), 'depth-auditor.ts must not contain "|| wEds.length"')
   assert.ok(!content.includes('dbPassages * wEds.length'), 'depth-auditor.ts must not contain "dbPassages * wEds.length"')
+})
+
+test('Distinct Edition Record Counts: proves editions have individual record counts, not uniform copies', async () => {
+  const auditor = new CorpusDepthAuditor(process.cwd())
+  const { editionRecordTruth } = await auditor.runAudit()
+
+  const measured = editionRecordTruth.filter(e => e.measurementState === 'MEASURED')
+  assert.ok(measured.length > 10, 'Must have measured editions with distinct counts')
+
+  const uniqueCounts = new Set(measured.map(e => e.actualRecordCount))
+  assert.ok(uniqueCounts.size > 5, 'Measured editions must have diverse, genuine counts')
 })
 
 test('Depth Validator: validates hard invariants for Phase 16 depth expansion and rejects synthetic calculations', async () => {

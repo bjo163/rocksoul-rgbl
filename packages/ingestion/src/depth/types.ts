@@ -93,7 +93,8 @@ export interface EditionRecordTruthEntry {
   actualRecordCount: number
   actualCanonicalPositionCount: number
   actualUniquePayloadCount: number
-  measurementState: 'MEASURED' | 'DATA_UNAVAILABLE'
+  measurementState: 'MEASURED' | 'UNMEASURABLE_AT_RECORD_LEVEL' | 'ZERO_RECORD'
+  reason?: string
 }
 
 export interface RecordOwnershipEntry {
@@ -132,16 +133,6 @@ export interface SqlProvenanceEntry {
   table: string
   query: string
   result: number
-}
-
-export interface SyntheticCountAuditReport {
-  hardcodedCorpusMetrics: number
-  syntheticMultipliers: number
-  defaultCorpusCounts: number
-  registryDerivedRecordCounts: number
-  dbDerivedRecordCounts: number
-  measurementIntegrity: 'REAL_DATA' | 'SYNTHETIC' | 'PARTIAL' | 'UNKNOWN'
-  status: 'PASS' | 'FAIL'
 }
 
 export interface WorkMaterializationMatrixEntry {
@@ -225,7 +216,7 @@ export interface RecordReconciliationReportP16 {
 export interface DepthSummaryActualP16 {
   schemaVersion: string
   generatedAt: string
-  measurementIntegrity: 'REAL_DATA' | 'SYNTHETIC' | 'PARTIAL' | 'UNKNOWN'
+  measurementIntegrity: 'REAL_DATA' | 'PARTIAL' | 'UNMEASURABLE'
   totals: {
     traditions: number
     works: number
@@ -245,6 +236,12 @@ export interface DepthSummaryActualP16 {
     lexiconTerms: number
     assertions: number
   }
+  editionMeasurement: {
+    totalEditions: number
+    measuredEditions: number
+    zeroRecordEditions: number
+    unmeasurableEditions: number
+  }
   editionDistribution: {
     min: number
     max: number
@@ -254,7 +251,7 @@ export interface DepthSummaryActualP16 {
     p50: number
     p75: number
     p90: number
-    zeroRecordEditions: number
+    sanityCheck: boolean
   }
   editionContributions: {
     uniqueCorpusContribution: number
@@ -283,6 +280,8 @@ export interface DepthValidationResult {
   totalTraditions: number
   totalWorks: number
   totalEditions: number
+  measuredEditions: number
+  unmeasurableEditions: number
   phase15NewWorks: number
   phase15NewEditions: number
   canonicalPositions: number

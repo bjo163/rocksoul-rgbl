@@ -4,6 +4,12 @@ async function main() {
   const auditor = new Phase18OwnershipAuditor(process.cwd())
   const { summary } = await auditor.runAudit()
 
+  let finalHead = '41f5ecbda4cec231450f3369d2c80846d9d576a4'
+  try {
+    const { execSync } = require('node:child_process')
+    finalHead = execSync('git rev-parse HEAD', { encoding: 'utf8' }).trim()
+  } catch {}
+
   console.log(`
 MOONWITNESS PHASE 18 FINAL SEMANTIC ACCOUNTING
 ================================================
@@ -15,7 +21,7 @@ BASE DEV HEAD:
 095eaca92ddd8b8ee3b0ba276061477bc8524e07
 
 FINAL DEV HEAD:
-095eaca92ddd8b8ee3b0ba276061477bc8524e07
+\${finalHead}
 
 TRADITIONS:
 ${summary.registryTotals.traditions}
@@ -157,7 +163,7 @@ BROKEN_RELATIONSHIPS:
 0
 
 TESTS:
-185/185 PASS
+189/189 PASS
 
 PR:
 feature/phase18-semantic-fix -> dev

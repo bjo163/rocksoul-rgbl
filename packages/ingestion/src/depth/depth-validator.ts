@@ -3,7 +3,7 @@ import type { DepthValidationResult } from './types.js'
 
 export async function validateDepth(rootDir: string = process.cwd()): Promise<DepthValidationResult> {
   const auditor = new CorpusDepthAuditor(rootDir)
-  const { summary, newWorks, workMaterialization } = await auditor.runAudit()
+  const { summary, newWorks, workMaterialization, syntheticAudit } = await auditor.runAudit()
 
   const problems: string[] = []
 
@@ -23,6 +23,14 @@ export async function validateDepth(rootDir: string = process.cwd()): Promise<De
     problems.push(`Expected >= 35 Phase 15 new works, got ${newWorks.length}`)
   }
 
+  if (syntheticAudit.syntheticCountCalculations > 0) {
+    problems.push(`Found ${syntheticAudit.syntheticCountCalculations} synthetic count calculations`)
+  }
+
+  if (syntheticAudit.status !== 'PASS') {
+    problems.push(`Synthetic count audit status is ${syntheticAudit.status}`)
+  }
+
   for (const wm of workMaterialization) {
     if (wm.records <= 0) {
       problems.push(`Expected positive records for work ${wm.workId}`)
@@ -38,6 +46,7 @@ export async function validateDepth(rootDir: string = process.cwd()): Promise<De
     phase15NewWorks: newWorks.length,
     phase15NewEditions: summary.phase15NewEditions,
     canonicalPositions: summary.totalCanonicalPositions,
-    editionRecords: summary.totalEditionRecords
+    editionRecords: summary.totalEditionRecords,
+    syntheticCountCalculations: syntheticAudit.syntheticCountCalculations
   }
 }

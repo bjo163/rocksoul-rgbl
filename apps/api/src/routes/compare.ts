@@ -1,3 +1,4 @@
+/// <reference path="../types.d.ts" />
 import type { FastifyPluginAsync } from 'fastify'
 
 export const compareRoutes: FastifyPluginAsync = async (fastify) => {

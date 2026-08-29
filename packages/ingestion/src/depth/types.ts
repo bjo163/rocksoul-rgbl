@@ -61,6 +61,32 @@ export interface NewWorkDetail {
   currentLanguages: string[]
 }
 
+export interface NewWorkActualDetail {
+  workId: string
+  traditionId: string
+  name: string
+  recordCount: number
+  editionRecordCount: number
+  canonicalPositions: number
+  editionCount: number
+  languageCount: number
+  sourceCount: number
+  uniqueTextPayloads: number
+  sourceIds: string[]
+  languages: string[]
+  materializationState: string
+}
+
+export interface SyntheticCountAuditReport {
+  schemaVersion: string
+  generatedAt: string
+  syntheticCountCalculations: number
+  hardcodedRecordCalculations: number
+  magicNumberDerivedCounts: number
+  measurementIntegrity: 'REAL_DATA' | 'SYNTHETIC' | 'PARTIAL' | 'UNKNOWN'
+  status: 'PASS' | 'FAIL'
+}
+
 export interface WorkMaterializationMatrixEntry {
   workId: string
   traditionId: string
@@ -72,6 +98,7 @@ export interface WorkMaterializationMatrixEntry {
   editionCount: number
   languageCount: number
   sourceCount: number
+  dataSource: 'SQLITE_CORPUS' | 'MANIFEST_CANONICAL'
 }
 
 export interface LanguageDepthReportP16 {
@@ -80,6 +107,7 @@ export interface LanguageDepthReportP16 {
   totalLanguages: number
   worksByLanguage: Record<string, number>
   editionsByLanguage: Record<string, number>
+  recordsByLanguage: Record<string, number>
   originalLanguageWorks: number
   translationWorks: number
 }
@@ -140,6 +168,7 @@ export interface RecordReconciliationReportP16 {
 export interface DepthSummaryP16 {
   schemaVersion: string
   generatedAt: string
+  measurementIntegrity: 'REAL_DATA' | 'SYNTHETIC' | 'PARTIAL' | 'UNKNOWN'
   totalTraditions: number
   totalWorks: number
   totalEditions: number
@@ -167,4 +196,5 @@ export interface DepthValidationResult {
   phase15NewEditions: number
   canonicalPositions: number
   editionRecords: number
+  syntheticCountCalculations: number
 }

@@ -31,6 +31,7 @@
     "validate:contributions": "tsx scripts/validate-contributions.ts",
     "audit:db-truth": "tsx scripts/audit-db-truth.ts",
     "validate:db-truth": "tsx scripts/validate-db-truth.ts",
+    "report:phase17": "tsx scripts/generate-phase17-reports.ts",
     "report:db-truth": "tsx scripts/report-db-truth.ts",
     "audit:depth": "tsx scripts/audit-depth.ts",
     "validate:depth": "tsx scripts/validate-depth.ts",

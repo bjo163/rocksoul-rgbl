@@ -3,268 +3,3231 @@
   "version": "1.0.0",
   "title": "MoonWitness Universal Scriptural Works Registry",
   "works": [
-    { "id": "quran", "traditionId": "islam", "name": "Qur'an", "workType": "scripture", "canonicalStatus": "primary_scripture", "structure": { "levels": ["surah", "ayah", "word"] } },
-    { "id": "hadith-bukhari", "traditionId": "islam", "name": "Sahih al-Bukhari", "workType": "hadith_corpus", "canonicalStatus": "canonical_hadith", "structure": { "levels": ["book", "hadith"] } },
-    { "id": "hadith-muslim", "traditionId": "islam", "name": "Sahih Muslim", "workType": "hadith_corpus", "canonicalStatus": "canonical_hadith", "structure": { "levels": ["book", "hadith"] } },
-    { "id": "hadith-abudawud", "traditionId": "islam", "name": "Sunan Abu Dawud", "workType": "hadith_corpus", "canonicalStatus": "canonical_hadith", "structure": { "levels": ["book", "hadith"] } },
-    { "id": "hadith-tirmidhi", "traditionId": "islam", "name": "Jami' at-Tirmidhi", "workType": "hadith_corpus", "canonicalStatus": "canonical_hadith", "structure": { "levels": ["book", "hadith"] } },
-    { "id": "hadith-nasai", "traditionId": "islam", "name": "Sunan an-Nasa'i", "workType": "hadith_corpus", "canonicalStatus": "canonical_hadith", "structure": { "levels": ["book", "hadith"] } },
-    { "id": "hadith-ibnmajah", "traditionId": "islam", "name": "Sunan Ibn Majah", "workType": "hadith_corpus", "canonicalStatus": "canonical_hadith", "structure": { "levels": ["book", "hadith"] } },
-    { "id": "hadith-malik", "traditionId": "islam", "name": "Muwatta Malik", "workType": "hadith_corpus", "canonicalStatus": "canonical_hadith", "structure": { "levels": ["book", "hadith"] } },
-    { "id": "hadith-nawawi", "traditionId": "islam", "name": "Al-Arba'in an-Nawawiyyah (40 Hadith)", "workType": "hadith_collection", "canonicalStatus": "canonical_hadith", "structure": { "levels": ["hadith"] } },
-    { "id": "hadith-qudsi", "traditionId": "islam", "name": "40 Hadith Qudsi", "workType": "hadith_collection", "canonicalStatus": "canonical_hadith", "structure": { "levels": ["hadith"] } },
-    { "id": "duas-hisnul-muslim", "traditionId": "islam", "name": "Hisnul Muslim Supplications", "workType": "devotional", "canonicalStatus": "canonical_devotional", "structure": { "levels": ["chapter", "dua"] } },
-    { "id": "asmaul-husna", "traditionId": "islam", "name": "Asmaul Husna (99 Divine Names)", "workType": "theological_enumeration", "canonicalStatus": "canonical_theology", "structure": { "levels": ["name"] } },
-    { "id": "tanakh", "traditionId": "judaism", "name": "Tanakh (Hebrew Bible)", "workType": "scripture", "canonicalStatus": "primary_scripture", "structure": { "levels": ["book", "chapter", "verse"] } },
-    { "id": "torah", "traditionId": "judaism", "name": "Torah (Five Books of Moses)", "workType": "scripture", "canonicalStatus": "primary_scripture", "structure": { "levels": ["book", "parashah", "chapter", "verse"] } },
-    { "id": "mishnah", "traditionId": "judaism", "name": "Mishnah", "workType": "oral_torah", "canonicalStatus": "primary_rabbinic", "structure": { "levels": ["order", "tractate", "chapter", "mishnah"] } },
-    { "id": "talmud-bavli", "traditionId": "judaism", "name": "Babylonian Talmud", "workType": "rabbinic_commentary", "canonicalStatus": "canonical_rabbinic", "structure": { "levels": ["tractate", "daf"] } },
-    { "id": "talmud-yerushalmi", "traditionId": "judaism", "name": "Jerusalem Talmud", "workType": "rabbinic_commentary", "canonicalStatus": "canonical_rabbinic", "structure": { "levels": ["tractate", "chapter", "halakhah"] } },
-    { "id": "midrash-rabbah", "traditionId": "judaism", "name": "Midrash Rabbah", "workType": "rabbinic_homiletics", "canonicalStatus": "canonical_rabbinic", "structure": { "levels": ["book", "parashah", "section"] } },
-    { "id": "tosefta", "traditionId": "judaism", "name": "Tosefta", "workType": "oral_torah_supplement", "canonicalStatus": "canonical_rabbinic", "structure": { "levels": ["order", "tractate", "chapter", "halakhah"] } },
-    { "id": "greek-new-testament", "traditionId": "christianity", "name": "Greek New Testament", "workType": "scripture", "canonicalStatus": "primary_scripture", "structure": { "levels": ["book", "chapter", "verse"] } },
-    { "id": "septuagint", "traditionId": "christianity", "name": "Septuagint (LXX Greek Old Testament)", "workType": "scripture", "canonicalStatus": "primary_scripture", "structure": { "levels": ["book", "chapter", "verse"] } },
-    { "id": "canonical-greek-literature", "traditionId": "christianity", "name": "Canonical Greek Patristics & Classical Literature", "workType": "patristic_corpus", "canonicalStatus": "canonical_patristics", "structure": { "levels": ["author", "work", "section"] } },
-    { "id": "apostolic-fathers", "traditionId": "christianity", "name": "Apostolic Fathers Collection", "workType": "patristic_corpus", "canonicalStatus": "canonical_patristics", "structure": { "levels": ["author", "work", "chapter"] } },
-    { "id": "early-church-fathers", "traditionId": "christianity", "name": "Early Church Fathers (Ante-Nicene & Nicene)", "workType": "patristic_corpus", "canonicalStatus": "canonical_patristics", "structure": { "levels": ["author", "work", "chapter"] } },
-    { "id": "web-bible", "traditionId": "christianity", "name": "World English Bible", "workType": "scripture_translation", "canonicalStatus": "scripture_translation", "structure": { "levels": ["book", "chapter", "verse"] } },
-    { "id": "principal-upanishads", "traditionId": "hinduism", "name": "The Principal Upanishads", "workType": "scripture", "canonicalStatus": "shruti", "structure": { "levels": ["upanishad", "khanda", "verse"] } },
-    { "id": "bhagavad-gita", "traditionId": "hinduism", "name": "Bhagavad Gita", "workType": "scripture", "canonicalStatus": "smriti_primary", "structure": { "levels": ["chapter", "verse"] } },
-    { "id": "rigveda", "traditionId": "hinduism", "name": "Rigveda Samhita", "workType": "scripture", "canonicalStatus": "shruti", "structure": { "levels": ["mandala", "sukta", "rik"] } },
-    { "id": "samaveda", "traditionId": "hinduism", "name": "Samaveda Samhita", "workType": "scripture", "canonicalStatus": "shruti", "structure": { "levels": ["archika", "prapathaka", "verse"] } },
-    { "id": "atharvaveda", "traditionId": "hinduism", "name": "Atharvaveda Samhita", "workType": "scripture", "canonicalStatus": "shruti", "structure": { "levels": ["kanda", "sukta", "verse"] } },
-    { "id": "yoga-sutras", "traditionId": "hinduism", "name": "Patanjali's Yoga Sutras", "workType": "philosophical_treatise", "canonicalStatus": "smriti_primary", "structure": { "levels": ["pada", "sutra"] } },
-    { "id": "dhammapada", "traditionId": "buddhism", "name": "Dhammapada", "workType": "scripture", "canonicalStatus": "tipitaka_khuddaka", "structure": { "levels": ["vagga", "verse"] } },
-    { "id": "digha-nikaya", "traditionId": "buddhism", "name": "Digha Nikaya (Long Discourses)", "workType": "scripture", "canonicalStatus": "tipitaka_sutta", "structure": { "levels": ["sutta", "section"] } },
-    { "id": "majjhima-nikaya", "traditionId": "buddhism", "name": "Majjhima Nikaya (Middle-Length Discourses)", "workType": "scripture", "canonicalStatus": "tipitaka_sutta", "structure": { "levels": ["sutta", "section"] } },
-    { "id": "samyutta-nikaya", "traditionId": "buddhism", "name": "Samyutta Nikaya (Connected Discourses)", "workType": "scripture", "canonicalStatus": "tipitaka_sutta", "structure": { "levels": ["samyutta", "sutta"] } },
-    { "id": "anguttara-nikaya", "traditionId": "buddhism", "name": "Anguttara Nikaya (Numbered Discourses)", "workType": "scripture", "canonicalStatus": "tipitaka_sutta", "structure": { "levels": ["nipata", "sutta"] } },
-    { "id": "khuddaka-nikaya", "traditionId": "buddhism", "name": "Khuddaka Nikaya Minor Anthologies", "workType": "scripture", "canonicalStatus": "tipitaka_khuddaka", "structure": { "levels": ["book", "sutta"] } },
-    { "id": "vinaya-pitaka", "traditionId": "buddhism", "name": "Vinaya Pitaka (Monastic Rules)", "workType": "scripture", "canonicalStatus": "tipitaka_vinaya", "structure": { "levels": ["khandhaka", "rule"] } },
-    { "id": "heart-sutra", "traditionId": "buddhism", "name": "Prajnaparamita Heart Sutra", "workType": "scripture", "canonicalStatus": "mahayana_primary", "structure": { "levels": ["section"] } },
-    { "id": "dao-de-jing", "traditionId": "daoism", "name": "Dao De Jing (Tao Te Ching)", "workType": "scripture", "canonicalStatus": "primary_scripture", "structure": { "levels": ["chapter", "verse"] } },
-    { "id": "zhuangzi", "traditionId": "daoism", "name": "Zhuangzi", "workType": "scripture", "canonicalStatus": "canonical_treatise", "structure": { "levels": ["chapter", "section"] } },
-    { "id": "liezi", "traditionId": "daoism", "name": "Liezi", "workType": "scripture", "canonicalStatus": "canonical_treatise", "structure": { "levels": ["chapter", "section"] } },
-    { "id": "analects", "traditionId": "confucianism", "name": "The Analects of Confucius (Lunyu)", "workType": "scripture", "canonicalStatus": "four_books_primary", "structure": { "levels": ["book", "chapter"] } },
-    { "id": "mencius", "traditionId": "confucianism", "name": "Mencius (Mengzi)", "workType": "scripture", "canonicalStatus": "four_books_primary", "structure": { "levels": ["book", "chapter"] } },
-    { "id": "great-learning", "traditionId": "confucianism", "name": "Great Learning (Daxue)", "workType": "scripture", "canonicalStatus": "four_books_primary", "structure": { "levels": ["chapter"] } },
-    { "id": "doctrine-of-the-mean", "traditionId": "confucianism", "name": "Doctrine of the Mean (Zhongyong)", "workType": "scripture", "canonicalStatus": "four_books_primary", "structure": { "levels": ["chapter"] } },
-    { "id": "avesta", "traditionId": "zoroastrianism", "name": "Avesta & The Gathas", "workType": "scripture", "canonicalStatus": "primary_scripture", "structure": { "levels": ["yasna", "chapter"] } },
-    { "id": "yasna-gathas", "traditionId": "zoroastrianism", "name": "The Gathas of Zarathushtra", "workType": "scripture", "canonicalStatus": "primary_scripture", "structure": { "levels": ["gatha", "yasna", "verse"] } },
-    { "id": "guru-granth-sahib", "traditionId": "sikhism", "name": "Sri Guru Granth Sahib", "workType": "scripture", "canonicalStatus": "primary_scripture", "structure": { "levels": ["ang", "shabad", "line"] } },
-    { "id": "japji-sahib", "traditionId": "sikhism", "name": "Japji Sahib", "workType": "scripture", "canonicalStatus": "primary_scripture", "structure": { "levels": ["pauri"] } },
-    { "id": "dasam-granth", "traditionId": "sikhism", "name": "Dasam Granth", "workType": "canonical_corpus", "canonicalStatus": "canonical_scripture", "structure": { "levels": ["composition", "verse"] } },
-    { "id": "tattvartha-sutra", "traditionId": "jainism", "name": "Tattvartha Sutra", "workType": "scripture", "canonicalStatus": "primary_treatise", "structure": { "levels": ["chapter", "sutra"] } },
-    { "id": "kalpa-sutra", "traditionId": "jainism", "name": "Kalpa Sutra", "workType": "scripture", "canonicalStatus": "primary_scripture", "structure": { "levels": ["section", "verse"] } },
-    { "id": "hidden-words", "traditionId": "bahai", "name": "The Hidden Words of Bahá'u'lláh", "workType": "scripture", "canonicalStatus": "primary_scripture", "structure": { "levels": ["part", "verse"] } },
-    { "id": "kitab-i-aqdas", "traditionId": "bahai", "name": "Kitab-i-Aqdas (The Most Holy Book)", "workType": "scripture", "canonicalStatus": "primary_scripture", "structure": { "levels": ["paragraph"] } },
-    { "id": "kitab-i-iqan", "traditionId": "bahai", "name": "Kitab-i-Iqan (The Book of Certitude)", "workType": "scripture", "canonicalStatus": "primary_scripture", "structure": { "levels": ["part", "paragraph"] } },
-    { "id": "kojiki", "traditionId": "shinto", "name": "Kojiki (Records of Ancient Matters)", "workType": "sacred_chronicle", "canonicalStatus": "canonical_chronicle", "structure": { "levels": ["book", "section"] } },
-    { "id": "nihon-shoki", "traditionId": "shinto", "name": "Nihon Shoki (Chronicles of Japan)", "workType": "sacred_chronicle", "canonicalStatus": "canonical_chronicle", "structure": { "levels": ["book", "section"] } },
-    { "id": "samaritan-pentateuch", "traditionId": "samaritanism", "name": "Samaritan Pentateuch", "workType": "scripture", "canonicalStatus": "primary_scripture", "structure": { "levels": ["book", "chapter", "verse"] } },
-    { "id": "memar-marqah", "traditionId": "samaritanism", "name": "Memar Marqah (Teaching of Marqah)", "workType": "canonical_treatise", "canonicalStatus": "canonical_commentary", "structure": { "levels": ["book", "chapter"] } },
-    { "id": "ginza-rabba", "traditionId": "mandaeism", "name": "Ginza Rabba (The Great Treasure)", "workType": "scripture", "canonicalStatus": "primary_scripture", "structure": { "levels": ["tractate", "section"] } },
-    { "id": "qolasta", "traditionId": "mandaeism", "name": "Qolasta (Canonical Prayerbook)", "workType": "liturgical_corpus", "canonicalStatus": "canonical_liturgy", "structure": { "levels": ["prayer"] } },
-    { "id": "book-of-john-mandaean", "traditionId": "mandaeism", "name": "The Book of John (Draša d-Yahya)", "workType": "scripture", "canonicalStatus": "canonical_scripture", "structure": { "levels": ["chapter"] } },
-    { "id": "kitab-al-jilwa", "traditionId": "yazidism", "name": "Kitab al-Jilwa (Book of Revelation)", "workType": "sacred_text", "canonicalStatus": "sacred_tradition", "structure": { "levels": ["chapter"] } },
-    { "id": "meshaf-resh", "traditionId": "yazidism", "name": "Meshaf Resh (Black Book)", "workType": "sacred_text", "canonicalStatus": "sacred_tradition", "structure": { "levels": ["section"] } },
-    { "id": "rasail-al-hikmah", "traditionId": "druze", "name": "Rasail al-Hikmah (Epistles of Wisdom)", "workType": "sacred_corpus", "canonicalStatus": "primary_scripture", "structure": { "levels": ["epistle", "section"] } },
-    { "id": "druze-tawhid-treatises", "traditionId": "druze", "name": "Druze Monotheistic Treatises", "workType": "theological_corpus", "canonicalStatus": "canonical_theology", "structure": { "levels": ["treatise"] } },
-    { "id": "kephalaia", "traditionId": "manichaeism", "name": "Kephalaia of the Teacher", "workType": "canonical_corpus", "canonicalStatus": "primary_scripture", "structure": { "levels": ["chapter", "section"] } },
-    { "id": "manichaean-psalms", "traditionId": "manichaeism", "name": "Manichaean Psalm Book", "workType": "liturgical_corpus", "canonicalStatus": "canonical_liturgy", "structure": { "levels": ["psalm"] } },
-    { "id": "shabuhragan", "traditionId": "manichaeism", "name": "Shabuhragan of Mani", "workType": "scripture", "canonicalStatus": "primary_scripture", "structure": { "levels": ["fragment"] } },
-    { "id": "kalam-e-saranjam", "traditionId": "yarsanism", "name": "Kalam-e Saranjam (The Ultimate Discourse)", "workType": "sacred_corpus", "canonicalStatus": "primary_scripture", "structure": { "levels": ["kalam", "stanza"] } },
-    { "id": "daftar-e-nowruz", "traditionId": "yarsanism", "name": "Daftar-e Nowruz", "workType": "liturgical_corpus", "canonicalStatus": "canonical_liturgy", "structure": { "levels": ["poem"] } },
-    { "id": "orkhon-inscriptions", "traditionId": "tengrism", "name": "Orkhon Inscriptions (Bilge Khagan & Kul Tigin)", "workType": "sacred_monumental_corpus", "canonicalStatus": "canonical_monumental", "structure": { "levels": ["monument", "line"] } },
-    { "id": "irk-bitig", "traditionId": "tengrism", "name": "Irk Bitig (Book of Omens)", "workType": "divinatory_corpus", "canonicalStatus": "canonical_sacred", "structure": { "levels": ["omen"] } },
-    { "id": "secret-history-mongols", "traditionId": "tengrism", "name": "The Secret History of the Mongols", "workType": "sacred_chronicle", "canonicalStatus": "historical_sacred", "structure": { "levels": ["chapter", "section"] } },
-    { "id": "donggyeong-daejeon", "traditionId": "cheondoism", "name": "Donggyeong Daejeon (Great Scripture of Eastern Learning)", "workType": "scripture", "canonicalStatus": "primary_scripture", "structure": { "levels": ["chapter", "verse"] } },
-    { "id": "yongdam-yusa", "traditionId": "cheondoism", "name": "Yongdam Yusa (Songs of the Dragon Pool)", "workType": "hymnal_corpus", "canonicalStatus": "primary_scripture", "structure": { "levels": ["hymn"] } },
-    { "id": "treatise-on-donghak", "traditionId": "cheondoism", "name": "Treatises of Choe Je-u", "workType": "theological_treatise", "canonicalStatus": "canonical_theology", "structure": { "levels": ["section"] } },
-    { "id": "ofudesaki", "traditionId": "tenrikyo", "name": "Ofudesaki (Tip of the Writing Brush)", "workType": "scripture", "canonicalStatus": "primary_scripture", "structure": { "levels": ["part", "verse"] } },
-    { "id": "mikagura-uta", "traditionId": "tenrikyo", "name": "Mikagura-uta (The Songs for the Service)", "workType": "liturgical_corpus", "canonicalStatus": "primary_liturgy", "structure": { "levels": ["song", "stanza"] } },
-    { "id": "osashizu", "traditionId": "tenrikyo", "name": "Osashizu (Divine Directions)", "workType": "canonical_revelation", "canonicalStatus": "primary_scripture", "structure": { "levels": ["revelation"] } },
-    { "id": "thanh-ngon-hiep-tuyen", "traditionId": "caodai", "name": "Thánh Ngôn Hiệp Tuyển (Collection of Divine Messages)", "workType": "scripture", "canonicalStatus": "primary_scripture", "structure": { "levels": ["volume", "message"] } },
-    { "id": "phap-chanh-truyen", "traditionId": "caodai", "name": "Pháp Chánh Truyền (The Religious Constitution)", "workType": "canonical_constitution", "canonicalStatus": "primary_scripture", "structure": { "levels": ["chapter", "article"] } },
-    { "id": "kinh-thien-dao", "traditionId": "caodai", "name": "Kinh Thiên Đạo & Thế Đạo (Prayers of the Heavenly & Earthly Path)", "workType": "liturgical_corpus", "canonicalStatus": "canonical_liturgy", "structure": { "levels": ["prayer"] } },
-    { "id": "wonbulgyo-jeongjeon", "traditionId": "won-buddhism", "name": "Jeongjeon (The Principal Book of Won Buddhism)", "workType": "scripture", "canonicalStatus": "primary_scripture", "structure": { "levels": ["chapter", "section"] } },
-    { "id": "daejonggyeong", "traditionId": "won-buddhism", "name": "Daejonggyeong (The Scripture of the Founding Master)", "workType": "scripture", "canonicalStatus": "primary_scripture", "structure": { "levels": ["chapter", "verse"] } },
-    { "id": "scriptures-of-won", "traditionId": "won-buddhism", "name": "Essential Discourses of Won Buddhism", "workType": "canonical_treatise", "canonicalStatus": "canonical_theology", "structure": { "levels": ["discourse"] } },
-    { "id": "odu-ifa-corpus", "traditionId": "yoruba-ifa", "name": "The 256 Odù Ifá Sacred Corpus", "workType": "sacred_oral_corpus", "canonicalStatus": "primary_scripture", "structure": { "levels": ["odu", "ese"] } },
-    { "id": "ese-ifa", "traditionId": "yoruba-ifa", "name": "Èsè Ifá (Sacred Poems of Divination)", "workType": "divinatory_poetry", "canonicalStatus": "primary_scripture", "structure": { "levels": ["poem", "stanza"] } },
-    { "id": "oriki-orisha", "traditionId": "yoruba-ifa", "name": "Oríkì Orisha (Praise Poems to the Deities)", "workType": "hymnal_corpus", "canonicalStatus": "canonical_liturgy", "structure": { "levels": ["deity", "line"] } },
-    { "id": "gospel-of-thomas", "traditionId": "gnosticism", "name": "The Gospel of Thomas (Nag Hammadi NHC II,2)", "workType": "scripture", "canonicalStatus": "nag_hammadi_primary", "structure": { "levels": ["saying"] } },
-    { "id": "gospel-of-truth", "traditionId": "gnosticism", "name": "The Gospel of Truth (Nag Hammadi NHC I,3)", "workType": "scripture", "canonicalStatus": "nag_hammadi_primary", "structure": { "levels": ["page", "section"] } },
-    { "id": "pistis-sophia", "traditionId": "gnosticism", "name": "Pistis Sophia (Askew Codex)", "workType": "scripture", "canonicalStatus": "canonical_gnostic", "structure": { "levels": ["book", "chapter"] } },
-    { "id": "apocryphon-of-john", "traditionId": "gnosticism", "name": "The Apocryphon of John (Secret Revelation of John)", "workType": "scripture", "canonicalStatus": "nag_hammadi_primary", "structure": { "levels": ["chapter", "section"] } },
-    { "id": "corpus-hermeticum", "traditionId": "hermeticism", "name": "Corpus Hermeticum (Tractates I-XVII)", "workType": "philosophical_treatise", "canonicalStatus": "primary_scripture", "structure": { "levels": ["tractate", "section"] } },
-    { "id": "emerald-tablet", "traditionId": "hermeticism", "name": "The Emerald Tablet of Hermes Trismegistus", "workType": "sacred_aphorism", "canonicalStatus": "primary_scripture", "structure": { "levels": ["verse"] } },
-    { "id": "asclepius", "traditionId": "hermeticism", "name": "Asclepius (The Perfect Discourse)", "workType": "philosophical_treatise", "canonicalStatus": "primary_scripture", "structure": { "levels": ["chapter", "section"] } },
-    { "id": "kybalion", "traditionId": "hermeticism", "name": "The Kybalion Hermetic Philosophy", "workType": "philosophical_treatise", "canonicalStatus": "canonical_treatise", "structure": { "levels": ["chapter"] } },
-    { "id": "secret-doctrine", "traditionId": "theosophy", "name": "The Secret Doctrine (Synthesis of Science, Religion, and Philosophy)", "workType": "theosophical_treatise", "canonicalStatus": "primary_treatise", "structure": { "levels": ["volume", "stanza", "shloka"] } },
-    { "id": "voice-of-the-silence", "traditionId": "theosophy", "name": "The Voice of the Silence (Book of the Golden Precepts)", "workType": "sacred_precept", "canonicalStatus": "primary_scripture", "structure": { "levels": ["fragment", "verse"] } },
-    { "id": "key-to-theosophy", "traditionId": "theosophy", "name": "The Key to Theosophy", "workType": "theosophical_treatise", "canonicalStatus": "canonical_treatise", "structure": { "levels": ["section"] } },
-    { "id": "kumulipo-cosmology", "traditionId": "maori-tradition", "name": "Kumulipo & Polynesian Creation Cosmology", "workType": "sacred_chant", "canonicalStatus": "primary_sacred_oral", "structure": { "levels": ["wa", "line"] } },
-    { "id": "nga-moteatea", "traditionId": "maori-tradition", "name": "Ngā Mōteatea (Traditional Māori Songs & Chants)", "workType": "hymnal_corpus", "canonicalStatus": "canonical_oral", "structure": { "levels": ["song", "stanza"] } },
-    { "id": "maori-whakapapa", "traditionId": "maori-tradition", "name": "Whakapapa Māori Cosmogony", "workType": "genealogical_corpus", "canonicalStatus": "canonical_sacred", "structure": { "levels": ["genealogy", "line"] } },
-
-    { "id": "peshitta-syriac", "traditionId": "syriac-christianity", "name": "Peshitta (Syriac Bible)", "workType": "scripture", "canonicalStatus": "primary_scripture", "structure": { "levels": ["book", "chapter", "verse"] } },
-    { "id": "odes-of-solomon", "traditionId": "syriac-christianity", "name": "Odes of Solomon", "workType": "sacred_poetry", "canonicalStatus": "canonical_scripture", "structure": { "levels": ["ode", "verse"] } },
-    { "id": "hymns-ephrem-syrian", "traditionId": "syriac-christianity", "name": "Hymns of St. Ephrem the Syrian (Madrashe)", "workType": "hymnal_corpus", "canonicalStatus": "canonical_patristics", "structure": { "levels": ["hymn", "stanza"] } },
-
-    { "id": "book-of-enoch", "traditionId": "ethiopian-orthodox", "name": "1 Enoch (Book of Enoch / Henok)", "workType": "scripture", "canonicalStatus": "primary_scripture", "structure": { "levels": ["section", "chapter", "verse"] } },
-    { "id": "book-of-jubilees", "traditionId": "ethiopian-orthodox", "name": "Book of Jubilees (Mashafa Kufale)", "workType": "scripture", "canonicalStatus": "primary_scripture", "structure": { "levels": ["chapter", "verse"] } },
-    { "id": "kebra-nagast", "traditionId": "ethiopian-orthodox", "name": "Kebra Nagast (Glory of the Kings)", "workType": "sacred_chronicle", "canonicalStatus": "canonical_chronicle", "structure": { "levels": ["chapter"] } },
-
-    { "id": "egyptian-book-of-the-dead", "traditionId": "ancient-egyptian", "name": "Book of the Dead (Spells of Coming Forth by Day)", "workType": "funerary_corpus", "canonicalStatus": "historical_sacred", "structure": { "levels": ["spell", "section"] } },
-    { "id": "pyramid-texts", "traditionId": "ancient-egyptian", "name": "The Ancient Egyptian Pyramid Texts", "workType": "sacred_inscriptional_corpus", "canonicalStatus": "historical_sacred", "structure": { "levels": ["utterance"] } },
-    { "id": "coffin-texts", "traditionId": "ancient-egyptian", "name": "The Ancient Egyptian Coffin Texts", "workType": "funerary_corpus", "canonicalStatus": "historical_sacred", "structure": { "levels": ["spell"] } },
-
-    { "id": "epic-of-gilgamesh", "traditionId": "mesopotamian", "name": "The Epic of Gilgamesh (Standard Babylonian Version)", "workType": "mythological_epic", "canonicalStatus": "historical_sacred", "structure": { "levels": ["tablet", "line"] } },
-    { "id": "enuma-elish", "traditionId": "mesopotamian", "name": "Enûma Eliš (The Seven Tablets of Creation)", "workType": "cosmogonic_epic", "canonicalStatus": "historical_sacred", "structure": { "levels": ["tablet", "line"] } },
-    { "id": "descent-of-inanna", "traditionId": "mesopotamian", "name": "The Descent of Inanna to the Netherworld", "workType": "sacred_myth", "canonicalStatus": "historical_sacred", "structure": { "levels": ["line"] } },
-
-    { "id": "homeric-hymns", "traditionId": "greco-roman-paganism", "name": "The Homeric Hymns", "workType": "hymnal_corpus", "canonicalStatus": "historical_sacred", "structure": { "levels": ["hymn", "line"] } },
-    { "id": "hesiod-theogony", "traditionId": "greco-roman-paganism", "name": "Theogony & Works and Days of Hesiod", "workType": "theogonic_poetry", "canonicalStatus": "historical_sacred", "structure": { "levels": ["work", "line"] } },
-    { "id": "orphic-hymns", "traditionId": "greco-roman-paganism", "name": "The Orphic Hymns", "workType": "mystic_hymnal", "canonicalStatus": "historical_sacred", "structure": { "levels": ["hymn", "line"] } },
-
-    { "id": "poetic-edda", "traditionId": "norse-germanic", "name": "The Poetic Edda (Elder Edda)", "workType": "mythological_poetry", "canonicalStatus": "historical_sacred", "structure": { "levels": ["poem", "stanza"] } },
-    { "id": "prose-edda", "traditionId": "norse-germanic", "name": "The Prose Edda of Snorri Sturluson", "workType": "mythological_treatise", "canonicalStatus": "historical_sacred", "structure": { "levels": ["book", "section"] } },
-    { "id": "havamal", "traditionId": "norse-germanic", "name": "Hávamál (Sayings of the High One)", "workType": "wisdom_poetry", "canonicalStatus": "historical_sacred", "structure": { "levels": ["stanza"] } },
-
-    { "id": "primary-chronicle-slavic", "traditionId": "slavic-tradition", "name": "The Russian Primary Chronicle (Tale of Bygone Years)", "workType": "sacred_chronicle", "canonicalStatus": "historical_sacred", "structure": { "levels": ["year", "entry"] } },
-    { "id": "slavic-tales-and-songs", "traditionId": "slavic-tradition", "name": "Slavic Sacred Songs & Mythological Bylinas", "workType": "oral_epic_corpus", "canonicalStatus": "historical_oral", "structure": { "levels": ["epic", "line"] } },
-
-    { "id": "popol-vuh", "traditionId": "mayan-religion", "name": "Popol Vuh (Sacred Book of the K'iche' Maya)", "workType": "scripture", "canonicalStatus": "primary_sacred_myth", "structure": { "levels": ["part", "chapter"] } },
-    { "id": "books-of-chilam-balam", "traditionId": "mayan-religion", "name": "The Books of Chilam Balam (Chumayel & Tizimin)", "workType": "prophetic_chronicle", "canonicalStatus": "sacred_chronicle", "structure": { "levels": ["book", "prophecy"] } },
-
-    { "id": "cantares-mexicanos", "traditionId": "nahua-aztec", "name": "Cantares Mexicanos (Sacred Nahuatl Songs)", "workType": "sacred_poetry", "canonicalStatus": "sacred_oral_corpus", "structure": { "levels": ["song", "stanza"] } },
-    { "id": "florentine-codex-gods", "traditionId": "nahua-aztec", "name": "Florentine Codex Book I & II (The Gods & Rites)", "workType": "ethnographic_sacred", "canonicalStatus": "canonical_chronicle", "structure": { "levels": ["book", "chapter"] } },
-
-    { "id": "huarochiri-manuscript", "traditionId": "andean-inca", "name": "The Huarochirí Manuscript (Inca Sacred Myths & Rites)", "workType": "sacred_mythology", "canonicalStatus": "sacred_oral_corpus", "structure": { "levels": ["chapter"] } },
-    { "id": "ollantay-sacred-drama", "traditionId": "andean-inca", "name": "Ollantay (Sacred Andean Quechua Drama)", "workType": "sacred_drama", "canonicalStatus": "sacred_oral_corpus", "structure": { "levels": ["act", "scene"] } },
-
-    { "id": "akan-anansi-mythos", "traditionId": "akan-tradition", "name": "Akan Anansi Cosmogony & Sacred Folktales", "workType": "sacred_oral_corpus", "canonicalStatus": "sacred_oral", "structure": { "levels": ["tale"] } },
-    { "id": "akan-proverbs-and-maxims", "traditionId": "akan-tradition", "name": "Akan Sacred Maxims & Wisdom Literature", "workType": "wisdom_aphorisms", "canonicalStatus": "sacred_oral", "structure": { "levels": ["category", "proverb"] } },
-
-    { "id": "kumulipo-creation-chant", "traditionId": "hawaiian-tradition", "name": "Kumulipo (Hawaiian Cosmogonic Genealogy & Chant)", "workType": "sacred_chant", "canonicalStatus": "primary_sacred_oral", "structure": { "levels": ["wa", "line"] } },
-    { "id": "hawaiian-hula-chants", "traditionId": "hawaiian-tradition", "name": "Sacred Chants & Prayers of Pele & Hi'iaka", "workType": "hymnal_corpus", "canonicalStatus": "sacred_oral", "structure": { "levels": ["oli", "stanza"] } },
-
-    { "id": "vachanas-basavanna", "traditionId": "lingayatism", "name": "Vachanas of Lord Basaveshwara", "workType": "sacred_poetry", "canonicalStatus": "primary_scripture", "structure": { "levels": ["vachana"] } },
-    { "id": "vachanas-allama-prabhu", "traditionId": "lingayatism", "name": "Vachanas of Allama Prabhu", "workType": "mystic_vachanas", "canonicalStatus": "primary_scripture", "structure": { "levels": ["vachana"] } },
-    { "id": "vachanas-akka-mahadevi", "traditionId": "lingayatism", "name": "Vachanas of Akka Mahadevi", "workType": "bhakti_vachanas", "canonicalStatus": "primary_scripture", "structure": { "levels": ["vachana"] } },
-
-    { "id": "vachanamrut", "traditionId": "swaminarayan", "name": "The Vachanamrut of Bhagwan Swaminarayan", "workType": "scripture", "canonicalStatus": "primary_scripture", "structure": { "levels": ["section", "discourse"] } },
-    { "id": "shikshapatri", "traditionId": "swaminarayan", "name": "The Shikshapatri (Code of Precepts)", "workType": "sacred_code", "canonicalStatus": "primary_scripture", "structure": { "levels": ["sloka"] } },
-    { "id": "great-hymn-to-aten", "traditionId": "ancient-egyptian", "name": "The Great Hymn to the Aten", "workType": "hymnal_corpus", "canonicalStatus": "historical_sacred", "structure": { "levels": ["stanza", "line"] } },
-    { "id": "atrahasis-epic", "traditionId": "mesopotamian", "name": "The Epic of Atrahasis", "workType": "mythological_epic", "canonicalStatus": "historical_sacred", "structure": { "levels": ["tablet", "column", "line"] } },
-    { "id": "voluspa", "traditionId": "norse-germanic", "name": "Völuspá (Prophecy of the Völva)", "workType": "mythological_poetry", "canonicalStatus": "historical_sacred", "structure": { "levels": ["stanza"] } },
-    { "id": "demonstrations-aphrahat", "traditionId": "syriac-christianity", "name": "Demonstrations of Aphrahat the Persian Sage", "workType": "theological_treatise", "canonicalStatus": "canonical_patristics", "structure": { "levels": ["demonstration", "section"] } },
-    { "id": "cave-of-treasures", "traditionId": "syriac-christianity", "name": "The Book of the Cave of Treasures (Me`ârath Gazzê)", "workType": "sacred_chronicle", "canonicalStatus": "historical_sacred", "structure": { "levels": ["chapter"] } },
-    { "id": "fetha-nagast", "traditionId": "ethiopian-orthodox", "name": "Fetha Nagast (The Law of the Kings)", "workType": "canonical_nomocanon", "canonicalStatus": "canonical_ecclesiastical", "structure": { "levels": ["part", "chapter"] } },
-    { "id": "maxims-of-ptahhotep", "traditionId": "ancient-egyptian", "name": "The Maxims of Ptahhotep (Instruction of Ptahhotep)", "workType": "wisdom_aphorisms", "canonicalStatus": "historical_sacred", "structure": { "levels": ["maxim"] } },
-    { "id": "code-of-hammurabi", "traditionId": "mesopotamian", "name": "The Code of Hammurabi Stela Inscription", "workType": "sacred_law_corpus", "canonicalStatus": "historical_sacred", "structure": { "levels": ["law"] } },
-    { "id": "plato-timaeus", "traditionId": "greco-roman-paganism", "name": "Plato's Timaeus (Sacred Cosmogony)", "workType": "philosophical_treatise", "canonicalStatus": "historical_sacred", "structure": { "levels": ["section", "stephanus"] } },
-    { "id": "grimnismal", "traditionId": "norse-germanic", "name": "Grímnismál (The Lay of Grimnir)", "workType": "mythological_poetry", "canonicalStatus": "historical_sacred", "structure": { "levels": ["stanza"] } },
-    { "id": "rabinal-achi", "traditionId": "mayan-religion", "name": "Rabinal Achí (Maya Sacred Dance-Drama)", "workType": "sacred_drama", "canonicalStatus": "sacred_oral_corpus", "structure": { "levels": ["act", "scene"] } },
-    { "id": "sunyasampadane", "traditionId": "lingayatism", "name": "Sunyasampadane (The Theological Vachana Dialogues)", "workType": "theological_dialogue", "canonicalStatus": "primary_scripture", "structure": { "levels": ["upadesha", "vachana"] } },
-    { "id": "satsangi-jeevan", "traditionId": "swaminarayan", "name": "Satsangi Jeevan", "workType": "scripture", "canonicalStatus": "primary_scripture", "structure": { "levels": ["prakarana", "adhyaya", "sloka"] } },
-    { "id": "huehuetlatolli", "traditionId": "nahua-aztec", "name": "Huehuetlatolli (Ancient Nahuatl Wisdom of the Elders)", "workType": "wisdom_aphorisms", "canonicalStatus": "sacred_oral_corpus", "structure": { "levels": ["discourse"] } },
-
-    { "id": "buyruk-imam-jafar", "traditionId": "alevi-bektashi", "name": "Buyruk of Imam Ja'far al-Sadiq", "workType": "canonical_corpus", "canonicalStatus": "canonical", "structure": { "levels": ["bab", "fasl"] } },
-    { "id": "divan-i-khatai", "traditionId": "alevi-bektashi", "name": "Divan-i Khatai (Sacred Poems of Shah Ismail)", "workType": "sacred_literature", "canonicalStatus": "liturgical", "structure": { "levels": ["poem", "couplet"] } },
-    { "id": "makalat-haji-bektash", "traditionId": "alevi-bektashi", "name": "Makalat of Haji Bektash Veli (The Four Gateways)", "workType": "philosophical_text", "canonicalStatus": "recognized_scripture", "structure": { "levels": ["gateway", "station"] } },
-
-    { "id": "kitab-al-majmu", "traditionId": "alawite-tradition", "name": "Kitab al-Majmu (The Alawite Sacred Book)", "workType": "sacred_literature", "canonicalStatus": "canonical", "structure": { "levels": ["surah", "verse"] } },
-    { "id": "kitab-al-haft-al-sharif", "traditionId": "alawite-tradition", "name": "Kitab al-Haft wa al-Azilla (The Book of Seven and Shadows)", "workType": "esoteric_tradition", "canonicalStatus": "recognized_scripture", "structure": { "levels": ["chapter", "section"] } },
-
-    { "id": "vessantara-jataka-sogdian", "traditionId": "sogdian-tradition", "name": "The Sogdian Vessantara Jātaka Manuscript", "workType": "sacred_literature", "canonicalStatus": "historical_religious_corpus", "structure": { "levels": ["folio", "line"] } },
-    { "id": "sogdian-ancient-letters", "traditionId": "sogdian-tradition", "name": "Sogdian Ancient Letters & Sacred Inscriptions", "workType": "historical_religious_corpus", "canonicalStatus": "historical", "structure": { "levels": ["letter", "line"] } },
-
-    { "id": "amritbani-guru-ravidass", "traditionId": "ravidassia", "name": "Amritbani Guru Ravidass Ji", "workType": "scripture", "canonicalStatus": "canonical", "structure": { "levels": ["bani", "pada", "line"] } },
-
-    { "id": "bijak-of-kabir", "traditionId": "kabir-panth", "name": "The Bijak of Kabir", "workType": "scripture", "canonicalStatus": "canonical", "structure": { "levels": ["section", "ramaini", "sakhi"] } },
-    { "id": "anurag-sagar", "traditionId": "kabir-panth", "name": "Anurag Sagar (Ocean of Love)", "workType": "sacred_literature", "canonicalStatus": "recognized_scripture", "structure": { "levels": ["adhyaya", "chaupai"] } },
-    { "id": "kabir-sakhi-granth", "traditionId": "kabir-panth", "name": "Kabir Sakhi Granth (Sacred Aphorisms)", "workType": "wisdom_aphorisms", "canonicalStatus": "sacred_literature", "structure": { "levels": ["sakhi"] } },
-
-    { "id": "akilathirattu-ammanai", "traditionId": "ayyavazhi", "name": "Akilathirattu Ammanai (The Universal History)", "workType": "scripture", "canonicalStatus": "canonical", "structure": { "levels": ["part", "yuga", "stanza"] } },
-    { "id": "arul-nool", "traditionId": "ayyavazhi", "name": "Arul Nool (The Book of Grace)", "workType": "sacred_literature", "canonicalStatus": "recognized_scripture", "structure": { "levels": ["section", "verse"] } },
-
-    { "id": "omoro-soshi", "traditionId": "ryukyuan-tradition", "name": "Omoro Sōshi (Ancient Sacred Poems of Ryukyu)", "workType": "liturgical_corpus", "canonicalStatus": "canonical_corpus", "structure": { "levels": ["volume", "omoro"] } },
-
-    { "id": "pale-fox-nommo-cosmogony", "traditionId": "dogon-tradition", "name": "The Pale Fox Nommo Cosmogony (Le Renard Pâle)", "workType": "oral_corpus", "canonicalStatus": "sacred_oral", "structure": { "levels": ["cycle", "mythos"] } },
-
-    { "id": "great-law-of-peace", "traditionId": "haudenosaunee-tradition", "name": "Gayanashagowa (The Great Law of Peace)", "workType": "canonical_corpus", "canonicalStatus": "canonical", "structure": { "levels": ["wampum", "clause"] } },
-    { "id": "code-of-handsome-lake", "traditionId": "haudenosaunee-tradition", "name": "Gaiwiio (The Code of Handsome Lake)", "workType": "sacred_literature", "canonicalStatus": "recognized_scripture", "structure": { "levels": ["section"] } },
-    { "id": "iroquois-creation-story", "traditionId": "haudenosaunee-tradition", "name": "Haudenosaunee Cosmogony & Sky Woman Story", "workType": "oral_corpus", "canonicalStatus": "sacred_oral", "structure": { "levels": ["episode"] } },
-
-    { "id": "baal-cycle-ugaritic", "traditionId": "ugaritic-religion", "name": "The Ugaritic Baal Cycle (KTU 1.1-1.6)", "workType": "historical_religious_corpus", "canonicalStatus": "canonical", "structure": { "levels": ["tablet", "column", "line"] } },
-    { "id": "epic-of-kirta", "traditionId": "ugaritic-religion", "name": "The Epic of Kirta (KTU 1.14-1.16)", "workType": "historical_religious_corpus", "canonicalStatus": "historical_sacred", "structure": { "levels": ["tablet", "column", "line"] } },
-    { "id": "tale-of-aqhat", "traditionId": "ugaritic-religion", "name": "The Tale of Aqhat (KTU 1.17-1.19)", "workType": "historical_religious_corpus", "canonicalStatus": "historical_sacred", "structure": { "levels": ["tablet", "column", "line"] } },
-
-    { "id": "lebor-gabala-erenn", "traditionId": "celtic-religion", "name": "Lebor Gabála Érenn (The Book of Invasions)", "workType": "historical_religious_corpus", "canonicalStatus": "historical_sacred", "structure": { "levels": ["part", "paragraph"] } },
-    { "id": "mabinogion-sacred-tales", "traditionId": "celtic-religion", "name": "The Four Branches of the Mabinogi", "workType": "sacred_literature", "canonicalStatus": "historical_sacred", "structure": { "levels": ["branch", "section"] } },
-    { "id": "cath-maige-tuired", "traditionId": "celtic-religion", "name": "Cath Maige Tuired (The Battle of Mag Tuired)", "workType": "historical_religious_corpus", "canonicalStatus": "historical_sacred", "structure": { "levels": ["paragraph"] } },
-
-    { "id": "book-of-the-bee", "traditionId": "syriac-christianity", "name": "The Book of the Bee (Solomon of Akhlat)", "workType": "sacred_chronicle", "canonicalStatus": "historical_sacred", "structure": { "levels": ["chapter"] } },
-    { "id": "mezegebe-haymanot", "traditionId": "ethiopian-orthodox", "name": "Mezegebe Haymanot (Treasury of the Faith)", "workType": "theological_treatise", "canonicalStatus": "canonical_ecclesiastical", "structure": { "levels": ["section"] } },
-    { "id": "amduat-book-of-the-netherworld", "traditionId": "ancient-egyptian", "name": "The Book of the Amduat (Treatise of the Hidden Room)", "workType": "sacred_literature", "canonicalStatus": "historical_sacred", "structure": { "levels": ["hour", "scene"] } },
-    { "id": "lugalbanda-epic", "traditionId": "mesopotamian", "name": "The Epic of Lugalbanda in the Mountain Cave", "workType": "mythological_epic", "canonicalStatus": "historical_sacred", "structure": { "levels": ["line"] } },
-    { "id": "cicero-de-natura-deorum", "traditionId": "greco-roman-paganism", "name": "Cicero: De Natura Deorum (On the Nature of the Gods)", "workType": "philosophical_treatise", "canonicalStatus": "historical_sacred", "structure": { "levels": ["book", "section"] } },
-    { "id": "lokasenna", "traditionId": "norse-germanic", "name": "Lokasenna (The Flyting of Loki)", "workType": "mythological_poetry", "canonicalStatus": "historical_sacred", "structure": { "levels": ["stanza"] } },
-    { "id": "memorial-de-solola", "traditionId": "mayan-religion", "name": "Memorial de Sololá (Annals of the Cakchiquels)", "workType": "sacred_chronicle", "canonicalStatus": "historical_sacred", "structure": { "levels": ["section"] } },
-    { "id": "historia-tolteca-chichimeca", "traditionId": "nahua-aztec", "name": "Historia Tolteca-Chichimeca", "workType": "sacred_chronicle", "canonicalStatus": "historical_sacred", "structure": { "levels": ["paragraph"] } },
-    { "id": "dioses-y-hombres-huarochiri", "traditionId": "andean-inca", "name": "Dioses y Hombres de Huarochirí (Quechua Traditions of Avila)", "workType": "sacred_oral_corpus", "canonicalStatus": "historical_sacred", "structure": { "levels": ["chapter"] } },
-    { "id": "channabasaveshwara-vachanas", "traditionId": "lingayatism", "name": "Vachanas of Channabasaveshwara", "workType": "sacred_poetry", "canonicalStatus": "primary_scripture", "structure": { "levels": ["vachana"] } },
-    { "id": "bhaktachintamani", "traditionId": "swaminarayan", "name": "Bhaktachintamani (Sacred History of Swaminarayan)", "workType": "sacred_literature", "canonicalStatus": "primary_scripture", "structure": { "levels": ["prakarana", "sloka"] } },
-
-    { "id": "sar-bachan-radhasoami", "traditionId": "radhasoami", "name": "Sar Bachan Radhasoami (Shiv Dayal Singh)", "workType": "scripture", "canonicalStatus": "canonical", "structure": { "levels": ["bachan", "shabad"] } },
-    { "id": "prem-bani-radhasoami", "traditionId": "radhasoami", "name": "Prem Bani Radhasoami (Rai Saligram)", "workType": "sacred_literature", "canonicalStatus": "recognized_scripture", "structure": { "levels": ["volume", "shabad"] } },
-    { "id": "radhasoami-mat-prakash", "traditionId": "radhasoami", "name": "Radhasoami Mat Prakash (The Teachings of Radhasoami Faith)", "workType": "theological_treatise", "canonicalStatus": "recognized_scripture", "structure": { "levels": ["chapter"] } },
-
-    { "id": "brahma-dharma-grantha", "traditionId": "brahmo-samaj", "name": "Brahma Dharma Grantha (Debendranath Tagore)", "workType": "canonical_corpus", "canonicalStatus": "canonical", "structure": { "levels": ["khanda", "chapter", "sloka"] } },
-    { "id": "tattwabodhini-patrika", "traditionId": "brahmo-samaj", "name": "Tattwabodhini Sacred Discourses (Ram Mohan Roy & Debendranath)", "workType": "theological_treatise", "canonicalStatus": "recognized_scripture", "structure": { "levels": ["discourse"] } },
-    { "id": "brahmo-upasana", "traditionId": "brahmo-samaj", "name": "Brahmo Upasana & Stotra (Liturgy of the Brahmo Samaj)", "workType": "liturgical_corpus", "canonicalStatus": "liturgical", "structure": { "levels": ["hymn", "verse"] } },
-
-    { "id": "satyarth-prakash", "traditionId": "arya-samaj", "name": "Satyarth Prakash (The Light of Truth by Swami Dayananda Saraswati)", "workType": "theological_treatise", "canonicalStatus": "canonical", "structure": { "levels": ["samullasa"] } },
-    { "id": "rigvedadi-bhashya-bhumika", "traditionId": "arya-samaj", "name": "Rigvedadi Bhashya Bhumika (Introduction to the Commentary on the Vedas)", "workType": "theological_treatise", "canonicalStatus": "recognized_scripture", "structure": { "levels": ["chapter"] } },
-    { "id": "sanskar-vidhi", "traditionId": "arya-samaj", "name": "Sanskar Vidhi (Vedic Ritual Manual of Dayananda)", "workType": "liturgical_corpus", "canonicalStatus": "liturgical", "structure": { "levels": ["sanskar", "mantra"] } },
-
-    { "id": "sam-giang-khuyen-tu", "traditionId": "hoa-hao", "name": "Sấm Giảng Khuyên Tu (Prophetic Teachings of Đức Thầy)", "workType": "scripture", "canonicalStatus": "canonical", "structure": { "levels": ["volume", "poem"] } },
-    { "id": "ton-chi-hanh-dao", "traditionId": "hoa-hao", "name": "Tôn Chỉ Hành Đạo (Principles of Practice for Hoa Hao Followers)", "workType": "theological_treatise", "canonicalStatus": "canonical", "structure": { "levels": ["chapter", "article"] } },
-    { "id": "thi-van-giao-ly", "traditionId": "hoa-hao", "name": "Thi Văn Giáo Lý Toàn Bộ (Collected Sacred Poetry & Teachings)", "workType": "sacred_literature", "canonicalStatus": "recognized_scripture", "structure": { "levels": ["section", "verse"] } },
-
-    { "id": "fa-du-vodun-corpus", "traditionId": "vodun-tradition", "name": "Fa Kpó: The 256 Du Signs and Sacred Invocations of Fon-Vodun", "workType": "oral_corpus", "canonicalStatus": "sacred_oral", "structure": { "levels": ["du", "invocation"] } },
-    { "id": "hungan-vodun-chants", "traditionId": "vodun-tradition", "name": "Hungan Ritual Chants & Liturgies of the Vodun Pantheons", "workType": "liturgical_corpus", "canonicalStatus": "ritual_corpus", "structure": { "levels": ["chant"] } },
-    { "id": "legba-mawulisa-cosmogony", "traditionId": "vodun-tradition", "name": "Mawu-Lisa & Legba Cosmogonic Traditions of Dahomey", "workType": "oral_corpus", "canonicalStatus": "sacred_oral", "structure": { "levels": ["episode"] } },
-
-    { "id": "nihialic-dinka-hymns", "traditionId": "dinka-tradition", "name": "Nhialic Hymns & Invocations of Divinity (Lienhardt Corpus)", "workType": "oral_corpus", "canonicalStatus": "sacred_oral", "structure": { "levels": ["song", "stanza"] } },
-    { "id": "dinka-creation-cosmogony", "traditionId": "dinka-tradition", "name": "The Separation of Earth and Sky: Dinka Cosmogonic Mythos", "workType": "oral_corpus", "canonicalStatus": "sacred_oral", "structure": { "levels": ["section"] } },
-    { "id": "spear-master-prayers", "traditionId": "dinka-tradition", "name": "Sacred Prayers and Blessings of the Masters of the Fishing Spear", "workType": "liturgical_corpus", "canonicalStatus": "ritual_corpus", "structure": { "levels": ["prayer"] } },
-
-    { "id": "sacred-pipe-black-elk", "traditionId": "lakota-tradition", "name": "The Sacred Pipe: Black Elk's Account of the Seven Rites of the Oglala Sioux", "workType": "oral_corpus", "canonicalStatus": "sacred_oral", "structure": { "levels": ["rite", "narrative"] } },
-    { "id": "sun-dance-wiwanyag-wachipi", "traditionId": "lakota-tradition", "name": "Wiwányag Wačhípi: Sacred Sun Dance Chants & Ritual Traditions", "workType": "liturgical_corpus", "canonicalStatus": "ritual_corpus", "structure": { "levels": ["song"] } },
-    { "id": "woope-sacred-teachings", "traditionId": "lakota-tradition", "name": "The Teachings of White Buffalo Calf Woman (Ptesáŋwiŋ)", "workType": "sacred_literature", "canonicalStatus": "sacred_oral", "structure": { "levels": ["covenant"] } },
-
-    { "id": "dine-bahane-creation-story", "traditionId": "dine-navajo-tradition", "name": "Diné Bahaneʼ: The Navajo Emergence and Creation Story", "workType": "oral_corpus", "canonicalStatus": "sacred_oral", "structure": { "levels": ["world", "chapter"] } },
-    { "id": "blessingway-hozhonji", "traditionId": "dine-navajo-tradition", "name": "Hózhóójí: The Blessingway Sacred Ceremony & Songs", "workType": "liturgical_corpus", "canonicalStatus": "ritual_corpus", "structure": { "levels": ["chant", "prayer"] } },
-    { "id": "nightway-kletji-chants", "traditionId": "dine-navajo-tradition", "name": "Tłʼééʼjí: The Nightway Sacred Healing Chants", "workType": "liturgical_corpus", "canonicalStatus": "ritual_corpus", "structure": { "levels": ["night", "song"] } },
-
-    { "id": "tala-o-le-foafoaga-samoan", "traditionId": "samoan-tradition", "name": "O le Tala i le Foafoaga o le Lalolagi (Samoan Sacred Creation Lore)", "workType": "oral_corpus", "canonicalStatus": "sacred_oral", "structure": { "levels": ["genealogy", "narrative"] } },
-    { "id": "solo-o-le-va-cosmic-hymn", "traditionId": "samoan-tradition", "name": "Solo o le Vā: The Ancient Cosmogonic Chant of Tagaloa-a-Lagi", "workType": "liturgical_corpus", "canonicalStatus": "sacred_oral", "structure": { "levels": ["stanza"] } },
-    { "id": "faalupega-sacred-salutations", "traditionId": "samoan-tradition", "name": "Fa'alupega: Sacred Ceremonial Salutations & Mythological Lineages", "workType": "liturgical_corpus", "canonicalStatus": "ritual_corpus", "structure": { "levels": ["village", "salutation"] } },
-
-    { "id": "liber-linteus-zagrebiensis", "traditionId": "etruscan-religion", "name": "Liber Linteus Zagrebiensis (The Zagreb Linen Book Ritual Calendar)", "workType": "liturgical_corpus", "canonicalStatus": "canonical", "structure": { "levels": ["column", "line"] } },
-    { "id": "tabula-cortonensis", "traditionId": "etruscan-religion", "name": "Tabula Cortonensis Sacred Legal & Ritual Inscription", "workType": "historical_religious_corpus", "canonicalStatus": "historical_sacred", "structure": { "levels": ["side", "line"] } },
-    { "id": "pyrgia-tablets", "traditionId": "etruscan-religion", "name": "The Pyrgi Bilingual Dedicatory Inscriptions (Uni/Astarte)", "workType": "historical_religious_corpus", "canonicalStatus": "historical_sacred", "structure": { "levels": ["tablet", "line"] } },
-
-    { "id": "mithras-liturgy-papyrus", "traditionId": "mithraism", "name": "The Mithras Liturgy (Great Paris Magical Papyrus PGM IV 475-820)", "workType": "liturgical_corpus", "canonicalStatus": "canonical", "structure": { "levels": ["invocation", "instruction"] } },
-    { "id": "santa-prisca-mithraic-hymns", "traditionId": "mithraism", "name": "The Mithraic Dipinti and Inscribed Hymns of Santa Prisca", "workType": "historical_religious_corpus", "canonicalStatus": "historical_sacred", "structure": { "levels": ["verse"] } },
-    { "id": "porphyry-de-antro-nympbarum", "traditionId": "mithraism", "name": "Porphyry: On the Cave of the Nymphs (De Antro Nympharum)", "workType": "philosophical_treatise", "canonicalStatus": "historical_sacred", "structure": { "levels": ["section"] } },
-
-    { "id": "haymanote-abew", "traditionId": "ethiopian-orthodox", "name": "Haymanote Abew (The Faith of the Fathers)", "workType": "theological_treatise", "canonicalStatus": "canonical_ecclesiastical", "structure": { "levels": ["homily"] } },
-    { "id": "enuma-anu-enlil", "traditionId": "mesopotamian", "name": "Enuma Anu Enlil (Cuneiform Celestial & Divinatory Series)", "workType": "historical_religious_corpus", "canonicalStatus": "historical_sacred", "structure": { "levels": ["tablet", "omen"] } },
-    { "id": "title-of-totonicapan", "traditionId": "mayan-religion", "name": "Title of Totonicapán (K'iche' Sacred Mythological Chronicle)", "workType": "sacred_chronicle", "canonicalStatus": "historical_sacred", "structure": { "levels": ["folio"] } },
-    { "id": "tirumandiram", "traditionId": "hinduism", "name": "Tirumandiram of Tirumular (Shaiva Siddhanta Canonical Masterwork)", "workType": "sacred_poetry", "canonicalStatus": "canonical", "structure": { "levels": ["tantra", "verse"] } }
+    {
+      "id": "quran",
+      "traditionId": "islam",
+      "name": "Qur'an",
+      "workType": "scripture",
+      "canonicalStatus": "primary_scripture",
+      "structure": {
+        "levels": [
+          "surah",
+          "ayah",
+          "word"
+        ]
+      }
+    },
+    {
+      "id": "hadith-bukhari",
+      "traditionId": "islam",
+      "name": "Sahih al-Bukhari",
+      "workType": "hadith_corpus",
+      "canonicalStatus": "canonical_hadith",
+      "structure": {
+        "levels": [
+          "book",
+          "hadith"
+        ]
+      }
+    },
+    {
+      "id": "hadith-muslim",
+      "traditionId": "islam",
+      "name": "Sahih Muslim",
+      "workType": "hadith_corpus",
+      "canonicalStatus": "canonical_hadith",
+      "structure": {
+        "levels": [
+          "book",
+          "hadith"
+        ]
+      }
+    },
+    {
+      "id": "hadith-abudawud",
+      "traditionId": "islam",
+      "name": "Sunan Abu Dawud",
+      "workType": "hadith_corpus",
+      "canonicalStatus": "canonical_hadith",
+      "structure": {
+        "levels": [
+          "book",
+          "hadith"
+        ]
+      }
+    },
+    {
+      "id": "hadith-tirmidhi",
+      "traditionId": "islam",
+      "name": "Jami' at-Tirmidhi",
+      "workType": "hadith_corpus",
+      "canonicalStatus": "canonical_hadith",
+      "structure": {
+        "levels": [
+          "book",
+          "hadith"
+        ]
+      }
+    },
+    {
+      "id": "hadith-nasai",
+      "traditionId": "islam",
+      "name": "Sunan an-Nasa'i",
+      "workType": "hadith_corpus",
+      "canonicalStatus": "canonical_hadith",
+      "structure": {
+        "levels": [
+          "book",
+          "hadith"
+        ]
+      }
+    },
+    {
+      "id": "hadith-ibnmajah",
+      "traditionId": "islam",
+      "name": "Sunan Ibn Majah",
+      "workType": "hadith_corpus",
+      "canonicalStatus": "canonical_hadith",
+      "structure": {
+        "levels": [
+          "book",
+          "hadith"
+        ]
+      }
+    },
+    {
+      "id": "hadith-malik",
+      "traditionId": "islam",
+      "name": "Muwatta Malik",
+      "workType": "hadith_corpus",
+      "canonicalStatus": "canonical_hadith",
+      "structure": {
+        "levels": [
+          "book",
+          "hadith"
+        ]
+      }
+    },
+    {
+      "id": "hadith-nawawi",
+      "traditionId": "islam",
+      "name": "Al-Arba'in an-Nawawiyyah (40 Hadith)",
+      "workType": "hadith_collection",
+      "canonicalStatus": "canonical_hadith",
+      "structure": {
+        "levels": [
+          "hadith"
+        ]
+      }
+    },
+    {
+      "id": "hadith-qudsi",
+      "traditionId": "islam",
+      "name": "40 Hadith Qudsi",
+      "workType": "hadith_collection",
+      "canonicalStatus": "canonical_hadith",
+      "structure": {
+        "levels": [
+          "hadith"
+        ]
+      }
+    },
+    {
+      "id": "duas-hisnul-muslim",
+      "traditionId": "islam",
+      "name": "Hisnul Muslim Supplications",
+      "workType": "devotional",
+      "canonicalStatus": "canonical_devotional",
+      "structure": {
+        "levels": [
+          "chapter",
+          "dua"
+        ]
+      }
+    },
+    {
+      "id": "asmaul-husna",
+      "traditionId": "islam",
+      "name": "Asmaul Husna (99 Divine Names)",
+      "workType": "theological_enumeration",
+      "canonicalStatus": "canonical_theology",
+      "structure": {
+        "levels": [
+          "name"
+        ]
+      }
+    },
+    {
+      "id": "tanakh",
+      "traditionId": "judaism",
+      "name": "Tanakh (Hebrew Bible)",
+      "workType": "scripture",
+      "canonicalStatus": "primary_scripture",
+      "structure": {
+        "levels": [
+          "book",
+          "chapter",
+          "verse"
+        ]
+      }
+    },
+    {
+      "id": "torah",
+      "traditionId": "judaism",
+      "name": "Torah (Five Books of Moses)",
+      "workType": "scripture",
+      "canonicalStatus": "primary_scripture",
+      "structure": {
+        "levels": [
+          "book",
+          "parashah",
+          "chapter",
+          "verse"
+        ]
+      }
+    },
+    {
+      "id": "mishnah",
+      "traditionId": "judaism",
+      "name": "Mishnah",
+      "workType": "oral_torah",
+      "canonicalStatus": "primary_rabbinic",
+      "structure": {
+        "levels": [
+          "order",
+          "tractate",
+          "chapter",
+          "mishnah"
+        ]
+      }
+    },
+    {
+      "id": "talmud-bavli",
+      "traditionId": "judaism",
+      "name": "Babylonian Talmud",
+      "workType": "rabbinic_commentary",
+      "canonicalStatus": "canonical_rabbinic",
+      "structure": {
+        "levels": [
+          "tractate",
+          "daf"
+        ]
+      }
+    },
+    {
+      "id": "talmud-yerushalmi",
+      "traditionId": "judaism",
+      "name": "Jerusalem Talmud",
+      "workType": "rabbinic_commentary",
+      "canonicalStatus": "canonical_rabbinic",
+      "structure": {
+        "levels": [
+          "tractate",
+          "chapter",
+          "halakhah"
+        ]
+      }
+    },
+    {
+      "id": "midrash-rabbah",
+      "traditionId": "judaism",
+      "name": "Midrash Rabbah",
+      "workType": "rabbinic_homiletics",
+      "canonicalStatus": "canonical_rabbinic",
+      "structure": {
+        "levels": [
+          "book",
+          "parashah",
+          "section"
+        ]
+      }
+    },
+    {
+      "id": "tosefta",
+      "traditionId": "judaism",
+      "name": "Tosefta",
+      "workType": "oral_torah_supplement",
+      "canonicalStatus": "canonical_rabbinic",
+      "structure": {
+        "levels": [
+          "order",
+          "tractate",
+          "chapter",
+          "halakhah"
+        ]
+      }
+    },
+    {
+      "id": "greek-new-testament",
+      "traditionId": "christianity",
+      "name": "Greek New Testament",
+      "workType": "scripture",
+      "canonicalStatus": "primary_scripture",
+      "structure": {
+        "levels": [
+          "book",
+          "chapter",
+          "verse"
+        ]
+      }
+    },
+    {
+      "id": "septuagint",
+      "traditionId": "christianity",
+      "name": "Septuagint (LXX Greek Old Testament)",
+      "workType": "scripture",
+      "canonicalStatus": "primary_scripture",
+      "structure": {
+        "levels": [
+          "book",
+          "chapter",
+          "verse"
+        ]
+      }
+    },
+    {
+      "id": "canonical-greek-literature",
+      "traditionId": "christianity",
+      "name": "Canonical Greek Patristics & Classical Literature",
+      "workType": "patristic_corpus",
+      "canonicalStatus": "canonical_patristics",
+      "structure": {
+        "levels": [
+          "author",
+          "work",
+          "section"
+        ]
+      }
+    },
+    {
+      "id": "apostolic-fathers",
+      "traditionId": "christianity",
+      "name": "Apostolic Fathers Collection",
+      "workType": "patristic_corpus",
+      "canonicalStatus": "canonical_patristics",
+      "structure": {
+        "levels": [
+          "author",
+          "work",
+          "chapter"
+        ]
+      }
+    },
+    {
+      "id": "early-church-fathers",
+      "traditionId": "christianity",
+      "name": "Early Church Fathers (Ante-Nicene & Nicene)",
+      "workType": "patristic_corpus",
+      "canonicalStatus": "canonical_patristics",
+      "structure": {
+        "levels": [
+          "author",
+          "work",
+          "chapter"
+        ]
+      }
+    },
+    {
+      "id": "web-bible",
+      "traditionId": "christianity",
+      "name": "World English Bible",
+      "workType": "scripture_translation",
+      "canonicalStatus": "scripture_translation",
+      "structure": {
+        "levels": [
+          "book",
+          "chapter",
+          "verse"
+        ]
+      }
+    },
+    {
+      "id": "principal-upanishads",
+      "traditionId": "hinduism",
+      "name": "The Principal Upanishads",
+      "workType": "scripture",
+      "canonicalStatus": "shruti",
+      "structure": {
+        "levels": [
+          "upanishad",
+          "khanda",
+          "verse"
+        ]
+      }
+    },
+    {
+      "id": "bhagavad-gita",
+      "traditionId": "hinduism",
+      "name": "Bhagavad Gita",
+      "workType": "scripture",
+      "canonicalStatus": "smriti_primary",
+      "structure": {
+        "levels": [
+          "chapter",
+          "verse"
+        ]
+      }
+    },
+    {
+      "id": "rigveda",
+      "traditionId": "hinduism",
+      "name": "Rigveda Samhita",
+      "workType": "scripture",
+      "canonicalStatus": "shruti",
+      "structure": {
+        "levels": [
+          "mandala",
+          "sukta",
+          "rik"
+        ]
+      }
+    },
+    {
+      "id": "samaveda",
+      "traditionId": "hinduism",
+      "name": "Samaveda Samhita",
+      "workType": "scripture",
+      "canonicalStatus": "shruti",
+      "structure": {
+        "levels": [
+          "archika",
+          "prapathaka",
+          "verse"
+        ]
+      }
+    },
+    {
+      "id": "atharvaveda",
+      "traditionId": "hinduism",
+      "name": "Atharvaveda Samhita",
+      "workType": "scripture",
+      "canonicalStatus": "shruti",
+      "structure": {
+        "levels": [
+          "kanda",
+          "sukta",
+          "verse"
+        ]
+      }
+    },
+    {
+      "id": "yoga-sutras",
+      "traditionId": "hinduism",
+      "name": "Patanjali's Yoga Sutras",
+      "workType": "philosophical_treatise",
+      "canonicalStatus": "smriti_primary",
+      "structure": {
+        "levels": [
+          "pada",
+          "sutra"
+        ]
+      }
+    },
+    {
+      "id": "dhammapada",
+      "traditionId": "buddhism",
+      "name": "Dhammapada",
+      "workType": "scripture",
+      "canonicalStatus": "tipitaka_khuddaka",
+      "structure": {
+        "levels": [
+          "vagga",
+          "verse"
+        ]
+      }
+    },
+    {
+      "id": "digha-nikaya",
+      "traditionId": "buddhism",
+      "name": "Digha Nikaya (Long Discourses)",
+      "workType": "scripture",
+      "canonicalStatus": "tipitaka_sutta",
+      "structure": {
+        "levels": [
+          "sutta",
+          "section"
+        ]
+      }
+    },
+    {
+      "id": "majjhima-nikaya",
+      "traditionId": "buddhism",
+      "name": "Majjhima Nikaya (Middle-Length Discourses)",
+      "workType": "scripture",
+      "canonicalStatus": "tipitaka_sutta",
+      "structure": {
+        "levels": [
+          "sutta",
+          "section"
+        ]
+      }
+    },
+    {
+      "id": "samyutta-nikaya",
+      "traditionId": "buddhism",
+      "name": "Samyutta Nikaya (Connected Discourses)",
+      "workType": "scripture",
+      "canonicalStatus": "tipitaka_sutta",
+      "structure": {
+        "levels": [
+          "samyutta",
+          "sutta"
+        ]
+      }
+    },
+    {
+      "id": "anguttara-nikaya",
+      "traditionId": "buddhism",
+      "name": "Anguttara Nikaya (Numbered Discourses)",
+      "workType": "scripture",
+      "canonicalStatus": "tipitaka_sutta",
+      "structure": {
+        "levels": [
+          "nipata",
+          "sutta"
+        ]
+      }
+    },
+    {
+      "id": "khuddaka-nikaya",
+      "traditionId": "buddhism",
+      "name": "Khuddaka Nikaya Minor Anthologies",
+      "workType": "scripture",
+      "canonicalStatus": "tipitaka_khuddaka",
+      "structure": {
+        "levels": [
+          "book",
+          "sutta"
+        ]
+      }
+    },
+    {
+      "id": "vinaya-pitaka",
+      "traditionId": "buddhism",
+      "name": "Vinaya Pitaka (Monastic Rules)",
+      "workType": "scripture",
+      "canonicalStatus": "tipitaka_vinaya",
+      "structure": {
+        "levels": [
+          "khandhaka",
+          "rule"
+        ]
+      }
+    },
+    {
+      "id": "heart-sutra",
+      "traditionId": "buddhism",
+      "name": "Prajnaparamita Heart Sutra",
+      "workType": "scripture",
+      "canonicalStatus": "mahayana_primary",
+      "structure": {
+        "levels": [
+          "section"
+        ]
+      }
+    },
+    {
+      "id": "dao-de-jing",
+      "traditionId": "daoism",
+      "name": "Dao De Jing (Tao Te Ching)",
+      "workType": "scripture",
+      "canonicalStatus": "primary_scripture",
+      "structure": {
+        "levels": [
+          "chapter",
+          "verse"
+        ]
+      }
+    },
+    {
+      "id": "zhuangzi",
+      "traditionId": "daoism",
+      "name": "Zhuangzi",
+      "workType": "scripture",
+      "canonicalStatus": "canonical_treatise",
+      "structure": {
+        "levels": [
+          "chapter",
+          "section"
+        ]
+      }
+    },
+    {
+      "id": "liezi",
+      "traditionId": "daoism",
+      "name": "Liezi",
+      "workType": "scripture",
+      "canonicalStatus": "canonical_treatise",
+      "structure": {
+        "levels": [
+          "chapter",
+          "section"
+        ]
+      }
+    },
+    {
+      "id": "analects",
+      "traditionId": "confucianism",
+      "name": "The Analects of Confucius (Lunyu)",
+      "workType": "scripture",
+      "canonicalStatus": "four_books_primary",
+      "structure": {
+        "levels": [
+          "book",
+          "chapter"
+        ]
+      }
+    },
+    {
+      "id": "mencius",
+      "traditionId": "confucianism",
+      "name": "Mencius (Mengzi)",
+      "workType": "scripture",
+      "canonicalStatus": "four_books_primary",
+      "structure": {
+        "levels": [
+          "book",
+          "chapter"
+        ]
+      }
+    },
+    {
+      "id": "great-learning",
+      "traditionId": "confucianism",
+      "name": "Great Learning (Daxue)",
+      "workType": "scripture",
+      "canonicalStatus": "four_books_primary",
+      "structure": {
+        "levels": [
+          "chapter"
+        ]
+      }
+    },
+    {
+      "id": "doctrine-of-the-mean",
+      "traditionId": "confucianism",
+      "name": "Doctrine of the Mean (Zhongyong)",
+      "workType": "scripture",
+      "canonicalStatus": "four_books_primary",
+      "structure": {
+        "levels": [
+          "chapter"
+        ]
+      }
+    },
+    {
+      "id": "avesta",
+      "traditionId": "zoroastrianism",
+      "name": "Avesta & The Gathas",
+      "workType": "scripture",
+      "canonicalStatus": "primary_scripture",
+      "structure": {
+        "levels": [
+          "yasna",
+          "chapter"
+        ]
+      }
+    },
+    {
+      "id": "yasna-gathas",
+      "traditionId": "zoroastrianism",
+      "name": "The Gathas of Zarathushtra",
+      "workType": "scripture",
+      "canonicalStatus": "primary_scripture",
+      "structure": {
+        "levels": [
+          "gatha",
+          "yasna",
+          "verse"
+        ]
+      }
+    },
+    {
+      "id": "guru-granth-sahib",
+      "traditionId": "sikhism",
+      "name": "Sri Guru Granth Sahib",
+      "workType": "scripture",
+      "canonicalStatus": "primary_scripture",
+      "structure": {
+        "levels": [
+          "ang",
+          "shabad",
+          "line"
+        ]
+      }
+    },
+    {
+      "id": "japji-sahib",
+      "traditionId": "sikhism",
+      "name": "Japji Sahib",
+      "workType": "scripture",
+      "canonicalStatus": "primary_scripture",
+      "structure": {
+        "levels": [
+          "pauri"
+        ]
+      }
+    },
+    {
+      "id": "dasam-granth",
+      "traditionId": "sikhism",
+      "name": "Dasam Granth",
+      "workType": "canonical_corpus",
+      "canonicalStatus": "canonical_scripture",
+      "structure": {
+        "levels": [
+          "composition",
+          "verse"
+        ]
+      }
+    },
+    {
+      "id": "tattvartha-sutra",
+      "traditionId": "jainism",
+      "name": "Tattvartha Sutra",
+      "workType": "scripture",
+      "canonicalStatus": "primary_treatise",
+      "structure": {
+        "levels": [
+          "chapter",
+          "sutra"
+        ]
+      }
+    },
+    {
+      "id": "kalpa-sutra",
+      "traditionId": "jainism",
+      "name": "Kalpa Sutra",
+      "workType": "scripture",
+      "canonicalStatus": "primary_scripture",
+      "structure": {
+        "levels": [
+          "section",
+          "verse"
+        ]
+      }
+    },
+    {
+      "id": "hidden-words",
+      "traditionId": "bahai",
+      "name": "The Hidden Words of Bahá'u'lláh",
+      "workType": "scripture",
+      "canonicalStatus": "primary_scripture",
+      "structure": {
+        "levels": [
+          "part",
+          "verse"
+        ]
+      }
+    },
+    {
+      "id": "kitab-i-aqdas",
+      "traditionId": "bahai",
+      "name": "Kitab-i-Aqdas (The Most Holy Book)",
+      "workType": "scripture",
+      "canonicalStatus": "primary_scripture",
+      "structure": {
+        "levels": [
+          "paragraph"
+        ]
+      }
+    },
+    {
+      "id": "kitab-i-iqan",
+      "traditionId": "bahai",
+      "name": "Kitab-i-Iqan (The Book of Certitude)",
+      "workType": "scripture",
+      "canonicalStatus": "primary_scripture",
+      "structure": {
+        "levels": [
+          "part",
+          "paragraph"
+        ]
+      }
+    },
+    {
+      "id": "kojiki",
+      "traditionId": "shinto",
+      "name": "Kojiki (Records of Ancient Matters)",
+      "workType": "sacred_chronicle",
+      "canonicalStatus": "canonical_chronicle",
+      "structure": {
+        "levels": [
+          "book",
+          "section"
+        ]
+      }
+    },
+    {
+      "id": "nihon-shoki",
+      "traditionId": "shinto",
+      "name": "Nihon Shoki (Chronicles of Japan)",
+      "workType": "sacred_chronicle",
+      "canonicalStatus": "canonical_chronicle",
+      "structure": {
+        "levels": [
+          "book",
+          "section"
+        ]
+      }
+    },
+    {
+      "id": "samaritan-pentateuch",
+      "traditionId": "samaritanism",
+      "name": "Samaritan Pentateuch",
+      "workType": "scripture",
+      "canonicalStatus": "primary_scripture",
+      "structure": {
+        "levels": [
+          "book",
+          "chapter",
+          "verse"
+        ]
+      }
+    },
+    {
+      "id": "memar-marqah",
+      "traditionId": "samaritanism",
+      "name": "Memar Marqah (Teaching of Marqah)",
+      "workType": "canonical_treatise",
+      "canonicalStatus": "canonical_commentary",
+      "structure": {
+        "levels": [
+          "book",
+          "chapter"
+        ]
+      }
+    },
+    {
+      "id": "ginza-rabba",
+      "traditionId": "mandaeism",
+      "name": "Ginza Rabba (The Great Treasure)",
+      "workType": "scripture",
+      "canonicalStatus": "primary_scripture",
+      "structure": {
+        "levels": [
+          "tractate",
+          "section"
+        ]
+      }
+    },
+    {
+      "id": "qolasta",
+      "traditionId": "mandaeism",
+      "name": "Qolasta (Canonical Prayerbook)",
+      "workType": "liturgical_corpus",
+      "canonicalStatus": "canonical_liturgy",
+      "structure": {
+        "levels": [
+          "prayer"
+        ]
+      }
+    },
+    {
+      "id": "book-of-john-mandaean",
+      "traditionId": "mandaeism",
+      "name": "The Book of John (Draša d-Yahya)",
+      "workType": "scripture",
+      "canonicalStatus": "canonical_scripture",
+      "structure": {
+        "levels": [
+          "chapter"
+        ]
+      }
+    },
+    {
+      "id": "kitab-al-jilwa",
+      "traditionId": "yazidism",
+      "name": "Kitab al-Jilwa (Book of Revelation)",
+      "workType": "sacred_text",
+      "canonicalStatus": "sacred_tradition",
+      "structure": {
+        "levels": [
+          "chapter"
+        ]
+      }
+    },
+    {
+      "id": "meshaf-resh",
+      "traditionId": "yazidism",
+      "name": "Meshaf Resh (Black Book)",
+      "workType": "sacred_text",
+      "canonicalStatus": "sacred_tradition",
+      "structure": {
+        "levels": [
+          "section"
+        ]
+      }
+    },
+    {
+      "id": "rasail-al-hikmah",
+      "traditionId": "druze",
+      "name": "Rasail al-Hikmah (Epistles of Wisdom)",
+      "workType": "sacred_corpus",
+      "canonicalStatus": "primary_scripture",
+      "structure": {
+        "levels": [
+          "epistle",
+          "section"
+        ]
+      }
+    },
+    {
+      "id": "druze-tawhid-treatises",
+      "traditionId": "druze",
+      "name": "Druze Monotheistic Treatises",
+      "workType": "theological_corpus",
+      "canonicalStatus": "canonical_theology",
+      "structure": {
+        "levels": [
+          "treatise"
+        ]
+      }
+    },
+    {
+      "id": "kephalaia",
+      "traditionId": "manichaeism",
+      "name": "Kephalaia of the Teacher",
+      "workType": "canonical_corpus",
+      "canonicalStatus": "primary_scripture",
+      "structure": {
+        "levels": [
+          "chapter",
+          "section"
+        ]
+      }
+    },
+    {
+      "id": "manichaean-psalms",
+      "traditionId": "manichaeism",
+      "name": "Manichaean Psalm Book",
+      "workType": "liturgical_corpus",
+      "canonicalStatus": "canonical_liturgy",
+      "structure": {
+        "levels": [
+          "psalm"
+        ]
+      }
+    },
+    {
+      "id": "shabuhragan",
+      "traditionId": "manichaeism",
+      "name": "Shabuhragan of Mani",
+      "workType": "scripture",
+      "canonicalStatus": "primary_scripture",
+      "structure": {
+        "levels": [
+          "fragment"
+        ]
+      }
+    },
+    {
+      "id": "kalam-e-saranjam",
+      "traditionId": "yarsanism",
+      "name": "Kalam-e Saranjam (The Ultimate Discourse)",
+      "workType": "sacred_corpus",
+      "canonicalStatus": "primary_scripture",
+      "structure": {
+        "levels": [
+          "kalam",
+          "stanza"
+        ]
+      }
+    },
+    {
+      "id": "daftar-e-nowruz",
+      "traditionId": "yarsanism",
+      "name": "Daftar-e Nowruz",
+      "workType": "liturgical_corpus",
+      "canonicalStatus": "canonical_liturgy",
+      "structure": {
+        "levels": [
+          "poem"
+        ]
+      }
+    },
+    {
+      "id": "orkhon-inscriptions",
+      "traditionId": "tengrism",
+      "name": "Orkhon Inscriptions (Bilge Khagan & Kul Tigin)",
+      "workType": "sacred_monumental_corpus",
+      "canonicalStatus": "canonical_monumental",
+      "structure": {
+        "levels": [
+          "monument",
+          "line"
+        ]
+      }
+    },
+    {
+      "id": "irk-bitig",
+      "traditionId": "tengrism",
+      "name": "Irk Bitig (Book of Omens)",
+      "workType": "divinatory_corpus",
+      "canonicalStatus": "canonical_sacred",
+      "structure": {
+        "levels": [
+          "omen"
+        ]
+      }
+    },
+    {
+      "id": "secret-history-mongols",
+      "traditionId": "tengrism",
+      "name": "The Secret History of the Mongols",
+      "workType": "sacred_chronicle",
+      "canonicalStatus": "historical_sacred",
+      "structure": {
+        "levels": [
+          "chapter",
+          "section"
+        ]
+      }
+    },
+    {
+      "id": "donggyeong-daejeon",
+      "traditionId": "cheondoism",
+      "name": "Donggyeong Daejeon (Great Scripture of Eastern Learning)",
+      "workType": "scripture",
+      "canonicalStatus": "primary_scripture",
+      "structure": {
+        "levels": [
+          "chapter",
+          "verse"
+        ]
+      }
+    },
+    {
+      "id": "yongdam-yusa",
+      "traditionId": "cheondoism",
+      "name": "Yongdam Yusa (Songs of the Dragon Pool)",
+      "workType": "hymnal_corpus",
+      "canonicalStatus": "primary_scripture",
+      "structure": {
+        "levels": [
+          "hymn"
+        ]
+      }
+    },
+    {
+      "id": "treatise-on-donghak",
+      "traditionId": "cheondoism",
+      "name": "Treatises of Choe Je-u",
+      "workType": "theological_treatise",
+      "canonicalStatus": "canonical_theology",
+      "structure": {
+        "levels": [
+          "section"
+        ]
+      }
+    },
+    {
+      "id": "ofudesaki",
+      "traditionId": "tenrikyo",
+      "name": "Ofudesaki (Tip of the Writing Brush)",
+      "workType": "scripture",
+      "canonicalStatus": "primary_scripture",
+      "structure": {
+        "levels": [
+          "part",
+          "verse"
+        ]
+      }
+    },
+    {
+      "id": "mikagura-uta",
+      "traditionId": "tenrikyo",
+      "name": "Mikagura-uta (The Songs for the Service)",
+      "workType": "liturgical_corpus",
+      "canonicalStatus": "primary_liturgy",
+      "structure": {
+        "levels": [
+          "song",
+          "stanza"
+        ]
+      }
+    },
+    {
+      "id": "osashizu",
+      "traditionId": "tenrikyo",
+      "name": "Osashizu (Divine Directions)",
+      "workType": "canonical_revelation",
+      "canonicalStatus": "primary_scripture",
+      "structure": {
+        "levels": [
+          "revelation"
+        ]
+      }
+    },
+    {
+      "id": "thanh-ngon-hiep-tuyen",
+      "traditionId": "caodai",
+      "name": "Thánh Ngôn Hiệp Tuyển (Collection of Divine Messages)",
+      "workType": "scripture",
+      "canonicalStatus": "primary_scripture",
+      "structure": {
+        "levels": [
+          "volume",
+          "message"
+        ]
+      }
+    },
+    {
+      "id": "phap-chanh-truyen",
+      "traditionId": "caodai",
+      "name": "Pháp Chánh Truyền (The Religious Constitution)",
+      "workType": "canonical_constitution",
+      "canonicalStatus": "primary_scripture",
+      "structure": {
+        "levels": [
+          "chapter",
+          "article"
+        ]
+      }
+    },
+    {
+      "id": "kinh-thien-dao",
+      "traditionId": "caodai",
+      "name": "Kinh Thiên Đạo & Thế Đạo (Prayers of the Heavenly & Earthly Path)",
+      "workType": "liturgical_corpus",
+      "canonicalStatus": "canonical_liturgy",
+      "structure": {
+        "levels": [
+          "prayer"
+        ]
+      }
+    },
+    {
+      "id": "wonbulgyo-jeongjeon",
+      "traditionId": "won-buddhism",
+      "name": "Jeongjeon (The Principal Book of Won Buddhism)",
+      "workType": "scripture",
+      "canonicalStatus": "primary_scripture",
+      "structure": {
+        "levels": [
+          "chapter",
+          "section"
+        ]
+      }
+    },
+    {
+      "id": "daejonggyeong",
+      "traditionId": "won-buddhism",
+      "name": "Daejonggyeong (The Scripture of the Founding Master)",
+      "workType": "scripture",
+      "canonicalStatus": "primary_scripture",
+      "structure": {
+        "levels": [
+          "chapter",
+          "verse"
+        ]
+      }
+    },
+    {
+      "id": "scriptures-of-won",
+      "traditionId": "won-buddhism",
+      "name": "Essential Discourses of Won Buddhism",
+      "workType": "canonical_treatise",
+      "canonicalStatus": "canonical_theology",
+      "structure": {
+        "levels": [
+          "discourse"
+        ]
+      }
+    },
+    {
+      "id": "odu-ifa-corpus",
+      "traditionId": "yoruba-ifa",
+      "name": "The 256 Odù Ifá Sacred Corpus",
+      "workType": "sacred_oral_corpus",
+      "canonicalStatus": "primary_scripture",
+      "structure": {
+        "levels": [
+          "odu",
+          "ese"
+        ]
+      }
+    },
+    {
+      "id": "ese-ifa",
+      "traditionId": "yoruba-ifa",
+      "name": "Èsè Ifá (Sacred Poems of Divination)",
+      "workType": "divinatory_poetry",
+      "canonicalStatus": "primary_scripture",
+      "structure": {
+        "levels": [
+          "poem",
+          "stanza"
+        ]
+      }
+    },
+    {
+      "id": "oriki-orisha",
+      "traditionId": "yoruba-ifa",
+      "name": "Oríkì Orisha (Praise Poems to the Deities)",
+      "workType": "hymnal_corpus",
+      "canonicalStatus": "canonical_liturgy",
+      "structure": {
+        "levels": [
+          "deity",
+          "line"
+        ]
+      }
+    },
+    {
+      "id": "gospel-of-thomas",
+      "traditionId": "gnosticism",
+      "name": "The Gospel of Thomas (Nag Hammadi NHC II,2)",
+      "workType": "scripture",
+      "canonicalStatus": "nag_hammadi_primary",
+      "structure": {
+        "levels": [
+          "saying"
+        ]
+      }
+    },
+    {
+      "id": "gospel-of-truth",
+      "traditionId": "gnosticism",
+      "name": "The Gospel of Truth (Nag Hammadi NHC I,3)",
+      "workType": "scripture",
+      "canonicalStatus": "nag_hammadi_primary",
+      "structure": {
+        "levels": [
+          "page",
+          "section"
+        ]
+      }
+    },
+    {
+      "id": "pistis-sophia",
+      "traditionId": "gnosticism",
+      "name": "Pistis Sophia (Askew Codex)",
+      "workType": "scripture",
+      "canonicalStatus": "canonical_gnostic",
+      "structure": {
+        "levels": [
+          "book",
+          "chapter"
+        ]
+      }
+    },
+    {
+      "id": "apocryphon-of-john",
+      "traditionId": "gnosticism",
+      "name": "The Apocryphon of John (Secret Revelation of John)",
+      "workType": "scripture",
+      "canonicalStatus": "nag_hammadi_primary",
+      "structure": {
+        "levels": [
+          "chapter",
+          "section"
+        ]
+      }
+    },
+    {
+      "id": "corpus-hermeticum",
+      "traditionId": "hermeticism",
+      "name": "Corpus Hermeticum (Tractates I-XVII)",
+      "workType": "philosophical_treatise",
+      "canonicalStatus": "primary_scripture",
+      "structure": {
+        "levels": [
+          "tractate",
+          "section"
+        ]
+      }
+    },
+    {
+      "id": "emerald-tablet",
+      "traditionId": "hermeticism",
+      "name": "The Emerald Tablet of Hermes Trismegistus",
+      "workType": "sacred_aphorism",
+      "canonicalStatus": "primary_scripture",
+      "structure": {
+        "levels": [
+          "verse"
+        ]
+      }
+    },
+    {
+      "id": "asclepius",
+      "traditionId": "hermeticism",
+      "name": "Asclepius (The Perfect Discourse)",
+      "workType": "philosophical_treatise",
+      "canonicalStatus": "primary_scripture",
+      "structure": {
+        "levels": [
+          "chapter",
+          "section"
+        ]
+      }
+    },
+    {
+      "id": "kybalion",
+      "traditionId": "hermeticism",
+      "name": "The Kybalion Hermetic Philosophy",
+      "workType": "philosophical_treatise",
+      "canonicalStatus": "canonical_treatise",
+      "structure": {
+        "levels": [
+          "chapter"
+        ]
+      }
+    },
+    {
+      "id": "secret-doctrine",
+      "traditionId": "theosophy",
+      "name": "The Secret Doctrine (Synthesis of Science, Religion, and Philosophy)",
+      "workType": "theosophical_treatise",
+      "canonicalStatus": "primary_treatise",
+      "structure": {
+        "levels": [
+          "volume",
+          "stanza",
+          "shloka"
+        ]
+      }
+    },
+    {
+      "id": "voice-of-the-silence",
+      "traditionId": "theosophy",
+      "name": "The Voice of the Silence (Book of the Golden Precepts)",
+      "workType": "sacred_precept",
+      "canonicalStatus": "primary_scripture",
+      "structure": {
+        "levels": [
+          "fragment",
+          "verse"
+        ]
+      }
+    },
+    {
+      "id": "key-to-theosophy",
+      "traditionId": "theosophy",
+      "name": "The Key to Theosophy",
+      "workType": "theosophical_treatise",
+      "canonicalStatus": "canonical_treatise",
+      "structure": {
+        "levels": [
+          "section"
+        ]
+      }
+    },
+    {
+      "id": "kumulipo-cosmology",
+      "traditionId": "maori-tradition",
+      "name": "Kumulipo & Polynesian Creation Cosmology",
+      "workType": "sacred_chant",
+      "canonicalStatus": "primary_sacred_oral",
+      "structure": {
+        "levels": [
+          "wa",
+          "line"
+        ]
+      }
+    },
+    {
+      "id": "nga-moteatea",
+      "traditionId": "maori-tradition",
+      "name": "Ngā Mōteatea (Traditional Māori Songs & Chants)",
+      "workType": "hymnal_corpus",
+      "canonicalStatus": "canonical_oral",
+      "structure": {
+        "levels": [
+          "song",
+          "stanza"
+        ]
+      }
+    },
+    {
+      "id": "maori-whakapapa",
+      "traditionId": "maori-tradition",
+      "name": "Whakapapa Māori Cosmogony",
+      "workType": "genealogical_corpus",
+      "canonicalStatus": "canonical_sacred",
+      "structure": {
+        "levels": [
+          "genealogy",
+          "line"
+        ]
+      }
+    },
+    {
+      "id": "peshitta-syriac",
+      "traditionId": "syriac-christianity",
+      "name": "Peshitta (Syriac Bible)",
+      "workType": "scripture",
+      "canonicalStatus": "primary_scripture",
+      "structure": {
+        "levels": [
+          "book",
+          "chapter",
+          "verse"
+        ]
+      }
+    },
+    {
+      "id": "odes-of-solomon",
+      "traditionId": "syriac-christianity",
+      "name": "Odes of Solomon",
+      "workType": "sacred_poetry",
+      "canonicalStatus": "canonical_scripture",
+      "structure": {
+        "levels": [
+          "ode",
+          "verse"
+        ]
+      }
+    },
+    {
+      "id": "hymns-ephrem-syrian",
+      "traditionId": "syriac-christianity",
+      "name": "Hymns of St. Ephrem the Syrian (Madrashe)",
+      "workType": "hymnal_corpus",
+      "canonicalStatus": "canonical_patristics",
+      "structure": {
+        "levels": [
+          "hymn",
+          "stanza"
+        ]
+      }
+    },
+    {
+      "id": "book-of-enoch",
+      "traditionId": "ethiopian-orthodox",
+      "name": "1 Enoch (Book of Enoch / Henok)",
+      "workType": "scripture",
+      "canonicalStatus": "primary_scripture",
+      "structure": {
+        "levels": [
+          "section",
+          "chapter",
+          "verse"
+        ]
+      }
+    },
+    {
+      "id": "book-of-jubilees",
+      "traditionId": "ethiopian-orthodox",
+      "name": "Book of Jubilees (Mashafa Kufale)",
+      "workType": "scripture",
+      "canonicalStatus": "primary_scripture",
+      "structure": {
+        "levels": [
+          "chapter",
+          "verse"
+        ]
+      }
+    },
+    {
+      "id": "kebra-nagast",
+      "traditionId": "ethiopian-orthodox",
+      "name": "Kebra Nagast (Glory of the Kings)",
+      "workType": "sacred_chronicle",
+      "canonicalStatus": "canonical_chronicle",
+      "structure": {
+        "levels": [
+          "chapter"
+        ]
+      }
+    },
+    {
+      "id": "egyptian-book-of-the-dead",
+      "traditionId": "ancient-egyptian",
+      "name": "Book of the Dead (Spells of Coming Forth by Day)",
+      "workType": "funerary_corpus",
+      "canonicalStatus": "historical_sacred",
+      "structure": {
+        "levels": [
+          "spell",
+          "section"
+        ]
+      }
+    },
+    {
+      "id": "pyramid-texts",
+      "traditionId": "ancient-egyptian",
+      "name": "The Ancient Egyptian Pyramid Texts",
+      "workType": "sacred_inscriptional_corpus",
+      "canonicalStatus": "historical_sacred",
+      "structure": {
+        "levels": [
+          "utterance"
+        ]
+      }
+    },
+    {
+      "id": "coffin-texts",
+      "traditionId": "ancient-egyptian",
+      "name": "The Ancient Egyptian Coffin Texts",
+      "workType": "funerary_corpus",
+      "canonicalStatus": "historical_sacred",
+      "structure": {
+        "levels": [
+          "spell"
+        ]
+      }
+    },
+    {
+      "id": "epic-of-gilgamesh",
+      "traditionId": "mesopotamian",
+      "name": "The Epic of Gilgamesh (Standard Babylonian Version)",
+      "workType": "mythological_epic",
+      "canonicalStatus": "historical_sacred",
+      "structure": {
+        "levels": [
+          "tablet",
+          "line"
+        ]
+      }
+    },
+    {
+      "id": "enuma-elish",
+      "traditionId": "mesopotamian",
+      "name": "Enûma Eliš (The Seven Tablets of Creation)",
+      "workType": "cosmogonic_epic",
+      "canonicalStatus": "historical_sacred",
+      "structure": {
+        "levels": [
+          "tablet",
+          "line"
+        ]
+      }
+    },
+    {
+      "id": "descent-of-inanna",
+      "traditionId": "mesopotamian",
+      "name": "The Descent of Inanna to the Netherworld",
+      "workType": "sacred_myth",
+      "canonicalStatus": "historical_sacred",
+      "structure": {
+        "levels": [
+          "line"
+        ]
+      }
+    },
+    {
+      "id": "homeric-hymns",
+      "traditionId": "greco-roman-paganism",
+      "name": "The Homeric Hymns",
+      "workType": "hymnal_corpus",
+      "canonicalStatus": "historical_sacred",
+      "structure": {
+        "levels": [
+          "hymn",
+          "line"
+        ]
+      }
+    },
+    {
+      "id": "hesiod-theogony",
+      "traditionId": "greco-roman-paganism",
+      "name": "Theogony & Works and Days of Hesiod",
+      "workType": "theogonic_poetry",
+      "canonicalStatus": "historical_sacred",
+      "structure": {
+        "levels": [
+          "work",
+          "line"
+        ]
+      }
+    },
+    {
+      "id": "orphic-hymns",
+      "traditionId": "greco-roman-paganism",
+      "name": "The Orphic Hymns",
+      "workType": "mystic_hymnal",
+      "canonicalStatus": "historical_sacred",
+      "structure": {
+        "levels": [
+          "hymn",
+          "line"
+        ]
+      }
+    },
+    {
+      "id": "poetic-edda",
+      "traditionId": "norse-germanic",
+      "name": "The Poetic Edda (Elder Edda)",
+      "workType": "mythological_poetry",
+      "canonicalStatus": "historical_sacred",
+      "structure": {
+        "levels": [
+          "poem",
+          "stanza"
+        ]
+      }
+    },
+    {
+      "id": "prose-edda",
+      "traditionId": "norse-germanic",
+      "name": "The Prose Edda of Snorri Sturluson",
+      "workType": "mythological_treatise",
+      "canonicalStatus": "historical_sacred",
+      "structure": {
+        "levels": [
+          "book",
+          "section"
+        ]
+      }
+    },
+    {
+      "id": "havamal",
+      "traditionId": "norse-germanic",
+      "name": "Hávamál (Sayings of the High One)",
+      "workType": "wisdom_poetry",
+      "canonicalStatus": "historical_sacred",
+      "structure": {
+        "levels": [
+          "stanza"
+        ]
+      }
+    },
+    {
+      "id": "primary-chronicle-slavic",
+      "traditionId": "slavic-tradition",
+      "name": "The Russian Primary Chronicle (Tale of Bygone Years)",
+      "workType": "sacred_chronicle",
+      "canonicalStatus": "historical_sacred",
+      "structure": {
+        "levels": [
+          "year",
+          "entry"
+        ]
+      }
+    },
+    {
+      "id": "slavic-tales-and-songs",
+      "traditionId": "slavic-tradition",
+      "name": "Slavic Sacred Songs & Mythological Bylinas",
+      "workType": "oral_epic_corpus",
+      "canonicalStatus": "historical_oral",
+      "structure": {
+        "levels": [
+          "epic",
+          "line"
+        ]
+      }
+    },
+    {
+      "id": "popol-vuh",
+      "traditionId": "mayan-religion",
+      "name": "Popol Vuh (Sacred Book of the K'iche' Maya)",
+      "workType": "scripture",
+      "canonicalStatus": "primary_sacred_myth",
+      "structure": {
+        "levels": [
+          "part",
+          "chapter"
+        ]
+      }
+    },
+    {
+      "id": "books-of-chilam-balam",
+      "traditionId": "mayan-religion",
+      "name": "The Books of Chilam Balam (Chumayel & Tizimin)",
+      "workType": "prophetic_chronicle",
+      "canonicalStatus": "sacred_chronicle",
+      "structure": {
+        "levels": [
+          "book",
+          "prophecy"
+        ]
+      }
+    },
+    {
+      "id": "cantares-mexicanos",
+      "traditionId": "nahua-aztec",
+      "name": "Cantares Mexicanos (Sacred Nahuatl Songs)",
+      "workType": "sacred_poetry",
+      "canonicalStatus": "sacred_oral_corpus",
+      "structure": {
+        "levels": [
+          "song",
+          "stanza"
+        ]
+      }
+    },
+    {
+      "id": "florentine-codex-gods",
+      "traditionId": "nahua-aztec",
+      "name": "Florentine Codex Book I & II (The Gods & Rites)",
+      "workType": "ethnographic_sacred",
+      "canonicalStatus": "canonical_chronicle",
+      "structure": {
+        "levels": [
+          "book",
+          "chapter"
+        ]
+      }
+    },
+    {
+      "id": "huarochiri-manuscript",
+      "traditionId": "andean-inca",
+      "name": "The Huarochirí Manuscript (Inca Sacred Myths & Rites)",
+      "workType": "sacred_mythology",
+      "canonicalStatus": "sacred_oral_corpus",
+      "structure": {
+        "levels": [
+          "chapter"
+        ]
+      }
+    },
+    {
+      "id": "ollantay-sacred-drama",
+      "traditionId": "andean-inca",
+      "name": "Ollantay (Sacred Andean Quechua Drama)",
+      "workType": "sacred_drama",
+      "canonicalStatus": "sacred_oral_corpus",
+      "structure": {
+        "levels": [
+          "act",
+          "scene"
+        ]
+      }
+    },
+    {
+      "id": "akan-anansi-mythos",
+      "traditionId": "akan-tradition",
+      "name": "Akan Anansi Cosmogony & Sacred Folktales",
+      "workType": "sacred_oral_corpus",
+      "canonicalStatus": "sacred_oral",
+      "structure": {
+        "levels": [
+          "tale"
+        ]
+      }
+    },
+    {
+      "id": "akan-proverbs-and-maxims",
+      "traditionId": "akan-tradition",
+      "name": "Akan Sacred Maxims & Wisdom Literature",
+      "workType": "wisdom_aphorisms",
+      "canonicalStatus": "sacred_oral",
+      "structure": {
+        "levels": [
+          "category",
+          "proverb"
+        ]
+      }
+    },
+    {
+      "id": "kumulipo-creation-chant",
+      "traditionId": "hawaiian-tradition",
+      "name": "Kumulipo (Hawaiian Cosmogonic Genealogy & Chant)",
+      "workType": "sacred_chant",
+      "canonicalStatus": "primary_sacred_oral",
+      "structure": {
+        "levels": [
+          "wa",
+          "line"
+        ]
+      }
+    },
+    {
+      "id": "hawaiian-hula-chants",
+      "traditionId": "hawaiian-tradition",
+      "name": "Sacred Chants & Prayers of Pele & Hi'iaka",
+      "workType": "hymnal_corpus",
+      "canonicalStatus": "sacred_oral",
+      "structure": {
+        "levels": [
+          "oli",
+          "stanza"
+        ]
+      }
+    },
+    {
+      "id": "vachanas-basavanna",
+      "traditionId": "lingayatism",
+      "name": "Vachanas of Lord Basaveshwara",
+      "workType": "sacred_poetry",
+      "canonicalStatus": "primary_scripture",
+      "structure": {
+        "levels": [
+          "vachana"
+        ]
+      }
+    },
+    {
+      "id": "vachanas-allama-prabhu",
+      "traditionId": "lingayatism",
+      "name": "Vachanas of Allama Prabhu",
+      "workType": "mystic_vachanas",
+      "canonicalStatus": "primary_scripture",
+      "structure": {
+        "levels": [
+          "vachana"
+        ]
+      }
+    },
+    {
+      "id": "vachanas-akka-mahadevi",
+      "traditionId": "lingayatism",
+      "name": "Vachanas of Akka Mahadevi",
+      "workType": "bhakti_vachanas",
+      "canonicalStatus": "primary_scripture",
+      "structure": {
+        "levels": [
+          "vachana"
+        ]
+      }
+    },
+    {
+      "id": "vachanamrut",
+      "traditionId": "swaminarayan",
+      "name": "The Vachanamrut of Bhagwan Swaminarayan",
+      "workType": "scripture",
+      "canonicalStatus": "primary_scripture",
+      "structure": {
+        "levels": [
+          "section",
+          "discourse"
+        ]
+      }
+    },
+    {
+      "id": "shikshapatri",
+      "traditionId": "swaminarayan",
+      "name": "The Shikshapatri (Code of Precepts)",
+      "workType": "sacred_code",
+      "canonicalStatus": "primary_scripture",
+      "structure": {
+        "levels": [
+          "sloka"
+        ]
+      }
+    },
+    {
+      "id": "great-hymn-to-aten",
+      "traditionId": "ancient-egyptian",
+      "name": "The Great Hymn to the Aten",
+      "workType": "hymnal_corpus",
+      "canonicalStatus": "historical_sacred",
+      "structure": {
+        "levels": [
+          "stanza",
+          "line"
+        ]
+      }
+    },
+    {
+      "id": "atrahasis-epic",
+      "traditionId": "mesopotamian",
+      "name": "The Epic of Atrahasis",
+      "workType": "mythological_epic",
+      "canonicalStatus": "historical_sacred",
+      "structure": {
+        "levels": [
+          "tablet",
+          "column",
+          "line"
+        ]
+      }
+    },
+    {
+      "id": "voluspa",
+      "traditionId": "norse-germanic",
+      "name": "Völuspá (Prophecy of the Völva)",
+      "workType": "mythological_poetry",
+      "canonicalStatus": "historical_sacred",
+      "structure": {
+        "levels": [
+          "stanza"
+        ]
+      }
+    },
+    {
+      "id": "demonstrations-aphrahat",
+      "traditionId": "syriac-christianity",
+      "name": "Demonstrations of Aphrahat the Persian Sage",
+      "workType": "theological_treatise",
+      "canonicalStatus": "canonical_patristics",
+      "structure": {
+        "levels": [
+          "demonstration",
+          "section"
+        ]
+      }
+    },
+    {
+      "id": "cave-of-treasures",
+      "traditionId": "syriac-christianity",
+      "name": "The Book of the Cave of Treasures (Me`ârath Gazzê)",
+      "workType": "sacred_chronicle",
+      "canonicalStatus": "historical_sacred",
+      "structure": {
+        "levels": [
+          "chapter"
+        ]
+      }
+    },
+    {
+      "id": "fetha-nagast",
+      "traditionId": "ethiopian-orthodox",
+      "name": "Fetha Nagast (The Law of the Kings)",
+      "workType": "canonical_nomocanon",
+      "canonicalStatus": "canonical_ecclesiastical",
+      "structure": {
+        "levels": [
+          "part",
+          "chapter"
+        ]
+      }
+    },
+    {
+      "id": "maxims-of-ptahhotep",
+      "traditionId": "ancient-egyptian",
+      "name": "The Maxims of Ptahhotep (Instruction of Ptahhotep)",
+      "workType": "wisdom_aphorisms",
+      "canonicalStatus": "historical_sacred",
+      "structure": {
+        "levels": [
+          "maxim"
+        ]
+      }
+    },
+    {
+      "id": "code-of-hammurabi",
+      "traditionId": "mesopotamian",
+      "name": "The Code of Hammurabi Stela Inscription",
+      "workType": "sacred_law_corpus",
+      "canonicalStatus": "historical_sacred",
+      "structure": {
+        "levels": [
+          "law"
+        ]
+      }
+    },
+    {
+      "id": "plato-timaeus",
+      "traditionId": "greco-roman-paganism",
+      "name": "Plato's Timaeus (Sacred Cosmogony)",
+      "workType": "philosophical_treatise",
+      "canonicalStatus": "historical_sacred",
+      "structure": {
+        "levels": [
+          "section",
+          "stephanus"
+        ]
+      }
+    },
+    {
+      "id": "grimnismal",
+      "traditionId": "norse-germanic",
+      "name": "Grímnismál (The Lay of Grimnir)",
+      "workType": "mythological_poetry",
+      "canonicalStatus": "historical_sacred",
+      "structure": {
+        "levels": [
+          "stanza"
+        ]
+      }
+    },
+    {
+      "id": "rabinal-achi",
+      "traditionId": "mayan-religion",
+      "name": "Rabinal Achí (Maya Sacred Dance-Drama)",
+      "workType": "sacred_drama",
+      "canonicalStatus": "sacred_oral_corpus",
+      "structure": {
+        "levels": [
+          "act",
+          "scene"
+        ]
+      }
+    },
+    {
+      "id": "sunyasampadane",
+      "traditionId": "lingayatism",
+      "name": "Sunyasampadane (The Theological Vachana Dialogues)",
+      "workType": "theological_dialogue",
+      "canonicalStatus": "primary_scripture",
+      "structure": {
+        "levels": [
+          "upadesha",
+          "vachana"
+        ]
+      }
+    },
+    {
+      "id": "satsangi-jeevan",
+      "traditionId": "swaminarayan",
+      "name": "Satsangi Jeevan",
+      "workType": "scripture",
+      "canonicalStatus": "primary_scripture",
+      "structure": {
+        "levels": [
+          "prakarana",
+          "adhyaya",
+          "sloka"
+        ]
+      }
+    },
+    {
+      "id": "huehuetlatolli",
+      "traditionId": "nahua-aztec",
+      "name": "Huehuetlatolli (Ancient Nahuatl Wisdom of the Elders)",
+      "workType": "wisdom_aphorisms",
+      "canonicalStatus": "sacred_oral_corpus",
+      "structure": {
+        "levels": [
+          "discourse"
+        ]
+      }
+    },
+    {
+      "id": "buyruk-imam-jafar",
+      "traditionId": "alevi-bektashi",
+      "name": "Buyruk of Imam Ja'far al-Sadiq",
+      "workType": "canonical_corpus",
+      "canonicalStatus": "canonical",
+      "structure": {
+        "levels": [
+          "bab",
+          "fasl"
+        ]
+      }
+    },
+    {
+      "id": "divan-i-khatai",
+      "traditionId": "alevi-bektashi",
+      "name": "Divan-i Khatai (Sacred Poems of Shah Ismail)",
+      "workType": "sacred_literature",
+      "canonicalStatus": "liturgical",
+      "structure": {
+        "levels": [
+          "poem",
+          "couplet"
+        ]
+      }
+    },
+    {
+      "id": "makalat-haji-bektash",
+      "traditionId": "alevi-bektashi",
+      "name": "Makalat of Haji Bektash Veli (The Four Gateways)",
+      "workType": "philosophical_text",
+      "canonicalStatus": "recognized_scripture",
+      "structure": {
+        "levels": [
+          "gateway",
+          "station"
+        ]
+      }
+    },
+    {
+      "id": "kitab-al-majmu",
+      "traditionId": "alawite-tradition",
+      "name": "Kitab al-Majmu (The Alawite Sacred Book)",
+      "workType": "sacred_literature",
+      "canonicalStatus": "canonical",
+      "structure": {
+        "levels": [
+          "surah",
+          "verse"
+        ]
+      }
+    },
+    {
+      "id": "kitab-al-haft-al-sharif",
+      "traditionId": "alawite-tradition",
+      "name": "Kitab al-Haft wa al-Azilla (The Book of Seven and Shadows)",
+      "workType": "esoteric_tradition",
+      "canonicalStatus": "recognized_scripture",
+      "structure": {
+        "levels": [
+          "chapter",
+          "section"
+        ]
+      }
+    },
+    {
+      "id": "vessantara-jataka-sogdian",
+      "traditionId": "sogdian-tradition",
+      "name": "The Sogdian Vessantara Jātaka Manuscript",
+      "workType": "sacred_literature",
+      "canonicalStatus": "historical_religious_corpus",
+      "structure": {
+        "levels": [
+          "folio",
+          "line"
+        ]
+      }
+    },
+    {
+      "id": "sogdian-ancient-letters",
+      "traditionId": "sogdian-tradition",
+      "name": "Sogdian Ancient Letters & Sacred Inscriptions",
+      "workType": "historical_religious_corpus",
+      "canonicalStatus": "historical",
+      "structure": {
+        "levels": [
+          "letter",
+          "line"
+        ]
+      }
+    },
+    {
+      "id": "amritbani-guru-ravidass",
+      "traditionId": "ravidassia",
+      "name": "Amritbani Guru Ravidass Ji",
+      "workType": "scripture",
+      "canonicalStatus": "canonical",
+      "structure": {
+        "levels": [
+          "bani",
+          "pada",
+          "line"
+        ]
+      }
+    },
+    {
+      "id": "bijak-of-kabir",
+      "traditionId": "kabir-panth",
+      "name": "The Bijak of Kabir",
+      "workType": "scripture",
+      "canonicalStatus": "canonical",
+      "structure": {
+        "levels": [
+          "section",
+          "ramaini",
+          "sakhi"
+        ]
+      }
+    },
+    {
+      "id": "anurag-sagar",
+      "traditionId": "kabir-panth",
+      "name": "Anurag Sagar (Ocean of Love)",
+      "workType": "sacred_literature",
+      "canonicalStatus": "recognized_scripture",
+      "structure": {
+        "levels": [
+          "adhyaya",
+          "chaupai"
+        ]
+      }
+    },
+    {
+      "id": "kabir-sakhi-granth",
+      "traditionId": "kabir-panth",
+      "name": "Kabir Sakhi Granth (Sacred Aphorisms)",
+      "workType": "wisdom_aphorisms",
+      "canonicalStatus": "sacred_literature",
+      "structure": {
+        "levels": [
+          "sakhi"
+        ]
+      }
+    },
+    {
+      "id": "akilathirattu-ammanai",
+      "traditionId": "ayyavazhi",
+      "name": "Akilathirattu Ammanai (The Universal History)",
+      "workType": "scripture",
+      "canonicalStatus": "canonical",
+      "structure": {
+        "levels": [
+          "part",
+          "yuga",
+          "stanza"
+        ]
+      }
+    },
+    {
+      "id": "arul-nool",
+      "traditionId": "ayyavazhi",
+      "name": "Arul Nool (The Book of Grace)",
+      "workType": "sacred_literature",
+      "canonicalStatus": "recognized_scripture",
+      "structure": {
+        "levels": [
+          "section",
+          "verse"
+        ]
+      }
+    },
+    {
+      "id": "omoro-soshi",
+      "traditionId": "ryukyuan-tradition",
+      "name": "Omoro Sōshi (Ancient Sacred Poems of Ryukyu)",
+      "workType": "liturgical_corpus",
+      "canonicalStatus": "canonical_corpus",
+      "structure": {
+        "levels": [
+          "volume",
+          "omoro"
+        ]
+      }
+    },
+    {
+      "id": "pale-fox-nommo-cosmogony",
+      "traditionId": "dogon-tradition",
+      "name": "The Pale Fox Nommo Cosmogony (Le Renard Pâle)",
+      "workType": "oral_corpus",
+      "canonicalStatus": "sacred_oral",
+      "structure": {
+        "levels": [
+          "cycle",
+          "mythos"
+        ]
+      }
+    },
+    {
+      "id": "great-law-of-peace",
+      "traditionId": "haudenosaunee-tradition",
+      "name": "Gayanashagowa (The Great Law of Peace)",
+      "workType": "canonical_corpus",
+      "canonicalStatus": "canonical",
+      "structure": {
+        "levels": [
+          "wampum",
+          "clause"
+        ]
+      }
+    },
+    {
+      "id": "code-of-handsome-lake",
+      "traditionId": "haudenosaunee-tradition",
+      "name": "Gaiwiio (The Code of Handsome Lake)",
+      "workType": "sacred_literature",
+      "canonicalStatus": "recognized_scripture",
+      "structure": {
+        "levels": [
+          "section"
+        ]
+      }
+    },
+    {
+      "id": "iroquois-creation-story",
+      "traditionId": "haudenosaunee-tradition",
+      "name": "Haudenosaunee Cosmogony & Sky Woman Story",
+      "workType": "oral_corpus",
+      "canonicalStatus": "sacred_oral",
+      "structure": {
+        "levels": [
+          "episode"
+        ]
+      }
+    },
+    {
+      "id": "baal-cycle-ugaritic",
+      "traditionId": "ugaritic-religion",
+      "name": "The Ugaritic Baal Cycle (KTU 1.1-1.6)",
+      "workType": "historical_religious_corpus",
+      "canonicalStatus": "canonical",
+      "structure": {
+        "levels": [
+          "tablet",
+          "column",
+          "line"
+        ]
+      }
+    },
+    {
+      "id": "epic-of-kirta",
+      "traditionId": "ugaritic-religion",
+      "name": "The Epic of Kirta (KTU 1.14-1.16)",
+      "workType": "historical_religious_corpus",
+      "canonicalStatus": "historical_sacred",
+      "structure": {
+        "levels": [
+          "tablet",
+          "column",
+          "line"
+        ]
+      }
+    },
+    {
+      "id": "tale-of-aqhat",
+      "traditionId": "ugaritic-religion",
+      "name": "The Tale of Aqhat (KTU 1.17-1.19)",
+      "workType": "historical_religious_corpus",
+      "canonicalStatus": "historical_sacred",
+      "structure": {
+        "levels": [
+          "tablet",
+          "column",
+          "line"
+        ]
+      }
+    },
+    {
+      "id": "lebor-gabala-erenn",
+      "traditionId": "celtic-religion",
+      "name": "Lebor Gabála Érenn (The Book of Invasions)",
+      "workType": "historical_religious_corpus",
+      "canonicalStatus": "historical_sacred",
+      "structure": {
+        "levels": [
+          "part",
+          "paragraph"
+        ]
+      }
+    },
+    {
+      "id": "mabinogion-sacred-tales",
+      "traditionId": "celtic-religion",
+      "name": "The Four Branches of the Mabinogi",
+      "workType": "sacred_literature",
+      "canonicalStatus": "historical_sacred",
+      "structure": {
+        "levels": [
+          "branch",
+          "section"
+        ]
+      }
+    },
+    {
+      "id": "cath-maige-tuired",
+      "traditionId": "celtic-religion",
+      "name": "Cath Maige Tuired (The Battle of Mag Tuired)",
+      "workType": "historical_religious_corpus",
+      "canonicalStatus": "historical_sacred",
+      "structure": {
+        "levels": [
+          "paragraph"
+        ]
+      }
+    },
+    {
+      "id": "book-of-the-bee",
+      "traditionId": "syriac-christianity",
+      "name": "The Book of the Bee (Solomon of Akhlat)",
+      "workType": "sacred_chronicle",
+      "canonicalStatus": "historical_sacred",
+      "structure": {
+        "levels": [
+          "chapter"
+        ]
+      }
+    },
+    {
+      "id": "mezegebe-haymanot",
+      "traditionId": "ethiopian-orthodox",
+      "name": "Mezegebe Haymanot (Treasury of the Faith)",
+      "workType": "theological_treatise",
+      "canonicalStatus": "canonical_ecclesiastical",
+      "structure": {
+        "levels": [
+          "section"
+        ]
+      }
+    },
+    {
+      "id": "amduat-book-of-the-netherworld",
+      "traditionId": "ancient-egyptian",
+      "name": "The Book of the Amduat (Treatise of the Hidden Room)",
+      "workType": "sacred_literature",
+      "canonicalStatus": "historical_sacred",
+      "structure": {
+        "levels": [
+          "hour",
+          "scene"
+        ]
+      }
+    },
+    {
+      "id": "lugalbanda-epic",
+      "traditionId": "mesopotamian",
+      "name": "The Epic of Lugalbanda in the Mountain Cave",
+      "workType": "mythological_epic",
+      "canonicalStatus": "historical_sacred",
+      "structure": {
+        "levels": [
+          "line"
+        ]
+      }
+    },
+    {
+      "id": "cicero-de-natura-deorum",
+      "traditionId": "greco-roman-paganism",
+      "name": "Cicero: De Natura Deorum (On the Nature of the Gods)",
+      "workType": "philosophical_treatise",
+      "canonicalStatus": "historical_sacred",
+      "structure": {
+        "levels": [
+          "book",
+          "section"
+        ]
+      }
+    },
+    {
+      "id": "lokasenna",
+      "traditionId": "norse-germanic",
+      "name": "Lokasenna (The Flyting of Loki)",
+      "workType": "mythological_poetry",
+      "canonicalStatus": "historical_sacred",
+      "structure": {
+        "levels": [
+          "stanza"
+        ]
+      }
+    },
+    {
+      "id": "memorial-de-solola",
+      "traditionId": "mayan-religion",
+      "name": "Memorial de Sololá (Annals of the Cakchiquels)",
+      "workType": "sacred_chronicle",
+      "canonicalStatus": "historical_sacred",
+      "structure": {
+        "levels": [
+          "section"
+        ]
+      }
+    },
+    {
+      "id": "historia-tolteca-chichimeca",
+      "traditionId": "nahua-aztec",
+      "name": "Historia Tolteca-Chichimeca",
+      "workType": "sacred_chronicle",
+      "canonicalStatus": "historical_sacred",
+      "structure": {
+        "levels": [
+          "paragraph"
+        ]
+      }
+    },
+    {
+      "id": "dioses-y-hombres-huarochiri",
+      "traditionId": "andean-inca",
+      "name": "Dioses y Hombres de Huarochirí (Quechua Traditions of Avila)",
+      "workType": "sacred_oral_corpus",
+      "canonicalStatus": "historical_sacred",
+      "structure": {
+        "levels": [
+          "chapter"
+        ]
+      }
+    },
+    {
+      "id": "channabasaveshwara-vachanas",
+      "traditionId": "lingayatism",
+      "name": "Vachanas of Channabasaveshwara",
+      "workType": "sacred_poetry",
+      "canonicalStatus": "primary_scripture",
+      "structure": {
+        "levels": [
+          "vachana"
+        ]
+      }
+    },
+    {
+      "id": "bhaktachintamani",
+      "traditionId": "swaminarayan",
+      "name": "Bhaktachintamani (Sacred History of Swaminarayan)",
+      "workType": "sacred_literature",
+      "canonicalStatus": "primary_scripture",
+      "structure": {
+        "levels": [
+          "prakarana",
+          "sloka"
+        ]
+      }
+    },
+    {
+      "id": "sar-bachan-radhasoami",
+      "traditionId": "radhasoami",
+      "name": "Sar Bachan Radhasoami (Shiv Dayal Singh)",
+      "workType": "scripture",
+      "canonicalStatus": "canonical",
+      "structure": {
+        "levels": [
+          "bachan",
+          "shabad"
+        ]
+      }
+    },
+    {
+      "id": "prem-bani-radhasoami",
+      "traditionId": "radhasoami",
+      "name": "Prem Bani Radhasoami (Rai Saligram)",
+      "workType": "sacred_literature",
+      "canonicalStatus": "recognized_scripture",
+      "structure": {
+        "levels": [
+          "volume",
+          "shabad"
+        ]
+      }
+    },
+    {
+      "id": "radhasoami-mat-prakash",
+      "traditionId": "radhasoami",
+      "name": "Radhasoami Mat Prakash (The Teachings of Radhasoami Faith)",
+      "workType": "theological_treatise",
+      "canonicalStatus": "recognized_scripture",
+      "structure": {
+        "levels": [
+          "chapter"
+        ]
+      }
+    },
+    {
+      "id": "brahma-dharma-grantha",
+      "traditionId": "brahmo-samaj",
+      "name": "Brahma Dharma Grantha (Debendranath Tagore)",
+      "workType": "canonical_corpus",
+      "canonicalStatus": "canonical",
+      "structure": {
+        "levels": [
+          "khanda",
+          "chapter",
+          "sloka"
+        ]
+      }
+    },
+    {
+      "id": "tattwabodhini-patrika",
+      "traditionId": "brahmo-samaj",
+      "name": "Tattwabodhini Sacred Discourses (Ram Mohan Roy & Debendranath)",
+      "workType": "theological_treatise",
+      "canonicalStatus": "recognized_scripture",
+      "structure": {
+        "levels": [
+          "discourse"
+        ]
+      }
+    },
+    {
+      "id": "brahmo-upasana",
+      "traditionId": "brahmo-samaj",
+      "name": "Brahmo Upasana & Stotra (Liturgy of the Brahmo Samaj)",
+      "workType": "liturgical_corpus",
+      "canonicalStatus": "liturgical",
+      "structure": {
+        "levels": [
+          "hymn",
+          "verse"
+        ]
+      }
+    },
+    {
+      "id": "satyarth-prakash",
+      "traditionId": "arya-samaj",
+      "name": "Satyarth Prakash (The Light of Truth by Swami Dayananda Saraswati)",
+      "workType": "theological_treatise",
+      "canonicalStatus": "canonical",
+      "structure": {
+        "levels": [
+          "samullasa"
+        ]
+      }
+    },
+    {
+      "id": "rigvedadi-bhashya-bhumika",
+      "traditionId": "arya-samaj",
+      "name": "Rigvedadi Bhashya Bhumika (Introduction to the Commentary on the Vedas)",
+      "workType": "theological_treatise",
+      "canonicalStatus": "recognized_scripture",
+      "structure": {
+        "levels": [
+          "chapter"
+        ]
+      }
+    },
+    {
+      "id": "sanskar-vidhi",
+      "traditionId": "arya-samaj",
+      "name": "Sanskar Vidhi (Vedic Ritual Manual of Dayananda)",
+      "workType": "liturgical_corpus",
+      "canonicalStatus": "liturgical",
+      "structure": {
+        "levels": [
+          "sanskar",
+          "mantra"
+        ]
+      }
+    },
+    {
+      "id": "sam-giang-khuyen-tu",
+      "traditionId": "hoa-hao",
+      "name": "Sấm Giảng Khuyên Tu (Prophetic Teachings of Đức Thầy)",
+      "workType": "scripture",
+      "canonicalStatus": "canonical",
+      "structure": {
+        "levels": [
+          "volume",
+          "poem"
+        ]
+      }
+    },
+    {
+      "id": "ton-chi-hanh-dao",
+      "traditionId": "hoa-hao",
+      "name": "Tôn Chỉ Hành Đạo (Principles of Practice for Hoa Hao Followers)",
+      "workType": "theological_treatise",
+      "canonicalStatus": "canonical",
+      "structure": {
+        "levels": [
+          "chapter",
+          "article"
+        ]
+      }
+    },
+    {
+      "id": "thi-van-giao-ly",
+      "traditionId": "hoa-hao",
+      "name": "Thi Văn Giáo Lý Toàn Bộ (Collected Sacred Poetry & Teachings)",
+      "workType": "sacred_literature",
+      "canonicalStatus": "recognized_scripture",
+      "structure": {
+        "levels": [
+          "section",
+          "verse"
+        ]
+      }
+    },
+    {
+      "id": "fa-du-vodun-corpus",
+      "traditionId": "vodun-tradition",
+      "name": "Fa Kpó: The 256 Du Signs and Sacred Invocations of Fon-Vodun",
+      "workType": "oral_corpus",
+      "canonicalStatus": "sacred_oral",
+      "structure": {
+        "levels": [
+          "du",
+          "invocation"
+        ]
+      }
+    },
+    {
+      "id": "hungan-vodun-chants",
+      "traditionId": "vodun-tradition",
+      "name": "Hungan Ritual Chants & Liturgies of the Vodun Pantheons",
+      "workType": "liturgical_corpus",
+      "canonicalStatus": "ritual_corpus",
+      "structure": {
+        "levels": [
+          "chant"
+        ]
+      }
+    },
+    {
+      "id": "legba-mawulisa-cosmogony",
+      "traditionId": "vodun-tradition",
+      "name": "Mawu-Lisa & Legba Cosmogonic Traditions of Dahomey",
+      "workType": "oral_corpus",
+      "canonicalStatus": "sacred_oral",
+      "structure": {
+        "levels": [
+          "episode"
+        ]
+      }
+    },
+    {
+      "id": "nihialic-dinka-hymns",
+      "traditionId": "dinka-tradition",
+      "name": "Nhialic Hymns & Invocations of Divinity (Lienhardt Corpus)",
+      "workType": "oral_corpus",
+      "canonicalStatus": "sacred_oral",
+      "structure": {
+        "levels": [
+          "song",
+          "stanza"
+        ]
+      }
+    },
+    {
+      "id": "dinka-creation-cosmogony",
+      "traditionId": "dinka-tradition",
+      "name": "The Separation of Earth and Sky: Dinka Cosmogonic Mythos",
+      "workType": "oral_corpus",
+      "canonicalStatus": "sacred_oral",
+      "structure": {
+        "levels": [
+          "section"
+        ]
+      }
+    },
+    {
+      "id": "spear-master-prayers",
+      "traditionId": "dinka-tradition",
+      "name": "Sacred Prayers and Blessings of the Masters of the Fishing Spear",
+      "workType": "liturgical_corpus",
+      "canonicalStatus": "ritual_corpus",
+      "structure": {
+        "levels": [
+          "prayer"
+        ]
+      }
+    },
+    {
+      "id": "sacred-pipe-black-elk",
+      "traditionId": "lakota-tradition",
+      "name": "The Sacred Pipe: Black Elk's Account of the Seven Rites of the Oglala Sioux",
+      "workType": "oral_corpus",
+      "canonicalStatus": "sacred_oral",
+      "structure": {
+        "levels": [
+          "rite",
+          "narrative"
+        ]
+      }
+    },
+    {
+      "id": "sun-dance-wiwanyag-wachipi",
+      "traditionId": "lakota-tradition",
+      "name": "Wiwányag Wačhípi: Sacred Sun Dance Chants & Ritual Traditions",
+      "workType": "liturgical_corpus",
+      "canonicalStatus": "ritual_corpus",
+      "structure": {
+        "levels": [
+          "song"
+        ]
+      }
+    },
+    {
+      "id": "woope-sacred-teachings",
+      "traditionId": "lakota-tradition",
+      "name": "The Teachings of White Buffalo Calf Woman (Ptesáŋwiŋ)",
+      "workType": "sacred_literature",
+      "canonicalStatus": "sacred_oral",
+      "structure": {
+        "levels": [
+          "covenant"
+        ]
+      }
+    },
+    {
+      "id": "dine-bahane-creation-story",
+      "traditionId": "dine-navajo-tradition",
+      "name": "Diné Bahaneʼ: The Navajo Emergence and Creation Story",
+      "workType": "oral_corpus",
+      "canonicalStatus": "sacred_oral",
+      "structure": {
+        "levels": [
+          "world",
+          "chapter"
+        ]
+      }
+    },
+    {
+      "id": "blessingway-hozhonji",
+      "traditionId": "dine-navajo-tradition",
+      "name": "Hózhóójí: The Blessingway Sacred Ceremony & Songs",
+      "workType": "liturgical_corpus",
+      "canonicalStatus": "ritual_corpus",
+      "structure": {
+        "levels": [
+          "chant",
+          "prayer"
+        ]
+      }
+    },
+    {
+      "id": "nightway-kletji-chants",
+      "traditionId": "dine-navajo-tradition",
+      "name": "Tłʼééʼjí: The Nightway Sacred Healing Chants",
+      "workType": "liturgical_corpus",
+      "canonicalStatus": "ritual_corpus",
+      "structure": {
+        "levels": [
+          "night",
+          "song"
+        ]
+      }
+    },
+    {
+      "id": "tala-o-le-foafoaga-samoan",
+      "traditionId": "samoan-tradition",
+      "name": "O le Tala i le Foafoaga o le Lalolagi (Samoan Sacred Creation Lore)",
+      "workType": "oral_corpus",
+      "canonicalStatus": "sacred_oral",
+      "structure": {
+        "levels": [
+          "genealogy",
+          "narrative"
+        ]
+      }
+    },
+    {
+      "id": "solo-o-le-va-cosmic-hymn",
+      "traditionId": "samoan-tradition",
+      "name": "Solo o le Vā: The Ancient Cosmogonic Chant of Tagaloa-a-Lagi",
+      "workType": "liturgical_corpus",
+      "canonicalStatus": "sacred_oral",
+      "structure": {
+        "levels": [
+          "stanza"
+        ]
+      }
+    },
+    {
+      "id": "faalupega-sacred-salutations",
+      "traditionId": "samoan-tradition",
+      "name": "Fa'alupega: Sacred Ceremonial Salutations & Mythological Lineages",
+      "workType": "liturgical_corpus",
+      "canonicalStatus": "ritual_corpus",
+      "structure": {
+        "levels": [
+          "village",
+          "salutation"
+        ]
+      }
+    },
+    {
+      "id": "liber-linteus-zagrebiensis",
+      "traditionId": "etruscan-religion",
+      "name": "Liber Linteus Zagrebiensis (The Zagreb Linen Book Ritual Calendar)",
+      "workType": "liturgical_corpus",
+      "canonicalStatus": "canonical",
+      "structure": {
+        "levels": [
+          "column",
+          "line"
+        ]
+      }
+    },
+    {
+      "id": "tabula-cortonensis",
+      "traditionId": "etruscan-religion",
+      "name": "Tabula Cortonensis Sacred Legal & Ritual Inscription",
+      "workType": "historical_religious_corpus",
+      "canonicalStatus": "historical_sacred",
+      "structure": {
+        "levels": [
+          "side",
+          "line"
+        ]
+      }
+    },
+    {
+      "id": "pyrgia-tablets",
+      "traditionId": "etruscan-religion",
+      "name": "The Pyrgi Bilingual Dedicatory Inscriptions (Uni/Astarte)",
+      "workType": "historical_religious_corpus",
+      "canonicalStatus": "historical_sacred",
+      "structure": {
+        "levels": [
+          "tablet",
+          "line"
+        ]
+      }
+    },
+    {
+      "id": "mithras-liturgy-papyrus",
+      "traditionId": "mithraism",
+      "name": "The Mithras Liturgy (Great Paris Magical Papyrus PGM IV 475-820)",
+      "workType": "liturgical_corpus",
+      "canonicalStatus": "canonical",
+      "structure": {
+        "levels": [
+          "invocation",
+          "instruction"
+        ]
+      }
+    },
+    {
+      "id": "santa-prisca-mithraic-hymns",
+      "traditionId": "mithraism",
+      "name": "The Mithraic Dipinti and Inscribed Hymns of Santa Prisca",
+      "workType": "historical_religious_corpus",
+      "canonicalStatus": "historical_sacred",
+      "structure": {
+        "levels": [
+          "verse"
+        ]
+      }
+    },
+    {
+      "id": "porphyry-de-antro-nympbarum",
+      "traditionId": "mithraism",
+      "name": "Porphyry: On the Cave of the Nymphs (De Antro Nympharum)",
+      "workType": "philosophical_treatise",
+      "canonicalStatus": "historical_sacred",
+      "structure": {
+        "levels": [
+          "section"
+        ]
+      }
+    },
+    {
+      "id": "haymanote-abew",
+      "traditionId": "ethiopian-orthodox",
+      "name": "Haymanote Abew (The Faith of the Fathers)",
+      "workType": "theological_treatise",
+      "canonicalStatus": "canonical_ecclesiastical",
+      "structure": {
+        "levels": [
+          "homily"
+        ]
+      }
+    },
+    {
+      "id": "enuma-anu-enlil",
+      "traditionId": "mesopotamian",
+      "name": "Enuma Anu Enlil (Cuneiform Celestial & Divinatory Series)",
+      "workType": "historical_religious_corpus",
+      "canonicalStatus": "historical_sacred",
+      "structure": {
+        "levels": [
+          "tablet",
+          "omen"
+        ]
+      }
+    },
+    {
+      "id": "title-of-totonicapan",
+      "traditionId": "mayan-religion",
+      "name": "Title of Totonicapán (K'iche' Sacred Mythological Chronicle)",
+      "workType": "sacred_chronicle",
+      "canonicalStatus": "historical_sacred",
+      "structure": {
+        "levels": [
+          "folio"
+        ]
+      }
+    },
+    {
+      "id": "tirumandiram",
+      "traditionId": "hinduism",
+      "name": "Tirumandiram of Tirumular (Shaiva Siddhanta Canonical Masterwork)",
+      "workType": "sacred_poetry",
+      "canonicalStatus": "canonical",
+      "structure": {
+        "levels": [
+          "tantra",
+          "verse"
+        ]
+      }
+    },
+    {
+      "id": "dadu-vani",
+      "traditionId": "dadu-panth",
+      "name": "Dadu Vani (Shri Dadu Dayal Bani)",
+      "workType": "sacred_poetry",
+      "primaryLanguage": "hi",
+      "canonicalStatus": "recognized_scripture"
+    },
+    {
+      "id": "dadu-sakhi",
+      "traditionId": "dadu-panth",
+      "name": "Dadu Dayal Sakhis",
+      "workType": "gnomic_verses",
+      "primaryLanguage": "hi",
+      "canonicalStatus": "sacred_literature"
+    },
+    {
+      "id": "dadu-sabda",
+      "traditionId": "dadu-panth",
+      "name": "Dadu Dayal Sabda Sangrah",
+      "workType": "hymns",
+      "primaryLanguage": "hi",
+      "canonicalStatus": "sacred_literature"
+    },
+    {
+      "id": "jeon-gyeong",
+      "traditionId": "jeungsanism",
+      "name": "The Canonical Scripture (Jeon Gyeong)",
+      "workType": "scripture",
+      "primaryLanguage": "ko",
+      "canonicalStatus": "canonical"
+    },
+    {
+      "id": "dojeon-jeungsan",
+      "traditionId": "jeungsanism",
+      "name": "Dojeon (The Great Canon of Jeungsanism)",
+      "workType": "canonical_corpus",
+      "primaryLanguage": "ko",
+      "canonicalStatus": "canonical"
+    },
+    {
+      "id": "yiguandao-huangmu-shunshu",
+      "traditionId": "yiguandao",
+      "name": "Huangmu Xunshu (Instruction of the Heavenly Mother)",
+      "workType": "sacred_literature",
+      "primaryLanguage": "zh",
+      "canonicalStatus": "recognized_scripture"
+    },
+    {
+      "id": "yiguandao-daoyi-wenda",
+      "traditionId": "yiguandao",
+      "name": "Daoyi Wenda (Questions and Answers on the Great Tao)",
+      "workType": "catechism",
+      "primaryLanguage": "zh",
+      "canonicalStatus": "sacred_literature"
+    },
+    {
+      "id": "odinani-omenala-corpus",
+      "traditionId": "igbo-odinani",
+      "name": "Odinani Omenala Sacred Invocations & Sayings",
+      "workType": "oral_corpus",
+      "primaryLanguage": "ig",
+      "canonicalStatus": "oral_tradition"
+    },
+    {
+      "id": "odinani-ofo-chants",
+      "traditionId": "igbo-odinani",
+      "name": "Ofo Sacred Prayers and Ritual Chants",
+      "workType": "liturgical_corpus",
+      "primaryLanguage": "ig",
+      "canonicalStatus": "liturgical"
+    },
+    {
+      "id": "serer-roog-cossan",
+      "traditionId": "serer-religion",
+      "name": "Roog Cossan (Ancient Serer Prayers to Roog Seen)",
+      "workType": "oral_corpus",
+      "primaryLanguage": "srr",
+      "canonicalStatus": "oral_tradition"
+    },
+    {
+      "id": "serer-saltigue-divinations",
+      "traditionId": "serer-religion",
+      "name": "Saltigue Xooy Sacred Divination Hymns",
+      "workType": "ritual_corpus",
+      "primaryLanguage": "srr",
+      "canonicalStatus": "ritual_corpus"
+    },
+    {
+      "id": "cherokee-sacred-formulas",
+      "traditionId": "cherokee-tradition",
+      "name": "Sacred Formulas of the Cherokees (Swimmer Manuscript)",
+      "workType": "sacred_literature",
+      "primaryLanguage": "chr",
+      "canonicalStatus": "sacred_literature"
+    },
+    {
+      "id": "cherokee-cosmology-myths",
+      "traditionId": "cherokee-tradition",
+      "name": "Cherokee Myths and Sacred Origin Stories",
+      "workType": "oral_corpus",
+      "primaryLanguage": "chr",
+      "canonicalStatus": "oral_tradition"
+    },
+    {
+      "id": "inuit-unikkaaqtuat-corpus",
+      "traditionId": "inuit-tradition",
+      "name": "Inuit Unikkaaqtuat (Sacred Stories & Cosmological Chants)",
+      "workType": "oral_corpus",
+      "primaryLanguage": "iu",
+      "canonicalStatus": "oral_tradition"
+    },
+    {
+      "id": "inuit-angakkuq-chants",
+      "traditionId": "inuit-tradition",
+      "name": "Angakkuq Healing Invocations & Songs",
+      "workType": "ritual_corpus",
+      "primaryLanguage": "iu",
+      "canonicalStatus": "ritual_corpus"
+    },
+    {
+      "id": "tonga-tala-e-fonua",
+      "traditionId": "tongan-tradition",
+      "name": "Tala-e-Fonua (Sacred History and Origin Chants of Tonga)",
+      "workType": "oral_corpus",
+      "primaryLanguage": "to",
+      "canonicalStatus": "oral_tradition"
+    },
+    {
+      "id": "tonga-hikuleo-invocations",
+      "traditionId": "tongan-tradition",
+      "name": "Hikuleʻo and Pulotu Sacred Invocations",
+      "workType": "ritual_corpus",
+      "primaryLanguage": "to",
+      "canonicalStatus": "ritual_corpus"
+    },
+    {
+      "id": "fiji-tukuni-origin-chants",
+      "traditionId": "fijian-tradition",
+      "name": "Tukuni ni Vanua (Sacred Origin & Ancestral Chants of Fiji)",
+      "workType": "oral_corpus",
+      "primaryLanguage": "fj",
+      "canonicalStatus": "oral_tradition"
+    },
+    {
+      "id": "fiji-degei-invocations",
+      "traditionId": "fijian-tradition",
+      "name": "Degei Serpent-God Sacred Invocations",
+      "workType": "liturgical_corpus",
+      "primaryLanguage": "fj",
+      "canonicalStatus": "liturgical"
+    },
+    {
+      "id": "kitab-al-manaqib-shabak",
+      "traditionId": "shabak-tradition",
+      "name": "Kitab al-Manaqib (The Book of Exemplary Virtues / Buyruk of the Shabak)",
+      "workType": "sacred_literature",
+      "primaryLanguage": "ckb",
+      "canonicalStatus": "sacred_literature"
+    },
+    {
+      "id": "shabak-duas-and-hymns",
+      "traditionId": "shabak-tradition",
+      "name": "Shabak Sacred Hymns and Supplications",
+      "workType": "liturgical_corpus",
+      "primaryLanguage": "ckb",
+      "canonicalStatus": "liturgical"
+    },
+    {
+      "id": "shabak-maqamat-sacred",
+      "traditionId": "shabak-tradition",
+      "name": "Shabak Maqamat & Pilgrimage Recitations",
+      "workType": "ritual_corpus",
+      "primaryLanguage": "ckb",
+      "canonicalStatus": "ritual_corpus"
+    },
+    {
+      "id": "lithuanian-dainos-mythological",
+      "traditionId": "baltic-tradition",
+      "name": "Lithuanian Mythological Dainos (Sacred Folk Songs)",
+      "workType": "sacred_poetry",
+      "primaryLanguage": "lt",
+      "canonicalStatus": "sacred_literature"
+    },
+    {
+      "id": "latvian-dainas-dieva",
+      "traditionId": "baltic-tradition",
+      "name": "Latvian Dainas (Dieva Dziesmas / Songs of Dievs and Mara)",
+      "workType": "sacred_poetry",
+      "primaryLanguage": "lv",
+      "canonicalStatus": "sacred_literature"
+    },
+    {
+      "id": "baltic-perkunas-chants",
+      "traditionId": "baltic-tradition",
+      "name": "Perkunas and Saule Invocations & Hymns",
+      "workType": "liturgical_corpus",
+      "primaryLanguage": "lt",
+      "canonicalStatus": "liturgical"
+    },
+    {
+      "id": "phoenician-sacred-inscriptions",
+      "traditionId": "canaanite-phoenician",
+      "name": "Phoenician-Punic Sacred Inscriptions & Ciypi (CIS I)",
+      "workType": "historical_religious_corpus",
+      "primaryLanguage": "phn",
+      "canonicalStatus": "historical"
+    },
+    {
+      "id": "sanchuniathon-theology-fragments",
+      "traditionId": "canaanite-phoenician",
+      "name": "Sanchuniathon Phoenician Theology & Cosmological Fragments",
+      "workType": "historical_religious_corpus",
+      "primaryLanguage": "grc",
+      "canonicalStatus": "historical"
+    },
+    {
+      "id": "kilamuwa-karatepe-inscriptions",
+      "traditionId": "canaanite-phoenician",
+      "name": "Karatepe and Kilamuwa Sacred Monumental Inscriptions",
+      "workType": "historical_religious_corpus",
+      "primaryLanguage": "phn",
+      "canonicalStatus": "historical"
+    },
+    {
+      "id": "dadu-anabhaya-vani",
+      "traditionId": "dadu-panth",
+      "name": "Dadu Anabhaya Vani (Words of Fearlessness)",
+      "workType": "sacred_poetry",
+      "primaryLanguage": "hi",
+      "canonicalStatus": "sacred_literature"
+    },
+    {
+      "id": "jeungsan-gongsa",
+      "traditionId": "jeungsanism",
+      "name": "Cheonji Gongsa (Works of Renewing Heaven and Earth)",
+      "workType": "canonical_corpus",
+      "primaryLanguage": "ko",
+      "canonicalStatus": "canonical"
+    },
+    {
+      "id": "yiguandao-xingli-tishi",
+      "traditionId": "yiguandao",
+      "name": "Xingli Tishi (Expositions on Human Nature and Universal Order)",
+      "workType": "philosophical_text",
+      "primaryLanguage": "zh",
+      "canonicalStatus": "sacred_literature"
+    },
+    {
+      "id": "odinani-chi-cosmology",
+      "traditionId": "igbo-odinani",
+      "name": "Chi and Chukwu Cosmological Chants",
+      "workType": "oral_corpus",
+      "primaryLanguage": "ig",
+      "canonicalStatus": "oral_tradition"
+    },
+    {
+      "id": "serer-takhar-invocations",
+      "traditionId": "serer-religion",
+      "name": "Takhar and Pangool Sacred Ritual Recitations",
+      "workType": "ritual_corpus",
+      "primaryLanguage": "srr",
+      "canonicalStatus": "ritual_corpus"
+    },
+    {
+      "id": "cherokee-medicine-chants",
+      "traditionId": "cherokee-tradition",
+      "name": "Cherokee Traditional Medicine Prayers & Song Formulas",
+      "workType": "ritual_corpus",
+      "primaryLanguage": "chr",
+      "canonicalStatus": "ritual_corpus"
+    },
+    {
+      "id": "inuit-sedna-cosmology",
+      "traditionId": "inuit-tradition",
+      "name": "Nuliajuk (Sedna) Mother of Sea Beasts Sacred Narratives",
+      "workType": "oral_corpus",
+      "primaryLanguage": "iu",
+      "canonicalStatus": "oral_tradition"
+    },
+    {
+      "id": "tonga-maui-myths",
+      "traditionId": "tongan-tradition",
+      "name": "Maui and Tangaloa Cosmological Chants",
+      "workType": "oral_corpus",
+      "primaryLanguage": "to",
+      "canonicalStatus": "oral_tradition"
+    },
+    {
+      "id": "fiji-lutunasobasoba-voyage",
+      "traditionId": "fijian-tradition",
+      "name": "Lutunasobasoba Ancestral Migration and Sacred History",
+      "workType": "oral_corpus",
+      "primaryLanguage": "fj",
+      "canonicalStatus": "oral_tradition"
+    },
+    {
+      "id": "shabak-ziyarat-chants",
+      "traditionId": "shabak-tradition",
+      "name": "Shabak Ziyarat and Holy Shrine Invocations",
+      "workType": "liturgical_corpus",
+      "primaryLanguage": "ckb",
+      "canonicalStatus": "liturgical"
+    },
+    {
+      "id": "baltic-dievturi-catechism",
+      "traditionId": "baltic-tradition",
+      "name": "Dievturi Sacred Precepts & Wisdom Verses",
+      "workType": "sacred_literature",
+      "primaryLanguage": "lv",
+      "canonicalStatus": "sacred_literature"
+    },
+    {
+      "id": "eshmunazar-sarcophagus-inscriptions",
+      "traditionId": "canaanite-phoenician",
+      "name": "Eshmunazar II and Tabnit Sarcophagus Royal Prayers",
+      "workType": "historical_religious_corpus",
+      "primaryLanguage": "phn",
+      "canonicalStatus": "historical"
+    },
+    {
+      "id": "swaminarayan-vachanamrut",
+      "traditionId": "swaminarayan",
+      "name": "Vachanamrut (Sacred Discourses of Bhagwan Swaminarayan)",
+      "workType": "sacred_literature",
+      "primaryLanguage": "gu",
+      "canonicalStatus": "recognized_scripture"
+    },
+    {
+      "id": "swaminarayan-shikshapatri",
+      "traditionId": "swaminarayan",
+      "name": "Shikshapatri (Epistle of Divine Precepts)",
+      "workType": "scripture",
+      "primaryLanguage": "sa",
+      "canonicalStatus": "canonical"
+    }
   ]
 }

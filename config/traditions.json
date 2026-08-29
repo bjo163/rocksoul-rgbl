@@ -8,512 +8,1064 @@
       "name": "Islam",
       "family": "abrahamic",
       "primaryLanguage": "ar",
-      "scripts": ["Arab"],
-      "classification": ["major_world_religion", "abrahamic_monotheism"]
+      "scripts": [
+        "Arab"
+      ],
+      "classification": [
+        "major_world_religion",
+        "abrahamic_monotheism"
+      ]
     },
     {
       "id": "judaism",
       "name": "Judaism",
       "family": "abrahamic",
       "primaryLanguage": "he",
-      "scripts": ["Hebr"],
-      "classification": ["major_world_religion", "abrahamic_monotheism"]
+      "scripts": [
+        "Hebr"
+      ],
+      "classification": [
+        "major_world_religion",
+        "abrahamic_monotheism"
+      ]
     },
     {
       "id": "christianity",
       "name": "Christianity",
       "family": "abrahamic",
       "primaryLanguage": "grc",
-      "scripts": ["Grek", "Latn"],
-      "classification": ["major_world_religion", "abrahamic_monotheism"]
+      "scripts": [
+        "Grek",
+        "Latn"
+      ],
+      "classification": [
+        "major_world_religion",
+        "abrahamic_monotheism"
+      ]
     },
     {
       "id": "hinduism",
       "name": "Hinduism",
       "family": "dharmic",
       "primaryLanguage": "sa",
-      "scripts": ["Deva", "Latn"],
-      "classification": ["major_world_religion", "dharmic_tradition"]
+      "scripts": [
+        "Deva",
+        "Latn"
+      ],
+      "classification": [
+        "major_world_religion",
+        "dharmic_tradition"
+      ]
     },
     {
       "id": "buddhism",
       "name": "Buddhism",
       "family": "dharmic",
       "primaryLanguage": "pli",
-      "scripts": ["Latn", "Deva"],
-      "classification": ["major_world_religion", "dharmic_tradition"]
+      "scripts": [
+        "Latn",
+        "Deva"
+      ],
+      "classification": [
+        "major_world_religion",
+        "dharmic_tradition"
+      ]
     },
     {
       "id": "daoism",
       "name": "Daoism",
       "family": "east_asian",
       "primaryLanguage": "lzh",
-      "scripts": ["Hani"],
-      "classification": ["major_world_religion", "east_asian_tradition"]
+      "scripts": [
+        "Hani"
+      ],
+      "classification": [
+        "major_world_religion",
+        "east_asian_tradition"
+      ]
     },
     {
       "id": "confucianism",
       "name": "Confucianism",
       "family": "east_asian",
       "primaryLanguage": "lzh",
-      "scripts": ["Hani"],
-      "classification": ["major_world_religion", "east_asian_tradition"]
+      "scripts": [
+        "Hani"
+      ],
+      "classification": [
+        "major_world_religion",
+        "east_asian_tradition"
+      ]
     },
     {
       "id": "zoroastrianism",
       "name": "Zoroastrianism",
       "family": "indo_iranian",
       "primaryLanguage": "ae",
-      "scripts": ["Avst", "Latn"],
-      "classification": ["major_world_religion", "indo_iranian_monotheism"]
+      "scripts": [
+        "Avst",
+        "Latn"
+      ],
+      "classification": [
+        "major_world_religion",
+        "indo_iranian_monotheism"
+      ]
     },
     {
       "id": "sikhism",
       "name": "Sikhism",
       "family": "dharmic",
       "primaryLanguage": "pa",
-      "scripts": ["Guru"],
-      "classification": ["major_world_religion", "dharmic_monotheism"]
+      "scripts": [
+        "Guru"
+      ],
+      "classification": [
+        "major_world_religion",
+        "dharmic_monotheism"
+      ]
     },
     {
       "id": "jainism",
       "name": "Jainism",
       "family": "dharmic",
       "primaryLanguage": "sa",
-      "scripts": ["Deva"],
-      "classification": ["major_world_religion", "dharmic_tradition"]
+      "scripts": [
+        "Deva"
+      ],
+      "classification": [
+        "major_world_religion",
+        "dharmic_tradition"
+      ]
     },
     {
       "id": "bahai",
       "name": "Bahá'í Faith",
       "family": "abrahamic",
       "primaryLanguage": "ar",
-      "scripts": ["Arab", "Latn"],
-      "classification": ["major_world_religion", "abrahamic_monotheism"]
+      "scripts": [
+        "Arab",
+        "Latn"
+      ],
+      "classification": [
+        "major_world_religion",
+        "abrahamic_monotheism"
+      ]
     },
     {
       "id": "shinto",
       "name": "Shinto",
       "family": "east_asian",
       "primaryLanguage": "ja",
-      "scripts": ["Jpan", "Latn"],
-      "classification": ["major_world_religion", "east_asian_tradition"]
+      "scripts": [
+        "Jpan",
+        "Latn"
+      ],
+      "classification": [
+        "major_world_religion",
+        "east_asian_tradition"
+      ]
     },
     {
       "id": "samaritanism",
       "name": "Samaritanism",
       "family": "abrahamic",
       "primaryLanguage": "sam",
-      "scripts": ["Samr", "Hebr"],
-      "classification": ["near_eastern_tradition", "israelite_tradition", "monotheism"]
+      "scripts": [
+        "Samr",
+        "Hebr"
+      ],
+      "classification": [
+        "near_eastern_tradition",
+        "israelite_tradition",
+        "monotheism"
+      ]
     },
     {
       "id": "mandaeism",
       "name": "Mandaeism",
       "family": "near_eastern_gnostic",
       "primaryLanguage": "mid",
-      "scripts": ["Mand"],
-      "classification": ["gnostic_tradition", "near_eastern_monotheism"]
+      "scripts": [
+        "Mand"
+      ],
+      "classification": [
+        "gnostic_tradition",
+        "near_eastern_monotheism"
+      ]
     },
     {
       "id": "yazidism",
       "name": "Yazidism",
       "family": "indo_iranian",
       "primaryLanguage": "ku",
-      "scripts": ["Arab", "Latn"],
-      "classification": ["mesopotamian_tradition", "kurdish_monotheism"]
+      "scripts": [
+        "Arab",
+        "Latn"
+      ],
+      "classification": [
+        "mesopotamian_tradition",
+        "kurdish_monotheism"
+      ]
     },
     {
       "id": "druze",
       "name": "Druze (Tawhid)",
       "family": "abrahamic",
       "primaryLanguage": "ar",
-      "scripts": ["Arab"],
-      "classification": ["esoteric_abrahamic", "unitarian_monotheism"]
+      "scripts": [
+        "Arab"
+      ],
+      "classification": [
+        "esoteric_abrahamic",
+        "unitarian_monotheism"
+      ]
     },
     {
       "id": "manichaeism",
       "name": "Manichaeism",
       "family": "historical_dualist",
       "primaryLanguage": "syr",
-      "scripts": ["Syrc", "Mani", "Latn"],
-      "classification": ["historical_world_religion", "gnostic_dualism"]
+      "scripts": [
+        "Syrc",
+        "Mani",
+        "Latn"
+      ],
+      "classification": [
+        "historical_world_religion",
+        "gnostic_dualism"
+      ]
     },
     {
       "id": "yarsanism",
       "name": "Yarsanism (Ahl-e Haqq)",
       "family": "indo_iranian",
       "primaryLanguage": "ku",
-      "scripts": ["Arab", "Latn"],
-      "classification": ["esoteric_iranian", "kurdish_tradition"]
+      "scripts": [
+        "Arab",
+        "Latn"
+      ],
+      "classification": [
+        "esoteric_iranian",
+        "kurdish_tradition"
+      ]
     },
     {
       "id": "tengrism",
       "name": "Tengrism",
       "family": "central_asian",
       "primaryLanguage": "otk",
-      "scripts": ["Orkh", "Latn"],
-      "classification": ["central_asian_tradition", "turko_mongolic_religion"]
+      "scripts": [
+        "Orkh",
+        "Latn"
+      ],
+      "classification": [
+        "central_asian_tradition",
+        "turko_mongolic_religion"
+      ]
     },
     {
       "id": "cheondoism",
       "name": "Cheondoism (Donghak)",
       "family": "east_asian",
       "primaryLanguage": "ko",
-      "scripts": ["Hang", "Hani"],
-      "classification": ["korean_new_religion", "donghak_movement"]
+      "scripts": [
+        "Hang",
+        "Hani"
+      ],
+      "classification": [
+        "korean_new_religion",
+        "donghak_movement"
+      ]
     },
     {
       "id": "tenrikyo",
       "name": "Tenrikyo",
       "family": "east_asian",
       "primaryLanguage": "ja",
-      "scripts": ["Jpan", "Latn"],
-      "classification": ["japanese_new_religion", "shinto_derived"]
+      "scripts": [
+        "Jpan",
+        "Latn"
+      ],
+      "classification": [
+        "japanese_new_religion",
+        "shinto_derived"
+      ]
     },
     {
       "id": "caodai",
       "name": "Cao Dai (Đại Đạo Tam Kỳ Phổ Độ)",
       "family": "east_asian",
       "primaryLanguage": "vi",
-      "scripts": ["Latn"],
-      "classification": ["vietnamese_syncretism", "east_asian_new_religion"]
+      "scripts": [
+        "Latn"
+      ],
+      "classification": [
+        "vietnamese_syncretism",
+        "east_asian_new_religion"
+      ]
     },
     {
       "id": "won-buddhism",
       "name": "Won Buddhism",
       "family": "dharmic",
       "primaryLanguage": "ko",
-      "scripts": ["Hang", "Latn"],
-      "classification": ["reformed_buddhism", "korean_tradition"]
+      "scripts": [
+        "Hang",
+        "Latn"
+      ],
+      "classification": [
+        "reformed_buddhism",
+        "korean_tradition"
+      ]
     },
     {
       "id": "yoruba-ifa",
       "name": "Yoruba Religion (Ifá)",
       "family": "west_african",
       "primaryLanguage": "yo",
-      "scripts": ["Latn"],
-      "classification": ["west_african_traditional", "orisha_tradition"]
+      "scripts": [
+        "Latn"
+      ],
+      "classification": [
+        "west_african_traditional",
+        "orisha_tradition"
+      ]
     },
     {
       "id": "gnosticism",
       "name": "Gnosticism",
       "family": "hellenistic_esoteric",
       "primaryLanguage": "cop",
-      "scripts": ["Copt", "Grek", "Latn"],
-      "classification": ["late_antiquity_esoteric", "nag_hammadi_corpus"]
+      "scripts": [
+        "Copt",
+        "Grek",
+        "Latn"
+      ],
+      "classification": [
+        "late_antiquity_esoteric",
+        "nag_hammadi_corpus"
+      ]
     },
     {
       "id": "hermeticism",
       "name": "Hermeticism",
       "family": "hellenistic_esoteric",
       "primaryLanguage": "grc",
-      "scripts": ["Grek", "Latn"],
-      "classification": ["greco_egyptian_esotericism", "philosophical_corpus"]
+      "scripts": [
+        "Grek",
+        "Latn"
+      ],
+      "classification": [
+        "greco_egyptian_esotericism",
+        "philosophical_corpus"
+      ]
     },
     {
       "id": "theosophy",
       "name": "Theosophy",
       "family": "modern_esoteric",
       "primaryLanguage": "en",
-      "scripts": ["Latn"],
-      "classification": ["modern_esoteric_synthesis", "universalist_corpus"]
+      "scripts": [
+        "Latn"
+      ],
+      "classification": [
+        "modern_esoteric_synthesis",
+        "universalist_corpus"
+      ]
     },
     {
       "id": "maori-tradition",
       "name": "Māori Traditional Religion",
       "family": "polynesian",
       "primaryLanguage": "mi",
-      "scripts": ["Latn"],
-      "classification": ["polynesian_indigenous", "pacific_tradition"]
+      "scripts": [
+        "Latn"
+      ],
+      "classification": [
+        "polynesian_indigenous",
+        "pacific_tradition"
+      ]
     },
     {
       "id": "syriac-christianity",
       "name": "Syriac Christianity",
       "family": "abrahamic",
       "primaryLanguage": "syr",
-      "scripts": ["Syrc", "Latn"],
-      "classification": ["near_eastern_tradition", "oriental_christianity"]
+      "scripts": [
+        "Syrc",
+        "Latn"
+      ],
+      "classification": [
+        "near_eastern_tradition",
+        "oriental_christianity"
+      ]
     },
     {
       "id": "ethiopian-orthodox",
       "name": "Ethiopian Orthodox Tewahedo Tradition",
       "family": "abrahamic",
       "primaryLanguage": "gez",
-      "scripts": ["Ethi", "Latn"],
-      "classification": ["near_eastern_tradition", "oriental_orthodox", "geez_literature"]
+      "scripts": [
+        "Ethi",
+        "Latn"
+      ],
+      "classification": [
+        "near_eastern_tradition",
+        "oriental_orthodox",
+        "geez_literature"
+      ]
     },
     {
       "id": "ancient-egyptian",
       "name": "Ancient Egyptian Religion",
       "family": "ancient_near_eastern",
       "primaryLanguage": "egy",
-      "scripts": ["Egyp", "Latn"],
-      "classification": ["historical_religious_corpus", "ancient_polytheism"]
+      "scripts": [
+        "Egyp",
+        "Latn"
+      ],
+      "classification": [
+        "historical_religious_corpus",
+        "ancient_polytheism"
+      ]
     },
     {
       "id": "mesopotamian",
       "name": "Mesopotamian Religion (Sumerian & Akkadian)",
       "family": "ancient_near_eastern",
       "primaryLanguage": "akk",
-      "scripts": ["Xsux", "Latn"],
-      "classification": ["historical_religious_corpus", "cuneiform_mythology"]
+      "scripts": [
+        "Xsux",
+        "Latn"
+      ],
+      "classification": [
+        "historical_religious_corpus",
+        "cuneiform_mythology"
+      ]
     },
     {
       "id": "greco-roman-paganism",
       "name": "Classical Greco-Roman Religion",
       "family": "classical_mediterranean",
       "primaryLanguage": "grc",
-      "scripts": ["Grek", "Latn"],
-      "classification": ["historical_religious_corpus", "hellenic_polytheism"]
+      "scripts": [
+        "Grek",
+        "Latn"
+      ],
+      "classification": [
+        "historical_religious_corpus",
+        "hellenic_polytheism"
+      ]
     },
     {
       "id": "norse-germanic",
       "name": "Norse & Germanic Religion",
       "family": "northern_european",
       "primaryLanguage": "non",
-      "scripts": ["Runr", "Latn"],
-      "classification": ["historical_religious_corpus", "scandinavian_mythology"]
+      "scripts": [
+        "Runr",
+        "Latn"
+      ],
+      "classification": [
+        "historical_religious_corpus",
+        "scandinavian_mythology"
+      ]
     },
     {
       "id": "slavic-tradition",
       "name": "Slavic Religious & Traditional Literature",
       "family": "eastern_european",
       "primaryLanguage": "chu",
-      "scripts": ["Cyrl", "Glag", "Latn"],
-      "classification": ["historical_religious_corpus", "slavic_traditional"]
+      "scripts": [
+        "Cyrl",
+        "Glag",
+        "Latn"
+      ],
+      "classification": [
+        "historical_religious_corpus",
+        "slavic_traditional"
+      ]
     },
     {
       "id": "mayan-religion",
       "name": "Maya Traditional Religion",
       "family": "indigenous_americas",
       "primaryLanguage": "quc",
-      "scripts": ["Maya", "Latn"],
-      "classification": ["mesoamerican_tradition", "indigenous_sacred_corpus"]
+      "scripts": [
+        "Maya",
+        "Latn"
+      ],
+      "classification": [
+        "mesoamerican_tradition",
+        "indigenous_sacred_corpus"
+      ]
     },
     {
       "id": "nahua-aztec",
       "name": "Nahua & Aztec Religious Tradition",
       "family": "indigenous_americas",
       "primaryLanguage": "nah",
-      "scripts": ["Latn"],
-      "classification": ["mesoamerican_tradition", "indigenous_sacred_corpus"]
+      "scripts": [
+        "Latn"
+      ],
+      "classification": [
+        "mesoamerican_tradition",
+        "indigenous_sacred_corpus"
+      ]
     },
     {
       "id": "andean-inca",
       "name": "Andean & Inca Religious Tradition",
       "family": "indigenous_americas",
       "primaryLanguage": "que",
-      "scripts": ["Latn"],
-      "classification": ["south_american_indigenous", "sacred_oral_corpus"]
+      "scripts": [
+        "Latn"
+      ],
+      "classification": [
+        "south_american_indigenous",
+        "sacred_oral_corpus"
+      ]
     },
     {
       "id": "akan-tradition",
       "name": "Akan Traditional Religion",
       "family": "west_african",
       "primaryLanguage": "aka",
-      "scripts": ["Latn"],
-      "classification": ["west_african_traditional", "sacred_oral_corpus"]
+      "scripts": [
+        "Latn"
+      ],
+      "classification": [
+        "west_african_traditional",
+        "sacred_oral_corpus"
+      ]
     },
     {
       "id": "hawaiian-tradition",
       "name": "Hawaiian Traditional Religion",
       "family": "polynesian",
       "primaryLanguage": "haw",
-      "scripts": ["Latn"],
-      "classification": ["polynesian_indigenous", "sacred_chant_corpus"]
+      "scripts": [
+        "Latn"
+      ],
+      "classification": [
+        "polynesian_indigenous",
+        "sacred_chant_corpus"
+      ]
     },
     {
       "id": "lingayatism",
       "name": "Lingayatism (Veerashaiva Tradition)",
       "family": "dharmic",
       "primaryLanguage": "kn",
-      "scripts": ["Knda", "Latn"],
-      "classification": ["dharmic_tradition", "shiva_bhakti_monism"]
+      "scripts": [
+        "Knda",
+        "Latn"
+      ],
+      "classification": [
+        "dharmic_tradition",
+        "shiva_bhakti_monism"
+      ]
     },
     {
       "id": "swaminarayan",
       "name": "Swaminarayan Sampradaya",
       "family": "dharmic",
       "primaryLanguage": "gu",
-      "scripts": ["Gujr", "Deva", "Latn"],
-      "classification": ["dharmic_tradition", "vaishnava_vedanta"]
+      "scripts": [
+        "Gujr",
+        "Deva",
+        "Latn"
+      ],
+      "classification": [
+        "dharmic_tradition",
+        "vaishnava_vedanta"
+      ]
     },
     {
       "id": "alevi-bektashi",
       "name": "Alevism and Bektashi Tradition",
       "family": "abrahimic_mystical",
       "primaryLanguage": "ota",
-      "scripts": ["Arab", "Latn"],
-      "classification": ["mystical_islamic", "anatolian_tradition", "tasawwuf_corpus"]
+      "scripts": [
+        "Arab",
+        "Latn"
+      ],
+      "classification": [
+        "mystical_islamic",
+        "anatolian_tradition",
+        "tasawwuf_corpus"
+      ]
     },
     {
       "id": "alawite-tradition",
       "name": "Alawite Tradition (Nusayrism)",
       "family": "abrahimic_mystical",
       "primaryLanguage": "ar",
-      "scripts": ["Arab", "Latn"],
-      "classification": ["esoteric_islamic", "syrian_tradition", "gnostic_shia"]
+      "scripts": [
+        "Arab",
+        "Latn"
+      ],
+      "classification": [
+        "esoteric_islamic",
+        "syrian_tradition",
+        "gnostic_shia"
+      ]
     },
     {
       "id": "sogdian-tradition",
       "name": "Sogdian Religious & Textual Tradition",
       "family": "central_asian",
       "primaryLanguage": "sog",
-      "scripts": ["Sogd", "Mani", "Latn"],
-      "classification": ["silk_road_historical", "iranian_central_asian", "multilingual_manuscripts"]
+      "scripts": [
+        "Sogd",
+        "Mani",
+        "Latn"
+      ],
+      "classification": [
+        "silk_road_historical",
+        "iranian_central_asian",
+        "multilingual_manuscripts"
+      ]
     },
     {
       "id": "ravidassia",
       "name": "Ravidassia Dharm",
       "family": "dharmic",
       "primaryLanguage": "pa",
-      "scripts": ["Guru", "Deva", "Latn"],
-      "classification": ["dharmic_tradition", "bhakti_movement", "sant_parampara"]
+      "scripts": [
+        "Guru",
+        "Deva",
+        "Latn"
+      ],
+      "classification": [
+        "dharmic_tradition",
+        "bhakti_movement",
+        "sant_parampara"
+      ]
     },
     {
       "id": "kabir-panth",
       "name": "Kabir Panth Tradition",
       "family": "dharmic",
       "primaryLanguage": "hi",
-      "scripts": ["Deva", "Latn"],
-      "classification": ["dharmic_tradition", "nirguna_bhakti", "sant_mat"]
+      "scripts": [
+        "Deva",
+        "Latn"
+      ],
+      "classification": [
+        "dharmic_tradition",
+        "nirguna_bhakti",
+        "sant_mat"
+      ]
     },
     {
       "id": "ayyavazhi",
       "name": "Ayyavazhi Tradition",
       "family": "dharmic",
       "primaryLanguage": "ta",
-      "scripts": ["Taml", "Latn"],
-      "classification": ["dharmic_tradition", "monotheistic_hindu_reform", "tamil_sacred_corpus"]
+      "scripts": [
+        "Taml",
+        "Latn"
+      ],
+      "classification": [
+        "dharmic_tradition",
+        "monotheistic_hindu_reform",
+        "tamil_sacred_corpus"
+      ]
     },
     {
       "id": "ryukyuan-tradition",
       "name": "Ryukyuan Indigenous Religion",
       "family": "east_asian",
       "primaryLanguage": "ryu",
-      "scripts": ["Jpan", "Latn"],
-      "classification": ["east_asian_indigenous", "animism_ancestor_worship", "omoro_chant_tradition"]
+      "scripts": [
+        "Jpan",
+        "Latn"
+      ],
+      "classification": [
+        "east_asian_indigenous",
+        "animism_ancestor_worship",
+        "omoro_chant_tradition"
+      ]
     },
     {
       "id": "dogon-tradition",
       "name": "Dogon Traditional Cosmogony",
       "family": "west_african",
       "primaryLanguage": "dgo",
-      "scripts": ["Latn"],
-      "classification": ["west_african_traditional", "sacred_cosmogony", "nommo_mythos"]
+      "scripts": [
+        "Latn"
+      ],
+      "classification": [
+        "west_african_traditional",
+        "sacred_cosmogony",
+        "nommo_mythos"
+      ]
     },
     {
       "id": "haudenosaunee-tradition",
       "name": "Haudenosaunee (Iroquois) Sacred Tradition",
       "family": "indigenous_americas",
       "primaryLanguage": "moh",
-      "scripts": ["Latn"],
-      "classification": ["indigenous_americas", "longhouse_religion", "sacred_wampum_covenants"]
+      "scripts": [
+        "Latn"
+      ],
+      "classification": [
+        "indigenous_americas",
+        "longhouse_religion",
+        "sacred_wampum_covenants"
+      ]
     },
     {
       "id": "ugaritic-religion",
       "name": "Ugaritic Canaanite Religion",
       "family": "ancient_near_eastern",
       "primaryLanguage": "uga",
-      "scripts": ["Ugar", "Latn"],
-      "classification": ["ancient_near_eastern", "canaanite_bronze_age", "ras_shamra_tablets"]
+      "scripts": [
+        "Ugar",
+        "Latn"
+      ],
+      "classification": [
+        "ancient_near_eastern",
+        "canaanite_bronze_age",
+        "ras_shamra_tablets"
+      ]
     },
     {
       "id": "celtic-religion",
       "name": "Celtic Sacred & Mythological Tradition",
       "family": "european_historical",
       "primaryLanguage": "sga",
-      "scripts": ["Latn", "Ogam"],
-      "classification": ["european_historical", "insular_celtic", "mythological_cycles"]
+      "scripts": [
+        "Latn",
+        "Ogam"
+      ],
+      "classification": [
+        "european_historical",
+        "insular_celtic",
+        "mythological_cycles"
+      ]
     },
     {
       "id": "radhasoami",
       "name": "Radhasoami Satsang Tradition",
       "family": "dharmic",
       "primaryLanguage": "hi",
-      "scripts": ["Deva", "Latn"],
-      "classification": ["dharmic", "sant_mat", "radhasoami_movement"]
+      "scripts": [
+        "Deva",
+        "Latn"
+      ],
+      "classification": [
+        "dharmic",
+        "sant_mat",
+        "radhasoami_movement"
+      ]
     },
     {
       "id": "brahmo-samaj",
       "name": "Brahmo Samaj Tradition",
       "family": "dharmic",
       "primaryLanguage": "bn",
-      "scripts": ["Beng", "Latn"],
-      "classification": ["dharmic", "bengal_renaissance", "monotheistic_hindu_reform"]
+      "scripts": [
+        "Beng",
+        "Latn"
+      ],
+      "classification": [
+        "dharmic",
+        "bengal_renaissance",
+        "monotheistic_hindu_reform"
+      ]
     },
     {
       "id": "arya-samaj",
       "name": "Arya Samaj Tradition",
       "family": "dharmic",
       "primaryLanguage": "hi",
-      "scripts": ["Deva", "Latn"],
-      "classification": ["dharmic", "vedic_revivalism", "arya_movement"]
+      "scripts": [
+        "Deva",
+        "Latn"
+      ],
+      "classification": [
+        "dharmic",
+        "vedic_revivalism",
+        "arya_movement"
+      ]
     },
     {
       "id": "hoa-hao",
       "name": "Phật Giáo Hòa Hảo (Hoa Hao Tradition)",
       "family": "east_asian",
       "primaryLanguage": "vi",
-      "scripts": ["Latn"],
-      "classification": ["east_asian", "vietnamese_indigenous_religion", "buddhist_reform"]
+      "scripts": [
+        "Latn"
+      ],
+      "classification": [
+        "east_asian",
+        "vietnamese_indigenous_religion",
+        "buddhist_reform"
+      ]
     },
     {
       "id": "vodun-tradition",
       "name": "Fon & Vodun Religious Tradition",
       "family": "west_african",
       "primaryLanguage": "fon",
-      "scripts": ["Latn"],
-      "classification": ["west_african", "traditional_religion", "fa_divination_corpus"]
+      "scripts": [
+        "Latn"
+      ],
+      "classification": [
+        "west_african",
+        "traditional_religion",
+        "fa_divination_corpus"
+      ]
     },
     {
       "id": "dinka-tradition",
       "name": "Dinka Traditional Religion & Cosmogony",
       "family": "east_african",
       "primaryLanguage": "din",
-      "scripts": ["Latn"],
-      "classification": ["african_traditional", "nilotic_religion", "nhialic_invocations"]
+      "scripts": [
+        "Latn"
+      ],
+      "classification": [
+        "african_traditional",
+        "nilotic_religion",
+        "nhialic_invocations"
+      ]
     },
     {
       "id": "lakota-tradition",
       "name": "Lakota Sacred Ceremonial Tradition",
       "family": "indigenous_americas",
       "primaryLanguage": "lkt",
-      "scripts": ["Latn"],
-      "classification": ["indigenous_americas", "plains_tradition", "seven_sacred_rites"]
+      "scripts": [
+        "Latn"
+      ],
+      "classification": [
+        "indigenous_americas",
+        "plains_tradition",
+        "seven_sacred_rites"
+      ]
     },
     {
       "id": "dine-navajo-tradition",
       "name": "Diné (Navajo) Sacred Tradition",
       "family": "indigenous_americas",
       "primaryLanguage": "nav",
-      "scripts": ["Latn"],
-      "classification": ["indigenous_americas", "southwestern_tradition", "blessingway_cosmogony"]
+      "scripts": [
+        "Latn"
+      ],
+      "classification": [
+        "indigenous_americas",
+        "southwestern_tradition",
+        "blessingway_cosmogony"
+      ]
     },
     {
       "id": "samoan-tradition",
       "name": "Samoan Sacred Cosmogony & Oral Lore",
       "family": "polynesian",
       "primaryLanguage": "smo",
-      "scripts": ["Latn"],
-      "classification": ["polynesian", "oceanian_indigenous", "tagaloa_cosmogony"]
+      "scripts": [
+        "Latn"
+      ],
+      "classification": [
+        "polynesian",
+        "oceanian_indigenous",
+        "tagaloa_cosmogony"
+      ]
     },
     {
       "id": "etruscan-religion",
       "name": "Etruscan Sacred & Ritual Tradition",
       "family": "classical_mediterranean",
       "primaryLanguage": "ett",
-      "scripts": ["Ital", "Latn"],
-      "classification": ["classical_mediterranean", "historical_italy", "etrusca_disciplina"]
+      "scripts": [
+        "Ital",
+        "Latn"
+      ],
+      "classification": [
+        "classical_mediterranean",
+        "historical_italy",
+        "etrusca_disciplina"
+      ]
     },
     {
       "id": "mithraism",
       "name": "Mithraic Mysteries & Liturgical Tradition",
       "family": "hellenistic_esoteric",
       "primaryLanguage": "grc",
-      "scripts": ["Grek", "Latn"],
-      "classification": ["hellenistic_esoteric", "mystery_cults", "mithraic_liturgy"]
+      "scripts": [
+        "Grek",
+        "Latn"
+      ],
+      "classification": [
+        "hellenistic_esoteric",
+        "mystery_cults",
+        "mithraic_liturgy"
+      ]
+    },
+    {
+      "id": "dadu-panth",
+      "name": "Dadu Panth",
+      "family": "dharmic",
+      "primaryLanguage": "hi",
+      "scripts": [
+        "Deva"
+      ],
+      "classification": [
+        "sant_mat_tradition",
+        "dharmic_bhakti_tradition"
+      ]
+    },
+    {
+      "id": "jeungsanism",
+      "name": "Jeungsanism",
+      "family": "east_asian",
+      "primaryLanguage": "ko",
+      "scripts": [
+        "Hang",
+        "Hani"
+      ],
+      "classification": [
+        "korean_new_religious_movement",
+        "east_asian_tradition"
+      ]
+    },
+    {
+      "id": "yiguandao",
+      "name": "Yiguandao",
+      "family": "east_asian",
+      "primaryLanguage": "zh",
+      "scripts": [
+        "Hant"
+      ],
+      "classification": [
+        "chinese_salvationist_religion",
+        "east_asian_tradition"
+      ]
+    },
+    {
+      "id": "igbo-odinani",
+      "name": "Igbo Odinani",
+      "family": "african_traditional",
+      "primaryLanguage": "ig",
+      "scripts": [
+        "Latn"
+      ],
+      "classification": [
+        "african_indigenous_religion",
+        "west_african_traditional"
+      ]
+    },
+    {
+      "id": "serer-religion",
+      "name": "Serer Religion (A Roog)",
+      "family": "african_traditional",
+      "primaryLanguage": "srr",
+      "scripts": [
+        "Latn"
+      ],
+      "classification": [
+        "african_indigenous_religion",
+        "senegambian_traditional"
+      ]
+    },
+    {
+      "id": "cherokee-tradition",
+      "name": "Cherokee Traditional Religion",
+      "family": "indigenous_american",
+      "primaryLanguage": "chr",
+      "scripts": [
+        "Cher",
+        "Latn"
+      ],
+      "classification": [
+        "native_american_religion",
+        "indigenous_american"
+      ]
+    },
+    {
+      "id": "inuit-tradition",
+      "name": "Inuit Traditional Religion",
+      "family": "indigenous_american",
+      "primaryLanguage": "iu",
+      "scripts": [
+        "Cans",
+        "Latn"
+      ],
+      "classification": [
+        "indigenous_circumpolar_religion",
+        "indigenous_american"
+      ]
+    },
+    {
+      "id": "tongan-tradition",
+      "name": "Tongan Traditional Religion",
+      "family": "austronesian_traditional",
+      "primaryLanguage": "to",
+      "scripts": [
+        "Latn"
+      ],
+      "classification": [
+        "polynesian_traditional",
+        "austronesian_religion"
+      ]
+    },
+    {
+      "id": "fijian-tradition",
+      "name": "Fijian Traditional Religion",
+      "family": "austronesian_traditional",
+      "primaryLanguage": "fj",
+      "scripts": [
+        "Latn"
+      ],
+      "classification": [
+        "melanesian_polynesian_traditional",
+        "austronesian_religion"
+      ]
+    },
+    {
+      "id": "shabak-tradition",
+      "name": "Shabak Tradition",
+      "family": "indo_iranian",
+      "primaryLanguage": "ckb",
+      "scripts": [
+        "Arab",
+        "Latn"
+      ],
+      "classification": [
+        "ghulat_heterodox_syncretism",
+        "mesopotamian_minority_religion"
+      ]
+    },
+    {
+      "id": "baltic-tradition",
+      "name": "Baltic Religion (Romuva & Dievturyba)",
+      "family": "indo_european_polytheism",
+      "primaryLanguage": "lt",
+      "scripts": [
+        "Latn"
+      ],
+      "classification": [
+        "historical_tradition",
+        "baltic_polytheism",
+        "reconstructed_tradition"
+      ]
+    },
+    {
+      "id": "canaanite-phoenician",
+      "name": "Canaanite-Phoenician Religion",
+      "family": "ancient_near_eastern",
+      "primaryLanguage": "phn",
+      "scripts": [
+        "Phnx",
+        "Latn"
+      ],
+      "classification": [
+        "historical_tradition",
+        "ancient_near_eastern_polytheism"
+      ]
     }
   ]
 }

@@ -65,6 +65,8 @@
     "todo:check": "tsx scripts/sync-todo-issues.ts check",
     "release:prepare": "tsx scripts/build-release.ts",
     "release:verify": "tsx scripts/verify-release.ts",
+    "build:release": "pnpm check && pnpm release:prepare && tsx scripts/build-consumer-release.ts",
+    "validate:release": "pnpm validate && pnpm audit:payloads && pnpm audit:phase23-endpoints && pnpm validate:release-freeze && tsx scripts/validate-consumer-release.ts",
     "release:version": "tsx scripts/apply-release-plan.ts",
     "release:publish": "tsx scripts/publish-npm.ts",
     "release:publish:dry-run": "tsx scripts/publish-npm.ts --dry-run",

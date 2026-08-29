@@ -30,7 +30,9 @@ jobs:
           registry-url: https://registry.npmjs.org
       - run: corepack enable
       - run: pnpm install --no-frozen-lockfile
-      - run: pnpm check
+      - run: pnpm release:verify
+      - run: pnpm build:release
+      - run: pnpm validate:release
       - uses: actions/upload-artifact@v4
         with:
           name: moonwitness-corpus-release
@@ -56,6 +58,8 @@ jobs:
             dist/release/release-manifest.json \
             dist/release/corpus.jsonld \
             dist/release/ro-crate-metadata.json \
+            dist/release/moonwitness-corpus-*.jsonl \
+            dist/release/moonwitness-corpus-*.jsonl.manifest.json \
             dist/release/packages/*.tgz \
             --title "MoonWitness Corpus ${VERSION}" \
             --generate-notes

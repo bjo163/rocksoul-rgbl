@@ -24,7 +24,7 @@ FINAL DEV HEAD:
 ${finalHead}
 
 WORK BRANCH:
-feature/tradition-breadth-phase19
+feature/phase19-metric-truth-v2
 
 TRADITIONS:
 before: ${summary.traditions.before}
@@ -77,6 +77,7 @@ fallbackReady: ${summary.executionCoverage.fallbackReady}
 
 MATERIALIZATION:
 registeredEditions: ${summary.materializationCoverage.registeredEditions}
+acquiredEditions: ${summary.materializationCoverage.acquiredEditions}
 materializedEditions: ${summary.materializationCoverage.materializedEditions}
 recordBearingEditions: ${summary.materializationCoverage.recordBearingEditions}
 measuredEditions: ${summary.materializationCoverage.measuredEditions}
@@ -89,65 +90,19 @@ unresolvedRecords: ${summary.ownershipPreservation.unresolvedRecords}
 strictOwnedCoverage: ${summary.ownershipPreservation.strictOwnedCoveragePercent}%
 resolvedOwnershipCoverage: ${summary.ownershipPreservation.resolvedOwnershipCoveragePercent}%
 
-LIVE REMOTE:
+LIVE REMOTE (from actual manifest evidence):
 REMOTE_SYNCED: ${summary.executionCoverage.remoteSynced}
-REMOTE_NOT_MODIFIED: 0
+REMOTE_NOT_MODIFIED: ${summary.executionCoverage.remoteNotModified}
 LOCAL_CACHE: ${summary.executionCoverage.cacheReady}
 LOCAL_FALLBACK: ${summary.executionCoverage.fallbackReady}
-REMOTE_FAILED: 0
-UNSUPPORTED: 0
+REMOTE_FAILED: ${summary.executionCoverage.remoteFailed}
+UNSUPPORTED: ${summary.executionCoverage.unsupported}
 
 NEW TRADITIONS:
-01 ainu-tradition (Ainu Traditional Religion — East Asia)
-02 waaqeffanna (Waaqeffanna / Oromo Monotheism — East Africa)
-03 guarani-tradition (Guaraní Traditional Religion — South America)
-04 mapuche-tradition (Mapuche Religion & Cosmovision — South America)
-05 australian-aboriginal-traditions (Australian Aboriginal Dreaming Traditions — Oceania)
-06 micronesian-tradition (Micronesian Traditional Religion — Pacific)
-07 batak-parmalim (Batak Parmalim / Ugamo Malim — Southeast Asia)
-08 dayak-kaharingan (Kaharingan / Dayak Traditional Religion — Southeast Asia)
-09 kejawen (Kejawen / Javanese Spiritual Wisdom — Southeast Asia)
-10 phrygian-religion (Phrygian Religion — Ancient Anatolia)
-11 hittite-hurrian-religion (Hittite & Hurrian Religion — Ancient Near East)
-12 elamite-religion (Elamite Religion — Ancient Near East)
-13 minoan-religion (Minoan Religion — Bronze Age Aegean)
-14 sami-tradition (Sámi Traditional Religion — Northern Europe)
+${summary.newTraditions.map((t, i) => `${String(i + 1).padStart(2, '0')} ${t.id} (${t.name} — ${t.geography})`).join('\n')}
 
 NEW WORKS BY TRADITION:
-• kabir-panth: 2 works (sakhi-grantha-kabir, anurag-sagar-kabir)
-• dadu-panth: 1 work (dadu-vani-sacred-hymns)
-• ravidassia: 1 work (amritbani-guru-ravidass)
-• ayyavazhi: 2 works (akilathirattu-ammanai, arul-nool-ayyavazhi)
-• ainu-tradition: 1 work (ainu-kamuy-yukar)
-• cheondoism: 2 works (donggyeong-daejeon, yongdam-yusa)
-• jeungsanism: 1 work (dojeon-jeungsanism)
-• ryukyuan-tradition: 1 work (omoro-soshi)
-• waaqeffanna: 1 work (waaqeffanna-irreecha-liturgy)
-• serer-religion: 1 work (serer-pangool-liturgy)
-• dinka-tradition: 1 work (dinka-nhialic-invocations)
-• dogon-tradition: 1 work (dogon-amma-chants)
-• vodun-tradition: 1 work (vodun-liturgical-invocations)
-• cherokee-tradition: 1 work (cherokee-sacred-formulas)
-• lakota-tradition: 1 work (lakota-sun-dance-chants)
-• dine-navajo-tradition: 1 work (navajo-blessingway-chants)
-• haudenosaunee-tradition: 1 work (kariwiio-code-handsome-lake)
-• guarani-tradition: 1 work (ayvu-rapyta-guarani)
-• mapuche-tradition: 1 work (mapuche-nguillatun-liturgy)
-• andean-inca: 1 work (huarochiri-manuscript)
-• nahua-aztec: 1 work (cantares-mexicanos)
-• australian-aboriginal-traditions: 1 work (yolngu-manikay-songlines)
-• micronesian-tradition: 1 work (micronesian-sacred-chants)
-• batak-parmalim: 1 work (pustaha-batak-sacred-texts)
-• dayak-kaharingan: 1 work (panaturan-kaharingan-scripture)
-• kejawen: 2 works (serat-centhini, serat-wedhatama)
-• phrygian-religion: 1 work (phrygian-cultic-inscriptions)
-• hittite-hurrian-religion: 1 work (kumarbi-cycle-and-ullikummi)
-• elamite-religion: 1 work (untash-napirisha-inscriptions)
-• minoan-religion: 1 work (linear-a-sacred-inscriptions)
-• sami-tradition: 1 work (sami-sacred-luohti-and-myths)
-• alevi-bektashi: 1 work (alevi-buyruk-and-nefes)
-• alawite-tradition: 1 work (kitab-al-majmu-alawite)
-• shabak-tradition: 1 work (shabak-kitab-al-managib)
+${summary.newWorksByTradition.map(w => `• ${w.traditionId}: ${w.workCount} works (${w.works.join(', ')})`).join('\n')}
 
 SOURCE QUALITY:
 official: ${summary.sourceQuality.official}
@@ -193,20 +148,18 @@ ownershipRegression:
 NO
 
 TESTS:
-189/189 PASS
+pending
 
 CORPUS:
-canonical: 537051
-edition_records: 239871
-indexed: 537512
-sqlite_size: 728.09 MB
-sha256: d8ecb05ebaa5d8fce2b1660d5b78b5ceb44747ebba397a660a927a4216ee8379
+canonical: ${summary.materializationCoverage.materializedEditions}
+edition_records: ${summary.ownershipPreservation.totalNormalizedRecords}
+indexed: ${summary.materializationCoverage.registeredEditions}
 
 PR:
-feature/tradition-breadth-phase19 -> dev
+feature/phase19-metric-truth-v2 -> dev
 
 MERGED_TO_DEV:
-YES
+NO
 
 BLOCKERS:
 NONE

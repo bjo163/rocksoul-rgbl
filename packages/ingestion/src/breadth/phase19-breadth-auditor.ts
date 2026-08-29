@@ -1,7 +1,7 @@
-import { createRequire } from 'node:module'
 import { existsSync } from 'node:fs'
-import { writeFile, mkdir, readFile } from 'node:fs/promises'
+import { readFile, writeFile, mkdir } from 'node:fs/promises'
 import path from 'node:path'
+import { createRequire } from 'node:module'
 import { UniversalCorpusRegistry } from '../registry/universal-registry.js'
 
 const require = createRequire(import.meta.url)
@@ -61,9 +61,13 @@ export interface Phase19BreadthSummary {
     remoteSynced: number
     cacheReady: number
     fallbackReady: number
+    remoteNotModified: number
+    remoteFailed: number
+    unsupported: number
   }
   materializationCoverage: {
     registeredEditions: number
+    acquiredEditions: number
     materializedEditions: number
     recordBearingEditions: number
     measuredEditions: number
@@ -219,12 +223,15 @@ export class Phase19BreadthAuditor {
     const variance = scores.reduce((acc, val) => acc + Math.pow(val - meanScore, 2), 0) / scores.length
     const stddevScore = Number(Math.sqrt(variance).toFixed(2))
 
-    // Read SQLite ownership & materialization stats
-    let totalNormalized = 239871
-    let ownedCount = 239593
-    let inferredCount = 152
-    let unresolvedCount = 126
-    let measuredEditions = 38
+    // Read SQLite ownership & materialization stats — no hardcoded defaults
+    let totalNormalized = 0
+    let ownedCount = 0
+    let inferredCount = 0
+    let unresolvedCount = 0
+    let measuredEditions = 0
+    let materializedEditions = 0
+    let recordBearingEditions = 0
+    let acquiredEditions = 0
 
     const dbPath = path.join(this.rootDir, 'dist/corpus.sqlite')
     if (existsSync(dbPath)) {
@@ -236,6 +243,13 @@ export class Phase19BreadthAuditor {
         inferredCount = (db.prepare("SELECT COUNT(*) as c FROM contents WHERE ownership_status = 'INFERRED_WITH_EVIDENCE'").get() as { c: number }).c
         unresolvedCount = (db.prepare("SELECT COUNT(*) as c FROM contents WHERE ownership_status = 'UNRESOLVED' OR edition_id IS NULL").get() as { c: number }).c
         measuredEditions = (db.prepare("SELECT COUNT(DISTINCT edition_id) as c FROM contents WHERE edition_id IS NOT NULL AND (ownership_status = 'OWNED' OR ownership_status = 'INFERRED_WITH_EVIDENCE')").get() as { c: number }).c
+        materializedEditions = (db.prepare('SELECT COUNT(DISTINCT edition_id) as c FROM contents WHERE edition_id IS NOT NULL').get() as { c: number }).c
+        recordBearingEditions = (db.prepare("SELECT COUNT(DISTINCT edition_id) as c FROM contents WHERE edition_id IS NOT NULL AND normalized_text_hash IS NOT NULL AND normalized_text_hash != ''").get() as { c: number }).c
+        acquiredEditions = (db.prepare(`
+          SELECT COUNT(DISTINCT c.edition_id) as c
+          FROM contents c
+          WHERE EXISTS (SELECT 1 FROM raw_records r WHERE r.dataset_id = c.dataset_id)
+        `).get() as { c: number }).c
       } finally {
         db.close()
       }
@@ -243,6 +257,51 @@ export class Phase19BreadthAuditor {
 
     const strictOwnedCoveragePercent = Number(((ownedCount / totalNormalized) * 100).toFixed(4))
     const resolvedOwnershipCoveragePercent = Number((((ownedCount + inferredCount) / totalNormalized) * 100).toFixed(4))
+
+    // Acquisition coverage from actual manifest evidence
+    const manifestPath = path.join(this.rootDir, 'dist/upstream-sync-manifest.json')
+    let manifestData: Record<string, unknown> = {}
+    if (existsSync(manifestPath)) {
+      try {
+        manifestData = JSON.parse(await readFile(manifestPath, 'utf8'))
+      } catch {
+        manifestData = {}
+      }
+    }
+    const jobs = Array.isArray(manifestData.jobs) ? manifestData.jobs : []
+    const jobMap = new Map<string, Record<string, unknown>>()
+    for (const j of jobs) {
+      if (j && typeof j === 'object' && 'id' in j) {
+        jobMap.set(String(j.id), j as Record<string, unknown>)
+      }
+    }
+
+    let remoteSynced = 0
+    let cacheReady = 0
+    let fallbackReady = 0
+    let remoteNotModified = 0
+    let remoteFailed = 0
+    let unsupported = 0
+    for (const ep of endpoints) {
+      let matched = false
+      for (const [jobId, job] of jobMap.entries()) {
+        if (jobId.endsWith(`:${ep.id}`) || jobId === ep.id) {
+          if (typeof job.acquisitionStatus === 'string') {
+            if (job.acquisitionStatus === 'REMOTE_SYNCED') remoteSynced++
+            else if (job.acquisitionStatus === 'REMOTE_NOT_MODIFIED') remoteNotModified++
+            else if (job.acquisitionStatus === 'LOCAL_CACHE') cacheReady++
+            else if (job.acquisitionStatus === 'LOCAL_FALLBACK') fallbackReady++
+            else if (job.acquisitionStatus === 'REMOTE_FAILED') remoteFailed++
+            else unsupported++
+          }
+          matched = true
+          break
+        }
+      }
+      if (!matched) {
+        unsupported++
+      }
+    }
 
     let finalHead = baseline.baseDevHead
     try {
@@ -302,14 +361,18 @@ export class Phase19BreadthAuditor {
         totalEndpoints: endpoints.length,
         readyToExecute: endpoints.length,
         unmappedDisabled: 0,
-        remoteSynced: endpoints.length,
-        cacheReady: endpoints.length,
-        fallbackReady: endpoints.length
+        remoteSynced,
+        cacheReady,
+        fallbackReady,
+        remoteNotModified,
+        remoteFailed,
+        unsupported
       },
       materializationCoverage: {
         registeredEditions: editions.length,
-        materializedEditions: measuredEditions,
-        recordBearingEditions: measuredEditions,
+        acquiredEditions,
+        materializedEditions,
+        recordBearingEditions,
         measuredEditions,
         unmeasurableEditions: editions.length - measuredEditions
       },

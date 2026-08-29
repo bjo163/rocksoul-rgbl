@@ -15,6 +15,8 @@ async function main() {
   const acq = contract.dimensions.acquisition
   const mat = contract.dimensions.materialization
   const rec = contract.dimensions.record
+  const can = contract.dimensions.canonical
+  const dis = contract.dimensions.distribution
   const own = contract.dimensions.ownership
   const qual = contract.dimensions.quality
   const inv = contract.dimensions.invariants
@@ -32,7 +34,10 @@ BASE DEV HEAD:
 8f9c936769b6f9f919d91bb648c36c67c19ee3f2
 
 FINAL DEV HEAD:
-${finalHead}
+${finalHead || contract.gitCommit}
+
+WORK BRANCH:
+feature/phase19-final-semantic-correction
 
 REGISTRY:
 traditions: ${reg.traditions}
@@ -58,12 +63,6 @@ ${acq.outcomeAccounting}
 liveRemoteCoverage:
 ${acq.liveRemoteCoveragePercent}%
 
-CAPABILITY:
-
-remoteAvailable: ${acq.capabilities.remoteAvailable}
-cacheAvailable: ${acq.capabilities.cacheAvailable}
-fallbackConfigured: ${acq.capabilities.fallbackConfigured}
-
 MATERIALIZATION:
 
 registeredEditions: ${mat.registeredEditions}
@@ -73,38 +72,48 @@ recordBearingEditions: ${mat.recordBearingEditions}
 measuredEditions: ${mat.measuredEditions}
 unmeasurableEditions: ${mat.unmeasurableEditions}
 
+CANONICAL METRICS:
+
+canonicalContentRows: ${can.canonicalContentRows}
+canonicalPassageRows: ${can.canonicalPassageRows}
+canonicalPositions: ${can.canonicalPositions}
+canonicalIds: ${can.canonicalIds}
+
+canonicalMetricVersion: ${contract.canonicalMetricVersion}
+
 CORPUS:
 
-canonicalPositions: ${rec.canonicalPositions}
 rawRecords: ${rec.rawRecords}
 contentsRows: ${rec.contentsRows}
 normalizedRows: ${rec.normalizedRows}
 editionOwnedRows: ${rec.editionOwnedRows}
-ownedRecords: ${own.ownedRecords}
-inferredRecords: ${own.inferredRecords}
-unresolvedRecords: ${own.unresolvedRecords}
+passagesRows: ${rec.passagesRows}
 indexedRows: ${contract.dimensions.corpus.indexedRows}
 
-CORPUS COUNT SEMANTICS:
-The exact SQL ground truth in dist/corpus.sqlite is ${rec.contentsRows.toLocaleString()} contents rows (normalized scriptural text records) and ${rec.canonicalPositions.toLocaleString()} canonicalPositions (textual.content + textual.passage across all dataset NDJSON files). The historical 704,231 metric in Phase 17/18 documentation was a pre-materialization estimation before the SQLite database was built. All corpus counts are now directly grounded in SQLite and catalog.json queries.
+DISTRIBUTION:
 
-PHASE 18 → PHASE 19 DELTA:
-• Traditions : 76 → ${reg.traditions} (+${reg.traditions - 76} new)
-• Works      : 267 → ${reg.works} (+${reg.works - 267} new)
-• Editions   : 550 → ${reg.editions} (+${reg.editions - 550} new)
-• Languages  : 72 → ${reg.languages} (+${reg.languages - 72} new)
-• Sources    : 47 → ${reg.sources} (+${reg.sources - 47} new)
-• Endpoints  : 270 → ${reg.endpoints} (+${reg.endpoints - 270} new)
-• Contents   : ${rec.contentsRows.toLocaleString()} (preserved with 0 record loss)
-• SQLite Size: ${contract.dimensions.corpus.sqliteSizeFormatted} (preserved)
+sampleSize: ${dis.sampleSize}
+percentileMethod: ${dis.percentileMethod}
+min: ${dis.min}
+max: ${dis.max}
+mean: ${dis.mean}
+median: ${dis.median}
+p25: ${dis.p25}
+p50: ${dis.p50}
+p75: ${dis.p75}
+p90: ${dis.p90}
+
+DISTRIBUTION INVARIANTS:
+${inv.distributionInvariants ? 'PASS' : 'FAIL'}
 
 OWNERSHIP:
 
-strictOwnedCoverage:
-${own.strictOwnedCoveragePercent}%
-
-resolvedOwnershipCoverage:
-${own.resolvedOwnershipCoveragePercent}%
+totalNormalizedRecords: ${own.totalNormalizedRecords}
+ownedRecords: ${own.ownedRecords}
+inferredRecords: ${own.inferredRecords}
+unresolvedRecords: ${own.unresolvedRecords}
+strictOwnedCoverage: ${own.strictOwnedCoveragePercent}%
+resolvedOwnershipCoverage: ${own.resolvedOwnershipCoveragePercent}%
 
 PAYLOADS:
 
@@ -138,6 +147,8 @@ INVARIANTS:
 • ownershipAccounting: ${inv.ownershipAccounting ? 'PASS' : 'FAIL'} (${own.ownedRecords} + ${own.inferredRecords} + ${own.unresolvedRecords} = ${rec.contentsRows})
 • editionMeasurementAccounting: ${inv.editionMeasurementAccounting ? 'PASS' : 'FAIL'} (${mat.zeroRecordEditions} + ${mat.positiveRecordEditions} = ${mat.measuredEditions})
 • materializationAccounting: ${inv.materializationAccounting ? 'PASS' : 'FAIL'} (${mat.materializedEditions} <= ${mat.acquiredEditions})
+• editionSumMatchesMeasuredAndUnmeasurable: ${inv.editionSumMatchesMeasuredAndUnmeasurable ? 'PASS' : 'FAIL'}
+• distributionInvariants: ${inv.distributionInvariants ? 'PASS' : 'FAIL'}
 
 PROVENANCE:
 PASS
@@ -152,7 +163,7 @@ PLACEHOLDER CONTAMINATION:
 ${inv.noPlaceholderContamination ? '0' : 'DETECTED'}
 
 ORPHANS:
-${inv.noOrphans ? '0' : regValidation.problems.length}
+${inv.noOrphans ? '0' : 'DETECTED'}
 
 DUPLICATES:
 ${inv.noDuplicates ? '0' : 'DETECTED'}
@@ -167,7 +178,7 @@ TESTS:
 pending
 
 PR:
-feature/phase19-metric-truth-v2 -> dev
+feature/phase19-final-semantic-correction -> dev
 
 MERGED_TO_DEV:
 NO

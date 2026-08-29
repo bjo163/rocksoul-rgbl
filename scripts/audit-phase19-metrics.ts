@@ -14,7 +14,7 @@ async function main() {
   console.log(`• Acquisition Outcome Sum   : ${contract.dimensions.acquisition.plannedJobs} / ${contract.dimensions.acquisition.plannedJobs} (${contract.dimensions.acquisition.outcomeAccounting})`)
   console.log(`• Live Remote Coverage      : ${contract.dimensions.acquisition.liveRemoteCoveragePercent}%`)
   console.log(`• Contents Rows (SQL Ground): ${contract.dimensions.record.contentsRows.toLocaleString()}`)
-  console.log(`• Total Canonical Positions : ${contract.dimensions.record.canonicalPositions.toLocaleString()}`)
+  console.log(`• Total Canonical Positions : ${contract.dimensions.canonical.canonicalPositions.toLocaleString()}`)
   console.log(`• Strict Owned Coverage     : ${contract.dimensions.ownership.strictOwnedCoveragePercent}%`)
   console.log(`• Resolved Ownership Pct    : ${contract.dimensions.ownership.resolvedOwnershipCoveragePercent}%`)
   console.log(`• Quality Score Mean        : ${contract.dimensions.quality.scoreDistribution.mean} (Model: ${contract.dimensions.quality.modelVersion})`)

@@ -66,8 +66,8 @@ export interface NewWorkActualDetail {
   traditionId: string
   name: string
   recordCount: number
+  canonicalPositionCount: number
   editionRecordCount: number
-  canonicalPositions: number
   editionCount: number
   languageCount: number
   sourceCount: number
@@ -77,12 +77,22 @@ export interface NewWorkActualDetail {
   materializationState: string
 }
 
+export interface EditionActualDetail {
+  editionId: string
+  workId: string
+  recordCount: number
+  canonicalPositions: number
+  languages: string[]
+  sourceIds: string[]
+  materializationState: string
+}
+
 export interface SyntheticCountAuditReport {
-  schemaVersion: string
-  generatedAt: string
-  syntheticCountCalculations: number
-  hardcodedRecordCalculations: number
-  magicNumberDerivedCounts: number
+  hardcodedCorpusMetrics: number
+  syntheticMultipliers: number
+  defaultCorpusCounts: number
+  registryDerivedRecordCounts: number
+  dbDerivedRecordCounts: number
   measurementIntegrity: 'REAL_DATA' | 'SYNTHETIC' | 'PARTIAL' | 'UNKNOWN'
   status: 'PASS' | 'FAIL'
 }
@@ -155,9 +165,9 @@ export interface RecordReconciliationReportP16 {
   totalNewEditions: number
   works: Array<{
     workId: string
-    raw: number
-    parsed: number
-    normalized: number
+    raw: number | 'NOT_AVAILABLE'
+    parsed: number | 'NOT_AVAILABLE'
+    normalized: number | 'NOT_AVAILABLE'
     editionRecords: number
     canonicalPositions: number
     indexed: number
@@ -165,25 +175,55 @@ export interface RecordReconciliationReportP16 {
   }>
 }
 
-export interface DepthSummaryP16 {
+export interface DepthSummaryActualP16 {
   schemaVersion: string
   generatedAt: string
   measurementIntegrity: 'REAL_DATA' | 'SYNTHETIC' | 'PARTIAL' | 'UNKNOWN'
-  totalTraditions: number
-  totalWorks: number
-  totalEditions: number
-  phase15NewWorks: number
-  phase15NewEditions: number
-  uniqueTextEditions: number
-  additionalLanguageEditions: number
-  sourceWitnessEditions: number
-  mirrorEditions: number
-  structuralVariantEditions: number
-  partialEditions: number
-  unresolvedEditions: number
-  totalCanonicalPositions: number
-  totalEditionRecords: number
-  totalIndexedRecords: number
+  totals: {
+    traditions: number
+    works: number
+    editions: number
+    languages: number
+    sources: number
+    endpoints: number
+  }
+  corpus: {
+    canonicalPositions: number
+    editionRecords: number
+    indexedRecords: number
+    rawRecords: number
+    passages: number
+    contents: number
+    devotionals: number
+    lexiconTerms: number
+    assertions: number
+  }
+  editionDistribution: {
+    min: number
+    max: number
+    mean: number
+    median: number
+    zeroRecordEditions: number
+  }
+  editionContributions: {
+    uniqueCorpusContribution: number
+    additionalLanguage: number
+    sourceWitness: number
+    mirror: number
+    structuralVariant: number
+    partial: number
+    unresolved: number
+  }
+  crossEdition: {
+    identicalText: number
+    normalizationEquivalent: number
+    translation: number
+    textualVariant: number
+    structuralVariant: number
+    partial: number
+    notComparable: number
+    unresolved: number
+  }
 }
 
 export interface DepthValidationResult {

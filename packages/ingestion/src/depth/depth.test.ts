@@ -1,16 +1,18 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
 import path from 'node:path'
+import { readFile } from 'node:fs/promises'
 import { CorpusDepthAuditor } from './depth-auditor.js'
 import { validateDepth } from './depth-validator.js'
 
-test('Corpus Depth Auditor: audits 37 Phase 15 new works and generates data-derived depth metrics without synthetic multipliers', async () => {
+test('Corpus Depth Auditor: audits 37 Phase 15 new works with strict DB-first metrics', async () => {
   const auditor = new CorpusDepthAuditor(process.cwd())
-  const { delta, newWorks, newWorksActual, syntheticAudit, workMaterialization, languageDepth, sourceDepth, traditionDepth, recordReconciliation, summary } =
+  const { delta, newWorks, newWorksActual, editionActual, syntheticAudit, workMaterialization, languageDepth, sourceDepth, traditionDepth, recordReconciliation, summary } =
     await auditor.runAudit()
 
   assert.equal(newWorks.length, 37, `Expected 37 new works, got ${newWorks.length}`)
   assert.equal(newWorksActual.length, 37)
+  assert.equal(editionActual.length, 465)
   assert.equal(workMaterialization.length, 37)
   assert.ok(workMaterialization.every(wm => wm.materializationStatus === 'MATERIALIZED'))
   assert.equal(delta.comparisons.phase16.traditions, 64)
@@ -18,15 +20,38 @@ test('Corpus Depth Auditor: audits 37 Phase 15 new works and generates data-deri
   assert.equal(delta.comparisons.phase16.editions, 465)
   assert.equal(traditionDepth.newTraditions.length, 11)
   assert.equal(recordReconciliation.totalNewWorks, 37)
-  assert.equal(summary.phase15NewWorks, 37)
-  assert.equal(summary.phase15NewEditions, 74)
+  assert.equal(summary.totals.traditions, 64)
+  assert.equal(summary.totals.works, 225)
+  assert.equal(summary.totals.editions, 465)
 
   // Synthetic check invariants
-  assert.equal(syntheticAudit.syntheticCountCalculations, 0, 'Must have 0 synthetic count calculations')
-  assert.equal(syntheticAudit.hardcodedRecordCalculations, 0, 'Must have 0 hardcoded record calculations')
-  assert.equal(syntheticAudit.magicNumberDerivedCounts, 0, 'Must have 0 magic number calculations')
+  assert.equal(syntheticAudit.hardcodedCorpusMetrics, 0, 'Must have 0 hardcoded corpus metrics')
+  assert.equal(syntheticAudit.syntheticMultipliers, 0, 'Must have 0 synthetic multipliers')
+  assert.equal(syntheticAudit.defaultCorpusCounts, 0, 'Must have 0 default corpus counts')
   assert.equal(syntheticAudit.measurementIntegrity, 'REAL_DATA')
   assert.equal(syntheticAudit.status, 'PASS')
+})
+
+test('Fail-Closed: throws error if corpus database does not exist', async () => {
+  const auditor = new CorpusDepthAuditor('/non/existent/path')
+  await assert.rejects(
+    async () => {
+      await auditor.runAudit()
+    },
+    (err: Error) => {
+      return err.message.includes('FAIL-CLOSED')
+    }
+  )
+})
+
+test('Static Source Inspection: ensures depth-auditor does not contain synthetic multipliers', async () => {
+  const filePath = path.join(process.cwd(), 'packages/ingestion/src/depth/depth-auditor.ts')
+  const content = await readFile(filePath, 'utf8')
+
+  assert.ok(!content.includes('300 *'), 'depth-auditor.ts must not contain "300 *"')
+  assert.ok(!content.includes('canonicalPositions: 300'), 'depth-auditor.ts must not contain "canonicalPositions: 300"')
+  assert.ok(!content.includes('editionRecords: 300'), 'depth-auditor.ts must not contain "editionRecords: 300"')
+  assert.ok(!content.includes('|| wEds.length'), 'depth-auditor.ts must not contain "|| wEds.length"')
 })
 
 test('Depth Validator: validates hard invariants for Phase 16 depth expansion and rejects synthetic calculations', async () => {

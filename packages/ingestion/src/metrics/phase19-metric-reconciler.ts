@@ -1,8 +1,8 @@
-import { createRequire } from 'node:module'
 import { existsSync } from 'node:fs'
-import { writeFile, mkdir, readFile } from 'node:fs/promises'
+import { readFile, writeFile, mkdir } from 'node:fs/promises'
 import path from 'node:path'
 import crypto from 'node:crypto'
+import { createRequire } from 'node:module'
 import { UniversalCorpusRegistry } from '../registry/universal-registry.js'
 import { CorpusAuditor } from '../quality/corpus-auditor.js'
 
@@ -101,11 +101,10 @@ export interface MetricContract {
       }
     }
     invariants: {
-      acquisitionSumMatchesJobs: boolean
-      ownershipSumMatchesNormalized: boolean
-      measuredSumMatchesPositiveAndZero: boolean
-      editionSumMatchesMeasuredAndUnmeasurable: boolean
-      materializedWithinAcquired: boolean
+      acquisitionOutcomeAccounting: boolean
+      ownershipAccounting: boolean
+      editionMeasurementAccounting: boolean
+      materializationAccounting: boolean
       noPlaceholderContamination: boolean
       noOrphans: boolean
       noDuplicates: boolean
@@ -118,11 +117,16 @@ export class Phase19MetricReconciler {
   private rootDir: string
   private registry: UniversalCorpusRegistry
   private auditor: CorpusAuditor
+  private sqlProvenance: Array<{ metric: string; table: string; query: string; result: number }> = []
 
   constructor(rootDir: string = process.cwd()) {
     this.rootDir = rootDir
     this.registry = new UniversalCorpusRegistry(path.join(rootDir, 'config'))
     this.auditor = new CorpusAuditor(rootDir)
+  }
+
+  private querySqlite<T extends { c: number }>(db: any, sql: string): T {
+    return db.prepare(sql).get() as T
   }
 
   async computeAllMetrics(): Promise<MetricContract> {
@@ -136,63 +140,159 @@ export class Phase19MetricReconciler {
 
     const distinctLanguages = [...new Set(editions.map((e) => e.language))].sort()
 
-    // 1. Registry validation
     const regValidation = this.registry.validateRegistry()
 
-    // 2. Acquisition outcomes
-    const plannedJobs = endpoints.length
-    const REMOTE_SYNCED = endpoints.filter((ep: any) => ep.allowRemote !== false).length
-    const REMOTE_NOT_MODIFIED = 0
-    const LOCAL_CACHE = 0
-    const LOCAL_FALLBACK = endpoints.filter((ep: any) => ep.allowRemote === false && ep.allowFallback === true).length
-    const REMOTE_FAILED = 0
-    const UNSUPPORTED = 0
+    // 1. ACQUISITION — from actual upstream-sync-manifest.json evidence
+    const manifestPath = path.join(this.rootDir, 'dist/upstream-sync-manifest.json')
+    let manifestData: Record<string, unknown> = {}
+    if (existsSync(manifestPath)) {
+      try {
+        manifestData = JSON.parse(await readFile(manifestPath, 'utf8'))
+      } catch {
+        manifestData = {}
+      }
+    }
+    const jobs = Array.isArray(manifestData.jobs) ? manifestData.jobs : []
+    const jobMap = new Map<string, Record<string, unknown>>()
+    for (const j of jobs) {
+      if (j && typeof j === 'object' && 'id' in j) {
+        jobMap.set(String(j.id), j as Record<string, unknown>)
+      }
+    }
 
-    const outcomeSum = REMOTE_SYNCED + REMOTE_NOT_MODIFIED + LOCAL_CACHE + LOCAL_FALLBACK + REMOTE_FAILED + UNSUPPORTED
+    const plannedJobs = endpoints.length
+    const outcomes = {
+      REMOTE_SYNCED: 0,
+      REMOTE_NOT_MODIFIED: 0,
+      LOCAL_CACHE: 0,
+      LOCAL_FALLBACK: 0,
+      REMOTE_FAILED: 0,
+      UNSUPPORTED: 0
+    }
+
+    for (const ep of endpoints) {
+      const job = jobMap.get(ep.id) || jobMap.get(ep.workId) || jobMap.get(`${(jobMap as any).traditionId || ''}:${ep.id}`)
+      if (job && typeof job.acquisitionStatus === 'string') {
+        const status = job.acquisitionStatus as keyof typeof outcomes
+        if (status in outcomes) {
+          outcomes[status]++
+        } else {
+          outcomes.UNSUPPORTED++
+        }
+      } else {
+        // Try matching by job ID suffix (e.g., "tradition:endpointId")
+        let matched = false
+        for (const [jobId, job] of jobMap.entries()) {
+          if (jobId.endsWith(`:${ep.id}`) || jobId === ep.id) {
+            if (typeof job.acquisitionStatus === 'string') {
+              const status = job.acquisitionStatus as keyof typeof outcomes
+              if (status in outcomes) {
+                outcomes[status]++
+              } else {
+                outcomes.UNSUPPORTED++
+              }
+              matched = true
+            }
+            break
+          }
+        }
+        if (!matched) {
+          outcomes.UNSUPPORTED++
+        }
+      }
+    }
+
+    const outcomeSum =
+      outcomes.REMOTE_SYNCED +
+      outcomes.REMOTE_NOT_MODIFIED +
+      outcomes.LOCAL_CACHE +
+      outcomes.LOCAL_FALLBACK +
+      outcomes.REMOTE_FAILED +
+      outcomes.UNSUPPORTED
     const outcomeAccounting = outcomeSum === plannedJobs ? 'PASS' : 'FAIL'
-    const liveRemoteCoveragePercent = Number((((REMOTE_SYNCED + REMOTE_NOT_MODIFIED) / plannedJobs) * 100).toFixed(2))
+    const liveRemoteCoveragePercent = plannedJobs > 0
+      ? Number((((outcomes.REMOTE_SYNCED + outcomes.REMOTE_NOT_MODIFIED) / plannedJobs) * 100).toFixed(2))
+      : 0
 
     const remoteAvailable = endpoints.filter((ep: any) => ep.allowRemote !== false).length
     const cacheAvailable = endpoints.filter((ep: any) => ep.allowCache !== false).length
     const fallbackConfigured = endpoints.filter((ep: any) => ep.allowFallback === true).length
 
-    // 3. Database ground-truth queries
+    // 2. DATABASE GROUND TRUTH — no hardcoded defaults
     const dbPath = path.join(this.rootDir, 'dist/corpus.sqlite')
-    let contentsRows = 239871
-    let rawRecords = 537000
-    let passagesRows = 200671
-    let indexedRows = 537512
-    let ownedRecords = 239593
-    let inferredRecords = 152
-    let unresolvedRecords = 126
-    let measuredEditions = 38
-    let globalUniquePayloads = 191635
-    let sourceWitnesses = 49
+    let contentsRows = 0
+    let rawRecords = 0
+    let passagesRows = 0
+    let ownedRecords = 0
+    let inferredRecords = 0
+    let unresolvedRecords = 0
+    let measuredEditions = 0
+    let globalUniquePayloads = 0
+    let recordsWithPayloadHash = 0
+    let recordsWithoutPayloadHash = 0
+    let sourceWitnesses = 0
     let sqliteSizeBytes = 0
     let sqliteSha256 = ''
+    this.sqlProvenance = []
 
     if (existsSync(dbPath)) {
       const { DatabaseSync } = require('node:sqlite')
       const { statSync, readFileSync } = require('node:fs')
       const db = new DatabaseSync(dbPath)
       try {
-        contentsRows = (db.prepare('SELECT COUNT(*) as c FROM contents').get() as { c: number }).c
-        rawRecords = (db.prepare('SELECT COUNT(*) as c FROM raw_records').get() as { c: number }).c
-        passagesRows = (db.prepare('SELECT COUNT(*) as c FROM passages').get() as { c: number }).c
-        ownedRecords = (db.prepare("SELECT COUNT(*) as c FROM contents WHERE ownership_status = 'OWNED'").get() as { c: number }).c
-        inferredRecords = (db.prepare("SELECT COUNT(*) as c FROM contents WHERE ownership_status = 'INFERRED_WITH_EVIDENCE'").get() as { c: number }).c
-        unresolvedRecords = (db.prepare("SELECT COUNT(*) as c FROM contents WHERE ownership_status = 'UNRESOLVED' OR edition_id IS NULL").get() as { c: number }).c
-        measuredEditions = (db.prepare("SELECT COUNT(DISTINCT edition_id) as c FROM contents WHERE edition_id IS NOT NULL AND (ownership_status = 'OWNED' OR ownership_status = 'INFERRED_WITH_EVIDENCE')").get() as { c: number }).c
-        globalUniquePayloads = (db.prepare("SELECT COUNT(DISTINCT normalized_text_hash) as c FROM contents WHERE normalized_text_hash IS NOT NULL").get() as { c: number }).c
-        sourceWitnesses = (db.prepare("SELECT COUNT(DISTINCT source_id || ':' || work_id || ':' || edition_id || ':' || language) as c FROM contents WHERE source_id IS NOT NULL AND edition_id IS NOT NULL").get() as { c: number }).c
+        contentsRows = this.querySqlite<{ c: number }>(db, 'SELECT COUNT(*) as c FROM contents').c
+        rawRecords = this.querySqlite<{ c: number }>(db, 'SELECT COUNT(*) as c FROM raw_records').c
+        passagesRows = this.querySqlite<{ c: number }>(db, 'SELECT COUNT(*) as c FROM passages').c
+        ownedRecords = this.querySqlite<{ c: number }>(db, "SELECT COUNT(*) as c FROM contents WHERE ownership_status = 'OWNED'").c
+        inferredRecords = this.querySqlite<{ c: number }>(db, "SELECT COUNT(*) as c FROM contents WHERE ownership_status = 'INFERRED_WITH_EVIDENCE'").c
+        unresolvedRecords = this.querySqlite<{ c: number }>(db, "SELECT COUNT(*) as c FROM contents WHERE ownership_status = 'UNRESOLVED' OR edition_id IS NULL").c
+        measuredEditions = this.querySqlite<{ c: number }>(db, "SELECT COUNT(DISTINCT edition_id) as c FROM contents WHERE edition_id IS NOT NULL AND (ownership_status = 'OWNED' OR ownership_status = 'INFERRED_WITH_EVIDENCE')").c
+        globalUniquePayloads = this.querySqlite<{ c: number }>(db, "SELECT COUNT(DISTINCT normalized_text_hash) as c FROM contents WHERE normalized_text_hash IS NOT NULL AND normalized_text_hash != ''").c
+        recordsWithPayloadHash = this.querySqlite<{ c: number }>(db, "SELECT COUNT(*) as c FROM contents WHERE normalized_text_hash IS NOT NULL AND normalized_text_hash != ''").c
+        recordsWithoutPayloadHash = this.querySqlite<{ c: number }>(db, "SELECT COUNT(*) as c FROM contents WHERE normalized_text_hash IS NULL OR normalized_text_hash = ''").c
+        sourceWitnesses = this.querySqlite<{ c: number }>(db, "SELECT COUNT(DISTINCT source_id || ':' || work_id || ':' || edition_id || ':' || language) as c FROM contents WHERE source_id IS NOT NULL AND edition_id IS NOT NULL").c
 
-        // Total indexed rows across all tables in SQLite
-        const datasetsCount = (db.prepare('SELECT COUNT(*) as c FROM datasets').get() as { c: number }).c
-        const worksCount = (db.prepare('SELECT COUNT(*) as c FROM works').get() as { c: number }).c
-        const devCount = (db.prepare('SELECT COUNT(*) as c FROM devotionals').get() as { c: number }).c
-        const lexCount = (db.prepare('SELECT COUNT(*) as c FROM lexicon_terms').get() as { c: number }).c
-        const assCount = (db.prepare('SELECT COUNT(*) as c FROM assertions').get() as { c: number }).c
-        indexedRows = rawRecords + datasetsCount + worksCount + devCount + lexCount + assCount
+        const datasetsCount = this.querySqlite<{ c: number }>(db, 'SELECT COUNT(*) as c FROM datasets').c
+        const worksCount = this.querySqlite<{ c: number }>(db, 'SELECT COUNT(*) as c FROM works').c
+        const devCount = this.querySqlite<{ c: number }>(db, 'SELECT COUNT(*) as c FROM devotionals').c
+        const lexCount = this.querySqlite<{ c: number }>(db, 'SELECT COUNT(*) as c FROM lexicon_terms').c
+        const assCount = this.querySqlite<{ c: number }>(db, 'SELECT COUNT(*) as c FROM assertions').c
+
+        this.sqlProvenance.push(
+          { metric: 'contentsRows', table: 'contents', query: 'SELECT COUNT(*) as c FROM contents', result: contentsRows },
+          { metric: 'rawRecords', table: 'raw_records', query: 'SELECT COUNT(*) as c FROM raw_records', result: rawRecords },
+          { metric: 'passagesRows', table: 'passages', query: 'SELECT COUNT(*) as c FROM passages', result: passagesRows },
+          { metric: 'ownedRecords', table: 'contents', query: "SELECT COUNT(*) as c FROM contents WHERE ownership_status = 'OWNED'", result: ownedRecords },
+          { metric: 'inferredRecords', table: 'contents', query: "SELECT COUNT(*) as c FROM contents WHERE ownership_status = 'INFERRED_WITH_EVIDENCE'", result: inferredRecords },
+          { metric: 'unresolvedRecords', table: 'contents', query: "SELECT COUNT(*) as c FROM contents WHERE ownership_status = 'UNRESOLVED' OR edition_id IS NULL", result: unresolvedRecords },
+          { metric: 'measuredEditions', table: 'contents', query: "SELECT COUNT(DISTINCT edition_id) as c FROM contents WHERE edition_id IS NOT NULL AND (ownership_status = 'OWNED' OR ownership_status = 'INFERRED_WITH_EVIDENCE')", result: measuredEditions },
+          { metric: 'globalUniquePayloads', table: 'contents', query: "SELECT COUNT(DISTINCT normalized_text_hash) as c FROM contents WHERE normalized_text_hash IS NOT NULL AND normalized_text_hash != ''", result: globalUniquePayloads },
+          { metric: 'recordsWithPayloadHash', table: 'contents', query: "SELECT COUNT(*) as c FROM contents WHERE normalized_text_hash IS NOT NULL AND normalized_text_hash != ''", result: recordsWithPayloadHash },
+          { metric: 'recordsWithoutPayloadHash', table: 'contents', query: "SELECT COUNT(*) as c FROM contents WHERE normalized_text_hash IS NULL OR normalized_text_hash = ''", result: recordsWithoutPayloadHash },
+          { metric: 'sourceWitnesses', table: 'contents', query: "SELECT COUNT(DISTINCT source_id || ':' || work_id || ':' || edition_id || ':' || language) as c FROM contents WHERE source_id IS NOT NULL AND edition_id IS NOT NULL", result: sourceWitnesses },
+          { metric: 'datasets', table: 'datasets', query: 'SELECT COUNT(*) as c FROM datasets', result: datasetsCount },
+          { metric: 'works', table: 'works', query: 'SELECT COUNT(*) as c FROM works', result: worksCount },
+          { metric: 'devotionals', table: 'devotionals', query: 'SELECT COUNT(*) as c FROM devotionals', result: devCount },
+          { metric: 'lexiconTerms', table: 'lexicon_terms', query: 'SELECT COUNT(*) as c FROM lexicon_terms', result: lexCount },
+          { metric: 'assertions', table: 'assertions', query: 'SELECT COUNT(*) as c FROM assertions', result: assCount }
+        )
+
+        const materializedEditions = this.querySqlite<{ c: number }>(db, 'SELECT COUNT(DISTINCT edition_id) as c FROM contents WHERE edition_id IS NOT NULL').c
+        const recordBearingEditions = this.querySqlite<{ c: number }>(db, "SELECT COUNT(DISTINCT edition_id) as c FROM contents WHERE edition_id IS NOT NULL AND normalized_text_hash IS NOT NULL AND normalized_text_hash != ''").c
+        const acquiredEditions = this.querySqlite<{ c: number }>(db, `
+          SELECT COUNT(DISTINCT c.edition_id) as c
+          FROM contents c
+          WHERE EXISTS (SELECT 1 FROM raw_records r WHERE r.dataset_id = c.dataset_id)
+        `).c
+
+        this.sqlProvenance.push(
+          { metric: 'materializedEditions', table: 'contents', query: 'SELECT COUNT(DISTINCT edition_id) as c FROM contents WHERE edition_id IS NOT NULL', result: materializedEditions },
+          { metric: 'recordBearingEditions', table: 'contents', query: "SELECT COUNT(DISTINCT edition_id) as c FROM contents WHERE edition_id IS NOT NULL AND normalized_text_hash IS NOT NULL AND normalized_text_hash != ''", result: recordBearingEditions },
+          { metric: 'acquiredEditions', table: 'contents+raw_records', query: 'SELECT COUNT(DISTINCT c.edition_id) as c FROM contents c WHERE EXISTS (SELECT 1 FROM raw_records r WHERE r.dataset_id = c.dataset_id)', result: acquiredEditions }
+        )
+
+        const indexedRows = rawRecords + datasetsCount + worksCount + devCount + lexCount + assCount
+        this.sqlProvenance.push({ metric: 'indexedRows', table: 'multiple', query: 'raw_records + datasets + works + devotionals + lexicon_terms + assertions', result: indexedRows })
       } finally {
         db.close()
       }
@@ -202,36 +302,44 @@ export class Phase19MetricReconciler {
       sqliteSha256 = crypto.createHash('sha256').update(dbBuf).digest('hex')
     }
 
-    // Build manifest sha256
-    let buildManifestSha256 = ''
-    const manifestPath = path.join(this.rootDir, 'dist/build-manifest.json')
-    if (existsSync(manifestPath)) {
-      const { readFileSync } = require('node:fs')
-      const manBuf = readFileSync(manifestPath)
-      buildManifestSha256 = crypto.createHash('sha256').update(manBuf).digest('hex')
+    // canonicalPositions from catalog.json (actual NDJSON canonical structural positions)
+    let canonicalPositions = 0
+    const catalogPath = path.join(this.rootDir, 'dist/catalog.json')
+    if (existsSync(catalogPath)) {
+      try {
+        const catalog = JSON.parse(await readFile(catalogPath, 'utf8'))
+        const datasets = catalog.datasets || []
+        for (const ds of datasets) {
+          const kinds = ds.counts?.kinds || {}
+          canonicalPositions += (kinds['textual.content'] || 0) + (kinds['textual.passage'] || 0)
+        }
+      } catch {
+        canonicalPositions = 0
+      }
     }
 
-    const canonicalPositions = 537051
+    // 3. MATERIALIZATION DIMENSIONS
     const registeredEditions = editions.length
-    const acquiredEditions = editions.length
-    const materializedEditions = measuredEditions
-    const recordBearingEditions = measuredEditions
-    const unmeasurableEditions = registeredEditions - measuredEditions
+    const acquiredEditions = this.sqlProvenance.find(s => s.metric === 'acquiredEditions')?.result ?? 0
+    const materializedEditions = this.sqlProvenance.find(s => s.metric === 'materializedEditions')?.result ?? 0
+    const recordBearingEditions = this.sqlProvenance.find(s => s.metric === 'recordBearingEditions')?.result ?? 0
     const zeroRecordEditions = 0
     const positiveRecordEditions = measuredEditions
+    const unmeasurableEditions = registeredEditions - measuredEditions
 
-    const strictOwnedCoveragePercent = Number(((ownedRecords / contentsRows) * 100).toFixed(4))
-    const resolvedOwnershipCoveragePercent = Number((((ownedRecords + inferredRecords) / contentsRows) * 100).toFixed(4))
+    // 4. OWNERSHIP
+    const strictOwnedCoveragePercent = contentsRows > 0 ? Number(((ownedRecords / contentsRows) * 100).toFixed(4)) : 0
+    const resolvedOwnershipCoveragePercent = contentsRows > 0 ? Number((((ownedRecords + inferredRecords) / contentsRows) * 100).toFixed(4)) : 0
 
-    // 4. Quality scoring model (official CorpusAuditor quality engine)
+    // 5. QUALITY
     const { qualityReport, scoreDistribution } = await this.auditor.runAudit()
 
-    // 5. Invariants checking
-    const acquisitionSumMatchesJobs = outcomeSum === plannedJobs
-    const ownershipSumMatchesNormalized = ownedRecords + inferredRecords + unresolvedRecords === contentsRows
-    const measuredSumMatchesPositiveAndZero = zeroRecordEditions + positiveRecordEditions === measuredEditions
+    // 6. INVARIANTS
+    const acquisitionOutcomeAccounting = outcomeSum === plannedJobs
+    const ownershipAccounting = ownedRecords + inferredRecords + unresolvedRecords === contentsRows
+    const editionMeasurementAccounting = zeroRecordEditions + positiveRecordEditions === measuredEditions
+    const materializationAccounting = materializedEditions <= acquiredEditions
     const editionSumMatchesMeasuredAndUnmeasurable = measuredEditions + unmeasurableEditions === registeredEditions
-    const materializedWithinAcquired = materializedEditions <= acquiredEditions
     const noPlaceholderContamination = true
     const noOrphans = regValidation.problems.length === 0
     const noDuplicates = true
@@ -253,15 +361,8 @@ export class Phase19MetricReconciler {
         },
         acquisition: {
           plannedJobs,
-          outcomes: {
-            REMOTE_SYNCED,
-            REMOTE_NOT_MODIFIED,
-            LOCAL_CACHE,
-            LOCAL_FALLBACK,
-            REMOTE_FAILED,
-            UNSUPPORTED
-          },
-          outcomeAccounting,
+          outcomes,
+          outcomeAccounting: outcomeAccounting ? 'PASS' : 'FAIL',
           liveRemoteCoveragePercent,
           capabilities: {
             remoteAvailable,
@@ -296,16 +397,16 @@ export class Phase19MetricReconciler {
           resolvedOwnershipCoveragePercent
         },
         corpus: {
-          indexedRows,
+          indexedRows: this.sqlProvenance.find(s => s.metric === 'indexedRows')?.result ?? 0,
           sqliteSizeBytes,
-          sqliteSizeFormatted: `${(sqliteSizeBytes / (1024 * 1024)).toFixed(2)} MB`,
+          sqliteSizeFormatted: sqliteSizeBytes > 0 ? `${(sqliteSizeBytes / (1024 * 1024)).toFixed(2)} MB` : '0 MB',
           sqliteSha256,
-          buildManifestSha256
+          buildManifestSha256: ''
         },
         payloads: {
           globalUniquePayloads,
-          recordsWithPayloadHash: contentsRows,
-          recordsWithoutPayloadHash: 0
+          recordsWithPayloadHash,
+          recordsWithoutPayloadHash
         },
         sourceWitnesses: {
           distinctWitnesses: sourceWitnesses,
@@ -330,17 +431,29 @@ export class Phase19MetricReconciler {
           }
         },
         invariants: {
-          acquisitionSumMatchesJobs,
-          ownershipSumMatchesNormalized,
-          measuredSumMatchesPositiveAndZero,
+          acquisitionOutcomeAccounting,
+          acquisitionSumMatchesJobs: acquisitionOutcomeAccounting,
+          ownershipAccounting,
+          ownershipSumMatchesNormalized: ownershipAccounting,
+          editionMeasurementAccounting,
+          measuredSumMatchesPositiveAndZero: editionMeasurementAccounting,
           editionSumMatchesMeasuredAndUnmeasurable,
-          materializedWithinAcquired,
+          materializationAccounting,
+          materializedWithinAcquired: materializationAccounting,
           noPlaceholderContamination,
           noOrphans,
           noDuplicates,
           noBrokenRelationships
         }
       }
+    }
+
+    // Build manifest sha256
+    const manifestShaPath = path.join(this.rootDir, 'dist/build-manifest.json')
+    if (existsSync(manifestShaPath)) {
+      const { readFileSync } = require('node:fs')
+      const manBuf = readFileSync(manifestShaPath)
+      contract.dimensions.corpus.buildManifestSha256 = crypto.createHash('sha256').update(manBuf).digest('hex')
     }
 
     return contract
@@ -350,34 +463,36 @@ export class Phase19MetricReconciler {
     const distDir = path.join(this.rootDir, 'dist')
     await mkdir(distDir, { recursive: true })
 
-    // 1. dist/phase19-metric-contract.json
+    // 1. dist/phase19-metric-contract-final.json
     await writeFile(
-      path.join(distDir, 'phase19-metric-contract.json'),
+      path.join(distDir, 'phase19-metric-contract-final.json'),
       JSON.stringify(contract, null, 2) + '\n',
       'utf8'
     )
 
     // 2. dist/phase19-acquisition-audit.json
+    const acq = contract.dimensions.acquisition
     await writeFile(
       path.join(distDir, 'phase19-acquisition-audit.json'),
       JSON.stringify(
         {
           schemaVersion: '1.0.0',
           generatedAt: contract.generatedAt,
-          plannedJobs: contract.dimensions.acquisition.plannedJobs,
-          outcomes: contract.dimensions.acquisition.outcomes,
+          plannedJobs: acq.plannedJobs,
+          outcomes: acq.outcomes,
           outcomeSum:
-            contract.dimensions.acquisition.outcomes.REMOTE_SYNCED +
-            contract.dimensions.acquisition.outcomes.REMOTE_NOT_MODIFIED +
-            contract.dimensions.acquisition.outcomes.LOCAL_CACHE +
-            contract.dimensions.acquisition.outcomes.LOCAL_FALLBACK +
-            contract.dimensions.acquisition.outcomes.REMOTE_FAILED +
-            contract.dimensions.acquisition.outcomes.UNSUPPORTED,
-          outcomeAccounting: contract.dimensions.acquisition.outcomeAccounting,
-          liveRemoteCoveragePercent: contract.dimensions.acquisition.liveRemoteCoveragePercent,
-          capabilities: contract.dimensions.acquisition.capabilities,
+            acq.outcomes.REMOTE_SYNCED +
+            acq.outcomes.REMOTE_NOT_MODIFIED +
+            acq.outcomes.LOCAL_CACHE +
+            acq.outcomes.LOCAL_FALLBACK +
+            acq.outcomes.REMOTE_FAILED +
+            acq.outcomes.UNSUPPORTED,
+          outcomeAccounting: acq.outcomeAccounting,
+          liveRemoteCoveragePercent: acq.liveRemoteCoveragePercent,
+          capabilities: acq.capabilities,
+          provenanceSource: 'dist/upstream-sync-manifest.json',
           explanation:
-            'Every endpoint job has exactly one mutually exclusive primary acquisition outcome. Capabilities (remoteAvailable, cacheAvailable, fallbackConfigured) are tracked as independent orthogonal features and not double-counted into outcomes.'
+            'Every endpoint job has exactly one mutually exclusive primary acquisition outcome derived from actual manifest evidence. Capabilities (remoteAvailable, cacheAvailable, fallbackConfigured) are tracked as independent orthogonal features and not double-counted into outcomes.'
         },
         null,
         2
@@ -386,6 +501,8 @@ export class Phase19MetricReconciler {
     )
 
     // 3. dist/phase19-corpus-count-taxonomy.json
+    const rec = contract.dimensions.record
+    const own = contract.dimensions.ownership
     await writeFile(
       path.join(distDir, 'phase19-corpus-count-taxonomy.json'),
       JSON.stringify(
@@ -394,59 +511,77 @@ export class Phase19MetricReconciler {
           generatedAt: contract.generatedAt,
           taxonomy: {
             canonicalPositions: {
-              value: contract.dimensions.record.canonicalPositions,
-              description:
-                'Total canonical structural positions (manifest and record entries) across all 45 canonical NDJSON dataset files.'
+              metric: 'canonicalPositions',
+              semanticDefinition: 'Total canonical structural positions (textual.content + textual.passage) across all dataset NDJSON files, derived from dist/catalog.json.',
+              source: 'dist/catalog.json',
+              query: 'SUM(kinds.textual.content + kinds.textual.passage) per dataset',
+              result: rec.canonicalPositions
             },
             rawRecords: {
-              value: contract.dimensions.record.rawRecords,
-              description:
-                'Total raw record entries ingested directly into raw_records table in SQLite.'
+              metric: 'rawRecords',
+              semanticDefinition: 'Total raw record entries ingested directly into raw_records table in SQLite.',
+              source: 'dist/corpus.sqlite',
+              query: 'SELECT COUNT(*) as c FROM raw_records',
+              result: rec.rawRecords
             },
             contentsRows: {
-              value: contract.dimensions.record.contentsRows,
-              description:
-                'Exact count of normalized scriptural content rows in the SQLite contents table (and normalized_records view).'
+              metric: 'contentsRows',
+              semanticDefinition: 'Exact count of normalized scriptural content rows in the SQLite contents table.',
+              source: 'dist/corpus.sqlite',
+              query: 'SELECT COUNT(*) as c FROM contents',
+              result: rec.contentsRows
             },
             normalizedRows: {
-              value: contract.dimensions.record.normalizedRows,
-              description:
-                'Synonym for contentsRows. Represents rows with normalized text, token count, and normalized hash.'
+              metric: 'normalizedRows',
+              semanticDefinition: 'Synonym for contentsRows. Represents rows with normalized text, token count, and normalized hash.',
+              source: 'dist/corpus.sqlite',
+              query: 'SELECT COUNT(*) as c FROM contents',
+              result: rec.normalizedRows
             },
             editionOwnedRows: {
-              value: contract.dimensions.record.editionOwnedRows,
-              description:
-                'Count of normalized content rows strictly owned by a registered edition (ownership_status = OWNED).'
+              metric: 'editionOwnedRows',
+              semanticDefinition: 'Count of normalized content rows strictly owned by a registered edition (ownership_status = OWNED).',
+              source: 'dist/corpus.sqlite',
+              query: "SELECT COUNT(*) as c FROM contents WHERE ownership_status = 'OWNED'",
+              result: rec.editionOwnedRows
             },
             ownedRecords: {
-              value: contract.dimensions.ownership.ownedRecords,
-              description:
-                'Records strictly owned by a single primary edition.'
+              metric: 'ownedRecords',
+              semanticDefinition: 'Records strictly owned by a single primary edition.',
+              source: 'dist/corpus.sqlite',
+              query: "SELECT COUNT(*) as c FROM contents WHERE ownership_status = 'OWNED'",
+              result: own.ownedRecords
             },
             inferredRecords: {
-              value: contract.dimensions.ownership.inferredRecords,
-              description:
-                'Records where ownership is inferred with direct textual and provenance evidence.'
+              metric: 'inferredRecords',
+              semanticDefinition: 'Records where ownership is inferred with direct textual and provenance evidence.',
+              source: 'dist/corpus.sqlite',
+              query: "SELECT COUNT(*) as c FROM contents WHERE ownership_status = 'INFERRED_WITH_EVIDENCE'",
+              result: own.inferredRecords
             },
             unresolvedRecords: {
-              value: contract.dimensions.ownership.unresolvedRecords,
-              description:
-                'Records in unmaterialized or multi-edition texts without a single deterministic edition owner.'
+              metric: 'unresolvedRecords',
+              semanticDefinition: 'Records in unmaterialized or multi-edition texts without a single deterministic edition owner.',
+              source: 'dist/corpus.sqlite',
+              query: "SELECT COUNT(*) as c FROM contents WHERE ownership_status = 'UNRESOLVED' OR edition_id IS NULL",
+              result: own.unresolvedRecords
             },
             indexedRows: {
-              value: contract.dimensions.corpus.indexedRows,
-              description:
-                'Total indexed records across all database tables (raw_records, datasets, works, devotionals, lexicon, assertions).'
+              metric: 'indexedRows',
+              semanticDefinition: 'Total indexed records across corpus data tables (raw_records + datasets + works + devotionals + lexicon_terms + assertions).',
+              source: 'dist/corpus.sqlite',
+              query: 'raw_records + datasets + works + devotionals + lexicon_terms + assertions (individual COUNT(*) sums)',
+              result: contract.dimensions.corpus.indexedRows
             }
           },
           historicalReconciliation: {
             phase18ReportedValue: 704231,
             phase18Semantics:
               'The historical 704,231 metric in Phase 17/18 documentation was a theoretical placeholder estimation before SQLite database materialization.',
-            phase19MeasuredValue: 239871,
+            phase19MeasuredValue: rec.contentsRows,
             phase19Semantics:
-              'The 239,871 metric is the exact, verified row count of the SQLite contents table containing normalized scriptural text records.',
-            delta: 239871 - 704231,
+              'The measured value is the exact, verified row count of the SQLite contents table containing normalized scriptural text records.',
+            delta: rec.contentsRows - 704231,
             reconciliationStatus: 'RECONCILED_TO_EXACT_SQL_GROUND_TRUTH'
           }
         },
@@ -457,15 +592,16 @@ export class Phase19MetricReconciler {
     )
 
     // 4. dist/phase19-quality-reconciliation.json
+    const qual = contract.dimensions.quality
     await writeFile(
       path.join(distDir, 'phase19-quality-reconciliation.json'),
       JSON.stringify(
         {
           schemaVersion: '1.0.0',
           generatedAt: contract.generatedAt,
-          modelVersion: contract.dimensions.quality.modelVersion,
-          modelChanged: contract.dimensions.quality.modelChanged,
-          comparable: contract.dimensions.quality.comparable,
+          modelVersion: qual.modelVersion,
+          modelChanged: qual.modelChanged,
+          comparable: qual.comparable,
           phase18Baseline: {
             totalWorks: 225,
             gradeBreakdown: { A: 0, B: 5, C: 144, D: 76, F: 0 },
@@ -474,19 +610,37 @@ export class Phase19MetricReconciler {
           phase19Current: {
             totalWorks: contract.dimensions.registry.works,
             gradeBreakdown: {
-              A: contract.dimensions.quality.scoreDistribution.A,
-              B: contract.dimensions.quality.scoreDistribution.B,
-              C: contract.dimensions.quality.scoreDistribution.C,
-              D: contract.dimensions.quality.scoreDistribution.D,
-              F: contract.dimensions.quality.scoreDistribution.F
+              A: qual.scoreDistribution.A,
+              B: qual.scoreDistribution.B,
+              C: qual.scoreDistribution.C,
+              D: qual.scoreDistribution.D,
+              F: qual.scoreDistribution.F
             },
-            averageScore: contract.dimensions.quality.scoreDistribution.mean,
-            standardDeviation: contract.dimensions.quality.scoreDistribution.stddev,
-            minScore: contract.dimensions.quality.scoreDistribution.min,
-            maxScore: contract.dimensions.quality.scoreDistribution.max
+            averageScore: qual.scoreDistribution.mean,
+            standardDeviation: qual.scoreDistribution.stddev,
+            minScore: qual.scoreDistribution.min,
+            maxScore: qual.scoreDistribution.max
           },
           reconciliationRationale:
-            'Quality scoring uses the canonical CorpusAuditor multi-factor scoring model across all 297 registered works. The scoring criteria evaluates authority level, open-access licensing, bilingual support, structure definition, and provenance verification.'
+            'Quality scoring uses the canonical CorpusAuditor multi-factor scoring model across all registered works. The scoring criteria evaluates authority level, open-access licensing, bilingual support, structure definition, and provenance verification.'
+        },
+        null,
+        2
+      ) + '\n',
+      'utf8'
+    )
+
+    // 5. dist/phase19-index-composition-final.json
+    await writeFile(
+      path.join(distDir, 'phase19-index-composition-final.json'),
+      JSON.stringify(
+        {
+          schemaVersion: '1.0.0',
+          generatedAt: contract.generatedAt,
+          definition: 'indexedRows = sum of row counts across corpus data tables in SQLite (raw_records + datasets + works + devotionals + lexicon_terms + assertions).',
+          composition: this.sqlProvenance.filter(s => ['rawRecords', 'datasets', 'works', 'devotionals', 'lexiconTerms', 'assertions'].includes(s.metric)),
+          actualSqlProvenance: this.sqlProvenance,
+          totalIndexed: contract.dimensions.corpus.indexedRows
         },
         null,
         2

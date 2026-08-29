@@ -165,7 +165,7 @@ export class MaterializationAuditor {
         adapterIds: ['generic-adapter'],
         registryStatus: 'REGISTERED',
         executionStatus: endpointIds.length > 0 ? 'READY' : 'CONFIGURED',
-        acquisitionStatus: acquisitionStatus === 'UNCONFIGURED' ? 'REMOTE_SYNCED' : acquisitionStatus,
+        acquisitionStatus: acquisitionStatus === 'UNCONFIGURED' ? 'UNCONFIGURED' : acquisitionStatus,
         rawBytes,
         rawSha256: rawSha256 || createHash('sha256').update(`edition:${edition.id}:${parsedRecords}`).digest('hex'),
         parsedRecords,

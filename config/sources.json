@@ -356,6 +356,76 @@
       "name": "Corpus Inscriptionum Semiticarum (Académie des Inscriptions et Belles-Lettres)",
       "authorityLevel": "academic",
       "url": "https://archive.org/details/corpusinscriptio01acaduoft"
+    },
+    {
+      "id": "tokyo-univ-digital",
+      "name": "University of Tokyo Digital Collections & Linguistics Archive",
+      "organization": "University of Tokyo",
+      "url": "https://repository.dl.itc.u-tokyo.ac.jp",
+      "sourceType": "academic",
+      "reliabilityTier": "TIER_1",
+      "openAccess": true,
+      "description": "Scholarly digital archive preserving East Asian linguistics, indigenous oral traditions, and historical manuscripts."
+    },
+    {
+      "id": "aiatsis-australia",
+      "name": "Australian Institute of Aboriginal and Torres Strait Islander Studies Archive",
+      "organization": "AIATSIS",
+      "url": "https://aiatsis.gov.au",
+      "sourceType": "institutional",
+      "reliabilityTier": "TIER_1",
+      "openAccess": true,
+      "description": "National institution dedicated to First Nations Australian cultural heritage, songlines, and archival research."
+    },
+    {
+      "id": "perpusnas-indonesia",
+      "name": "National Library of Indonesia Manuscript Collection (Koleksi Naskah Nusantara)",
+      "organization": "Perpustakaan Nasional Republik Indonesia",
+      "url": "https://khastara.perpusnas.go.id",
+      "sourceType": "institutional",
+      "reliabilityTier": "TIER_1",
+      "openAccess": true,
+      "description": "The premier national digital collection of classical Indonesian manuscripts, including Javanese, Batak, Balinese, and Sundanese palm-leaf and bark codices."
+    },
+    {
+      "id": "leiden-university-digital",
+      "name": "Leiden University Digital Special Collections (KITLV & Asian Manuscripts)",
+      "organization": "Leiden University Libraries",
+      "url": "https://digitalcollections.universiteitleiden.nl",
+      "sourceType": "academic",
+      "reliabilityTier": "TIER_1",
+      "openAccess": true,
+      "description": "World-renowned academic collection of Asian and Indonesian philological manuscripts and critical editions."
+    },
+    {
+      "id": "hethiter-mainz-archive",
+      "name": "Hethitologie Portal Mainz Archive",
+      "organization": "Akademie der Wissenschaften und der Literatur, Mainz",
+      "url": "https://www.hethport.uni-wuerzburg.de",
+      "sourceType": "academic",
+      "reliabilityTier": "TIER_1",
+      "openAccess": true,
+      "description": "Comprehensive academic research archive of Hittite, Hurrian, and Luwian cuneiform corpora."
+    },
+    {
+      "id": "cdli-ucla",
+      "name": "Cuneiform Digital Library Initiative (CDLI)",
+      "organization": "UCLA & Oxford University",
+      "url": "https://cdli.ucla.edu",
+      "sourceType": "academic",
+      "reliabilityTier": "TIER_1",
+      "openAccess": true,
+      "description": "Major international digital library for cuneiform inscriptions, including Elamite, Sumerian, Babylonian, and Hittite texts."
+    },
+    {
+      "id": "tromso-museum-sami",
+      "name": "The Arctic University Museum of Norway Sámi Digital Archive",
+      "organization": "UiT The Arctic University of Norway",
+      "url": "https://uit.no/tmu",
+      "sourceType": "institutional",
+      "reliabilityTier": "TIER_1",
+      "openAccess": true,
+      "description": "Premier Nordic museum archive preserving Sámi cultural heritage, sacred joik recordings, and mythological transcriptions."
     }
   ]
 }

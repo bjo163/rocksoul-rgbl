@@ -1066,6 +1066,298 @@
         "historical_tradition",
         "ancient_near_eastern_polytheism"
       ]
+    },
+    {
+      "id": "ainu-tradition",
+      "name": "Ainu Traditional Religion",
+      "nativeName": "アイヌの信仰 (Ainu Kamuy yukar)",
+      "traditionType": "indigenous_tradition",
+      "historicalStatus": "living",
+      "geographicScope": "East Asia (Hokkaido, Sakhalin, Kurils)",
+      "livingStatus": "living",
+      "textuality": "oral_corpus",
+      "description": "Indigenous religious and spiritual tradition of the Ainu people centered on Kamuy (divine spiritual beings and nature forces), epic Yukar narratives, and sacred sending rituals (Iomante).",
+      "primaryLanguages": [
+        "ain",
+        "ja"
+      ],
+      "aliases": [
+        "Ainu Religion",
+        "Kamuy Faith",
+        "Ainu Kamuy Cult"
+      ]
+    },
+    {
+      "id": "waaqeffanna",
+      "name": "Waaqeffanna (Oromo Traditional Monotheism)",
+      "nativeName": "Waaqeffannaa (Amantii Waaqaa Tokkichaa)",
+      "traditionType": "indigenous_tradition",
+      "historicalStatus": "living",
+      "geographicScope": "East Africa (Horn of Africa, Ethiopia, Kenya)",
+      "livingStatus": "living",
+      "textuality": "oral_corpus",
+      "description": "Indigenous monotheistic faith of the Oromo people centered on Waaqa Tokkicha (the Supreme Creator God), Safuu (cosmic moral order), and sacred seasonal Irreecha thanksgiving rituals.",
+      "primaryLanguages": [
+        "orm",
+        "en"
+      ],
+      "aliases": [
+        "Oromo Religion",
+        "Waaqism",
+        "Waaqa Faith"
+      ]
+    },
+    {
+      "id": "guarani-tradition",
+      "name": "Guaraní Traditional Religion",
+      "nativeName": "Jeroky Ñembo’e (Tekoha Guaraní)",
+      "traditionType": "indigenous_tradition",
+      "historicalStatus": "living",
+      "geographicScope": "South America (Paraguay, Gran Chaco, Brazil, Argentina, Bolivia)",
+      "livingStatus": "living",
+      "textuality": "oral_corpus",
+      "description": "Indigenous cosmological and sacred tradition of the Guaraní peoples centered on Ñande Ru Tenonde (Our True Father of the Beginning) and the quest for Yvy Marãe’ỹ (the Land Without Evil).",
+      "primaryLanguages": [
+        "gug",
+        "es",
+        "en"
+      ],
+      "aliases": [
+        "Mbyá Guaraní Religion",
+        "Guaraní Cosmovision",
+        "Paĩ Tavyterã Tradition"
+      ]
+    },
+    {
+      "id": "mapuche-tradition",
+      "name": "Mapuche Religion & Cosmovision",
+      "nativeName": "Mapuche Az Mapu (Admapu)",
+      "traditionType": "indigenous_tradition",
+      "historicalStatus": "living",
+      "geographicScope": "South America (Wallmapu, Chile, Argentina)",
+      "livingStatus": "living",
+      "textuality": "oral_corpus",
+      "description": "Indigenous Andean-Patagonian spiritual tradition of the Mapuche nation centered on Ngünechen (the Supreme Sustainer of Life), the sacred ceremonial Nguillatun, and Machi healing wisdom.",
+      "primaryLanguages": [
+        "arn",
+        "es",
+        "en"
+      ],
+      "aliases": [
+        "Mapuche Cosmovision",
+        "Admapu Law",
+        "Religion Mapuche"
+      ]
+    },
+    {
+      "id": "australian-aboriginal-traditions",
+      "name": "Australian Aboriginal Dreaming Traditions",
+      "nativeName": "Jukurrpa / Altyerrenge / Wangarr",
+      "traditionType": "indigenous_tradition",
+      "historicalStatus": "living",
+      "geographicScope": "Oceania (Australia)",
+      "livingStatus": "living",
+      "textuality": "oral_corpus",
+      "description": "The ancient spiritual and cosmological traditions of First Nations Australians centered on The Dreaming (Jukurrpa/Wangarr), sacred Songlines, and ancestral Creation Beings.",
+      "primaryLanguages": [
+        "aus",
+        "en"
+      ],
+      "aliases": [
+        "The Dreaming",
+        "Aboriginal Religion",
+        "Jukurrpa Law"
+      ]
+    },
+    {
+      "id": "micronesian-tradition",
+      "name": "Micronesian Traditional Religion",
+      "nativeName": "Ani / Sou Koun / Chechesuked",
+      "traditionType": "indigenous_tradition",
+      "historicalStatus": "living",
+      "geographicScope": "Pacific (Micronesia, Pohnpei, Chuuk, Palau, Yap, Marshalls)",
+      "livingStatus": "living",
+      "textuality": "oral_corpus",
+      "description": "Indigenous religious traditions of Micronesian archipelagoes centered on ancestral navigator deities, celestial spirits (Ani), and sacred megalithic sanctuaries (Nan Madol).",
+      "primaryLanguages": [
+        "pon",
+        "pau",
+        "en"
+      ],
+      "aliases": [
+        "Pohnpeian Tradition",
+        "Palauan Tradition",
+        "Micronesian Cosmovision"
+      ]
+    },
+    {
+      "id": "batak-parmalim",
+      "name": "Batak Parmalim (Ugamo Malim)",
+      "nativeName": "Ugamo Malim (Hakehason Batak)",
+      "traditionType": "indigenous_tradition",
+      "historicalStatus": "living",
+      "geographicScope": "Southeast Asia (Sumatra, Indonesia)",
+      "livingStatus": "living",
+      "textuality": "ritual_corpus",
+      "description": "Indigenous monotheistic and ancestral tradition of the Batak Toba people centered on Debata Mulajadi Na Bolon (the Supreme Creator God) and holy rituals guided by the Ihutan.",
+      "primaryLanguages": [
+        "btk",
+        "id",
+        "en"
+      ],
+      "aliases": [
+        "Ugamo Malim",
+        "Agama Parmalim",
+        "Batak Religion"
+      ]
+    },
+    {
+      "id": "dayak-kaharingan",
+      "name": "Kaharingan (Dayak Traditional Religion)",
+      "nativeName": "Agama Hindu Kaharingan (Basarah)",
+      "traditionType": "indigenous_tradition",
+      "historicalStatus": "living",
+      "geographicScope": "Southeast Asia (Borneo, Kalimantan, Indonesia)",
+      "livingStatus": "living",
+      "textuality": "sacred_literature",
+      "description": "Indigenous cosmological and sacred scripture-based religion of the Dayak peoples of Borneo centered on Ranying Hatalla Langit, the sacred Panaturan scripture, and Tiwah rites.",
+      "primaryLanguages": [
+        "nij",
+        "id",
+        "en"
+      ],
+      "aliases": [
+        "Kaharingan",
+        "Agama Kaharingan",
+        "Dayak Religion"
+      ]
+    },
+    {
+      "id": "kejawen",
+      "name": "Kejawen (Javanese Spiritual Wisdom)",
+      "nativeName": "Kapitayan / Kebatinan / Kawruh Jiwa",
+      "traditionType": "philosophical_tradition",
+      "historicalStatus": "living",
+      "geographicScope": "Southeast Asia (Java, Indonesia)",
+      "livingStatus": "living",
+      "textuality": "sacred_literature",
+      "description": "Indigenous Javanese spiritual, philosophical, and cosmological tradition centered on Sang Hyang Taya (The Ultimate Void/Transcendent), Manunggaling Kawula Gusti, and sacred Serat wisdom literature.",
+      "primaryLanguages": [
+        "jav",
+        "id",
+        "en"
+      ],
+      "aliases": [
+        "Kapitayan",
+        "Javanese Religion",
+        "Kebatinan",
+        "Aliran Kepercayaan"
+      ]
+    },
+    {
+      "id": "phrygian-religion",
+      "name": "Phrygian Religion",
+      "nativeName": "Matar Kubileya Cult",
+      "traditionType": "historical_tradition",
+      "historicalStatus": "historical",
+      "geographicScope": "Anatolia (Phrygia, Modern Turkey)",
+      "livingStatus": "historical",
+      "textuality": "ritual_corpus",
+      "description": "Ancient Indo-European religion of the Kingdom of Phrygia centered on the Great Mother Goddess Matar Kubileya, rock-cut monumental facades, and sacred inscriptions.",
+      "primaryLanguages": [
+        "xpg",
+        "grc",
+        "en"
+      ],
+      "aliases": [
+        "Phrygian Cult of Cybele",
+        "Anatolian Mother Goddess Tradition"
+      ]
+    },
+    {
+      "id": "hittite-hurrian-religion",
+      "name": "Hittite & Hurrian Religion",
+      "nativeName": "DINGIR-MEŠ ŠA KUR ḪATTI (Thousand Gods of Hatti)",
+      "traditionType": "historical_tradition",
+      "historicalStatus": "historical",
+      "geographicScope": "Anatolia & Northern Levant (Hattusa, Boghazköy, Mitanni)",
+      "livingStatus": "historical",
+      "textuality": "sacred_literature",
+      "description": "Ancient Near Eastern religious tradition of the Hittite Empire and Hurrian realm centered on the Storm God Teshub, the Sun Goddess of Arinna, and the mythic Kumarbi epic cycle.",
+      "primaryLanguages": [
+        "hit",
+        "hur",
+        "en",
+        "de"
+      ],
+      "aliases": [
+        "Hittite Religion",
+        "Hurrian Religion",
+        "Religion of Hatti"
+      ]
+    },
+    {
+      "id": "elamite-religion",
+      "name": "Elamite Religion",
+      "nativeName": "Inshushinak & Napirisha Tradition",
+      "traditionType": "historical_tradition",
+      "historicalStatus": "historical",
+      "geographicScope": "Ancient Near East (Elam, Susa, Chogha Zanbil, Iran)",
+      "livingStatus": "historical",
+      "textuality": "ritual_corpus",
+      "description": "Ancient indigenous Near Eastern religion of Elam centered on Inshushinak (Lord of Susa and Judge of the Dead), Napirisha, and the sacred ziggurat complex of Dur Untash (Chogha Zanbil).",
+      "primaryLanguages": [
+        "elx",
+        "en",
+        "fr"
+      ],
+      "aliases": [
+        "Religion of Elam",
+        "Elamite Tradition",
+        "Inshushinak Cult"
+      ]
+    },
+    {
+      "id": "minoan-religion",
+      "name": "Minoan Religion",
+      "nativeName": "Aegean Potnia Theron Tradition",
+      "traditionType": "historical_tradition",
+      "historicalStatus": "historical",
+      "geographicScope": "Aegean (Crete, Knossos, Phaistos)",
+      "livingStatus": "historical",
+      "textuality": "ritual_corpus",
+      "description": "Bronze Age Aegean religion of Minoan Crete centered on the Great Goddess, the Potnia Theron (Mistress of Animals), sacred peak sanctuaries, and Linear A inscribed libation vessels.",
+      "primaryLanguages": [
+        "omn",
+        "grc",
+        "en"
+      ],
+      "aliases": [
+        "Minoan Cretan Religion",
+        "Aegean Bronze Age Religion"
+      ]
+    },
+    {
+      "id": "sami-tradition",
+      "name": "Sámi Traditional Religion",
+      "nativeName": "Sámi Osku / Noaidevuohta",
+      "traditionType": "indigenous_tradition",
+      "historicalStatus": "historical",
+      "geographicScope": "Northern Europe (Sápmi, Norway, Sweden, Finland, Russia)",
+      "livingStatus": "historical",
+      "textuality": "oral_corpus",
+      "description": "Indigenous circumpolar animistic and shamanic tradition of the Sámi people centered on the Sun (Beaivi), Mother Goddesses (Máttaráhkká), Noaidi drum ceremonies, and sacred Sieidi rocks.",
+      "primaryLanguages": [
+        "sme",
+        "no",
+        "sv",
+        "en"
+      ],
+      "aliases": [
+        "Sámi Shamanism",
+        "Lappish Religion",
+        "Sámi Cosmovision"
+      ]
     }
   ]
 }

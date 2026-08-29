@@ -6,6 +6,27 @@ import { UniversalCorpusRegistry } from '../registry/universal-registry.js'
 
 const require = createRequire(import.meta.url)
 
+function trueMedian(sortedValues: number[]): number {
+  if (sortedValues.length === 0) return 0
+  if (sortedValues.length === 1) return sortedValues[0]
+  const mid = Math.floor(sortedValues.length / 2)
+  if (sortedValues.length % 2 === 1) {
+    return sortedValues[mid]
+  }
+  return (sortedValues[mid - 1] + sortedValues[mid]) / 2
+}
+
+function linearInterpolationPercentile(sortedValues: number[], percentile: number): number {
+  if (sortedValues.length === 0) return 0
+  if (sortedValues.length === 1) return sortedValues[0]
+  const index = percentile * (sortedValues.length - 1)
+  const lower = Math.floor(index)
+  const upper = Math.ceil(index)
+  if (lower === upper) return sortedValues[lower]
+  const fraction = index - lower
+  return sortedValues[lower] + fraction * (sortedValues[upper] - sortedValues[lower])
+}
+
 export interface Phase19BreadthSummary {
   schemaVersion: string
   generatedAt: string
@@ -101,6 +122,24 @@ export interface Phase19BreadthSummary {
     stddev: number
     min: number
     max: number
+  }
+  canonicalMetrics: {
+    canonicalContentRows: number
+    canonicalPassageRows: number
+    canonicalPositions: number
+    canonicalIds: number
+  }
+  distribution: {
+    sampleSize: number
+    percentileMethod: string
+    min: number
+    max: number
+    mean: number
+    median: number
+    p25: number
+    p50: number
+    p75: number
+    p90: number
   }
   newTraditions: Array<{ id: string; name: string; type: string; geography: string }>
   newWorksByTradition: Array<{ traditionId: string; workCount: number; works: string[] }>
@@ -255,6 +294,47 @@ export class Phase19BreadthAuditor {
       }
     }
 
+    let canonicalContentRows = 0
+    let canonicalPassageRows = 0
+    let canonicalPositions = 0
+    let canonicalIds = 0
+    const editionRecordCounts: number[] = []
+
+    if (existsSync(dbPath)) {
+      const { DatabaseSync } = require('node:sqlite')
+      const db = new DatabaseSync(dbPath)
+      try {
+        canonicalContentRows = (db.prepare("SELECT COUNT(*) as c FROM raw_records WHERE kind = 'textual.content'").get() as { c: number }).c
+        canonicalPassageRows = (db.prepare("SELECT COUNT(*) as c FROM raw_records WHERE kind = 'textual.passage'").get() as { c: number }).c
+        canonicalPositions = (db.prepare("SELECT COUNT(DISTINCT work_id || ':' || sequence) as c FROM passages").get() as { c: number }).c
+        canonicalIds = canonicalPositions
+
+        const rows = db.prepare(`
+          SELECT edition_id, COUNT(*) as record_count
+          FROM contents
+          WHERE edition_id IS NOT NULL
+            AND (ownership_status = 'OWNED' OR ownership_status = 'INFERRED_WITH_EVIDENCE')
+          GROUP BY edition_id
+        `).all() as { edition_id: string; record_count: number }[]
+        for (const row of rows) {
+          editionRecordCounts.push(row.record_count)
+        }
+      } finally {
+        db.close()
+      }
+    }
+
+    const sortedCounts = editionRecordCounts.sort((a, b) => a - b)
+    const distributionSampleSize = sortedCounts.length
+    const distributionMin = sortedCounts.length > 0 ? sortedCounts[0] : 0
+    const distributionMax = sortedCounts.length > 0 ? sortedCounts[sortedCounts.length - 1] : 0
+    const distributionMean = sortedCounts.length > 0 ? Number((sortedCounts.reduce((a, b) => a + b, 0) / sortedCounts.length).toFixed(2)) : 0
+    const distributionMedian = sortedCounts.length > 0 ? trueMedian(sortedCounts) : 0
+    const distributionP25 = linearInterpolationPercentile(sortedCounts, 0.25)
+    const distributionP50 = linearInterpolationPercentile(sortedCounts, 0.50)
+    const distributionP75 = linearInterpolationPercentile(sortedCounts, 0.75)
+    const distributionP90 = linearInterpolationPercentile(sortedCounts, 0.90)
+
     const strictOwnedCoveragePercent = Number(((ownedCount / totalNormalized) * 100).toFixed(4))
     const resolvedOwnershipCoveragePercent = Number((((ownedCount + inferredCount) / totalNormalized) * 100).toFixed(4))
 
@@ -404,6 +484,24 @@ export class Phase19BreadthAuditor {
         stddev: stddevScore,
         min: minScore,
         max: maxScore
+      },
+      canonicalMetrics: {
+        canonicalContentRows,
+        canonicalPassageRows,
+        canonicalPositions,
+        canonicalIds
+      },
+      distribution: {
+        sampleSize: distributionSampleSize,
+        percentileMethod: 'linear_interpolation',
+        min: distributionMin,
+        max: distributionMax,
+        mean: distributionMean,
+        median: distributionMedian,
+        p25: distributionP25,
+        p50: distributionP50,
+        p75: distributionP75,
+        p90: distributionP90
       },
       newTraditions,
       newWorksByTradition

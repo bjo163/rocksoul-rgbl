@@ -24,7 +24,7 @@ FINAL DEV HEAD:
 ${finalHead}
 
 WORK BRANCH:
-feature/phase19-metric-truth-v2
+feature/phase19-final-semantic-correction
 
 TRADITIONS:
 before: ${summary.traditions.before}
@@ -82,6 +82,24 @@ materializedEditions: ${summary.materializationCoverage.materializedEditions}
 recordBearingEditions: ${summary.materializationCoverage.recordBearingEditions}
 measuredEditions: ${summary.materializationCoverage.measuredEditions}
 unmeasurableEditions: ${summary.materializationCoverage.unmeasurableEditions}
+
+CANONICAL METRICS:
+canonicalContentRows: ${summary.canonicalMetrics.canonicalContentRows}
+canonicalPassageRows: ${summary.canonicalMetrics.canonicalPassageRows}
+canonicalPositions: ${summary.canonicalMetrics.canonicalPositions}
+canonicalIds: ${summary.canonicalMetrics.canonicalIds}
+
+DISTRIBUTION:
+sampleSize: ${summary.distribution.sampleSize}
+percentileMethod: ${summary.distribution.percentileMethod}
+min: ${summary.distribution.min}
+max: ${summary.distribution.max}
+mean: ${summary.distribution.mean}
+median: ${summary.distribution.median}
+p25: ${summary.distribution.p25}
+p50: ${summary.distribution.p50}
+p75: ${summary.distribution.p75}
+p90: ${summary.distribution.p90}
 
 OWNERSHIP:
 ownedRecords: ${summary.ownershipPreservation.ownedRecords}
@@ -156,7 +174,7 @@ edition_records: ${summary.ownershipPreservation.totalNormalizedRecords}
 indexed: ${summary.materializationCoverage.registeredEditions}
 
 PR:
-feature/phase19-metric-truth-v2 -> dev
+feature/phase19-final-semantic-correction -> dev
 
 MERGED_TO_DEV:
 NO

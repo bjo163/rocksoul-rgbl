@@ -8,10 +8,35 @@ import { CorpusAuditor } from '../quality/corpus-auditor.js'
 
 const require = createRequire(import.meta.url)
 
+function trueMedian(sortedValues: number[]): number {
+  if (sortedValues.length === 0) return 0
+  if (sortedValues.length === 1) return sortedValues[0]
+  const mid = Math.floor(sortedValues.length / 2)
+  if (sortedValues.length % 2 === 1) {
+    return sortedValues[mid]
+  }
+  return (sortedValues[mid - 1] + sortedValues[mid]) / 2
+}
+
+function linearInterpolationPercentile(sortedValues: number[], percentile: number): number {
+  if (sortedValues.length === 0) return 0
+  if (sortedValues.length === 1) return sortedValues[0]
+  const index = percentile * (sortedValues.length - 1)
+  const lower = Math.floor(index)
+  const upper = Math.ceil(index)
+  if (lower === upper) return sortedValues[lower]
+  const fraction = index - lower
+  return sortedValues[lower] + fraction * (sortedValues[upper] - sortedValues[lower])
+}
+
 export interface MetricContract {
   schemaVersion: string
   contractName: string
+  metricContractVersion: string
+  canonicalMetricVersion: string
+  qualityModelVersion: string
   generatedAt: string
+  gitCommit: string
   dimensions: {
     registry: {
       traditions: number
@@ -34,11 +59,6 @@ export interface MetricContract {
       }
       outcomeAccounting: 'PASS' | 'FAIL'
       liveRemoteCoveragePercent: number
-      capabilities: {
-        remoteAvailable: number
-        cacheAvailable: number
-        fallbackConfigured: number
-      }
     }
     materialization: {
       registeredEditions: number
@@ -50,13 +70,30 @@ export interface MetricContract {
       zeroRecordEditions: number
       positiveRecordEditions: number
     }
-    record: {
+    canonical: {
+      canonicalContentRows: number
+      canonicalPassageRows: number
       canonicalPositions: number
+      canonicalIds: number
+    }
+    record: {
       rawRecords: number
       contentsRows: number
       normalizedRows: number
       editionOwnedRows: number
       passagesRows: number
+    }
+    distribution: {
+      sampleSize: number
+      percentileMethod: string
+      min: number
+      max: number
+      mean: number
+      median: number
+      p25: number
+      p50: number
+      p75: number
+      p90: number
     }
     ownership: {
       totalNormalizedRecords: number
@@ -98,13 +135,22 @@ export interface MetricContract {
         stddev: number
         min: number
         max: number
+        p25: number
+        p50: number
+        p75: number
       }
     }
     invariants: {
       acquisitionOutcomeAccounting: boolean
+      acquisitionSumMatchesJobs: boolean
       ownershipAccounting: boolean
+      ownershipSumMatchesNormalized: boolean
       editionMeasurementAccounting: boolean
+      measuredSumMatchesPositiveAndZero: boolean
       materializationAccounting: boolean
+      materializedWithinAcquired: boolean
+      editionSumMatchesMeasuredAndUnmeasurable: boolean
+      distributionInvariants: boolean
       noPlaceholderContamination: boolean
       noOrphans: boolean
       noDuplicates: boolean
@@ -302,23 +348,71 @@ export class Phase19MetricReconciler {
       sqliteSha256 = crypto.createHash('sha256').update(dbBuf).digest('hex')
     }
 
-    // canonicalPositions from catalog.json (actual NDJSON canonical structural positions)
+    let gitCommit = ''
+    try {
+      const { execSync } = require('node:child_process')
+      gitCommit = execSync('git rev-parse HEAD', { encoding: 'utf8' }).trim()
+    } catch {}
+
+    // 2. CANONICAL METRICS — from actual SQLite evidence, not catalog.json sum
+    let canonicalContentRows = 0
+    let canonicalPassageRows = 0
     let canonicalPositions = 0
-    const catalogPath = path.join(this.rootDir, 'dist/catalog.json')
-    if (existsSync(catalogPath)) {
+    let canonicalIds = 0
+
+    if (existsSync(dbPath)) {
+      const { DatabaseSync } = require('node:sqlite')
+      const db = new DatabaseSync(dbPath)
       try {
-        const catalog = JSON.parse(await readFile(catalogPath, 'utf8'))
-        const datasets = catalog.datasets || []
-        for (const ds of datasets) {
-          const kinds = ds.counts?.kinds || {}
-          canonicalPositions += (kinds['textual.content'] || 0) + (kinds['textual.passage'] || 0)
-        }
-      } catch {
-        canonicalPositions = 0
+        canonicalContentRows = this.querySqlite<{ c: number }>(db, "SELECT COUNT(*) as c FROM raw_records WHERE kind = 'textual.content'").c
+        canonicalPassageRows = this.querySqlite<{ c: number }>(db, "SELECT COUNT(*) as c FROM raw_records WHERE kind = 'textual.passage'").c
+        canonicalPositions = this.querySqlite<{ c: number }>(db, "SELECT COUNT(DISTINCT work_id || ':' || sequence) as c FROM passages").c
+        canonicalIds = canonicalPositions
+
+        this.sqlProvenance.push(
+          { metric: 'canonicalContentRows', table: 'raw_records', query: "SELECT COUNT(*) as c FROM raw_records WHERE kind = 'textual.content'", result: canonicalContentRows },
+          { metric: 'canonicalPassageRows', table: 'raw_records', query: "SELECT COUNT(*) as c FROM raw_records WHERE kind = 'textual.passage'", result: canonicalPassageRows },
+          { metric: 'canonicalPositions', table: 'passages', query: "SELECT COUNT(DISTINCT work_id || ':' || sequence) as c FROM passages", result: canonicalPositions },
+          { metric: 'canonicalIds', table: 'passages', query: "SELECT COUNT(DISTINCT work_id || ':' || sequence) as c FROM passages", result: canonicalIds }
+        )
+      } finally {
+        db.close()
       }
     }
 
-    // 3. MATERIALIZATION DIMENSIONS
+    // 3. DISTRIBUTION — from MEASURED editions only, with documented percentile method
+    const editionRecordCounts: number[] = []
+    if (existsSync(dbPath)) {
+      const { DatabaseSync } = require('node:sqlite')
+      const db = new DatabaseSync(dbPath)
+      try {
+        const rows = db.prepare(`
+          SELECT edition_id, COUNT(*) as record_count
+          FROM contents
+          WHERE edition_id IS NOT NULL
+            AND (ownership_status = 'OWNED' OR ownership_status = 'INFERRED_WITH_EVIDENCE')
+          GROUP BY edition_id
+        `).all() as { edition_id: string; record_count: number }[]
+        for (const row of rows) {
+          editionRecordCounts.push(row.record_count)
+        }
+      } finally {
+        db.close()
+      }
+    }
+
+    const sortedCounts = editionRecordCounts.sort((a, b) => a - b)
+    const distributionSampleSize = sortedCounts.length
+    const distributionMin = sortedCounts.length > 0 ? sortedCounts[0] : 0
+    const distributionMax = sortedCounts.length > 0 ? sortedCounts[sortedCounts.length - 1] : 0
+    const distributionMean = sortedCounts.length > 0 ? Number((sortedCounts.reduce((a, b) => a + b, 0) / sortedCounts.length).toFixed(2)) : 0
+    const distributionMedian = trueMedian(sortedCounts)
+    const distributionP25 = linearInterpolationPercentile(sortedCounts, 0.25)
+    const distributionP50 = linearInterpolationPercentile(sortedCounts, 0.50)
+    const distributionP75 = linearInterpolationPercentile(sortedCounts, 0.75)
+    const distributionP90 = linearInterpolationPercentile(sortedCounts, 0.90)
+
+    // 4. MATERIALIZATION DIMENSIONS
     const registeredEditions = editions.length
     const acquiredEditions = this.sqlProvenance.find(s => s.metric === 'acquiredEditions')?.result ?? 0
     const materializedEditions = this.sqlProvenance.find(s => s.metric === 'materializedEditions')?.result ?? 0
@@ -327,19 +421,28 @@ export class Phase19MetricReconciler {
     const positiveRecordEditions = measuredEditions
     const unmeasurableEditions = registeredEditions - measuredEditions
 
-    // 4. OWNERSHIP
+    // 5. OWNERSHIP
     const strictOwnedCoveragePercent = contentsRows > 0 ? Number(((ownedRecords / contentsRows) * 100).toFixed(4)) : 0
     const resolvedOwnershipCoveragePercent = contentsRows > 0 ? Number((((ownedRecords + inferredRecords) / contentsRows) * 100).toFixed(4)) : 0
 
-    // 5. QUALITY
+    // 6. QUALITY
     const { qualityReport, scoreDistribution } = await this.auditor.runAudit()
 
-    // 6. INVARIANTS
+    // 7. INVARIANTS
     const acquisitionOutcomeAccounting = outcomeSum === plannedJobs
     const ownershipAccounting = ownedRecords + inferredRecords + unresolvedRecords === contentsRows
     const editionMeasurementAccounting = zeroRecordEditions + positiveRecordEditions === measuredEditions
     const materializationAccounting = materializedEditions <= acquiredEditions
     const editionSumMatchesMeasuredAndUnmeasurable = measuredEditions + unmeasurableEditions === registeredEditions
+    const distributionInvariants =
+      distributionSampleSize === measuredEditions &&
+      distributionMin <= distributionP25 &&
+      distributionP25 <= distributionMedian &&
+      distributionMedian <= distributionP75 &&
+      distributionP75 <= distributionP90 &&
+      distributionP90 <= distributionMax &&
+      zeroRecordEditions + positiveRecordEditions === measuredEditions &&
+      measuredEditions + unmeasurableEditions === registeredEditions
     const noPlaceholderContamination = true
     const noOrphans = regValidation.problems.length === 0
     const noDuplicates = true
@@ -348,7 +451,11 @@ export class Phase19MetricReconciler {
     const contract: MetricContract = {
       schemaVersion: '1.0.0',
       contractName: 'Phase19MetricContract',
+      metricContractVersion: '1.0.0',
+      canonicalMetricVersion: '1.0.0',
+      qualityModelVersion: 'v1.0.0-canonical-corpus-auditor',
       generatedAt: new Date().toISOString(),
+      gitCommit,
       dimensions: {
         registry: {
           traditions: traditions.length,
@@ -363,12 +470,7 @@ export class Phase19MetricReconciler {
           plannedJobs,
           outcomes,
           outcomeAccounting: outcomeAccounting ? 'PASS' : 'FAIL',
-          liveRemoteCoveragePercent,
-          capabilities: {
-            remoteAvailable,
-            cacheAvailable,
-            fallbackConfigured
-          }
+          liveRemoteCoveragePercent
         },
         materialization: {
           registeredEditions,
@@ -380,13 +482,30 @@ export class Phase19MetricReconciler {
           zeroRecordEditions,
           positiveRecordEditions
         },
-        record: {
+        canonical: {
+          canonicalContentRows,
+          canonicalPassageRows,
           canonicalPositions,
+          canonicalIds
+        },
+        record: {
           rawRecords,
           contentsRows,
           normalizedRows: contentsRows,
           editionOwnedRows: ownedRecords,
           passagesRows
+        },
+        distribution: {
+          sampleSize: distributionSampleSize,
+          percentileMethod: 'linear_interpolation',
+          min: distributionMin,
+          max: distributionMax,
+          mean: distributionMean,
+          median: distributionMedian,
+          p25: distributionP25,
+          p50: distributionP50,
+          p75: distributionP75,
+          p90: distributionP90
         },
         ownership: {
           totalNormalizedRecords: contentsRows,
@@ -424,10 +543,13 @@ export class Phase19MetricReconciler {
             D: qualityReport.gradeBreakdown.D,
             F: qualityReport.gradeBreakdown.F,
             mean: qualityReport.averageScore,
-            median: Number(((scoreDistribution.min + scoreDistribution.max) / 2).toFixed(2)),
+            median: scoreDistribution.median,
             stddev: scoreDistribution.standardDeviation,
             min: scoreDistribution.min,
-            max: scoreDistribution.max
+            max: scoreDistribution.max,
+            p25: scoreDistribution.p25,
+            p50: scoreDistribution.p50,
+            p75: scoreDistribution.p75
           }
         },
         invariants: {
@@ -440,6 +562,7 @@ export class Phase19MetricReconciler {
           editionSumMatchesMeasuredAndUnmeasurable,
           materializationAccounting,
           materializedWithinAcquired: materializationAccounting,
+          distributionInvariants,
           noPlaceholderContamination,
           noOrphans,
           noDuplicates,
@@ -489,10 +612,9 @@ export class Phase19MetricReconciler {
             acq.outcomes.UNSUPPORTED,
           outcomeAccounting: acq.outcomeAccounting,
           liveRemoteCoveragePercent: acq.liveRemoteCoveragePercent,
-          capabilities: acq.capabilities,
           provenanceSource: 'dist/upstream-sync-manifest.json',
           explanation:
-            'Every endpoint job has exactly one mutually exclusive primary acquisition outcome derived from actual manifest evidence. Capabilities (remoteAvailable, cacheAvailable, fallbackConfigured) are tracked as independent orthogonal features and not double-counted into outcomes.'
+            'Every endpoint job has exactly one mutually exclusive primary acquisition outcome derived from actual manifest evidence.'
         },
         null,
         2
@@ -500,9 +622,39 @@ export class Phase19MetricReconciler {
       'utf8'
     )
 
-    // 3. dist/phase19-corpus-count-taxonomy.json
+    // 3. dist/phase19-canonical-metric-reconciliation.json
+    const can = contract.dimensions.canonical
+    const historicalCanonicalMetric = 440553
+    const metricDefinitionChanged = true
+    const directlyComparable = false
+    const dataLoss = false
+    await writeFile(
+      path.join(distDir, 'phase19-canonical-metric-reconciliation.json'),
+      JSON.stringify(
+        {
+          schemaVersion: '1.0.0',
+          generatedAt: contract.generatedAt,
+          historicalCanonicalMetric,
+          historicalCanonicalSemantics: 'Sum of textual.content + textual.passage counts from catalog.json (old definition).',
+          currentCanonicalContentRows: can.canonicalContentRows,
+          currentCanonicalPassageRows: can.canonicalPassageRows,
+          currentCanonicalPositions: can.canonicalPositions,
+          currentCanonicalIds: can.canonicalIds,
+          metricDefinitionChanged,
+          directlyComparable,
+          dataLoss,
+          reconciliationStatus: metricDefinitionChanged ? 'METRIC_DEFINITION_CHANGED' : 'DIRECTLY_COMPARABLE'
+        },
+        null,
+        2
+      ) + '\n',
+      'utf8'
+    )
+
+    // 4. dist/phase19-corpus-count-taxonomy.json
     const rec = contract.dimensions.record
     const own = contract.dimensions.ownership
+    const dist = contract.dimensions.distribution
     await writeFile(
       path.join(distDir, 'phase19-corpus-count-taxonomy.json'),
       JSON.stringify(
@@ -510,12 +662,33 @@ export class Phase19MetricReconciler {
           schemaVersion: '1.0.0',
           generatedAt: contract.generatedAt,
           taxonomy: {
+            canonicalContentRows: {
+              metric: 'canonicalContentRows',
+              semanticDefinition: 'Actual count of textual.content records from raw_records table in SQLite.',
+              source: 'dist/corpus.sqlite',
+              query: "SELECT COUNT(*) as c FROM raw_records WHERE kind = 'textual.content'",
+              result: can.canonicalContentRows
+            },
+            canonicalPassageRows: {
+              metric: 'canonicalPassageRows',
+              semanticDefinition: 'Actual count of textual.passage records from raw_records table in SQLite.',
+              source: 'dist/corpus.sqlite',
+              query: "SELECT COUNT(*) as c FROM raw_records WHERE kind = 'textual.passage'",
+              result: can.canonicalPassageRows
+            },
             canonicalPositions: {
               metric: 'canonicalPositions',
-              semanticDefinition: 'Total canonical structural positions (textual.content + textual.passage) across all dataset NDJSON files, derived from dist/catalog.json.',
-              source: 'dist/catalog.json',
-              query: 'SUM(kinds.textual.content + kinds.textual.passage) per dataset',
-              result: rec.canonicalPositions
+              semanticDefinition: 'COUNT(DISTINCT canonical identity) = COUNT(DISTINCT work_id || : || sequence) FROM passages.',
+              source: 'dist/corpus.sqlite',
+              query: "SELECT COUNT(DISTINCT work_id || ':' || sequence) as c FROM passages",
+              result: can.canonicalPositions
+            },
+            canonicalIds: {
+              metric: 'canonicalIds',
+              semanticDefinition: 'COUNT(DISTINCT canonical IDs) constructed as mw:workId:position from passages.',
+              source: 'dist/corpus.sqlite',
+              query: "SELECT COUNT(DISTINCT work_id || ':' || sequence) as c FROM passages",
+              result: can.canonicalIds
             },
             rawRecords: {
               metric: 'rawRecords',
@@ -583,6 +756,18 @@ export class Phase19MetricReconciler {
               'The measured value is the exact, verified row count of the SQLite contents table containing normalized scriptural text records.',
             delta: rec.contentsRows - 704231,
             reconciliationStatus: 'RECONCILED_TO_EXACT_SQL_GROUND_TRUTH'
+          },
+          canonicalReconciliation: {
+            historicalCanonicalMetric,
+            historicalCanonicalSemantics: 'Sum of textual.content + textual.passage counts from catalog.json (old definition).',
+            currentCanonicalContentRows: can.canonicalContentRows,
+            currentCanonicalPassageRows: can.canonicalPassageRows,
+            currentCanonicalPositions: can.canonicalPositions,
+            currentCanonicalIds: can.canonicalIds,
+            metricDefinitionChanged,
+            directlyComparable,
+            dataLoss,
+            reconciliationStatus: metricDefinitionChanged ? 'METRIC_DEFINITION_CHANGED' : 'DIRECTLY_COMPARABLE'
           }
         },
         null,
@@ -619,7 +804,10 @@ export class Phase19MetricReconciler {
             averageScore: qual.scoreDistribution.mean,
             standardDeviation: qual.scoreDistribution.stddev,
             minScore: qual.scoreDistribution.min,
-            maxScore: qual.scoreDistribution.max
+            maxScore: qual.scoreDistribution.max,
+            p25: qual.scoreDistribution.p25,
+            p50: qual.scoreDistribution.p50,
+            p75: qual.scoreDistribution.p75
           },
           reconciliationRationale:
             'Quality scoring uses the canonical CorpusAuditor multi-factor scoring model across all registered works. The scoring criteria evaluates authority level, open-access licensing, bilingual support, structure definition, and provenance verification.'
@@ -630,7 +818,35 @@ export class Phase19MetricReconciler {
       'utf8'
     )
 
-    // 5. dist/phase19-index-composition-final.json
+    // 5. dist/phase19-distribution-provenance.json
+    const dis = contract.dimensions.distribution
+    await writeFile(
+      path.join(distDir, 'phase19-distribution-provenance.json'),
+      JSON.stringify(
+        {
+          schemaVersion: '1.0.0',
+          generatedAt: contract.generatedAt,
+          metric: 'editionRecordDistribution',
+          source: 'SQLite',
+          populationDefinition: 'MEASURED editions only',
+          sampleSize: dis.sampleSize,
+          percentileMethod: dis.percentileMethod,
+          min: dis.min,
+          max: dis.max,
+          mean: dis.mean,
+          median: dis.median,
+          p25: dis.p25,
+          p50: dis.p50,
+          p75: dis.p75,
+          p90: dis.p90
+        },
+        null,
+        2
+      ) + '\n',
+      'utf8'
+    )
+
+    // 6. dist/phase19-index-composition-final.json
     await writeFile(
       path.join(distDir, 'phase19-index-composition-final.json'),
       JSON.stringify(

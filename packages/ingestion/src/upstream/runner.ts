@@ -1,6 +1,8 @@
 import { spawn } from 'node:child_process'
 import path from 'node:path'
 import { randomUUID } from 'node:crypto'
+import { mkdir, writeFile } from 'node:fs/promises'
+import { existsSync } from 'node:fs'
 import { UpstreamPlanner } from './planner.js'
 import { defaultUpstreamAdapterRegistry, UpstreamAdapterRegistry } from './adapter-registry.js'
 import { RecipeResolver } from './recipe-resolver.js'
@@ -80,6 +82,14 @@ export class UpstreamRunner {
     this.adapterRegistry = options.adapterRegistry || defaultUpstreamAdapterRegistry
     this.recipeResolver = options.recipeResolver || new RecipeResolver(this.rootDir)
     this.timeoutMs = options.timeoutMs || 900000
+  }
+
+  private async retainPayload(bytes: Uint8Array, sha256: string): Promise<string> {
+    const dir = path.join(this.rootDir, 'dist', 'acquisition-payloads')
+    await mkdir(dir, { recursive: true })
+    const file = path.join(dir, `${sha256}.bin`)
+    if (!existsSync(file)) await writeFile(file, bytes)
+    return path.relative(this.rootDir, file).replaceAll(path.sep, '/')
   }
 
   async executePlan(plan: UpstreamExecutionPlan, runId: string): Promise<UpstreamJobResult> {
@@ -295,6 +305,12 @@ export class UpstreamRunner {
           allowNetwork: plan.allowRemote ?? true
         })
 
+        // Acquisition is not materialization: retain the exact verified response so a
+        // later parser/materializer can inspect it without re-downloading the endpoint.
+        const outputFiles = acq.bytes.byteLength > 0 && acq.sourceSha256
+          ? [await this.retainPayload(acq.bytes, acq.sourceSha256)]
+          : []
+
         const statusMap: Record<UpstreamAcquisitionStatus, UpstreamJobResult['status']> = {
           REMOTE_SYNCED: 'succeeded',
           REMOTE_NOT_MODIFIED: 'not_modified',
@@ -331,6 +347,7 @@ export class UpstreamRunner {
           resolvedCommit: acq.resolvedCommit,
           ref: acq.ref,
           defaultBranch: acq.defaultBranch,
+          outputFiles,
           provenance: {
             runId,
             traditionId: plan.traditionId,

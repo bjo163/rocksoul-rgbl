@@ -88,6 +88,65 @@ export interface EditionActualDetail {
   measurementState: 'MEASURED' | 'UNMEASURABLE_AT_RECORD_LEVEL'
 }
 
+export interface EditionDepthEntry {
+  editionId: string
+  workId: string
+  traditionId: string
+  sourceId: string
+  language: string
+  editionType: string
+  recordCount: number
+  canonicalPositionCount: number
+  uniquePayloadCount: number
+  acquisitionState: string
+  materializationState: string
+  measurementState: string
+  ownershipState: string
+}
+
+export interface CrossEditionEntry {
+  workId: string
+  editionA: string
+  editionB: string
+  sharedPositions: number
+  uniquePositionsA: number
+  uniquePositionsB: number
+  identicalPayloads: number
+  classification: string
+}
+
+export interface SourceWitnessAnalysisEntry {
+  workId: string
+  sourceA: string
+  sourceB: string
+  sharedCanonicalPositions: number
+  sourceOnlyPositionsA: number
+  sourceOnlyPositionsB: number
+  identicalPayloads: number
+  differentPayloads: number
+}
+
+export interface DeepWorkEntry {
+  workId: string
+  traditionId: string
+  name: string
+  reasons: string[]
+  editionCount: number
+  languageCount: number
+  sourceCount: number
+  canonicalPositionCount: number
+  ownershipState: string
+}
+
+export interface Phase19ScopeEntry {
+  traditionId: string
+  workId: string
+  editionId: string
+  sourceId: string
+  endpointId: string
+  language: string
+}
+
 export interface EditionRecordTruthEntry {
   editionId: string
   workId: string

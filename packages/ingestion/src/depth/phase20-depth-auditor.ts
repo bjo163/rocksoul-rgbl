@@ -5,6 +5,13 @@ import path from 'node:path'
 import crypto from 'node:crypto'
 import { UniversalCorpusRegistry } from '../registry/universal-registry.js'
 import { CorpusAuditor } from '../quality/corpus-auditor.js'
+import type {
+  EditionDepthEntry,
+  CrossEditionEntry,
+  SourceWitnessAnalysisEntry,
+  DeepWorkEntry,
+  Phase19ScopeEntry
+} from './types.js'
 
 const require = createRequire(import.meta.url)
 
@@ -114,11 +121,16 @@ export interface Phase20DepthSummary {
     sources: string[]
     endpoints: string[]
   }
+  phase19Scope: Phase19ScopeEntry[]
   workDepth: WorkDepthEntry[]
   traditionDepth: TraditionDepthEntry[]
   sourceDepth: SourceDepthEntry[]
   languageDepth: LanguageDepthEntry[]
+  editionDepth: EditionDepthEntry[]
   shallowWorks: ShallowWorkEntry[]
+  deepWorks: DeepWorkEntry[]
+  crossEdition: CrossEditionEntry[]
+  sourceWitnessAnalysis: SourceWitnessAnalysisEntry[]
   depthScorecard: {
     editionDepth: {
       averageEditionsPerWork: number
@@ -298,22 +310,24 @@ export class Phase20DepthAuditor {
 
     // 2. Query SQLite Ground Truth
     const dbPath = path.join(this.rootDir, 'dist/corpus.sqlite')
-    let totalContentsRows = 239871
-    let totalOwnedRecords = 239593
-    let totalInferredRecords = 152
-    let totalUnresolvedRecords = 126
-    let totalCanonicalPositions = 537051
-    let totalRawRecords = 537000
-    let totalPassagesRows = 200671
-    let totalIndexedRows = 537282
-    let globalUniquePayloads = 191635
-    let totalSourceWitnesses = 49
+    let totalContentsRows = 0
+    let totalOwnedRecords = 0
+    let totalInferredRecords = 0
+    let totalUnresolvedRecords = 0
+    let totalCanonicalPositions = 0
+    let totalCoveredCanonicalPositions = 0
+    let totalRawRecords = 0
+    let totalPassagesRows = 0
+    let totalIndexedRows = 0
+    let globalUniquePayloads = 0
+    let totalSourceWitnesses = 0
 
-    const dbWorkStats = new Map<string, { owned: number; inferred: number; unresolved: number; uniquePayloads: number; witnesses: number; measuredEds: number }>()
+    const dbWorkStats = new Map<string, { owned: number; inferred: number; unresolved: number; uniquePayloads: number; witnesses: number; measuredEds: number; canonicalPositions: number }>()
 
+    let db: any = null
     if (existsSync(dbPath)) {
       const { DatabaseSync } = require('node:sqlite')
-      const db = new DatabaseSync(dbPath)
+      db = new DatabaseSync(dbPath)
       try {
         totalContentsRows = (db.prepare('SELECT COUNT(*) as c FROM contents').get() as { c: number }).c
         totalRawRecords = (db.prepare('SELECT COUNT(*) as c FROM raw_records').get() as { c: number }).c
@@ -321,8 +335,21 @@ export class Phase20DepthAuditor {
         totalOwnedRecords = (db.prepare("SELECT COUNT(*) as c FROM contents WHERE ownership_status = 'OWNED'").get() as { c: number }).c
         totalInferredRecords = (db.prepare("SELECT COUNT(*) as c FROM contents WHERE ownership_status = 'INFERRED_WITH_EVIDENCE'").get() as { c: number }).c
         totalUnresolvedRecords = (db.prepare("SELECT COUNT(*) as c FROM contents WHERE ownership_status = 'UNRESOLVED' OR edition_id IS NULL").get() as { c: number }).c
-        globalUniquePayloads = (db.prepare("SELECT COUNT(DISTINCT normalized_text_hash) as c FROM contents WHERE normalized_text_hash IS NOT NULL").get() as { c: number }).c
+        totalCanonicalPositions = (db.prepare("SELECT COUNT(DISTINCT work_id || ':' || sequence) as c FROM passages").get() as { c: number }).c
+        totalCoveredCanonicalPositions = (db.prepare(`
+          SELECT COUNT(DISTINCT p.work_id || ':' || p.sequence) as c
+          FROM contents c
+          JOIN passages p ON c.passage_id = p.id
+        `).get() as { c: number }).c
+        globalUniquePayloads = (db.prepare("SELECT COUNT(DISTINCT normalized_text_hash) as c FROM contents WHERE normalized_text_hash IS NOT NULL AND normalized_text_hash != ''").get() as { c: number }).c
         totalSourceWitnesses = (db.prepare("SELECT COUNT(DISTINCT source_id || ':' || work_id || ':' || edition_id || ':' || language) as c FROM contents WHERE source_id IS NOT NULL AND edition_id IS NOT NULL").get() as { c: number }).c
+
+        const datasetsCount = (db.prepare('SELECT COUNT(*) as c FROM datasets').get() as { c: number }).c
+        const worksCount = (db.prepare('SELECT COUNT(*) as c FROM works').get() as { c: number }).c
+        const devCount = (db.prepare('SELECT COUNT(*) as c FROM devotionals').get() as { c: number }).c
+        const lexCount = (db.prepare('SELECT COUNT(*) as c FROM lexicon_terms').get() as { c: number }).c
+        const assCount = (db.prepare('SELECT COUNT(*) as c FROM assertions').get() as { c: number }).c
+        totalIndexedRows = totalRawRecords + datasetsCount + worksCount + devCount + lexCount + assCount
 
         // Per-work stats from SQLite
         const rows = db.prepare(`
@@ -333,10 +360,12 @@ export class Phase20DepthAuditor {
             SUM(CASE WHEN ownership_status = 'UNRESOLVED' OR edition_id IS NULL THEN 1 ELSE 0 END) as unresolved,
             COUNT(DISTINCT normalized_text_hash) as unique_payloads,
             COUNT(DISTINCT source_id || ':' || edition_id || ':' || language) as witnesses,
-            COUNT(DISTINCT edition_id) as measured_eds
-          FROM contents
-          WHERE work_id IS NOT NULL
-          GROUP BY work_id
+            COUNT(DISTINCT edition_id) as measured_eds,
+            COUNT(DISTINCT p.work_id || ':' || p.sequence) as canonical_positions
+          FROM contents c
+          LEFT JOIN passages p ON c.passage_id = p.id
+          WHERE c.work_id IS NOT NULL
+          GROUP BY c.work_id
         `).all() as Array<{
           work_id: string
           owned: number
@@ -345,6 +374,7 @@ export class Phase20DepthAuditor {
           unique_payloads: number
           witnesses: number
           measured_eds: number
+          canonical_positions: number
         }>
 
         for (const r of rows) {
@@ -354,11 +384,12 @@ export class Phase20DepthAuditor {
             unresolved: r.unresolved,
             uniquePayloads: r.unique_payloads,
             witnesses: r.witnesses,
-            measuredEds: r.measured_eds
+            measuredEds: r.measured_eds,
+            canonicalPositions: r.canonical_positions
           })
         }
-      } finally {
-        db.close()
+      } catch {
+        // If SQLite fails, continue with zeroed metrics
       }
     }
 
@@ -378,14 +409,15 @@ export class Phase20DepthAuditor {
         unresolved: 0,
         uniquePayloads: 0,
         witnesses: 0,
-        measuredEds: 0
+        measuredEds: 0,
+        canonicalPositions: 0
       }
 
       const editionCount = workEds.length
       const measuredEditionCount = stats.measuredEds
       const unmeasurableEditionCount = editionCount - measuredEditionCount
 
-      const materializationState = measuredEditionCount > 0 ? 'MATERIALIZED' : 'UNMATERIALIZED'
+      const materializationState = editionCount > 0 ? 'MATERIALIZED' : 'UNMATERIALIZED'
       const ownershipState =
         stats.owned > 0 && stats.unresolved === 0
           ? 'OWNERSHIP_COMPLETE'
@@ -402,10 +434,12 @@ export class Phase20DepthAuditor {
       else if (stats.owned > 0 || stats.inferred > 0) maturityFlags.push('OWNERSHIP_PARTIAL')
       else maturityFlags.push('UNRESOLVED')
 
-      if (materializationState === 'UNMATERIALIZED' && stats.owned === 0) {
+      if (materializationState === 'MATERIALIZED' && measuredEditionCount > 0) {
+        maturityFlags.push('HAS_TEXT')
+      } else if (materializationState === 'MATERIALIZED') {
         maturityFlags.push('METADATA_ONLY')
       } else {
-        maturityFlags.push('CORPUS_MATURE')
+        maturityFlags.push('METADATA_ONLY')
       }
 
       // Shallow work evaluation
@@ -440,7 +474,7 @@ export class Phase20DepthAuditor {
         languages: workLangs,
         sourceCount: workSources.length,
         sources: workSources,
-        canonicalPositionCount: stats.owned + stats.inferred + stats.unresolved,
+        canonicalPositionCount: stats.canonicalPositions,
         ownedRecordCount: stats.owned,
         inferredRecordCount: stats.inferred,
         unresolvedRecordCount: stats.unresolved,
@@ -489,7 +523,7 @@ export class Phase20DepthAuditor {
         languages: tLangs,
         sourceCount: tSources.length,
         sources: tSources,
-        canonicalPositions: tOwned + tInferred + tUnresolved,
+        canonicalPositions: tWorks.reduce((sum, w) => sum + (dbWorkStats.get(w.id)?.canonicalPositions || 0), 0),
         ownedRecords: tOwned,
         inferredRecords: tInferred,
         unresolvedRecords: tUnresolved,
@@ -536,7 +570,7 @@ export class Phase20DepthAuditor {
         ownedRecords: sOwned,
         inferredRecords: sInferred,
         unresolvedRecords: sUnresolved,
-        canonicalPositions: sOwned + sInferred + sUnresolved,
+        canonicalPositions: sWorkIds.reduce((sum, wId) => sum + (dbWorkStats.get(wId)?.canonicalPositions || 0), 0),
         uniquePayloads: sUniquePayloads,
         sourceWitnesses: sWitnesses
       })
@@ -567,9 +601,289 @@ export class Phase20DepthAuditor {
         works: lWorks.length,
         editions: lEds.length,
         ownedRecords: lOwned,
-        canonicalPositions: lOwned,
+        canonicalPositions: lWorkIds.reduce((sum, wId) => sum + (dbWorkStats.get(wId)?.canonicalPositions || 0), 0),
         uniquePayloads: lPayloads
       })
+    }
+
+    // 6b. Compute Edition Depth Matrix (for Phase 19 editions)
+    const editionDepth: EditionDepthEntry[] = []
+    for (const ed of p19Editions) {
+      const work = works.find((w) => w.id === ed.workId)
+      const workEndpoints = endpoints.filter((ep) => ep.workId === ed.workId)
+      const sourceId = workEndpoints.length > 0 ? workEndpoints[0].sourceId : 'unknown'
+      const recordCount = (db.prepare(`SELECT COUNT(*) as c FROM contents WHERE edition_id = '${ed.id}'`).get() as { c: number }).c
+      const canonicalCount = (db.prepare(`
+        SELECT COUNT(DISTINCT p.work_id || ':' || p.sequence) as c
+        FROM contents c
+        JOIN passages p ON c.passage_id = p.id
+        WHERE c.edition_id = '${ed.id}'
+      `).get() as { c: number }).c
+      const uniquePayloads = (db.prepare(`SELECT COUNT(DISTINCT normalized_text_hash) as c FROM contents WHERE edition_id = '${ed.id}' AND normalized_text_hash IS NOT NULL AND normalized_text_hash != ''`).get() as { c: number }).c
+
+      const acquisitionState = recordCount > 0 ? 'ACQUIRED' : 'REGISTERED'
+
+      const materializationState = recordCount > 0 ? 'MATERIALIZED' : 'UNMATERIALIZED'
+      const measurementState = recordCount > 0 ? 'MEASURED' : 'UNMEASURABLE_AT_RECORD_LEVEL'
+      const ownershipState = recordCount > 0 ? 'OWNERSHIP_PARTIAL' : 'UNRESOLVED'
+
+      editionDepth.push({
+        editionId: ed.id,
+        workId: ed.workId,
+        traditionId: work?.traditionId || 'unknown',
+        sourceId,
+        language: ed.language,
+        editionType: ed.editionType || 'unknown',
+        recordCount,
+        canonicalPositionCount: canonicalCount,
+        uniquePayloadCount: uniquePayloads,
+        acquisitionState,
+        materializationState,
+        measurementState,
+        ownershipState
+      })
+    }
+
+    // 6c. Compute Deep Works (Phase 19 works with multi-edition, multi-language, multi-source, high coverage)
+    const deepWorks: DeepWorkEntry[] = []
+    for (const w of p19Works) {
+      const workEds = editions.filter((e) => e.workId === w.id)
+      const workLangs = [...new Set(workEds.map((e) => e.language))]
+      const workEps = endpoints.filter((ep) => ep.workId === w.id)
+      const workSources = [...new Set(workEps.map((ep) => ep.sourceId))]
+      const stats = dbWorkStats.get(w.id)
+
+      const reasons: string[] = []
+      if (workEds.length > 1) reasons.push('multiple_editions')
+      if (workLangs.length > 1) reasons.push('multiple_languages')
+      if (workSources.length > 1) reasons.push('multiple_sources')
+      if (stats && stats.canonicalPositions > 100) reasons.push('high_canonical_coverage')
+      if (stats && stats.owned > 0 && stats.unresolved === 0) reasons.push('complete_ownership')
+      if (stats && stats.witnesses > 1) reasons.push('independent_witnesses')
+
+      if (reasons.length >= 2) {
+        deepWorks.push({
+          workId: w.id,
+          traditionId: w.traditionId,
+          name: w.name,
+          reasons,
+          editionCount: workEds.length,
+          languageCount: workLangs.length,
+          sourceCount: workSources.length,
+          canonicalPositionCount: stats?.canonicalPositions || 0,
+          ownershipState: stats && stats.owned > 0 && stats.unresolved === 0 ? 'OWNERSHIP_COMPLETE' : 'OWNERSHIP_PARTIAL'
+        })
+      }
+    }
+
+    // 6d. Compute Cross-Edition Analysis (for Phase 19 works with multiple editions)
+    const crossEdition: CrossEditionEntry[] = []
+    const multiEditionWorks = p19Works.filter((w) => {
+      const workEds = editions.filter((e) => e.workId === w.id)
+      return workEds.length >= 2
+    })
+
+    for (const w of multiEditionWorks) {
+      const workEds = editions.filter((e) => e.workId === w.id)
+      for (let i = 0; i < workEds.length; i++) {
+        for (let j = i + 1; j < workEds.length; j++) {
+          const edA = workEds[i]
+          const edB = workEds[j]
+
+          const shared = (db.prepare(`
+            SELECT COUNT(DISTINCT p.work_id || ':' || p.sequence) as c
+            FROM contents cA
+            JOIN passages p ON cA.passage_id = p.id
+            WHERE cA.edition_id = '${edA.id}'
+              AND EXISTS (
+                SELECT 1 FROM contents cB
+                JOIN passages p2 ON cB.passage_id = p2.id
+                WHERE cB.edition_id = '${edB.id}'
+                  AND p2.work_id = p.work_id
+                  AND p2.sequence = p.sequence
+              )
+          `).get() as { c: number }).c
+
+          const uniqueA = (db.prepare(`
+            SELECT COUNT(DISTINCT p.work_id || ':' || p.sequence) as c
+            FROM contents c
+            JOIN passages p ON c.passage_id = p.id
+            WHERE c.edition_id = '${edA.id}'
+              AND NOT EXISTS (
+                SELECT 1 FROM contents cB
+                JOIN passages p2 ON cB.passage_id = p2.id
+                WHERE cB.edition_id = '${edB.id}'
+                  AND p2.work_id = p.work_id
+                  AND p2.sequence = p.sequence
+              )
+          `).get() as { c: number }).c
+
+          const uniqueB = (db.prepare(`
+            SELECT COUNT(DISTINCT p.work_id || ':' || p.sequence) as c
+            FROM contents c
+            JOIN passages p ON c.passage_id = p.id
+            WHERE c.edition_id = '${edB.id}'
+              AND NOT EXISTS (
+                SELECT 1 FROM contents cA
+                JOIN passages p2 ON cA.passage_id = p2.id
+                WHERE cA.edition_id = '${edA.id}'
+                  AND p2.work_id = p.work_id
+                  AND p2.sequence = p.sequence
+              )
+          `).get() as { c: number }).c
+
+          const identical = (db.prepare(`
+            SELECT COUNT(*) as c
+            FROM contents cA
+            JOIN contents cB ON cA.passage_id = cB.passage_id
+              AND cA.normalized_text_hash = cB.normalized_text_hash
+              AND cA.normalized_text_hash IS NOT NULL
+            WHERE cA.edition_id = '${edA.id}'
+              AND cB.edition_id = '${edB.id}'
+          `).get() as { c: number }).c
+
+          let classification = 'PARTIAL'
+          if (shared === 0 && uniqueA === 0 && uniqueB === 0) classification = 'NOT_COMPARABLE'
+          else if (shared > 0 && uniqueA === 0 && uniqueB === 0) classification = 'IDENTICAL_TEXT'
+          else if (shared > 0 && identical > shared * 0.9) classification = 'NORMALIZATION_EQUIVALENT'
+          else if (shared > 0 && uniqueA > 0 && uniqueB > 0) classification = 'TEXTUAL_VARIANT'
+          else if (shared > 0) classification = 'PARTIAL'
+
+          crossEdition.push({
+            workId: w.id,
+            editionA: edA.id,
+            editionB: edB.id,
+            sharedPositions: shared,
+            uniquePositionsA: uniqueA,
+            uniquePositionsB: uniqueB,
+            identicalPayloads: identical,
+            classification
+          })
+        }
+      }
+    }
+
+    // 6e. Compute Source Witness Analysis (for Phase 19 works with multiple sources)
+    const sourceWitnessAnalysis: SourceWitnessAnalysisEntry[] = []
+    const multiSourceWorks = p19Works.filter((w) => {
+      const workEps = endpoints.filter((ep) => ep.workId === w.id)
+      const workSources = [...new Set(workEps.map((ep) => ep.sourceId))]
+      return workSources.length >= 2
+    })
+
+    for (const w of multiSourceWorks) {
+      const workEps = endpoints.filter((ep) => ep.workId === w.id)
+      const sourceIds = [...new Set(workEps.map((ep) => ep.sourceId))]
+
+      for (let i = 0; i < sourceIds.length; i++) {
+        for (let j = i + 1; j < sourceIds.length; j++) {
+          const sourceA = sourceIds[i]
+          const sourceB = sourceIds[j]
+
+          const sourceAEds = editions.filter((e) => {
+            const eps = endpoints.filter((ep) => ep.workId === w.id && ep.sourceId === sourceA)
+            return eps.some((ep) => ep.editionId === e.id)
+          })
+          const sourceBEds = editions.filter((e) => {
+            const eps = endpoints.filter((ep) => ep.workId === w.id && ep.sourceId === sourceB)
+            return eps.some((ep) => ep.editionId === e.id)
+          })
+
+          const sourceAEditionIds = sourceAEds.map((e) => e.id)
+          const sourceBEditionIds = sourceBEds.map((e) => e.id)
+
+          const shared = (db.prepare(`
+            SELECT COUNT(DISTINCT p.work_id || ':' || p.sequence) as c
+            FROM contents c
+            JOIN passages p ON c.passage_id = p.id
+            WHERE c.edition_id IN (${sourceAEditionIds.map((id) => `'${id}'`).join(',')})
+              AND EXISTS (
+                SELECT 1 FROM contents cB
+                JOIN passages p2 ON cB.passage_id = p2.id
+                WHERE cB.edition_id IN (${sourceBEditionIds.map((id) => `'${id}'`).join(',')})
+                  AND p2.work_id = p.work_id
+                  AND p2.sequence = p.sequence
+              )
+          `).get() as { c: number }).c
+
+          const sourceOnlyA = (db.prepare(`
+            SELECT COUNT(DISTINCT p.work_id || ':' || p.sequence) as c
+            FROM contents c
+            JOIN passages p ON c.passage_id = p.id
+            WHERE c.edition_id IN (${sourceAEditionIds.map((id) => `'${id}'`).join(',')})
+              AND NOT EXISTS (
+                SELECT 1 FROM contents cB
+                JOIN passages p2 ON cB.passage_id = p2.id
+                WHERE cB.edition_id IN (${sourceBEditionIds.map((id) => `'${id}'`).join(',')})
+                  AND p2.work_id = p.work_id
+                  AND p2.sequence = p.sequence
+              )
+          `).get() as { c: number }).c
+
+          const sourceOnlyB = (db.prepare(`
+            SELECT COUNT(DISTINCT p.work_id || ':' || p.sequence) as c
+            FROM contents c
+            JOIN passages p ON c.passage_id = p.id
+            WHERE c.edition_id IN (${sourceBEditionIds.map((id) => `'${id}'`).join(',')})
+              AND NOT EXISTS (
+                SELECT 1 FROM contents cA
+                JOIN passages p2 ON cA.passage_id = p2.id
+                WHERE cA.edition_id IN (${sourceAEditionIds.map((id) => `'${id}'`).join(',')})
+                  AND p2.work_id = p.work_id
+                  AND p2.sequence = p.sequence
+              )
+          `).get() as { c: number }).c
+
+          const identical = (db.prepare(`
+            SELECT COUNT(*) as c
+            FROM contents cA
+            JOIN contents cB ON cA.passage_id = cB.passage_id
+              AND cA.normalized_text_hash = cB.normalized_text_hash
+              AND cA.normalized_text_hash IS NOT NULL
+            WHERE cA.edition_id IN (${sourceAEditionIds.map((id) => `'${id}'`).join(',')})
+              AND cB.edition_id IN (${sourceBEditionIds.map((id) => `'${id}'`).join(',')})
+          `).get() as { c: number }).c
+
+          sourceWitnessAnalysis.push({
+            workId: w.id,
+            sourceA,
+            sourceB,
+            sharedCanonicalPositions: shared,
+            sourceOnlyPositionsA: sourceOnlyA,
+            sourceOnlyPositionsB: sourceOnlyB,
+            identicalPayloads: identical,
+            differentPayloads: shared - identical
+          })
+        }
+      }
+    }
+
+    // 6f. Compute Phase 19 Scope
+    const phase19Scope: Phase19ScopeEntry[] = []
+    for (const tId of p19Traditions) {
+      const tWorks = works.filter((w) => w.traditionId === tId)
+      const tWorkIds = new Set(tWorks.map((w) => w.id))
+      const tEds = editions.filter((e) => tWorkIds.has(e.workId))
+      const tEps = endpoints.filter((ep) => tWorkIds.has(ep.workId) || (ep.editionId && tEds.some((e) => e.id === ep.editionId)))
+      const tSources = [...new Set(tEps.map((ep) => ep.sourceId))]
+
+      for (const w of tWorks) {
+        const wEds = editions.filter((e) => e.workId === w.id)
+        const wEps = endpoints.filter((ep) => ep.workId === w.id)
+        for (const ed of wEds) {
+          const edEps = endpoints.filter((ep) => ep.editionId === ed.id)
+          for (const ep of [...wEps, ...edEps]) {
+            phase19Scope.push({
+              traditionId: tId,
+              workId: w.id,
+              editionId: ed.id,
+              sourceId: ep.sourceId || 'unknown',
+              endpointId: ep.id,
+              language: ed.language
+            })
+          }
+        }
+      }
     }
 
     // 7. Depth Scorecard
@@ -617,8 +931,8 @@ export class Phase20DepthAuditor {
       },
       canonicalCoverage: {
         canonicalPositions: totalCanonicalPositions,
-        coveredPositions: totalContentsRows,
-        coveragePercent: Number(((totalContentsRows / totalCanonicalPositions) * 100).toFixed(2))
+        coveredPositions: totalCoveredCanonicalPositions,
+        coveragePercent: totalCanonicalPositions > 0 ? Number(((totalCoveredCanonicalPositions / totalCanonicalPositions) * 100).toFixed(2)) : 0
       },
       payloadDepth: {
         globalUniquePayloads,
@@ -705,7 +1019,7 @@ export class Phase20DepthAuditor {
     // 10. Registry validation
     const regValidation = this.registry.validateRegistry()
 
-    let finalHead = '55ebd47b152b16fe67c9b13be96c9bd459f087a5'
+    let finalHead = ''
     try {
       const { execSync } = require('node:child_process')
       finalHead = execSync('git rev-parse HEAD', { encoding: 'utf8' }).trim()
@@ -715,7 +1029,7 @@ export class Phase20DepthAuditor {
       schemaVersion: '1.0.0',
       phase: 'PHASE_20_DEPTH',
       generatedAt: nowIso,
-      baseDevHead: '55ebd47b152b16fe67c9b13be96c9bd459f087a5',
+      baseDevHead: finalHead,
       finalDevHead: finalHead,
       baseline: {
         traditions: traditions.length,
@@ -733,11 +1047,16 @@ export class Phase20DepthAuditor {
         sources: p19Sources,
         endpoints: [...p19EndpointIds]
       },
+      phase19Scope,
       workDepth,
       traditionDepth,
       sourceDepth,
       languageDepth,
+      editionDepth,
       shallowWorks,
+      deepWorks,
+      crossEdition,
+      sourceWitnessAnalysis,
       depthScorecard,
       sqlProvenance,
       quality: {
@@ -750,7 +1069,7 @@ export class Phase20DepthAuditor {
           F: qualityReport.gradeBreakdown.F
         },
         mean: qualityReport.averageScore,
-        median: Number(((scoreDistribution.min + scoreDistribution.max) / 2).toFixed(2)),
+        median: scoreDistribution.median,
         stddev: scoreDistribution.standardDeviation,
         min: scoreDistribution.min,
         max: scoreDistribution.max
@@ -814,6 +1133,22 @@ export class Phase20DepthAuditor {
       'utf8'
     )
 
+    // 2b. dist/phase20-phase19-scope.json
+    await writeFile(
+      path.join(distDir, 'phase20-phase19-scope.json'),
+      JSON.stringify(
+        {
+          schemaVersion: '1.0.0',
+          generatedAt: summary.generatedAt,
+          totalScopeEntries: summary.phase19Scope.length,
+          scope: summary.phase19Scope
+        },
+        null,
+        2
+      ) + '\n',
+      'utf8'
+    )
+
     // 3. dist/phase20-work-depth.json
     await writeFile(
       path.join(distDir, 'phase20-work-depth.json'),
@@ -855,6 +1190,70 @@ export class Phase20DepthAuditor {
           generatedAt: summary.generatedAt,
           totalSources: summary.sourceDepth.length,
           sources: summary.sourceDepth
+        },
+        null,
+        2
+      ) + '\n',
+      'utf8'
+    )
+
+    // 5b. dist/phase20-edition-depth.json
+    await writeFile(
+      path.join(distDir, 'phase20-edition-depth.json'),
+      JSON.stringify(
+        {
+          schemaVersion: '1.0.0',
+          generatedAt: summary.generatedAt,
+          totalAuditedEditions: summary.editionDepth.length,
+          editions: summary.editionDepth
+        },
+        null,
+        2
+      ) + '\n',
+      'utf8'
+    )
+
+    // 5c. dist/phase20-deep-works.json
+    await writeFile(
+      path.join(distDir, 'phase20-deep-works.json'),
+      JSON.stringify(
+        {
+          schemaVersion: '1.0.0',
+          generatedAt: summary.generatedAt,
+          totalDeepWorks: summary.deepWorks.length,
+          deepWorks: summary.deepWorks
+        },
+        null,
+        2
+      ) + '\n',
+      'utf8'
+    )
+
+    // 5d. dist/phase20-cross-edition.json
+    await writeFile(
+      path.join(distDir, 'phase20-cross-edition.json'),
+      JSON.stringify(
+        {
+          schemaVersion: '1.0.0',
+          generatedAt: summary.generatedAt,
+          totalComparisons: summary.crossEdition.length,
+          comparisons: summary.crossEdition
+        },
+        null,
+        2
+      ) + '\n',
+      'utf8'
+    )
+
+    // 5e. dist/phase20-source-witness-analysis.json
+    await writeFile(
+      path.join(distDir, 'phase20-source-witness-analysis.json'),
+      JSON.stringify(
+        {
+          schemaVersion: '1.0.0',
+          generatedAt: summary.generatedAt,
+          totalAnalyses: summary.sourceWitnessAnalysis.length,
+          analyses: summary.sourceWitnessAnalysis
         },
         null,
         2
@@ -930,6 +1329,10 @@ export class Phase20DepthAuditor {
       JSON.stringify(summary, null, 2) + '\n',
       'utf8'
     )
+
+    if (db) {
+      db.close()
+    }
 
     return summary
   }

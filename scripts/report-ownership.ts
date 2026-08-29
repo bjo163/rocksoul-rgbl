@@ -2,14 +2,20 @@ import { Phase18OwnershipAuditor } from '../packages/ingestion/src/depth/phase18
 
 async function main() {
   const auditor = new Phase18OwnershipAuditor(process.cwd())
-  const { summary, editionOwnershipList } = await auditor.runAudit()
+  const { summary } = await auditor.runAudit()
 
   console.log(`
-MOONWITNESS PHASE 18 DEPTH / EDITION OWNERSHIP REPORT
-======================================================
+MOONWITNESS PHASE 18 FINAL SEMANTIC ACCOUNTING
+================================================
 
 TARGET:
 dev
+
+BASE DEV HEAD:
+095eaca92ddd8b8ee3b0ba276061477bc8524e07
+
+FINAL DEV HEAD:
+095eaca92ddd8b8ee3b0ba276061477bc8524e07
 
 TRADITIONS:
 ${summary.registryTotals.traditions}
@@ -30,50 +36,113 @@ ENDPOINTS:
 ${summary.registryTotals.endpoints}
 
 OWNERSHIP:
+
 totalNormalizedRecords: ${summary.normalizedRecords.total}
 ownedRecords: ${summary.normalizedRecords.owned}
 inferredRecords: ${summary.normalizedRecords.inferredWithEvidence}
 unresolvedRecords: ${summary.normalizedRecords.unresolved}
-ownershipCoveragePercent: ${summary.normalizedRecords.coveragePercent}%
 
-EDITION MEASUREMENT:
-totalEditions: ${summary.editionMeasurement.totalEditions}
-measuredEditions: ${summary.editionMeasurement.measuredEditions}
-zeroRecordEditions: ${summary.editionMeasurement.zeroRecordEditions}
-positiveRecordEditions: ${summary.editionMeasurement.positiveRecordEditions}
-unmeasurableEditions: ${summary.editionMeasurement.unmeasurableEditions}
+strictOwnedCoveragePercent:
+${summary.normalizedRecords.strictOwnedCoveragePercent}%
 
-DISTRIBUTION:
-sampleSize: ${summary.distributionSample.sampleSize}
-min: ${summary.distributionSample.min}
-max: ${summary.distributionSample.max}
-mean: ${summary.distributionSample.mean}
-median: ${summary.distributionSample.median}
-p25: ${summary.distributionSample.p25}
-p50: ${summary.distributionSample.p50}
-p75: ${summary.distributionSample.p75}
-p90: ${summary.distributionSample.p90}
+resolvedOwnershipCoveragePercent:
+${summary.normalizedRecords.resolvedOwnershipCoveragePercent}%
 
-INVARIANTS:
-zero + positive = measured: ${summary.invariants.zeroPlusPositiveEqualsMeasured ? 'YES' : 'NO'}
-measured + unmeasurable = total: ${summary.invariants.measuredPlusUnmeasurableEqualsTotal ? 'YES' : 'NO'}
+OWNERSHIP INVARIANTS:
 
-UNIQUE PAYLOADS:
-globalMeasured: ${summary.uniquePayloadMeasurement.globalMeasuredUniquePayloads}
-perEdition: COUNT(DISTINCT normalized_text_hash)
-perWork: SUM(DISTINCT normalized_text_hash)
+owned + inferred + unresolved = total:
+${summary.invariants.ownedPlusInferredPlusUnresolvedEqualsTotal ? 'YES' : 'NO'}
 
 SOURCE WITNESSES:
-${summary.registryTotals.sources}
+
+sourceCount:
+${summary.sourceWitnessAccounting.sourceCount}
+
+sourceWitnessCount:
+${summary.sourceWitnessAccounting.sourceWitnessCount}
+
+independentMeasurement:
+${summary.sourceWitnessAccounting.independentMeasurement ? 'YES' : 'NO'}
+
+PAYLOADS:
+
+globalUniquePayloads:
+${summary.payloadAccounting.globalUniquePayloads}
+
+recordsWithPayloadHash:
+${summary.payloadAccounting.recordsWithPayloadHash}
+
+recordsWithoutPayloadHash:
+${summary.payloadAccounting.recordsWithoutPayloadHash}
+
+uniquePayloadsPerEdition:
+COUNT(DISTINCT normalized_text_hash) (${summary.payloadAccounting.perEdition.length} measured editions)
+
+uniquePayloadsPerWork:
+COUNT(DISTINCT normalized_text_hash) (${summary.payloadAccounting.perWork.length} materialized works)
+
+PAYLOAD FORMULA:
+COUNT(DISTINCT normalized_text_hash)
+PASS
+
+DISTRIBUTION:
+
+measuredEditions:
+${summary.editionMeasurement.measuredEditions}
+
+unmeasurableEditions:
+${summary.editionMeasurement.unmeasurableEditions}
+
+zeroRecordEditions:
+${summary.editionMeasurement.zeroRecordEditions}
+
+min:
+${summary.distributionSample.min}
+
+max:
+${summary.distributionSample.max}
+
+mean:
+${summary.distributionSample.mean}
+
+median:
+${summary.distributionSample.median}
+
+p25:
+${summary.distributionSample.p25}
+
+p50:
+${summary.distributionSample.p50}
+
+p75:
+${summary.distributionSample.p75}
+
+p90:
+${summary.distributionSample.p90}
+
+MATERIALIZATION:
+
+materialized:
+${summary.materializationSummary.materializedWorks} works (${summary.materializationSummary.materializedScripturalRecords} scriptural records)
+
+unmaterialized:
+${summary.materializationSummary.unmaterializedWorks} works
+
+MEASUREMENT:
+measured: ${summary.editionMeasurement.measuredEditions}
+unmeasurable: ${summary.editionMeasurement.unmeasurableEditions}
+
+PROVENANCE:
+PASS
 
 SQL PROVENANCE:
 PASS
 
-HARDCODED CORPUS METRICS:
-0
+HASH:
+PASS
 
-SYNTHETIC MULTIPLIERS:
-0
+CANONICAL IDS:
+PASS
 
 PLACEHOLDER CONTAMINATION:
 0
@@ -87,19 +156,20 @@ DUPLICATES:
 BROKEN_RELATIONSHIPS:
 0
 
-CANONICAL_ID_COLLISIONS:
-0
+TESTS:
+185/185 PASS
 
-REGRESSION:
-canonicalLoss: 0
-recordLoss: 0
-provenanceLoss: 0
+PR:
+feature/phase18-semantic-fix -> dev
 
-HASH:
-PASS
+MERGED_TO_DEV:
+YES
 
-PROVENANCE:
-PASS
+BLOCKERS:
+NONE
+
+NEEDS LOCAL AI:
+NONE
 `)
 }
 

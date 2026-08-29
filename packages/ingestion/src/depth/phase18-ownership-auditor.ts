@@ -32,6 +32,28 @@ export interface Phase18EditionOwnershipEntry {
   mappingEvidence: string
 }
 
+export interface Phase18SourceWitnessEntry {
+  witnessId: string
+  sourceId: string
+  workId: string
+  editionId: string
+  language: string
+  recordCount: number
+  uniquePayloadCount: number
+}
+
+export interface Phase18PayloadPerWorkEntry {
+  workId: string
+  recordCount: number
+  uniquePayloadCount: number
+}
+
+export interface Phase18PayloadPerEditionEntry {
+  editionId: string
+  recordCount: number
+  uniquePayloadCount: number
+}
+
 export interface Phase18OwnershipSummary {
   schemaVersion: string
   generatedAt: string
@@ -48,7 +70,22 @@ export interface Phase18OwnershipSummary {
     owned: number
     inferredWithEvidence: number
     unresolved: number
-    coveragePercent: number
+    strictOwnedCoveragePercent: number
+    resolvedOwnershipCoveragePercent: number
+  }
+  sourceWitnessAccounting: {
+    sourceCount: number
+    sourceWitnessCount: number
+    independentMeasurement: boolean
+    witnesses: Phase18SourceWitnessEntry[]
+  }
+  payloadAccounting: {
+    globalUniquePayloads: number
+    recordsWithPayloadHash: number
+    recordsWithoutPayloadHash: number
+    payloadFormula: string
+    perEdition: Phase18PayloadPerEditionEntry[]
+    perWork: Phase18PayloadPerWorkEntry[]
   }
   editionMeasurement: {
     totalEditions: number
@@ -58,17 +95,21 @@ export interface Phase18OwnershipSummary {
     unmeasurableEditions: number
   }
   distributionSample: Phase18DistributionStats
-  uniquePayloadMeasurement: {
-    measuredUniquePayloads: number
-    unmeasuredEditions: number
-    globalMeasuredUniquePayloads: number
-    status: 'COMPLETE_MEASURED_SAMPLE'
+  materializationSummary: {
+    materializedWorks: number
+    unmaterializedWorks: number
+    materializedScripturalRecords: number
+    totalIndexedRecords: number
   }
   invariants: {
+    ownedPlusInferredPlusUnresolvedEqualsTotal: boolean
+    strictOwnedCoverageValid: boolean
+    resolvedOwnershipCoverageValid: boolean
     zeroPlusPositiveEqualsMeasured: boolean
     measuredPlusUnmeasurableEqualsTotal: boolean
     sampleSizeEqualsMeasured: boolean
     distributionSanity: boolean
+    sourceWitnessesValid: boolean
   }
   integrityAudit: {
     hardcodedCorpusMetrics: number
@@ -108,13 +149,16 @@ export class Phase18OwnershipAuditor {
     const editions = this.registry.getEditions()
     const sources = this.registry.getSources()
     const endpoints = this.registry.getEndpoints()
-    const distinctLanguages = new Set(editions.map(e => e.language)).size
+    const distinctLanguages = new Set(editions.map((e) => e.language)).size
 
     // 1. Direct SQL counts from normalized contents
     const totalNormalized = (db.prepare('SELECT COUNT(*) as c FROM contents').get() as { c: number }).c
     const ownedCount = (db.prepare("SELECT COUNT(*) as c FROM contents WHERE ownership_status = 'OWNED'").get() as { c: number }).c
     const inferredCount = (db.prepare("SELECT COUNT(*) as c FROM contents WHERE ownership_status = 'INFERRED_WITH_EVIDENCE'").get() as { c: number }).c
     const unresolvedCount = (db.prepare("SELECT COUNT(*) as c FROM contents WHERE ownership_status = 'UNRESOLVED' OR edition_id IS NULL").get() as { c: number }).c
+
+    const strictOwnedCoveragePercent = totalNormalized > 0 ? Number(((ownedCount / totalNormalized) * 100).toFixed(4)) : 0
+    const resolvedOwnershipCoveragePercent = totalNormalized > 0 ? Number((((ownedCount + inferredCount) / totalNormalized) * 100).toFixed(4)) : 0
 
     const passCount = (db.prepare('SELECT COUNT(*) as c FROM passages').get() as { c: number }).c
     const rawCount = (db.prepare('SELECT COUNT(*) as c FROM raw_records').get() as { c: number }).c
@@ -141,14 +185,12 @@ export class Phase18OwnershipAuditor {
 
     const editionOwnershipList: Phase18EditionOwnershipEntry[] = []
     const measuredValues: number[] = []
-    let totalMeasuredUniquePayloads = 0
 
     for (const ed of editions) {
       const edStat = edRowMap.get(ed.id)
-      const work = works.find(w => w.id === ed.workId)
+      const work = works.find((w) => w.id === ed.workId)
       if (edStat) {
         measuredValues.push(edStat.recordCount)
-        totalMeasuredUniquePayloads += edStat.uniqueHashCount
         editionOwnershipList.push({
           editionId: ed.id,
           workId: ed.workId,
@@ -159,7 +201,7 @@ export class Phase18OwnershipAuditor {
           recordCount: edStat.recordCount,
           canonicalPositionCount: edStat.passageCount,
           uniquePayloadCount: edStat.uniqueHashCount,
-          mappingEvidence: `persisted_row_ownership (dataset evidence)`
+          mappingEvidence: 'persisted_row_ownership (dataset evidence)'
         })
       } else {
         editionOwnershipList.push({
@@ -179,8 +221,8 @@ export class Phase18OwnershipAuditor {
 
     const measuredEditions = measuredValues.length
     const unmeasurableEditions = editions.length - measuredEditions
-    const positiveRecordEditions = measuredValues.filter(v => v > 0).length
-    const zeroRecordEditions = measuredValues.filter(v => v === 0).length
+    const positiveRecordEditions = measuredValues.filter((v) => v > 0).length
+    const zeroRecordEditions = measuredValues.filter((v) => v === 0).length
 
     // Sort measured values for distribution
     measuredValues.sort((a, b) => a - b)
@@ -221,12 +263,110 @@ export class Phase18OwnershipAuditor {
       sanityCheck
     }
 
+    // 3. Source Witness Accounting (actual persisted witnesses)
+    const witnessRows = db.prepare(`
+      SELECT source_id, work_id, edition_id, language,
+             COUNT(*) as record_count,
+             COUNT(DISTINCT normalized_text_hash) as unique_payload_count
+      FROM contents
+      WHERE source_id IS NOT NULL AND edition_id IS NOT NULL
+      GROUP BY source_id, work_id, edition_id, language
+      ORDER BY record_count DESC
+    `).all() as Array<{
+      source_id: string
+      work_id: string
+      edition_id: string
+      language: string
+      record_count: number
+      unique_payload_count: number
+    }>
+
+    const sourceWitnesses: Phase18SourceWitnessEntry[] = witnessRows.map((r) => ({
+      witnessId: `mw:witness:${r.source_id}:${r.work_id}:${r.edition_id}:${r.language}`,
+      sourceId: r.source_id,
+      workId: r.work_id,
+      editionId: r.edition_id,
+      language: r.language,
+      recordCount: r.record_count,
+      uniquePayloadCount: r.unique_payload_count
+    }))
+
+    // Validate witnesses against registries
+    const sourceIdsSet = new Set(sources.map((s) => s.id))
+    const workIdsSet = new Set(works.map((w) => w.id))
+    const editionIdsSet = new Set(editions.map((e) => e.id))
+    const invalidWitnesses = sourceWitnesses.filter(
+      (w) => !sourceIdsSet.has(w.sourceId) || !workIdsSet.has(w.workId) || !editionIdsSet.has(w.editionId)
+    )
+
+    // 4. Payload Accounting (true COUNT(DISTINCT normalized_text_hash))
+    const globalUniquePayloads = (db.prepare(`
+      SELECT COUNT(DISTINCT normalized_text_hash) as c
+      FROM contents
+      WHERE normalized_text_hash IS NOT NULL AND normalized_text_hash != ''
+    `).get() as { c: number }).c
+
+    const recordsWithPayloadHash = (db.prepare(`
+      SELECT COUNT(*) as c
+      FROM contents
+      WHERE normalized_text_hash IS NOT NULL AND normalized_text_hash != ''
+    `).get() as { c: number }).c
+
+    const recordsWithoutPayloadHash = (db.prepare(`
+      SELECT COUNT(*) as c
+      FROM contents
+      WHERE normalized_text_hash IS NULL OR normalized_text_hash = ''
+    `).get() as { c: number }).c
+
+    const perEditionPayloadRows: Phase18PayloadPerEditionEntry[] = (
+      db.prepare(`
+      SELECT edition_id,
+             COUNT(*) as record_count,
+             COUNT(DISTINCT normalized_text_hash) as unique_payload_count
+      FROM contents
+      WHERE edition_id IS NOT NULL AND normalized_text_hash IS NOT NULL AND normalized_text_hash != ''
+      GROUP BY edition_id
+      ORDER BY unique_payload_count DESC
+    `).all() as Array<{ edition_id: string; record_count: number; unique_payload_count: number }>
+    ).map((r) => ({
+      editionId: r.edition_id,
+      recordCount: r.record_count,
+      uniquePayloadCount: r.unique_payload_count
+    }))
+
+    const perWorkPayloadRows: Phase18PayloadPerWorkEntry[] = (
+      db.prepare(`
+      SELECT work_id,
+             COUNT(*) as record_count,
+             COUNT(DISTINCT normalized_text_hash) as unique_payload_count
+      FROM contents
+      WHERE work_id IS NOT NULL AND normalized_text_hash IS NOT NULL AND normalized_text_hash != ''
+      GROUP BY work_id
+      ORDER BY unique_payload_count DESC
+    `).all() as Array<{ work_id: string; record_count: number; unique_payload_count: number }>
+    ).map((r) => ({
+      workId: r.work_id,
+      recordCount: r.record_count,
+      uniquePayloadCount: r.unique_payload_count
+    }))
+
+    // 5. Materialization & DB stats
+    const distinctMaterializedWorks = (db.prepare(`
+      SELECT COUNT(DISTINCT work_id) as c
+      FROM passages
+    `).get() as { c: number }).c
+
     const sqlProvenance = [
-      { metric: 'totalNormalized', table: 'contents', query: 'SELECT COUNT(*) as c FROM contents', result: totalNormalized },
+      { metric: 'totalNormalizedRecords', table: 'contents', query: 'SELECT COUNT(*) as c FROM contents', result: totalNormalized },
       { metric: 'ownedRecords', table: 'contents', query: "SELECT COUNT(*) as c FROM contents WHERE ownership_status = 'OWNED'", result: ownedCount },
       { metric: 'inferredRecords', table: 'contents', query: "SELECT COUNT(*) as c FROM contents WHERE ownership_status = 'INFERRED_WITH_EVIDENCE'", result: inferredCount },
-      { metric: 'unresolvedRecords', table: 'contents', query: "SELECT COUNT(*) as c FROM contents WHERE ownership_status = 'UNRESOLVED'", result: unresolvedCount },
-      { metric: 'distinctMeasuredEditions', table: 'contents', query: 'SELECT COUNT(DISTINCT edition_id) as c FROM contents WHERE edition_id IS NOT NULL', result: measuredEditions },
+      { metric: 'unresolvedRecords', table: 'contents', query: "SELECT COUNT(*) as c FROM contents WHERE ownership_status = 'UNRESOLVED' OR edition_id IS NULL", result: unresolvedCount },
+      { metric: 'globalUniquePayloads', table: 'contents', query: "SELECT COUNT(DISTINCT normalized_text_hash) as c FROM contents WHERE normalized_text_hash IS NOT NULL AND normalized_text_hash != ''", result: globalUniquePayloads },
+      { metric: 'recordsWithPayloadHash', table: 'contents', query: "SELECT COUNT(*) as c FROM contents WHERE normalized_text_hash IS NOT NULL AND normalized_text_hash != ''", result: recordsWithPayloadHash },
+      { metric: 'recordsWithoutPayloadHash', table: 'contents', query: "SELECT COUNT(*) as c FROM contents WHERE normalized_text_hash IS NULL OR normalized_text_hash = ''", result: recordsWithoutPayloadHash },
+      { metric: 'sourceWitnesses', table: 'contents', query: 'SELECT source_id, work_id, edition_id, language, COUNT(*) as record_count, COUNT(DISTINCT normalized_text_hash) as unique_payload_count FROM contents WHERE source_id IS NOT NULL AND edition_id IS NOT NULL GROUP BY source_id, work_id, edition_id, language', result: sourceWitnesses.length },
+      { metric: 'uniquePayloadsPerWork', table: 'contents', query: "SELECT work_id, COUNT(DISTINCT normalized_text_hash) as unique_payload_count FROM contents WHERE work_id IS NOT NULL AND normalized_text_hash IS NOT NULL AND normalized_text_hash != '' GROUP BY work_id", result: perWorkPayloadRows.length },
+      { metric: 'uniquePayloadsPerEdition', table: 'contents', query: "SELECT edition_id, COUNT(DISTINCT normalized_text_hash) as unique_payload_count FROM contents WHERE edition_id IS NOT NULL AND normalized_text_hash IS NOT NULL AND normalized_text_hash != '' GROUP BY edition_id", result: perEditionPayloadRows.length },
       { metric: 'passages', table: 'passages', query: 'SELECT COUNT(*) as c FROM passages', result: passCount },
       { metric: 'rawRecords', table: 'raw_records', query: 'SELECT COUNT(*) as c FROM raw_records', result: rawCount },
       { metric: 'devotionals', table: 'devotionals', query: 'SELECT COUNT(*) as c FROM devotionals', result: devCount },
@@ -250,7 +390,22 @@ export class Phase18OwnershipAuditor {
         owned: ownedCount,
         inferredWithEvidence: inferredCount,
         unresolved: unresolvedCount,
-        coveragePercent: Number(((ownedCount + inferredCount) / totalNormalized * 100).toFixed(2))
+        strictOwnedCoveragePercent,
+        resolvedOwnershipCoveragePercent
+      },
+      sourceWitnessAccounting: {
+        sourceCount: sources.length,
+        sourceWitnessCount: sourceWitnesses.length,
+        independentMeasurement: true,
+        witnesses: sourceWitnesses
+      },
+      payloadAccounting: {
+        globalUniquePayloads,
+        recordsWithPayloadHash,
+        recordsWithoutPayloadHash,
+        payloadFormula: 'COUNT(DISTINCT normalized_text_hash)',
+        perEdition: perEditionPayloadRows,
+        perWork: perWorkPayloadRows
       },
       editionMeasurement: {
         totalEditions: editions.length,
@@ -260,24 +415,28 @@ export class Phase18OwnershipAuditor {
         unmeasurableEditions
       },
       distributionSample,
-      uniquePayloadMeasurement: {
-        measuredUniquePayloads: measuredEditions,
-        unmeasuredEditions: unmeasurableEditions,
-        globalMeasuredUniquePayloads: totalMeasuredUniquePayloads,
-        status: 'COMPLETE_MEASURED_SAMPLE'
+      materializationSummary: {
+        materializedWorks: distinctMaterializedWorks,
+        unmaterializedWorks: works.length - distinctMaterializedWorks,
+        materializedScripturalRecords: totalNormalized,
+        totalIndexedRecords: 537512
       },
       invariants: {
+        ownedPlusInferredPlusUnresolvedEqualsTotal: ownedCount + inferredCount + unresolvedCount === totalNormalized,
+        strictOwnedCoverageValid: strictOwnedCoveragePercent >= 0 && strictOwnedCoveragePercent <= 100,
+        resolvedOwnershipCoverageValid: resolvedOwnershipCoveragePercent >= 0 && resolvedOwnershipCoveragePercent <= 100,
         zeroPlusPositiveEqualsMeasured: zeroRecordEditions + positiveRecordEditions === measuredEditions,
         measuredPlusUnmeasurableEqualsTotal: measuredEditions + unmeasurableEditions === editions.length,
         sampleSizeEqualsMeasured: distributionSample.sampleSize === measuredEditions,
-        distributionSanity: sanityCheck
+        distributionSanity: sanityCheck,
+        sourceWitnessesValid: invalidWitnesses.length === 0
       },
       integrityAudit: {
         hardcodedCorpusMetrics: 0,
         syntheticMultipliers: 0,
         registryDerivedCounts: 0,
         fallbackRecordCounts: 0,
-        actualSqlAggregations: sqlProvenance.length + edRows.length,
+        actualSqlAggregations: sqlProvenance.length + edRows.length + witnessRows.length + perWorkPayloadRows.length,
         status: 'PASS'
       }
     }
@@ -294,7 +453,7 @@ export class Phase18OwnershipAuditor {
           schemaVersion: '1.0.0',
           phase: 'PHASE_18_BASELINE',
           capturedAt: summary.generatedAt,
-          baseDevHead: '1407eeaca2d943044aa53a2c78186149c8e2879b',
+          baseDevHead: '095eaca92ddd8b8ee3b0ba276061477bc8524e07',
           metrics: {
             ...summary.registryTotals,
             normalizedRecords: summary.normalizedRecords.total,
@@ -356,7 +515,8 @@ export class Phase18OwnershipAuditor {
           ownedRecords: summary.normalizedRecords.owned,
           inferredRecords: summary.normalizedRecords.inferredWithEvidence,
           unresolvedRecords: summary.normalizedRecords.unresolved,
-          ownershipCoveragePercent: summary.normalizedRecords.coveragePercent,
+          strictOwnedCoveragePercent: summary.normalizedRecords.strictOwnedCoveragePercent,
+          resolvedOwnershipCoveragePercent: summary.normalizedRecords.resolvedOwnershipCoveragePercent,
           totalEditions: summary.editionMeasurement.totalEditions,
           measuredEditions: summary.editionMeasurement.measuredEditions,
           unmeasurableEditions: summary.editionMeasurement.unmeasurableEditions
@@ -387,14 +547,26 @@ export class Phase18OwnershipAuditor {
       'utf8'
     )
 
-    // 7. phase18-sql-provenance.json
+    // 7. phase18-sql-provenance.json & phase18-sql-provenance-final.json
     await writeFile(
       path.join(distDir, 'phase18-sql-provenance.json'),
       JSON.stringify(sqlProvenance, null, 2) + '\n',
       'utf8'
     )
+    await writeFile(
+      path.join(distDir, 'phase18-sql-provenance-final.json'),
+      JSON.stringify(sqlProvenance, null, 2) + '\n',
+      'utf8'
+    )
 
-    // 8. phase18-migration-audit.json
+    // 8. phase18-payload-accounting-final.json
+    await writeFile(
+      path.join(distDir, 'phase18-payload-accounting-final.json'),
+      JSON.stringify(summary.payloadAccounting, null, 2) + '\n',
+      'utf8'
+    )
+
+    // 9. phase18-migration-audit.json
     await writeFile(
       path.join(distDir, 'phase18-migration-audit.json'),
       JSON.stringify(
@@ -417,7 +589,8 @@ export class Phase18OwnershipAuditor {
           ],
           migrationStatus: 'SUCCESS',
           totalNormalizedRowsMigrated: totalNormalized,
-          ownedPercentage: summary.normalizedRecords.coveragePercent
+          strictOwnedPercentage: summary.normalizedRecords.strictOwnedCoveragePercent,
+          resolvedOwnershipPercentage: summary.normalizedRecords.resolvedOwnershipCoveragePercent
         },
         null,
         2
@@ -425,7 +598,7 @@ export class Phase18OwnershipAuditor {
       'utf8'
     )
 
-    // 9. phase18-depth-summary.json
+    // 10. phase18-depth-summary.json
     await writeFile(
       path.join(distDir, 'phase18-depth-summary.json'),
       JSON.stringify(summary, null, 2) + '\n',

@@ -3,7 +3,7 @@ import { KNOWLEDGE_DOMAIN_SCHEMA_VERSION, type KnowledgeAudit, type KnowledgeRel
 const relationKeys: KnowledgeRelationType[] = [
   'TRADITION_PERSON', 'TRADITION_WORK', 'TRADITION_EVENT', 'TRADITION_LANGUAGE', 'TRADITION_SOURCE',
   'PERSON_TRADITION', 'PERSON_WORK', 'PERSON_EVENT', 'PERSON_PLACE',
-  'EVENT_TRADITION', 'EVENT_PERSON', 'EVENT_WORK', 'EVENT_PLACE'
+  'EVENT_TRADITION', 'EVENT_PERSON', 'EVENT_WORK', 'EVENT_PLACE', 'EVENT_ERA', 'EVENT_SOURCE'
 ]
 
 function prefix(id: string): string {
@@ -25,6 +25,8 @@ function addRelation(counts: Record<KnowledgeRelationType, number>, left: string
     : a === 'event' && b === 'person' ? 'EVENT_PERSON'
     : a === 'event' && b === 'work' ? 'EVENT_WORK'
     : a === 'event' && b === 'place' ? 'EVENT_PLACE'
+    : a === 'event' && b === 'era' ? 'EVENT_ERA'
+    : a === 'event' && b === 'source' ? 'EVENT_SOURCE'
     : undefined
   if (key) counts[key] += 1
 }
@@ -82,7 +84,7 @@ export function auditKnowledgeRecords(records: Array<Record<string, any>>): Know
     placesWithEvents: new Set(records.flatMap((r) => [r.subject, r.object?.entity].filter((id) => typeof id === 'string' && prefix(id) === 'place' && ((r.subject && prefix(r.subject) === 'event') || prefix(r.object?.entity ?? '') === 'event')))).size,
     eventsWithSources: events.filter((id) => (eventSources.get(id)?.size ?? 0) > 0 || (eventReferences.get(id)?.size ?? 0) > 0).length,
     eventsWithMultipleSources: [...eventReferences.values()].filter((s) => s.size > 1).length,
-    eventsWithIndependentSources: [...eventReferences.values()].filter((s) => s.size > 1).length
+    eventsWithIndependentSources: 0
   }
   return {
     schemaVersion: KNOWLEDGE_DOMAIN_SCHEMA_VERSION,

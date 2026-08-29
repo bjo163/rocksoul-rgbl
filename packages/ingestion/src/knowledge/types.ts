@@ -5,7 +5,7 @@ export type KnowledgeTemporalPrecision = 'EXACT_DATE' | 'DATE_RANGE' | 'YEAR' | 
 export type KnowledgeRelationType =
   | 'TRADITION_PERSON' | 'TRADITION_WORK' | 'TRADITION_EVENT' | 'TRADITION_LANGUAGE' | 'TRADITION_SOURCE'
   | 'PERSON_TRADITION' | 'PERSON_WORK' | 'PERSON_EVENT' | 'PERSON_PLACE'
-  | 'EVENT_TRADITION' | 'EVENT_PERSON' | 'EVENT_WORK' | 'EVENT_PLACE'
+  | 'EVENT_TRADITION' | 'EVENT_PERSON' | 'EVENT_WORK' | 'EVENT_PLACE' | 'EVENT_ERA' | 'EVENT_SOURCE'
 
 export interface KnowledgeEntity {
   id: string

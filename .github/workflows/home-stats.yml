@@ -2,19 +2,13 @@ name: Home Corpus Statistics
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '*/15 * * * *'
-  push:
-    branches: [dev]
-    paths-ignore:
-      - 'README.md'
-
-permissions:
-  contents: write
 
 concurrency:
   group: home-stats-dev
   cancel-in-progress: true
+
+permissions:
+  contents: read
 
 jobs:
   update-home-stats:
@@ -33,11 +27,3 @@ jobs:
       - run: pnpm install --no-frozen-lockfile
       - run: pnpm build:sqlite
       - run: pnpm home:stats
-      - name: Commit updated Home statistics
-        run: |
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          if git diff --quiet -- README.md; then echo 'Home statistics unchanged.'; exit 0; fi
-          git add README.md
-          git commit -m 'chore: refresh live corpus statistics'
-          git push origin HEAD:dev

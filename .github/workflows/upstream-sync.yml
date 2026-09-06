@@ -2,13 +2,15 @@ name: Upstream Auto-Sync & Health Audit
 
 on:
   schedule:
-    # Run every Sunday at midnight UTC
-    - cron: '0 0 * * 0'
+    - cron: '*/15 * * * *'
   workflow_dispatch:
 
 concurrency:
-  group: upstream-sync
-  cancel-in-progress: false
+  group: upstream-sync-dev
+  cancel-in-progress: true
+
+permissions:
+  contents: write
 
 jobs:
   sync:
@@ -17,6 +19,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          ref: dev
           fetch-depth: 0
 
       - uses: actions/setup-node@v4
@@ -39,7 +42,7 @@ jobs:
       - name: Rebuild & Validate Master Corpus Pipeline
         run: pnpm check
 
-      - name: Check for upstream updates & commit
+      - name: Check for upstream updates & commit to dev
         shell: bash
         run: |
           if git diff --quiet; then
@@ -50,5 +53,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add ingestion/recipes/ datasets/ dist/
-          git commit -m "chore(upstream): auto-sync latest scriptures and recipes from official hulu sources"
-          git push origin main
+          git commit -m "chore(upstream): auto-sync latest upstream corpus sources"
+          git push origin HEAD:dev

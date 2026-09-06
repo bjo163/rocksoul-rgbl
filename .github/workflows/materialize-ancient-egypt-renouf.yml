@@ -23,21 +23,18 @@ concurrency:
 
 jobs:
   materialize:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
         with:
           ref: dev
           fetch-depth: 1
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 10.33.4
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
-          cache: pnpm
-      - run: pnpm install --frozen-lockfile
+          node-version: 20
+      - run: corepack enable
+      - run: pnpm install --no-frozen-lockfile
       - run: pnpm materialize:ancient-egypt-renouf
       - run: pnpm validate:corpus
       - run: pnpm validate:editions
@@ -49,9 +46,6 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add datasets/ancient-egypt-book-dead-renouf README.md
-          if git diff --cached --quiet; then
-            echo 'No generated changes.'
-            exit 0
-          fi
+          if git diff --cached --quiet; then echo 'No generated changes.'; exit 0; fi
           git commit -m 'feat(corpus): materialize Renouf Naville 1904'
           git push origin HEAD:dev

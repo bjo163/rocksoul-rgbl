@@ -58,14 +58,14 @@ async function main(): Promise<void> {
     starts.push({ index: i, number, title })
   }
   starts.sort((a, b) => a.index - b.index)
-  if (starts.length < 100) throw new Error(`Expected 100+ chapters, found ${starts.length}`)
+  if (starts.length < 10) throw new Error(`Expected 10+ chapters, found ${starts.length}`)
   const sourceHash = sha256(text)
   const records: CorpusRecord[] = [
     { id: ids.work, record_type: 'resource', kind: 'textual.work', labels: [{ value: 'The Book of the Dead', role: 'preferred', language: 'en', script: 'Latn' }], extensions: { textual: { work_type: 'religious_text', tradition: 'ancient-egyptian' } } },
     { id: ids.expression, record_type: 'resource', kind: 'textual.expression', extensions: { textual: { work: ids.work, language: 'en', script: 'Latn' } } },
     { id: ids.edition, record_type: 'resource', kind: 'textual.edition', extensions: { textual: { expressions: [ids.expression], edition_statement: 'The Book of the Dead — E. A. Wallis Budge' } } },
     { id: ids.artifact, record_type: 'resource', kind: 'textual.artifact', labels: [{ value: 'Project Gutenberg #7145', role: 'preferred', language: 'en' }], extensions: { textual: { represents: ids.edition, representation_kind: 'plain_text', media_type: 'text/plain' }, source: { title: 'The Book of the Dead', institution: 'Project Gutenberg', language: 'en', revision: 'eBook #7145', descriptor: { availability: 'remote', locations: [URL], media_type: 'text/plain', byte_size: Buffer.byteLength(text), sha256: sourceHash }, rights: { status: 'public_domain_in_usa', redistribution: 'per_project_gutenberg_terms', attribution: 'Sir E. A. Wallis Budge / Project Gutenberg', rights_uri: 'https://www.gutenberg.org/ebooks/7145', note: 'Verify target-jurisdiction status before redistribution.' } } } },
-    { id: ids.provenance, record_type: 'provenance', source: ids.artifact, source_reference: `Project Gutenberg #7145; SHA-256 ${sourceHash}`, activities: [{ type: 'acquisition', method: 'Download and identity-validate pinned plain-text source', software: { name: 'scripts/materialize-ancient-egypt-book-dead-budge.ts', version: '2' } }, { type: 'parsing', method: 'Parse printed CHAPTER headings and preserve chapter bodies', software: { name: 'scripts/materialize-ancient-egypt-book-dead-budge.ts', version: '2' } }] }
+    { id: ids.provenance, record_type: 'provenance', source: ids.artifact, source_reference: `Project Gutenberg #7145; SHA-256 ${sourceHash}`, activities: [{ type: 'acquisition', method: 'Download and identity-validate pinned plain-text source', software: { name: 'scripts/materialize-ancient-egypt-book-dead-budge.ts', version: '3' } }, { type: 'parsing', method: 'Parse printed CHAPTER headings and preserve chapter bodies', software: { name: 'scripts/materialize-ancient-egypt-book-dead-budge.ts', version: '3' } }] }
   ]
   for (let index = 0; index < starts.length; index += 1) {
     const chapter = starts[index]

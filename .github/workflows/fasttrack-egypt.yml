@@ -1,0 +1,52 @@
+name: Fast-Track Ancient Egyptian Corpus
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '*/15 * * * *'
+
+concurrency:
+  group: fasttrack-egypt
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: dev
+          fetch-depth: 1
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec tsx scripts/materialize-ancient-egypt-book-of-dead-budge.ts
+      - run: pnpm build:sqlite
+      - run: pnpm validate:corpus
+      - run: pnpm validate:materialization
+      - run: pnpm home:stats
+
+      - name: Commit generated corpus and Home statistics
+        shell: bash
+        run: |
+          if git diff --quiet; then
+            echo 'Ancient Egyptian corpus is already synchronized.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add ingestion/recipes/ancient-egypt-book-of-dead-budge datasets/ancient-egypt-book-of-dead-budge README.md
+          git commit -m 'feat(egypt): materialize Budge Book of the Dead'
+          git push origin HEAD:dev

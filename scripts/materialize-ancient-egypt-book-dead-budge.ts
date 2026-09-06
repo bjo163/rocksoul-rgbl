@@ -28,7 +28,7 @@ const roman = (value: string) => {
   return total
 }
 
-async function main() {
+async function main(): Promise<void> {
   const response = await fetch(URL, { headers: { accept: 'text/plain' } })
   if (!response.ok) throw new Error(`Gutenberg download failed: ${response.status}`)
   const type = response.headers.get('content-type') ?? ''
@@ -37,7 +37,6 @@ async function main() {
   if (/<(?:html|body|form|script)[\s>]/iu.test(text)) throw new Error('HTML/challenge payload rejected')
   if (!text.includes('PROJECT GUTENBERG EBOOK 7145')) throw new Error('Unexpected Gutenberg payload')
   if (!/E\.?\s*A\.?\s*WALLIS BUDGE/iu.test(text)) throw new Error('Unexpected author identity')
-
   const lines = text.split(/\r?\n/u)
   const heading = /^\s*CHAPTER\s+([IVXLCDM]+)\s*$/iu
   const starts: Array<{ index: number; number: number; title: string }> = []
@@ -56,7 +55,6 @@ async function main() {
     starts.push({ index: i, number, title })
   }
   if (starts.length < 100) throw new Error(`Expected 100+ chapters, found ${starts.length}`)
-
   const sourceHash = sha256(text)
   const records: CorpusRecord[] = [
     { id: ids.work, record_type: 'resource', kind: 'textual.work', labels: [{ value: 'The Book of the Dead', role: 'preferred', language: 'en', script: 'Latn' }], extensions: { textual: { work_type: 'religious_text', tradition: 'ancient-egyptian' } } },
@@ -65,7 +63,6 @@ async function main() {
     { id: ids.artifact, record_type: 'resource', kind: 'textual.artifact', labels: [{ value: 'Project Gutenberg #7145', role: 'preferred', language: 'en' }], extensions: { textual: { represents: ids.edition, representation_kind: 'plain_text', media_type: 'text/plain' }, source: { title: 'The Book of the Dead', institution: 'Project Gutenberg', language: 'en', revision: 'eBook #7145', descriptor: { availability: 'remote', locations: [URL], media_type: 'text/plain', byte_size: Buffer.byteLength(text), sha256: sourceHash }, rights: { status: 'public_domain_in_usa', redistribution: 'per_project_gutenberg_terms', attribution: 'Sir E. A. Wallis Budge / Project Gutenberg', rights_uri: 'https://www.gutenberg.org/ebooks/7145', note: 'Verify target-jurisdiction status before redistribution.' } } } },
     { id: ids.provenance, record_type: 'provenance', source: ids.artifact, source_reference: `Project Gutenberg #7145; SHA-256 ${sourceHash}`, activities: [{ type: 'acquisition', method: 'Download and identity-validate pinned plain-text source', software: { name: 'scripts/materialize-ancient-egypt-book-dead-budge.ts', version: '1' } }, { type: 'parsing', method: 'Parse printed CHAPTER headings and preserve chapter bodies', software: { name: 'scripts/materialize-ancient-egypt-book-dead-budge.ts', version: '1' } }] }
   ]
-
   for (let index = 0; index < starts.length; index += 1) {
     const chapter = starts[index]
     const end = starts[index + 1]?.index ?? lines.length
@@ -76,7 +73,6 @@ async function main() {
     records.push({ id: passage, record_type: 'resource', kind: 'textual.passage', labels: [{ value: chapter.title, role: 'preferred', language: 'en', script: 'Latn' }], extensions: { textual: { container: ids.expression, unit: 'chapter', sequence: chapter.number, local_id: String(chapter.number), citation: `chapter-${chapter.number}` } } } as CorpusRecord)
     records.push({ id: content, record_type: 'resource', kind: 'textual.content', extensions: { textual: { target: passage, language: 'en', script: 'Latn', representation: 'source', text: body }, source: { artifact: ids.artifact, provenance: ids.provenance } } } as CorpusRecord)
   }
-
   await mkdir(path.join(CORE, 'resources'), { recursive: true })
   await mkdir(path.join(CORE, 'provenance'), { recursive: true })
   const resource = `${DATASET}/data/core/resources/book-dead-budge.jsonl`

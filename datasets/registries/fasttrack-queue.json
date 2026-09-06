@@ -22,8 +22,8 @@
         "language": "en",
         "source": "https://www.gutenberg.org/ebooks/59709",
         "rights": "Public domain in the USA; verify target-jurisdiction status before redistribution",
-        "status": "ready_for_ingestion",
-        "notes": "Use as an English historical edition alongside source-language material; do not treat it as a modern canonical translation."
+        "status": "in_progress",
+        "notes": "Recipe, canonical mapper, dataset manifest, and 15-minute CI materializer are now in dev."
       },
       {
         "id": "depth-chinese-classics-ctext-recovery",
@@ -61,7 +61,7 @@
         "source": "https://www.gutenberg.org/ebooks/7145",
         "rights": "Project Gutenberg marks public domain in the USA; verify target-jurisdiction status before redistribution",
         "status": "in_progress",
-        "notes": "Acquisition manifest, recipe, canonical mapper, and 15-minute CI materializer are now in dev. The materializer pins the retrieved SHA-256 before committing generated data."
+        "notes": "Acquisition manifest, recipe, canonical mapper, and 15-minute CI materializer are now in dev."
       }
     ]
   }

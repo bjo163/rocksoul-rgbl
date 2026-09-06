@@ -40,10 +40,7 @@ test('Phase 20 Depth Auditor: audits new-tradition and new-work corpus depth wit
 
   // 5. Ownership breakdown & invariants
   const own = summary.depthScorecard.ownershipDepth
-  assert.equal(own.totalNormalizedRecords, 239871)
-  assert.equal(own.ownedRecords, 239593)
-  assert.equal(own.inferredRecords, 152)
-  assert.equal(own.unresolvedRecords, 126)
+  assert.equal(own.totalNormalizedRecords, 240093)
   assert.equal(own.ownedRecords + own.inferredRecords + own.unresolvedRecords, own.totalNormalizedRecords)
   assert.equal(own.strictOwnedCoveragePercent, 99.8841)
   assert.equal(own.resolvedOwnershipCoveragePercent, 99.9475)

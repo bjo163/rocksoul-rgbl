@@ -3,6 +3,8 @@
   "$id":"https://moonwitness.org/corpus/spec/v0.1/schemas/ingestion/acquisition.schema.json",
   "$defs":{
     "sha256":{"type":"string","pattern":"^[0-9a-f]{64}$"},
+    "remoteSha256":{"type":"string","enum":["UNPINNED_REMOTE_ACQUISITION","runtime-verified"]},
+    "verifiedSha256":{"oneOf":[{"$ref":"#/$defs/sha256"},{"$ref":"#/$defs/remoteSha256"}]},
     "filesystem":{
       "type":"object","required":["kind","path","sha256"],
       "properties":{
@@ -13,7 +15,7 @@
     "http":{
       "type":"object","required":["kind","url","sha256"],
       "properties":{
-        "kind":{"const":"http"},"url":{"type":"string","pattern":"^https?://"},"sha256":{"$ref":"#/$defs/sha256"},
+        "kind":{"const":"http"},"url":{"type":"string","pattern":"^https?://"},"sha256":{"$ref":"#/$defs/verifiedSha256"},
         "byte_size":{"type":"integer","minimum":0},"media_type":{"type":"string","pattern":"^[^/\\s]+/[^/\\s]+$"}
       },"additionalProperties":false
     }

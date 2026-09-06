@@ -18,7 +18,7 @@ concurrency:
 
 jobs:
   release:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     timeout-minutes: 45
     steps:
       - name: Checkout latest dev
@@ -26,15 +26,11 @@ jobs:
         with:
           ref: dev
           fetch-depth: 0
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 10.33.4
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
-          cache: pnpm
-      - run: pnpm install --frozen-lockfile
-
+          node-version: 20
+      - run: corepack enable
+      - run: pnpm install --no-frozen-lockfile
       - name: Detect unreleased dev work
         id: delta
         shell: bash
@@ -42,42 +38,25 @@ jobs:
           git fetch origin dev main --prune
           DEV_SHA="$(git rev-parse origin/dev)"
           MAIN_SHA="$(git rev-parse origin/main)"
-          echo "dev=${DEV_SHA}"
-          echo "main=${MAIN_SHA}"
-          if [ "$DEV_SHA" = "$MAIN_SHA" ]; then
-            echo "has_changes=false" >> "$GITHUB_OUTPUT"
-          else
-            echo "has_changes=true" >> "$GITHUB_OUTPUT"
-          fi
-
+          if [ "$DEV_SHA" = "$MAIN_SHA" ]; then echo "has_changes=false" >> "$GITHUB_OUTPUT"; else echo "has_changes=true" >> "$GITHUB_OUTPUT"; fi
       - name: Create automatic patch release plan
         if: steps.delta.outputs.has_changes == 'true'
         shell: bash
         run: |
           PLAN="release/changes/auto-$(date -u +%Y%m%d%H%M%S).json"
           cat > "$PLAN" <<'JSON'
-          {
-            "format": "moonwitness-release-change-v1",
-            "summary": "Automatic corpus release from validated dev changes.",
-            "corpusRelease": "patch"
-          }
+          {"format":"moonwitness-release-change-v1","summary":"Automatic corpus release from validated dev changes.","corpusRelease":"patch"}
           JSON
           echo "RELEASE_PLAN=$PLAN" >> "$GITHUB_ENV"
-
       - name: Validate latest corpus
         if: steps.delta.outputs.has_changes == 'true'
         run: pnpm check
-
       - name: Bump release version
         if: steps.delta.outputs.has_changes == 'true'
         run: pnpm release:version "$RELEASE_PLAN"
-
       - name: Refresh Home statistics before promotion
         if: steps.delta.outputs.has_changes == 'true'
-        run: |
-          pnpm build:sqlite
-          pnpm home:stats
-
+        run: pnpm build:sqlite && pnpm home:stats
       - name: Commit release version and Home state
         if: steps.delta.outputs.has_changes == 'true'
         shell: bash
@@ -85,14 +64,10 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add package.json packages/ release/ README.md dist/
-          if git diff --cached --quiet; then
-            echo "No release files changed after validation."
-            exit 0
-          fi
+          if git diff --cached --quiet; then exit 0; fi
           VERSION="$(node -p "require('./release/corpus-release.json').version")"
           git commit -m "chore(release): promote corpus ${VERSION}"
           git push origin HEAD:dev
-
       - name: Promote validated release to main
         if: steps.delta.outputs.has_changes == 'true'
         shell: bash
@@ -100,16 +75,5 @@ jobs:
           git fetch origin dev main --prune
           DEV_SHA="$(git rev-parse origin/dev)"
           MAIN_SHA="$(git rev-parse origin/main)"
-          if ! git merge-base --is-ancestor "$MAIN_SHA" "$DEV_SHA"; then
-            echo "main has diverged from dev; refusing non-fast-forward promotion."
-            exit 1
-          fi
+          if ! git merge-base --is-ancestor "$MAIN_SHA" "$DEV_SHA"; then exit 1; fi
           git push origin "$DEV_SHA:refs/heads/main"
-
-      - name: Report release
-        if: steps.delta.outputs.has_changes == 'true'
-        run: |
-          VERSION="$(node -p "require('./release/corpus-release.json').version")"
-          SHA="$(git rev-parse origin/main)"
-          echo "Released MoonWitness Corpus ${VERSION}"
-          echo "main=${SHA}"

@@ -1,0 +1,23 @@
+{
+  "formatVersion": "1",
+  "upstream": {
+    "provider": "Project Gutenberg",
+    "ebook": "7145",
+    "title": "The Book of the Dead",
+    "author": "E. A. Wallis Budge",
+    "language": "en",
+    "sourceUrl": "https://www.gutenberg.org/cache/epub/7145/pg7145.txt",
+    "landingPage": "https://www.gutenberg.org/ebooks/7145",
+    "rights": "Project Gutenberg marks this ebook public domain in the USA; target-jurisdiction status must be verified before redistribution."
+  },
+  "acquisition": {
+    "method": "HTTP plain-text acquisition",
+    "contentType": "text/plain; charset=utf-8",
+    "validation": [
+      "HTTP success",
+      "UTF-8 decode",
+      "Project Gutenberg start/end markers",
+      "reject HTML responses"
+    ]
+  }
+}

@@ -4,6 +4,10 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '7 * * * *'
+  push:
+    branches: [dev]
+    paths-ignore:
+      - 'README.md'
 
 permissions:
   contents: write
@@ -14,7 +18,7 @@ concurrency:
 
 jobs:
   release:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
       - name: Checkout latest dev
@@ -22,13 +26,14 @@ jobs:
         with:
           ref: dev
           fetch-depth: 0
-
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
-
-      - run: corepack enable
-      - run: pnpm install --no-frozen-lockfile
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
 
       - name: Detect unreleased dev work
         id: delta

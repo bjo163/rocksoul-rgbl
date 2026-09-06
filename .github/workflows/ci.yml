@@ -12,18 +12,15 @@ concurrency:
 
 jobs:
   check:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 10.33.4
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
-          cache: pnpm
-      - run: pnpm install --frozen-lockfile
+          node-version: 20
+      - run: corepack enable
+      - run: pnpm install --no-frozen-lockfile
       - run: pnpm check
 
       - name: Smoke test Fastify API Engine runtime & OpenTelemetry

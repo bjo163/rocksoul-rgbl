@@ -6,24 +6,24 @@
 <!-- CORPUS_STATS_START -->
 ## 📊 Live Corpus Statistics
 
-> Generated automatically from `config/*.json` and the built `dist/corpus.sqlite`. These numbers are not maintained manually.
+> Generated automatically from repository configuration and the built SQLite corpus. These numbers are not maintained manually.
 
 | Metric | Actual | Meaning |
 |---|---:|---|
 | 🌍 Registered traditions | 90 | Entries in the tradition registry |
 | 📚 Registered works | 297 | Canonical work registry |
 | 📖 Registered editions | 618 | Edition registry |
-| 🧾 Indexed text records | 239,871 | Actual materialized `contents` rows |
+| 🧾 Indexed text records | 239,871 | Actual materialized contents rows |
 | 🧩 Passages | 200,671 | Actual searchable passage units |
-| ✅ Materialized works | 27 | Works with real textual records |
+| ✅ Materialized works | 35 | Works with real textual records |
 | 📦 Materialized editions | 38 / 618 | 6.15% of registered editions |
 | 🌐 Content languages | 16 | Distinct languages in materialized content |
-| 🙏 Devotional records | 32 | Duas, prayers, attributes, etc. |
-| 🔤 Lexicon terms | 0 | Indexed lexicon entries |
-| 🗃️ Raw records | 239,871 | Universal raw-record store |
-| 💾 SQLite size | 728.18 MB | Latest locally built database size |
+| 🙏 Devotional records | 99 | Duas, prayers, attributes, etc. |
+| 🔤 Lexicon terms | 29 | Indexed lexicon entries |
+| 🗃️ Raw records | 537,068 | Universal raw-record store |
+| 💾 SQLite size | 728.18 MB | Generated database size |
 
-_Last verified against the current `dev` corpus build._
+_Last generated: 2026-09-06T07:02:21.534Z_
 <!-- CORPUS_STATS_END -->
 
 ---

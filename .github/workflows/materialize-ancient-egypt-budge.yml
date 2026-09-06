@@ -1,0 +1,56 @@
+name: Materialize Ancient Egyptian Book of the Dead
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '*/15 * * * *'
+  push:
+    branches: [dev]
+    paths:
+      - 'scripts/materialize-ancient-egypt-book-dead-budge.ts'
+      - 'ingestion/recipes/ancient-egypt-book-dead-budge/**'
+      - 'datasets/ancient-egypt-book-dead-budge/**'
+      - 'datasets/registry.json'
+      - 'package.json'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ancient-egypt-budge-materialization
+  cancel-in-progress: true
+
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: dev
+          fetch-depth: 1
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm materialize:ancient-egypt-budge
+      - run: pnpm validate:corpus
+      - run: pnpm validate:editions
+      - run: pnpm build:sqlite
+      - run: pnpm home:stats
+      - name: Commit generated corpus and Home statistics
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add datasets/ancient-egypt-book-dead-budge README.md
+          if git diff --cached --quiet; then
+            echo 'No generated changes.'
+            exit 0
+          fi
+          git commit -m 'feat(corpus): materialize Ancient Egyptian Book of the Dead'
+          git push origin HEAD:dev

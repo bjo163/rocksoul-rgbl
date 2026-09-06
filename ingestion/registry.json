@@ -55,6 +55,11 @@
       "id": "mw:recipe:zhuangzi:giles-1889",
       "path": "ingestion/recipes/zhuangzi-giles-1889",
       "status": "active"
+    },
+    {
+      "id": "mw:recipe:ancient-egyptian:book-dead-budge",
+      "path": "ingestion/recipes/ancient-egypt-book-dead-budge",
+      "status": "active"
     }
   ]
 }

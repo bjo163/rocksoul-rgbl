@@ -22,9 +22,9 @@ async function main(): Promise<void> {
   const text = await response.text()
   if (!contentType.toLowerCase().includes('text/plain')) throw new Error(`Unexpected content-type: ${contentType}`)
   if (/<(?:html|body|form|script)[\s>]/iu.test(text)) throw new Error('HTML/challenge payload rejected')
-  if (!text.includes('PROJECT GUTENBERG EBOOK 69566')) throw new Error('Unexpected Gutenberg payload')
-  if (!text.includes('P. LE PAGE RENOUF') || !text.includes('E. NAVILLE')) throw new Error('Unexpected translator identity')
-  if (!text.includes('SOCIETY OF BIBLICAL ARCHAEOLOGY') || !text.includes('1904')) throw new Error('Unexpected 1904 edition identity')
+  if (!/PROJECT\s+GUTENBERG\s+EBOOK\s+69566/iu.test(text)) throw new Error('Unexpected Gutenberg payload')
+  if (!/P\.?\s*LE\s*PAGE\s*RENOUF/iu.test(text) || !/E\.?\s*NAVILLE/iu.test(text)) throw new Error('Unexpected translator identity')
+  if (!/SOCIETY\s+OF\s+BIBLICAL\s+ARCHAEOLOGY/iu.test(text) || !/1904/u.test(text)) throw new Error('Unexpected 1904 edition identity')
 
   const lines = text.split(/\r?\n/u)
   const roman = (value: string): number => {

@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "packageManager": "pnpm@10.33.4",
-  "engines": { "node": ">=20" },
+  "engines": { "node": ">=22" },
   "scripts": {
     "build": "turbo run build && tsx scripts/build-corpus.ts",
     "dev": "turbo run dev",
@@ -23,7 +23,7 @@
     "audit:materialization": "tsx scripts/audit-materialization.ts",
     "audit:phase23-endpoints": "tsx scripts/audit-phase23-endpoints.ts",
     "audit:knowledge": "tsx scripts/audit-knowledge-domain.ts",
-    "audit:work": "tsx scripts/audit-phase28-work.ts",
+    "audit:work": "tsx scripts/audit-phase28-work.ts --run",
     "materialize:phase26-timeline": "tsx scripts/materialize-phase26-timeline.ts",
     "audit:timeline": "tsx scripts/audit-knowledge-domain.ts",
     "audit:phase27-event-graph": "tsx scripts/audit-phase27-event-graph.ts --run",

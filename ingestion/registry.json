@@ -50,6 +50,11 @@
       "id": "mw:recipe:shinto:kojiki",
       "path": "ingestion/recipes/shinto-kojiki",
       "status": "active"
+    },
+    {
+      "id": "mw:recipe:zhuangzi:giles-1889",
+      "path": "ingestion/recipes/zhuangzi-giles-1889",
+      "status": "active"
     }
   ]
 }

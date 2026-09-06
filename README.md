@@ -23,7 +23,7 @@
 | 🗃️ Raw records | 537,068 | Universal raw-record store |
 | 💾 SQLite size | 728.18 MB | Generated database size |
 
-_Last generated: 2026-09-06T07:02:21.534Z_
+_Last generated: 2026-09-06T07:10:35.004Z_
 <!-- CORPUS_STATS_END -->
 
 ---

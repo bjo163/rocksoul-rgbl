@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "version": "1.0.0",
+  "title": "MoonWitness Fast-Track Corpus Expansion Queue",
+  "updatedAt": "2026-09-06",
+  "policy": {
+    "workingBranch": "dev",
+    "releaseBranch": "main",
+    "mode": "aggressive",
+    "canonicalTranslationPolicy": "No machine-translated canonical text",
+    "rightsPolicy": "Do not bundle text until redistribution rights are verified for the intended deployment jurisdiction",
+    "validationPolicy": "Reject CAPTCHA, HTML challenge pages, placeholders, corrupt payloads, and unverifiable provenance"
+  },
+  "lanes": {
+    "depth": [
+      {
+        "id": "depth-dao-zhuangzi-en-giles",
+        "priority": 100,
+        "tradition": "daoism",
+        "work": "Zhuangzi",
+        "edition": "Herbert A. Giles English translation (1889)",
+        "language": "en",
+        "source": "https://www.gutenberg.org/ebooks/59709",
+        "rights": "Public domain in the USA; verify target-jurisdiction status before redistribution",
+        "status": "ready_for_ingestion",
+        "notes": "Use as an English historical edition alongside source-language material; do not treat it as a modern canonical translation."
+      },
+      {
+        "id": "depth-chinese-classics-ctext-recovery",
+        "priority": 95,
+        "tradition": "daoism/confucianism",
+        "work": "Dao De Jing / Analects / Zhuangzi",
+        "edition": "Chinese Text Project source-language editions",
+        "language": "lzh",
+        "source": "https://ctext.org/api.pl",
+        "rights": "Verify current API terms and authenticated access",
+        "status": "blocked_until_authentication",
+        "notes": "Previous repository cache contained a CAPTCHA challenge page. Never accept HTML challenge payloads as corpus text."
+      }
+    ],
+    "breadth": [
+      {
+        "id": "breadth-ancient-egypt-book-dead-renouf-naville",
+        "priority": 100,
+        "tradition": "ancient-egyptian",
+        "work": "The Egyptian Book of the Dead",
+        "edition": "P. Le Page Renouf and Edouard Naville (1904 English edition)",
+        "language": "en",
+        "source": "https://www.gutenberg.org/ebooks/69566",
+        "rights": "Project Gutenberg marks public domain in the USA; verify target-jurisdiction status before redistribution",
+        "status": "ready_for_ingestion",
+        "notes": "High-value breadth addition for Ancient Egyptian tradition. Preserve publication metadata and translator attribution."
+      },
+      {
+        "id": "breadth-ancient-egypt-book-dead-budge",
+        "priority": 98,
+        "tradition": "ancient-egyptian",
+        "work": "The Book of the Dead",
+        "edition": "E. A. Wallis Budge",
+        "language": "en",
+        "source": "https://www.gutenberg.org/ebooks/7145",
+        "rights": "Project Gutenberg marks public domain in the USA; verify target-jurisdiction status before redistribution",
+        "status": "ready_for_ingestion",
+        "notes": "Use as a separate historical edition so edition-level provenance and textual differences remain visible."
+      }
+    ]
+  }
+}

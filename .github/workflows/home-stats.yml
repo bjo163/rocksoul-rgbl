@@ -3,7 +3,7 @@ name: Home Corpus Statistics
 on:
   workflow_dispatch:
   schedule:
-    - cron: '17 18 * * *'
+    - cron: '*/15 * * * *'
   push:
     branches: [dev]
     paths-ignore:
@@ -12,9 +12,14 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: home-stats-dev
+  cancel-in-progress: true
+
 jobs:
   update-home-stats:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Checkout dev
         uses: actions/checkout@v4

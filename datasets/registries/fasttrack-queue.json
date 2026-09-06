@@ -48,8 +48,8 @@
         "language": "en",
         "source": "https://www.gutenberg.org/ebooks/69566",
         "rights": "Project Gutenberg marks public domain in the USA; verify target-jurisdiction status before redistribution",
-        "status": "ready_for_ingestion",
-        "notes": "High-value breadth addition for Ancient Egyptian tradition. Preserve publication metadata and translator attribution."
+        "status": "in_progress",
+        "notes": "Manifest, recipe, canonical mapper, materializer, registry entries, package command, and 15-minute CI workflow are now in dev."
       },
       {
         "id": "breadth-ancient-egypt-book-dead-budge",

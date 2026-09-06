@@ -16,6 +16,7 @@ concurrency:
   group: aggressive-release
   cancel-in-progress: true
 
+# Release is self-starting on validated dev changes.
 jobs:
   release:
     runs-on: self-hosted

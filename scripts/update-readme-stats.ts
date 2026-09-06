@@ -14,8 +14,6 @@ async function main() {
   const traditions = await readJson<{ traditions: unknown[] }>('config/traditions.json')
   const works = await readJson<{ works: unknown[] }>('config/works.json')
   const editions = await readJson<{ editions: unknown[] }>('config/editions.json')
-  const sources = await readJson<{ sources: unknown[] }>('config/sources.json')
-  const endpoints = await readJson<{ endpoints: unknown[] }>('config/endpoints.json')
 
   const dbPath = path.join(root, 'dist/corpus.sqlite')
   if (!existsSync(dbPath)) throw new Error('dist/corpus.sqlite not found. Run pnpm build:sqlite first.')
@@ -36,7 +34,30 @@ async function main() {
   const registryEditions = editions.editions.length
   const editionMaterialization = registryEditions === 0 ? 0 : (materializedEditions / registryEditions) * 100
 
-  const stats = `<!-- CORPUS_STATS_START -->\n## 📊 Live Corpus Statistics\n\n> Generated automatically from \\`config/*.json\\` and the built \\`dist/corpus.sqlite\\`. These numbers are not maintained manually.\n\n| Metric | Actual | Meaning |\n|---|---:|---|\n| 🌍 Registered traditions | ${traditions.traditions.length.toLocaleString()} | Entries in the tradition registry |\n| 📚 Registered works | ${works.works.length.toLocaleString()} | Canonical work registry |\n| 📖 Registered editions | ${registryEditions.toLocaleString()} | Edition registry |\n| 🧾 Indexed text records | ${indexedRecords.toLocaleString()} | Actual materialized \\`contents\` rows |\n| 🧩 Passages | ${passages.toLocaleString()} | Actual searchable passage units |\n| ✅ Materialized works | ${materializedWorks.toLocaleString()} | Works with real textual records |\n| 📦 Materialized editions | ${materializedEditions.toLocaleString()} / ${registryEditions.toLocaleString()} | ${editionMaterialization.toFixed(2)}% of registered editions |\n| 🌐 Content languages | ${languages.toLocaleString()} | Distinct languages in materialized content |\n| 🙏 Devotional records | ${devotionals.toLocaleString()} | Duas, prayers, attributes, etc. |\n| 🔤 Lexicon terms | ${lexiconTerms.toLocaleString()} | Indexed lexicon entries |\n| 🗃️ Raw records | ${rawRecords.toLocaleString()} | Universal raw-record store |\n| 💾 SQLite size | ${(dbSize / 1024 / 1024).toFixed(2)} MB | Generated database size |\n\n_Last generated: ${generatedAt}_\n<!-- CORPUS_STATS_END -->`
+  const stats = [
+    '<!-- CORPUS_STATS_START -->',
+    '## 📊 Live Corpus Statistics',
+    '',
+    '> Generated automatically from `config/*.json` and the built `dist/corpus.sqlite`. These numbers are not maintained manually.',
+    '',
+    '| Metric | Actual | Meaning |',
+    '|---|---:|---|',
+    `| 🌍 Registered traditions | ${traditions.traditions.length.toLocaleString()} | Entries in the tradition registry |`,
+    `| 📚 Registered works | ${works.works.length.toLocaleString()} | Canonical work registry |`,
+    `| 📖 Registered editions | ${registryEditions.toLocaleString()} | Edition registry |`,
+    `| 🧾 Indexed text records | ${indexedRecords.toLocaleString()} | Actual materialized \`contents\` rows |`,
+    `| 🧩 Passages | ${passages.toLocaleString()} | Actual searchable passage units |`,
+    `| ✅ Materialized works | ${materializedWorks.toLocaleString()} | Works with real textual records |`,
+    `| 📦 Materialized editions | ${materializedEditions.toLocaleString()} / ${registryEditions.toLocaleString()} | ${editionMaterialization.toFixed(2)}% of registered editions |`,
+    `| 🌐 Content languages | ${languages.toLocaleString()} | Distinct languages in materialized content |`,
+    `| 🙏 Devotional records | ${devotionals.toLocaleString()} | Duas, prayers, attributes, etc. |`,
+    `| 🔤 Lexicon terms | ${lexiconTerms.toLocaleString()} | Indexed lexicon entries |`,
+    `| 🗃️ Raw records | ${rawRecords.toLocaleString()} | Universal raw-record store |`,
+    `| 💾 SQLite size | ${(dbSize / 1024 / 1024).toFixed(2)} MB | Generated database size |`,
+    '',
+    `_Last generated: ${generatedAt}_`,
+    '<!-- CORPUS_STATS_END -->'
+  ].join('\n')
 
   const readmePath = path.join(root, 'README.md')
   let readme = await readFile(readmePath, 'utf8')
@@ -50,7 +71,7 @@ async function main() {
     const marker = '\n---\n\n'
     const insertAt = readme.indexOf(marker)
     readme = insertAt >= 0
-      ? `${readme.slice(0, insertAt + marker.length)}${stats}\n\n---\n\n${readme.slice(insertAt + marker.length)}`
+      ? `${readme.slice(0, insertAt + marker.length)}${stats}\n\n${readme.slice(insertAt + marker.length)}`
       : `${readme.trimEnd()}\n\n${stats}\n`
   }
 

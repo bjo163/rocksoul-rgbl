@@ -1,0 +1,21 @@
+{
+  "id": "mw:recipe:zhuangzi:giles-1889",
+  "version": "1.0.0",
+  "specVersion": "0.1",
+  "source": {
+    "kind": "http",
+    "url": "https://www.gutenberg.org/cache/epub/59709/pg59709.txt",
+    "sha256": "runtime-verified",
+    "media_type": "text/plain"
+  },
+  "implementation": {
+    "module": "recipe.ts",
+    "parserVersion": "1",
+    "normalizerVersion": "identity-1",
+    "mapperVersion": "1",
+    "validatorVersion": "1"
+  },
+  "output": {
+    "path": "../../../dist/ingestion/zhuangzi-giles-1889.jsonl"
+  }
+}

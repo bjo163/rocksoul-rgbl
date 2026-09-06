@@ -47,6 +47,7 @@
     { "id": "mw:dataset:jainism:tattvartha-sutra", "path": "datasets/jainism-tattvartha-sutra", "status": "supplemental" },
     { "id": "mw:dataset:bahai:hidden-words", "path": "datasets/bahai-hidden-words", "status": "supplemental" },
     { "id": "mw:dataset:shinto:kojiki", "path": "datasets/shinto-kojiki-baseline", "status": "supplemental" },
-    { "id": "mw:dataset:zhuangzi:giles-1889", "path": "datasets/zhuangzi-giles-1889", "status": "supplemental" }
+    { "id": "mw:dataset:zhuangzi:giles-1889", "path": "datasets/zhuangzi-giles-1889", "status": "supplemental" },
+    { "id": "mw:dataset:ancient-egyptian:book-dead-budge", "path": "datasets/ancient-egypt-book-dead-budge", "status": "supplemental" }
   ]
 }

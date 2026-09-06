@@ -1,0 +1,55 @@
+name: Home Corpus Statistics
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 18 * * *'
+  push:
+    branches: [dev]
+    paths-ignore:
+      - 'README.md'
+
+permissions:
+  contents: write
+
+jobs:
+  update-home-stats:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout dev
+        uses: actions/checkout@v4
+        with:
+          ref: dev
+          fetch-depth: 1
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build actual SQLite corpus
+        run: pnpm build:sqlite
+
+      - name: Generate README statistics
+        run: pnpm home:stats
+
+      - name: Commit updated Home statistics
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          if git diff --quiet -- README.md; then
+            echo 'Home statistics unchanged.'
+            exit 0
+          fi
+          git add README.md
+          git commit -m 'chore: refresh live corpus statistics'
+          git push origin HEAD:dev

@@ -18,7 +18,7 @@ concurrency:
 
 jobs:
   update-home-stats:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     timeout-minutes: 15
     steps:
       - name: Checkout dev
@@ -26,35 +26,18 @@ jobs:
         with:
           ref: dev
           fetch-depth: 1
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
         with:
-          version: 10.33.4
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: pnpm
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Build actual SQLite corpus
-        run: pnpm build:sqlite
-
-      - name: Generate README statistics
-        run: pnpm home:stats
-
+          node-version: 20
+      - run: corepack enable
+      - run: pnpm install --no-frozen-lockfile
+      - run: pnpm build:sqlite
+      - run: pnpm home:stats
       - name: Commit updated Home statistics
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          if git diff --quiet -- README.md; then
-            echo 'Home statistics unchanged.'
-            exit 0
-          fi
+          if git diff --quiet -- README.md; then echo 'Home statistics unchanged.'; exit 0; fi
           git add README.md
           git commit -m 'chore: refresh live corpus statistics'
           git push origin HEAD:dev

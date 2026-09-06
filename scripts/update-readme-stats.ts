@@ -31,33 +31,34 @@ async function main() {
 
   const dbSize = (await stat(dbPath)).size
   const generatedAt = new Date().toISOString()
-  const registryEditions = editions.editions.length
-  const editionMaterialization = registryEditions === 0 ? 0 : (materializedEditions / registryEditions) * 100
+  const registeredEditions = editions.editions.length
+  const editionMaterialization = registeredEditions === 0 ? 0 : (materializedEditions / registeredEditions) * 100
 
-  const stats = [
+  const rows = [
     '<!-- CORPUS_STATS_START -->',
     '## 📊 Live Corpus Statistics',
     '',
-    '> Generated automatically from `config/*.json` and the built `dist/corpus.sqlite`. These numbers are not maintained manually.',
+    '> Generated automatically from repository configuration and the built SQLite corpus. These numbers are not maintained manually.',
     '',
     '| Metric | Actual | Meaning |',
     '|---|---:|---|',
-    `| 🌍 Registered traditions | ${traditions.traditions.length.toLocaleString()} | Entries in the tradition registry |`,
-    `| 📚 Registered works | ${works.works.length.toLocaleString()} | Canonical work registry |`,
-    `| 📖 Registered editions | ${registryEditions.toLocaleString()} | Edition registry |`,
-    `| 🧾 Indexed text records | ${indexedRecords.toLocaleString()} | Actual materialized \`contents\` rows |`,
-    `| 🧩 Passages | ${passages.toLocaleString()} | Actual searchable passage units |`,
-    `| ✅ Materialized works | ${materializedWorks.toLocaleString()} | Works with real textual records |`,
-    `| 📦 Materialized editions | ${materializedEditions.toLocaleString()} / ${registryEditions.toLocaleString()} | ${editionMaterialization.toFixed(2)}% of registered editions |`,
-    `| 🌐 Content languages | ${languages.toLocaleString()} | Distinct languages in materialized content |`,
-    `| 🙏 Devotional records | ${devotionals.toLocaleString()} | Duas, prayers, attributes, etc. |`,
-    `| 🔤 Lexicon terms | ${lexiconTerms.toLocaleString()} | Indexed lexicon entries |`,
-    `| 🗃️ Raw records | ${rawRecords.toLocaleString()} | Universal raw-record store |`,
-    `| 💾 SQLite size | ${(dbSize / 1024 / 1024).toFixed(2)} MB | Generated database size |`,
+    '| 🌍 Registered traditions | ' + traditions.traditions.length.toLocaleString() + ' | Entries in the tradition registry |',
+    '| 📚 Registered works | ' + works.works.length.toLocaleString() + ' | Canonical work registry |',
+    '| 📖 Registered editions | ' + registeredEditions.toLocaleString() + ' | Edition registry |',
+    '| 🧾 Indexed text records | ' + indexedRecords.toLocaleString() + ' | Actual materialized contents rows |',
+    '| 🧩 Passages | ' + passages.toLocaleString() + ' | Actual searchable passage units |',
+    '| ✅ Materialized works | ' + materializedWorks.toLocaleString() + ' | Works with real textual records |',
+    '| 📦 Materialized editions | ' + materializedEditions.toLocaleString() + ' / ' + registeredEditions.toLocaleString() + ' | ' + editionMaterialization.toFixed(2) + '% of registered editions |',
+    '| 🌐 Content languages | ' + languages.toLocaleString() + ' | Distinct languages in materialized content |',
+    '| 🙏 Devotional records | ' + devotionals.toLocaleString() + ' | Duas, prayers, attributes, etc. |',
+    '| 🔤 Lexicon terms | ' + lexiconTerms.toLocaleString() + ' | Indexed lexicon entries |',
+    '| 🗃️ Raw records | ' + rawRecords.toLocaleString() + ' | Universal raw-record store |',
+    '| 💾 SQLite size | ' + (dbSize / 1024 / 1024).toFixed(2) + ' MB | Generated database size |',
     '',
-    `_Last generated: ${generatedAt}_`,
+    '_Last generated: ' + generatedAt + '_',
     '<!-- CORPUS_STATS_END -->'
-  ].join('\n')
+  ]
+  const stats = rows.join('\n')
 
   const readmePath = path.join(root, 'README.md')
   let readme = await readFile(readmePath, 'utf8')
@@ -66,13 +67,15 @@ async function main() {
   const startIndex = readme.indexOf(start)
   const endIndex = readme.indexOf(end)
   if (startIndex >= 0 && endIndex >= startIndex) {
-    readme = `${readme.slice(0, startIndex)}${stats}${readme.slice(endIndex + end.length)}`
+    readme = readme.slice(0, startIndex) + stats + readme.slice(endIndex + end.length)
   } else {
     const marker = '\n---\n\n'
     const insertAt = readme.indexOf(marker)
-    readme = insertAt >= 0
-      ? `${readme.slice(0, insertAt + marker.length)}${stats}\n\n${readme.slice(insertAt + marker.length)}`
-      : `${readme.trimEnd()}\n\n${stats}\n`
+    if (insertAt >= 0) {
+      readme = readme.slice(0, insertAt + marker.length) + stats + '\n\n' + readme.slice(insertAt + marker.length)
+    } else {
+      readme = readme.trimEnd() + '\n\n' + stats + '\n'
+    }
   }
 
   await writeFile(readmePath, readme)

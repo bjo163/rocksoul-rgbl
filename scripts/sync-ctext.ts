@@ -4,17 +4,28 @@ import type { UpstreamScriptPayload } from '../packages/ingestion/src/upstream/t
 const BASE_URL = 'https://ctext.org/api.pl'
 const CTEXT_API_KEY = process.env.CTEXT_API_KEY
 
+function detectInvalidPayload(text: string, contentType: string | null): string | null {
+  const sample = text.slice(0, 4000).toLowerCase()
+  const normalizedContentType = (contentType || '').toLowerCase()
+  const looksHtml = normalizedContentType.includes('text/html') || /<!doctype\s+html|<html[\s>]/i.test(sample)
+  const looksChallenge = /please confirm that you are human|validation image|認證圖案|unban\.pl|captcha|access denied/i.test(sample)
+  if (looksChallenge) return 'REMOTE_PROTOCOL_ERROR: CText returned an anti-bot/challenge page instead of corpus data'
+  if (looksHtml) return 'REMOTE_PROTOCOL_ERROR: CText returned HTML instead of corpus data'
+  return null
+}
+
 async function fetchCtext(urn: string): Promise<{ text: string; sha256: string; bytes: number }> {
   const apiKeyParam = CTEXT_API_KEY ? `&key=${encodeURIComponent(CTEXT_API_KEY)}` : ''
   const url = `${BASE_URL}?if=en&urn=${urn}${apiKeyParam}`
   console.log(`[CText API] Fetching: ${urn} -> ${url.replace(CTEXT_API_KEY || '____', '***')}`)
 
   const res = await fetch(url, { headers: { 'Accept': 'application/xml, text/xml, */*' } })
-  if (!res.ok) {
-    throw new Error(`CText API HTTP ${res.status}: ${res.statusText}`)
-  }
+  if (!res.ok) throw new Error(`CText API HTTP ${res.status}: ${res.statusText}`)
 
   const text = await res.text()
+  const invalidReason = detectInvalidPayload(text, res.headers.get('content-type'))
+  if (invalidReason) throw new Error(invalidReason)
+
   const bytes = Buffer.byteLength(text)
   const sha256 = createHash('sha256').update(text).digest('hex')
   return { text, sha256, bytes }
@@ -73,13 +84,13 @@ async function main() {
     schemaVersion: '1.0',
     executionStatus: 'PROCESS_SUCCEEDED',
     acquisitionStatus,
-    failureClass: acquisitionStatus === 'REMOTE_FAILED' ? 'REMOTE_RATE_LIMITED' : undefined,
+    failureClass: acquisitionStatus === 'REMOTE_FAILED' ? 'REMOTE_PROTOCOL_ERROR' : undefined,
     requestedUrl: 'https://ctext.org/api.pl',
     resolvedUrl: 'https://ctext.org/api.pl',
     retrievedAt: new Date().toISOString(),
     sourceSha256: successfulFetches > 0 ? aggregateSha256 : 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
     byteCount: totalBytes,
-    fallbackReason: acquisitionStatus === 'REMOTE_FAILED' ? 'CText API queries failed or returned 403' : undefined
+    fallbackReason: acquisitionStatus === 'REMOTE_FAILED' ? 'CText API queries failed, were blocked, or returned invalid non-corpus content' : undefined
   }
 
   console.log('\n========================================================================')

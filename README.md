@@ -1,31 +1,41 @@
 # 🌙 MoonWitness Corpus Engine
 
 > **Universal Scripture & Multi-Religious Knowledge Platform**  
-> 537,512+ Indexed Records • Multi-Tradition Sacred Scriptures • Sub-Millisecond FTS5 Search (< 1ms) • Modular Fastify Engine • OpenTelemetry (OTel)
+> Multi-Tradition Sacred Scriptures • Fast SQLite/FTS5 Search • Modular Fastify Engine • OpenTelemetry (OTel)
+
+<!-- CORPUS_STATS_START -->
+## 📊 Live Corpus Statistics
+
+> Generated automatically from `config/*.json` and the built `dist/corpus.sqlite`. These numbers are not maintained manually.
+
+| Metric | Actual | Meaning |
+|---|---:|---|
+| 🌍 Registered traditions | 90 | Entries in the tradition registry |
+| 📚 Registered works | 297 | Canonical work registry |
+| 📖 Registered editions | 618 | Edition registry |
+| 🧾 Indexed text records | 239,871 | Actual materialized `contents` rows |
+| 🧩 Passages | 200,671 | Actual searchable passage units |
+| ✅ Materialized works | 27 | Works with real textual records |
+| 📦 Materialized editions | 38 / 618 | 6.15% of registered editions |
+| 🌐 Content languages | 16 | Distinct languages in materialized content |
+| 🙏 Devotional records | 32 | Duas, prayers, attributes, etc. |
+| 🔤 Lexicon terms | 0 | Indexed lexicon entries |
+| 🗃️ Raw records | 239,871 | Universal raw-record store |
+| 💾 SQLite size | 728.18 MB | Latest locally built database size |
+
+_Last verified against the current `dev` corpus build._
+<!-- CORPUS_STATS_END -->
 
 ---
 
 ## ✨ Features & Highlights
 
-- 📚 **Comprehensive Multi-Tradition Sacred Scriptures**:
-  - **Islam**: Al-Qur'an (Uthmani + Multilingual), Kutubus Sittah (Bukhari, Muslim, Nawawi 40, Qudsi), 99 Asmaul Husna, 126 Authentic Duas (*Hisnul Muslim*).
-  - **Judaism**: Tanakh (WLC Hebrew), Mishnah Pirkei Avot, Biblical Hebrew Lexicon.
-  - **Christianity**: Greek New Testament (SBLGNT), Indonesian TSI, Early Christian Writings (Didache, Apostles' Creed).
-  - **Hinduism**: Bhagavad Gita (18 Chapters), Yoga Sutras of Patanjali (4 Padas), Principal Upanishads (Isha, Kena, Katha, Mandukya), Sanskrit Lexicon.
-  - **Buddhism**: Tipitaka (Dhammapada, Dīgha Nikāya, Majjhima Nikāya, Samyutta Nikāya, Aṅguttara Nikāya), Pali Lexicon.
-  - **Daoism**: Tao Te Ching (Laozi 81 Chapters), Zhuangzi.
-  - **Confucianism**: Analects of Confucius (20 Books).
-  - **Zoroastrianism**: Gathas of Zarathustra (Yasna 28-53).
-  - **Sikhism**: Japji Sahib (Mool Mantar, Salok, 38 Pauris).
-  - **Jainism**: Tattvartha Sutra (Acharya Umaswati).
-  - **Baháʼí**: The Hidden Words (Kalimát-i-Maknúnih).
-  - **Shinto**: Kojiki Sacred Chronicles (Kojiki 712 CE).
-- ⚡ **High-Performance Embedded Database**: Native SQLite database (`dist/corpus.sqlite`, 654 MB) with **FTS5 Full-Text Search** across Arabic, Sanskrit, Classical Chinese, Greek, Hebrew, Japanese, Indonesian, and English.
-- 🚀 **Modular Fastify 5 REST API**: Booting instan (< 20ms) dengan **Swagger UI** di `http://localhost:3000/docs`.
-- 🔭 **Full OpenTelemetry (OTel) & Prometheus**: W3C `traceparent` context propagation, `x-trace-id`, dan metrik Prometheus di `GET /metrics`.
-- 🌐 **Master Upstream Registry**: Ingestion otomatis dari sumber resmi hulu (`config/upstream-registry.json`) via `pnpm sync:all`.
-- 📦 **Universal TypeScript SDK (`@moonwitness/sdk`)**: Ergonomic, fully-typed API client.
-- 💻 **Zero-Config CLI**: Pembaca kitab suci paralel dan pencarian FTS5 langsung dari terminal.
+- 📚 **Comprehensive Multi-Tradition Sacred Scriptures** across registered religious and cultural traditions.
+- ⚡ **High-Performance Embedded Database**: Native SQLite with **FTS5 Full-Text Search** across the materialized corpus.
+- 🚀 **Modular Fastify 5 REST API** with Swagger UI and searchable corpus endpoints.
+- 🔭 **OpenTelemetry (OTel) & Prometheus** support for runtime observability.
+- 🌐 **Master Upstream Registry**: ingestion from configured official/open upstream sources via `pnpm sync:all`.
+- 📦 **Universal TypeScript SDK** and CLI tooling for programmatic corpus access.
 
 ---
 
@@ -33,62 +43,39 @@
 
 ### 1. Standalone Fastify REST API Server (Port 3000)
 ```bash
-# Menjalankan server Fastify
 pnpm serve
 
-# Mode developer dengan auto-reload
-pnpm api:dev
-
-# Interactive Swagger UI Documentation:
-# 👉 Open: http://localhost:3000/docs
+# Interactive Swagger UI:
+# http://localhost:3000/docs
 ```
 
 #### REST Endpoints:
 - `GET /docs` — Swagger UI API Documentation
 - `GET /metrics` — Prometheus & OpenTelemetry Metrics
-- `GET /v1/health` — System status, memory RSS, and record count
-- `GET /v1/traditions` — Dynamic list of active world religious traditions
-- `GET /v1/works` — List all sacred works & scriptures
-- `GET /v1/works/:id/passages` — Paginated verses with parallel translations
-- `GET /v1/search?q={query}` — High-speed FTS5 full-text search
-- `GET /v1/devotionals?tradition=islam` — Duas, Asmaul Husna, Mantras, Prayers
-- `GET /v1/compare?theme={theme}` — Cross-tradition wisdom parallel search
+- `GET /v1/health` — System status and record count
+- `GET /v1/traditions` — Active traditions
+- `GET /v1/works` — Sacred works and scriptures
+- `GET /v1/works/:id/passages` — Paginated passages
+- `GET /v1/search?q={query}` — FTS5 full-text search
+- `GET /v1/devotionals?tradition=islam` — Devotional records
+- `GET /v1/compare?theme={theme}` — Cross-tradition comparison
 
----
-
-### 2. Terminal Scripture Reader (CLI)
+### 2. Upstream Data Ingestion
 ```bash
-# Baca Bhagavad Gita 2:47 (Sanskrit + English + Indonesian)
-pnpm cli read bhagavad-gita 2:47
-
-# Baca Hadits Arba'in Nawawi #1 (Arab + Indonesia + Inggris)
-pnpm cli read hadith-nawawi 1
-
-# Baca Shinto Kojiki 1:1 (Jepang + Inggris + Indonesia)
-pnpm cli read kojiki 1:1
-
-# Baca Tao Te Ching Bab 1
-pnpm cli read tao-te-ching 1
-
-# Pencarian teks penuh cepat lintas 537.000+ ayat
-pnpm cli search "keadilan"
-```
-
----
-
-### 3. Upstream Data Ingestion Pipeline
-```bash
-# Sinkronisasi live seluruh 12 tradisi dari repositori & API resmi hulu:
 pnpm sync:all
-
-# Sinkronisasi Islam (Hadits, Doa, Al-Qur'an):
 pnpm sync:ummah
-
-# Audit latensi & konektivitas API hulu:
 pnpm upstream:audit
 ```
 
+### 3. Regenerate Home Statistics
+```bash
+pnpm build:sqlite
+pnpm home:stats
+```
+
+The `home:stats` command reads the registry plus the actual SQLite corpus and rewrites only the marked statistics block above.
+
 ---
 
-## 📚 Dokumentasi Lengkap
-Lihat [**Dokumentasi Terpusat (`docs/README.md`)**](./docs/README.md) untuk panduan arsitektur, kebijakan sinkronisasi, dan integrasi aplikasi.
+## 📚 Documentation
+See [**Central Documentation (`docs/README.md`)](./docs/README.md) for architecture, synchronization policy, ingestion methods, and integration guidance.

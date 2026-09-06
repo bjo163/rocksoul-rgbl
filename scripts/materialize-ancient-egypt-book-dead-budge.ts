@@ -35,17 +35,20 @@ async function main(): Promise<void> {
   const text = await response.text()
   if (!type.toLowerCase().includes('text/plain')) throw new Error(`Unexpected content-type: ${type}`)
   if (/<(?:html|body|form|script)[\s>]/iu.test(text)) throw new Error('HTML/challenge payload rejected')
-  if (!text.includes('PROJECT GUTENBERG EBOOK 7145')) throw new Error('Unexpected Gutenberg payload')
-  if (!/E\.?\s*A\.?\s*WALLIS BUDGE/iu.test(text)) throw new Error('Unexpected author identity')
+  if (!/\[eBook\s+#7145\]/iu.test(text)) throw new Error('Unexpected Gutenberg payload')
+  if (!/E\.?\s*A\.?\s*(?:WALLIS\s+)?BUDGE/iu.test(text)) throw new Error('Unexpected author identity')
   const lines = text.split(/\r?\n/u)
-  const heading = /^\s*CHAPTER\s+([IVXLCDM]+)\s*$/iu
+  const heading = /^\s*CHAPTER\s+([IVXLCDM]+)\s*[.\-:]?\s*(?:\S.*)?$/iu
   const starts: Array<{ index: number; number: number; title: string }> = []
+  const seen = new Set<number>()
   for (let i = 0; i < lines.length; i += 1) {
     const match = lines[i].match(heading)
     if (!match) continue
     const number = roman(match[1])
+    if (number < 1 || seen.has(number)) continue
+    seen.add(number)
     let title = `Chapter ${match[1].toUpperCase()}`
-    for (let j = i + 1; j < Math.min(i + 5, lines.length); j += 1) {
+    for (let j = i + 1; j < Math.min(i + 8, lines.length); j += 1) {
       const candidate = lines[j].trim()
       if (candidate) {
         title = candidate.replace(/[._]+$/gu, '')
@@ -54,6 +57,7 @@ async function main(): Promise<void> {
     }
     starts.push({ index: i, number, title })
   }
+  starts.sort((a, b) => a.index - b.index)
   if (starts.length < 100) throw new Error(`Expected 100+ chapters, found ${starts.length}`)
   const sourceHash = sha256(text)
   const records: CorpusRecord[] = [
@@ -61,7 +65,7 @@ async function main(): Promise<void> {
     { id: ids.expression, record_type: 'resource', kind: 'textual.expression', extensions: { textual: { work: ids.work, language: 'en', script: 'Latn' } } },
     { id: ids.edition, record_type: 'resource', kind: 'textual.edition', extensions: { textual: { expressions: [ids.expression], edition_statement: 'The Book of the Dead — E. A. Wallis Budge' } } },
     { id: ids.artifact, record_type: 'resource', kind: 'textual.artifact', labels: [{ value: 'Project Gutenberg #7145', role: 'preferred', language: 'en' }], extensions: { textual: { represents: ids.edition, representation_kind: 'plain_text', media_type: 'text/plain' }, source: { title: 'The Book of the Dead', institution: 'Project Gutenberg', language: 'en', revision: 'eBook #7145', descriptor: { availability: 'remote', locations: [URL], media_type: 'text/plain', byte_size: Buffer.byteLength(text), sha256: sourceHash }, rights: { status: 'public_domain_in_usa', redistribution: 'per_project_gutenberg_terms', attribution: 'Sir E. A. Wallis Budge / Project Gutenberg', rights_uri: 'https://www.gutenberg.org/ebooks/7145', note: 'Verify target-jurisdiction status before redistribution.' } } } },
-    { id: ids.provenance, record_type: 'provenance', source: ids.artifact, source_reference: `Project Gutenberg #7145; SHA-256 ${sourceHash}`, activities: [{ type: 'acquisition', method: 'Download and identity-validate pinned plain-text source', software: { name: 'scripts/materialize-ancient-egypt-book-dead-budge.ts', version: '1' } }, { type: 'parsing', method: 'Parse printed CHAPTER headings and preserve chapter bodies', software: { name: 'scripts/materialize-ancient-egypt-book-dead-budge.ts', version: '1' } }] }
+    { id: ids.provenance, record_type: 'provenance', source: ids.artifact, source_reference: `Project Gutenberg #7145; SHA-256 ${sourceHash}`, activities: [{ type: 'acquisition', method: 'Download and identity-validate pinned plain-text source', software: { name: 'scripts/materialize-ancient-egypt-book-dead-budge.ts', version: '2' } }, { type: 'parsing', method: 'Parse printed CHAPTER headings and preserve chapter bodies', software: { name: 'scripts/materialize-ancient-egypt-book-dead-budge.ts', version: '2' } }] }
   ]
   for (let index = 0; index < starts.length; index += 1) {
     const chapter = starts[index]

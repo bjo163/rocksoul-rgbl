@@ -60,8 +60,8 @@
         "language": "en",
         "source": "https://www.gutenberg.org/ebooks/7145",
         "rights": "Project Gutenberg marks public domain in the USA; verify target-jurisdiction status before redistribution",
-        "status": "ready_for_ingestion",
-        "notes": "Use as a separate historical edition so edition-level provenance and textual differences remain visible."
+        "status": "in_progress",
+        "notes": "Acquisition manifest, recipe, canonical mapper, and 15-minute CI materializer are now in dev. The materializer pins the retrieved SHA-256 before committing generated data."
       }
     ]
   }

@@ -1,65 +1,18 @@
 {
   "specVersion": "0.1",
   "recipes": [
-    {
-      "id": "mw:recipe:example:lines",
-      "path": "ingestion/recipes/example-lines",
-      "status": "fixture"
-    },
-    {
-      "id": "mw:recipe:quran:tanzil-uthmani-1.1",
-      "path": "ingestion/recipes/quran-tanzil-uthmani",
-      "status": "active"
-    },
-    {
-      "id": "mw:recipe:dhammapada:sujato-1-20",
-      "path": "ingestion/recipes/dhammapada-sujato-1-20",
-      "status": "deprecated"
-    },
-    {
-      "id": "mw:recipe:dhammapada:sujato",
-      "path": "ingestion/recipes/dhammapada-sujato",
-      "status": "active"
-    },
-    {
-      "id": "mw:recipe:oshb:wlc",
-      "path": "ingestion/recipes/oshb-wlc",
-      "status": "active"
-    },
-    {
-      "id": "mw:recipe:sblgnt:v1-2",
-      "path": "ingestion/recipes/sblgnt-v1-2",
-      "status": "active"
-    },
-    {
-      "id": "mw:recipe:web-classic:2020",
-      "path": "ingestion/recipes/web-classic-2020",
-      "status": "active"
-    },
-    {
-      "id": "mw:recipe:suttacentral:dn-mn-sujato",
-      "path": "ingestion/recipes/suttacentral-dn-mn",
-      "status": "active"
-    },
-    {
-      "id": "mw:recipe:suttacentral:sn-an-sujato",
-      "path": "ingestion/recipes/suttacentral-sn-an",
-      "status": "active"
-    },
-    {
-      "id": "mw:recipe:shinto:kojiki",
-      "path": "ingestion/recipes/shinto-kojiki",
-      "status": "active"
-    },
-    {
-      "id": "mw:recipe:zhuangzi:giles-1889",
-      "path": "ingestion/recipes/zhuangzi-giles-1889",
-      "status": "active"
-    },
-    {
-      "id": "mw:recipe:ancient-egyptian:book-dead-budge",
-      "path": "ingestion/recipes/ancient-egypt-book-dead-budge",
-      "status": "active"
-    }
+    { "id": "mw:recipe:example:lines", "path": "ingestion/recipes/example-lines", "status": "fixture" },
+    { "id": "mw:recipe:quran:tanzil-uthmani-1.1", "path": "ingestion/recipes/quran-tanzil-uthmani", "status": "active" },
+    { "id": "mw:recipe:dhammapada:sujato-1-20", "path": "ingestion/recipes/dhammapada-sujato-1-20", "status": "deprecated" },
+    { "id": "mw:recipe:dhammapada:sujato", "path": "ingestion/recipes/dhammapada-sujato", "status": "active" },
+    { "id": "mw:recipe:oshb:wlc", "path": "ingestion/recipes/oshb-wlc", "status": "active" },
+    { "id": "mw:recipe:sblgnt:v1-2", "path": "ingestion/recipes/sblgnt-v1-2", "status": "active" },
+    { "id": "mw:recipe:web-classic:2020", "path": "ingestion/recipes/web-classic-2020", "status": "active" },
+    { "id": "mw:recipe:suttacentral:dn-mn-sujato", "path": "ingestion/recipes/suttacentral-dn-mn", "status": "active" },
+    { "id": "mw:recipe:suttacentral:sn-an-sujato", "path": "ingestion/recipes/suttacentral-sn-an", "status": "active" },
+    { "id": "mw:recipe:shinto:kojiki", "path": "ingestion/recipes/shinto-kojiki", "status": "active" },
+    { "id": "mw:recipe:zhuangzi:giles-1889", "path": "ingestion/recipes/zhuangzi-giles-1889", "status": "active" },
+    { "id": "mw:recipe:ancient-egyptian:book-dead-budge", "path": "ingestion/recipes/ancient-egypt-book-dead-budge", "status": "active" },
+    { "id": "mw:recipe:ancient-egyptian:book-dead-renouf-1904", "path": "ingestion/recipes/ancient-egypt-book-dead-renouf-1904", "status": "active" }
   ]
 }

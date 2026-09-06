@@ -65,6 +65,7 @@
     "corpus:status": "tsx scripts/corpus-status.ts",
     "home:stats": "tsx scripts/update-readme-stats.ts",
     "materialize:zhuangzi": "tsx scripts/materialize-zhuangzi-giles-1889.ts",
+    "materialize:ancient-egypt-budge": "tsx scripts/materialize-ancient-egypt-book-dead-budge.ts",
     "todo:sync": "tsx scripts/sync-todo-issues.ts todo-to-issues",
     "todo:sync:issue": "tsx scripts/reconcile-issue-status.ts",
     "todo:check": "tsx scripts/sync-todo-issues.ts check",

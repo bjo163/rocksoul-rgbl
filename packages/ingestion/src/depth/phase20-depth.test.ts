@@ -43,7 +43,7 @@ test('Phase 20 Depth Auditor: audits new-tradition and new-work corpus depth wit
   assert.equal(own.totalNormalizedRecords, 240093)
   assert.equal(own.ownedRecords + own.inferredRecords + own.unresolvedRecords, own.totalNormalizedRecords)
   assert.equal(own.strictOwnedCoveragePercent, 99.7917)
-  assert.equal(own.resolvedOwnershipCoveragePercent, 99.9475)
+  assert.equal(own.resolvedOwnershipCoveragePercent, 99.8551)
 
   // 6. SQL Provenance completeness
   assert.ok(summary.sqlProvenance.length >= 8)

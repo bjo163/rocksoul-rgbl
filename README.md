@@ -5,6 +5,43 @@
 
 ---
 
+## 🧭 Rocksoul Research Role
+
+Within the Rocksoul Research ecosystem, **rocksoul-rgbl** is the **Scripture & Revelation Reference** layer.
+
+~~~text
+MFTL       → STORY / NARRATIVE
+LEGEND     → EVENT / HISTORICAL CORE
+SUPERHERO  → PERSON / HUMAN AGENCY
+RGBL       → TEXT / PASSAGE / SCRIPTURE-CLAIM PROVENANCE
+~~~
+
+RGBL answers:
+
+> **What does the source text actually say, in which edition/expression, with what provenance?**
+
+It does **not** globally decide that every included work has the same theological status. Terms such as *revelation*, *scripture*, *canonical*, *authoritative*, *prophet*, or *divine* remain source/tradition/community-scoped assertions where contestable.
+
+~~~text
+SOURCE TEXT
+   ↓
+PASSAGE / CONTENT
+   ↓
+ASSERTION
+   ↓
+EVIDENCE + PROVENANCE
+   ↓
+DOWNSTREAM ANALYSIS
+~~~
+
+Normative ranking, Mizan policy, theological authority gates, and AI answer policy remain downstream consumer policy.
+
+**TRACE THE TEXT.**
+
+See [Rocksoul interoperability](docs/ROCKSOUL_INTEROP.md).
+
+---
+
 ## ✨ Features & Highlights
 
 - 📚 **Comprehensive Multi-Tradition Sacred Scriptures**:

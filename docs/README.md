@@ -6,6 +6,9 @@ Pusat dokumentasi arsitektur, spesifikasi teknis, pedoman upstream ingestion, da
 
 ## 🗺️ Index & Navigation
 
+### 0. 🧭 Rocksoul Research Interoperability
+- [**Rocksoul Interoperability Contract**](./ROCKSOUL_INTEROP.md) — Boundary RGBL sebagai scripture/revelation reference layer terhadap MFTL, LEGEND, dan SUPERHERO.
+
 ### 1. 🌐 Upstream Ingestion & Data Architecture
 - [**Panduan Metode Ingestion (Upstream vs Recipe)**](./INGESTION_METHODS_GUIDE.md) — Penjelasan detail metode penarikan hulu vs resep kanonik.
 - [**Upstream Architecture & Policy**](./UPSTREAM_ARCHITECTURE.md) — Arsitektur streaming pagination, checksum pinning, dan registry hulu.

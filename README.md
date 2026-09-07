@@ -1,131 +1,263 @@
-# 🌙 MoonWitness Corpus Engine
+<div align="center">
 
-> **Universal Scripture & Multi-Religious Knowledge Platform**  
-> 537,512+ Indexed Records • Multi-Tradition Sacred Scriptures • Sub-Millisecond FTS5 Search (< 1ms) • Modular Fastify Engine • OpenTelemetry (OTel)
+# RGBL
 
----
+## SCRIPTURE & REVELATION REFERENCE INTELLIGENCE
 
-## 🧭 Rocksoul Research Role
+### **TRACE THE TEXT.**
 
-Within the Rocksoul Research ecosystem, **rocksoul-rgbl** is the **Scripture & Revelation Reference** layer.
+A provenance-first **multi-tradition text, scripture, sacred-literature, and evidence corpus** for exact passages, editions, expressions, scoped assertions, source provenance, and reproducible downstream use.
 
-~~~text
-MFTL       → STORY / NARRATIVE
-LEGEND     → EVENT / HISTORICAL CORE
-SUPERHERO  → PERSON / HUMAN AGENCY
-RGBL       → TEXT / PASSAGE / SCRIPTURE-CLAIM PROVENANCE
-~~~
+**ROCKSOUL RESEARCH · STORY × EVENT × PERSON × TEXT**
 
-RGBL answers:
-
-> **What does the source text actually say, in which edition/expression, with what provenance?**
-
-It does **not** globally decide that every included work has the same theological status. Terms such as *revelation*, *scripture*, *canonical*, *authoritative*, *prophet*, or *divine* remain source/tradition/community-scoped assertions where contestable.
-
-~~~text
-SOURCE TEXT
-   ↓
-PASSAGE / CONTENT
-   ↓
-ASSERTION
-   ↓
-EVIDENCE + PROVENANCE
-   ↓
-DOWNSTREAM ANALYSIS
-~~~
-
-Normative ranking, Mizan policy, theological authority gates, and AI answer policy remain downstream consumer policy.
-
-**TRACE THE TEXT.**
-
-See [Rocksoul interoperability](docs/ROCKSOUL_INTEROP.md).
+</div>
 
 ---
 
-## ✨ Features & Highlights
+> **RGBL preserves what the source text says before any downstream engine decides how to weigh it.**
 
-- 📚 **Comprehensive Multi-Tradition Sacred Scriptures**:
-  - **Islam**: Al-Qur'an (Uthmani + Multilingual), Kutubus Sittah (Bukhari, Muslim, Nawawi 40, Qudsi), 99 Asmaul Husna, 126 Authentic Duas (*Hisnul Muslim*).
-  - **Judaism**: Tanakh (WLC Hebrew), Mishnah Pirkei Avot, Biblical Hebrew Lexicon.
-  - **Christianity**: Greek New Testament (SBLGNT), Indonesian TSI, Early Christian Writings (Didache, Apostles' Creed).
-  - **Hinduism**: Bhagavad Gita (18 Chapters), Yoga Sutras of Patanjali (4 Padas), Principal Upanishads (Isha, Kena, Katha, Mandukya), Sanskrit Lexicon.
-  - **Buddhism**: Tipitaka (Dhammapada, Dīgha Nikāya, Majjhima Nikāya, Samyutta Nikāya, Aṅguttara Nikāya), Pali Lexicon.
-  - **Daoism**: Tao Te Ching (Laozi 81 Chapters), Zhuangzi.
-  - **Confucianism**: Analects of Confucius (20 Books).
-  - **Zoroastrianism**: Gathas of Zarathustra (Yasna 28-53).
-  - **Sikhism**: Japji Sahib (Mool Mantar, Salok, 38 Pauris).
-  - **Jainism**: Tattvartha Sutra (Acharya Umaswati).
-  - **Baháʼí**: The Hidden Words (Kalimát-i-Maknúnih).
-  - **Shinto**: Kojiki Sacred Chronicles (Kojiki 712 CE).
-- ⚡ **High-Performance Embedded Database**: Native SQLite database (`dist/corpus.sqlite`, 654 MB) with **FTS5 Full-Text Search** across Arabic, Sanskrit, Classical Chinese, Greek, Hebrew, Japanese, Indonesian, and English.
-- 🚀 **Modular Fastify 5 REST API**: Booting instan (< 20ms) dengan **Swagger UI** di `http://localhost:3000/docs`.
-- 🔭 **Full OpenTelemetry (OTel) & Prometheus**: W3C `traceparent` context propagation, `x-trace-id`, dan metrik Prometheus di `GET /metrics`.
-- 🌐 **Master Upstream Registry**: Ingestion otomatis dari sumber resmi hulu (`config/upstream-registry.json`) via `pnpm sync:all`.
-- 📦 **Universal TypeScript SDK (`@moonwitness/sdk`)**: Ergonomic, fully-typed API client.
-- 💻 **Zero-Config CLI**: Pembaca kitab suci paralel dan pencarian FTS5 langsung dari terminal.
+A text can exist in the corpus without being authoritative for every consumer.  
+A community can call a work revelation without turning that scoped claim into universal corpus truth.  
+A translation is not the source text.  
+A textual parallel is not identity.  
+An assessment is not a universal verdict.  
+A corpus record is not a Mizan policy.
 
----
+That separation is the foundation of RGBL.
 
-## ⚡ Quick Start
+## Core question
 
-### 1. Standalone Fastify REST API Server (Port 3000)
-```bash
-# Menjalankan server Fastify
-pnpm serve
-
-# Mode developer dengan auto-reload
-pnpm api:dev
-
-# Interactive Swagger UI Documentation:
-# 👉 Open: http://localhost:3000/docs
+```text
+WHAT is the exact work / expression / edition?
+WHAT passage or content segment?
+WHICH language and script?
+WHICH source artifact?
+WHAT rights permit use?
+WHAT provenance produced this record?
+WHAT scoped assertion does a source or community make?
+WHICH evidence supports that assertion?
 ```
 
-#### REST Endpoints:
-- `GET /docs` — Swagger UI API Documentation
-- `GET /metrics` — Prometheus & OpenTelemetry Metrics
-- `GET /v1/health` — System status, memory RSS, and record count
-- `GET /v1/traditions` — Dynamic list of active world religious traditions
-- `GET /v1/works` — List all sacred works & scriptures
-- `GET /v1/works/:id/passages` — Paginated verses with parallel translations
-- `GET /v1/search?q={query}` — High-speed FTS5 full-text search
-- `GET /v1/devotionals?tradition=islam` — Duas, Asmaul Husna, Mantras, Prayers
-- `GET /v1/compare?theme={theme}` — Cross-tradition wisdom parallel search
+## Golden rule
 
----
+### **TEXTUAL PRESENCE ≠ UNIVERSAL AUTHORITY**
 
-### 2. Terminal Scripture Reader (CLI)
+RGBL can preserve many religious and philosophical traditions while keeping authority, revelation, canon, role, identity, and doctrinal status explicitly scoped.
+
+```text
+SOURCE ARTIFACT
+      ↓
+WORK / EXPRESSION / EDITION
+      ↓
+PASSAGE / CONTENT
+      ↓
+ASSERTION
+      ↓
+EVIDENCE + PROVENANCE
+      ↓
+DOWNSTREAM POLICY / ANALYSIS
+```
+
+## Rocksoul Research ecosystem
+
+| Repository | Domain | Question | Mantra |
+|---|---|---|---|
+| **rocksoul-mftl** | Narrative Intelligence | What was told? | TRACE THE STORY. |
+| **rocksoul-legend** | Historical & Event Intelligence | What happened? | TRACE THE EVENT. |
+| **rocksoul-superhero** | Actor & Transmission Intelligence | Who was involved? | TRACE THE PERSON. |
+| **rocksoul-rgbl** | Scripture & Revelation Reference | What does the exact text say? | TRACE THE TEXT. |
+
+Ownership rule:
+
+```text
+STORY   → MFTL
+EVENT   → LEGEND
+PERSON  → SUPERHERO
+TEXT    → RGBL
+```
+
+RGBL owns canonical `mw:*` corpus identity for works, passages, content, resources, assertions, evidence, provenance, and corpus assessments. It does **not** absorb MFTL narratives, LEGEND events, or SUPERHERO actor/transmission records.
+
+[Read the interoperability contract →](docs/ROCKSOUL_INTEROP.md)
+
+## Four-way proof case
+
+### **CASE 001 — JERUSALEM 70 CE**
+
+RGBL contributes **exact text only**:
+
+```text
+mw:passage:sblgnt:v1-2:mark:13:2
+mw:passage:web-classic:2020:mar:13:2
+```
+
+Those existing canonical passage IDs are reused directly. No duplicate scripture object was created for the integration.
+
+```text
+RGBL      Mark 13:2 exact text
+   ↓
+MFTL      temple-destruction prediction narrative
+   ↓
+LEGEND    Jerusalem / Second Temple destruction, 70 CE
+   ↑
+SUPERHERO Flavius Josephus — witness / recorder
+```
+
+The proof works precisely because the repositories **do not collapse into each other**. RGBL proves what the selected text expression says; it does not prove event historicity or supernatural fulfillment.
+
+[Read the shared case →](docs/cases/JERUSALEM-70-TEMPLE.md)
+
+## Canonical corpus contract
+
+RGBL keeps six universal record concerns separate:
+
+```text
+ENTITY
+RESOURCE
+ASSERTION
+EVIDENCE
+PROVENANCE
+ASSESSMENT
+```
+
+Textual profiles add:
+
+```text
+WORK
+EXPRESSION
+EDITION
+ARTIFACT
+PASSAGE
+CONTENT
+ALIGNMENT
+VARIANT
+```
+
+Database tables and search indexes are **derived artifacts**. Canonical knowledge remains in versioned corpus data and provenance.
+
+## Multi-tradition coverage
+
+The corpus includes source-preserving or source-pinned material across multiple traditions, including:
+
+- Qur'an and Islamic textual/devotional datasets;
+- Hebrew Bible / Westminster Leningrad Codex;
+- SBL Greek New Testament and multiple Bible expressions/translations;
+- Buddhist Pali and translated collections;
+- Hindu, Daoist, Confucian, Zoroastrian, Sikh, Jain, Baháʼí, Shinto, and related textual datasets;
+- lexicons, alignments, world-religion registries, and scoped person/role assertions.
+
+Coverage does not imply theological equivalence, equal authority, or a closed universal taxonomy.
+
+## Technical engine
+
+The technical implementation retains the internal name **MoonWitness Corpus Engine**.
+
+```text
+TypeScript
+pnpm + Turborepo
+canonical JSON / JSONL
+deterministic ingestion recipes
+generated SQLite + FTS5
+Fastify 5 REST API
+OpenTelemetry + Prometheus
+typed SDK + CLI
+```
+
+Runtime databases, FTS indexes, caches, and search artifacts must remain rebuildable from released corpus inputs.
+
+## Quick start
+
 ```bash
-# Baca Bhagavad Gita 2:47 (Sanskrit + English + Indonesian)
+pnpm install
+pnpm check
+```
+
+Run the API:
+
+```bash
+pnpm serve
+```
+
+Useful endpoints:
+
+```text
+GET /docs
+GET /metrics
+GET /v1/health
+GET /v1/traditions
+GET /v1/works
+GET /v1/works/:id/passages
+GET /v1/search?q=...
+GET /v1/devotionals?tradition=...
+GET /v1/compare?theme=...
+```
+
+Use the CLI:
+
+```bash
 pnpm cli read bhagavad-gita 2:47
-
-# Baca Hadits Arba'in Nawawi #1 (Arab + Indonesia + Inggris)
 pnpm cli read hadith-nawawi 1
-
-# Baca Shinto Kojiki 1:1 (Jepang + Inggris + Indonesia)
 pnpm cli read kojiki 1:1
-
-# Baca Tao Te Ching Bab 1
-pnpm cli read tao-te-ching 1
-
-# Pencarian teks penuh cepat lintas 537.000+ ayat
 pnpm cli search "keadilan"
 ```
 
----
+## Reproducible ingestion
 
-### 3. Upstream Data Ingestion Pipeline
 ```bash
-# Sinkronisasi live seluruh 12 tradisi dari repositori & API resmi hulu:
-pnpm sync:all
-
-# Sinkronisasi Islam (Hadits, Doa, Al-Qur'an):
-pnpm sync:ummah
-
-# Audit latensi & konektivitas API hulu:
 pnpm upstream:audit
+pnpm sync:all
+pnpm check
 ```
 
+The ingestion contract preserves:
+
+```text
+UPSTREAM SOURCE
+      ↓
+PINNED ARTIFACT / REVISION
+      ↓
+RECIPE + PARSER + NORMALIZER
+      ↓
+CANONICAL DATA
+      ↓
+CHECKSUM / PROVENANCE / RIGHTS
+```
+
+## Research principles
+
+**ASSERTION ≠ GLOBAL FACT.**
+
+**TRANSLATION ≠ SOURCE IDENTITY.**
+
+**SIMILARITY ≠ EQUIVALENCE.**
+
+**CORPUS INCLUSION ≠ NORMATIVE ADMISSIBILITY.**
+
+**RELIGIOUS ROLE ≠ UNQUALIFIED IDENTITY.**
+
+**ENGINE POLICY STAYS DOWNSTREAM.**
+
+**MISSING ≠ FALSE.**
+
+**PROVENANCE IS REQUIRED.**
+
+## Documentation
+
+Start with:
+
+- [Documentation index](docs/README.md)
+- [Rocksoul interoperability](docs/ROCKSOUL_INTEROP.md)
+- [Implementation roadmap](docs/ROADMAP.md)
+- [Dataset targets](docs/DATASET_TARGETS.md)
+- [World registry targets](docs/WORLD_REGISTRY_TARGETS.md)
+- [Case 001 — Jerusalem 70 CE](docs/cases/JERUSALEM-70-TEMPLE.md)
+
 ---
 
-## 📚 Dokumentasi Lengkap
-Lihat [**Dokumentasi Terpusat (`docs/README.md`)**](./docs/README.md) untuk panduan arsitektur, kebijakan sinkronisasi, dan integrasi aplikasi.
+<div align="center">
+
+### **TRACE THE TEXT.**
+
+**SOURCE · PASSAGE · ASSERTION · EVIDENCE · PROVENANCE**
+
+</div>

@@ -219,3 +219,14 @@ MFTL Integrity / Deviation / optional Mizan
 ```
 
 **Corpus inclusion ≠ normative admissibility.** A downstream profile may deliberately use only a subset of RGBL works, passages, or source classes. That policy must stay outside canonical RGBL corpus truth.
+
+
+## Proof case
+
+The first end-to-end four-way integration is:
+
+`CASE-JERUSALEM-70-TEMPLE`
+
+RGBL reuses existing canonical Mark 13:2 passage identities rather than creating integration-specific duplicate text records.
+
+[Read the shared case →](cases/JERUSALEM-70-TEMPLE.md)

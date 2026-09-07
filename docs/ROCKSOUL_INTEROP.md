@@ -145,3 +145,56 @@ Do not create a fifth repository solely for shared sources, claims, or IDs.
 Do not merge the four repositories into one database just to make cross-references easier.
 
 For v0.1, stable ownership plus explicit provenance-backed links are sufficient.
+
+
+## Same referent across repositories
+
+RGBL canonical identity is repository-global **inside RGBL**, not automatically global across all Rocksoul repositories.
+
+A single real-world referent may therefore have different domain records:
+
+```text
+RGBL mw:person:*
+→ corpus identity / labels / external IDs / scoped religious-role assertions
+
+SUPERHERO PER-*
+→ actor / witness / authorship / transmission intelligence
+
+MFTL ENTITY-*
+→ narrative portrayal / cultural-symbolic entity context
+
+LEGEND EVT-* / ART-* / PLC-*
+→ event, material-evidence, or place context
+```
+
+Cross-repository identity must be reconciled explicitly. Name similarity, title similarity, shared labels, or matching translations are not sufficient to auto-merge IDs.
+
+Example crosswalk:
+
+```text
+rgbl:mw:person:...
+↔
+superhero:PER-...
+```
+
+must carry evidence/provenance and may remain disputed if historical identity is contested.
+
+## Text vs narrative vs event
+
+Keep these layers separate:
+
+```text
+RGBL
+"this passage says X"
+        ↓
+MFTL
+"this narrative/claim means or retells X"
+        ↓
+LEGEND
+"historical evidence supports / disputes event Y"
+        ↓
+SUPERHERO
+"person Z recorded / transmitted / interpreted it"
+```
+
+No layer should silently overwrite another.

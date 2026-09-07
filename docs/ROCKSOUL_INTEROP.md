@@ -198,3 +198,24 @@ SUPERHERO
 ```
 
 No layer should silently overwrite another.
+
+
+## Assessment boundary
+
+RGBL may contain `mw:assessment:*` records when an assessment itself is part of the corpus contract and carries explicit target, assessor/method, evidence, scope, confidence where applicable, and provenance.
+
+That is different from downstream Rocksoul analysis:
+
+```text
+RGBL mw:assessment:*
+→ contextual corpus assessment
+→ method/provenance explicit
+→ not a universal normative policy
+
+MFTL Integrity / Deviation / optional Mizan
+→ downstream analysis of narrative claims/practices
+→ may reference RGBL passages/assertions/evidence
+→ remains a separate result
+```
+
+**Corpus inclusion ≠ normative admissibility.** A downstream profile may deliberately use only a subset of RGBL works, passages, or source classes. That policy must stay outside canonical RGBL corpus truth.

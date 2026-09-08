@@ -10,6 +10,10 @@ import {
   MoonWitnessBrand,
   ObservatorySectionNav,
   ProvenanceRail,
+  TextualRelationTrace,
+  TextualHierarchyTrace,
+  SourceRightsSummary,
+  ParallelTextLanes,
   ThemeToggle,
 } from "@rocksoul/ui"
 import "@rocksoul/ui/styles.css"
@@ -262,6 +266,58 @@ function CorpusApp() {
     : "All traditions"
 
   const hierarchyArtifacts = hierarchy?.artifacts ?? []
+  const hierarchyItems = [
+    ...(hierarchy?.work ? [{ id: hierarchy.work.id, kind: hierarchy.work.kind ?? "textual.work", label: labelsOf(hierarchy.work), state: "available" as const }] : []),
+    ...(hierarchy?.expressions ?? []).map((item) => ({ id: item.id, kind: item.kind ?? "textual.expression", label: labelsOf(item), state: "available" as const })),
+    ...(hierarchy?.editions ?? []).map((item) => ({ id: item.id, kind: item.kind ?? "textual.edition", label: labelsOf(item), state: "available" as const })),
+    ...hierarchyArtifacts.map((item) => ({ id: item.id, kind: item.kind ?? "textual.artifact", label: labelsOf(item), state: "available" as const })),
+    ...(selectedPassage ? [{ id: selectedPassage.id, kind: "textual.passage", label: selectedPassage.label, detail: selectedPassage.locator, state: "available" as const }] : []),
+    ...(trace?.contents ?? []).map((item) => ({ id: item.id, kind: "textual.content", label: item.language + " · " + item.representation, detail: item.artifact, state: item.text ? "available" as const : "missing" as const })),
+  ]
+  const sourceRightsRecords = hierarchyArtifacts.length
+    ? hierarchyArtifacts.map((artifact) => {
+        const source = extension(artifact, "source")
+        const descriptor = object(source.descriptor)
+        const rights = object(source.rights)
+        return {
+          id: artifact.id,
+          label: stringOr(source.title, labelsOf(artifact)),
+          revision: stringOr(source.revision),
+          sha256: stringOr(descriptor.sha256),
+          rights: stringOr(rights.status, hierarchy?.dataset?.rights),
+          license: stringOr(rights.license_expression),
+          availability: stringOr(descriptor.availability, hierarchy?.dataset?.availability),
+          sourceReference: stringOr(source.canonical_url, descriptor.locations),
+          state: "available" as const,
+        }
+      })
+    : hierarchy?.dataset
+      ? [{
+          id: hierarchy.dataset.id,
+          label: hierarchy.dataset.id,
+          rights: hierarchy.dataset.rights,
+          availability: hierarchy.dataset.availability,
+          state: "partial" as const,
+        }]
+      : []
+  const textualRelations = (trace?.relations ?? []).flatMap((relation) => {
+    const textual = extension(relation, "textual")
+    const sources = Array.isArray(textual.sources) ? textual.sources.map(object) : []
+    const targets = Array.isArray(textual.targets) ? textual.targets.map(object) : []
+    const subjectIds = sources.map((item) => stringOr(item.target)).filter((value): value is string => Boolean(value))
+    const objectIds = targets.map((item) => stringOr(item.target)).filter((value): value is string => Boolean(value))
+    const subjects = subjectIds.length ? subjectIds : [selectedPassage?.id ?? relation.id]
+    const objects = objectIds.length ? objectIds : [relation.id]
+    return subjects.flatMap((subject) => objects.map((target, index) => ({
+      id: relation.id + ":" + String(index) + ":" + subject + ":" + target,
+      subject,
+      relation: stringOr(textual.relation, relation.kind, "explicit_relation"),
+      object: target,
+      method: stringOr(textual.method),
+      provenance: stringOr(textual.provenance),
+      state: relation.kind === "textual.variant" ? "partial" as const : "available" as const,
+    })))
+  })
   const provenanceNodes = trace?.provenanceRecords.length
     ? trace.provenanceRecords.slice(0, 4).map((record, index) => ({
         id: record.id,
@@ -309,7 +365,7 @@ function CorpusApp() {
                 { label: "Domain", value: "TEXT" },
                 { label: "Hierarchy", value: "WORK → EXPRESSION → EDITION → ARTIFACT → PASSAGE → CONTENT" },
                 { label: "Visual grammar", value: "@rocksoul/ui · stable rocksoul-assets v1.3.1" },
-                { label: "Runtime", value: sourceMode === "api" ? `RGBL REST · ${health?.database ?? "healthy"}` : "Source-safe metadata fallback" },
+                { label: "Runtime", value: sourceMode === "api" ? `RGBL REST · ${health?.database ?? "healthy"}` : "Generated canonical repository catalog" },
               ]}
               actions={
                 <>
@@ -465,51 +521,20 @@ function CorpusApp() {
                 <p className="section-kicker">02 / CANONICAL TEXT TRACE</p>
                 <h2>{selectedWork?.title ?? "Select a canonical work"}</h2>
               </div>
-              <p>Work, expression, edition and source artifact remain separate identities. Passage content is displayed only when returned by the canonical corpus API.</p>
+              <p>Work, expression, edition and source artifact remain separate identities. Passage content is displayed only when supplied by the live corpus runtime or generated canonical catalog.</p>
             </div>
 
-            <div className="hierarchy-chain" aria-label="Canonical textual hierarchy">
-              <div><span>WORK</span><strong>{selectedWork?.id ?? "—"}</strong></div>
-              <div><span>EXPRESSIONS</span><strong>{hierarchy?.expressions.length ?? 0}</strong><small>{compactId(hierarchy?.expressions[0]?.id)}</small></div>
-              <div><span>EDITIONS</span><strong>{hierarchy?.editions.length ?? 0}</strong><small>{compactId(hierarchy?.editions[0]?.id)}</small></div>
-              <div><span>ARTIFACTS</span><strong>{hierarchyArtifacts.length}</strong><small>{compactId(hierarchyArtifacts[0]?.id)}</small></div>
-            </div>
+            <TextualHierarchyTrace
+              items={hierarchyItems}
+              title="Canonical textual hierarchy"
+              description="WORK → EXPRESSION → EDITION → ARTIFACT → PASSAGE → CONTENT. Every identity remains distinct."
+            />
 
-            <div className="rights-grid">
-              <article>
-                <span>DATASET</span>
-                <strong>{hierarchy?.dataset?.id ?? selectedWork?.datasetId ?? "Metadata fallback"}</strong>
-                <p>{hierarchy?.dataset?.rights ?? selectedWork?.rights ?? "Rights metadata is shown only when the canonical dataset/API supplies it."}</p>
-              </article>
-              <article>
-                <span>AVAILABILITY</span>
-                <strong>{hierarchy?.dataset?.availability ?? selectedWork?.availability ?? "unknown"}</strong>
-                <p>Availability and redistribution are source-specific; corpus presence alone does not establish reuse rights.</p>
-              </article>
-            </div>
-
-            {hierarchyArtifacts.length ? (
-              <div className="artifact-grid">
-                {hierarchyArtifacts.map((artifact) => {
-                  const source = extension(artifact, "source")
-                  const descriptor = object(source.descriptor)
-                  const rights = object(source.rights)
-                  return (
-                    <article key={artifact.id} className="artifact-card">
-                      <div><Badge variant="info">SOURCE ARTIFACT</Badge><span>{stringOr(source.language, "mul")}</span></div>
-                      <h3>{stringOr(source.title, labelsOf(artifact))}</h3>
-                      <code>{artifact.id}</code>
-                      <dl>
-                        <div><dt>Revision</dt><dd>{stringOr(source.revision, "not declared")}</dd></div>
-                        <div><dt>Rights</dt><dd>{stringOr(rights.status, hierarchy?.dataset?.rights, "not declared")}</dd></div>
-                        <div><dt>License</dt><dd>{stringOr(rights.license_expression, "not declared")}</dd></div>
-                        <div><dt>SHA-256</dt><dd className="hash">{stringOr(descriptor.sha256, "not declared")}</dd></div>
-                      </dl>
-                    </article>
-                  )
-                })}
-              </div>
-            ) : null}
+            <SourceRightsSummary
+              records={sourceRightsRecords}
+              title="Source, integrity & rights"
+              description="Revision, checksum, license, rights and availability are rendered only from canonical dataset/artifact metadata."
+            />
 
             <div className="passage-layout">
               <div className="passage-list">
@@ -533,22 +558,11 @@ function CorpusApp() {
                     <h3>{selectedPassage.label}</h3>
                     <code>{selectedPassage.id}</code>
 
-                    {trace?.contents.length ? (
-                      <div className="text-lanes" aria-label="Exact text content lanes">
-                        {trace.contents.map((lane) => (
-                          <article className="text-lane" key={lane.id}>
-                            <header><div><Badge variant="neutral">{lane.language}</Badge><Badge variant="info">{lane.representation}</Badge></div><span>{lane.script ?? "script n/a"}</span></header>
-                            <p lang={lane.language} dir={textDirection(lane.script)}>{lane.text}</p>
-                            <footer><code>{lane.id}</code><small>{[lane.artifact, lane.provenance].filter(Boolean).join(" · ")}</small></footer>
-                          </article>
-                        ))}
-                      </div>
-                    ) : (
-                      <div className="empty-state compact">
-                        <MoonWitnessAssetImage pack="state-illustrations" file="svg/source-missing.svg" alt="" aria-hidden="true" />
-                        <div><strong>Exact text is unavailable in the current source.</strong><p>{selectedPassage.note ?? "RGBL does not synthesize missing scripture text."}</p></div>
-                      </div>
-                    )}
+                    <ParallelTextLanes
+                      lanes={trace?.contents ?? selectedPassage.contents ?? []}
+                      title="Parallel exact-text lanes"
+                      description="Source, translation, transliteration and normalized content remain separate canonical records. Missing text is never synthesized."
+                    />
 
                     <div className="source-grid">
                       <div><span>SOURCE</span><strong>{trace?.contents[0]?.artifact ?? selectedPassage.source}</strong></div>
@@ -561,30 +575,17 @@ function CorpusApp() {
                 ) : (
                   <div className="empty-state">
                     <MoonWitnessAssetImage pack="state-illustrations" file="svg/empty-search.svg" alt="" aria-hidden="true" />
-                    <p>Select a passage or connect the RGBL API.</p>
+                    <p>Select a canonical passage to inspect its generated or live trace.</p>
                   </div>
                 )}
               </article>
             </div>
 
-            <div className="relations-panel">
-              <div className="panel-title"><span>ALIGNMENTS & VARIANTS /</span><b>{trace?.relations.length ?? 0}</b></div>
-              {trace?.relations.length ? (
-                <div className="relation-grid">
-                  {trace.relations.map((relation) => {
-                    const textual = extension(relation, "textual")
-                    return (
-                      <article key={relation.id}>
-                        <Badge variant={relation.kind === "textual.variant" ? "partial" : "info"}>{relation.kind ?? "relation"}</Badge>
-                        <h3>{labelsOf(relation)}</h3>
-                        <code>{relation.id}</code>
-                        <p>{stringOr(textual.method, textual.relation, "Explicit textual relation; no identity or theological equivalence is implied.")}</p>
-                      </article>
-                    )
-                  })}
-                </div>
-              ) : <p className="empty-note">No alignment or variant record was returned for the selected passage.</p>}
-            </div>
+            <TextualRelationTrace
+              relations={textualRelations}
+              title="Alignments, variants & explicit textual relations"
+              description="Correspondence, variation and other relationships are visualized with their recorded method; no identity or theological equivalence is inferred."
+            />
           </section>
 
           <section id="evidence" className="content-section">

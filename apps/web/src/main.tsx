@@ -132,7 +132,7 @@ function CorpusApp() {
         </header>
 
         <main id="top">
-          <section className="hero-shell" aria-labelledby="rgbl-title">
+          <section className="hero-shell" aria-label="RGBL text intelligence">
             <DossierHeader
               eyebrow="RGBL / SCRIPTURE & REVELATION REFERENCE INTELLIGENCE"
               title="TRACE THE TEXT."
@@ -324,7 +324,7 @@ function CorpusApp() {
                       <div className="wide"><span>PROVENANCE</span><strong>{selectedPassage.provenance}</strong></div>
                     </div>
                     <div className="text-boundary">
-                      <MoonWitnessAssetImage pack="source-file" file="svg/file-jsonl.svg" alt="" aria-hidden="true" />
+                      <MoonWitnessAssetImage pack="source-file" file="svg/dataset.svg" alt="" aria-hidden="true" />
                       <div>
                         <span>TEXT DELIVERY BOUNDARY</span>
                         <p>{selectedPassage.note ?? "Exact text content is available from the canonical corpus record."}</p>
@@ -333,7 +333,7 @@ function CorpusApp() {
                   </>
                 ) : (
                   <div className="empty-state">
-                    <MoonWitnessAssetImage pack="state-illustrations" file="empty.svg" alt="" aria-hidden="true" />
+                    <MoonWitnessAssetImage pack="state-illustrations" file="svg/empty-search.svg" alt="" aria-hidden="true" />
                     <p>Select a passage or configure the RGBL API.</p>
                   </div>
                 )}

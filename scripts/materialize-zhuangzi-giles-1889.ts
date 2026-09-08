@@ -80,6 +80,11 @@ async function main(): Promise<void> {
 
   const manifestPath = path.join(root, DATASET, 'manifest.json')
   const manifest = JSON.parse(await readFile(manifestPath, 'utf8')) as Record<string, unknown>
+  manifest.partitions = [
+    { recordType: 'resource', path: 'data/core/resources/*.jsonl' },
+    { recordType: 'provenance', path: 'data/core/provenance/*.jsonl' }
+  ]
+  manifest.availability = 'bundled'
   await writeFile(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`, 'utf8')
 
   const checksumFiles = [resourcePath, provenancePath, manifestPath]

@@ -310,7 +310,7 @@ export class SqliteCorpusRepository implements CorpusRepository {
 
   async search(query: CorpusSearchQuery): Promise<CorpusSearchResult[]> {
     if (!query.text?.trim()) return []
-    const words = query.text.trim().split(/[\\s\\-+:,.'\"!?()]+/).filter(Boolean)
+    const words = query.text.trim().split(/[\s+:,.'\"!?()\-]+/).filter(Boolean)
     if (words.length === 0) return []
     const ftsQuery = words.map((w) => `"${w}"*`).join(' AND ')
 

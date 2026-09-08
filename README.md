@@ -6,9 +6,23 @@
 
 ### **TRACE THE TEXT.**
 
+#### SOURCE · PASSAGE · ASSERTION · EVIDENCE · PROVENANCE
+
 A provenance-first **multi-tradition text, scripture, sacred-literature, and evidence corpus** for exact passages, editions, expressions, scoped assertions, source provenance, and reproducible downstream use.
 
-**ROCKSOUL RESEARCH · STORY × EVENT × PERSON × TEXT**
+**MOONWITNESS · ROCKSOUL RESEARCH · STORY × EVENT × PERSON × TEXT × LAW**
+
+<br/>
+
+[![CI](https://github.com/bjo163/rocksoul-rgbl/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/bjo163/rocksoul-rgbl/actions/workflows/ci.yml)
+![Branch](https://img.shields.io/badge/branch-main-111111)
+![Domain](https://img.shields.io/badge/domain-TEXT-6F6F6F)
+![Corpus](https://img.shields.io/badge/corpus-provenance--first-B43A32)
+![Engine](https://img.shields.io/badge/engine-TypeScript-3178C6)
+
+<br/>
+
+[Architecture](#text-intelligence-graph) · [Corpus contract](#canonical-corpus-contract) · [Coverage](#multi-tradition-coverage) · [Documentation](#documentation)
 
 </div>
 
@@ -44,39 +58,44 @@ WHICH evidence supports that assertion?
 
 RGBL can preserve many religious and philosophical traditions while keeping authority, revelation, canon, role, identity, and doctrinal status explicitly scoped.
 
-```text
-SOURCE ARTIFACT
-      ↓
-WORK / EXPRESSION / EDITION
-      ↓
-PASSAGE / CONTENT
-      ↓
-ASSERTION
-      ↓
-EVIDENCE + PROVENANCE
-      ↓
-DOWNSTREAM POLICY / ANALYSIS
+## Text intelligence graph
+
+```mermaid
+flowchart LR
+    A["SOURCE ARTIFACT"] --> B["WORK"]
+    B --> C["EXPRESSION / EDITION"]
+    C --> D["PASSAGE / CONTENT"]
+    D --> E["ASSERTION"]
+    E --> F["EVIDENCE"]
+    F --> G["PROVENANCE"]
+    G --> H["DOWNSTREAM POLICY / ANALYSIS"]
 ```
 
-## Rocksoul Research ecosystem
+<div align="center">
 
-| Repository | Domain | Question | Mantra |
+### **TEXT ≠ INTERPRETATION · INCLUSION ≠ AUTHORITY**
+
+</div>
+
+## MoonWitness / Rocksoul research map
+
+| Repository | Domain | Core question | Mantra |
 |---|---|---|---|
-| **rocksoul-mftl** | Narrative Intelligence | What was told? | TRACE THE STORY. |
-| **rocksoul-legend** | Historical & Event Intelligence | What happened? | TRACE THE EVENT. |
-| **rocksoul-superhero** | Actor & Transmission Intelligence | Who was involved? | TRACE THE PERSON. |
-| **rocksoul-rgbl** | Scripture & Revelation Reference | What does the exact text say? | TRACE THE TEXT. |
-
-Ownership rule:
+| [`rocksoul-mftl`](https://github.com/bjo163/rocksoul-mftl) | STORY | What was told? | TRACE THE STORY. |
+| [`rocksoul-legend`](https://github.com/bjo163/rocksoul-legend) | EVENT | What happened? | TRACE THE EVENT. |
+| [`rocksoul-superhero`](https://github.com/bjo163/rocksoul-superhero) | PERSON | Who was involved? | TRACE THE PERSON. |
+| **`rocksoul-rgbl`** | TEXT | What does the exact text say? | TRACE THE TEXT. |
+| [`rocksoul-aws`](https://github.com/bjo163/rocksoul-aws) | LAW | Was it allowed? | TRACE THE LAW. |
 
 ```text
 STORY   → MFTL
 EVENT   → LEGEND
 PERSON  → SUPERHERO
 TEXT    → RGBL
+LAW     → AWS
 ```
 
-RGBL owns canonical `mw:*` corpus identity for works, passages, content, resources, assertions, evidence, provenance, and corpus assessments. It does **not** absorb MFTL narratives, LEGEND events, or SUPERHERO actor/transmission records.
+RGBL owns canonical `mw:*` corpus identity for works, passages, content, resources, assertions, evidence, provenance, and corpus assessments. It does **not** absorb MFTL narratives, LEGEND events, SUPERHERO actor/transmission records, or AWS legal conclusions.
 
 [Read the interoperability contract →](docs/ROCKSOUL_INTEROP.md)
 
@@ -209,8 +228,6 @@ pnpm sync:all
 pnpm check
 ```
 
-The ingestion contract preserves:
-
 ```text
 UPSTREAM SOURCE
       ↓
@@ -225,39 +242,48 @@ CHECKSUM / PROVENANCE / RIGHTS
 
 ## Research principles
 
-**ASSERTION ≠ GLOBAL FACT.**
-
-**TRANSLATION ≠ SOURCE IDENTITY.**
-
-**SIMILARITY ≠ EQUIVALENCE.**
-
-**CORPUS INCLUSION ≠ NORMATIVE ADMISSIBILITY.**
-
-**RELIGIOUS ROLE ≠ UNQUALIFIED IDENTITY.**
-
-**ENGINE POLICY STAYS DOWNSTREAM.**
-
-**MISSING ≠ FALSE.**
-
+**ASSERTION ≠ GLOBAL FACT.**  
+**TRANSLATION ≠ SOURCE IDENTITY.**  
+**SIMILARITY ≠ EQUIVALENCE.**  
+**CORPUS INCLUSION ≠ NORMATIVE ADMISSIBILITY.**  
+**RELIGIOUS ROLE ≠ UNQUALIFIED IDENTITY.**  
+**ENGINE POLICY STAYS DOWNSTREAM.**  
+**MISSING ≠ FALSE.**  
 **PROVENANCE IS REQUIRED.**
+
+## Repository atlas
+
+```text
+rocksoul-rgbl/
+├── data/            canonical corpus + provenance
+├── docs/            corpus contracts, cases, roadmap
+├── packages/        engine, SDK, API and supporting packages
+├── schemas/         machine-valid corpus contracts
+├── scripts/         ingestion, validation and audits
+└── .github/         CI, release and synchronization workflows
+```
 
 ## Documentation
 
-Start with:
-
-- [Documentation index](docs/README.md)
-- [Rocksoul interoperability](docs/ROCKSOUL_INTEROP.md)
-- [Implementation roadmap](docs/ROADMAP.md)
-- [Dataset targets](docs/DATASET_TARGETS.md)
-- [World registry targets](docs/WORLD_REGISTRY_TARGETS.md)
-- [Case 001 — Jerusalem 70 CE](docs/cases/JERUSALEM-70-TEMPLE.md)
+| Document | Purpose |
+|---|---|
+| [Documentation index](docs/README.md) | Entry point to corpus documentation |
+| [Rocksoul interoperability](docs/ROCKSOUL_INTEROP.md) | Cross-repository ownership contract |
+| [Implementation roadmap](docs/ROADMAP.md) | Current implementation horizon |
+| [Dataset targets](docs/DATASET_TARGETS.md) | Corpus acquisition targets |
+| [World registry targets](docs/WORLD_REGISTRY_TARGETS.md) | Multi-tradition registry targets |
+| [Jerusalem 70 CE](docs/cases/JERUSALEM-70-TEMPLE.md) | Shared four-way proof case |
 
 ---
 
 <div align="center">
 
-### **TRACE THE TEXT.**
+## **TRACE THE TEXT.**
 
-**SOURCE · PASSAGE · ASSERTION · EVIDENCE · PROVENANCE**
+### **SOURCE · PASSAGE · ASSERTION · EVIDENCE · PROVENANCE**
+
+**Preserve first. Interpret downstream. Reproduce always.**
+
+`RGBL / MoonWitness · Rocksoul Research`
 
 </div>

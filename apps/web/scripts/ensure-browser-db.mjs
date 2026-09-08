@@ -26,18 +26,18 @@ if (!catalog?.corpusHash) throw new Error("Canonical corpus hash is unavailable"
 
 if (await exists(runtimeConfigFile)) {
   const existing = JSON.parse(await readFile(runtimeConfigFile, "utf8"))
-  if (existing?.schemaVersion === 2 && existing?.corpusHash === catalog.corpusHash && existing?.serverMode === "chunked") {
+  if (existing?.schemaVersion === 3 && existing?.corpusHash === catalog.corpusHash && existing?.serverMode === "chunked") {
     console.log("Browser corpus database already present:", existing.corpusHash)
     process.exit(0)
   }
 }
 
 const repository = process.env.RGBL_BROWSER_DB_REPOSITORY || process.env.GITHUB_REPOSITORY || "bjo163/rocksoul-rgbl"
-const tag = "browser-db-" + catalog.corpusHash
+const tag = "browser-db-v3-" + catalog.corpusHash
 const source = process.env.RGBL_BROWSER_DB_URL
   || `https://github.com/${repository}/releases/download/${tag}/rgbl-browser-db.tar.gz`
 const archive = path.join("/tmp", "rgbl-browser-db-" + catalog.corpusHash + ".tar.gz")
-const versionDir = path.join(databaseRoot, catalog.corpusHash)
+const versionDir = path.join(databaseRoot, "v3-" + catalog.corpusHash)
 const sourceConfig = path.join(versionDir, "config.json")
 
 const response = await fetch(source)
@@ -50,13 +50,13 @@ await mkdir(versionDir, { recursive: true })
 await run("tar", ["-xzf", archive, "-C", versionDir])
 
 const config = JSON.parse(await readFile(sourceConfig, "utf8"))
-if (config?.schemaVersion !== 2 || config?.corpusHash !== catalog.corpusHash || config?.serverMode !== "chunked") {
+if (config?.schemaVersion !== 3 || config?.corpusHash !== catalog.corpusHash || config?.serverMode !== "chunked") {
   throw new Error("Browser database does not match canonical catalog/hash/schema contract")
 }
 
 const runtimeConfig = {
   ...config,
-  urlPrefix: `/corpus-db/${catalog.corpusHash}/db.sqlite3.`,
+  urlPrefix: `/corpus-db/v3-${catalog.corpusHash}/db.sqlite3.`,
 }
 await writeFile(runtimeConfigFile, JSON.stringify(runtimeConfig, null, 2) + "\n", "utf8")
 console.log(`Fetched browser corpus DB ${tag}: ${config.databaseLengthBytes} bytes across content-addressed chunks.`)

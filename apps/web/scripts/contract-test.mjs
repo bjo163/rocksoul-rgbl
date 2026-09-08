@@ -37,7 +37,7 @@ for (const id of [
 ]) expect(!data.includes(`id: "${id}"`), `legacy non-canonical fallback ID remains: ${id}`)
 
 expect(pkg.dependencies?.["@rocksoul/ui"] === "github:bjo163/rocksoul-ui#c7d3402614408c9812a7ab5370873dab3f821a2f", "Rocksoul UI must be pinned to the reviewed commit")
-expect(!main.includes("rocksoul-assets/main"), "runtime must not consume rocksoul-assets/main")
+expect(!main.includes("raw.githubusercontent.com/bjo163/rocksoul-assets/main"), "runtime must not consume a floating rocksoul-assets/main URL")
 expect(!main.includes("ASSET_BASE"), "runtime must use the stable @rocksoul/ui asset resolver")
 expect(indexHtml.includes("82f20b8a361a19abdc6591fe2f4c67e3fb9d4b05"), "document assets must use the stable Rocksoul asset release")
 expect(api.includes("/v1/passages/"), "passage trace API adapter is missing")

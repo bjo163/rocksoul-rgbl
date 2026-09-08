@@ -12,7 +12,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@rocksoul/ui": "github:bjo163/rocksoul-ui#c7d3402614408c9812a7ab5370873dab3f821a2f",
+    "@rocksoul/ui": "github:bjo163/rocksoul-ui#1730eda55564654dc8d4131bbdbf126d0c2d1eca",
     "react": "19.2.8",
     "react-dom": "19.2.8"
   },

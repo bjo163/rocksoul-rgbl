@@ -1,5 +1,16 @@
 import { createDbWorker, type WorkerHttpvfs } from "sql.js-httpvfs"
-import type { ContentLane, DatasetInfo, Passage, PassageTrace, SearchRecord } from "./data"
+import type {
+  AssertionTraversal,
+  ContentLane,
+  CorpusResource,
+  DatasetInfo,
+  EvidenceRecord,
+  Passage,
+  PassageTrace,
+  ProvenanceRecord,
+  SearchRecord,
+  WorkHierarchy,
+} from "./data"
 
 const CONFIG_URL = "/corpus-db/config.json"
 const WORKER_URL = "/vendor/sqlite-httpvfs/sqlite.worker.js"
@@ -28,8 +39,16 @@ function tokenize(query: string) {
 }
 
 function ftsQuery(query: string) {
-  const terms = tokenize(query)
-  return terms.map((term) => term + "*").join(" AND ")
+  return tokenize(query).map((term) => term + "*").join(" AND ")
+}
+
+function parseJson<T>(value: string | null | undefined): T | null {
+  if (!value) return null
+  try { return JSON.parse(value) as T } catch { return null }
+}
+
+function placeholders(values: unknown[]) {
+  return values.map(() => "?").join(",")
 }
 
 type PassageRow = {
@@ -75,6 +94,15 @@ type SearchRow = {
   snippet: string
 }
 
+type JsonRow = { json: string }
+type EvidenceRow = {
+  id: string
+  target: string | null
+  relation: string | null
+  provenance: string | null
+  json: string
+}
+
 function passageFromRow(row: PassageRow): Passage {
   return {
     id: row.id,
@@ -88,6 +116,22 @@ function passageFromRow(row: PassageRow): Passage {
   }
 }
 
+function passageResource(row: PassageRow): CorpusResource {
+  return {
+    id: row.id,
+    record_type: "resource",
+    kind: "textual.passage",
+    labels: parseJson<CorpusResource["labels"]>(row.labels_json) ?? (row.label ? [{ value: row.label, role: "preferred" }] : undefined),
+    extensions: {
+      textual: {
+        unit: row.unit,
+        sequence: row.sequence,
+        container: row.work_id,
+      },
+    },
+  }
+}
+
 function contentFromRow(row: ContentRow): ContentLane {
   return {
     id: row.content_id,
@@ -97,6 +141,27 @@ function contentFromRow(row: ContentRow): ContentLane {
     text: row.text,
     artifact: row.artifact ?? undefined,
     provenance: row.provenance ?? undefined,
+  }
+}
+
+function contentResource(row: ContentRow): CorpusResource {
+  return {
+    id: row.content_id,
+    record_type: "resource",
+    kind: "textual.content",
+    extensions: {
+      source: {
+        artifact: row.artifact ?? undefined,
+        provenance: row.provenance ?? undefined,
+      },
+      textual: {
+        target: row.passage_id,
+        language: row.language,
+        script: row.script ?? undefined,
+        representation: row.representation,
+        text: row.text,
+      },
+    },
   }
 }
 
@@ -113,15 +178,74 @@ function datasetFromRow(row: DatasetRow | undefined): DatasetInfo | null {
   }
 }
 
-export async function browserDbStats() {
+async function datasetById(id: string | undefined) {
+  if (!id) return null
   const handle = await worker()
   const rows = await handle.db.query(
-    "SELECT sum(record_count) AS total_records, count(*) AS datasets FROM datasets",
-  ) as unknown as Array<{ total_records: number; datasets: number }>
+    "SELECT id, tradition, version, spec_version, rights, availability, record_count FROM datasets WHERE id = ? LIMIT 1",
+    id,
+  ) as unknown as DatasetRow[]
+  return datasetFromRow(rows[0])
+}
+
+async function jsonRows(sql: string, ...params: Array<string | number>) {
+  const handle = await worker()
+  return await handle.db.query(sql, ...params) as unknown as JsonRow[]
+}
+
+async function contentRowById(id: string) {
+  const handle = await worker()
+  const rows = await handle.db.query(
+    `SELECT m.rowid, m.content_id, m.passage_id, m.dataset_id, m.language, m.script,
+            m.representation, m.artifact, m.provenance, f.text
+     FROM search_meta m
+     JOIN fts_contents f ON f.docid = m.rowid
+     WHERE m.content_id = ?
+     LIMIT 1`,
+    id,
+  ) as unknown as ContentRow[]
+  return rows[0]
+}
+
+async function resolveRecord(id: string): Promise<Record<string, unknown> | null> {
+  const handle = await worker()
+
+  const content = await contentRowById(id)
+  if (content) return contentResource(content)
+
+  const passages = await handle.db.query(
+    "SELECT id, dataset_id, work_id, sequence, unit, label, labels_json FROM passages WHERE id = ? LIMIT 1",
+    id,
+  ) as unknown as PassageRow[]
+  if (passages[0]) return passageResource(passages[0])
+
+  for (const table of ["works", "expressions", "editions", "artifacts", "relations", "assertions", "evidence", "provenance"]) {
+    const rows = await jsonRows("SELECT json FROM " + table + " WHERE id = ? LIMIT 1", id)
+    const record = parseJson<Record<string, unknown>>(rows[0]?.json)
+    if (record) return record
+  }
+  return null
+}
+
+export async function browserDbStats() {
+  const handle = await worker()
+  const [datasetRows, passageRows, contentRows, evidenceRows, relationRows, assertionRows] = await Promise.all([
+    handle.db.query("SELECT sum(record_count) AS total_records, count(*) AS datasets FROM datasets") as unknown as Promise<Array<{ total_records: number; datasets: number }>>,
+    handle.db.query("SELECT count(*) AS passages FROM passages") as unknown as Promise<Array<{ passages: number }>>,
+    handle.db.query("SELECT count(*) AS contents FROM search_meta") as unknown as Promise<Array<{ contents: number }>>,
+    handle.db.query("SELECT count(*) AS evidence FROM evidence") as unknown as Promise<Array<{ evidence: number }>>,
+    handle.db.query("SELECT count(*) AS relations FROM relations") as unknown as Promise<Array<{ relations: number }>>,
+    handle.db.query("SELECT count(*) AS assertions FROM assertions") as unknown as Promise<Array<{ assertions: number }>>,
+  ])
   const stats = await handle.worker.getStats()
   return {
-    totalRecords: rows[0]?.total_records ?? 0,
-    datasetCount: rows[0]?.datasets ?? 0,
+    totalRecords: datasetRows[0]?.total_records ?? 0,
+    datasetCount: datasetRows[0]?.datasets ?? 0,
+    passages: passageRows[0]?.passages ?? 0,
+    contents: contentRows[0]?.contents ?? 0,
+    evidence: evidenceRows[0]?.evidence ?? 0,
+    relations: relationRows[0]?.relations ?? 0,
+    assertions: assertionRows[0]?.assertions ?? 0,
     bytesFetched: stats?.totalFetchedBytes ?? 0,
     databaseBytes: stats?.totalBytes ?? 0,
   }
@@ -214,6 +338,49 @@ export async function browserLoadPassage(passageId: string): Promise<Passage | n
   return rows[0] ? passageFromRow(rows[0]) : null
 }
 
+export async function browserLoadWorkHierarchy(workId: string): Promise<WorkHierarchy | null> {
+  const handle = await worker()
+  const workRows = await jsonRows("SELECT json FROM works WHERE id = ? LIMIT 1", workId)
+  const work = parseJson<CorpusResource>(workRows[0]?.json)
+  if (!work) return null
+
+  const expressionRows = await jsonRows("SELECT json FROM expressions WHERE work_id = ? ORDER BY id", workId)
+  const expressions = expressionRows.map((row) => parseJson<CorpusResource>(row.json)).filter((row): row is CorpusResource => Boolean(row))
+  const expressionIds = expressions.map((item) => item.id)
+
+  let editions: CorpusResource[] = []
+  if (expressionIds.length) {
+    const rows = await jsonRows(
+      "SELECT DISTINCT e.json FROM editions e JOIN edition_expressions x ON x.edition_id = e.id WHERE x.expression_id IN (" + placeholders(expressionIds) + ") ORDER BY e.id",
+      ...expressionIds,
+    )
+    editions = rows.map((row) => parseJson<CorpusResource>(row.json)).filter((row): row is CorpusResource => Boolean(row))
+  }
+
+  const editionIds = editions.map((item) => item.id)
+  let artifacts: CorpusResource[] = []
+  if (editionIds.length) {
+    const rows = await jsonRows(
+      "SELECT json FROM artifacts WHERE represents IN (" + placeholders(editionIds) + ") ORDER BY id",
+      ...editionIds,
+    )
+    artifacts = rows.map((row) => parseJson<CorpusResource>(row.json)).filter((row): row is CorpusResource => Boolean(row))
+  }
+
+  const datasetRows = await handle.db.query(
+    "SELECT d.id, d.tradition, d.version, d.spec_version, d.rights, d.availability, d.record_count FROM datasets d JOIN works w ON w.dataset_id = d.id WHERE w.id = ? LIMIT 1",
+    workId,
+  ) as unknown as DatasetRow[]
+
+  return {
+    work,
+    expressions,
+    editions,
+    artifacts,
+    dataset: datasetFromRow(datasetRows[0]),
+  }
+}
+
 export async function browserLoadPassageTrace(passage: Passage): Promise<PassageTrace> {
   const handle = await worker()
   const [contentRows, passageRows] = await Promise.all([
@@ -231,14 +398,8 @@ export async function browserLoadPassageTrace(passage: Passage): Promise<Passage
       passage.id,
     ) as unknown as Promise<PassageRow[]>,
   ])
-  const passageRow = passageRows[0]
-  const datasetRows = passageRow
-    ? await handle.db.query(
-        "SELECT id, tradition, version, spec_version, rights, availability, record_count FROM datasets WHERE id = ? LIMIT 1",
-        passageRow.dataset_id,
-      ) as unknown as DatasetRow[]
-    : []
 
+  const passageRow = passageRows[0]
   const contents = contentRows.map(contentFromRow)
   const normalizedPassage = passageRow ? passageFromRow(passageRow) : passage
   normalizedPassage.contents = contents
@@ -246,26 +407,110 @@ export async function browserLoadPassageTrace(passage: Passage): Promise<Passage
   normalizedPassage.source = contents[0]?.artifact ?? passageRow?.dataset_id ?? passage.source
   normalizedPassage.provenance = contents[0]?.provenance ?? passage.provenance
 
+  const targetIds = [passage.id, ...contents.map((item) => item.id)]
+  const artifactIds = [...new Set(contents.map((item) => item.artifact).filter((id): id is string => Boolean(id)))]
+  const directProvenanceIds = [...new Set(contents.map((item) => item.provenance).filter((id): id is string => Boolean(id)))]
+
+  let artifacts: CorpusResource[] = []
+  if (artifactIds.length) {
+    const rows = await jsonRows(
+      "SELECT json FROM artifacts WHERE id IN (" + placeholders(artifactIds) + ") ORDER BY id",
+      ...artifactIds,
+    )
+    artifacts = rows.map((row) => parseJson<CorpusResource>(row.json)).filter((row): row is CorpusResource => Boolean(row))
+  }
+
+  let evidence: EvidenceRecord[] = []
+  if (targetIds.length) {
+    const rows = await handle.db.query(
+      "SELECT id, target, relation, provenance, json FROM evidence WHERE target IN (" + placeholders(targetIds) + ") ORDER BY id",
+      ...targetIds,
+    ) as unknown as EvidenceRow[]
+    evidence = rows.map((row) => parseJson<EvidenceRecord>(row.json)).filter((row): row is EvidenceRecord => Boolean(row))
+  }
+
+  let relations: CorpusResource[] = []
+  if (targetIds.length) {
+    const rows = await jsonRows(
+      "SELECT DISTINCT r.json FROM relations r JOIN relation_targets t ON t.relation_id = r.id WHERE t.target_id IN (" + placeholders(targetIds) + ") ORDER BY r.id",
+      ...targetIds,
+    )
+    relations = rows.map((row) => parseJson<CorpusResource>(row.json)).filter((row): row is CorpusResource => Boolean(row))
+  }
+
+  const provenanceIds = [...new Set([
+    ...directProvenanceIds,
+    ...evidence.map((item) => item.provenance).filter((id): id is string => Boolean(id)),
+    ...relations.map((item) => {
+      const textual = (item.extensions?.textual ?? {}) as Record<string, unknown>
+      return typeof textual.provenance === "string" ? textual.provenance : undefined
+    }).filter((id): id is string => Boolean(id)),
+  ])]
+
+  let provenanceRecords: ProvenanceRecord[] = []
+  if (provenanceIds.length) {
+    const rows = await jsonRows(
+      "SELECT json FROM provenance WHERE id IN (" + placeholders(provenanceIds) + ") ORDER BY id",
+      ...provenanceIds,
+    )
+    provenanceRecords = rows.map((row) => parseJson<ProvenanceRecord>(row.json)).filter((row): row is ProvenanceRecord => Boolean(row))
+  }
+
   return {
     passage: normalizedPassage,
-    rawPassage: passageRow ? {
-      id: passageRow.id,
-      record_type: "resource",
-      kind: "textual.passage",
-      labels: passageRow.label ? [{ value: passageRow.label, role: "preferred" }] : undefined,
-      extensions: {
-        textual: {
-          unit: passageRow.unit,
-          sequence: passageRow.sequence,
-          container: passageRow.work_id,
-        },
-      },
-    } : undefined,
+    rawPassage: passageRow ? passageResource(passageRow) : undefined,
     contents,
-    artifacts: [],
-    provenanceRecords: [],
-    evidence: [],
-    relations: [],
-    dataset: datasetFromRow(datasetRows[0]),
+    artifacts,
+    provenanceRecords,
+    evidence,
+    relations,
+    dataset: await datasetById(passageRow?.dataset_id),
   }
+}
+
+export async function browserTraverseAssertion(assertionId: string): Promise<AssertionTraversal | null> {
+  const handle = await worker()
+  const assertionRows = await jsonRows("SELECT json FROM assertions WHERE id = ? LIMIT 1", assertionId)
+  const assertion = parseJson<Record<string, unknown>>(assertionRows[0]?.json)
+  if (!assertion) return null
+
+  const refs = await handle.db.query(
+    "SELECT ref_id FROM assertion_evidence WHERE assertion_id = ? ORDER BY ref_id",
+    assertionId,
+  ) as unknown as Array<{ ref_id: string }>
+
+  const evidence: EvidenceRecord[] = []
+  const targets: Array<Record<string, unknown>> = []
+  const seenTargets = new Set<string>()
+
+  for (const { ref_id: refId } of refs) {
+    const evidenceRows = await handle.db.query(
+      "SELECT id, target, relation, provenance, json FROM evidence WHERE id = ? LIMIT 1",
+      refId,
+    ) as unknown as EvidenceRow[]
+
+    const evidenceRecord = parseJson<EvidenceRecord>(evidenceRows[0]?.json)
+    if (evidenceRecord) {
+      evidence.push(evidenceRecord)
+      const targetId = evidenceRecord.target
+      if (targetId && !seenTargets.has(targetId)) {
+        const target = await resolveRecord(targetId)
+        if (target) {
+          seenTargets.add(targetId)
+          targets.push(target)
+        }
+      }
+      continue
+    }
+
+    if (!seenTargets.has(refId)) {
+      const target = await resolveRecord(refId)
+      if (target) {
+        seenTargets.add(refId)
+        targets.push(target)
+      }
+    }
+  }
+
+  return { assertion, evidence, targets }
 }

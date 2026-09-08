@@ -43,7 +43,7 @@ await mkdir(databaseDir, { recursive: true })
 await run("tar", ["-xzf", archive, "-C", databaseDir])
 
 const config = JSON.parse(await readFile(configFile, "utf8"))
-if (config?.corpusHash !== catalog.corpusHash || config?.serverMode !== "chunked") {
+if (config?.schemaVersion !== 2 || config?.corpusHash !== catalog.corpusHash || config?.serverMode !== "chunked") {
   throw new Error("Browser database does not match canonical catalog hash")
 }
 console.log(`Fetched browser corpus DB ${tag}: ${config.databaseLengthBytes} bytes.`)

@@ -1,4 +1,12 @@
-# 📚 MoonWitness Corpus Architecture & Documentation Hub
+# RGBL — Documentation Hub
+
+## **TRACE THE TEXT. DON’T QUOTE THE VIBE.**
+
+> **/// SOURCE · EDITION · PASSAGE · RIGHTS · PROVENANCE ///**
+
+This is the operator/developer map for the MoonWitness RGBL corpus. The corpus can be broad; authority must stay scoped. Database speed is useful. Reproducible text identity is non-negotiable.
+
+**TEXTUAL PRESENCE ≠ UNIVERSAL AUTHORITY · TRANSLATION ≠ SOURCE TEXT · DATABASE ≠ CANONICAL TRUTH**
 
 Pusat dokumentasi arsitektur, spesifikasi teknis, pedoman upstream ingestion, dan panduan integrasi sistem korpus kitab suci dunia **MoonWitness**.
 

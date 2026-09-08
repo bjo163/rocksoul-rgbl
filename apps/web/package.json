@@ -1,6 +1,6 @@
 {
   "name": "@moonwitness/corpus-web",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
   "description": "RGBL scripture and revelation reference observatory.",
@@ -8,23 +8,24 @@
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
     "typecheck": "tsc --noEmit",
+    "test": "node scripts/contract-test.mjs",
     "preview": "vite preview"
   },
   "dependencies": {
-    "@rocksoul/ui": "github:bjo163/rocksoul-ui#main",
+    "@rocksoul/ui": "github:bjo163/rocksoul-ui#c7d3402614408c9812a7ab5370873dab3f821a2f",
     "react": "19.2.8",
     "react-dom": "19.2.8"
   },
   "devDependencies": {
-    "@types/react": "^19.2.0",
-    "@types/react-dom": "^19.2.0",
-    "@vitejs/plugin-react": "^6.1.1",
-    "typescript": "^5.9.0",
-    "vite": "^8.2.2"
+    "@types/react": "19.2.0",
+    "@types/react-dom": "19.2.0",
+    "@vitejs/plugin-react": "6.1.1",
+    "typescript": "5.9.3",
+    "vite": "8.2.2"
   },
   "engines": {
-    "node": ">=22",
-    "npm": ">=11.6.0"
+    "node": ">=22.5.0 <23",
+    "npm": ">=10.9.0"
   },
-  "packageManager": "npm@11.6.0"
+  "packageManager": "npm@10.9.2"
 }

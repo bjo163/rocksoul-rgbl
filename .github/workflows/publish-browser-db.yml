@@ -1,0 +1,51 @@
+name: Publish Browser Corpus Database
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "datasets/**"
+      - "config/textual-semantic-rules.json"
+      - "scripts/build-browser-search-db.mjs"
+      - "scripts/chunk-browser-search-db.mjs"
+      - "scripts/export-web-catalog.mjs"
+      - ".github/workflows/publish-browser-db.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: browser-corpus-db-main
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Ensure generated catalog
+        run: node scripts/export-web-catalog.mjs
+      - name: Build browser search database
+        run: node scripts/build-browser-search-db.mjs
+      - name: Chunk database
+        run: node scripts/chunk-browser-search-db.mjs
+      - name: Archive browser database
+        run: tar -C dist/browser/chunks -czf dist/rgbl-browser-db.tar.gz .
+      - name: Publish content-addressed browser database
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          HASH="$(node -e "console.log(JSON.parse(require('fs').readFileSync('apps/web/public/corpus-catalog.json','utf8')).corpusHash)")"
+          TAG="browser-db-$HASH"
+          if ! gh release view "$TAG" >/dev/null 2>&1; then
+            gh release create "$TAG" --target "$GITHUB_SHA" --title "RGBL Browser DB $HASH" --notes "Generated browser-compatible corpus search database for immutable corpus hash $HASH."
+          fi
+          gh release upload "$TAG" dist/rgbl-browser-db.tar.gz --clobber
+          echo "Published $TAG"

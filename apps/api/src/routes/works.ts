@@ -27,6 +27,25 @@ export const worksRoutes: FastifyPluginAsync = async (fastify) => {
     }
   })
 
+  fastify.get('/works/:id', {
+    schema: {
+      tags: ['Works & Scriptures'],
+      summary: 'Get Canonical Work Hierarchy',
+      description: 'Returns a canonical work with its expressions, editions, artifacts, dataset and rights metadata.',
+      params: {
+        type: 'object',
+        properties: { id: { type: 'string' } },
+        required: ['id']
+      }
+    }
+  }, async (req, reply) => {
+    const { id } = req.params as { id: string }
+    const workId = (id.startsWith('mw:work:') ? id : `mw:work:${id}`) as CanonicalId
+    const hierarchy = await fastify.repo.getWorkHierarchy(workId)
+    if (!hierarchy.work) return reply.code(404).send({ success: false, error: 'work_not_found', workId })
+    return { success: true, data: hierarchy }
+  })
+
   fastify.get('/works/:id/passages', {
     schema: {
       tags: ['Works & Scriptures'],
@@ -49,17 +68,24 @@ export const worksRoutes: FastifyPluginAsync = async (fastify) => {
     }
   }, async (req) => {
     const { id } = req.params as { id: string }
-    const { limit = 20, offset = 0 } = req.query as { limit?: number; offset?: number }
+    const rawQuery = req.query as { limit?: number; offset?: number }
+    const limit = Math.max(1, Math.min(100, rawQuery.limit ?? 20))
+    const offset = Math.max(0, rawQuery.offset ?? 0)
 
     const workId = (id.startsWith('mw:work:') ? id : `mw:work:${id}`) as CanonicalId
-    const passages = fastify.repo.getWorkPassages(workId, limit, offset)
+    const page = fastify.repo.getWorkPassages(workId, limit + 1, offset)
+    const total = fastify.repo.countWorkPassages(workId)
+    const hasMore = page.length > limit
+    const passages = page.slice(0, limit)
 
     return {
       success: true,
       workId,
       limit,
       offset,
+      total,
       count: passages.length,
+      hasMore,
       data: passages
     }
   })

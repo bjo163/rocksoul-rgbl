@@ -17,6 +17,7 @@ import "./styles.css"
 import {
   loadAssertionTraversal,
   loadHealth,
+  loadSemanticRules,
   loadPassageTrace,
   loadPassages,
   loadTraditions,
@@ -33,6 +34,7 @@ import {
   type Passage,
   type PassageTrace,
   type SearchRecord,
+  type SemanticRuleRow,
   type Tradition,
   type Work,
   type WorkHierarchy,
@@ -107,7 +109,8 @@ function CorpusApp() {
   const [loadingPassages, setLoadingPassages] = useState(false)
   const [health, setHealth] = useState<ApiHealth | null>(null)
   const [sourceMode, setSourceMode] = useState<"api" | "catalog">("catalog")
-  const [apiNotice, setApiNotice] = useState<string>("")\n  const [semanticRows, setSemanticRows] = useState<SemanticRuleRow[]>([])
+  const [apiNotice, setApiNotice] = useState<string>("")
+  const [semanticRows, setSemanticRows] = useState<SemanticRuleRow[]>([])
   const [assertionId, setAssertionId] = useState("")
   const [assertionTrace, setAssertionTrace] = useState<AssertionTraversal | null>(null)
   const [assertionLoading, setAssertionLoading] = useState(false)

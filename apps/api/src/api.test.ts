@@ -62,5 +62,43 @@ test('Fastify Corpus API Engine with OpenTelemetry & Dynamic Traditions', async 
     assert.ok(json.traditionsCovered >= 1, 'Must find wisdom in at least one active tradition')
   })
 
+  await t.test('GET /v1/passages returns parallel text lanes and trace metadata', async () => {
+    const res = await app.inject({ method: 'GET', url: '/v1/passages/mw%3Apassage%3Ahinduism%3Abhagavad-gita%3A1%3A1' })
+    assert.equal(res.statusCode, 200)
+    const json = res.json()
+    assert.equal(json.success, true)
+    assert.equal(json.data.passage.id, 'mw:passage:hinduism:bhagavad-gita:1:1')
+    assert.ok(json.data.contents.length >= 2)
+    assert.ok(json.data.dataset)
+  })
+
+  await t.test('GET /v1/works/:id resolves canonical work hierarchy', async () => {
+    const res = await app.inject({ method: 'GET', url: '/v1/works/mw%3Awork%3Ahinduism%3Abhagavad-gita' })
+    assert.equal(res.statusCode, 200)
+    const json = res.json()
+    assert.equal(json.data.work.id, 'mw:work:hinduism:bhagavad-gita')
+    assert.ok(Array.isArray(json.data.expressions))
+    assert.ok(Array.isArray(json.data.editions))
+    assert.ok(Array.isArray(json.data.artifacts))
+  })
+
+  await t.test('GET /v1/assertions/:id/traversal resolves explicit evidence targets', async () => {
+    const res = await app.inject({ method: 'GET', url: '/v1/assertions/mw%3Aassertion%3Aexample%3A001/traversal' })
+    assert.equal(res.statusCode, 200)
+    const json = res.json()
+    assert.equal(json.data.assertion.id, 'mw:assertion:example:001')
+    assert.ok(json.data.evidence.some((item: any) => item.id === 'mw:evidence:example:001'))
+    assert.ok(json.data.targets.length >= 1)
+  })
+
+  await t.test('GET /v1/search honors tradition filtering and pagination metadata', async () => {
+    const res = await app.inject({ method: 'GET', url: '/v1/search?q=mercy&tradition=islam&limit=5' })
+    assert.equal(res.statusCode, 200)
+    const json = res.json()
+    assert.equal(json.tradition, 'islam')
+    assert.equal(typeof json.hasMore, 'boolean')
+    assert.ok(json.data.every((item: any) => item.tradition === 'islam'))
+  })
+
   await app.close()
 })

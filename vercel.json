@@ -15,7 +15,7 @@
       ]
     },
     {
-      "source": "/corpus-db/:hash/:file*",
+      "source": "/corpus-db/:hash/db.sqlite3.:chunk",
       "headers": [
         {
           "key": "Cache-Control",

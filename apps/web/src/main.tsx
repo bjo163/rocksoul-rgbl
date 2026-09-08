@@ -322,6 +322,9 @@ function CorpusApp() {
     : "All traditions"
 
   const hierarchyArtifacts = hierarchy?.artifacts ?? []
+  const sourceArtifacts = [...hierarchyArtifacts, ...(trace?.artifacts ?? [])].filter(
+    (artifact, index, all) => all.findIndex((candidate) => candidate.id === artifact.id) === index,
+  )
   const hierarchyItems = [
     ...(hierarchy?.work ? [{ id: hierarchy.work.id, kind: hierarchy.work.kind ?? "textual.work", label: labelsOf(hierarchy.work), state: "available" as const }] : []),
     ...(hierarchy?.expressions ?? []).map((item) => ({ id: item.id, kind: item.kind ?? "textual.expression", label: labelsOf(item), state: "available" as const })),
@@ -330,8 +333,8 @@ function CorpusApp() {
     ...(selectedPassage ? [{ id: selectedPassage.id, kind: "textual.passage", label: selectedPassage.label, detail: selectedPassage.locator, state: "available" as const }] : []),
     ...(trace?.contents ?? []).map((item) => ({ id: item.id, kind: "textual.content", label: item.language + " · " + item.representation, detail: item.artifact, state: item.text ? "available" as const : "missing" as const })),
   ]
-  const sourceRightsRecords = hierarchyArtifacts.length
-    ? hierarchyArtifacts.map((artifact) => {
+  const sourceRightsRecords = sourceArtifacts.length
+    ? sourceArtifacts.map((artifact) => {
         const source = extension(artifact, "source")
         const descriptor = object(source.descriptor)
         const rights = object(source.rights)
@@ -375,7 +378,7 @@ function CorpusApp() {
     })))
   })
   const provenanceNodes = trace?.provenanceRecords.length
-    ? trace.provenanceRecords.slice(0, 4).map((record, index) => ({
+    ? trace.provenanceRecords.map((record, index) => ({
         id: record.id,
         kind: index === 0 ? "source" as const : "evidence" as const,
         label: index === 0 ? "Pinned provenance" : `Provenance activity ${index + 1}`,

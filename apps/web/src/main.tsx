@@ -160,8 +160,7 @@ function CorpusApp() {
       setHealth(healthResult.data)
       setTraditions(traditionResult.data)
       setWorks(workResult.data)
-      const live = healthResult.source === "api" && healthResult.data?.status === "healthy"
-      setSourceMode(live ? "api" : "catalog")
+      setSourceMode(healthResult.source)
       setApiNotice(healthResult.error || traditionResult.error || workResult.error || semanticResult.error || "")
       const requested = initialParam("work")
       const candidates = workResult.data
@@ -314,7 +313,7 @@ function CorpusApp() {
     setAssertionNotice("")
     const result = await loadAssertionTraversal(id)
     setAssertionTrace(result.data)
-    setAssertionNotice(result.error || (result.data ? "" : "Live corpus runtime is required for assertion traversal."))
+    setAssertionNotice(result.error || (result.data ? "" : "No canonical assertion with that ID was resolved."))
     setAssertionLoading(false)
   }
 
@@ -539,7 +538,7 @@ function CorpusApp() {
               <div><span>Indexed records</span><strong>{health?.totalRecords ? formatCount(health.totalRecords) : aggregateRecords ? formatCount(aggregateRecords) : "537K+"}</strong><small>{sourceMode === "api" ? "live database" : sourceMode === "browser" ? "full browser index" : "repository catalog"}</small></div>
               <div><span>Traditions</span><strong>{traditions.length}</strong><small>registry scope</small></div>
               <div><span>Visible works</span><strong>{visibleWorks.length}</strong><small>{selectedTraditionName}</small></div>
-              <div><span>Runtime</span><strong>{sourceMode === "api" ? "API" : sourceMode === "browser" ? "FULL" : "CATALOG"}</strong><small>{sourceMode === "browser" ? "239,841 exact-text lanes" : sourceMode === "api" ? "canonical records" : "canonical catalog · no invented text"}</small></div>
+              <div><span>Runtime</span><strong>{sourceMode === "api" ? "API" : sourceMode === "browser" ? "FULL" : "CATALOG"}</strong><small>{sourceMode === "browser" ? "239,841 exact-text lanes" : sourceMode === "api" ? "canonical records" : sourceMode === "browser" ? "full canonical browser records" : "canonical catalog · no invented text"}</small></div>
             </div>
 
             <div className="atlas-layout">

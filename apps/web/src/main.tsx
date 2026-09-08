@@ -28,10 +28,6 @@ import {
   type ApiHealth,
 } from "./api"
 import {
-  evidenceRows,
-  fallbackPassages,
-  fallbackTraditions,
-  fallbackWorks,
   type AssertionTraversal,
   type CorpusResource,
   type Passage,
@@ -91,12 +87,12 @@ function initialParam(key: string) {
 }
 
 function CorpusApp() {
-  const [traditions, setTraditions] = useState<Tradition[]>(fallbackTraditions)
-  const [works, setWorks] = useState<Work[]>(fallbackWorks)
+  const [traditions, setTraditions] = useState<Tradition[]>([])
+  const [works, setWorks] = useState<Work[]>([])
   const [selectedTradition, setSelectedTradition] = useState(() => initialParam("tradition"))
-  const [selectedWorkId, setSelectedWorkId] = useState(() => initialParam("work") || fallbackWorks[1]?.id || fallbackWorks[0]?.id || "")
+  const [selectedWorkId, setSelectedWorkId] = useState(() => initialParam("work"))
   const [hierarchy, setHierarchy] = useState<WorkHierarchy | null>(null)
-  const [passages, setPassages] = useState<Passage[]>(fallbackPassages.filter((item) => item.workId === selectedWorkId))
+  const [passages, setPassages] = useState<Passage[]>([])
   const [passageOffset, setPassageOffset] = useState(0)
   const [passageTotal, setPassageTotal] = useState<number | undefined>()
   const [passageHasMore, setPassageHasMore] = useState(false)
@@ -110,8 +106,8 @@ function CorpusApp() {
   const [searching, setSearching] = useState(false)
   const [loadingPassages, setLoadingPassages] = useState(false)
   const [health, setHealth] = useState<ApiHealth | null>(null)
-  const [sourceMode, setSourceMode] = useState<"api" | "fallback">("fallback")
-  const [apiNotice, setApiNotice] = useState<string>("")
+  const [sourceMode, setSourceMode] = useState<"api" | "catalog">("catalog")
+  const [apiNotice, setApiNotice] = useState<string>("")\n  const [semanticRows, setSemanticRows] = useState<SemanticRuleRow[]>([])
   const [assertionId, setAssertionId] = useState("")
   const [assertionTrace, setAssertionTrace] = useState<AssertionTraversal | null>(null)
   const [assertionLoading, setAssertionLoading] = useState(false)
@@ -136,14 +132,14 @@ function CorpusApp() {
 
   useEffect(() => {
     let active = true
-    void Promise.all([loadHealth(), loadTraditions(), loadWorks()]).then(([healthResult, traditionResult, workResult]) => {
+    void Promise.all([loadHealth(), loadTraditions(), loadWorks(), loadSemanticRules()]).then(([healthResult, traditionResult, workResult, semanticResult]) => {
       if (!active) return
       setHealth(healthResult.data)
       setTraditions(traditionResult.data)
       setWorks(workResult.data)
       const live = healthResult.source === "api" && healthResult.data?.status === "healthy"
-      setSourceMode(live ? "api" : "fallback")
-      setApiNotice(healthResult.error || traditionResult.error || workResult.error || "")
+      setSourceMode(live ? "api" : "catalog")
+      setApiNotice(healthResult.error || traditionResult.error || workResult.error || semanticResult.error || "")
       const requested = initialParam("work")
       const candidates = workResult.data
       if (!candidates.some((work) => work.id === (requested || selectedWorkId))) {
@@ -165,7 +161,7 @@ function CorpusApp() {
       setPassageTotal(passageResult.total)
       setPassageHasMore(passageResult.hasMore)
       setPassageOffset(passageResult.offset)
-      setSourceMode(hierarchyResult.source === "api" || passageResult.source === "api" ? "api" : "fallback")
+      setSourceMode(hierarchyResult.source === "api" || passageResult.source === "api" ? "api" : "catalog")
       setApiNotice(hierarchyResult.error || passageResult.error || "")
       const requestedPassage = initialParam("passage")
       const nextPassage = passageResult.data.find((item) => item.id === requestedPassage) ?? passageResult.data[0]
@@ -254,7 +250,7 @@ function CorpusApp() {
     setAssertionNotice("")
     const result = await loadAssertionTraversal(id)
     setAssertionTrace(result.data)
-    setAssertionNotice(result.error || (result.data ? "" : "Live RGBL API is required for assertion traversal."))
+    setAssertionNotice(result.error || (result.data ? "" : "Live corpus runtime is required for assertion traversal."))
     setAssertionLoading(false)
   }
 
@@ -272,7 +268,7 @@ function CorpusApp() {
         active: index === 0,
       }))
     : [
-        { id: "source-boundary", kind: "source" as const, label: "Source trace unavailable", detail: sourceMode === "api" ? "No provenance record returned for this passage." : "Connect the live RGBL API.", active: true },
+        { id: "source-boundary", kind: "source" as const, label: "Source trace unavailable", detail: sourceMode === "api" ? "No provenance record returned for this passage." : "Generated catalog has no provenance record for this selection.", active: true },
         { id: "text-boundary", kind: "text" as const, label: "Canonical passage identity", detail: selectedPassage?.id ?? "No passage selected" },
       ]
 
@@ -292,7 +288,7 @@ function CorpusApp() {
           </nav>
           <div className="header-tools">
             <Badge variant={sourceMode === "api" ? "verified" : "partial"}>
-              {sourceMode === "api" ? "LIVE CORPUS" : "METADATA FALLBACK"}
+              {sourceMode === "api" ? "LIVE CORPUS" : "GENERATED CATALOG"}
             </Badge>
             <ThemeToggle />
           </div>
@@ -305,7 +301,7 @@ function CorpusApp() {
               title="TRACE THE TEXT."
               summary="Inspect canonical work identity, expression, edition, source artifact, exact passage content, rights, provenance, evidence and explicit textual relations without collapsing their semantic boundaries."
               recordId="TEXT ≠ INTERPRETATION · TRANSLATION ≠ SOURCE IDENTITY"
-              status={{ label: sourceMode === "api" ? "LIVE CANONICAL TEXT LAYER" : "CANONICAL METADATA MODE", variant: sourceMode === "api" ? "verified" : "partial" }}
+              status={{ label: sourceMode === "api" ? "LIVE CANONICAL TEXT LAYER" : "CANONICAL CATALOG MODE", variant: sourceMode === "api" ? "verified" : "partial" }}
               metadata={[
                 { label: "Domain", value: "TEXT" },
                 { label: "Hierarchy", value: "WORK → EXPRESSION → EDITION → ARTIFACT → PASSAGE → CONTENT" },
@@ -336,13 +332,13 @@ function CorpusApp() {
             <div className="runtime-state">
               <span className={sourceMode === "api" ? "runtime-dot live" : "runtime-dot"} aria-hidden="true" />
               <div>
-                <strong>{sourceMode === "api" ? "Canonical API connected" : "Metadata fallback active"}</strong>
-                <small>{sourceMode === "api" ? rgblApiBaseUrl : rgblApiConfigured ? "Configured endpoint is unavailable" : "VITE_RGBL_API_URL is not configured"}</small>
+                <strong>{sourceMode === "api" ? "Canonical API connected" : "Generated canonical catalog active"}</strong>
+                <small>{sourceMode === "api" ? rgblApiBaseUrl : rgblApiConfigured ? "Configured endpoint is unavailable; catalog is active" : "No REST endpoint configured; repository catalog is active"}</small>
               </div>
             </div>
             <div className="runtime-metrics">
               <span>ENGINE <b>{health?.version ?? "0.1"}</b></span>
-              <span>RECORDS <b>{health?.totalRecords ? formatCount(health.totalRecords) : "537K+ baseline"}</b></span>
+              <span>RECORDS <b>{health?.totalRecords ? formatCount(health.totalRecords) : aggregateRecords ? formatCount(aggregateRecords) : "—"}</b></span>
               <span>STATUS <b>{health?.status ?? "fallback"}</b></span>
             </div>
           </section>
@@ -350,7 +346,7 @@ function CorpusApp() {
           {apiNotice ? (
             <aside className="api-notice" role="status">
               <MoonWitnessAssetImage pack="state-illustrations" file="svg/source-missing.svg" alt="" aria-hidden="true" />
-              <div><strong>Live corpus adapter degraded.</strong><p>{apiNotice}. The interface is preserving metadata-only behavior rather than inventing missing text.</p></div>
+              <div><strong>Live corpus adapter degraded.</strong><p>{apiNotice}. The interface is using the generated canonical catalog rather than inventing missing text.</p></div>
             </aside>
           ) : null}
 
@@ -383,7 +379,7 @@ function CorpusApp() {
             </form>
             <div className="search-context">
               <span>FILTER · {selectedTraditionName}</span>
-              <span>{typeof searchLatency === "number" ? `SERVER SEARCH · ${searchLatency.toFixed(2)} ms` : sourceMode === "api" ? "LIVE FTS5" : "LOCAL METADATA ONLY"}</span>
+              <span>{typeof searchLatency === "number" ? `SERVER SEARCH · ${searchLatency.toFixed(2)} ms` : sourceMode === "api" ? "LIVE FTS5" : "GENERATED CATALOG INDEX"}</span>
             </div>
 
             {results.length ? (
@@ -424,7 +420,7 @@ function CorpusApp() {
               <div><span>Indexed records</span><strong>{health?.totalRecords ? formatCount(health.totalRecords) : aggregateRecords ? formatCount(aggregateRecords) : "537K+"}</strong><small>{health ? "live database" : "repository baseline"}</small></div>
               <div><span>Traditions</span><strong>{traditions.length}</strong><small>registry scope</small></div>
               <div><span>Visible works</span><strong>{visibleWorks.length}</strong><small>{selectedTraditionName}</small></div>
-              <div><span>API state</span><strong>{sourceMode === "api" ? "LIVE" : "SAFE"}</strong><small>{sourceMode === "api" ? "canonical records" : "no invented text"}</small></div>
+              <div><span>API state</span><strong>{sourceMode === "api" ? "LIVE" : "SAFE"}</strong><small>{sourceMode === "api" ? "canonical records" : "canonical catalog · no invented text"}</small></div>
             </div>
 
             <div className="atlas-layout">
@@ -607,7 +603,7 @@ function CorpusApp() {
 
             <div className="contract-matrix">
               <div className="panel-title"><span>STATIC SEMANTIC GUARDRAILS /</span><b>CONTRACT</b></div>
-              <EvidenceMatrix rows={evidenceRows} caption="RGBL semantic guardrails — contract summary, not live evidence counts" />
+              <EvidenceMatrix rows={semanticRows} caption="RGBL semantic guardrails — machine-readable contract summary, not live evidence counts" />
             </div>
 
             <form className="assertion-trace" onSubmit={traceAssertion}>

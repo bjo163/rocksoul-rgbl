@@ -12,5 +12,6 @@
     "forceConsistentCasingInFileNames": true,
     "types": ["node"]
   },
-  "include": ["packages/**/*.ts", "packages/**/*.tsx", "packages/**/*.d.ts", "apps/**/*.ts", "apps/**/*.d.ts", "scripts/**/*.ts"]
+  "include": ["packages/**/*.ts", "packages/**/*.tsx", "packages/**/*.d.ts", "apps/**/*.ts", "apps/**/*.d.ts", "scripts/**/*.ts"],
+  "exclude": ["apps/web/**"]
 }

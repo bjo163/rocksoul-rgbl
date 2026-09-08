@@ -63,6 +63,7 @@ export interface SearchRecord {
   snippet?: string
   source?: string
   datasetId?: string
+  workId?: string
   score?: number
 }
 

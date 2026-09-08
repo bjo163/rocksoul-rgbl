@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="https://raw.githubusercontent.com/bjo163/rocksoul-assets/main/moonwitness/brand/logo-horizontal.svg" alt="MoonWitness" width="380" />
+
 # RGBL
 
 ## SCRIPTURE & REVELATION REFERENCE INTELLIGENCE
@@ -19,10 +21,12 @@ A provenance-first **multi-tradition text, scripture, sacred-literature, and evi
 ![Domain](https://img.shields.io/badge/domain-TEXT-6F6F6F)
 ![Corpus](https://img.shields.io/badge/corpus-provenance--first-B43A32)
 ![Engine](https://img.shields.io/badge/engine-TypeScript-3178C6)
+![Design](https://img.shields.io/badge/design-rocksoul--assets-6C63FF)
+![Console](https://img.shields.io/badge/console-rocksoul--crayon-2E8B57)
 
 <br/>
 
-[Architecture](#text-intelligence-graph) · [Corpus contract](#canonical-corpus-contract) · [Coverage](#multi-tradition-coverage) · [Documentation](#documentation)
+[Architecture](#text-intelligence-graph) · [Corpus contract](#canonical-corpus-contract) · [Coverage](#multi-tradition-coverage) · [Documentation](#documentation) · [Assets](https://github.com/bjo163/rocksoul-assets) · [Console](https://github.com/bjo163/rocksoul-crayon)
 
 </div>
 
@@ -38,6 +42,18 @@ An assessment is not a universal verdict.
 A corpus record is not a Mizan policy.
 
 That separation is the foundation of RGBL.
+
+## Visual + console boundary
+
+<div align="center">
+
+<img src="https://raw.githubusercontent.com/bjo163/rocksoul-assets/main/moonwitness/ui/v2/23-ai-workspace.svg" alt="Rocksoul AI workspace" width="860" />
+
+</div>
+
+- **`rocksoul-assets`** owns the visual language and workspace references.
+- **`rocksoul-crayon`** exposes TEXT resources through shared search, AutoMenu, cases, and AI-workspace surfaces.
+- **RGBL remains canonical owner of exact TEXT / corpus identity / provenance.**
 
 ## Core question
 
@@ -79,15 +95,19 @@ flowchart LR
 
 ## MoonWitness / Rocksoul research map
 
-| Repository | Domain | Core question | Mantra |
-|---|---|---|---|
-| [`rocksoul-mftl`](https://github.com/bjo163/rocksoul-mftl) | STORY | What was told? | TRACE THE STORY. |
-| [`rocksoul-legend`](https://github.com/bjo163/rocksoul-legend) | EVENT | What happened? | TRACE THE EVENT. |
-| [`rocksoul-superhero`](https://github.com/bjo163/rocksoul-superhero) | PERSON | Who was involved? | TRACE THE PERSON. |
-| **`rocksoul-rgbl`** | TEXT | What does the exact text say? | TRACE THE TEXT. |
-| [`rocksoul-aws`](https://github.com/bjo163/rocksoul-aws) | LAW | Was it allowed? | TRACE THE LAW. |
+| Repository | Layer | Core question / role |
+|---|---|---|
+| [`rocksoul-assets`](https://github.com/bjo163/rocksoul-assets) | DESIGN | How should the ecosystem look? |
+| [`rocksoul-crayon`](https://github.com/bjo163/rocksoul-crayon) | CONSOLE | How do operators work across it? |
+| [`rocksoul-mftl`](https://github.com/bjo163/rocksoul-mftl) | STORY | What was told? |
+| [`rocksoul-legend`](https://github.com/bjo163/rocksoul-legend) | EVENT | What happened? |
+| [`rocksoul-superhero`](https://github.com/bjo163/rocksoul-superhero) | PERSON | Who was involved? |
+| **`rocksoul-rgbl`** | TEXT | What does the exact text say? |
+| [`rocksoul-aws`](https://github.com/bjo163/rocksoul-aws) | LAW | Was it allowed? |
 
 ```text
+DESIGN  → ASSETS
+CONSOLE → CRAYON
 STORY   → MFTL
 EVENT   → LEGEND
 PERSON  → SUPERHERO
@@ -189,11 +209,6 @@ Runtime databases, FTS indexes, caches, and search artifacts must remain rebuild
 ```bash
 pnpm install
 pnpm check
-```
-
-Run the API:
-
-```bash
 pnpm serve
 ```
 
@@ -277,6 +292,8 @@ rocksoul-rgbl/
 ---
 
 <div align="center">
+
+<img src="https://raw.githubusercontent.com/bjo163/rocksoul-assets/main/moonwitness/brand/rocksoul-lockup.svg" alt="Rocksoul" width="480" />
 
 ## **TRACE THE TEXT.**
 

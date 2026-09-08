@@ -28,6 +28,12 @@ function labelOf(record) {
     ?? labels[0]?.value
     ?? record.id
 }
+function textTargets(value) {
+  if (!Array.isArray(value)) return []
+  return value
+    .map((item) => typeof item === "string" ? item : obj(item).target)
+    .filter((item) => typeof item === "string" && item.length > 0)
+}
 
 const registry = await json(path.join(root, "datasets/registry.json"))
 const entries = []
@@ -76,6 +82,41 @@ db.exec(`
     record_count INTEGER NOT NULL
   );
 
+  CREATE TABLE works (
+    id TEXT PRIMARY KEY,
+    dataset_id TEXT NOT NULL,
+    json TEXT NOT NULL
+  );
+
+  CREATE TABLE expressions (
+    id TEXT PRIMARY KEY,
+    dataset_id TEXT NOT NULL,
+    work_id TEXT NOT NULL,
+    json TEXT NOT NULL
+  );
+  CREATE INDEX idx_browser_expressions_work ON expressions(work_id);
+
+  CREATE TABLE editions (
+    id TEXT PRIMARY KEY,
+    dataset_id TEXT NOT NULL,
+    json TEXT NOT NULL
+  );
+
+  CREATE TABLE edition_expressions (
+    edition_id TEXT NOT NULL,
+    expression_id TEXT NOT NULL,
+    PRIMARY KEY (edition_id, expression_id)
+  );
+  CREATE INDEX idx_browser_editions_expression ON edition_expressions(expression_id);
+
+  CREATE TABLE artifacts (
+    id TEXT PRIMARY KEY,
+    dataset_id TEXT NOT NULL,
+    represents TEXT,
+    json TEXT NOT NULL
+  );
+  CREATE INDEX idx_browser_artifacts_represents ON artifacts(represents);
+
   CREATE TABLE passages (
     id TEXT PRIMARY KEY,
     dataset_id TEXT NOT NULL,
@@ -92,7 +133,7 @@ db.exec(`
 
   CREATE TABLE search_meta (
     rowid INTEGER PRIMARY KEY,
-    content_id TEXT NOT NULL,
+    content_id TEXT NOT NULL UNIQUE,
     passage_id TEXT NOT NULL,
     dataset_id TEXT NOT NULL,
     language TEXT NOT NULL,
@@ -103,16 +144,81 @@ db.exec(`
   );
   CREATE INDEX idx_browser_meta_passage ON search_meta(passage_id);
   CREATE INDEX idx_browser_meta_dataset ON search_meta(dataset_id);
+
+  CREATE TABLE provenance (
+    id TEXT PRIMARY KEY,
+    dataset_id TEXT NOT NULL,
+    json TEXT NOT NULL
+  );
+
+  CREATE TABLE evidence (
+    id TEXT PRIMARY KEY,
+    dataset_id TEXT NOT NULL,
+    target TEXT,
+    relation TEXT,
+    provenance TEXT,
+    json TEXT NOT NULL
+  );
+  CREATE INDEX idx_browser_evidence_target ON evidence(target);
+
+  CREATE TABLE relations (
+    id TEXT PRIMARY KEY,
+    dataset_id TEXT NOT NULL,
+    kind TEXT NOT NULL,
+    relation TEXT,
+    method TEXT,
+    provenance TEXT,
+    json TEXT NOT NULL
+  );
+
+  CREATE TABLE relation_targets (
+    relation_id TEXT NOT NULL,
+    target_id TEXT NOT NULL,
+    role TEXT NOT NULL,
+    PRIMARY KEY (relation_id, target_id, role)
+  );
+  CREATE INDEX idx_browser_relation_target ON relation_targets(target_id);
+
+  CREATE TABLE assertions (
+    id TEXT PRIMARY KEY,
+    dataset_id TEXT NOT NULL,
+    json TEXT NOT NULL
+  );
+
+  CREATE TABLE assertion_evidence (
+    assertion_id TEXT NOT NULL,
+    ref_id TEXT NOT NULL,
+    PRIMARY KEY (assertion_id, ref_id)
+  );
+  CREATE INDEX idx_browser_assertion_ref ON assertion_evidence(ref_id);
 `)
 
 const insertDataset = db.prepare("INSERT INTO datasets VALUES (?, ?, ?, ?, ?, ?, ?)")
+const insertWork = db.prepare("INSERT OR REPLACE INTO works VALUES (?, ?, ?)")
+const insertExpression = db.prepare("INSERT OR REPLACE INTO expressions VALUES (?, ?, ?, ?)")
+const insertEdition = db.prepare("INSERT OR REPLACE INTO editions VALUES (?, ?, ?)")
+const insertEditionExpression = db.prepare("INSERT OR IGNORE INTO edition_expressions VALUES (?, ?)")
+const insertArtifact = db.prepare("INSERT OR REPLACE INTO artifacts VALUES (?, ?, ?, ?)")
 const insertPassage = db.prepare("INSERT OR REPLACE INTO passages VALUES (?, ?, ?, ?, ?, ?, ?)")
 const insertFts = db.prepare("INSERT INTO fts_contents(docid, text) VALUES (?, ?)")
 const insertMeta = db.prepare("INSERT INTO search_meta VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)")
+const insertProvenance = db.prepare("INSERT OR REPLACE INTO provenance VALUES (?, ?, ?)")
+const insertEvidence = db.prepare("INSERT OR REPLACE INTO evidence VALUES (?, ?, ?, ?, ?, ?)")
+const insertRelation = db.prepare("INSERT OR REPLACE INTO relations VALUES (?, ?, ?, ?, ?, ?, ?)")
+const insertRelationTarget = db.prepare("INSERT OR IGNORE INTO relation_targets VALUES (?, ?, ?)")
+const insertAssertion = db.prepare("INSERT OR REPLACE INTO assertions VALUES (?, ?, ?)")
+const insertAssertionEvidence = db.prepare("INSERT OR IGNORE INTO assertion_evidence VALUES (?, ?)")
+
 let docid = 0
 let totalRecords = 0
 let indexedContents = 0
 let totalPassages = 0
+let hierarchyRecords = 0
+let artifactRecords = 0
+let provenanceRecords = 0
+let evidenceRecords = 0
+let relationRecords = 0
+let assertionRecords = 0
 
 db.exec("BEGIN")
 for (const dataset of entries) {
@@ -125,9 +231,56 @@ for (const dataset of entries) {
       totalRecords += 1
       let record
       try { record = JSON.parse(line) } catch { continue }
+
+      if (record.record_type === "provenance") {
+        insertProvenance.run(record.id, dataset.manifest.id, JSON.stringify(record))
+        provenanceRecords += 1
+        continue
+      }
+
+      if (record.record_type === "evidence") {
+        insertEvidence.run(
+          record.id,
+          dataset.manifest.id,
+          typeof record.target === "string" ? record.target : null,
+          typeof record.relation === "string" ? record.relation : null,
+          typeof record.provenance === "string" ? record.provenance : null,
+          JSON.stringify(record),
+        )
+        evidenceRecords += 1
+        continue
+      }
+
+      if (record.record_type === "assertion") {
+        insertAssertion.run(record.id, dataset.manifest.id, JSON.stringify(record))
+        for (const ref of Array.isArray(record.evidence) ? record.evidence : []) {
+          if (typeof ref === "string") insertAssertionEvidence.run(record.id, ref)
+        }
+        assertionRecords += 1
+        continue
+      }
+
       if (record.record_type !== "resource") continue
       const textual = obj(obj(record.extensions).textual)
-      if (record.kind === "textual.passage") {
+      if (record.kind === "textual.work") {
+        insertWork.run(record.id, dataset.manifest.id, JSON.stringify(record))
+        hierarchyRecords += 1
+      } else if (record.kind === "textual.expression") {
+        const workId = typeof textual.work === "string" ? textual.work : expressionToWork.get(record.id) ?? ""
+        insertExpression.run(record.id, dataset.manifest.id, workId, JSON.stringify(record))
+        hierarchyRecords += 1
+      } else if (record.kind === "textual.edition") {
+        insertEdition.run(record.id, dataset.manifest.id, JSON.stringify(record))
+        for (const expressionId of textTargets(textual.expressions)) {
+          insertEditionExpression.run(record.id, expressionId)
+        }
+        hierarchyRecords += 1
+      } else if (record.kind === "textual.artifact") {
+        const represents = typeof textual.represents === "string" ? textual.represents : null
+        insertArtifact.run(record.id, dataset.manifest.id, represents, JSON.stringify(record))
+        hierarchyRecords += 1
+        artifactRecords += 1
+      } else if (record.kind === "textual.passage") {
         const container = typeof textual.container === "string" ? textual.container : ""
         const workId = typeof textual.work === "string"
           ? textual.work
@@ -163,9 +316,23 @@ for (const dataset of entries) {
           typeof sourceMeta.provenance === "string" ? sourceMeta.provenance : null,
         )
         indexedContents += 1
+      } else if (record.kind === "textual.alignment" || record.kind === "textual.variant") {
+        insertRelation.run(
+          record.id,
+          dataset.manifest.id,
+          record.kind,
+          typeof textual.relation === "string" ? textual.relation : null,
+          typeof textual.method === "string" ? textual.method : null,
+          typeof textual.provenance === "string" ? textual.provenance : null,
+          JSON.stringify(record),
+        )
+        for (const target of textTargets(textual.sources)) insertRelationTarget.run(record.id, target, "source")
+        for (const target of textTargets(textual.targets)) insertRelationTarget.run(record.id, target, "target")
+        relationRecords += 1
       }
     }
   }
+
   insertDataset.run(
     dataset.manifest.id,
     dataset.entry.tradition ?? dataset.manifest.tradition ?? "unscoped",
@@ -187,5 +354,11 @@ console.log(JSON.stringify({
   totalRecords,
   passages: totalPassages,
   indexedContents,
+  hierarchyRecords,
+  artifactRecords,
+  provenanceRecords,
+  evidenceRecords,
+  relationRecords,
+  assertionRecords,
   sizeBytes: info.size,
 }, null, 2))

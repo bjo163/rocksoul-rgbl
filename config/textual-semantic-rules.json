@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "rules": [
+    {
+      "id": "textual-presence",
+      "label": "Textual presence",
+      "boundary": "does_not_imply_universal_authority",
+      "context": "Presence is a corpus fact; authority remains source, community, and claim scoped.",
+      "epistemic": "textual_attestation_only",
+      "matrix": {
+        "support": 1,
+        "counter": 0,
+        "context": 1,
+        "alternative": 0
+      }
+    },
+    {
+      "id": "translation-identity",
+      "label": "Translation",
+      "boundary": "does_not_equal_source_identity",
+      "context": "Source and translation content are separate expressions/content records with independent provenance.",
+      "epistemic": "identity_not_asserted",
+      "matrix": {
+        "support": 0,
+        "counter": 1,
+        "context": 1,
+        "alternative": 0
+      }
+    },
+    {
+      "id": "similarity-equivalence",
+      "label": "Similarity",
+      "boundary": "does_not_equal_equivalence",
+      "context": "Similarity or alignment may create a scoped relation or review candidate, never canonical equivalence by itself.",
+      "epistemic": "equivalence_not_asserted",
+      "matrix": {
+        "support": 0,
+        "counter": 1,
+        "context": 1,
+        "alternative": 1
+      }
+    },
+    {
+      "id": "assertion-global-fact",
+      "label": "Assertion",
+      "boundary": "does_not_equal_global_fact",
+      "context": "Assertions preserve class, scope, evidence, provenance, and review state.",
+      "epistemic": "scope_required",
+      "matrix": {
+        "support": 0,
+        "counter": 1,
+        "context": 1,
+        "alternative": 0
+      }
+    },
+    {
+      "id": "missing-false",
+      "label": "Missing",
+      "boundary": "does_not_equal_false",
+      "context": "Unavailable or unindexed values remain missing; the interface must not synthesize a negative fact.",
+      "epistemic": "unknown_not_false",
+      "matrix": {
+        "support": 0,
+        "counter": 1,
+        "context": 1,
+        "alternative": 1
+      }
+    },
+    {
+      "id": "provenance-required",
+      "label": "Provenance",
+      "boundary": "is_required",
+      "context": "Pinned source, revision, checksum, rights, and acquisition activity remain inspectable when supplied.",
+      "epistemic": "required_contract",
+      "matrix": {
+        "support": 1,
+        "counter": 0,
+        "context": 1,
+        "alternative": 0
+      }
+    }
+  ]
+}

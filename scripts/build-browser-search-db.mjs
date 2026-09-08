@@ -321,13 +321,24 @@ for (const dataset of entries) {
           record.id,
           dataset.manifest.id,
           record.kind,
-          typeof textual.relation === "string" ? textual.relation : null,
+          typeof textual.relation === "string" ? textual.relation : record.kind === "textual.variant" ? "textual_variant" : null,
           typeof textual.method === "string" ? textual.method : null,
           typeof textual.provenance === "string" ? textual.provenance : null,
           JSON.stringify(record),
         )
-        for (const target of textTargets(textual.sources)) insertRelationTarget.run(record.id, target, "source")
-        for (const target of textTargets(textual.targets)) insertRelationTarget.run(record.id, target, "target")
+        if (record.kind === "textual.alignment") {
+          for (const target of textTargets(textual.sources)) insertRelationTarget.run(record.id, target, "source")
+          for (const target of textTargets(textual.targets)) insertRelationTarget.run(record.id, target, "target")
+        } else {
+          for (const target of textTargets(textual.locus)) insertRelationTarget.run(record.id, target, "locus")
+          for (const readingValue of Array.isArray(textual.readings) ? textual.readings : []) {
+            const reading = obj(readingValue)
+            if (typeof reading.content === "string") insertRelationTarget.run(record.id, reading.content, "reading_content")
+            for (const witness of Array.isArray(reading.witnesses) ? reading.witnesses : []) {
+              if (typeof witness === "string") insertRelationTarget.run(record.id, witness, "witness")
+            }
+          }
+        }
         relationRecords += 1
       }
     }

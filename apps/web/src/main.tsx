@@ -361,6 +361,36 @@ function CorpusApp() {
       : []
   const textualRelations = (trace?.relations ?? []).flatMap((relation) => {
     const textual = extension(relation, "textual")
+
+    if (relation.kind === "textual.variant") {
+      const locus = Array.isArray(textual.locus)
+        ? textual.locus.map(object).map((item) => stringOr(item.target)).filter((value): value is string => Boolean(value))
+        : []
+      const readings = Array.isArray(textual.readings) ? textual.readings.map(object) : []
+      const subjects = locus.length ? locus : [selectedPassage?.id ?? relation.id]
+
+      return subjects.flatMap((subject) => readings.flatMap((reading, readingIndex) => {
+        const witnesses = Array.isArray(reading.witnesses)
+          ? reading.witnesses.filter((value): value is string => typeof value === "string")
+          : []
+        const objects = [stringOr(reading.content), ...witnesses]
+          .filter((value, index, all): value is string => Boolean(value) && all.indexOf(value) === index)
+
+        return (objects.length ? objects : [relation.id + ":reading:" + String(readingIndex)]).map((target, targetIndex) => ({
+          id: relation.id + ":variant:" + String(readingIndex) + ":" + String(targetIndex),
+          subject,
+          relation: stringOr(reading.label, "variant_reading"),
+          object: target,
+          method: stringOr(
+            textual.method,
+            reading.text ? "Witness reading recorded directly in the canonical variant resource." : undefined,
+          ),
+          provenance: stringOr(textual.provenance),
+          state: "partial" as const,
+        }))
+      }))
+    }
+
     const sources = Array.isArray(textual.sources) ? textual.sources.map(object) : []
     const targets = Array.isArray(textual.targets) ? textual.targets.map(object) : []
     const subjectIds = sources.map((item) => stringOr(item.target)).filter((value): value is string => Boolean(value))
@@ -374,7 +404,7 @@ function CorpusApp() {
       object: target,
       method: stringOr(textual.method),
       provenance: stringOr(textual.provenance),
-      state: relation.kind === "textual.variant" ? "partial" as const : "available" as const,
+      state: "available" as const,
     })))
   })
   const provenanceNodes = trace?.provenanceRecords.length

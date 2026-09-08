@@ -1,16 +1,18 @@
-# RGBL Documentation
+# RGBL — Documentation Hub
 
-## Scripture & Revelation Reference Intelligence
+## **TRACE THE TEXT. DON’T QUOTE THE VIBE.**
 
-Technical documentation for the **MoonWitness Corpus Engine** that powers the RGBL text/provenance layer inside Rocksoul Research. Canonical corpus truth, downstream engine policy, and cross-repository research ownership remain separate.
+> **/// SOURCE · EDITION · PASSAGE · RIGHTS · PROVENANCE ///**
+
+This is the operator/developer map for the MoonWitness RGBL corpus. The corpus can be broad; authority must stay scoped. Database speed is useful. Reproducible text identity is non-negotiable.
+
+**TEXTUAL PRESENCE ≠ UNIVERSAL AUTHORITY · TRANSLATION ≠ SOURCE TEXT · DATABASE ≠ CANONICAL TRUTH**
+
+Pusat dokumentasi arsitektur, spesifikasi teknis, pedoman upstream ingestion, dan panduan integrasi sistem korpus kitab suci dunia **MoonWitness**.
 
 ---
 
 ## 🗺️ Index & Navigation
-
-### 0. Rocksoul Research Interoperability
-- [**Rocksoul Interoperability Contract**](./ROCKSOUL_INTEROP.md) — Boundary RGBL sebagai scripture/revelation reference layer terhadap MFTL, LEGEND, dan SUPERHERO.
-- [**Case 001 — Jerusalem 70 CE**](./cases/JERUSALEM-70-TEMPLE.md) — Four-way proof case: TEXT × STORY × EVENT × PERSON.
 
 ### 1. 🌐 Upstream Ingestion & Data Architecture
 - [**Panduan Metode Ingestion (Upstream vs Recipe)**](./INGESTION_METHODS_GUIDE.md) — Penjelasan detail metode penarikan hulu vs resep kanonik.

@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "version": "1.0.0",
+  "title": "MoonWitness Fast-Track Corpus Expansion Queue",
+  "updatedAt": "2026-09-08",
+  "policy": {
+    "workingBranch": "dev",
+    "releaseBranch": "main",
+    "mode": "aggressive",
+    "canonicalTranslationPolicy": "No machine-translated canonical text",
+    "rightsPolicy": "Do not bundle text until redistribution rights are verified for the intended deployment jurisdiction",
+    "validationPolicy": "Reject CAPTCHA, HTML challenge pages, placeholders, corrupt payloads, and unverifiable provenance"
+  },
+  "lanes": {
+    "depth": [
+      {
+        "id": "depth-dao-zhuangzi-en-giles",
+        "priority": 100,
+        "tradition": "daoism",
+        "work": "Zhuangzi",
+        "edition": "Herbert A. Giles English translation (1889)",
+        "language": "en",
+        "source": "https://www.gutenberg.org/ebooks/59709",
+        "rights": "Public domain in the USA; verify target-jurisdiction status before redistribution",
+        "status": "in_progress",
+        "notes": "Recipe, canonical mapper, dataset manifest, and 15-minute CI materializer are now in dev."
+      },
+      {
+        "id": "depth-chinese-classics-ctext-recovery",
+        "priority": 95,
+        "tradition": "daoism/confucianism",
+        "work": "Dao De Jing / Analects / Zhuangzi",
+        "edition": "Chinese Text Project source-language editions",
+        "language": "lzh",
+        "source": "https://ctext.org/api.pl",
+        "rights": "Verify current API terms and authenticated access",
+        "status": "blocked_until_authentication",
+        "notes": "Previous repository cache contained a CAPTCHA challenge page. Never accept HTML challenge payloads as corpus text."
+      }
+    ],
+    "breadth": [
+      {
+        "id": "breadth-ancient-egypt-book-dead-renouf-naville",
+        "priority": 100,
+        "tradition": "ancient-egyptian",
+        "work": "The Egyptian Book of the Dead",
+        "edition": "P. Le Page Renouf and Edouard Naville (1904 English edition)",
+        "language": "en",
+        "source": "https://www.gutenberg.org/ebooks/69566",
+        "rights": "Project Gutenberg marks public domain in the USA; verify target-jurisdiction status before redistribution",
+        "status": "in_progress",
+        "notes": "Manifest, recipe, canonical mapper, materializer, registry entries, package command, and 15-minute CI workflow are now in dev."
+      },
+      {
+        "id": "breadth-ancient-egypt-book-dead-budge",
+        "priority": 98,
+        "tradition": "ancient-egyptian",
+        "work": "The Book of the Dead",
+        "edition": "E. A. Wallis Budge",
+        "language": "en",
+        "source": "https://www.gutenberg.org/ebooks/7145",
+        "rights": "Project Gutenberg marks public domain in the USA; verify target-jurisdiction status before redistribution",
+        "status": "in_progress",
+        "notes": "Acquisition manifest, recipe, canonical mapper, and 15-minute CI materializer are now in dev."
+      },
+      {
+        "id": "breadth-yoga-sutras-johnston-gutenberg",
+        "priority": 96,
+        "tradition": "hinduism",
+        "work": "The Yoga Sutras of Patanjali",
+        "edition": "Charles Johnston interpretation, Project Gutenberg eBook 2526",
+        "language": "en",
+        "source": "https://www.gutenberg.org/ebooks/2526",
+        "plainTextSource": "https://www.gutenberg.org/cache/epub/2526/pg2526.txt",
+        "rights": "Project Gutenberg marks public domain in the USA; verify target-jurisdiction status before redistribution; worldwide status remains jurisdiction-dependent",
+        "status": "ready_for_ingestion",
+        "notes": "Replacement for blocked Chinese Text Project lane. Source exposes four books and an explicit 196-sutra structure; ingestion must verify text/plain, Gutenberg identity, non-empty sutra coverage, and reject HTML/challenge payloads. No machine translation."
+      }
+    ]
+  }
+}

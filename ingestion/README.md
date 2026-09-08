@@ -1,5 +1,11 @@
 # Ingestion
 
+## **FETCH IT. HASH IT. PROVE WHERE IT CAME FROM.**
+
+> **/// EXTERNAL SOURCE → VERIFIED ARTIFACT → DETERMINISTIC CORPUS ///**
+
+Ingestion is a reproducible supply chain, not a copy-paste pipeline. Network acquisition is isolated; released corpus validation must remain deterministic and offline-capable.
+
 Ingestion is the reproducible supply chain from external source material to canonical dataset records.
 
 ```text

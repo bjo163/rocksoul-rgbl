@@ -1,4 +1,10 @@
-# 🚀 @moonwitness/corpus-api
+# @moonwitness/corpus-api
+
+## **FAST SEARCH. SLOW CLAIMS.**
+
+> **/// RGBL HTTP SURFACE ///**
+
+Fastify 5 exposes the released corpus for search, passage lookup, comparison, telemetry, and downstream apps. Speed never upgrades a weak source into a strong one.
 
 Modular, ultra-high-throughput Fastify 5 REST API Microservice for the **MoonWitness Universal Scripture Corpus**.
 

@@ -1,0 +1,5393 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "version": "1.0.0",
+  "title": "MoonWitness Universal Editions Registry",
+  "editions": [
+    {
+      "id": "quran-tanzil-uthmani",
+      "workId": "quran",
+      "name": "Qur'an Uthmani Canonical Text",
+      "editionType": "original_script",
+      "language": "ar",
+      "script": "Arab",
+      "variant": "uthmani"
+    },
+    {
+      "id": "quran-saheeh-international",
+      "workId": "quran",
+      "name": "Qur'an English Translation (Saheeh International)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "quran"
+    },
+    {
+      "id": "quran-indonesian-kemenag",
+      "workId": "quran",
+      "name": "Al-Qur'an Terjemahan Kementerian Agama RI",
+      "editionType": "translation",
+      "language": "id",
+      "script": "Latn",
+      "translationOf": "quran"
+    },
+    {
+      "id": "quran-urdu-jalandhry",
+      "workId": "quran",
+      "name": "Qur'an Urdu Translation (Fateh Muhammad Jalandhry)",
+      "editionType": "translation",
+      "language": "ur",
+      "script": "Arab",
+      "translationOf": "quran"
+    },
+    {
+      "id": "quran-turkish-diyanet",
+      "workId": "quran",
+      "name": "Kur'an-ı Kerim Türkçe Meali (Diyanet İşleri)",
+      "editionType": "translation",
+      "language": "tr",
+      "script": "Latn",
+      "translationOf": "quran"
+    },
+    {
+      "id": "quran-persian-fooladvand",
+      "workId": "quran",
+      "name": "Tarjameh Qur'an Farsi (Mohammad Mahdi Fooladvand)",
+      "editionType": "translation",
+      "language": "fa",
+      "script": "Arab",
+      "translationOf": "quran"
+    },
+    {
+      "id": "quran-ummah-ar-en",
+      "workId": "quran",
+      "name": "Qur'an Arabic & English Unified Feed",
+      "editionType": "bilingual",
+      "language": "ar",
+      "script": "Arab"
+    },
+    {
+      "id": "bukhari-ummah-ar-en",
+      "workId": "hadith-bukhari",
+      "name": "Sahih al-Bukhari Arabic & English Edition",
+      "editionType": "bilingual",
+      "language": "ar",
+      "script": "Arab"
+    },
+    {
+      "id": "bukhari-indonesian-ed",
+      "workId": "hadith-bukhari",
+      "name": "Shahih Al-Bukhari Terjemahan Indonesia Lengkap",
+      "editionType": "translation",
+      "language": "id",
+      "script": "Latn",
+      "translationOf": "hadith-bukhari"
+    },
+    {
+      "id": "bukhari-urdu-ed",
+      "workId": "hadith-bukhari",
+      "name": "Sahih Bukhari Urdu Translation",
+      "editionType": "translation",
+      "language": "ur",
+      "script": "Arab",
+      "translationOf": "hadith-bukhari"
+    },
+    {
+      "id": "muslim-ummah-ar-en",
+      "workId": "hadith-muslim",
+      "name": "Sahih Muslim Arabic & English Edition",
+      "editionType": "bilingual",
+      "language": "ar",
+      "script": "Arab"
+    },
+    {
+      "id": "muslim-indonesian-ed",
+      "workId": "hadith-muslim",
+      "name": "Shahih Muslim Terjemahan Indonesia Lengkap",
+      "editionType": "translation",
+      "language": "id",
+      "script": "Latn",
+      "translationOf": "hadith-muslim"
+    },
+    {
+      "id": "abudawud-ummah-ar-en",
+      "workId": "hadith-abudawud",
+      "name": "Sunan Abu Dawud Arabic & English Edition",
+      "editionType": "bilingual",
+      "language": "ar",
+      "script": "Arab"
+    },
+    {
+      "id": "abudawud-indonesian-ed",
+      "workId": "hadith-abudawud",
+      "name": "Sunan Abu Dawud Terjemahan Bahasa Indonesia",
+      "editionType": "translation",
+      "language": "id",
+      "script": "Latn",
+      "translationOf": "hadith-abudawud"
+    },
+    {
+      "id": "tirmidhi-ummah-ar-en",
+      "workId": "hadith-tirmidhi",
+      "name": "Jami' at-Tirmidhi Arabic & English Edition",
+      "editionType": "bilingual",
+      "language": "ar",
+      "script": "Arab"
+    },
+    {
+      "id": "tirmidhi-indonesian-ed",
+      "workId": "hadith-tirmidhi",
+      "name": "Jami' at-Tirmidzi Terjemahan Indonesia",
+      "editionType": "translation",
+      "language": "id",
+      "script": "Latn",
+      "translationOf": "hadith-tirmidhi"
+    },
+    {
+      "id": "nasai-ummah-ar-en",
+      "workId": "hadith-nasai",
+      "name": "Sunan an-Nasa'i Arabic & English Edition",
+      "editionType": "bilingual",
+      "language": "ar",
+      "script": "Arab"
+    },
+    {
+      "id": "nasai-indonesian-ed",
+      "workId": "hadith-nasai",
+      "name": "Sunan An-Nasa'i Terjemahan Indonesia",
+      "editionType": "translation",
+      "language": "id",
+      "script": "Latn",
+      "translationOf": "hadith-nasai"
+    },
+    {
+      "id": "ibnmajah-ummah-ar-en",
+      "workId": "hadith-ibnmajah",
+      "name": "Sunan Ibn Majah Arabic & English Edition",
+      "editionType": "bilingual",
+      "language": "ar",
+      "script": "Arab"
+    },
+    {
+      "id": "ibnmajah-indonesian-ed",
+      "workId": "hadith-ibnmajah",
+      "name": "Sunan Ibnu Majah Terjemahan Indonesia",
+      "editionType": "translation",
+      "language": "id",
+      "script": "Latn",
+      "translationOf": "hadith-ibnmajah"
+    },
+    {
+      "id": "malik-ummah-ar-en",
+      "workId": "hadith-malik",
+      "name": "Muwatta Malik Arabic & English Edition",
+      "editionType": "bilingual",
+      "language": "ar",
+      "script": "Arab"
+    },
+    {
+      "id": "malik-indonesian-ed",
+      "workId": "hadith-malik",
+      "name": "Muwatha' Imam Malik Terjemahan Indonesia",
+      "editionType": "translation",
+      "language": "id",
+      "script": "Latn",
+      "translationOf": "hadith-malik"
+    },
+    {
+      "id": "nawawi-ummah-ar-en",
+      "workId": "hadith-nawawi",
+      "name": "An-Nawawi 40 Hadith Arabic & English Edition",
+      "editionType": "bilingual",
+      "language": "ar",
+      "script": "Arab"
+    },
+    {
+      "id": "nawawi-indonesian-ed",
+      "workId": "hadith-nawawi",
+      "name": "Hadits Arbain An-Nawawiyyah Terjemahan Indonesia",
+      "editionType": "translation",
+      "language": "id",
+      "script": "Latn",
+      "translationOf": "hadith-nawawi"
+    },
+    {
+      "id": "qudsi-ummah-ar-en",
+      "workId": "hadith-qudsi",
+      "name": "40 Hadith Qudsi Arabic & English Edition",
+      "editionType": "bilingual",
+      "language": "ar",
+      "script": "Arab"
+    },
+    {
+      "id": "qudsi-indonesian-ed",
+      "workId": "hadith-qudsi",
+      "name": "40 Hadits Qudsi Terjemahan Bahasa Indonesia",
+      "editionType": "translation",
+      "language": "id",
+      "script": "Latn",
+      "translationOf": "hadith-qudsi"
+    },
+    {
+      "id": "duas-hisnul-muslim-canonical",
+      "workId": "duas-hisnul-muslim",
+      "name": "Hisnul Muslim Authentic Duas Arabic & English",
+      "editionType": "bilingual",
+      "language": "ar",
+      "script": "Arab"
+    },
+    {
+      "id": "duas-hisnul-muslim-indonesian",
+      "workId": "duas-hisnul-muslim",
+      "name": "Hisnul Muslim Doa & Dzikir Terjemahan Indonesia",
+      "editionType": "translation",
+      "language": "id",
+      "script": "Latn",
+      "translationOf": "duas-hisnul-muslim"
+    },
+    {
+      "id": "asmaul-husna-canonical",
+      "workId": "asmaul-husna",
+      "name": "Asmaul Husna Arabic & Multilingual Commentary",
+      "editionType": "theological_enumeration",
+      "language": "ar",
+      "script": "Arab"
+    },
+    {
+      "id": "asmaul-husna-indonesian",
+      "workId": "asmaul-husna",
+      "name": "Asmaul Husna 99 Nama Allah Terjemahan & Makna Indonesia",
+      "editionType": "translation",
+      "language": "id",
+      "script": "Latn",
+      "translationOf": "asmaul-husna"
+    },
+    {
+      "id": "tanakh-wlc-hebrew",
+      "workId": "tanakh",
+      "name": "Westminster Leningrad Codex (WLC)",
+      "editionType": "original_script",
+      "language": "he",
+      "script": "Hebr",
+      "variant": "wlc"
+    },
+    {
+      "id": "tanakh-sefaria-en",
+      "workId": "tanakh",
+      "name": "Tanakh English Translation (JPS 1985 / Sefaria)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "tanakh"
+    },
+    {
+      "id": "tanakh-indonesian-lawe",
+      "workId": "tanakh",
+      "name": "Kitab Suci Tanakh Terjemahan Indonesia",
+      "editionType": "translation",
+      "language": "id",
+      "script": "Latn",
+      "translationOf": "tanakh"
+    },
+    {
+      "id": "torah-wlc-hebrew",
+      "workId": "torah",
+      "name": "Torah (Five Books of Moses) WLC Hebrew Text",
+      "editionType": "original_script",
+      "language": "he",
+      "script": "Hebr"
+    },
+    {
+      "id": "torah-sefaria-en",
+      "workId": "torah",
+      "name": "Torah English Translation (Sefaria)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "torah"
+    },
+    {
+      "id": "mishnah-sefaria-ed",
+      "workId": "mishnah",
+      "name": "Mishnah Hebrew & Vocalized Text",
+      "editionType": "original_script",
+      "language": "he",
+      "script": "Hebr"
+    },
+    {
+      "id": "mishnah-sefaria-en",
+      "workId": "mishnah",
+      "name": "Mishnah English Translation (Philip Blackman / Sefaria)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "mishnah"
+    },
+    {
+      "id": "talmud-bavli-sefaria-ed",
+      "workId": "talmud-bavli",
+      "name": "Babylonian Talmud Standard Vilna Edition",
+      "editionType": "canonical_library",
+      "language": "arc",
+      "script": "Hebr"
+    },
+    {
+      "id": "talmud-bavli-sefaria-en",
+      "workId": "talmud-bavli",
+      "name": "Babylonian Talmud William Davidson English Edition",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "talmud-bavli"
+    },
+    {
+      "id": "talmud-yerushalmi-sefaria-ed",
+      "workId": "talmud-yerushalmi",
+      "name": "Jerusalem Talmud Sefaria Text",
+      "editionType": "canonical_library",
+      "language": "arc",
+      "script": "Hebr"
+    },
+    {
+      "id": "talmud-yerushalmi-sefaria-en",
+      "workId": "talmud-yerushalmi",
+      "name": "Jerusalem Talmud English Translation (Guggenheimer)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "talmud-yerushalmi"
+    },
+    {
+      "id": "midrash-rabbah-sefaria-ed",
+      "workId": "midrash-rabbah",
+      "name": "Midrash Rabbah Classical Edition",
+      "editionType": "canonical_library",
+      "language": "he",
+      "script": "Hebr"
+    },
+    {
+      "id": "midrash-rabbah-sefaria-en",
+      "workId": "midrash-rabbah",
+      "name": "Midrash Rabbah Soncino English Translation",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "midrash-rabbah"
+    },
+    {
+      "id": "tosefta-sefaria-ed",
+      "workId": "tosefta",
+      "name": "Tosefta Classical Hebrew Text",
+      "editionType": "canonical_library",
+      "language": "he",
+      "script": "Hebr"
+    },
+    {
+      "id": "tosefta-sefaria-en",
+      "workId": "tosefta",
+      "name": "Tosefta English Translation (Jacob Neusner)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "tosefta"
+    },
+    {
+      "id": "sblgnt-greek-edition",
+      "workId": "greek-new-testament",
+      "name": "Society of Biblical Literature Greek New Testament",
+      "editionType": "original_script",
+      "language": "grc",
+      "script": "Grek",
+      "variant": "sblgnt"
+    },
+    {
+      "id": "gnt-latin-vulgate",
+      "workId": "greek-new-testament",
+      "name": "Novum Testamentum Latine (Clementine Vulgate)",
+      "editionType": "translation",
+      "language": "la",
+      "script": "Latn",
+      "translationOf": "greek-new-testament"
+    },
+    {
+      "id": "gnt-indonesian-tb",
+      "workId": "greek-new-testament",
+      "name": "Perjanjian Baru Terjemahan Baru (TB LAI)",
+      "editionType": "translation",
+      "language": "id",
+      "script": "Latn",
+      "translationOf": "greek-new-testament"
+    },
+    {
+      "id": "gnt-german-luther",
+      "workId": "greek-new-testament",
+      "name": "Das Neue Testament nach Martin Luther",
+      "editionType": "translation",
+      "language": "de",
+      "script": "Latn",
+      "translationOf": "greek-new-testament"
+    },
+    {
+      "id": "gnt-french-segond",
+      "workId": "greek-new-testament",
+      "name": "Nouveau Testament Louis Segond 1910",
+      "editionType": "translation",
+      "language": "fr",
+      "script": "Latn",
+      "translationOf": "greek-new-testament"
+    },
+    {
+      "id": "septuagint-lxx-edition",
+      "workId": "septuagint",
+      "name": "Septuagint (LXX) Rahlfs-Hanhart Edition",
+      "editionType": "original_script",
+      "language": "grc",
+      "script": "Grek"
+    },
+    {
+      "id": "septuagint-english-brenton",
+      "workId": "septuagint",
+      "name": "The Septuagint with Apocrypha: Greek and English (Sir Lancelot Brenton)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "septuagint"
+    },
+    {
+      "id": "perseus-canonical-greek",
+      "workId": "canonical-greek-literature",
+      "name": "Perseus Canonical Greek Literature Edition",
+      "editionType": "critical_edition",
+      "language": "grc",
+      "script": "Grek"
+    },
+    {
+      "id": "apostolic-fathers-greek-ed",
+      "workId": "apostolic-fathers",
+      "name": "Apostolic Fathers Greek & English Critical Edition",
+      "editionType": "critical_edition",
+      "language": "grc",
+      "script": "Grek"
+    },
+    {
+      "id": "early-church-fathers-ed",
+      "workId": "early-church-fathers",
+      "name": "Early Church Fathers Ante-Nicene Collection",
+      "editionType": "critical_edition",
+      "language": "grc",
+      "script": "Grek"
+    },
+    {
+      "id": "web-classic-edition",
+      "workId": "web-bible",
+      "name": "World English Bible Classic Edition",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn"
+    },
+    {
+      "id": "gretil-sanskrit-upanishads",
+      "workId": "principal-upanishads",
+      "name": "GRETIL Classical Sanskrit Upanishads Edition",
+      "editionType": "original_script",
+      "language": "sa",
+      "script": "Deva"
+    },
+    {
+      "id": "upanishads-english-radhakrishnan",
+      "workId": "principal-upanishads",
+      "name": "The Principal Upanishads English (S. Radhakrishnan)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "principal-upanishads"
+    },
+    {
+      "id": "upanishads-indonesian-ed",
+      "workId": "principal-upanishads",
+      "name": "Upanisad Utama Terjemahan Bahasa Indonesia",
+      "editionType": "translation",
+      "language": "id",
+      "script": "Latn",
+      "translationOf": "principal-upanishads"
+    },
+    {
+      "id": "gita-multilingual-edition",
+      "workId": "bhagavad-gita",
+      "name": "Bhagavad Gita Sanskrit & Multilingual Translations",
+      "editionType": "multilingual",
+      "language": "sa",
+      "script": "Deva"
+    },
+    {
+      "id": "gita-english-prabhupada",
+      "workId": "bhagavad-gita",
+      "name": "Bhagavad-gita As It Is (English)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "bhagavad-gita"
+    },
+    {
+      "id": "gita-indonesian-ed",
+      "workId": "bhagavad-gita",
+      "name": "Bhagavad Gita Terjemahan Bahasa Indonesia",
+      "editionType": "translation",
+      "language": "id",
+      "script": "Latn",
+      "translationOf": "bhagavad-gita"
+    },
+    {
+      "id": "gita-hindi-ed",
+      "workId": "bhagavad-gita",
+      "name": "Shrimad Bhagavad Gita Hindi Anuvad",
+      "editionType": "translation",
+      "language": "hi",
+      "script": "Deva",
+      "translationOf": "bhagavad-gita"
+    },
+    {
+      "id": "rigveda-gretil-edition",
+      "workId": "rigveda",
+      "name": "Rigveda Samhita Sanskrit Metrical Text",
+      "editionType": "original_script",
+      "language": "sa",
+      "script": "Deva"
+    },
+    {
+      "id": "rigveda-english-griffith",
+      "workId": "rigveda",
+      "name": "The Hymns of the Rigveda English Translation (R.T.H. Griffith)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "rigveda"
+    },
+    {
+      "id": "samaveda-gretil-edition",
+      "workId": "samaveda",
+      "name": "Samaveda Samhita Sanskrit Text",
+      "editionType": "original_script",
+      "language": "sa",
+      "script": "Deva"
+    },
+    {
+      "id": "samaveda-english-griffith",
+      "workId": "samaveda",
+      "name": "The Hymns of the Samaveda English Translation (R.T.H. Griffith)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "samaveda"
+    },
+    {
+      "id": "atharvaveda-gretil-edition",
+      "workId": "atharvaveda",
+      "name": "Atharvaveda Samhita Shaunaka Shakha",
+      "editionType": "original_script",
+      "language": "sa",
+      "script": "Deva"
+    },
+    {
+      "id": "atharvaveda-english-whitney",
+      "workId": "atharvaveda",
+      "name": "Atharva-Veda Samhita English (W.D. Whitney)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "atharvaveda"
+    },
+    {
+      "id": "yoga-sutras-gretil-edition",
+      "workId": "yoga-sutras",
+      "name": "Patanjali Yoga Sutras Classical Sanskrit Text",
+      "editionType": "original_script",
+      "language": "sa",
+      "script": "Deva"
+    },
+    {
+      "id": "yoga-sutras-english-woods",
+      "workId": "yoga-sutras",
+      "name": "The Yoga-System of Patanjali (J.H. Woods)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "yoga-sutras"
+    },
+    {
+      "id": "yoga-sutras-indonesian-ed",
+      "workId": "yoga-sutras",
+      "name": "Yoga Sutra Patanjali Terjemahan Bahasa Indonesia",
+      "editionType": "translation",
+      "language": "id",
+      "script": "Latn",
+      "translationOf": "yoga-sutras"
+    },
+    {
+      "id": "dhammapada-sujato-pali-en",
+      "workId": "dhammapada",
+      "name": "Dhammapada Pali & English (Bhikkhu Sujato)",
+      "editionType": "bilingual",
+      "language": "pli",
+      "script": "Latn"
+    },
+    {
+      "id": "dhammapada-indonesian-ed",
+      "workId": "dhammapada",
+      "name": "Dhammapada Terjemahan Bahasa Indonesia",
+      "editionType": "translation",
+      "language": "id",
+      "script": "Latn",
+      "translationOf": "dhammapada"
+    },
+    {
+      "id": "dhammapada-chinese-ed",
+      "workId": "dhammapada",
+      "name": "Fa Ju Jing (Chinese Dhammapada Taisho 210)",
+      "editionType": "translation",
+      "language": "zh",
+      "script": "Hani",
+      "translationOf": "dhammapada"
+    },
+    {
+      "id": "suttacentral-dn-sujato",
+      "workId": "digha-nikaya",
+      "name": "Digha Nikaya Pali & English (Bhikkhu Sujato)",
+      "editionType": "bilingual",
+      "language": "pli",
+      "script": "Latn"
+    },
+    {
+      "id": "dn-indonesian-ed",
+      "workId": "digha-nikaya",
+      "name": "Digha Nikaya Terjemahan Bahasa Indonesia",
+      "editionType": "translation",
+      "language": "id",
+      "script": "Latn",
+      "translationOf": "digha-nikaya"
+    },
+    {
+      "id": "suttacentral-mn-sujato",
+      "workId": "majjhima-nikaya",
+      "name": "Majjhima Nikaya Pali & English (Bhikkhu Sujato)",
+      "editionType": "bilingual",
+      "language": "pli",
+      "script": "Latn"
+    },
+    {
+      "id": "mn-indonesian-ed",
+      "workId": "majjhima-nikaya",
+      "name": "Majjhima Nikaya Terjemahan Bahasa Indonesia",
+      "editionType": "translation",
+      "language": "id",
+      "script": "Latn",
+      "translationOf": "majjhima-nikaya"
+    },
+    {
+      "id": "suttacentral-sn-sujato",
+      "workId": "samyutta-nikaya",
+      "name": "Samyutta Nikaya Pali & English (Bhikkhu Sujato)",
+      "editionType": "bilingual",
+      "language": "pli",
+      "script": "Latn"
+    },
+    {
+      "id": "sn-indonesian-ed",
+      "workId": "samyutta-nikaya",
+      "name": "Samyutta Nikaya Terjemahan Bahasa Indonesia",
+      "editionType": "translation",
+      "language": "id",
+      "script": "Latn",
+      "translationOf": "samyutta-nikaya"
+    },
+    {
+      "id": "suttacentral-an-sujato",
+      "workId": "anguttara-nikaya",
+      "name": "Anguttara Nikaya Pali & English (Bhikkhu Sujato)",
+      "editionType": "bilingual",
+      "language": "pli",
+      "script": "Latn"
+    },
+    {
+      "id": "an-indonesian-ed",
+      "workId": "anguttara-nikaya",
+      "name": "Anguttara Nikaya Terjemahan Bahasa Indonesia",
+      "editionType": "translation",
+      "language": "id",
+      "script": "Latn",
+      "translationOf": "anguttara-nikaya"
+    },
+    {
+      "id": "suttacentral-kn-sujato",
+      "workId": "khuddaka-nikaya",
+      "name": "Khuddaka Nikaya Pali Texts (SuttaCentral)",
+      "editionType": "bilingual",
+      "language": "pli",
+      "script": "Latn"
+    },
+    {
+      "id": "suttacentral-vinaya-sujato",
+      "workId": "vinaya-pitaka",
+      "name": "Vinaya Pitaka Monastic Rules (SuttaCentral)",
+      "editionType": "bilingual",
+      "language": "pli",
+      "script": "Latn"
+    },
+    {
+      "id": "heart-sutra-sanskrit-ed",
+      "workId": "heart-sutra",
+      "name": "Prajnaparamita Heart Sutra Sanskrit Text",
+      "editionType": "original_script",
+      "language": "sa",
+      "script": "Deva"
+    },
+    {
+      "id": "heart-sutra-chinese-xuanzang",
+      "workId": "heart-sutra",
+      "name": "Heart Sutra Classical Chinese Translation (Xuanzang)",
+      "editionType": "translation",
+      "language": "lzh",
+      "script": "Hani",
+      "translationOf": "heart-sutra"
+    },
+    {
+      "id": "heart-sutra-indonesian-ed",
+      "workId": "heart-sutra",
+      "name": "Sutra Hati Prajnaparamita Terjemahan Indonesia",
+      "editionType": "translation",
+      "language": "id",
+      "script": "Latn",
+      "translationOf": "heart-sutra"
+    },
+    {
+      "id": "ctext-daoism-classical",
+      "workId": "dao-de-jing",
+      "name": "Chinese Text Project Classical Dao De Jing Edition",
+      "editionType": "original_script",
+      "language": "lzh",
+      "script": "Hani"
+    },
+    {
+      "id": "dao-de-jing-legge-en",
+      "workId": "dao-de-jing",
+      "name": "The Tao Teh King English Translation (James Legge)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "dao-de-jing"
+    },
+    {
+      "id": "dao-de-jing-indonesian-ed",
+      "workId": "dao-de-jing",
+      "name": "Dao De Jing Terjemahan Bahasa Indonesia",
+      "editionType": "translation",
+      "language": "id",
+      "script": "Latn",
+      "translationOf": "dao-de-jing"
+    },
+    {
+      "id": "ctext-zhuangzi-classical",
+      "workId": "zhuangzi",
+      "name": "Chinese Text Project Classical Zhuangzi Edition",
+      "editionType": "original_script",
+      "language": "lzh",
+      "script": "Hani"
+    },
+    {
+      "id": "zhuangzi-legge-en",
+      "workId": "zhuangzi",
+      "name": "The Writings of Kwang-Tze English (James Legge)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "zhuangzi"
+    },
+    {
+      "id": "ctext-liezi-classical",
+      "workId": "liezi",
+      "name": "Chinese Text Project Classical Liezi Edition",
+      "editionType": "original_script",
+      "language": "lzh",
+      "script": "Hani"
+    },
+    {
+      "id": "liezi-giles-en",
+      "workId": "liezi",
+      "name": "Taoist Teachings from the Book of Lieh Tzu (Lionel Giles)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "liezi"
+    },
+    {
+      "id": "ctext-analects-classical",
+      "workId": "analects",
+      "name": "Chinese Text Project Classical Analects Edition",
+      "editionType": "original_script",
+      "language": "lzh",
+      "script": "Hani"
+    },
+    {
+      "id": "analects-legge-en",
+      "workId": "analects",
+      "name": "The Confucian Analects English (James Legge)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "analects"
+    },
+    {
+      "id": "analects-indonesian-matakin",
+      "workId": "analects",
+      "name": "Kitab Sabda Suci (Lun Yu) Terjemahan Indonesia MATAKIN",
+      "editionType": "translation",
+      "language": "id",
+      "script": "Latn",
+      "translationOf": "analects"
+    },
+    {
+      "id": "ctext-mencius-classical",
+      "workId": "mencius",
+      "name": "Chinese Text Project Classical Mencius Edition",
+      "editionType": "original_script",
+      "language": "lzh",
+      "script": "Hani"
+    },
+    {
+      "id": "mencius-legge-en",
+      "workId": "mencius",
+      "name": "The Works of Mencius English (James Legge)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "mencius"
+    },
+    {
+      "id": "ctext-great-learning-classical",
+      "workId": "great-learning",
+      "name": "Chinese Text Project Classical Great Learning Edition",
+      "editionType": "original_script",
+      "language": "lzh",
+      "script": "Hani"
+    },
+    {
+      "id": "great-learning-legge-en",
+      "workId": "great-learning",
+      "name": "The Great Learning English (James Legge)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "great-learning"
+    },
+    {
+      "id": "ctext-doctrine-mean-classical",
+      "workId": "doctrine-of-the-mean",
+      "name": "Chinese Text Project Classical Doctrine of the Mean Edition",
+      "editionType": "original_script",
+      "language": "lzh",
+      "script": "Hani"
+    },
+    {
+      "id": "doctrine-mean-legge-en",
+      "workId": "doctrine-of-the-mean",
+      "name": "The Doctrine of the Mean English (James Legge)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "doctrine-of-the-mean"
+    },
+    {
+      "id": "avesta-canonical-archive",
+      "workId": "avesta",
+      "name": "Avesta.org Canonical Zoroastrian Edition",
+      "editionType": "original_script",
+      "language": "ae",
+      "script": "Avst"
+    },
+    {
+      "id": "avesta-english-darmesteter",
+      "workId": "avesta",
+      "name": "The Zend-Avesta English Translation (James Darmesteter)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "avesta"
+    },
+    {
+      "id": "yasna-gathas-avesta-ed",
+      "workId": "yasna-gathas",
+      "name": "The Sacred Gathas of Zarathushtra Avestan Text",
+      "editionType": "original_script",
+      "language": "ae",
+      "script": "Avst"
+    },
+    {
+      "id": "gathas-english-mills",
+      "workId": "yasna-gathas",
+      "name": "The Gathas of Zarathushtra English (L.H. Mills)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "yasna-gathas"
+    },
+    {
+      "id": "shabados-sggs-gurmukhi",
+      "workId": "guru-granth-sahib",
+      "name": "ShabadOS Sri Guru Granth Sahib Gurmukhi Edition",
+      "editionType": "original_script",
+      "language": "pa",
+      "script": "Guru"
+    },
+    {
+      "id": "sggs-english-translation",
+      "workId": "guru-granth-sahib",
+      "name": "Sri Guru Granth Sahib English Translation (Sant Singh Khalsa)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "guru-granth-sahib"
+    },
+    {
+      "id": "shabados-japji-gurmukhi",
+      "workId": "japji-sahib",
+      "name": "ShabadOS Japji Sahib Gurmukhi Edition",
+      "editionType": "original_script",
+      "language": "pa",
+      "script": "Guru"
+    },
+    {
+      "id": "japji-english-translation",
+      "workId": "japji-sahib",
+      "name": "Japji Sahib English Translation & Transliteration",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "japji-sahib"
+    },
+    {
+      "id": "shabados-dasam-granth-ed",
+      "workId": "dasam-granth",
+      "name": "ShabadOS Dasam Granth Gurmukhi Edition",
+      "editionType": "original_script",
+      "language": "pa",
+      "script": "Guru"
+    },
+    {
+      "id": "dasam-granth-english-ed",
+      "workId": "dasam-granth",
+      "name": "Sri Dasam Granth Sahib English Translation",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "dasam-granth"
+    },
+    {
+      "id": "jain-heritage-tattvartha-ed",
+      "workId": "tattvartha-sutra",
+      "name": "Jain Heritage Tattvartha Sutra Classical Edition",
+      "editionType": "original_script",
+      "language": "sa",
+      "script": "Deva"
+    },
+    {
+      "id": "tattvartha-english-tathia",
+      "workId": "tattvartha-sutra",
+      "name": "That Which Is (Tattvartha Sutra English Nathmal Tatia)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "tattvartha-sutra"
+    },
+    {
+      "id": "jain-heritage-kalpa-ed",
+      "workId": "kalpa-sutra",
+      "name": "Kalpa Sutra Classical Prakrit & Sanskrit Edition",
+      "editionType": "original_script",
+      "language": "sa",
+      "script": "Deva"
+    },
+    {
+      "id": "kalpa-sutra-english-jacobi",
+      "workId": "kalpa-sutra",
+      "name": "The Kalpa Sutra of Bhadrabahu English (Hermann Jacobi)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "kalpa-sutra"
+    },
+    {
+      "id": "bahai-hidden-words-official",
+      "workId": "hidden-words",
+      "name": "The Hidden Words Official English & Arabic Publication",
+      "editionType": "official_publication",
+      "language": "ar",
+      "script": "Arab"
+    },
+    {
+      "id": "hidden-words-persian-ed",
+      "workId": "hidden-words",
+      "name": "The Hidden Words (Kalimat-i-Maknunih) Persian Text",
+      "editionType": "original_script",
+      "language": "fa",
+      "script": "Arab"
+    },
+    {
+      "id": "hidden-words-indonesian-ed",
+      "workId": "hidden-words",
+      "name": "Kata-Kata Tersembunyi Bahá'u'lláh Terjemahan Indonesia",
+      "editionType": "translation",
+      "language": "id",
+      "script": "Latn",
+      "translationOf": "hidden-words"
+    },
+    {
+      "id": "bahai-kitab-aqdas-official",
+      "workId": "kitab-i-aqdas",
+      "name": "Kitab-i-Aqdas Official Publication",
+      "editionType": "official_publication",
+      "language": "ar",
+      "script": "Arab"
+    },
+    {
+      "id": "kitab-aqdas-english-ed",
+      "workId": "kitab-i-aqdas",
+      "name": "The Kitab-i-Aqdas The Most Holy Book English Translation",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "kitab-i-aqdas"
+    },
+    {
+      "id": "bahai-kitab-iqan-official",
+      "workId": "kitab-i-iqan",
+      "name": "Kitab-i-Iqan Official Publication",
+      "editionType": "official_publication",
+      "language": "ar",
+      "script": "Arab"
+    },
+    {
+      "id": "kitab-iqan-persian-ed",
+      "workId": "kitab-i-iqan",
+      "name": "Kitab-i-Iqan (Book of Certitude) Original Persian Text",
+      "editionType": "original_script",
+      "language": "fa",
+      "script": "Arab"
+    },
+    {
+      "id": "shinto-kojiki-archival",
+      "workId": "kojiki",
+      "name": "Kojiki Archival English & Japanese Translation",
+      "editionType": "archival_translation",
+      "language": "en",
+      "script": "Latn"
+    },
+    {
+      "id": "kojiki-japanese-original",
+      "workId": "kojiki",
+      "name": "Kojiki Classical Japanese-Chinese Text",
+      "editionType": "original_script",
+      "language": "ja",
+      "script": "Jpan"
+    },
+    {
+      "id": "shinto-nihon-shoki-archival",
+      "workId": "nihon-shoki",
+      "name": "Nihon Shoki Archival Translation",
+      "editionType": "archival_translation",
+      "language": "en",
+      "script": "Latn"
+    },
+    {
+      "id": "nihon-shoki-japanese-original",
+      "workId": "nihon-shoki",
+      "name": "Nihon Shoki Classical Japanese Chronicles Text",
+      "editionType": "original_script",
+      "language": "ja",
+      "script": "Jpan"
+    },
+    {
+      "id": "samaritan-pentateuch-ed",
+      "workId": "samaritan-pentateuch",
+      "name": "Samaritan Pentateuch Hebrew & Samaritan Script Text",
+      "editionType": "original_script",
+      "language": "sam",
+      "script": "Samr"
+    },
+    {
+      "id": "samaritan-pentateuch-en",
+      "workId": "samaritan-pentateuch",
+      "name": "The Israelite Samaritan Version of the Torah (Benyamim Tsedaka)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "samaritan-pentateuch"
+    },
+    {
+      "id": "memar-marqah-ed",
+      "workId": "memar-marqah",
+      "name": "Memar Marqah Classical Aramaic Edition",
+      "editionType": "critical_edition",
+      "language": "sam",
+      "script": "Samr"
+    },
+    {
+      "id": "memar-marqah-en",
+      "workId": "memar-marqah",
+      "name": "Memar Marqah The Teaching of Marqah English (John Macdonald)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "memar-marqah"
+    },
+    {
+      "id": "ginza-rabba-mandaean-ed",
+      "workId": "ginza-rabba",
+      "name": "Ginza Rabba Canonical Mandaic Text",
+      "editionType": "original_script",
+      "language": "mid",
+      "script": "Mand"
+    },
+    {
+      "id": "ginza-rabba-english-gelbert",
+      "workId": "ginza-rabba",
+      "name": "Ginza Rba The Great Treasure English (Carlos Gelbert)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "ginza-rabba"
+    },
+    {
+      "id": "qolasta-liturgical-ed",
+      "workId": "qolasta",
+      "name": "Qolasta Liturgical Prayerbook Mandaic Edition",
+      "editionType": "liturgical",
+      "language": "mid",
+      "script": "Mand"
+    },
+    {
+      "id": "qolasta-english-drower",
+      "workId": "qolasta",
+      "name": "The Canonical Prayerbook of the Mandaeans (E.S. Drower)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "qolasta"
+    },
+    {
+      "id": "book-of-john-mandaean-ed",
+      "workId": "book-of-john-mandaean",
+      "name": "Mandaean Book of John Canonical Edition",
+      "editionType": "critical_edition",
+      "language": "mid",
+      "script": "Mand"
+    },
+    {
+      "id": "book-of-john-english-haberl",
+      "workId": "book-of-john-mandaean",
+      "name": "The Mandaean Book of John English (Charles Haberl & James McGrath)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "book-of-john-mandaean"
+    },
+    {
+      "id": "kitab-al-jilwa-ed",
+      "workId": "kitab-al-jilwa",
+      "name": "Kitab al-Jilwa Kurdish & English Edition",
+      "editionType": "sacred_tradition",
+      "language": "ku",
+      "script": "Arab"
+    },
+    {
+      "id": "kitab-al-jilwa-english",
+      "workId": "kitab-al-jilwa",
+      "name": "Kitab al-Jilwa (The Book of Revelation) English Edition",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "kitab-al-jilwa"
+    },
+    {
+      "id": "meshaf-resh-ed",
+      "workId": "meshaf-resh",
+      "name": "Meshaf Resh Kurdish Text",
+      "editionType": "sacred_tradition",
+      "language": "ku",
+      "script": "Arab"
+    },
+    {
+      "id": "meshaf-resh-english",
+      "workId": "meshaf-resh",
+      "name": "Meshaf Resh (The Black Book) English Translation",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "meshaf-resh"
+    },
+    {
+      "id": "rasail-al-hikmah-ed",
+      "workId": "rasail-al-hikmah",
+      "name": "Rasail al-Hikmah Arabic Classical Manuscript Text",
+      "editionType": "original_script",
+      "language": "ar",
+      "script": "Arab"
+    },
+    {
+      "id": "rasail-al-hikmah-en",
+      "workId": "rasail-al-hikmah",
+      "name": "Epistles of Wisdom Selected English Renderings",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "rasail-al-hikmah"
+    },
+    {
+      "id": "druze-tawhid-ed",
+      "workId": "druze-tawhid-treatises",
+      "name": "Druze Tawhid Theological Treatises",
+      "editionType": "canonical_theology",
+      "language": "ar",
+      "script": "Arab"
+    },
+    {
+      "id": "druze-tawhid-en",
+      "workId": "druze-tawhid-treatises",
+      "name": "Druze Monotheistic Treatises English Translation",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "druze-tawhid-treatises"
+    },
+    {
+      "id": "kephalaia-coptic-ed",
+      "workId": "kephalaia",
+      "name": "Kephalaia Coptic & English Critical Edition",
+      "editionType": "critical_edition",
+      "language": "cop",
+      "script": "Copt"
+    },
+    {
+      "id": "kephalaia-english-gardner",
+      "workId": "kephalaia",
+      "name": "The Kephalaia of the Teacher English (Iain Gardner)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "kephalaia"
+    },
+    {
+      "id": "manichaean-psalms-ed",
+      "workId": "manichaean-psalms",
+      "name": "Manichaean Psalms Medinet Madi Edition",
+      "editionType": "critical_edition",
+      "language": "cop",
+      "script": "Copt"
+    },
+    {
+      "id": "manichaean-psalms-english-allberry",
+      "workId": "manichaean-psalms",
+      "name": "A Manichaean Psalm-Book English (C.R.C. Allberry)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "manichaean-psalms"
+    },
+    {
+      "id": "shabuhragan-middle-persian-ed",
+      "workId": "shabuhragan",
+      "name": "Shabuhragan Middle Persian Turfan Fragments",
+      "editionType": "critical_edition",
+      "language": "pal",
+      "script": "Mani"
+    },
+    {
+      "id": "shabuhragan-english-mackenzie",
+      "workId": "shabuhragan",
+      "name": "Mani's Sabuhragan English Translation (D.N. MacKenzie)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "shabuhragan"
+    },
+    {
+      "id": "kalam-e-saranjam-kurdish-ed",
+      "workId": "kalam-e-saranjam",
+      "name": "Kalam-e Saranjam Gorani Kurdish Text",
+      "editionType": "original_script",
+      "language": "ku",
+      "script": "Arab"
+    },
+    {
+      "id": "kalam-e-saranjam-en",
+      "workId": "kalam-e-saranjam",
+      "name": "Kalam-e Saranjam (The Ultimate Discourse) English Translation",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "kalam-e-saranjam"
+    },
+    {
+      "id": "daftar-e-nowruz-ed",
+      "workId": "daftar-e-nowruz",
+      "name": "Daftar-e Nowruz Sacred Poems Edition",
+      "editionType": "liturgical",
+      "language": "ku",
+      "script": "Arab"
+    },
+    {
+      "id": "daftar-e-nowruz-en",
+      "workId": "daftar-e-nowruz",
+      "name": "Daftar-e Nowruz Sacred Poems English Translation",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "daftar-e-nowruz"
+    },
+    {
+      "id": "orkhon-runic-ed",
+      "workId": "orkhon-inscriptions",
+      "name": "Orkhon Old Turkic Runic Inscriptions Critical Edition",
+      "editionType": "original_script",
+      "language": "otk",
+      "script": "Orkh"
+    },
+    {
+      "id": "orkhon-english-thomsen",
+      "workId": "orkhon-inscriptions",
+      "name": "Orkhon Inscriptions English Translation (Vilhelm Thomsen)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "orkhon-inscriptions"
+    },
+    {
+      "id": "irk-bitig-manuscript-ed",
+      "workId": "irk-bitig",
+      "name": "Irk Bitig Dunhuang Manuscript Edition",
+      "editionType": "critical_edition",
+      "language": "otk",
+      "script": "Orkh"
+    },
+    {
+      "id": "irk-bitig-english-clauson",
+      "workId": "irk-bitig",
+      "name": "The Book of Omens (Irk Bitig) English (Gerard Clauson)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "irk-bitig"
+    },
+    {
+      "id": "secret-history-mongols-ed",
+      "workId": "secret-history-mongols",
+      "name": "The Secret History of the Mongols Classical Edition",
+      "editionType": "historical_sacred",
+      "language": "mn",
+      "script": "Mong"
+    },
+    {
+      "id": "secret-history-mongols-en-de-rachewiltz",
+      "workId": "secret-history-mongols",
+      "name": "The Secret History of the Mongols Translation (Igor de Rachewiltz)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "secret-history-mongols"
+    },
+    {
+      "id": "donggyeong-daejeon-korean-ed",
+      "workId": "donggyeong-daejeon",
+      "name": "Donggyeong Daejeon Classical Hanja & Hangul Edition",
+      "editionType": "original_script",
+      "language": "ko",
+      "script": "Hani"
+    },
+    {
+      "id": "donggyeong-daejeon-en",
+      "workId": "donggyeong-daejeon",
+      "name": "Great Scripture of Eastern Learning English Translation",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "donggyeong-daejeon"
+    },
+    {
+      "id": "yongdam-yusa-hymnal-ed",
+      "workId": "yongdam-yusa",
+      "name": "Yongdam Yusa Sacred Songs Hangul Edition",
+      "editionType": "primary_scripture",
+      "language": "ko",
+      "script": "Hang"
+    },
+    {
+      "id": "yongdam-yusa-en",
+      "workId": "yongdam-yusa",
+      "name": "Songs of the Dragon Pool English Translation",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "yongdam-yusa"
+    },
+    {
+      "id": "treatise-on-donghak-ed",
+      "workId": "treatise-on-donghak",
+      "name": "Donghak Treatises Korean Edition",
+      "editionType": "canonical_theology",
+      "language": "ko",
+      "script": "Hang"
+    },
+    {
+      "id": "treatise-on-donghak-en",
+      "workId": "treatise-on-donghak",
+      "name": "Treatises of Choe Je-u English Translation",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "treatise-on-donghak"
+    },
+    {
+      "id": "ofudesaki-japanese-ed",
+      "workId": "ofudesaki",
+      "name": "Ofudesaki Original Japanese Waka Edition",
+      "editionType": "original_script",
+      "language": "ja",
+      "script": "Jpan"
+    },
+    {
+      "id": "ofudesaki-english-official",
+      "workId": "ofudesaki",
+      "name": "The Ofudesaki Official English Translation (Tenrikyo)",
+      "editionType": "official_publication",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "ofudesaki"
+    },
+    {
+      "id": "mikagura-uta-liturgical-ed",
+      "workId": "mikagura-uta",
+      "name": "Mikagura-uta Sacred Service Edition",
+      "editionType": "liturgical",
+      "language": "ja",
+      "script": "Jpan"
+    },
+    {
+      "id": "mikagura-uta-english-official",
+      "workId": "mikagura-uta",
+      "name": "The Songs for the Service English Translation (Tenrikyo)",
+      "editionType": "official_publication",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "mikagura-uta"
+    },
+    {
+      "id": "osashizu-revelation-ed",
+      "workId": "osashizu",
+      "name": "Osashizu Divine Revelations Edition",
+      "editionType": "original_script",
+      "language": "ja",
+      "script": "Jpan"
+    },
+    {
+      "id": "osashizu-english-official",
+      "workId": "osashizu",
+      "name": "The Osashizu Divine Directions Official English Translation",
+      "editionType": "official_publication",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "osashizu"
+    },
+    {
+      "id": "thanh-ngon-hiep-tuyen-ed",
+      "workId": "thanh-ngon-hiep-tuyen",
+      "name": "Thánh Ngôn Hiệp Tuyển Official Vietnamese Publication",
+      "editionType": "official_publication",
+      "language": "vi",
+      "script": "Latn"
+    },
+    {
+      "id": "thanh-ngon-hiep-tuyen-en",
+      "workId": "thanh-ngon-hiep-tuyen",
+      "name": "Collection of Divine Messages Cao Dai English Translation",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "thanh-ngon-hiep-tuyen"
+    },
+    {
+      "id": "phap-chanh-truyen-ed",
+      "workId": "phap-chanh-truyen",
+      "name": "Pháp Chánh Truyền Official Religious Constitution",
+      "editionType": "official_publication",
+      "language": "vi",
+      "script": "Latn"
+    },
+    {
+      "id": "phap-chanh-truyen-en",
+      "workId": "phap-chanh-truyen",
+      "name": "The Religious Constitution of CaoDai English Translation",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "phap-chanh-truyen"
+    },
+    {
+      "id": "kinh-thien-dao-ed",
+      "workId": "kinh-thien-dao",
+      "name": "Kinh Thiên Đạo & Thế Đạo Liturgical Edition",
+      "editionType": "liturgical",
+      "language": "vi",
+      "script": "Latn"
+    },
+    {
+      "id": "kinh-thien-dao-en",
+      "workId": "kinh-thien-dao",
+      "name": "Prayers of the Heavenly and Earthly Way English Translation",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "kinh-thien-dao"
+    },
+    {
+      "id": "wonbulgyo-jeongjeon-ed",
+      "workId": "wonbulgyo-jeongjeon",
+      "name": "Jeongjeon Official Won Buddhism Korean Edition",
+      "editionType": "official_publication",
+      "language": "ko",
+      "script": "Hang"
+    },
+    {
+      "id": "wonbulgyo-jeongjeon-en",
+      "workId": "wonbulgyo-jeongjeon",
+      "name": "The Principal Book of Won Buddhism English Translation",
+      "editionType": "official_publication",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "wonbulgyo-jeongjeon"
+    },
+    {
+      "id": "daejonggyeong-ed",
+      "workId": "daejonggyeong",
+      "name": "Daejonggyeong Official Scripture Edition",
+      "editionType": "official_publication",
+      "language": "ko",
+      "script": "Hang"
+    },
+    {
+      "id": "daejonggyeong-en",
+      "workId": "daejonggyeong",
+      "name": "The Scripture of the Founding Master English Translation",
+      "editionType": "official_publication",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "daejonggyeong"
+    },
+    {
+      "id": "scriptures-of-won-ed",
+      "workId": "scriptures-of-won",
+      "name": "Won Buddhism Essential Discourses Edition",
+      "editionType": "official_publication",
+      "language": "ko",
+      "script": "Hang"
+    },
+    {
+      "id": "scriptures-of-won-en",
+      "workId": "scriptures-of-won",
+      "name": "The Essential Discourses of Won Buddhism English Translation",
+      "editionType": "official_publication",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "scriptures-of-won"
+    },
+    {
+      "id": "odu-ifa-yoruba-ed",
+      "workId": "odu-ifa-corpus",
+      "name": "The 256 Odù Ifá Yoruba Canonical Sacred Chants",
+      "editionType": "original_script",
+      "language": "yo",
+      "script": "Latn"
+    },
+    {
+      "id": "odu-ifa-english-abimbola",
+      "workId": "odu-ifa-corpus",
+      "name": "Ifa Divination Poetry English Translation (Wande Abimbola)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "odu-ifa-corpus"
+    },
+    {
+      "id": "ese-ifa-sacred-poetry-ed",
+      "workId": "ese-ifa",
+      "name": "Èsè Ifá Sacred Divination Poetry Yoruba Edition",
+      "editionType": "primary_scripture",
+      "language": "yo",
+      "script": "Latn"
+    },
+    {
+      "id": "ese-ifa-english-ed",
+      "workId": "ese-ifa",
+      "name": "Èsè Ifá Sacred Divination Poems English Translation",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "ese-ifa"
+    },
+    {
+      "id": "oriki-orisha-hymns-ed",
+      "workId": "oriki-orisha",
+      "name": "Oríkì Orisha Traditional Praise Hymns",
+      "editionType": "liturgical",
+      "language": "yo",
+      "script": "Latn"
+    },
+    {
+      "id": "oriki-orisha-english-ed",
+      "workId": "oriki-orisha",
+      "name": "Oríkì Praise Poetry to the Orishas English Translation",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "oriki-orisha"
+    },
+    {
+      "id": "gospel-of-thomas-coptic-ed",
+      "workId": "gospel-of-thomas",
+      "name": "The Gospel of Thomas Nag Hammadi Coptic Text",
+      "editionType": "original_script",
+      "language": "cop",
+      "script": "Copt"
+    },
+    {
+      "id": "gospel-of-thomas-english-lambdin",
+      "workId": "gospel-of-thomas",
+      "name": "The Gospel of Thomas English (Thomas O. Lambdin)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "gospel-of-thomas"
+    },
+    {
+      "id": "gospel-of-thomas-indonesian",
+      "workId": "gospel-of-thomas",
+      "name": "Injil Tomas Terjemahan Bahasa Indonesia",
+      "editionType": "translation",
+      "language": "id",
+      "script": "Latn",
+      "translationOf": "gospel-of-thomas"
+    },
+    {
+      "id": "gospel-of-truth-coptic-ed",
+      "workId": "gospel-of-truth",
+      "name": "The Gospel of Truth Nag Hammadi Edition",
+      "editionType": "critical_edition",
+      "language": "cop",
+      "script": "Copt"
+    },
+    {
+      "id": "gospel-of-truth-english-attridge",
+      "workId": "gospel-of-truth",
+      "name": "The Gospel of Truth English (Harold W. Attridge)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "gospel-of-truth"
+    },
+    {
+      "id": "pistis-sophia-askew-ed",
+      "workId": "pistis-sophia",
+      "name": "Pistis Sophia Askew Codex Coptic Edition",
+      "editionType": "critical_edition",
+      "language": "cop",
+      "script": "Copt"
+    },
+    {
+      "id": "pistis-sophia-english-mead",
+      "workId": "pistis-sophia",
+      "name": "Pistis Sophia English Translation (G.R.S. Mead)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "pistis-sophia"
+    },
+    {
+      "id": "apocryphon-of-john-coptic-ed",
+      "workId": "apocryphon-of-john",
+      "name": "The Apocryphon of John Nag Hammadi Edition",
+      "editionType": "critical_edition",
+      "language": "cop",
+      "script": "Copt"
+    },
+    {
+      "id": "apocryphon-of-john-english-wisse",
+      "workId": "apocryphon-of-john",
+      "name": "The Secret Book of John English (Frederik Wisse)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "apocryphon-of-john"
+    },
+    {
+      "id": "corpus-hermeticum-greek-ed",
+      "workId": "corpus-hermeticum",
+      "name": "Corpus Hermeticum Greek & English Nock-Festugière Edition",
+      "editionType": "critical_edition",
+      "language": "grc",
+      "script": "Grek"
+    },
+    {
+      "id": "corpus-hermeticum-english-copenhaver",
+      "workId": "corpus-hermeticum",
+      "name": "Hermetica: The Greek Corpus Hermeticum English (Brian P. Copenhaver)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "corpus-hermeticum"
+    },
+    {
+      "id": "corpus-hermeticum-indonesian",
+      "workId": "corpus-hermeticum",
+      "name": "Corpus Hermeticum Terjemahan Bahasa Indonesia",
+      "editionType": "translation",
+      "language": "id",
+      "script": "Latn",
+      "translationOf": "corpus-hermeticum"
+    },
+    {
+      "id": "emerald-tablet-arabic-latin-ed",
+      "workId": "emerald-tablet",
+      "name": "The Emerald Tablet Classical Arabic & Latin Recension",
+      "editionType": "critical_edition",
+      "language": "la",
+      "script": "Latn"
+    },
+    {
+      "id": "emerald-tablet-english-newton",
+      "workId": "emerald-tablet",
+      "name": "The Emerald Tablet of Hermes English (Isaac Newton Translation)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "emerald-tablet"
+    },
+    {
+      "id": "asclepius-latin-ed",
+      "workId": "asclepius",
+      "name": "Asclepius Classical Latin & Greek Hermetic Edition",
+      "editionType": "critical_edition",
+      "language": "la",
+      "script": "Latn"
+    },
+    {
+      "id": "asclepius-english-copenhaver",
+      "workId": "asclepius",
+      "name": "Asclepius The Perfect Discourse English (Brian P. Copenhaver)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "asclepius"
+    },
+    {
+      "id": "kybalion-edition",
+      "workId": "kybalion",
+      "name": "The Kybalion Hermetic Philosophy Three Initiates Edition",
+      "editionType": "canonical_treatise",
+      "language": "en",
+      "script": "Latn"
+    },
+    {
+      "id": "kybalion-indonesian-ed",
+      "workId": "kybalion",
+      "name": "The Kybalion Filosofi Hermetisisme Terjemahan Indonesia",
+      "editionType": "translation",
+      "language": "id",
+      "script": "Latn",
+      "translationOf": "kybalion"
+    },
+    {
+      "id": "secret-doctrine-blavatsky-ed",
+      "workId": "secret-doctrine",
+      "name": "The Secret Doctrine Original H.P. Blavatsky Edition",
+      "editionType": "primary_treatise",
+      "language": "en",
+      "script": "Latn"
+    },
+    {
+      "id": "secret-doctrine-indonesian",
+      "workId": "secret-doctrine",
+      "name": "Doktrin Rahasia (The Secret Doctrine) Terjemahan Indonesia",
+      "editionType": "translation",
+      "language": "id",
+      "script": "Latn",
+      "translationOf": "secret-doctrine"
+    },
+    {
+      "id": "voice-of-the-silence-ed",
+      "workId": "voice-of-the-silence",
+      "name": "The Voice of the Silence Theosophical Edition",
+      "editionType": "primary_scripture",
+      "language": "en",
+      "script": "Latn"
+    },
+    {
+      "id": "voice-of-the-silence-indonesian",
+      "workId": "voice-of-the-silence",
+      "name": "Suara Keheningan (The Voice of the Silence) Terjemahan Indonesia",
+      "editionType": "translation",
+      "language": "id",
+      "script": "Latn",
+      "translationOf": "voice-of-the-silence"
+    },
+    {
+      "id": "key-to-theosophy-ed",
+      "workId": "key-to-theosophy",
+      "name": "The Key to Theosophy Theosophical Society Edition",
+      "editionType": "canonical_treatise",
+      "language": "en",
+      "script": "Latn"
+    },
+    {
+      "id": "key-to-theosophy-indonesian",
+      "workId": "key-to-theosophy",
+      "name": "Kunci Teosofi (The Key to Theosophy) Terjemahan Indonesia",
+      "editionType": "translation",
+      "language": "id",
+      "script": "Latn",
+      "translationOf": "key-to-theosophy"
+    },
+    {
+      "id": "kumulipo-polynesian-ed",
+      "workId": "kumulipo-cosmology",
+      "name": "Kumulipo Hawaiian & Māori Creation Chant Text",
+      "editionType": "primary_sacred_oral",
+      "language": "mi",
+      "script": "Latn"
+    },
+    {
+      "id": "kumulipo-english-beckwith",
+      "workId": "kumulipo-cosmology",
+      "name": "The Kumulipo A Hawaiian Creation Chant English (Martha Beckwith)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "kumulipo-cosmology"
+    },
+    {
+      "id": "nga-moteatea-grey-ed",
+      "workId": "nga-moteatea",
+      "name": "Ngā Mōteatea Sir George Grey Māori Collection",
+      "editionType": "canonical_oral",
+      "language": "mi",
+      "script": "Latn"
+    },
+    {
+      "id": "nga-moteatea-english-ngata",
+      "workId": "nga-moteatea",
+      "name": "Ngā Mōteatea The Songs English Translations (Apirana Ngata)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "nga-moteatea"
+    },
+    {
+      "id": "maori-whakapapa-ed",
+      "workId": "maori-whakapapa",
+      "name": "Whakapapa Māori Cosmogony Canonical Records",
+      "editionType": "canonical_sacred",
+      "language": "mi",
+      "script": "Latn"
+    },
+    {
+      "id": "maori-whakapapa-english",
+      "workId": "maori-whakapapa",
+      "name": "Māori Cosmogony and Whakapapa English Translation",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "maori-whakapapa"
+    },
+    {
+      "id": "peshitta-syriac-ed",
+      "workId": "peshitta-syriac",
+      "name": "Peshitta Syriac Bible Canonical Text",
+      "editionType": "original_script",
+      "language": "syr",
+      "script": "Syrc"
+    },
+    {
+      "id": "peshitta-syriac-en-lamsa",
+      "workId": "peshitta-syriac",
+      "name": "Holy Bible from the Ancient Eastern Text English (George M. Lamsa)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "peshitta-syriac"
+    },
+    {
+      "id": "odes-of-solomon-syriac-ed",
+      "workId": "odes-of-solomon",
+      "name": "Odes of Solomon Syriac Edition",
+      "editionType": "critical_edition",
+      "language": "syr",
+      "script": "Syrc"
+    },
+    {
+      "id": "odes-of-solomon-en-charlesworth",
+      "workId": "odes-of-solomon",
+      "name": "The Odes of Solomon English Translation (James H. Charlesworth)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "odes-of-solomon"
+    },
+    {
+      "id": "hymns-ephrem-syriac-ed",
+      "workId": "hymns-ephrem-syrian",
+      "name": "Hymns of St. Ephrem the Syrian Madrashe Syriac Edition",
+      "editionType": "critical_edition",
+      "language": "syr",
+      "script": "Syrc"
+    },
+    {
+      "id": "hymns-ephrem-en-mcvey",
+      "workId": "hymns-ephrem-syrian",
+      "name": "Ephrem the Syrian: Hymns English Translation (Kathleen E. McVey)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "hymns-ephrem-syrian"
+    },
+    {
+      "id": "book-of-enoch-geez-ed",
+      "workId": "book-of-enoch",
+      "name": "1 Enoch Ge'ez Canonical Ethiopic Text",
+      "editionType": "original_script",
+      "language": "gez",
+      "script": "Ethi"
+    },
+    {
+      "id": "book-of-enoch-en-laurence",
+      "workId": "book-of-enoch",
+      "name": "The Book of Enoch the Prophet English (Richard Laurence)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "book-of-enoch"
+    },
+    {
+      "id": "book-of-jubilees-geez-ed",
+      "workId": "book-of-jubilees",
+      "name": "Book of Jubilees (Mashafa Kufale) Ge'ez Text",
+      "editionType": "original_script",
+      "language": "gez",
+      "script": "Ethi"
+    },
+    {
+      "id": "book-of-jubilees-en-charles",
+      "workId": "book-of-jubilees",
+      "name": "The Book of Jubilees English Translation (R.H. Charles)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "book-of-jubilees"
+    },
+    {
+      "id": "kebra-nagast-geez-ed",
+      "workId": "kebra-nagast",
+      "name": "Kebra Nagast Ge'ez Classical Ethiopic Edition",
+      "editionType": "original_script",
+      "language": "gez",
+      "script": "Ethi"
+    },
+    {
+      "id": "kebra-nagast-en-budge",
+      "workId": "kebra-nagast",
+      "name": "The Queen of Sheba & Her Only Son Menyelek English (E.A. Wallis Budge)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "kebra-nagast"
+    },
+    {
+      "id": "egyptian-book-of-dead-ani-ed",
+      "workId": "egyptian-book-of-the-dead",
+      "name": "The Papyrus of Ani Egyptian Book of the Dead Hieroglyphic Edition",
+      "editionType": "original_script",
+      "language": "egy",
+      "script": "Egyp"
+    },
+    {
+      "id": "egyptian-book-of-dead-en-budge",
+      "workId": "egyptian-book-of-the-dead",
+      "name": "The Book of the Dead English Translation (E.A. Wallis Budge)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "egyptian-book-of-the-dead"
+    },
+    {
+      "id": "pyramid-texts-hieroglyphic-ed",
+      "workId": "pyramid-texts",
+      "name": "The Pyramid Texts Saqqara Inscriptions Edition",
+      "editionType": "original_script",
+      "language": "egy",
+      "script": "Egyp"
+    },
+    {
+      "id": "pyramid-texts-en-faulkner",
+      "workId": "pyramid-texts",
+      "name": "The Ancient Egyptian Pyramid Texts English (R.O. Faulkner)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "pyramid-texts"
+    },
+    {
+      "id": "coffin-texts-hieroglyphic-ed",
+      "workId": "coffin-texts",
+      "name": "The Ancient Egyptian Coffin Texts De Buck Edition",
+      "editionType": "critical_edition",
+      "language": "egy",
+      "script": "Egyp"
+    },
+    {
+      "id": "coffin-texts-en-faulkner",
+      "workId": "coffin-texts",
+      "name": "The Ancient Egyptian Coffin Texts English (R.O. Faulkner)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "coffin-texts"
+    },
+    {
+      "id": "gilgamesh-babylonian-ed",
+      "workId": "epic-of-gilgamesh",
+      "name": "The Epic of Gilgamesh Standard Babylonian Cuneiform Text",
+      "editionType": "original_script",
+      "language": "akk",
+      "script": "Xsux"
+    },
+    {
+      "id": "gilgamesh-en-george",
+      "workId": "epic-of-gilgamesh",
+      "name": "The Epic of Gilgamesh English Translation (Andrew George)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "epic-of-gilgamesh"
+    },
+    {
+      "id": "enuma-elish-cuneiform-ed",
+      "workId": "enuma-elish",
+      "name": "Enûma Eliš Seven Tablets of Creation Akkadian Cuneiform",
+      "editionType": "original_script",
+      "language": "akk",
+      "script": "Xsux"
+    },
+    {
+      "id": "enuma-elish-en-king",
+      "workId": "enuma-elish",
+      "name": "Enuma Elish The Seven Tablets of Creation English (L.W. King)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "enuma-elish"
+    },
+    {
+      "id": "descent-of-inanna-sumerian-ed",
+      "workId": "descent-of-inanna",
+      "name": "The Descent of Inanna Sumerian Cuneiform Edition",
+      "editionType": "original_script",
+      "language": "sux",
+      "script": "Xsux"
+    },
+    {
+      "id": "descent-of-inanna-en-kramer",
+      "workId": "descent-of-inanna",
+      "name": "Inanna Queen of Heaven and Earth English (Samuel Noah Kramer & Diane Wolkstein)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "descent-of-inanna"
+    },
+    {
+      "id": "homeric-hymns-greek-ed",
+      "workId": "homeric-hymns",
+      "name": "The Homeric Hymns Greek Critical Edition",
+      "editionType": "original_script",
+      "language": "grc",
+      "script": "Grek"
+    },
+    {
+      "id": "homeric-hymns-en-evelyn-white",
+      "workId": "homeric-hymns",
+      "name": "The Homeric Hymns English Translation (Hugh G. Evelyn-White)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "homeric-hymns"
+    },
+    {
+      "id": "hesiod-theogony-greek-ed",
+      "workId": "hesiod-theogony",
+      "name": "Hesiod Theogony & Works and Days Greek Critical Text",
+      "editionType": "original_script",
+      "language": "grc",
+      "script": "Grek"
+    },
+    {
+      "id": "hesiod-theogony-en-evelyn-white",
+      "workId": "hesiod-theogony",
+      "name": "Hesiod: Theogony and Works and Days English (Hugh G. Evelyn-White)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "hesiod-theogony"
+    },
+    {
+      "id": "orphic-hymns-greek-ed",
+      "workId": "orphic-hymns",
+      "name": "The Orphic Hymns Classical Greek Edition (Quandts Recension)",
+      "editionType": "original_script",
+      "language": "grc",
+      "script": "Grek"
+    },
+    {
+      "id": "orphic-hymns-en-taylor",
+      "workId": "orphic-hymns",
+      "name": "The Mystical Hymns of Orpheus English (Thomas Taylor)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "orphic-hymns"
+    },
+    {
+      "id": "poetic-edda-old-norse-ed",
+      "workId": "poetic-edda",
+      "name": "Codex Regius Poetic Edda Old Norse Edition",
+      "editionType": "original_script",
+      "language": "non",
+      "script": "Latn"
+    },
+    {
+      "id": "poetic-edda-en-bellows",
+      "workId": "poetic-edda",
+      "name": "The Poetic Edda English Translation (Henry Adams Bellows)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "poetic-edda"
+    },
+    {
+      "id": "prose-edda-old-norse-ed",
+      "workId": "prose-edda",
+      "name": "Snorra Edda Old Norse Edition",
+      "editionType": "original_script",
+      "language": "non",
+      "script": "Latn"
+    },
+    {
+      "id": "prose-edda-en-brodeur",
+      "workId": "prose-edda",
+      "name": "The Prose Edda of Snorri Sturluson English (Arthur Gilchrist Brodeur)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "prose-edda"
+    },
+    {
+      "id": "havamal-old-norse-ed",
+      "workId": "havamal",
+      "name": "Hávamál Sayings of the High One Old Norse Text",
+      "editionType": "original_script",
+      "language": "non",
+      "script": "Latn"
+    },
+    {
+      "id": "havamal-en-bellows",
+      "workId": "havamal",
+      "name": "Hávamál The Ballad of the High One English (Henry Adams Bellows)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "havamal"
+    },
+    {
+      "id": "primary-chronicle-old-slavic-ed",
+      "workId": "primary-chronicle-slavic",
+      "name": "The Tale of Bygone Years Old Church Slavonic Edition",
+      "editionType": "original_script",
+      "language": "chu",
+      "script": "Cyrl"
+    },
+    {
+      "id": "primary-chronicle-en-cross",
+      "workId": "primary-chronicle-slavic",
+      "name": "The Russian Primary Chronicle English (Samuel Hazzard Cross)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "primary-chronicle-slavic"
+    },
+    {
+      "id": "slavic-tales-and-songs-ed",
+      "workId": "slavic-tales-and-songs",
+      "name": "Songs of the Russian People Mythological Chants",
+      "editionType": "canonical_oral",
+      "language": "chu",
+      "script": "Cyrl"
+    },
+    {
+      "id": "slavic-tales-and-songs-en-ralston",
+      "workId": "slavic-tales-and-songs",
+      "name": "The Songs of the Russian People English (W.R.S. Ralston)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "slavic-tales-and-songs"
+    },
+    {
+      "id": "popol-vuh-kiche-ed",
+      "workId": "popol-vuh",
+      "name": "Popol Vuh K'iche' Maya Original Text",
+      "editionType": "original_script",
+      "language": "quc",
+      "script": "Latn"
+    },
+    {
+      "id": "popol-vuh-en-tedlock",
+      "workId": "popol-vuh",
+      "name": "Popol Vuh: The Mayan Book of the Dawn of Life English (Dennis Tedlock)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "popol-vuh"
+    },
+    {
+      "id": "chilam-balam-maya-ed",
+      "workId": "books-of-chilam-balam",
+      "name": "The Book of Chilam Balam of Chumayel Maya Text",
+      "editionType": "sacred_chronicle",
+      "language": "myn",
+      "script": "Latn"
+    },
+    {
+      "id": "chilam-balam-en-roys",
+      "workId": "books-of-chilam-balam",
+      "name": "The Book of Chilam Balam of Chumayel English (Ralph L. Roys)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "books-of-chilam-balam"
+    },
+    {
+      "id": "cantares-mexicanos-nahuatl-ed",
+      "workId": "cantares-mexicanos",
+      "name": "Cantares Mexicanos Nahuatl Sacred Songs Edition",
+      "editionType": "original_script",
+      "language": "nah",
+      "script": "Latn"
+    },
+    {
+      "id": "cantares-mexicanos-en-bierhorst",
+      "workId": "cantares-mexicanos",
+      "name": "Cantares Mexicanos: Songs of the Aztecs English (John Bierhorst)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "cantares-mexicanos"
+    },
+    {
+      "id": "florentine-codex-gods-nahuatl-ed",
+      "workId": "florentine-codex-gods",
+      "name": "Florentine Codex Book I & II Nahuatl Text",
+      "editionType": "critical_edition",
+      "language": "nah",
+      "script": "Latn"
+    },
+    {
+      "id": "florentine-codex-gods-en-dibble",
+      "workId": "florentine-codex-gods",
+      "name": "Florentine Codex: The Gods and The Ceremonies English (Arthur J.O. Anderson & Charles E. Dibble)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "florentine-codex-gods"
+    },
+    {
+      "id": "huarochiri-quechua-ed",
+      "workId": "huarochiri-manuscript",
+      "name": "The Huarochirí Manuscript Quechua Sacred Text",
+      "editionType": "original_script",
+      "language": "que",
+      "script": "Latn"
+    },
+    {
+      "id": "huarochiri-en-salomon",
+      "workId": "huarochiri-manuscript",
+      "name": "The Huarochirí Manuscript: A Testament of Ancient and Colonial Andean Religion English (Frank Salomon)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "huarochiri-manuscript"
+    },
+    {
+      "id": "ollantay-quechua-ed",
+      "workId": "ollantay-sacred-drama",
+      "name": "Ollantay Sacred Drama Quechua Text",
+      "editionType": "original_script",
+      "language": "que",
+      "script": "Latn"
+    },
+    {
+      "id": "ollantay-en-markham",
+      "workId": "ollantay-sacred-drama",
+      "name": "Ollanta: An Ancient Ynca Drama English (Clements R. Markham)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "ollantay-sacred-drama"
+    },
+    {
+      "id": "akan-anansi-twi-ed",
+      "workId": "akan-anansi-mythos",
+      "name": "Akan-Ashanti Sacred Folktales Twi Edition",
+      "editionType": "sacred_oral",
+      "language": "aka",
+      "script": "Latn"
+    },
+    {
+      "id": "akan-anansi-en-rattray",
+      "workId": "akan-anansi-mythos",
+      "name": "Akan-Ashanti Folk-Tales English (R.S. Rattray)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "akan-anansi-mythos"
+    },
+    {
+      "id": "akan-proverbs-twi-ed",
+      "workId": "akan-proverbs-and-maxims",
+      "name": "Akan Wisdom Literature & Proverbs Twi Text",
+      "editionType": "wisdom_aphorisms",
+      "language": "aka",
+      "script": "Latn"
+    },
+    {
+      "id": "akan-proverbs-en-appiah",
+      "workId": "akan-proverbs-and-maxims",
+      "name": "Bu Me Bé: Proverbs of the Akan English (Peggy Appiah & Kwame Anthony Appiah)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "akan-proverbs-and-maxims"
+    },
+    {
+      "id": "kumulipo-chant-hawaiian-ed",
+      "workId": "kumulipo-creation-chant",
+      "name": "He Kumulipo Hawaiian Cosmogonic Chant Text",
+      "editionType": "primary_sacred_oral",
+      "language": "haw",
+      "script": "Latn"
+    },
+    {
+      "id": "kumulipo-chant-en-beckwith",
+      "workId": "kumulipo-creation-chant",
+      "name": "The Kumulipo: A Hawaiian Creation Chant English (Martha Warren Beckwith)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "kumulipo-creation-chant"
+    },
+    {
+      "id": "hawaiian-hula-chants-ed",
+      "workId": "hawaiian-hula-chants",
+      "name": "Sacred Hawaiian Chants and Prayers of Pele Hawaiian Text",
+      "editionType": "liturgical",
+      "language": "haw",
+      "script": "Latn"
+    },
+    {
+      "id": "hawaiian-hula-chants-en-emerson",
+      "workId": "hawaiian-hula-chants",
+      "name": "Unwritten Literature of Hawaii: The Sacred Songs of the Hula English (Nathaniel B. Emerson)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "hawaiian-hula-chants"
+    },
+    {
+      "id": "vachanas-basavanna-kannada-ed",
+      "workId": "vachanas-basavanna",
+      "name": "Lord Basaveshwara Vachana Sahitya Kannada Canonical Edition",
+      "editionType": "original_script",
+      "language": "kn",
+      "script": "Knda"
+    },
+    {
+      "id": "vachanas-basavanna-en-ramanuian",
+      "workId": "vachanas-basavanna",
+      "name": "Speaking of Siva: Basavanna Vachanas English (A.K. Ramanujan)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "vachanas-basavanna"
+    },
+    {
+      "id": "vachanas-allama-prabhu-kannada-ed",
+      "workId": "vachanas-allama-prabhu",
+      "name": "Allama Prabhu Vachana Sahitya Kannada Canonical Edition",
+      "editionType": "original_script",
+      "language": "kn",
+      "script": "Knda"
+    },
+    {
+      "id": "vachanas-allama-prabhu-en-ramanuian",
+      "workId": "vachanas-allama-prabhu",
+      "name": "Speaking of Siva: Allama Prabhu Vachanas English (A.K. Ramanujan)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "vachanas-allama-prabhu"
+    },
+    {
+      "id": "vachanas-akka-mahadevi-kannada-ed",
+      "workId": "vachanas-akka-mahadevi",
+      "name": "Akka Mahadevi Vachana Sahitya Kannada Canonical Edition",
+      "editionType": "original_script",
+      "language": "kn",
+      "script": "Knda"
+    },
+    {
+      "id": "vachanas-akka-mahadevi-en-ramanuian",
+      "workId": "vachanas-akka-mahadevi",
+      "name": "Speaking of Siva: Akka Mahadevi Vachanas English (A.K. Ramanujan)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "vachanas-akka-mahadevi"
+    },
+    {
+      "id": "vachanamrut-gujarati-ed",
+      "workId": "vachanamrut",
+      "name": "The Vachanamrut Gujarati Canonical Edition",
+      "editionType": "original_script",
+      "language": "gu",
+      "script": "Gujr"
+    },
+    {
+      "id": "vachanamrut-english-baps",
+      "workId": "vachanamrut",
+      "name": "The Vachanamrut English Translation (BAPS Swaminarayan Sanstha)",
+      "editionType": "official_publication",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "vachanamrut"
+    },
+    {
+      "id": "shikshapatri-sanskrit-ed",
+      "workId": "shikshapatri",
+      "name": "The Shikshapatri Sanskrit Canonical Slokas Edition",
+      "editionType": "original_script",
+      "language": "sa",
+      "script": "Deva"
+    },
+    {
+      "id": "shikshapatri-english-monier-williams",
+      "workId": "shikshapatri",
+      "name": "The Shikshapatri English Translation (Monier Williams)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "shikshapatri"
+    },
+    {
+      "id": "great-hymn-aten-hieroglyphic-ed",
+      "workId": "great-hymn-to-aten",
+      "name": "The Great Hymn to the Aten Hieroglyphic Text",
+      "editionType": "original_script",
+      "language": "egy",
+      "script": "Egyp"
+    },
+    {
+      "id": "great-hymn-aten-en-breasted",
+      "workId": "great-hymn-to-aten",
+      "name": "The Great Hymn to the Aten English (James Henry Breasted)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "great-hymn-to-aten"
+    },
+    {
+      "id": "atrahasis-cuneiform-ed",
+      "workId": "atrahasis-epic",
+      "name": "Atrahasis Epic Old Babylonian Cuneiform Edition",
+      "editionType": "original_script",
+      "language": "akk",
+      "script": "Xsux"
+    },
+    {
+      "id": "atrahasis-en-lambert",
+      "workId": "atrahasis-epic",
+      "name": "Atrahasis: The Babylonian Story of the Deluge English (W.G. Lambert & A.R. Millard)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "atrahasis-epic"
+    },
+    {
+      "id": "voluspa-old-norse-ed",
+      "workId": "voluspa",
+      "name": "Völuspá Old Norse Edition",
+      "editionType": "original_script",
+      "language": "non",
+      "script": "Latn"
+    },
+    {
+      "id": "voluspa-en-bellows",
+      "workId": "voluspa",
+      "name": "Völuspá: The Poetic Edda English Translation (Henry Adams Bellows)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "voluspa"
+    },
+    {
+      "id": "aphrahat-syriac-ed",
+      "workId": "demonstrations-aphrahat",
+      "name": "Demonstrations of Aphrahat Syriac Text",
+      "editionType": "original_script",
+      "language": "syr",
+      "script": "Syrc"
+    },
+    {
+      "id": "aphrahat-en-parisot",
+      "workId": "demonstrations-aphrahat",
+      "name": "Demonstrations of Aphrahat English Translation (John Parisot)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "demonstrations-aphrahat"
+    },
+    {
+      "id": "cave-of-treasures-syriac-ed",
+      "workId": "cave-of-treasures",
+      "name": "The Book of the Cave of Treasures Syriac Edition",
+      "editionType": "original_script",
+      "language": "syr",
+      "script": "Syrc"
+    },
+    {
+      "id": "cave-of-treasures-en-budge",
+      "workId": "cave-of-treasures",
+      "name": "The Book of the Cave of Treasures English (E.A. Wallis Budge)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "cave-of-treasures"
+    },
+    {
+      "id": "fetha-nagast-geez-ed",
+      "workId": "fetha-nagast",
+      "name": "Fetha Nagast Ge'ez Nomocanon Edition",
+      "editionType": "original_script",
+      "language": "gez",
+      "script": "Ethi"
+    },
+    {
+      "id": "fetha-nagast-en-paul",
+      "workId": "fetha-nagast",
+      "name": "The Fetha Nagast: The Law of the Kings English (Peter L. Strauss & Paulos Tzadua)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "fetha-nagast"
+    },
+    {
+      "id": "ptahhotep-hieroglyphic-ed",
+      "workId": "maxims-of-ptahhotep",
+      "name": "The Maxims of Ptahhotep Papyrus Prisse Hieratic Edition",
+      "editionType": "original_script",
+      "language": "egy",
+      "script": "Egyp"
+    },
+    {
+      "id": "ptahhotep-en-gunn",
+      "workId": "maxims-of-ptahhotep",
+      "name": "The Instruction of Ptah-Hotep English Translation (Battiscombe G. Gunn)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "maxims-of-ptahhotep"
+    },
+    {
+      "id": "hammurabi-cuneiform-ed",
+      "workId": "code-of-hammurabi",
+      "name": "The Code of Hammurabi Akkadian Cuneiform Text",
+      "editionType": "original_script",
+      "language": "akk",
+      "script": "Xsux"
+    },
+    {
+      "id": "hammurabi-en-king",
+      "workId": "code-of-hammurabi",
+      "name": "The Code of Hammurabi English Translation (L.W. King)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "code-of-hammurabi"
+    },
+    {
+      "id": "timaeus-greek-ed",
+      "workId": "plato-timaeus",
+      "name": "Plato's Timaeus Greek Critical Edition (Burnet)",
+      "editionType": "original_script",
+      "language": "grc",
+      "script": "Grek"
+    },
+    {
+      "id": "timaeus-en-jowett",
+      "workId": "plato-timaeus",
+      "name": "Timaeus English Translation (Benjamin Jowett)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "plato-timaeus"
+    },
+    {
+      "id": "grimnismal-old-norse-ed",
+      "workId": "grimnismal",
+      "name": "Grímnismál Old Norse Edition",
+      "editionType": "original_script",
+      "language": "non",
+      "script": "Latn"
+    },
+    {
+      "id": "grimnismal-en-bellows",
+      "workId": "grimnismal",
+      "name": "Grímnismál The Ballad of Grimnir English (Henry Adams Bellows)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "grimnismal"
+    },
+    {
+      "id": "rabinal-achi-kiche-ed",
+      "workId": "rabinal-achi",
+      "name": "Rabinal Achí K'iche' Maya Sacred Dance Text",
+      "editionType": "original_script",
+      "language": "quc",
+      "script": "Latn"
+    },
+    {
+      "id": "rabinal-achi-en-brasseur",
+      "workId": "rabinal-achi",
+      "name": "Rabinal Achí: A Mayan Drama English (Dennis Tedlock & Brasseur)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "rabinal-achi"
+    },
+    {
+      "id": "sunyasampadane-kannada-ed",
+      "workId": "sunyasampadane",
+      "name": "Sunyasampadane Kannada Critical Edition",
+      "editionType": "original_script",
+      "language": "kn",
+      "script": "Knda"
+    },
+    {
+      "id": "sunyasampadane-en-menezes",
+      "workId": "sunyasampadane",
+      "name": "Sunyasampadane English Translation (Armando Menezes & S.M. Angadi)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "sunyasampadane"
+    },
+    {
+      "id": "satsangi-jeevan-sanskrit-ed",
+      "workId": "satsangi-jeevan",
+      "name": "Satsangi Jeevan Sanskrit Canonical Edition",
+      "editionType": "original_script",
+      "language": "sa",
+      "script": "Deva"
+    },
+    {
+      "id": "satsangi-jeevan-en-baps",
+      "workId": "satsangi-jeevan",
+      "name": "Satsangi Jeevan English Translation (BAPS Sanstha)",
+      "editionType": "official_publication",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "satsangi-jeevan"
+    },
+    {
+      "id": "huehuetlatolli-nahuatl-ed",
+      "workId": "huehuetlatolli",
+      "name": "Huehuetlatolli Classical Nahuatl Text",
+      "editionType": "original_script",
+      "language": "nah",
+      "script": "Latn"
+    },
+    {
+      "id": "huehuetlatolli-en-leon-portilla",
+      "workId": "huehuetlatolli",
+      "name": "Huehuetlatolli: Ancient Word of the Nahuas English (Miguel León-Portilla)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "huehuetlatolli"
+    },
+    {
+      "id": "buyruk-ottoman-ed",
+      "workId": "buyruk-imam-jafar",
+      "name": "Buyruk-i Imam Ja'far al-Sadiq Ottoman Edition",
+      "editionType": "original_script",
+      "language": "ota",
+      "script": "Arab"
+    },
+    {
+      "id": "buyruk-turkish-en",
+      "workId": "buyruk-imam-jafar",
+      "name": "The Buyruk of Imam Ja'far English Translation",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "buyruk-imam-jafar"
+    },
+    {
+      "id": "divan-khatai-azeri-ed",
+      "workId": "divan-i-khatai",
+      "name": "Divan-i Khatai Classical Azeri-Turkish Edition",
+      "editionType": "original_script",
+      "language": "ota",
+      "script": "Arab"
+    },
+    {
+      "id": "divan-khatai-en",
+      "workId": "divan-i-khatai",
+      "name": "Divan of Khatai Sacred Poems English Translation",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "divan-i-khatai"
+    },
+    {
+      "id": "makalat-bektash-turkish-ed",
+      "workId": "makalat-haji-bektash",
+      "name": "Makalat of Haji Bektash Veli Turkish Edition",
+      "editionType": "original_script",
+      "language": "tr",
+      "script": "Latn"
+    },
+    {
+      "id": "makalat-bektash-en",
+      "workId": "makalat-haji-bektash",
+      "name": "Makalat: The Four Gateways and Forty Stations English",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "makalat-haji-bektash"
+    },
+    {
+      "id": "kitab-al-majmu-arabic-ed",
+      "workId": "kitab-al-majmu",
+      "name": "Kitab al-Majmu Arabic Classical Text",
+      "editionType": "original_script",
+      "language": "ar",
+      "script": "Arab"
+    },
+    {
+      "id": "kitab-al-majmu-en-dus",
+      "workId": "kitab-al-majmu",
+      "name": "Kitab al-Majmu English Translation (Rene Dussaud)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "kitab-al-majmu"
+    },
+    {
+      "id": "kitab-haft-arabic-ed",
+      "workId": "kitab-al-haft-al-sharif",
+      "name": "Kitab al-Haft wa al-Azilla Arabic Edition",
+      "editionType": "original_script",
+      "language": "ar",
+      "script": "Arab"
+    },
+    {
+      "id": "kitab-haft-en",
+      "workId": "kitab-al-haft-al-sharif",
+      "name": "The Book of the Seven and the Shadows English",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "kitab-al-haft-al-sharif"
+    },
+    {
+      "id": "vessantara-sogdian-ed",
+      "workId": "vessantara-jataka-sogdian",
+      "name": "Sogdian Vessantara Jataka Manuscript Edition",
+      "editionType": "original_script",
+      "language": "sog",
+      "script": "Sogd"
+    },
+    {
+      "id": "vessantara-sogdian-en-gauthiot",
+      "workId": "vessantara-jataka-sogdian",
+      "name": "The Sogdian Vessantara Jataka English Translation (Robert Gauthiot)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "vessantara-jataka-sogdian"
+    },
+    {
+      "id": "sogdian-letters-ed",
+      "workId": "sogdian-ancient-letters",
+      "name": "Sogdian Ancient Letters Dunhuang Edition",
+      "editionType": "critical_edition",
+      "language": "sog",
+      "script": "Sogd"
+    },
+    {
+      "id": "sogdian-letters-en-sims-williams",
+      "workId": "sogdian-ancient-letters",
+      "name": "Sogdian Ancient Letters English Translation (Nicholas Sims-Williams)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "sogdian-ancient-letters"
+    },
+    {
+      "id": "amritbani-ravidass-gurmukhi-ed",
+      "workId": "amritbani-guru-ravidass",
+      "name": "Amritbani Satguru Ravidass Maharaj Ji Gurmukhi Edition",
+      "editionType": "original_script",
+      "language": "pa",
+      "script": "Guru"
+    },
+    {
+      "id": "amritbani-ravidass-en",
+      "workId": "amritbani-guru-ravidass",
+      "name": "Amritbani Guru Ravidass Ji English Translation",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "amritbani-guru-ravidass"
+    },
+    {
+      "id": "bijak-kabir-hindi-ed",
+      "workId": "bijak-of-kabir",
+      "name": "The Bijak of Kabir Eastern Hindi Edition",
+      "editionType": "original_script",
+      "language": "hi",
+      "script": "Deva"
+    },
+    {
+      "id": "bijak-kabir-en-hess",
+      "workId": "bijak-of-kabir",
+      "name": "The Bijak of Kabir English Translation (Linda Hess & Shukdev Singh)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "bijak-of-kabir"
+    },
+    {
+      "id": "anurag-sagar-hindi-ed",
+      "workId": "anurag-sagar",
+      "name": "Anurag Sagar Hindi Sacred Edition",
+      "editionType": "original_script",
+      "language": "hi",
+      "script": "Deva"
+    },
+    {
+      "id": "anurag-sagar-en",
+      "workId": "anurag-sagar",
+      "name": "Anurag Sagar (Ocean of Love) English Translation",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "anurag-sagar"
+    },
+    {
+      "id": "kabir-sakhi-hindi-ed",
+      "workId": "kabir-sakhi-granth",
+      "name": "Kabir Sakhi Granth Hindi Classical Edition",
+      "editionType": "original_script",
+      "language": "hi",
+      "script": "Deva"
+    },
+    {
+      "id": "kabir-sakhi-en",
+      "workId": "kabir-sakhi-granth",
+      "name": "The Sacred Sakhis of Kabir English Translation",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "kabir-sakhi-granth"
+    },
+    {
+      "id": "akilathirattu-tamil-ed",
+      "workId": "akilathirattu-ammanai",
+      "name": "Akilathirattu Ammanai Palm Leaf Tamil Edition",
+      "editionType": "original_script",
+      "language": "ta",
+      "script": "Taml"
+    },
+    {
+      "id": "akilathirattu-en",
+      "workId": "akilathirattu-ammanai",
+      "name": "Akilathirattu Ammanai English Translation",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "akilathirattu-ammanai"
+    },
+    {
+      "id": "arul-nool-tamil-ed",
+      "workId": "arul-nool",
+      "name": "Arul Nool Tamil Canonical Edition",
+      "editionType": "original_script",
+      "language": "ta",
+      "script": "Taml"
+    },
+    {
+      "id": "arul-nool-en",
+      "workId": "arul-nool",
+      "name": "Arul Nool (The Book of Grace) English Translation",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "arul-nool"
+    },
+    {
+      "id": "omoro-soshi-ryukyuan-ed",
+      "workId": "omoro-soshi",
+      "name": "Omoro Sōshi Classical Ryukyuan Edition",
+      "editionType": "original_script",
+      "language": "ryu",
+      "script": "Jpan"
+    },
+    {
+      "id": "omoro-soshi-en-sakihara",
+      "workId": "omoro-soshi",
+      "name": "Omoro Sōshi: Ancient Songs of Ryukyu English (Mitsugu Sakihara)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "omoro-soshi"
+    },
+    {
+      "id": "pale-fox-dogon-ed",
+      "workId": "pale-fox-nommo-cosmogony",
+      "name": "The Pale Fox Dogon Oral Recitation Records",
+      "editionType": "original_script",
+      "language": "dgo",
+      "script": "Latn"
+    },
+    {
+      "id": "pale-fox-en-griaule",
+      "workId": "pale-fox-nommo-cosmogony",
+      "name": "The Pale Fox: Dogon Cosmogony English (Marcel Griaule & Germaine Dieterlen)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "pale-fox-nommo-cosmogony"
+    },
+    {
+      "id": "great-law-haudenosaunee-ed",
+      "workId": "great-law-of-peace",
+      "name": "Gayanashagowa Mohawk & Onondaga Recitation Edition",
+      "editionType": "canonical_sacred",
+      "language": "moh",
+      "script": "Latn"
+    },
+    {
+      "id": "great-law-peace-en-parker",
+      "workId": "great-law-of-peace",
+      "name": "The Constitution of the Five Nations English (Arthur C. Parker)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "great-law-of-peace"
+    },
+    {
+      "id": "handsome-lake-seneca-ed",
+      "workId": "code-of-handsome-lake",
+      "name": "Gaiwiio Seneca Sacred Recitation Edition",
+      "editionType": "original_script",
+      "language": "moh",
+      "script": "Latn"
+    },
+    {
+      "id": "handsome-lake-en-parker",
+      "workId": "code-of-handsome-lake",
+      "name": "The Code of Handsome Lake English Translation (Arthur C. Parker)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "code-of-handsome-lake"
+    },
+    {
+      "id": "iroquois-cosmogony-ed",
+      "workId": "iroquois-creation-story",
+      "name": "Iroquois Sacred Cosmogony Text",
+      "editionType": "original_script",
+      "language": "moh",
+      "script": "Latn"
+    },
+    {
+      "id": "iroquois-cosmogony-en-hewitt",
+      "workId": "iroquois-creation-story",
+      "name": "Iroquoian Cosmology English Translation (J.N.B. Hewitt)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "iroquois-creation-story"
+    },
+    {
+      "id": "baal-cycle-cuneiform-ed",
+      "workId": "baal-cycle-ugaritic",
+      "name": "The Baal Cycle Ugaritic Alphabetic Cuneiform Edition",
+      "editionType": "original_script",
+      "language": "uga",
+      "script": "Ugar"
+    },
+    {
+      "id": "baal-cycle-en-smith",
+      "workId": "baal-cycle-ugaritic",
+      "name": "The Ugaritic Baal Cycle English Translation (Mark S. Smith)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "baal-cycle-ugaritic"
+    },
+    {
+      "id": "kirta-ugaritic-ed",
+      "workId": "epic-of-kirta",
+      "name": "The Epic of Kirta Ugaritic Cuneiform Edition",
+      "editionType": "original_script",
+      "language": "uga",
+      "script": "Ugar"
+    },
+    {
+      "id": "kirta-epic-en-pardee",
+      "workId": "epic-of-kirta",
+      "name": "The Epic of Kirta English Translation (Dennis Pardee)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "epic-of-kirta"
+    },
+    {
+      "id": "aqhat-ugaritic-ed",
+      "workId": "tale-of-aqhat",
+      "name": "The Tale of Aqhat Ugaritic Cuneiform Edition",
+      "editionType": "original_script",
+      "language": "uga",
+      "script": "Ugar"
+    },
+    {
+      "id": "aqhat-epic-en-wright",
+      "workId": "tale-of-aqhat",
+      "name": "The Tale of Aqhat English Translation (David P. Wright)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "tale-of-aqhat"
+    },
+    {
+      "id": "lebor-gabala-old-irish-ed",
+      "workId": "lebor-gabala-erenn",
+      "name": "Lebor Gabála Érenn Old Irish Critical Edition",
+      "editionType": "original_script",
+      "language": "sga",
+      "script": "Latn"
+    },
+    {
+      "id": "lebor-gabala-en-macalister",
+      "workId": "lebor-gabala-erenn",
+      "name": "Lebor Gabála Érenn English Translation (R.A.S. Macalister)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "lebor-gabala-erenn"
+    },
+    {
+      "id": "mabinogion-middle-welsh-ed",
+      "workId": "mabinogion-sacred-tales",
+      "name": "The Mabinogion Middle Welsh Edition (White Book of Rhydderch)",
+      "editionType": "original_script",
+      "language": "cy",
+      "script": "Latn"
+    },
+    {
+      "id": "mabinogion-en-guest",
+      "workId": "mabinogion-sacred-tales",
+      "name": "The Mabinogion English Translation (Lady Charlotte Guest)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "mabinogion-sacred-tales"
+    },
+    {
+      "id": "cath-maige-old-irish-ed",
+      "workId": "cath-maige-tuired",
+      "name": "Cath Maige Tuired Old Irish Edition",
+      "editionType": "original_script",
+      "language": "sga",
+      "script": "Latn"
+    },
+    {
+      "id": "cath-maige-en-gray",
+      "workId": "cath-maige-tuired",
+      "name": "The Second Battle of Mag Tuired English Translation (Elizabeth A. Gray)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "cath-maige-tuired"
+    },
+    {
+      "id": "book-of-bee-syriac-ed",
+      "workId": "book-of-the-bee",
+      "name": "The Book of the Bee Syriac Edition",
+      "editionType": "original_script",
+      "language": "syr",
+      "script": "Syrc"
+    },
+    {
+      "id": "book-of-bee-en-budge",
+      "workId": "book-of-the-bee",
+      "name": "The Book of the Bee English Translation (E.A. Wallis Budge)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "book-of-the-bee"
+    },
+    {
+      "id": "mezegebe-haymanot-geez-ed",
+      "workId": "mezegebe-haymanot",
+      "name": "Mezegebe Haymanot Ge'ez Canonical Edition",
+      "editionType": "original_script",
+      "language": "gez",
+      "script": "Ethi"
+    },
+    {
+      "id": "mezegebe-haymanot-en",
+      "workId": "mezegebe-haymanot",
+      "name": "Mezegebe Haymanot English Translation",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "mezegebe-haymanot"
+    },
+    {
+      "id": "amduat-hieroglyphic-ed",
+      "workId": "amduat-book-of-the-netherworld",
+      "name": "The Book of the Amduat Egyptian Hieroglyphic Edition",
+      "editionType": "original_script",
+      "language": "egy",
+      "script": "Egyp"
+    },
+    {
+      "id": "amduat-en-budge",
+      "workId": "amduat-book-of-the-netherworld",
+      "name": "The Egyptian Book of Am-Tuat English Translation (E.A. Wallis Budge)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "amduat-book-of-the-netherworld"
+    },
+    {
+      "id": "lugalbanda-cuneiform-ed",
+      "workId": "lugalbanda-epic",
+      "name": "Lugalbanda in the Mountain Cave Sumerian Cuneiform Text",
+      "editionType": "original_script",
+      "language": "sux",
+      "script": "Xsux"
+    },
+    {
+      "id": "lugalbanda-en-black",
+      "workId": "lugalbanda-epic",
+      "name": "The Epic of Lugalbanda English Translation (ETCSL Jeremy Black)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "lugalbanda-epic"
+    },
+    {
+      "id": "cicero-de-natura-deorum-latin-ed",
+      "workId": "cicero-de-natura-deorum",
+      "name": "De Natura Deorum Latin Critical Edition",
+      "editionType": "original_script",
+      "language": "la",
+      "script": "Latn"
+    },
+    {
+      "id": "cicero-de-natura-deorum-en",
+      "workId": "cicero-de-natura-deorum",
+      "name": "On the Nature of the Gods English Translation (Francis Brooks)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "cicero-de-natura-deorum"
+    },
+    {
+      "id": "lokasenna-old-norse-ed",
+      "workId": "lokasenna",
+      "name": "Lokasenna Old Norse Eddic Edition",
+      "editionType": "original_script",
+      "language": "non",
+      "script": "Latn"
+    },
+    {
+      "id": "lokasenna-en-bellows",
+      "workId": "lokasenna",
+      "name": "Lokasenna: The Flyting of Loki English (Henry Adams Bellows)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "lokasenna"
+    },
+    {
+      "id": "memorial-solola-cakchiquel-ed",
+      "workId": "memorial-de-solola",
+      "name": "Memorial de Sololá Cakchiquel Sacred Manuscript Edition",
+      "editionType": "original_script",
+      "language": "myn",
+      "script": "Latn"
+    },
+    {
+      "id": "memorial-solola-en-brinton",
+      "workId": "memorial-de-solola",
+      "name": "The Annals of the Cakchiquels English (Daniel G. Brinton)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "memorial-de-solola"
+    },
+    {
+      "id": "historia-tolteca-nahuatl-ed",
+      "workId": "historia-tolteca-chichimeca",
+      "name": "Historia Tolteca-Chichimeca Classical Nahuatl Edition",
+      "editionType": "original_script",
+      "language": "nah",
+      "script": "Latn"
+    },
+    {
+      "id": "historia-tolteca-en-kirchhoff",
+      "workId": "historia-tolteca-chichimeca",
+      "name": "Historia Tolteca-Chichimeca English/Spanish Scholarly Edition",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "historia-tolteca-chichimeca"
+    },
+    {
+      "id": "avila-dioses-quechua-ed",
+      "workId": "dioses-y-hombres-huarochiri",
+      "name": "Dioses y Hombres de Huarochirí Quechua Edition",
+      "editionType": "original_script",
+      "language": "que",
+      "script": "Latn"
+    },
+    {
+      "id": "avila-dioses-en",
+      "workId": "dioses-y-hombres-huarochiri",
+      "name": "Dioses y Hombres de Huarochirí English (Arguedas & Salomon)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "dioses-y-hombres-huarochiri"
+    },
+    {
+      "id": "channabasava-kannada-ed",
+      "workId": "channabasaveshwara-vachanas",
+      "name": "Vachanas of Channabasaveshwara Kannada Edition",
+      "editionType": "original_script",
+      "language": "kn",
+      "script": "Knda"
+    },
+    {
+      "id": "channabasava-en",
+      "workId": "channabasaveshwara-vachanas",
+      "name": "Vachanas of Channabasavanna English Translation",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "channabasaveshwara-vachanas"
+    },
+    {
+      "id": "bhaktachintamani-gujarati-ed",
+      "workId": "bhaktachintamani",
+      "name": "Bhaktachintamani Gujarati Sacred Edition",
+      "editionType": "original_script",
+      "language": "gu",
+      "script": "Gujr"
+    },
+    {
+      "id": "bhaktachintamani-en",
+      "workId": "bhaktachintamani",
+      "name": "Bhaktachintamani English Translation",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "bhaktachintamani"
+    },
+    {
+      "id": "sar-bachan-hindi-ed",
+      "workId": "sar-bachan-radhasoami",
+      "name": "Sar Bachan Radhasoami Hindi Critical Edition",
+      "editionType": "original_script",
+      "language": "hi",
+      "script": "Deva"
+    },
+    {
+      "id": "sar-bachan-en",
+      "workId": "sar-bachan-radhasoami",
+      "name": "Sar Bachan Radhasoami Prose and Poetry English Translation",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "sar-bachan-radhasoami"
+    },
+    {
+      "id": "prem-bani-hindi-ed",
+      "workId": "prem-bani-radhasoami",
+      "name": "Prem Bani Radhasoami Hindi Canonical Text",
+      "editionType": "original_script",
+      "language": "hi",
+      "script": "Deva"
+    },
+    {
+      "id": "prem-bani-en",
+      "workId": "prem-bani-radhasoami",
+      "name": "Prem Bani Radhasoami English Translation",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "prem-bani-radhasoami"
+    },
+    {
+      "id": "mat-prakash-en-saligram",
+      "workId": "radhasoami-mat-prakash",
+      "name": "Radhasoami Mat Prakash English Canonical Edition (Huzur Maharaj)",
+      "editionType": "original_script",
+      "language": "en",
+      "script": "Latn"
+    },
+    {
+      "id": "mat-prakash-hindi-ed",
+      "workId": "radhasoami-mat-prakash",
+      "name": "Radhasoami Mat Prakash Hindi Translation",
+      "editionType": "translation",
+      "language": "hi",
+      "script": "Deva",
+      "translationOf": "radhasoami-mat-prakash"
+    },
+    {
+      "id": "brahma-dharma-bengali-ed",
+      "workId": "brahma-dharma-grantha",
+      "name": "Brahma Dharma Grantha Bengali Original Edition",
+      "editionType": "original_script",
+      "language": "bn",
+      "script": "Beng"
+    },
+    {
+      "id": "brahma-dharma-en-tagore",
+      "workId": "brahma-dharma-grantha",
+      "name": "Brahma Dharma: The Religion of the Brahmo Samaj English",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "brahma-dharma-grantha"
+    },
+    {
+      "id": "tattwabodhini-bengali-ed",
+      "workId": "tattwabodhini-patrika",
+      "name": "Tattwabodhini Patrika Sacred Bengali Papers",
+      "editionType": "original_script",
+      "language": "bn",
+      "script": "Beng"
+    },
+    {
+      "id": "tattwabodhini-en",
+      "workId": "tattwabodhini-patrika",
+      "name": "Tattwabodhini Papers English Translation",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "tattwabodhini-patrika"
+    },
+    {
+      "id": "brahmo-upasana-bengali-ed",
+      "workId": "brahmo-upasana",
+      "name": "Brahmo Upasana Bengali Prayer Book",
+      "editionType": "original_script",
+      "language": "bn",
+      "script": "Beng"
+    },
+    {
+      "id": "brahmo-upasana-en",
+      "workId": "brahmo-upasana",
+      "name": "Brahmo Public and Private Liturgy English Translation",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "brahmo-upasana"
+    },
+    {
+      "id": "satyarth-prakash-hindi-ed",
+      "workId": "satyarth-prakash",
+      "name": "Satyarth Prakash Hindi Canonical Text (Dayananda Saraswati)",
+      "editionType": "original_script",
+      "language": "hi",
+      "script": "Deva"
+    },
+    {
+      "id": "satyarth-prakash-en-bharadwaja",
+      "workId": "satyarth-prakash",
+      "name": "The Light of Truth: English Translation of Satyarth Prakash (Chiranjiva Bharadwaja)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "satyarth-prakash"
+    },
+    {
+      "id": "rigvedadi-bhumika-hindi-ed",
+      "workId": "rigvedadi-bhashya-bhumika",
+      "name": "Rigvedadi Bhashya Bhumika Sanskrit-Hindi Critical Edition",
+      "editionType": "original_script",
+      "language": "hi",
+      "script": "Deva"
+    },
+    {
+      "id": "rigvedadi-bhumika-en",
+      "workId": "rigvedadi-bhashya-bhumika",
+      "name": "Introduction to the Commentary on the Vedas English Translation",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "rigvedadi-bhashya-bhumika"
+    },
+    {
+      "id": "sanskar-vidhi-sanskrit-hindi-ed",
+      "workId": "sanskar-vidhi",
+      "name": "Sanskar Vidhi Sanskrit-Hindi Vedic Sacraments Edition",
+      "editionType": "original_script",
+      "language": "hi",
+      "script": "Deva"
+    },
+    {
+      "id": "sanskar-vidhi-en",
+      "workId": "sanskar-vidhi",
+      "name": "Sanskar Vidhi: The Vedic Sacraments English Translation",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "sanskar-vidhi"
+    },
+    {
+      "id": "sam-giang-vietnamese-ed",
+      "workId": "sam-giang-khuyen-tu",
+      "name": "Sấm Giảng Khuyên Tu Vietnamese Canonical Text",
+      "editionType": "original_script",
+      "language": "vi",
+      "script": "Latn"
+    },
+    {
+      "id": "sam-giang-en",
+      "workId": "sam-giang-khuyen-tu",
+      "name": "Oracles and Moral Precepts of Huynh Phu So English Translation",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "sam-giang-khuyen-tu"
+    },
+    {
+      "id": "ton-chi-vietnamese-ed",
+      "workId": "ton-chi-hanh-dao",
+      "name": "Tôn Chỉ Hành Đạo Vietnamese Official Manual",
+      "editionType": "official_publication",
+      "language": "vi",
+      "script": "Latn"
+    },
+    {
+      "id": "ton-chi-en",
+      "workId": "ton-chi-hanh-dao",
+      "name": "Charter and Rules of Practice of Hoa Hao Buddhism English",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "ton-chi-hanh-dao"
+    },
+    {
+      "id": "thi-van-vietnamese-ed",
+      "workId": "thi-van-giao-ly",
+      "name": "Thi Văn Giáo Lý Toàn Bộ Vietnamese Compilation",
+      "editionType": "original_script",
+      "language": "vi",
+      "script": "Latn"
+    },
+    {
+      "id": "thi-van-en",
+      "workId": "thi-van-giao-ly",
+      "name": "Complete Sacred Poetry and Teachings English Translation",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "thi-van-giao-ly"
+    },
+    {
+      "id": "fa-du-fon-ed",
+      "workId": "fa-du-vodun-corpus",
+      "name": "Fa Kpó 256 Du Signs Fon Invocations Archive",
+      "editionType": "original_script",
+      "language": "fon",
+      "script": "Latn"
+    },
+    {
+      "id": "fa-du-en-maupoil",
+      "workId": "fa-du-vodun-corpus",
+      "name": "La Géomancie à l'ancienne Côte des Esclaves & Fa Du English/French (Bernard Maupoil)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "fa-du-vodun-corpus"
+    },
+    {
+      "id": "hungan-fon-ed",
+      "workId": "hungan-vodun-chants",
+      "name": "Hungan Fon Ritual Songs & Chants Text",
+      "editionType": "original_script",
+      "language": "fon",
+      "script": "Latn"
+    },
+    {
+      "id": "hungan-en",
+      "workId": "hungan-vodun-chants",
+      "name": "Sacred Songs and Liturgies of the Vodun Priesthood English",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "hungan-vodun-chants"
+    },
+    {
+      "id": "legba-cosmogony-fon-ed",
+      "workId": "legba-mawulisa-cosmogony",
+      "name": "Mawu-Lisa & Legba Fon Cosmogony Records",
+      "editionType": "original_script",
+      "language": "fon",
+      "script": "Latn"
+    },
+    {
+      "id": "legba-cosmogony-en-herskovits",
+      "workId": "legba-mawulisa-cosmogony",
+      "name": "Dahomean Narrative: A Cross-Cultural Analysis English (Melville & Frances Herskovits)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "legba-mawulisa-cosmogony"
+    },
+    {
+      "id": "nhialic-dinka-ed",
+      "workId": "nihialic-dinka-hymns",
+      "name": "Nhialic Dinka Hymns and Invocations Native Text",
+      "editionType": "original_script",
+      "language": "din",
+      "script": "Latn"
+    },
+    {
+      "id": "nhialic-dinka-en-lienhardt",
+      "workId": "nihialic-dinka-hymns",
+      "name": "Divinity and Experience: The Religion of the Dinka English (Godfrey Lienhardt)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "nihialic-dinka-hymns"
+    },
+    {
+      "id": "dinka-cosmogony-ed",
+      "workId": "dinka-creation-cosmogony",
+      "name": "Dinka Cosmogonic Mythos Native Transcriptions",
+      "editionType": "original_script",
+      "language": "din",
+      "script": "Latn"
+    },
+    {
+      "id": "dinka-cosmogony-en",
+      "workId": "dinka-creation-cosmogony",
+      "name": "Dinka Cosmogony and Mythological Lore English Translation",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "dinka-creation-cosmogony"
+    },
+    {
+      "id": "spear-master-dinka-ed",
+      "workId": "spear-master-prayers",
+      "name": "Beny Bith (Master of the Spear) Sacred Prayers Dinka Text",
+      "editionType": "original_script",
+      "language": "din",
+      "script": "Latn"
+    },
+    {
+      "id": "spear-master-en",
+      "workId": "spear-master-prayers",
+      "name": "Prayers of the Dinka Spear-Masters English Translation",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "spear-master-prayers"
+    },
+    {
+      "id": "sacred-pipe-lakota-ed",
+      "workId": "sacred-pipe-black-elk",
+      "name": "Čhaŋnúŋpa Wakȟáŋ Lakota Sacred Pipe Records",
+      "editionType": "original_script",
+      "language": "lkt",
+      "script": "Latn"
+    },
+    {
+      "id": "sacred-pipe-en-brown",
+      "workId": "sacred-pipe-black-elk",
+      "name": "The Sacred Pipe: Black Elk's Account of the Seven Rites of the Oglala Sioux (Joseph Epes Brown)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "sacred-pipe-black-elk"
+    },
+    {
+      "id": "sun-dance-lakota-ed",
+      "workId": "sun-dance-wiwanyag-wachipi",
+      "name": "Wiwányag Wačhípi Lakota Sun Dance Songs",
+      "editionType": "original_script",
+      "language": "lkt",
+      "script": "Latn"
+    },
+    {
+      "id": "sun-dance-en-walker",
+      "workId": "sun-dance-wiwanyag-wachipi",
+      "name": "The Sun Dance and Other Ceremonies of the Oglala Division English (J.R. Walker)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "sun-dance-wiwanyag-wachipi"
+    },
+    {
+      "id": "woope-teachings-lakota-ed",
+      "workId": "woope-sacred-teachings",
+      "name": "Ptesáŋwiŋ Sacred Covenants Lakota Text",
+      "editionType": "original_script",
+      "language": "lkt",
+      "script": "Latn"
+    },
+    {
+      "id": "woope-teachings-en",
+      "workId": "woope-sacred-teachings",
+      "name": "Teachings of the White Buffalo Calf Maiden English Translation",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "woope-sacred-teachings"
+    },
+    {
+      "id": "dine-bahane-navajo-ed",
+      "workId": "dine-bahane-creation-story",
+      "name": "Diné Bahaneʼ Navajo Emergence Text",
+      "editionType": "original_script",
+      "language": "nav",
+      "script": "Latn"
+    },
+    {
+      "id": "dine-bahane-en-zolbrod",
+      "workId": "dine-bahane-creation-story",
+      "name": "Diné Bahaneʼ: The Navajo Creation Story English Translation (Paul G. Zolbrod)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "dine-bahane-creation-story"
+    },
+    {
+      "id": "blessingway-navajo-ed",
+      "workId": "blessingway-hozhonji",
+      "name": "Hózhóójí Navajo Blessingway Songs and Prayers",
+      "editionType": "original_script",
+      "language": "nav",
+      "script": "Latn"
+    },
+    {
+      "id": "blessingway-en-wyman",
+      "workId": "blessingway-hozhonji",
+      "name": "Blessingway: Recorded and Translated by Father Berard Haile (Leland C. Wyman)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "blessingway-hozhonji"
+    },
+    {
+      "id": "nightway-navajo-ed",
+      "workId": "nightway-kletji-chants",
+      "name": "Tłʼééʼjí Navajo Night Chant Ceremony Text",
+      "editionType": "original_script",
+      "language": "nav",
+      "script": "Latn"
+    },
+    {
+      "id": "nightway-en-matthews",
+      "workId": "nightway-kletji-chants",
+      "name": "The Night Chant: A Navaho Ceremony English Translation (Washington Matthews)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "nightway-kletji-chants"
+    },
+    {
+      "id": "tala-foafoaga-samoan-ed",
+      "workId": "tala-o-le-foafoaga-samoan",
+      "name": "O le Tala i le Foafoaga o le Lalolagi Samoan Text",
+      "editionType": "original_script",
+      "language": "smo",
+      "script": "Latn"
+    },
+    {
+      "id": "tala-foafoaga-en-kramer",
+      "workId": "tala-o-le-foafoaga-samoan",
+      "name": "The Samoa Islands: Sacred Lore and Cosmogony English (Augustin Krämer)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "tala-o-le-foafoaga-samoan"
+    },
+    {
+      "id": "solo-o-le-va-samoan-ed",
+      "workId": "solo-o-le-va-cosmic-hymn",
+      "name": "Solo o le Vā Ancient Samoan Creation Chant",
+      "editionType": "original_script",
+      "language": "smo",
+      "script": "Latn"
+    },
+    {
+      "id": "solo-o-le-va-en-pratt",
+      "workId": "solo-o-le-va-cosmic-hymn",
+      "name": "The Genealogy of the Kings and Creation of Samoa English (George Pratt & John Fraser)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "solo-o-le-va-cosmic-hymn"
+    },
+    {
+      "id": "faalupega-samoan-ed",
+      "workId": "faalupega-sacred-salutations",
+      "name": "O le Tusi Fa'alupega o Samoa Canonical Text",
+      "editionType": "original_script",
+      "language": "smo",
+      "script": "Latn"
+    },
+    {
+      "id": "faalupega-en",
+      "workId": "faalupega-sacred-salutations",
+      "name": "Fa'alupega: Sacred Ceremonial Salutations of Samoa English",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "faalupega-sacred-salutations"
+    },
+    {
+      "id": "liber-linteus-etruscan-ed",
+      "workId": "liber-linteus-zagrebiensis",
+      "name": "Liber Linteus Zagreb Mummy Linen Etruscan Inscriptions",
+      "editionType": "original_script",
+      "language": "ett",
+      "script": "Ital"
+    },
+    {
+      "id": "liber-linteus-en-van-der-meer",
+      "workId": "liber-linteus-zagrebiensis",
+      "name": "Liber Linteus Zagrabiensis: The Etruscan Ritual Calendar English (L.B. van der Meer)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "liber-linteus-zagrebiensis"
+    },
+    {
+      "id": "tabula-cortonensis-etruscan-ed",
+      "workId": "tabula-cortonensis",
+      "name": "Tabula Cortonensis Etruscan Bronze Inscription",
+      "editionType": "original_script",
+      "language": "ett",
+      "script": "Ital"
+    },
+    {
+      "id": "tabula-cortonensis-en-riggi",
+      "workId": "tabula-cortonensis",
+      "name": "The Tabula Cortonensis English Scholarly Edition (Luciano Agostiniani)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "tabula-cortonensis"
+    },
+    {
+      "id": "pyrgi-bilingual-etruscan-ed",
+      "workId": "pyrgia-tablets",
+      "name": "The Pyrgi Gold Tablets Etruscan & Phoenician Inscription",
+      "editionType": "original_script",
+      "language": "ett",
+      "script": "Ital"
+    },
+    {
+      "id": "pyrgi-tablets-en",
+      "workId": "pyrgia-tablets",
+      "name": "The Pyrgi Inscriptions English Translation",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "pyrgia-tablets"
+    },
+    {
+      "id": "mithras-liturgy-greek-ed",
+      "workId": "mithras-liturgy-papyrus",
+      "name": "The Mithras Liturgy Greek Papyrus Text (PGM IV 475-820)",
+      "editionType": "original_script",
+      "language": "grc",
+      "script": "Grek"
+    },
+    {
+      "id": "mithras-liturgy-en-meyer",
+      "workId": "mithras-liturgy-papyrus",
+      "name": "The Mithras Liturgy English Translation (Marvin W. Meyer)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "mithras-liturgy-papyrus"
+    },
+    {
+      "id": "santa-prisca-latin-ed",
+      "workId": "santa-prisca-mithraic-hymns",
+      "name": "Santa Prisca Mithraeum Latin Inscriptions & Hymns",
+      "editionType": "original_script",
+      "language": "la",
+      "script": "Latn"
+    },
+    {
+      "id": "santa-prisca-mithraic-en-vermaseren",
+      "workId": "santa-prisca-mithraic-hymns",
+      "name": "The Excavations in the Mithraeum of the Church of Santa Prisca English (M.J. Vermaseren)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "santa-prisca-mithraic-hymns"
+    },
+    {
+      "id": "porphyry-antro-greek-ed",
+      "workId": "porphyry-de-antro-nympbarum",
+      "name": "De Antro Nympharum Greek Text (Porphyry)",
+      "editionType": "original_script",
+      "language": "grc",
+      "script": "Grek"
+    },
+    {
+      "id": "porphyry-antro-en-taylor",
+      "workId": "porphyry-de-antro-nympbarum",
+      "name": "On the Cave of the Nymphs in the Odyssey English (Thomas Taylor)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "porphyry-de-antro-nympbarum"
+    },
+    {
+      "id": "haymanote-abew-geez-ed",
+      "workId": "haymanote-abew",
+      "name": "Haymanote Abew Ge'ez Canonical Homiletic Edition",
+      "editionType": "original_script",
+      "language": "gez",
+      "script": "Ethi"
+    },
+    {
+      "id": "haymanote-abew-en",
+      "workId": "haymanote-abew",
+      "name": "The Faith of the Fathers (Haymanote Abew) English Translation",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "haymanote-abew"
+    },
+    {
+      "id": "enuma-anu-enlil-cuneiform-ed",
+      "workId": "enuma-anu-enlil",
+      "name": "Enuma Anu Enlil Akkadian Cuneiform Series",
+      "editionType": "original_script",
+      "language": "akk",
+      "script": "Xsux"
+    },
+    {
+      "id": "enuma-anu-enlil-en-reiner",
+      "workId": "enuma-anu-enlil",
+      "name": "Babylonian Planetary Omens: Enuma Anu Enlil English (Erica Reiner & David Pingree)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "enuma-anu-enlil"
+    },
+    {
+      "id": "totonicapan-kiche-ed",
+      "workId": "title-of-totonicapan",
+      "name": "Título de Totonicapán K'iche' Sacred Chronicle",
+      "editionType": "original_script",
+      "language": "quc",
+      "script": "Latn"
+    },
+    {
+      "id": "totonicapan-en-carmack",
+      "workId": "title-of-totonicapan",
+      "name": "The Title of Totonicapán: Sacred K'iche' History English (Robert M. Carmack & James L. Mondloch)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "title-of-totonicapan"
+    },
+    {
+      "id": "tirumandiram-tamil-ed",
+      "workId": "tirumandiram",
+      "name": "Tirumandiram Tamil Canonical Verses (Tirumular)",
+      "editionType": "original_script",
+      "language": "ta",
+      "script": "Taml"
+    },
+    {
+      "id": "tirumandiram-en-natarajan",
+      "workId": "tirumandiram",
+      "name": "Tirumantiram: A Tamil Scriptural Classic English (B. Natarajan)",
+      "editionType": "translation",
+      "language": "en",
+      "script": "Latn",
+      "translationOf": "tirumandiram"
+    },
+    {
+      "id": "dadu-vani-hindi-original",
+      "workId": "dadu-vani",
+      "editionType": "critical_edition",
+      "language": "hi",
+      "script": "Deva",
+      "variant": "standard_devanagari"
+    },
+    {
+      "id": "dadu-vani-english-translation",
+      "workId": "dadu-vani",
+      "editionType": "scholarly_translation",
+      "language": "en",
+      "script": "Latn",
+      "variant": "orr_translation"
+    },
+    {
+      "id": "dadu-sakhi-hindi-original",
+      "workId": "dadu-sakhi",
+      "editionType": "critical_edition",
+      "language": "hi",
+      "script": "Deva",
+      "variant": "standard_devanagari"
+    },
+    {
+      "id": "dadu-sakhi-english-translation",
+      "workId": "dadu-sakhi",
+      "editionType": "scholarly_translation",
+      "language": "en",
+      "script": "Latn",
+      "variant": "academic_translation"
+    },
+    {
+      "id": "dadu-sabda-hindi-original",
+      "workId": "dadu-sabda",
+      "editionType": "critical_edition",
+      "language": "hi",
+      "script": "Deva",
+      "variant": "standard_devanagari"
+    },
+    {
+      "id": "dadu-sabda-english-translation",
+      "workId": "dadu-sabda",
+      "editionType": "scholarly_translation",
+      "language": "en",
+      "script": "Latn",
+      "variant": "academic_translation"
+    },
+    {
+      "id": "jeon-gyeong-korean-original",
+      "workId": "jeon-gyeong",
+      "editionType": "critical_edition",
+      "language": "ko",
+      "script": "Hang",
+      "variant": "standard_korean"
+    },
+    {
+      "id": "jeon-gyeong-english-translation",
+      "workId": "jeon-gyeong",
+      "editionType": "scholarly_translation",
+      "language": "en",
+      "script": "Latn",
+      "variant": "canonical_english"
+    },
+    {
+      "id": "dojeon-korean-original",
+      "workId": "dojeon-jeungsan",
+      "editionType": "critical_edition",
+      "language": "ko",
+      "script": "Hang",
+      "variant": "standard_korean"
+    },
+    {
+      "id": "dojeon-english-translation",
+      "workId": "dojeon-jeungsan",
+      "editionType": "scholarly_translation",
+      "language": "en",
+      "script": "Latn",
+      "variant": "canonical_english"
+    },
+    {
+      "id": "huangmu-xunshu-chinese-original",
+      "workId": "yiguandao-huangmu-shunshu",
+      "editionType": "critical_edition",
+      "language": "zh",
+      "script": "Hant",
+      "variant": "traditional_chinese"
+    },
+    {
+      "id": "huangmu-xunshu-english-translation",
+      "workId": "yiguandao-huangmu-shunshu",
+      "editionType": "scholarly_translation",
+      "language": "en",
+      "script": "Latn",
+      "variant": "scholarly_english"
+    },
+    {
+      "id": "daoyi-wenda-chinese-original",
+      "workId": "yiguandao-daoyi-wenda",
+      "editionType": "critical_edition",
+      "language": "zh",
+      "script": "Hant",
+      "variant": "traditional_chinese"
+    },
+    {
+      "id": "daoyi-wenda-english-translation",
+      "workId": "yiguandao-daoyi-wenda",
+      "editionType": "scholarly_translation",
+      "language": "en",
+      "script": "Latn",
+      "variant": "scholarly_english"
+    },
+    {
+      "id": "odinani-omenala-igbo-original",
+      "workId": "odinani-omenala-corpus",
+      "editionType": "recorded_oral_edition",
+      "language": "ig",
+      "script": "Latn",
+      "variant": "central_igbo"
+    },
+    {
+      "id": "odinani-omenala-english-translation",
+      "workId": "odinani-omenala-corpus",
+      "editionType": "scholarly_translation",
+      "language": "en",
+      "script": "Latn",
+      "variant": "academic_english"
+    },
+    {
+      "id": "odinani-ofo-igbo-original",
+      "workId": "odinani-ofo-chants",
+      "editionType": "recorded_oral_edition",
+      "language": "ig",
+      "script": "Latn",
+      "variant": "central_igbo"
+    },
+    {
+      "id": "odinani-ofo-english-translation",
+      "workId": "odinani-ofo-chants",
+      "editionType": "scholarly_translation",
+      "language": "en",
+      "script": "Latn",
+      "variant": "academic_english"
+    },
+    {
+      "id": "serer-roog-srr-original",
+      "workId": "serer-roog-cossan",
+      "editionType": "recorded_oral_edition",
+      "language": "srr",
+      "script": "Latn",
+      "variant": "standard_serer"
+    },
+    {
+      "id": "serer-roog-french-translation",
+      "workId": "serer-roog-cossan",
+      "editionType": "scholarly_translation",
+      "language": "fr",
+      "script": "Latn",
+      "variant": "gravrand_french"
+    },
+    {
+      "id": "serer-saltigue-srr-original",
+      "workId": "serer-saltigue-divinations",
+      "editionType": "recorded_oral_edition",
+      "language": "srr",
+      "script": "Latn",
+      "variant": "standard_serer"
+    },
+    {
+      "id": "serer-saltigue-french-translation",
+      "workId": "serer-saltigue-divinations",
+      "editionType": "scholarly_translation",
+      "language": "fr",
+      "script": "Latn",
+      "variant": "academic_french"
+    },
+    {
+      "id": "cherokee-sacred-formulas-original",
+      "workId": "cherokee-sacred-formulas",
+      "editionType": "critical_edition",
+      "language": "chr",
+      "script": "Cher",
+      "variant": "sequoyah_syllabary"
+    },
+    {
+      "id": "cherokee-sacred-formulas-english",
+      "workId": "cherokee-sacred-formulas",
+      "editionType": "scholarly_translation",
+      "language": "en",
+      "script": "Latn",
+      "variant": "mooney_smithsonian"
+    },
+    {
+      "id": "cherokee-myths-chr-original",
+      "workId": "cherokee-cosmology-myths",
+      "editionType": "recorded_oral_edition",
+      "language": "chr",
+      "script": "Cher",
+      "variant": "sequoyah_syllabary"
+    },
+    {
+      "id": "cherokee-myths-english",
+      "workId": "cherokee-cosmology-myths",
+      "editionType": "scholarly_translation",
+      "language": "en",
+      "script": "Latn",
+      "variant": "mooney_translation"
+    },
+    {
+      "id": "inuit-unikkaaqtuat-iu-original",
+      "workId": "inuit-unikkaaqtuat-corpus",
+      "editionType": "recorded_oral_edition",
+      "language": "iu",
+      "script": "Cans",
+      "variant": "inuktitut_syllabics"
+    },
+    {
+      "id": "inuit-unikkaaqtuat-english",
+      "workId": "inuit-unikkaaqtuat-corpus",
+      "editionType": "scholarly_translation",
+      "language": "en",
+      "script": "Latn",
+      "variant": "rasmussen_smithsonian"
+    },
+    {
+      "id": "inuit-angakkuq-iu-original",
+      "workId": "inuit-angakkuq-chants",
+      "editionType": "recorded_oral_edition",
+      "language": "iu",
+      "script": "Cans",
+      "variant": "inuktitut_syllabics"
+    },
+    {
+      "id": "inuit-angakkuq-english",
+      "workId": "inuit-angakkuq-chants",
+      "editionType": "scholarly_translation",
+      "language": "en",
+      "script": "Latn",
+      "variant": "academic_english"
+    },
+    {
+      "id": "tonga-tala-fonua-to-original",
+      "workId": "tonga-tala-e-fonua",
+      "editionType": "recorded_oral_edition",
+      "language": "to",
+      "script": "Latn",
+      "variant": "standard_tongan"
+    },
+    {
+      "id": "tonga-tala-fonua-english",
+      "workId": "tonga-tala-e-fonua",
+      "editionType": "scholarly_translation",
+      "language": "en",
+      "script": "Latn",
+      "variant": "gifford_bishop_museum"
+    },
+    {
+      "id": "tonga-hikuleo-to-original",
+      "workId": "tonga-hikuleo-invocations",
+      "editionType": "recorded_oral_edition",
+      "language": "to",
+      "script": "Latn",
+      "variant": "standard_tongan"
+    },
+    {
+      "id": "tonga-hikuleo-english",
+      "workId": "tonga-hikuleo-invocations",
+      "editionType": "scholarly_translation",
+      "language": "en",
+      "script": "Latn",
+      "variant": "academic_english"
+    },
+    {
+      "id": "fiji-tukuni-fj-original",
+      "workId": "fiji-tukuni-origin-chants",
+      "editionType": "recorded_oral_edition",
+      "language": "fj",
+      "script": "Latn",
+      "variant": "standard_fijian"
+    },
+    {
+      "id": "fiji-tukuni-english",
+      "workId": "fiji-tukuni-origin-chants",
+      "editionType": "scholarly_translation",
+      "language": "en",
+      "script": "Latn",
+      "variant": "thomson_translation"
+    },
+    {
+      "id": "fiji-degei-fj-original",
+      "workId": "fiji-degei-invocations",
+      "editionType": "recorded_oral_edition",
+      "language": "fj",
+      "script": "Latn",
+      "variant": "standard_fijian"
+    },
+    {
+      "id": "fiji-degei-english",
+      "workId": "fiji-degei-invocations",
+      "editionType": "scholarly_translation",
+      "language": "en",
+      "script": "Latn",
+      "variant": "academic_english"
+    },
+    {
+      "id": "kitab-manaqib-shabaki-original",
+      "workId": "kitab-al-manaqib-shabak",
+      "editionType": "critical_edition",
+      "language": "ckb",
+      "script": "Arab",
+      "variant": "shabaki_dialect"
+    },
+    {
+      "id": "kitab-manaqib-arabic-translation",
+      "workId": "kitab-al-manaqib-shabak",
+      "editionType": "scholarly_translation",
+      "language": "ar",
+      "script": "Arab",
+      "variant": "classical_arabic"
+    },
+    {
+      "id": "kitab-manaqib-english-translation",
+      "workId": "kitab-al-manaqib-shabak",
+      "editionType": "scholarly_translation",
+      "language": "en",
+      "script": "Latn",
+      "variant": "academic_english"
+    },
+    {
+      "id": "shabak-hymns-ckb-original",
+      "workId": "shabak-duas-and-hymns",
+      "editionType": "critical_edition",
+      "language": "ckb",
+      "script": "Arab",
+      "variant": "shabaki_dialect"
+    },
+    {
+      "id": "shabak-hymns-english-translation",
+      "workId": "shabak-duas-and-hymns",
+      "editionType": "scholarly_translation",
+      "language": "en",
+      "script": "Latn",
+      "variant": "academic_english"
+    },
+    {
+      "id": "shabak-maqamat-ckb-original",
+      "workId": "shabak-maqamat-sacred",
+      "editionType": "critical_edition",
+      "language": "ckb",
+      "script": "Arab",
+      "variant": "shabaki_dialect"
+    },
+    {
+      "id": "shabak-maqamat-english-translation",
+      "workId": "shabak-maqamat-sacred",
+      "editionType": "scholarly_translation",
+      "language": "en",
+      "script": "Latn",
+      "variant": "academic_english"
+    },
+    {
+      "id": "lithuanian-dainos-lt-original",
+      "workId": "lithuanian-dainos-mythological",
+      "editionType": "critical_edition",
+      "language": "lt",
+      "script": "Latn",
+      "variant": "standard_lithuanian"
+    },
+    {
+      "id": "lithuanian-dainos-english-translation",
+      "workId": "lithuanian-dainos-mythological",
+      "editionType": "scholarly_translation",
+      "language": "en",
+      "script": "Latn",
+      "variant": "gimbutas_translation"
+    },
+    {
+      "id": "latvian-dainas-lv-original",
+      "workId": "latvian-dainas-dieva",
+      "editionType": "critical_edition",
+      "language": "lv",
+      "script": "Latn",
+      "variant": "standard_latvian"
+    },
+    {
+      "id": "latvian-dainas-english-translation",
+      "workId": "latvian-dainas-dieva",
+      "editionType": "scholarly_translation",
+      "language": "en",
+      "script": "Latn",
+      "variant": "barons_archive_translation"
+    },
+    {
+      "id": "baltic-perkunas-lt-original",
+      "workId": "baltic-perkunas-chants",
+      "editionType": "critical_edition",
+      "language": "lt",
+      "script": "Latn",
+      "variant": "standard_lithuanian"
+    },
+    {
+      "id": "baltic-perkunas-english-translation",
+      "workId": "baltic-perkunas-chants",
+      "editionType": "scholarly_translation",
+      "language": "en",
+      "script": "Latn",
+      "variant": "academic_english"
+    },
+    {
+      "id": "phoenician-inscriptions-phn-original",
+      "workId": "phoenician-sacred-inscriptions",
+      "editionType": "critical_edition",
+      "language": "phn",
+      "script": "Phnx",
+      "variant": "epigraphic_standard"
+    },
+    {
+      "id": "phoenician-inscriptions-english",
+      "workId": "phoenician-sacred-inscriptions",
+      "editionType": "scholarly_translation",
+      "language": "en",
+      "script": "Latn",
+      "variant": "donner_rollig_english"
+    },
+    {
+      "id": "sanchuniathon-grc-original",
+      "workId": "sanchuniathon-theology-fragments",
+      "editionType": "critical_edition",
+      "language": "grc",
+      "script": "Grek",
+      "variant": "philo_byblos_greek"
+    },
+    {
+      "id": "sanchuniathon-english",
+      "workId": "sanchuniathon-theology-fragments",
+      "editionType": "scholarly_translation",
+      "language": "en",
+      "script": "Latn",
+      "variant": "cory_ancient_fragments"
+    },
+    {
+      "id": "karatepe-phn-original",
+      "workId": "kilamuwa-karatepe-inscriptions",
+      "editionType": "critical_edition",
+      "language": "phn",
+      "script": "Phnx",
+      "variant": "bilingual_monumental"
+    },
+    {
+      "id": "karatepe-english",
+      "workId": "kilamuwa-karatepe-inscriptions",
+      "editionType": "scholarly_translation",
+      "language": "en",
+      "script": "Latn",
+      "variant": "academic_english"
+    },
+    {
+      "id": "dadu-anabhaya-vani-hi-original",
+      "workId": "dadu-anabhaya-vani",
+      "editionType": "critical_edition",
+      "language": "hi",
+      "script": "Deva",
+      "variant": "standard_original"
+    },
+    {
+      "id": "dadu-anabhaya-vani-english-translation",
+      "workId": "dadu-anabhaya-vani",
+      "editionType": "scholarly_translation",
+      "language": "en",
+      "script": "Latn",
+      "variant": "academic_english"
+    },
+    {
+      "id": "jeungsan-gongsa-ko-original",
+      "workId": "jeungsan-gongsa",
+      "editionType": "critical_edition",
+      "language": "ko",
+      "script": "Hang",
+      "variant": "standard_original"
+    },
+    {
+      "id": "jeungsan-gongsa-english-translation",
+      "workId": "jeungsan-gongsa",
+      "editionType": "scholarly_translation",
+      "language": "en",
+      "script": "Latn",
+      "variant": "academic_english"
+    },
+    {
+      "id": "yiguandao-xingli-tishi-zh-original",
+      "workId": "yiguandao-xingli-tishi",
+      "editionType": "critical_edition",
+      "language": "zh",
+      "script": "Hant",
+      "variant": "standard_original"
+    },
+    {
+      "id": "yiguandao-xingli-tishi-english-translation",
+      "workId": "yiguandao-xingli-tishi",
+      "editionType": "scholarly_translation",
+      "language": "en",
+      "script": "Latn",
+      "variant": "academic_english"
+    },
+    {
+      "id": "odinani-chi-cosmology-ig-original",
+      "workId": "odinani-chi-cosmology",
+      "editionType": "critical_edition",
+      "language": "ig",
+      "script": "Latn",
+      "variant": "standard_original"
+    },
+    {
+      "id": "odinani-chi-cosmology-english-translation",
+      "workId": "odinani-chi-cosmology",
+      "editionType": "scholarly_translation",
+      "language": "en",
+      "script": "Latn",
+      "variant": "academic_english"
+    },
+    {
+      "id": "serer-takhar-invocations-srr-original",
+      "workId": "serer-takhar-invocations",
+      "editionType": "critical_edition",
+      "language": "srr",
+      "script": "Latn",
+      "variant": "standard_original"
+    },
+    {
+      "id": "serer-takhar-invocations-english-translation",
+      "workId": "serer-takhar-invocations",
+      "editionType": "scholarly_translation",
+      "language": "en",
+      "script": "Latn",
+      "variant": "academic_english"
+    },
+    {
+      "id": "cherokee-medicine-chants-chr-original",
+      "workId": "cherokee-medicine-chants",
+      "editionType": "critical_edition",
+      "language": "chr",
+      "script": "Cher",
+      "variant": "standard_original"
+    },
+    {
+      "id": "cherokee-medicine-chants-english-translation",
+      "workId": "cherokee-medicine-chants",
+      "editionType": "scholarly_translation",
+      "language": "en",
+      "script": "Latn",
+      "variant": "academic_english"
+    },
+    {
+      "id": "inuit-sedna-cosmology-iu-original",
+      "workId": "inuit-sedna-cosmology",
+      "editionType": "critical_edition",
+      "language": "iu",
+      "script": "Cans",
+      "variant": "standard_original"
+    },
+    {
+      "id": "inuit-sedna-cosmology-english-translation",
+      "workId": "inuit-sedna-cosmology",
+      "editionType": "scholarly_translation",
+      "language": "en",
+      "script": "Latn",
+      "variant": "academic_english"
+    },
+    {
+      "id": "tonga-maui-myths-to-original",
+      "workId": "tonga-maui-myths",
+      "editionType": "critical_edition",
+      "language": "to",
+      "script": "Latn",
+      "variant": "standard_original"
+    },
+    {
+      "id": "tonga-maui-myths-english-translation",
+      "workId": "tonga-maui-myths",
+      "editionType": "scholarly_translation",
+      "language": "en",
+      "script": "Latn",
+      "variant": "academic_english"
+    },
+    {
+      "id": "fiji-lutunasobasoba-voyage-fj-original",
+      "workId": "fiji-lutunasobasoba-voyage",
+      "editionType": "critical_edition",
+      "language": "fj",
+      "script": "Latn",
+      "variant": "standard_original"
+    },
+    {
+      "id": "fiji-lutunasobasoba-voyage-english-translation",
+      "workId": "fiji-lutunasobasoba-voyage",
+      "editionType": "scholarly_translation",
+      "language": "en",
+      "script": "Latn",
+      "variant": "academic_english"
+    },
+    {
+      "id": "shabak-ziyarat-chants-ckb-original",
+      "workId": "shabak-ziyarat-chants",
+      "editionType": "critical_edition",
+      "language": "ckb",
+      "script": "Arab",
+      "variant": "standard_original"
+    },
+    {
+      "id": "shabak-ziyarat-chants-english-translation",
+      "workId": "shabak-ziyarat-chants",
+      "editionType": "scholarly_translation",
+      "language": "en",
+      "script": "Latn",
+      "variant": "academic_english"
+    },
+    {
+      "id": "baltic-dievturi-catechism-lv-original",
+      "workId": "baltic-dievturi-catechism",
+      "editionType": "critical_edition",
+      "language": "lv",
+      "script": "Latn",
+      "variant": "standard_original"
+    },
+    {
+      "id": "baltic-dievturi-catechism-english-translation",
+      "workId": "baltic-dievturi-catechism",
+      "editionType": "scholarly_translation",
+      "language": "en",
+      "script": "Latn",
+      "variant": "academic_english"
+    },
+    {
+      "id": "eshmunazar-sarcophagus-inscriptions-phn-original",
+      "workId": "eshmunazar-sarcophagus-inscriptions",
+      "editionType": "critical_edition",
+      "language": "phn",
+      "script": "Phnx",
+      "variant": "standard_original"
+    },
+    {
+      "id": "eshmunazar-sarcophagus-inscriptions-english-translation",
+      "workId": "eshmunazar-sarcophagus-inscriptions",
+      "editionType": "scholarly_translation",
+      "language": "en",
+      "script": "Latn",
+      "variant": "academic_english"
+    },
+    {
+      "id": "swaminarayan-vachanamrut-gu-original",
+      "workId": "swaminarayan-vachanamrut",
+      "editionType": "critical_edition",
+      "language": "gu",
+      "script": "Deva",
+      "variant": "standard_original"
+    },
+    {
+      "id": "swaminarayan-vachanamrut-english-translation",
+      "workId": "swaminarayan-vachanamrut",
+      "editionType": "scholarly_translation",
+      "language": "en",
+      "script": "Latn",
+      "variant": "academic_english"
+    },
+    {
+      "id": "swaminarayan-shikshapatri-sa-original",
+      "workId": "swaminarayan-shikshapatri",
+      "editionType": "critical_edition",
+      "language": "sa",
+      "script": "Deva",
+      "variant": "standard_original"
+    },
+    {
+      "id": "swaminarayan-shikshapatri-english-translation",
+      "workId": "swaminarayan-shikshapatri",
+      "editionType": "scholarly_translation",
+      "language": "en",
+      "script": "Latn",
+      "variant": "academic_english"
+    },
+    {
+      "id": "sakhi-grantha-hindi-original",
+      "workId": "sakhi-grantha-kabir",
+      "language": "hi",
+      "script": "Deva",
+      "editorOrTranslator": "Shyam Sundar Das",
+      "publicationYear": 1928,
+      "license": "Public Domain",
+      "editionType": "critical_edition",
+      "rightsStatus": "public_domain"
+    },
+    {
+      "id": "sakhi-grantha-english-trans",
+      "workId": "sakhi-grantha-kabir",
+      "language": "en",
+      "script": "Latn",
+      "editorOrTranslator": "Charlotte Vaudeville",
+      "publicationYear": 1974,
+      "license": "Academic Open Access",
+      "editionType": "translation",
+      "rightsStatus": "open_access"
+    },
+    {
+      "id": "anurag-sagar-english-trans",
+      "workId": "anurag-sagar-kabir",
+      "language": "en",
+      "script": "Latn",
+      "editorOrTranslator": "Sant Ajaib Singh",
+      "publicationYear": 1980,
+      "license": "Open Access",
+      "editionType": "translation",
+      "rightsStatus": "open_access"
+    },
+    {
+      "id": "dadu-vani-braj-original",
+      "workId": "dadu-vani-sacred-hymns",
+      "language": "bra",
+      "script": "Deva",
+      "editorOrTranslator": "Pandit Chandrika Prasad Tripathi",
+      "publicationYear": 1907,
+      "license": "Public Domain",
+      "editionType": "critical_edition",
+      "rightsStatus": "public_domain"
+    },
+    {
+      "id": "dadu-vani-english-trans",
+      "workId": "dadu-vani-sacred-hymns",
+      "language": "en",
+      "script": "Latn",
+      "editorOrTranslator": "W.G. Orr",
+      "publicationYear": 1947,
+      "license": "Public Domain",
+      "editionType": "translation",
+      "rightsStatus": "public_domain"
+    },
+    {
+      "id": "amritbani-gurmukhi-original",
+      "workId": "amritbani-guru-ravidass",
+      "language": "pa",
+      "script": "Guru",
+      "editorOrTranslator": "Dera Sachkhand Ballan",
+      "publicationYear": 2010,
+      "license": "Open Access / Religious Freedom",
+      "editionType": "canonical_edition",
+      "rightsStatus": "open_access"
+    },
+    {
+      "id": "amritbani-english-trans",
+      "workId": "amritbani-guru-ravidass",
+      "language": "en",
+      "script": "Latn",
+      "editorOrTranslator": "Shri Guru Ravidass Dharmik Sabha",
+      "publicationYear": 2012,
+      "license": "Open Access",
+      "editionType": "translation",
+      "rightsStatus": "open_access"
+    },
+    {
+      "id": "akilathirattu-tamil-original",
+      "workId": "akilathirattu-ammanai",
+      "language": "ta",
+      "script": "Taml",
+      "editorOrTranslator": "Swamy Thoppu Head Office",
+      "publicationYear": 1841,
+      "license": "Public Domain",
+      "editionType": "canonical_edition",
+      "rightsStatus": "public_domain"
+    },
+    {
+      "id": "akilathirattu-english-trans",
+      "workId": "akilathirattu-ammanai",
+      "language": "en",
+      "script": "Latn",
+      "editorOrTranslator": "A. Arisundara Mani",
+      "publicationYear": 2002,
+      "license": "Open Access",
+      "editionType": "translation",
+      "rightsStatus": "open_access"
+    },
+    {
+      "id": "arul-nool-tamil-original",
+      "workId": "arul-nool-ayyavazhi",
+      "language": "ta",
+      "script": "Taml",
+      "editorOrTranslator": "Panchalankurichi Citars",
+      "publicationYear": 1918,
+      "license": "Public Domain",
+      "editionType": "canonical_edition",
+      "rightsStatus": "public_domain"
+    },
+    {
+      "id": "kamuy-yukar-ainu-original",
+      "workId": "ainu-kamuy-yukar",
+      "language": "ain",
+      "script": "Kana",
+      "editorOrTranslator": "Chiri Yukie",
+      "publicationYear": 1923,
+      "license": "Public Domain",
+      "editionType": "critical_edition",
+      "rightsStatus": "public_domain"
+    },
+    {
+      "id": "kamuy-yukar-japanese-trans",
+      "workId": "ainu-kamuy-yukar",
+      "language": "ja",
+      "script": "Jpan",
+      "editorOrTranslator": "Kyosuke Kindaichi",
+      "publicationYear": 1931,
+      "license": "Public Domain",
+      "editionType": "translation",
+      "rightsStatus": "public_domain"
+    },
+    {
+      "id": "kamuy-yukar-english-batchelor",
+      "workId": "ainu-kamuy-yukar",
+      "language": "en",
+      "script": "Latn",
+      "editorOrTranslator": "John Batchelor",
+      "publicationYear": 1927,
+      "license": "Public Domain",
+      "editionType": "translation",
+      "rightsStatus": "public_domain"
+    },
+    {
+      "id": "donggyeong-hanja-original",
+      "workId": "donggyeong-daejeon",
+      "language": "ko",
+      "script": "Hani",
+      "editorOrTranslator": "Choe Si-hyeong (Haewol)",
+      "publicationYear": 1880,
+      "license": "Public Domain",
+      "editionType": "canonical_edition",
+      "rightsStatus": "public_domain"
+    },
+    {
+      "id": "donggyeong-english-trans",
+      "workId": "donggyeong-daejeon",
+      "language": "en",
+      "script": "Latn",
+      "editorOrTranslator": "Yong Choon Kim",
+      "publicationYear": 1978,
+      "license": "Academic Open Access",
+      "editionType": "translation",
+      "rightsStatus": "open_access"
+    },
+    {
+      "id": "yongdam-korean-original",
+      "workId": "yongdam-yusa",
+      "language": "ko",
+      "script": "Hang",
+      "editorOrTranslator": "Choe Je-u",
+      "publicationYear": 1863,
+      "license": "Public Domain",
+      "editionType": "canonical_edition",
+      "rightsStatus": "public_domain"
+    },
+    {
+      "id": "donghak-gasa-korean-original",
+      "workId": "donghak-gasajip",
+      "language": "ko",
+      "script": "Hang",
+      "editorOrTranslator": "Cheondoism Central Headquarters",
+      "publicationYear": 1968,
+      "license": "Public Domain",
+      "editionType": "canonical_edition",
+      "rightsStatus": "public_domain"
+    },
+    {
+      "id": "omoro-soshi-okinawan-original",
+      "workId": "omoro-soshi",
+      "language": "ryu",
+      "script": "Kana",
+      "editorOrTranslator": "Ryukyu Royal Court & Iha Fuyū",
+      "publicationYear": 1623,
+      "license": "Public Domain",
+      "editionType": "critical_edition",
+      "rightsStatus": "public_domain"
+    },
+    {
+      "id": "omoro-soshi-japanese-trans",
+      "workId": "omoro-soshi",
+      "language": "ja",
+      "script": "Jpan",
+      "editorOrTranslator": "Hokama Shuzen",
+      "publicationYear": 1972,
+      "license": "Academic Open Access",
+      "editionType": "translation",
+      "rightsStatus": "open_access"
+    },
+    {
+      "id": "irreecha-oromo-original",
+      "workId": "waaqeffanna-irreecha-liturgy",
+      "language": "orm",
+      "script": "Latn",
+      "editorOrTranslator": "Asafa Jalata & Worku Terfa",
+      "publicationYear": 2010,
+      "license": "CC-BY-4.0",
+      "editionType": "critical_edition",
+      "rightsStatus": "open_access"
+    },
+    {
+      "id": "irreecha-english-trans",
+      "workId": "waaqeffanna-irreecha-liturgy",
+      "language": "en",
+      "script": "Latn",
+      "editorOrTranslator": "Dirribi Demissie Bokku",
+      "publicationYear": 2011,
+      "license": "CC-BY-4.0",
+      "editionType": "translation",
+      "rightsStatus": "open_access"
+    },
+    {
+      "id": "serer-pangool-srr-original",
+      "workId": "serer-pangool-liturgy",
+      "language": "srr",
+      "script": "Latn",
+      "editorOrTranslator": "Henry Gravrand",
+      "publicationYear": 1990,
+      "license": "Academic Open Access",
+      "editionType": "critical_edition",
+      "rightsStatus": "open_access"
+    },
+    {
+      "id": "dinka-nhialic-din-original",
+      "workId": "dinka-nhialic-invocations",
+      "language": "din",
+      "script": "Latn",
+      "editorOrTranslator": "Godfrey Lienhardt",
+      "publicationYear": 1961,
+      "license": "Public Domain",
+      "editionType": "critical_edition",
+      "rightsStatus": "public_domain"
+    },
+    {
+      "id": "dinka-nhialic-english-trans",
+      "workId": "dinka-nhialic-invocations",
+      "language": "en",
+      "script": "Latn",
+      "editorOrTranslator": "Godfrey Lienhardt",
+      "publicationYear": 1961,
+      "license": "Public Domain",
+      "editionType": "translation",
+      "rightsStatus": "public_domain"
+    },
+    {
+      "id": "dogon-amma-french-original",
+      "workId": "dogon-amma-chants",
+      "language": "fr",
+      "script": "Latn",
+      "editorOrTranslator": "Marcel Griaule",
+      "publicationYear": 1948,
+      "license": "Public Domain",
+      "editionType": "critical_edition",
+      "rightsStatus": "public_domain"
+    },
+    {
+      "id": "vodun-liturgical-fon-original",
+      "workId": "vodun-liturgical-invocations",
+      "language": "fon",
+      "script": "Latn",
+      "editorOrTranslator": "Melville J. Herskovits",
+      "publicationYear": 1938,
+      "license": "Public Domain",
+      "editionType": "critical_edition",
+      "rightsStatus": "public_domain"
+    },
+    {
+      "id": "cherokee-formulas-chr-original",
+      "workId": "cherokee-sacred-formulas",
+      "language": "chr",
+      "script": "Cher",
+      "editorOrTranslator": "James Mooney",
+      "publicationYear": 1891,
+      "license": "Public Domain",
+      "editionType": "critical_edition",
+      "rightsStatus": "public_domain"
+    },
+    {
+      "id": "cherokee-formulas-english-trans",
+      "workId": "cherokee-sacred-formulas",
+      "language": "en",
+      "script": "Latn",
+      "editorOrTranslator": "James Mooney",
+      "publicationYear": 1891,
+      "license": "Public Domain",
+      "editionType": "translation",
+      "rightsStatus": "public_domain"
+    },
+    {
+      "id": "lakota-chants-lkt-original",
+      "workId": "lakota-sun-dance-chants",
+      "language": "lkt",
+      "script": "Latn",
+      "editorOrTranslator": "Frances Densmore & Black Elk",
+      "publicationYear": 1918,
+      "license": "Public Domain",
+      "editionType": "critical_edition",
+      "rightsStatus": "public_domain"
+    },
+    {
+      "id": "lakota-chants-english-trans",
+      "workId": "lakota-sun-dance-chants",
+      "language": "en",
+      "script": "Latn",
+      "editorOrTranslator": "Frances Densmore",
+      "publicationYear": 1918,
+      "license": "Public Domain",
+      "editionType": "translation",
+      "rightsStatus": "public_domain"
+    },
+    {
+      "id": "navajo-blessingway-nv-original",
+      "workId": "navajo-blessingway-chants",
+      "language": "nv",
+      "script": "Latn",
+      "editorOrTranslator": "Father Berard Haile & Leland C. Wyman",
+      "publicationYear": 1970,
+      "license": "Academic Open Access",
+      "editionType": "critical_edition",
+      "rightsStatus": "open_access"
+    },
+    {
+      "id": "navajo-blessingway-english-trans",
+      "workId": "navajo-blessingway-chants",
+      "language": "en",
+      "script": "Latn",
+      "editorOrTranslator": "Leland C. Wyman",
+      "publicationYear": 1970,
+      "license": "Academic Open Access",
+      "editionType": "translation",
+      "rightsStatus": "open_access"
+    },
+    {
+      "id": "gaiwiio-seneca-original",
+      "workId": "kariwiio-code-handsome-lake",
+      "language": "see",
+      "script": "Latn",
+      "editorOrTranslator": "Arthur C. Parker",
+      "publicationYear": 1913,
+      "license": "Public Domain",
+      "editionType": "critical_edition",
+      "rightsStatus": "public_domain"
+    },
+    {
+      "id": "gaiwiio-english-trans",
+      "workId": "kariwiio-code-handsome-lake",
+      "language": "en",
+      "script": "Latn",
+      "editorOrTranslator": "Arthur C. Parker",
+      "publicationYear": 1913,
+      "license": "Public Domain",
+      "editionType": "translation",
+      "rightsStatus": "public_domain"
+    },
+    {
+      "id": "ayvu-rapyta-cadogan-guarani",
+      "workId": "ayvu-rapyta-guarani",
+      "language": "gug",
+      "script": "Latn",
+      "editorOrTranslator": "León Cadogan",
+      "publicationYear": 1959,
+      "license": "Public Domain",
+      "editionType": "critical_edition",
+      "rightsStatus": "public_domain"
+    },
+    {
+      "id": "ayvu-rapyta-spanish-trans",
+      "workId": "ayvu-rapyta-guarani",
+      "language": "es",
+      "script": "Latn",
+      "editorOrTranslator": "León Cadogan",
+      "publicationYear": 1959,
+      "license": "Public Domain",
+      "editionType": "translation",
+      "rightsStatus": "public_domain"
+    },
+    {
+      "id": "mapuche-nguillatun-arn-original",
+      "workId": "mapuche-nguillatun-liturgy",
+      "language": "arn",
+      "script": "Latn",
+      "editorOrTranslator": "Rodolfo Lenz & María Ester Grebe",
+      "publicationYear": 1973,
+      "license": "Public Domain",
+      "editionType": "critical_edition",
+      "rightsStatus": "public_domain"
+    },
+    {
+      "id": "huarochiri-quechua-original",
+      "workId": "huarochiri-manuscript",
+      "language": "quz",
+      "script": "Latn",
+      "editorOrTranslator": "Francisco de Avila & Gerald Taylor",
+      "publicationYear": 1987,
+      "license": "Academic Open Access",
+      "editionType": "critical_edition",
+      "rightsStatus": "open_access"
+    },
+    {
+      "id": "huarochiri-english-trans",
+      "workId": "huarochiri-manuscript",
+      "language": "en",
+      "script": "Latn",
+      "editorOrTranslator": "Frank Salomon & George L. Urioste",
+      "publicationYear": 1991,
+      "license": "Academic Open Access",
+      "editionType": "translation",
+      "rightsStatus": "open_access"
+    },
+    {
+      "id": "cantares-nahuatl-original",
+      "workId": "cantares-mexicanos",
+      "language": "nah",
+      "script": "Latn",
+      "editorOrTranslator": "Angel María Garibay K.",
+      "publicationYear": 1965,
+      "license": "Public Domain",
+      "editionType": "critical_edition",
+      "rightsStatus": "public_domain"
+    },
+    {
+      "id": "cantares-english-trans",
+      "workId": "cantares-mexicanos",
+      "language": "en",
+      "script": "Latn",
+      "editorOrTranslator": "John Bierhorst",
+      "publicationYear": 1985,
+      "license": "Academic Open Access",
+      "editionType": "translation",
+      "rightsStatus": "open_access"
+    },
+    {
+      "id": "yolngu-manikay-aiatsis-ed",
+      "workId": "yolngu-manikay-songlines",
+      "language": "aus",
+      "script": "Latn",
+      "editorOrTranslator": "AIATSIS & Yolŋu Elders",
+      "publicationYear": 2005,
+      "license": "CC-BY-4.0",
+      "editionType": "critical_edition",
+      "rightsStatus": "open_access"
+    },
+    {
+      "id": "yolngu-manikay-english-trans",
+      "workId": "yolngu-manikay-songlines",
+      "language": "en",
+      "script": "Latn",
+      "editorOrTranslator": "Ian Keen",
+      "publicationYear": 1994,
+      "license": "Academic Open Access",
+      "editionType": "translation",
+      "rightsStatus": "open_access"
+    },
+    {
+      "id": "micronesian-chants-bishop-ed",
+      "workId": "micronesian-sacred-chants",
+      "language": "pon",
+      "script": "Latn",
+      "editorOrTranslator": "Bishop Museum Anthropological Expedition",
+      "publicationYear": 1958,
+      "license": "Public Domain",
+      "editionType": "critical_edition",
+      "rightsStatus": "public_domain"
+    },
+    {
+      "id": "pustaha-batak-toba-original",
+      "workId": "pustaha-batak-sacred-texts",
+      "language": "btk",
+      "script": "Batk",
+      "editorOrTranslator": "Ph.O.L. Tobing & Uli Kozok",
+      "publicationYear": 1956,
+      "license": "Public Domain",
+      "editionType": "critical_edition",
+      "rightsStatus": "public_domain"
+    },
+    {
+      "id": "pustaha-batak-indonesian-trans",
+      "workId": "pustaha-batak-sacred-texts",
+      "language": "id",
+      "script": "Latn",
+      "editorOrTranslator": "Perpusnas Manuscript Team",
+      "publicationYear": 1991,
+      "license": "Public Domain",
+      "editionType": "translation",
+      "rightsStatus": "public_domain"
+    },
+    {
+      "id": "panaturan-kaharingan-ngaju-original",
+      "workId": "panaturan-kaharingan-scripture",
+      "language": "nij",
+      "script": "Latn",
+      "editorOrTranslator": "Majelis Besar Agama Hindu Kaharingan",
+      "publicationYear": 1973,
+      "license": "Open Access / Religious Freedom",
+      "editionType": "canonical_edition",
+      "rightsStatus": "open_access"
+    },
+    {
+      "id": "panaturan-kaharingan-indonesian-trans",
+      "workId": "panaturan-kaharingan-scripture",
+      "language": "id",
+      "script": "Latn",
+      "editorOrTranslator": "Tim Penerjemah MB-AHK",
+      "publicationYear": 1982,
+      "license": "Open Access / Religious Freedom",
+      "editionType": "translation",
+      "rightsStatus": "open_access"
+    },
+    {
+      "id": "serat-centhini-javanese-original",
+      "workId": "serat-centhini",
+      "language": "jav",
+      "script": "Java",
+      "editorOrTranslator": "Pakubuwana V & Raden Ngabehi Ranggasutrasna",
+      "publicationYear": 1814,
+      "license": "Public Domain",
+      "editionType": "critical_edition",
+      "rightsStatus": "public_domain"
+    },
+    {
+      "id": "serat-centhini-indonesian-trans",
+      "workId": "serat-centhini",
+      "language": "id",
+      "script": "Latn",
+      "editorOrTranslator": "Tardjan Hadidjaja & Kamajaya",
+      "publicationYear": 1976,
+      "license": "Public Domain",
+      "editionType": "translation",
+      "rightsStatus": "public_domain"
+    },
+    {
+      "id": "serat-wedhatama-javanese-original",
+      "workId": "serat-wedhatama",
+      "language": "jav",
+      "script": "Java",
+      "editorOrTranslator": "K.G.P.A.A. Mangkunegara IV",
+      "publicationYear": 1870,
+      "license": "Public Domain",
+      "editionType": "critical_edition",
+      "rightsStatus": "public_domain"
+    },
+    {
+      "id": "serat-wedhatama-indonesian-trans",
+      "workId": "serat-wedhatama",
+      "language": "id",
+      "script": "Latn",
+      "editorOrTranslator": "R. Tanoyo",
+      "publicationYear": 1954,
+      "license": "Public Domain",
+      "editionType": "translation",
+      "rightsStatus": "public_domain"
+    },
+    {
+      "id": "phrygian-inscriptions-brixhe-ed",
+      "workId": "phrygian-cultic-inscriptions",
+      "language": "xpg",
+      "script": "Grek",
+      "editorOrTranslator": "Claude Brixhe & Michel Lejeune",
+      "publicationYear": 1984,
+      "license": "Public Domain",
+      "editionType": "critical_edition",
+      "rightsStatus": "public_domain"
+    },
+    {
+      "id": "phrygian-inscriptions-english-trans",
+      "workId": "phrygian-cultic-inscriptions",
+      "language": "en",
+      "script": "Latn",
+      "editorOrTranslator": "Lynn E. Roller",
+      "publicationYear": 1999,
+      "license": "Academic Open Access",
+      "editionType": "translation",
+      "rightsStatus": "open_access"
+    },
+    {
+      "id": "kumarbi-cycle-mainz-critical",
+      "workId": "kumarbi-cycle-and-ullikummi",
+      "language": "hit",
+      "script": "Xsux",
+      "editorOrTranslator": "Hans Gustav Güterbock & Heinrich Otten",
+      "publicationYear": 1952,
+      "license": "Public Domain",
+      "editionType": "critical_edition",
+      "rightsStatus": "public_domain"
+    },
+    {
+      "id": "kumarbi-cycle-german-trans",
+      "workId": "kumarbi-cycle-and-ullikummi",
+      "language": "de",
+      "script": "Latn",
+      "editorOrTranslator": "Volkert Haas",
+      "publicationYear": 2006,
+      "license": "Academic Open Access",
+      "editionType": "translation",
+      "rightsStatus": "open_access"
+    },
+    {
+      "id": "kumarbi-cycle-english-trans",
+      "workId": "kumarbi-cycle-and-ullikummi",
+      "language": "en",
+      "script": "Latn",
+      "editorOrTranslator": "Harry A. Hoffner Jr.",
+      "publicationYear": 1998,
+      "license": "Academic Open Access",
+      "editionType": "translation",
+      "rightsStatus": "open_access"
+    },
+    {
+      "id": "untash-napirisha-louvre-ed",
+      "workId": "untash-napirisha-inscriptions",
+      "language": "elx",
+      "script": "Xsux",
+      "editorOrTranslator": "François Vallat & Pierre de Miroschedji",
+      "publicationYear": 1981,
+      "license": "Public Domain",
+      "editionType": "critical_edition",
+      "rightsStatus": "public_domain"
+    },
+    {
+      "id": "untash-napirisha-english-trans",
+      "workId": "untash-napirisha-inscriptions",
+      "language": "en",
+      "script": "Latn",
+      "editorOrTranslator": "Matthew W. Stolper",
+      "publicationYear": 1984,
+      "license": "Academic Open Access",
+      "editionType": "translation",
+      "rightsStatus": "open_access"
+    },
+    {
+      "id": "linear-a-godart-critical-ed",
+      "workId": "linear-a-sacred-inscriptions",
+      "language": "omn",
+      "script": "Lina",
+      "editorOrTranslator": "Louis Godart & Jean-Pierre Olivier",
+      "publicationYear": 1985,
+      "license": "Public Domain",
+      "editionType": "critical_edition",
+      "rightsStatus": "public_domain"
+    },
+    {
+      "id": "linear-a-english-commentary",
+      "workId": "linear-a-sacred-inscriptions",
+      "language": "en",
+      "script": "Latn",
+      "editorOrTranslator": "John G. Younger",
+      "publicationYear": 2000,
+      "license": "Academic Open Access",
+      "editionType": "scholarly_commentary",
+      "rightsStatus": "open_access"
+    },
+    {
+      "id": "sami-luohti-fjellner-original",
+      "workId": "sami-sacred-luohti-and-myths",
+      "language": "sme",
+      "script": "Latn",
+      "editorOrTranslator": "Anders Fjellner & Otto Donner",
+      "publicationYear": 1876,
+      "license": "Public Domain",
+      "editionType": "critical_edition",
+      "rightsStatus": "public_domain"
+    },
+    {
+      "id": "sami-luohti-english-trans",
+      "workId": "sami-sacred-luohti-and-myths",
+      "language": "en",
+      "script": "Latn",
+      "editorOrTranslator": "Bo Lundmark",
+      "publicationYear": 1982,
+      "license": "Academic Open Access",
+      "editionType": "translation",
+      "rightsStatus": "open_access"
+    },
+    {
+      "id": "buyruk-turkish-original",
+      "workId": "alevi-buyruk-and-nefes",
+      "language": "tr",
+      "script": "Latn",
+      "editorOrTranslator": "Fuat Bozkurt & Sefer Aytekin",
+      "publicationYear": 1958,
+      "license": "Public Domain",
+      "editionType": "critical_edition",
+      "rightsStatus": "public_domain"
+    },
+    {
+      "id": "buyruk-english-trans",
+      "workId": "alevi-buyruk-and-nefes",
+      "language": "en",
+      "script": "Latn",
+      "editorOrTranslator": "Irene Melikoff",
+      "publicationYear": 1998,
+      "license": "Academic Open Access",
+      "editionType": "translation",
+      "rightsStatus": "open_access"
+    },
+    {
+      "id": "kitab-majmu-arabic-original",
+      "workId": "kitab-al-majmu-alawite",
+      "language": "ar",
+      "script": "Arab",
+      "editorOrTranslator": "Sulayman al-Adhani & René Dussaud",
+      "publicationYear": 1900,
+      "license": "Public Domain",
+      "editionType": "critical_edition",
+      "rightsStatus": "public_domain"
+    },
+    {
+      "id": "kitab-majmu-french-trans",
+      "workId": "kitab-al-majmu-alawite",
+      "language": "fr",
+      "script": "Latn",
+      "editorOrTranslator": "René Dussaud",
+      "publicationYear": 1900,
+      "license": "Public Domain",
+      "editionType": "translation",
+      "rightsStatus": "public_domain"
+    },
+    {
+      "id": "shabak-manaqib-original",
+      "workId": "shabak-kitab-al-managib",
+      "language": "ckb",
+      "script": "Arab",
+      "editorOrTranslator": "Ahmad Hamid al-Sarraf",
+      "publicationYear": 1954,
+      "license": "Public Domain",
+      "editionType": "critical_edition",
+      "rightsStatus": "public_domain"
+    }
+  ]
+}

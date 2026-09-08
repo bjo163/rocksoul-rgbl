@@ -1,0 +1,35 @@
+{
+  "id": "mw:dataset:world-religions:timeline-wikidata",
+  "datasetVersion": "0.1.0",
+  "specVersion": "0.1",
+  "profiles": [],
+  "dependencies": [
+    {
+      "dataset": "mw:dataset:world-religions:baseline",
+      "version": "0.1.0"
+    }
+  ],
+  "partitions": [
+    {
+      "recordType": "entity",
+      "path": "data/core/entities/*.jsonl"
+    },
+    {
+      "recordType": "resource",
+      "path": "data/core/resources/*.jsonl"
+    },
+    {
+      "recordType": "assertion",
+      "path": "data/core/assertions/*.jsonl"
+    },
+    {
+      "recordType": "provenance",
+      "path": "data/core/provenance/*.jsonl"
+    }
+  ],
+  "sources": [
+    "Wikidata Special:EntityData pinned bounded snapshot; source statement references retained in extensions.timeline"
+  ],
+  "rights": "Wikidata structured data is CC0 1.0.",
+  "availability": "bundled"
+}

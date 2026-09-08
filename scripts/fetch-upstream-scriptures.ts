@@ -1,118 +1,227 @@
 import { mkdir, writeFile } from 'node:fs/promises'
 import { createHash } from 'node:crypto'
 import path from 'node:path'
+import type { UpstreamFailureClass, UpstreamScriptPayload } from '../packages/ingestion/src/upstream/types.js'
 
-// Helper to fetch from remote URL with fallback to local upstream archive
-async function fetchOrRead(url: string, fallbackData: any): Promise<{ data: string; sha256: string; byteSize: number }> {
+interface AcquisitionResult {
+  data: string
+  sha256: string
+  byteSize: number
+  status: 'REMOTE_SYNCED' | 'LOCAL_FALLBACK'
+  httpStatus?: number
+  failureClass?: UpstreamFailureClass
+  error?: string
+}
+
+const ALLOW_LOCAL_FALLBACK = process.env.MOONWITNESS_ALLOW_LOCAL_FALLBACK === '1'
+
+async function fetchOrRead(url: string, fallbackData: unknown): Promise<AcquisitionResult> {
   try {
-    const res = await fetch(url, { headers: { 'User-Agent': 'MoonWitness-Corpus-Ingester/1.0' } })
-    if (res.ok) {
-      const text = await res.text()
-      const sha256 = createHash('sha256').update(text).digest('hex')
-      return { data: text, sha256, byteSize: Buffer.byteLength(text) }
-    }
-  } catch (err) {
-    // Network offline or endpoint unreachable: use authoritative upstream raw baseline
-  }
+    const res = await fetch(url, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+      },
+      redirect: 'follow',
+      signal: AbortSignal.timeout(30000)
+    })
 
-  const text = typeof fallbackData === 'string' ? fallbackData : JSON.stringify(fallbackData, null, 2)
-  const sha256 = createHash('sha256').update(text).digest('hex')
-  return { data: text, sha256, byteSize: Buffer.byteLength(text) }
+    const rawText = await res.text()
+
+    if (res.ok) {
+      return {
+        data: rawText,
+        sha256: createHash('sha256').update(rawText).digest('hex'),
+        byteSize: Buffer.byteLength(rawText),
+        status: 'REMOTE_SYNCED',
+        httpStatus: res.status
+      }
+    }
+
+    let failureClass: UpstreamFailureClass = 'REMOTE_NETWORK_ERROR'
+    if (res.status === 403) failureClass = 'REMOTE_FORBIDDEN'
+    else if (res.status === 404) failureClass = 'REMOTE_NOT_FOUND'
+    else if (res.status === 429) failureClass = 'REMOTE_RATE_LIMITED'
+
+    const error = `HTTP ${res.status} ${res.statusText}`
+    if (!ALLOW_LOCAL_FALLBACK) {
+      const err = new Error(error) as any
+      err.failureClass = failureClass
+      throw err
+    }
+
+    const text = typeof fallbackData === 'string'
+      ? fallbackData
+      : JSON.stringify(fallbackData, null, 2)
+
+    return {
+      data: text,
+      sha256: createHash('sha256').update(text).digest('hex'),
+      byteSize: Buffer.byteLength(text),
+      status: 'LOCAL_FALLBACK',
+      httpStatus: res.status,
+      failureClass,
+      error
+    }
+  } catch (error: any) {
+    if (!ALLOW_LOCAL_FALLBACK) throw error
+
+    const text = typeof fallbackData === 'string'
+      ? fallbackData
+      : JSON.stringify(fallbackData, null, 2)
+
+    return {
+      data: text,
+      sha256: createHash('sha256').update(text).digest('hex'),
+      byteSize: Buffer.byteLength(text),
+      status: 'LOCAL_FALLBACK',
+      failureClass: error?.failureClass || 'REMOTE_NETWORK_ERROR',
+      error: error instanceof Error ? error.message : String(error)
+    }
+  }
 }
 
 const UPSTREAM_SOURCES = [
   {
-    name: 'principal-upanishads',
-    targetFile: 'ingestion/recipes/principal-upanishads/source/upanishads-sanskrit-gretil.json',
-    url: 'https://raw.githubusercontent.com/gretil/gretil/master/1_sanskr/1_veda/4_upa/upa_all.json',
+    name: 'gretil-vedic',
+    targetFile: 'dist/raw-upstream/gretil-index.html',
+    url: 'https://gretil.sub.uni-goettingen.de/gretil.html',
     defaultData: {
-      source: 'GRETIL Sanskrit e-text archive (Göttingen Register of Electronic Texts in Indian Languages)',
-      license: 'Public Domain',
-      editions: ['Isha', 'Kena', 'Katha', 'Mundaka', 'Mandukya']
-    }
-  },
-  {
-    name: 'sikhism-japji-sahib',
-    targetFile: 'ingestion/recipes/sikhism-japji-sahib/source/japji-sahib-sggs.json',
-    url: 'https://raw.githubusercontent.com/shabados/database/master/raw/japji.json',
-    defaultData: {
-      source: 'Sri Guru Granth Sahib (Ang 1-8), ShabadOS Open Heritage',
+      source: 'GRETIL Sanskrit e-text archive catalog',
       license: 'Public Domain'
     }
   },
   {
-    name: 'jainism-tattvartha-sutra',
-    targetFile: 'ingestion/recipes/jainism-tattvartha-sutra/source/tattvartha-sutra-raw.json',
-    url: 'https://raw.githubusercontent.com/jain-heritage/tattvartha/master/data/tattvartha.json',
+    name: 'jain-heritage',
+    targetFile: 'dist/raw-upstream/jain-heritage.html',
+    url: 'https://jainlibrary.org',
     defaultData: {
-      source: 'Acharya Umaswati Tattvartha Sutra Classical Texts',
+      source: 'Jain Heritage / Tattvartha Sutra Digital Library',
       license: 'Public Domain'
     }
   },
   {
-    name: 'bahai-hidden-words',
-    targetFile: 'ingestion/recipes/bahai-hidden-words/source/hidden-words-raw.json',
-    url: 'https://raw.githubusercontent.com/bahai-open-data/writings/master/hidden-words.json',
+    name: 'bahai-library',
+    targetFile: 'dist/raw-upstream/bahai-library.html',
+    url: 'https://www.bahai.org/library/authoritative-texts/bahaullah/hidden-words/',
     defaultData: {
-      source: 'The Hidden Words of Baha\'u\'llah (Arabic & Persian)',
+      source: "Bahá'í Reference Library Official Publication",
       license: 'Public Domain'
     }
   },
   {
-    name: 'hadith-muslim',
-    targetFile: 'ingestion/recipes/hadith-muslim/source/hadith-muslim-raw.json',
-    url: 'https://raw.githubusercontent.com/Jaguar16/open-hadith-data/master/muslim/muslim.json',
+    name: 'sacred-texts-shinto',
+    targetFile: 'dist/raw-upstream/shinto-index.html',
+    url: 'https://sacred-texts.com/shi',
     defaultData: {
-      source: 'Sahih Muslim Classical Hadith Collection (Imam Muslim d. 261 AH)',
+      source: 'Sacred Texts Archive — Shinto (Archival Mirror)',
       license: 'Public Domain'
-    }
-  },
-  {
-    name: 'shinto-kojiki',
-    targetFile: 'ingestion/recipes/shinto-kojiki/source/kojiki-raw.json',
-    url: 'https://raw.githubusercontent.com/sacred-texts/shinto/master/kojiki.json',
-    defaultData: {
-      source: 'Sacred Texts Archive — Kojiki (712 CE), Translated by Basil Hall Chamberlain (1882)',
-      url: 'https://sacred-texts.com/shi/kj/index.htm',
-      retrieved_at: '2026-08-29T00:00:00Z',
-      license: 'Public Domain',
-      entries: [
-        {
-          section: '1:1',
-          title: 'The Origin of Heaven and Earth (天地初発)',
-          japanese: '天地初発の時、高天原に成れる神の名は、天之御中主神。次に高御産巣日神。次に神産巣日神。此の三柱の神は、並独神と成り坐して、身を隠したまひき。',
-          english: 'The names of the Deities that were born in the Plain of High Heaven when the Heaven and Earth began were the Deity Master-of-the-August-Center-of-Heaven, next the High-August-Producing-Wondrous Deity, next the Divine-Producing-Wondrous Deity. These three Deities were all Deities that were born alone, and hid their persons.',
-          indonesian: 'Pada saat pemisahan awal langit dan bumi, dewa pertama yang terlahir di Dataran Tinggi Surga adalah Ame-no-Minakanushi (Dewa Penguasa Pusat Surga), kemudian Takamimusubi, dan Kamimusubi. Ketiga dewa primordial ini lahir secara mandiri dan menyembunyikan wujud mereka.'
-        },
-        {
-          section: '1:2',
-          title: 'The Birth of the Land and Seas (国生み)',
-          japanese: '次に国稚く浮ける脂の如くして、水母なす漂へる時に、葦牙の如く萌え騰る物に因りて成れる神の名は、宇摩志阿斯訶備比古遅神。次に天之常立神。',
-          english: 'Next, when the earth was young, like floating oil, and drifted about like a jellyfish, there was born from a thing that sprouted forth like a reed-shoot the Deity Pleasant-Reed-Shoot-Prince-Elder, next the Heavenly-Eternally-Standing Deity.',
-          indonesian: 'Ketika bumi masih muda, terapung seperti minyak di air dan mengapung laksana ubur-ubur, muncullah dari tunas yang tumbuh seperti pucuk alang-alang dewa Umashiashikabihikoji, kemudian dilanjutkan dengan terlahirnya dewa Amenotokotachi.'
-        },
-        {
-          section: '1:3',
-          title: 'The Divine Mirror and Virtue of Purity (八咫鏡と清浄)',
-          japanese: '八咫鏡を祭りて、常に心を清く保ち、正直を以て天下を治むべし。神道の本は清浄と正直にあり。',
-          english: 'Enshrine the Sacred Mirror (Yata no Kagami), keep the heart forever pure, and govern the realm with uprightness and sincerity. The essence of Shinto lies in purity (Seimeishin) and honesty.',
-          indonesian: 'Peliharalah Cermin Suci (Yata no Kagami), jagalah hati agar senantiasa suci dan murni, serta pimpinlah dengan kejujuran dan ketulusan. Hakikat dari Shinto bersumber pada kesucian batin (Seimeishin) dan kejujuran nurani.'
-        }
-      ]
     }
   }
 ]
 
 async function main() {
   console.log('--- Fetching Raw Upstream Sacred Texts & Data Sources ---')
+  console.log(`Local fallback: ${ALLOW_LOCAL_FALLBACK ? 'ENABLED (explicit opt-in)' : 'DISABLED'}`)
+
+  const results: Array<{
+    name: string
+    targetFile: string
+    url: string
+    status: AcquisitionResult['status'] | 'FAILED'
+    sha256?: string
+    byteSize?: number
+    httpStatus?: number
+    failureClass?: UpstreamFailureClass
+    error?: string
+  }> = []
+
   for (const src of UPSTREAM_SOURCES) {
     const fullPath = path.join(process.cwd(), src.targetFile)
     await mkdir(path.dirname(fullPath), { recursive: true })
-    const { data, sha256, byteSize } = await fetchOrRead(src.url, src.defaultData)
-    await writeFile(fullPath, data, 'utf8')
-    console.log(`✓ Fetched ${src.name}: ${byteSize} bytes (SHA-256: ${sha256.slice(0, 16)}...) -> ${src.targetFile}`)
+
+    try {
+      const result = await fetchOrRead(src.url, src.defaultData)
+      if (result.status === 'REMOTE_SYNCED') {
+        await writeFile(fullPath, result.data, 'utf8')
+      }
+
+      results.push({
+        name: src.name,
+        targetFile: src.targetFile,
+        url: src.url,
+        status: result.status,
+        sha256: result.sha256,
+        byteSize: result.byteSize,
+        httpStatus: result.httpStatus,
+        failureClass: result.failureClass,
+        error: result.error
+      })
+
+      const marker = result.status === 'REMOTE_SYNCED' ? '✓' : '⚠'
+      console.log(`${marker} ${src.name}: ${result.status} ${result.byteSize} bytes (SHA-256: ${result.sha256.slice(0, 16)}...)`)
+    } catch (error: any) {
+      const message = error instanceof Error ? error.message : String(error)
+      results.push({
+        name: src.name,
+        targetFile: src.targetFile,
+        url: src.url,
+        status: 'FAILED',
+        failureClass: error?.failureClass || 'REMOTE_NETWORK_ERROR',
+        error: message
+      })
+      console.error(`✗ ${src.name}: REMOTE_FAILED — ${message}`)
+    }
   }
-  console.log('--- All Upstream Raw Sources Synchronized & Pinned ---')
+
+  const reportDir = path.join(process.cwd(), 'dist')
+  await mkdir(reportDir, { recursive: true })
+  await writeFile(
+    path.join(reportDir, 'upstream-acquisition-manifest.json'),
+    `${JSON.stringify({
+      schemaVersion: '1.0.0',
+      generatedAt: new Date().toISOString(),
+      fallbackAllowed: ALLOW_LOCAL_FALLBACK,
+      results
+    }, null, 2)}\n`,
+    'utf8'
+  )
+
+  const failed = results.filter((result) => result.status === 'FAILED')
+  const fallback = results.filter((result) => result.status === 'LOCAL_FALLBACK')
+
+  console.log(`--- Results: ${results.length} sources, ${failed.length} failed, ${fallback.length} fallback ---`)
+
+  const overallStatus = failed.length > 0
+    ? 'REMOTE_FAILED'
+    : (fallback.length > 0 ? 'LOCAL_FALLBACK' : 'REMOTE_SYNCED')
+
+  const aggregateHash = createHash('sha256')
+  for (const r of results) {
+    aggregateHash.update(r.sha256 || '')
+  }
+  const aggregateSha256 = aggregateHash.digest('hex')
+
+  const payload: UpstreamScriptPayload = {
+    schemaVersion: '1.0',
+    executionStatus: failed.length > 0 ? 'PROCESS_FAILED' : 'PROCESS_SUCCEEDED',
+    acquisitionStatus: overallStatus,
+    failureClass: fallback.length > 0 ? fallback[0].failureClass : undefined,
+    requestedUrl: 'https://gretil.sub.uni-goettingen.de',
+    resolvedUrl: 'scripts/fetch-upstream-scriptures.ts',
+    retrievedAt: new Date().toISOString(),
+    sourceSha256: aggregateSha256,
+    byteCount: results.reduce((acc, r) => acc + (r.byteSize || 0), 0),
+    fallbackReason: fallback.length > 0 ? `${fallback.length} remote sources unpinned/403; fell back to local recipes` : undefined,
+    fallbackSource: 'ingestion/recipes/*/source/'
+  }
+
+  console.log(`MOONWITNESS_RESULT:${JSON.stringify(payload)}`)
+
+  if (failed.length > 0) process.exitCode = 1
 }
 
-main().catch(console.error)
+main().catch((error) => {
+  console.error(error)
+  process.exitCode = 1
+})

@@ -1,230 +1,54 @@
 {
   "specVersion": "0.1",
   "datasets": [
-    {
-      "id": "mw:dataset:dhammapada:sujato",
-      "path": "datasets/dhammapada-sujato",
-      "status": "active"
-    },
-    {
-      "id": "mw:dataset:dhammapada:indonesian-wikisource",
-      "path": "datasets/dhammapada-indonesian-wikisource",
-      "status": "active"
-    },
-    {
-      "id": "mw:dataset:lexicon:quran-arabic-core",
-      "path": "datasets/quran-arabic-lexicon",
-      "status": "supplemental"
-    },
-    {
-      "id": "mw:dataset:lexicon:dhammapada-core",
-      "path": "datasets/dhammapada-lexicon",
-      "status": "supplemental"
-    },
-    {
-      "id": "mw:dataset:research-graph:baseline",
-      "path": "datasets/research-graph-baseline",
-      "status": "supplemental"
-    },
-    {
-      "id": "mw:dataset:example:minimal",
-      "path": "datasets/examples/minimal",
-      "status": "fixture"
-    },
-    {
-      "id": "mw:dataset:example:p5-cross-tradition",
-      "path": "datasets/examples/p5-cross-tradition",
-      "status": "fixture"
-    },
-    {
-      "id": "mw:dataset:example:p15-lexicon-contract",
-      "path": "datasets/examples/p15-lexicon-contract",
-      "status": "fixture"
-    },
-    {
-      "id": "mw:dataset:example:provenance-rights",
-      "path": "datasets/examples/provenance-rights",
-      "status": "fixture"
-    },
-    {
-      "id": "mw:dataset:example:textual-canto-stanza",
-      "path": "datasets/examples/textual-canto-stanza",
-      "status": "fixture"
-    },
-    {
-      "id": "mw:dataset:example:textual-surah-ayah",
-      "path": "datasets/examples/textual-surah-ayah",
-      "status": "fixture"
-    },
-    {
-      "id": "mw:dataset:bible:passage-alignments",
-      "path": "datasets/bible-passage-alignments",
-      "status": "active"
-    },
-    {
-      "id": "mw:dataset:bible:tsi-2021",
-      "path": "datasets/bible-tsi-2021",
-      "status": "active"
-    },
-    {
-      "id": "mw:dataset:oshb:wlc",
-      "path": "datasets/oshb-wlc",
-      "status": "active"
-    },
-    {
-      "id": "mw:dataset:sblgnt:v1-2",
-      "path": "datasets/sblgnt-v1-2",
-      "status": "active"
-    },
-    {
-      "id": "mw:dataset:suttacentral:dn-mn-sujato",
-      "path": "datasets/suttacentral-dn-mn-sujato",
-      "status": "active"
-    },
-    {
-      "id": "mw:dataset:suttacentral:sn-an-sujato",
-      "path": "datasets/suttacentral-sn-an-sujato",
-      "status": "active"
-    },
-    {
-      "id": "mw:dataset:web-classic:2020",
-      "path": "datasets/web-classic-2020",
-      "status": "active"
-    },
-    {
-      "id": "mw:dataset:world-religions:baseline",
-      "path": "datasets/world-religions-baseline",
-      "status": "active"
-    },
-    {
-      "id": "mw:dataset:world-religions:textual-evidence",
-      "path": "datasets/world-religions-textual-evidence",
-      "status": "active"
-    },
-    {
-      "id": "mw:dataset:quran:tanzil-uthmani",
-      "path": "datasets/quran-tanzil-uthmani",
-      "status": "active"
-    },
-    {
-      "id": "mw:dataset:quranenc:english-rwwad",
-      "path": "datasets/quranenc-english-rwwad",
-      "status": "active"
-    },
-    {
-      "id": "mw:dataset:quranenc:indonesian-kemenag",
-      "path": "datasets/quranenc-indonesian-kemenag",
-      "status": "active"
-    },
-    {
-      "id": "mw:dataset:hadith:nawawi-40",
-      "path": "datasets/hadith-nawawi-40",
-      "status": "supplemental"
-    },
-    {
-      "id": "mw:dataset:mishnah:pirkei-avot",
-      "path": "datasets/mishnah-pirkei-avot",
-      "status": "supplemental"
-    },
-    {
-      "id": "mw:dataset:hinduism:bhagavad-gita",
-      "path": "datasets/bhagavad-gita",
-      "status": "supplemental"
-    },
-    {
-      "id": "mw:dataset:christianity:early-writings",
-      "path": "datasets/early-christian-writings",
-      "status": "supplemental"
-    },
-    {
-      "id": "mw:dataset:islam:quran-tafsir-sample",
-      "path": "datasets/quran-tafsir-sample",
-      "status": "supplemental"
-    },
-    {
-      "id": "mw:dataset:devotional:baseline",
-      "path": "datasets/devotional-baseline",
-      "status": "supplemental"
-    },
-    {
-      "id": "mw:dataset:lexicon:hebrew-biblical-core",
-      "path": "datasets/hebrew-biblical-lexicon",
-      "status": "supplemental"
-    },
-    {
-      "id": "mw:dataset:lexicon:greek-christian-core",
-      "path": "datasets/greek-christian-lexicon",
-      "status": "supplemental"
-    },
-    {
-      "id": "mw:dataset:lexicon:sanskrit-hindu-core",
-      "path": "datasets/sanskrit-hindu-lexicon",
-      "status": "supplemental"
-    },
-    {
-      "id": "mw:dataset:islam:asmaul-husna-99",
-      "path": "datasets/asmaul-husna-99",
-      "status": "supplemental"
-    },
-    {
-      "id": "mw:dataset:islam:duas-authentic",
-      "path": "datasets/islamic-duas-authentic",
-      "status": "supplemental"
-    },
-    {
-      "id": "mw:dataset:hadith:bukhari",
-      "path": "datasets/hadith-bukhari",
-      "status": "supplemental"
-    },
-    {
-      "id": "mw:dataset:hadith:muslim",
-      "path": "datasets/hadith-muslim",
-      "status": "supplemental"
-    },
-    {
-      "id": "mw:dataset:taoism:tao-te-ching",
-      "path": "datasets/tao-te-ching",
-      "status": "supplemental"
-    },
-    {
-      "id": "mw:dataset:confucianism:analects",
-      "path": "datasets/analects-confucius",
-      "status": "supplemental"
-    },
-    {
-      "id": "mw:dataset:hinduism:yoga-sutras",
-      "path": "datasets/yoga-sutras",
-      "status": "supplemental"
-    },
-    {
-      "id": "mw:dataset:hinduism:principal-upanishads",
-      "path": "datasets/principal-upanishads",
-      "status": "supplemental"
-    },
-    {
-      "id": "mw:dataset:zoroastrianism:gathas",
-      "path": "datasets/gathas-zarathustra",
-      "status": "supplemental"
-    },
-    {
-      "id": "mw:dataset:sikhism:japji-sahib",
-      "path": "datasets/sikhism-japji-sahib",
-      "status": "supplemental"
-    },
-    {
-      "id": "mw:dataset:jainism:tattvartha-sutra",
-      "path": "datasets/jainism-tattvartha-sutra",
-      "status": "supplemental"
-    },
-    {
-      "id": "mw:dataset:bahai:hidden-words",
-      "path": "datasets/bahai-hidden-words",
-      "status": "supplemental"
-    },
-    {
-      "id": "mw:dataset:shinto:kojiki",
-      "path": "datasets/shinto-kojiki-baseline",
-      "status": "supplemental"
-    }
+    { "id": "mw:dataset:dhammapada:sujato", "path": "datasets/dhammapada-sujato", "status": "active" },
+    { "id": "mw:dataset:dhammapada:indonesian-wikisource", "path": "datasets/dhammapada-indonesian-wikisource", "status": "active" },
+    { "id": "mw:dataset:lexicon:quran-arabic-core", "path": "datasets/quran-arabic-lexicon", "status": "supplemental" },
+    { "id": "mw:dataset:lexicon:dhammapada-core", "path": "datasets/dhammapada-lexicon", "status": "supplemental" },
+    { "id": "mw:dataset:research-graph:baseline", "path": "datasets/research-graph-baseline", "status": "supplemental" },
+    { "id": "mw:dataset:example:minimal", "path": "datasets/examples/minimal", "status": "fixture" },
+    { "id": "mw:dataset:example:p5-cross-tradition", "path": "datasets/examples/p5-cross-tradition", "status": "fixture" },
+    { "id": "mw:dataset:example:p15-lexicon-contract", "path": "datasets/examples/p15-lexicon-contract", "status": "fixture" },
+    { "id": "mw:dataset:example:provenance-rights", "path": "datasets/examples/provenance-rights", "status": "fixture" },
+    { "id": "mw:dataset:example:textual-canto-stanza", "path": "datasets/examples/textual-canto-stanza", "status": "fixture" },
+    { "id": "mw:dataset:example:textual-surah-ayah", "path": "datasets/examples/textual-surah-ayah", "status": "fixture" },
+    { "id": "mw:dataset:bible:passage-alignments", "path": "datasets/bible-passage-alignments", "status": "active" },
+    { "id": "mw:dataset:bible:tsi-2021", "path": "datasets/bible-tsi-2021", "status": "active" },
+    { "id": "mw:dataset:oshb:wlc", "path": "datasets/oshb-wlc", "status": "active" },
+    { "id": "mw:dataset:sblgnt:v1-2", "path": "datasets/sblgnt-v1-2", "status": "active" },
+    { "id": "mw:dataset:suttacentral:dn-mn-sujato", "path": "datasets/suttacentral-dn-mn-sujato", "status": "active" },
+    { "id": "mw:dataset:suttacentral:sn-an-sujato", "path": "datasets/suttacentral-sn-an-sujato", "status": "active" },
+    { "id": "mw:dataset:web-classic:2020", "path": "datasets/web-classic-2020", "status": "active" },
+    { "id": "mw:dataset:world-religions:baseline", "path": "datasets/world-religions-baseline", "status": "active" },
+    { "id": "mw:dataset:world-religions:timeline-wikidata", "path": "datasets/world-religions-timeline-wikidata", "status": "active" },
+    { "id": "mw:dataset:world-religions:textual-evidence", "path": "datasets/world-religions-textual-evidence", "status": "active" },
+    { "id": "mw:dataset:quran:tanzil-uthmani", "path": "datasets/quran-tanzil-uthmani", "status": "active" },
+    { "id": "mw:dataset:quranenc:english-rwwad", "path": "datasets/quranenc-english-rwwad", "status": "active" },
+    { "id": "mw:dataset:quranenc:indonesian-kemenag", "path": "datasets/quranenc-indonesian-kemenag", "status": "active" },
+    { "id": "mw:dataset:hadith:nawawi-40", "path": "datasets/hadith-nawawi-40", "status": "supplemental" },
+    { "id": "mw:dataset:mishnah:pirkei-avot", "path": "datasets/mishnah-pirkei-avot", "status": "supplemental" },
+    { "id": "mw:dataset:hinduism:bhagavad-gita", "path": "datasets/bhagavad-gita", "status": "supplemental" },
+    { "id": "mw:dataset:christianity:early-writings", "path": "datasets/early-christian-writings", "status": "supplemental" },
+    { "id": "mw:dataset:islam:quran-tafsir-sample", "path": "datasets/quran-tafsir-sample", "status": "supplemental" },
+    { "id": "mw:dataset:devotional:baseline", "path": "datasets/devotional-baseline", "status": "supplemental" },
+    { "id": "mw:dataset:lexicon:hebrew-biblical-core", "path": "datasets/hebrew-biblical-lexicon", "status": "supplemental" },
+    { "id": "mw:dataset:lexicon:greek-christian-core", "path": "datasets/greek-christian-lexicon", "status": "supplemental" },
+    { "id": "mw:dataset:lexicon:sanskrit-hindu-core", "path": "datasets/sanskrit-hindu-lexicon", "status": "supplemental" },
+    { "id": "mw:dataset:islam:asmaul-husna-99", "path": "datasets/asmaul-husna-99", "status": "supplemental" },
+    { "id": "mw:dataset:islam:duas-authentic", "path": "datasets/islamic-duas-authentic", "status": "supplemental" },
+    { "id": "mw:dataset:hadith:bukhari", "path": "datasets/hadith-bukhari", "status": "supplemental" },
+    { "id": "mw:dataset:hadith:muslim", "path": "datasets/hadith-muslim", "status": "supplemental" },
+    { "id": "mw:dataset:taoism:tao-te-ching", "path": "datasets/tao-te-ching", "status": "supplemental" },
+    { "id": "mw:dataset:confucianism:analects", "path": "datasets/analects-confucius", "status": "supplemental" },
+    { "id": "mw:dataset:hinduism:yoga-sutras", "path": "datasets/yoga-sutras", "status": "supplemental" },
+    { "id": "mw:dataset:hinduism:principal-upanishads", "path": "datasets/principal-upanishads", "status": "supplemental" },
+    { "id": "mw:dataset:zoroastrianism:gathas", "path": "datasets/gathas-zarathustra", "status": "supplemental" },
+    { "id": "mw:dataset:sikhism:japji-sahib", "path": "datasets/sikhism-japji-sahib", "status": "supplemental" },
+    { "id": "mw:dataset:jainism:tattvartha-sutra", "path": "datasets/jainism-tattvartha-sutra", "status": "supplemental" },
+    { "id": "mw:dataset:bahai:hidden-words", "path": "datasets/bahai-hidden-words", "status": "supplemental" },
+    { "id": "mw:dataset:shinto:kojiki", "path": "datasets/shinto-kojiki-baseline", "status": "supplemental" },
+    { "id": "mw:dataset:zhuangzi:giles-1889", "path": "datasets/zhuangzi-giles-1889", "status": "supplemental" },
+    { "id": "mw:dataset:ancient-egyptian:book-dead-budge", "path": "datasets/ancient-egypt-book-dead-budge", "status": "supplemental" },
+    { "id": "mw:dataset:ancient-egyptian:book-dead-renouf-1904", "path": "datasets/ancient-egypt-book-dead-renouf", "status": "supplemental" }
   ]
 }

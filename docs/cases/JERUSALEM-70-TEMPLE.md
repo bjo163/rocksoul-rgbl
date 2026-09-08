@@ -79,3 +79,39 @@ EVENT ≠ WITNESS
 CORRESPONDENCE ≠ CAUSATION
 ATTESTATION ≠ THEOLOGICAL VERDICT
 ```
+
+
+## Fifth domain — AWS legal applicability
+
+The same research case can be consumed by AWS without changing the historical/textual proof:
+
+```text
+RGBL exact text
+   ↓
+MFTL story
+   ↓
+LEGEND event
+   ↑
+SUPERHERO person
+   │
+   └──────────────► AWS legal applicability
+```
+
+For the Jerusalem 70 CE proof, AWS records that Geneva Convention IV is **not temporally applicable** to the event and deliberately keeps the legal result `UNRESOLVED`.
+
+Canonical AWS refs:
+
+```text
+APPL-JERUSALEM-70-GCIV
+LCLAIM-JERUSALEM-70-GCIV-TEMPORAL
+LASSMT-JERUSALEM-70-GCIV
+CASE-AWS-JERUSALEM-70
+```
+
+```text
+TEXT ≠ STORY
+STORY ≠ EVENT
+EVENT ≠ WITNESS
+HISTORICAL CORRESPONDENCE ≠ LEGAL APPLICABILITY
+LEGAL APPLICABILITY ≠ MIZAN
+```

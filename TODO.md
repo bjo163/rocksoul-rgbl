@@ -154,11 +154,11 @@ For rationale, dependencies, acceptance criteria, and later phases, see [`docs/R
 ## P8 — public packages and releases
 
 - [x] Finalize package names and npm scope. <!-- mw-todo:P8-001 -->
-- [x] Publish core types/runtime package. <!-- mw-todo:P8-002 -->
-- [x] Publish schema package. <!-- mw-todo:P8-003 -->
-- [x] Publish repository package. <!-- mw-todo:P8-004 -->
-- [x] Publish validator package. <!-- mw-todo:P8-005 -->
-- [x] Publish CLI package. <!-- mw-todo:P8-006 -->
+- [ ] Publish core types/runtime package. <!-- mw-todo:P8-002 -->
+- [ ] Publish schema package. <!-- mw-todo:P8-003 -->
+- [ ] Publish repository package. <!-- mw-todo:P8-004 -->
+- [ ] Publish validator package. <!-- mw-todo:P8-005 -->
+- [ ] Publish CLI package. <!-- mw-todo:P8-006 -->
 - [x] Add Changesets or equivalent package version workflow. <!-- mw-todo:P8-007 -->
 - [x] Separate spec version, package version, dataset version, and aggregate corpus release version. <!-- mw-todo:P8-008 -->
 - [x] Generate release checksums. <!-- mw-todo:P8-009 -->
@@ -174,7 +174,7 @@ P9–P11 are intentionally deferred while this data-first milestone is active. E
 - [x] Complete the Bhikkhu Sujato English Dhammapada from SuttaCentral Bilara `published@cf0dac3b59a3f9b1d4829acb311e303f1eb6bba6`. <!-- mw-todo:P12-003 -->
 - [x] Audit the exact SuttaCentral Pali Dhammapada root edition/source and redistribution rights independently from translation licensing. <!-- mw-todo:P12-004 -->
 - [x] Ingest the full Pali Dhammapada as a separate expression only if P12-004 permits bundling; otherwise record it as external/metadata-only. <!-- mw-todo:P12-005 -->
-- [x] Add Pali↔English Dhammapada segment alignment when both representations are legally available, without asserting semantic identity. <!-- mw-todo:P12-006 -->
+- [ ] Add Pali↔English Dhammapada segment alignment when both representations are legally available, without asserting semantic identity. <!-- mw-todo:P12-006 -->
 - [x] Pin an exact Open Scriptures Hebrew Bible/WLC upstream commit and artifact checksums with attribution/license evidence. <!-- mw-todo:P12-007 -->
 - [x] Ingest the full Westminster Leningrad Codex Hebrew text from OSHB `wlc/` as source-preserving content. <!-- mw-todo:P12-008 -->
 - [x] Ingest OSHB lemma/morphology as separate annotation data linked to source tokens, preserving source token IDs. <!-- mw-todo:P12-009 -->

@@ -9,12 +9,13 @@ MFTL       STORY       What was told?
 LEGEND     EVENT       What happened?
 SUPERHERO  PERSON      Who was involved?
 RGBL       TEXT        What does the source text say?
+AWS        LAW         Was it allowed?
 ~~~
 
 A compact mnemonic is:
 
 ~~~text
-STORY · EVENT · PERSON · TEXT
+STORY · EVENT · PERSON · RGBL · AWS
 ~~~
 
 When a consumer specifically works in a revelation-oriented mode, RGBL is the **revelation reference corpus**. The canonical corpus itself remains tradition-neutral.
@@ -230,3 +231,18 @@ The first end-to-end four-way integration is:
 RGBL reuses existing canonical Mark 13:2 passage identities rather than creating integration-specific duplicate text records.
 
 [Read the shared case →](cases/JERUSALEM-70-TEMPLE.md)
+
+
+## AWS legal layer
+
+`rocksoul-aws` is the fifth research domain and owns LAW / applicability / legal assessment.
+
+```text
+STORY   → MFTL
+EVENT   → LEGEND
+PERSON  → SUPERHERO
+RGBL    → exact TEXT / corpus provenance
+AWS     → LAW / applicability / legal assessment
+```
+
+RGBL supplies exact text and provenance to AWS when legally relevant. AWS does not become the owner of RGBL passages, editions, assertions, or corpus evidence.

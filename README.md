@@ -12,12 +12,12 @@
 
 A provenance-first **multi-tradition text, scripture, sacred-literature, and evidence corpus** for exact passages, editions, expressions, scoped assertions, source provenance, and reproducible downstream use.
 
-**MOONWITNESS · ROCKSOUL RESEARCH · STORY × EVENT × PERSON × TEXT × LAW**
+**MOONWITNESS · ROCKSOUL RESEARCH · STORY × EVENT × PERSON × RGBL × AWS**
 
 <br/>
 
 [![CI](https://github.com/bjo163/rocksoul-rgbl/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/bjo163/rocksoul-rgbl/actions/workflows/ci.yml)
-![Branch](https://img.shields.io/badge/branch-main-111111)
+![Branches](https://img.shields.io/badge/branches-main%20%2B%20dev-111111)
 ![Domain](https://img.shields.io/badge/domain-TEXT-6F6F6F)
 ![Corpus](https://img.shields.io/badge/corpus-provenance--first-B43A32)
 ![Engine](https://img.shields.io/badge/engine-TypeScript-3178C6)
@@ -30,7 +30,27 @@ A provenance-first **multi-tradition text, scripture, sacred-literature, and evi
 
 </div>
 
+
 ---
+<!-- ROCKSOUL_FIELD_NOTE_START -->
+<div align="center">
+
+### **DON’T QUOTE THE VIBE. QUOTE THE TEXT.**
+
+`/// MOONWITNESS FIELD NOTE ///`
+
+</div>
+
+> No screenshot theology. No editionless quotation. No silent translation swap. RGBL keeps work, expression, edition, passage, content, rights, source artifact, and provenance explicit.
+
+```text
+ARTIFACT → EDITION → PASSAGE → CONTENT → ASSERTION → PROVENANCE
+```
+
+**NO VIBES-ONLY CLAIMS · NO SOURCELESS LORE · UNCERTAINTY IS DATA**
+
+<!-- ROCKSOUL_FIELD_NOTE_END -->
+
 
 > **RGBL preserves what the source text says before any downstream engine decides how to weigh it.**
 
@@ -119,7 +139,7 @@ RGBL owns canonical `mw:*` corpus identity for works, passages, content, resourc
 
 [Read the interoperability contract →](docs/ROCKSOUL_INTEROP.md)
 
-## Four-way proof case
+## Shared five-domain proof
 
 ### **CASE 001 — JERUSALEM 70 CE**
 
@@ -142,7 +162,7 @@ LEGEND    Jerusalem / Second Temple destruction, 70 CE
 SUPERHERO Flavius Josephus — witness / recorder
 ```
 
-The proof works precisely because the repositories **do not collapse into each other**. RGBL proves what the selected text expression says; it does not prove event historicity or supernatural fulfillment.
+The proof works precisely because the repositories **do not collapse into each other**. RGBL proves what the selected text expression says; it does not prove event historicity or supernatural fulfillment. AWS consumes the same graph only for a separate LAW/applicability question.
 
 [Read the shared case →](docs/cases/JERUSALEM-70-TEMPLE.md)
 
@@ -291,6 +311,29 @@ rocksoul-rgbl/
 
 ---
 
+<!-- CORPUS_STATS_START -->
+## 📊 Live Corpus Statistics
+
+> Generated automatically from repository configuration and the built SQLite corpus. These numbers are not maintained manually.
+
+| Metric | Actual | Meaning |
+|---|---:|---|
+| 🌍 Registered traditions | 90 | Entries in the tradition registry |
+| 📚 Registered works | 297 | Canonical work registry |
+| 📖 Registered editions | 618 | Edition registry |
+| 🧾 Indexed text records | 239,881 | Actual materialized contents rows |
+| 🧩 Passages | 200,681 | Actual searchable passage units |
+| ✅ Materialized works | 36 | Works with real textual records |
+| 📦 Materialized editions | 38 / 618 | 6.15% of registered editions |
+| 🌐 Content languages | 16 | Distinct languages in materialized content |
+| 🙏 Devotional records | 99 | Duas, prayers, attributes, etc. |
+| 🔤 Lexicon terms | 29 | Indexed lexicon entries |
+| 🗃️ Raw records | 537,093 | Universal raw-record store |
+| 💾 SQLite size | 729.16 MB | Generated database size |
+
+_Last generated: 2026-09-08T02:51:07.393Z_
+<!-- CORPUS_STATS_END -->
+
 <div align="center">
 
 <img src="https://raw.githubusercontent.com/bjo163/rocksoul-assets/main/moonwitness/brand/rocksoul-lockup.svg" alt="Rocksoul" width="480" />
@@ -304,3 +347,15 @@ rocksoul-rgbl/
 `RGBL / MoonWitness · Rocksoul Research`
 
 </div>
+
+
+## Branch model
+
+```text
+main  ← stable / release
+dev   ← all development
+```
+
+Corpus ingestion, materialization, API/runtime, docs and release preparation land in `dev`. Stable promotion is `dev → main`.
+
+[Read the branching contract →](docs/BRANCHING.md)

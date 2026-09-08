@@ -1,0 +1,11 @@
+{
+  "id": "mw:dataset:ancient-egyptian:book-dead-renouf-1904",
+  "datasetVersion": "0.1.0",
+  "specVersion": "0.1",
+  "profiles": ["textual@0.1", "source@0.1"],
+  "dependencies": [],
+  "partitions": [],
+  "sources": ["Project Gutenberg eBook #69566, P. Le Page Renouf and Edouard Naville, original publication 1904"],
+  "rights": "Project Gutenberg marks this edition public domain in the USA; verify target-jurisdiction status before redistribution.",
+  "availability": "external"
+}

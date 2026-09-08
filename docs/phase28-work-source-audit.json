@@ -1,0 +1,34 @@
+{
+  "phase": "28",
+  "purpose": "Work metadata source discovery and acceptance boundary",
+  "evaluatedSources": [
+    {
+      "datasetId": "mw:dataset:registry:works",
+      "name": "MoonWitness Universal Scriptural Works Registry",
+      "version": "config/works.json@1.0.0",
+      "publisher": "MoonWitness",
+      "locator": "config/works.json",
+      "license": "Repository project data",
+      "retrievedAt": "2026-08-29",
+      "sha256": "d0dca0506920e01254c34429ea8f41e1394ab89ad4899e6b2ccbaf01f2560bc5",
+      "role": "Existing canonical registry metadata; accepted only for explicit fields already present in the repository."
+    },
+    {
+      "datasetId": "mw:dataset:wikidata:bounded-snapshot",
+      "name": "Wikidata Special:EntityData bounded snapshot",
+      "version": "snapshot-manifest formatVersion 1",
+      "publisher": "Wikimedia Foundation / Wikidata contributors",
+      "locator": "datasets/registries/snapshots/wikidata/snapshot-manifest.json",
+      "license": "CC0-1.0",
+      "retrievedAt": "2026-08-27T00:00:00Z",
+      "sha256": "58d5d28e2e57af3573fc52fe4dbc2bcd09c0f6af60e51e26d95706a50ecb7b27",
+      "role": "Independent structured source evaluated; current bounded queries cover traditions and persons, not the 297 work registry, so no work authority IDs or authorship links were accepted."
+    }
+  ],
+  "acceptancePolicy": {
+    "automaticMatchStatuses": ["MATCHED"],
+    "allowedIdentityEvidence": ["external identifier", "authority identifier", "source-defined work ID", "existing edition mapping", "exact title plus language"],
+    "titleOnlyFuzzyMatching": false,
+    "newCanonicalWorks": 0
+  }
+}

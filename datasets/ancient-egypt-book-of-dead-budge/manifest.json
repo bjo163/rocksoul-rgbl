@@ -1,0 +1,14 @@
+{
+  "id": "mw:dataset:ancient-egypt:book-of-dead:budge",
+  "datasetVersion": "0.1.0",
+  "specVersion": "0.1",
+  "profiles": ["textual@0.1", "source@0.1"],
+  "partitions": [
+    { "recordType": "entity", "path": "data/core/entities/*.jsonl" },
+    { "recordType": "resource", "path": "data/core/resources/*.jsonl" },
+    { "recordType": "provenance", "path": "data/core/provenance/*.jsonl" }
+  ],
+  "sources": ["Project Gutenberg ebook 7145; The Book of the Dead; Sir E. A. Wallis Budge"],
+  "rights": "Public domain in the USA according to Project Gutenberg; verify target-jurisdiction status before redistribution.",
+  "availability": "remote-acquisition"
+}

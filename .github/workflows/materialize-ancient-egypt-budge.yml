@@ -1,0 +1,29 @@
+name: Materialize Ancient Egyptian Book of the Dead
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: ancient-egypt-budge-materialization
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  materialize:
+    runs-on: self-hosted
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: dev
+          fetch-depth: 1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --no-frozen-lockfile
+      - run: pnpm materialize:ancient-egypt-budge
+      - run: pnpm validate:corpus
+      - run: pnpm validate:editions

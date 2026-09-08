@@ -29,7 +29,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
 
       - run: corepack enable
       - run: pnpm install --no-frozen-lockfile
@@ -42,8 +42,6 @@ jobs:
           TODO_SYNC_MUTATION_DELAY_MS: 2200
           TODO_SYNC_MAX_RETRIES: 5
 
-      # Reconcile ALL managed issue states on every issue event. This makes the
-      # sync self-healing if an older run was cancelled or an event was missed.
       - name: Issues → TODO
         if: github.event_name == 'issues' || github.event_name == 'workflow_dispatch'
         run: pnpm exec tsx scripts/reconcile-issue-status.ts

@@ -1,61 +1,87 @@
-name: Release bundle
+name: Aggressive Release
 
 on:
   workflow_dispatch:
-    inputs:
-      publish_npm:
-        description: Publish npm packages after all repository publication gates are enabled
-        required: true
-        type: boolean
-        default: false
-      create_github_release:
-        description: Create a GitHub Release from the generated bundle
-        required: true
-        type: boolean
-        default: false
+  schedule:
+    - cron: '7 * * * *'
+  push:
+    branches: [dev]
+    paths-ignore:
+      - 'README.md'
+
+permissions:
+  contents: write
 
 concurrency:
-  group: release-bundle
+  group: aggressive-release
   cancel-in-progress: false
 
+# Release is self-starting on validated dev changes.
 jobs:
   release:
     runs-on: self-hosted
-    timeout-minutes: 30
+    timeout-minutes: 60
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout latest dev
+        uses: actions/checkout@v4
+        with:
+          ref: dev
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
-          registry-url: https://registry.npmjs.org
+          node-version: 22
       - run: corepack enable
       - run: pnpm install --no-frozen-lockfile
-      - run: pnpm check
-      - uses: actions/upload-artifact@v4
-        with:
-          name: moonwitness-corpus-release
-          path: dist/release
-          if-no-files-found: error
-      - name: Verify npm publication gate
-        if: ${{ inputs.publish_npm }}
+      - name: Detect unreleased dev work
+        id: delta
+        shell: bash
         run: |
-          node -e "const c=require('./release/package-contract.json'); if(!c.npmPublishEnabled){console.error(c.publicationBlockers.join('\\n')); process.exit(1)}"
-      - name: Publish npm packages
-        if: ${{ inputs.publish_npm }}
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: pnpm release:publish
-      - name: Create GitHub Release
-        if: ${{ inputs.create_github_release }}
-        env:
-          GH_TOKEN: ${{ github.token }}
+          git fetch origin dev main --prune
+          DEV_SHA="$(git rev-parse origin/dev)"
+          MAIN_SHA="$(git rev-parse origin/main)"
+          if [ "$DEV_SHA" = "$MAIN_SHA" ]; then echo "has_changes=false" >> "$GITHUB_OUTPUT"; else echo "has_changes=true" >> "$GITHUB_OUTPUT"; fi
+      - name: Materialize fast-track corpus before validation
+        if: steps.delta.outputs.has_changes == 'true'
+        shell: bash
         run: |
+          pnpm materialize:zhuangzi
+          pnpm materialize:ancient-egypt-budge
+          pnpm materialize:ancient-egypt-renouf
+      - name: Create automatic patch release plan
+        if: steps.delta.outputs.has_changes == 'true'
+        shell: bash
+        run: |
+          PLAN="release/changes/auto-$(date -u +%Y%m%d%H%M%S).json"
+          cat > "$PLAN" <<'JSON'
+          {"format":"moonwitness-release-change-v1","summary":"Automatic corpus release from validated dev changes.","corpusRelease":"patch"}
+          JSON
+          echo "RELEASE_PLAN=$PLAN" >> "$GITHUB_ENV"
+      - name: Validate latest corpus
+        if: steps.delta.outputs.has_changes == 'true'
+        run: pnpm check
+      - name: Bump release version
+        if: steps.delta.outputs.has_changes == 'true'
+        run: pnpm release:version "$RELEASE_PLAN"
+      - name: Refresh Home statistics before promotion
+        if: steps.delta.outputs.has_changes == 'true'
+        run: pnpm build:sqlite && pnpm home:stats
+      - name: Commit release version and Home state
+        if: steps.delta.outputs.has_changes == 'true'
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add package.json packages/ release/ README.md dist/ datasets/zhuangzi-giles-1889 datasets/ancient-egypt-book-dead-budge datasets/ancient-egypt-book-dead-renouf
+          if git diff --cached --quiet; then exit 0; fi
           VERSION="$(node -p "require('./release/corpus-release.json').version")"
-          gh release create "corpus-v${VERSION}" \
-            dist/release/SHA256SUMS \
-            dist/release/release-manifest.json \
-            dist/release/corpus.jsonld \
-            dist/release/ro-crate-metadata.json \
-            dist/release/packages/*.tgz \
-            --title "MoonWitness Corpus ${VERSION}" \
-            --generate-notes
+          git commit -m "chore(release): promote corpus ${VERSION}"
+          git push origin HEAD:dev
+      - name: Promote validated release to main
+        if: steps.delta.outputs.has_changes == 'true'
+        shell: bash
+        run: |
+          git fetch origin dev main --prune
+          DEV_SHA="$(git rev-parse origin/dev)"
+          MAIN_SHA="$(git rev-parse origin/main)"
+          if ! git merge-base --is-ancestor "$MAIN_SHA" "$DEV_SHA"; then exit 1; fi
+          git push origin "$DEV_SHA:refs/heads/main"

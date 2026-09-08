@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "version": "1.0.0",
+  "description": "Implementation mapping for registry-selected upstream sync jobs. This file contains execution mechanics only; source identity remains in upstream-registry.json.",
+  "defaults": {
+    "concurrency": 3,
+    "shell": false,
+    "timeoutMs": 900000,
+    "allowRemote": true,
+    "allowCache": false,
+    "allowFallback": false
+  },
+  "jobs": [
+    {
+      "id": "islam-ummah",
+      "name": "Islam (UmmahAPI)",
+      "enabled": true,
+      "endpointIds": ["ummah-api"],
+      "script": "scripts/sync-ummah-upstream.ts",
+      "allowRemote": true,
+      "allowCache": false,
+      "allowFallback": true,
+      "required": false
+    },
+    {
+      "id": "judaism-sefaria",
+      "name": "Judaism (Sefaria)",
+      "enabled": true,
+      "endpointIds": ["sefaria-api"],
+      "script": "scripts/sync-sefaria.ts",
+      "allowRemote": true,
+      "allowCache": false,
+      "allowFallback": true,
+      "required": false
+    },
+    {
+      "id": "buddhism-suttacentral",
+      "name": "Buddhism (SuttaCentral)",
+      "enabled": true,
+      "endpointIds": ["suttacentral-bilara"],
+      "script": "scripts/sync-suttacentral.ts",
+      "allowRemote": true,
+      "allowCache": false,
+      "allowFallback": false,
+      "required": false
+    },
+    {
+      "id": "chinese-classics",
+      "name": "Chinese Classics (CText)",
+      "enabled": true,
+      "endpointIds": ["ctext-daoism", "ctext-confucianism"],
+      "script": "scripts/sync-ctext.ts",
+      "allowRemote": true,
+      "allowCache": false,
+      "allowFallback": true,
+      "required": false
+    },
+    {
+      "id": "universal-heritage",
+      "name": "Universal Heritage Discovery Feeds",
+      "enabled": true,
+      "endpointIds": [
+        "gretil-vedic",
+        "jain-heritage",
+        "bahai-library",
+        "sacred-texts-shinto"
+      ],
+      "script": "scripts/fetch-upstream-scriptures.ts",
+      "allowRemote": true,
+      "allowCache": false,
+      "allowFallback": true,
+      "fallbackSource": "ingestion/recipes/*/source/",
+      "required": false
+    }
+  ]
+}

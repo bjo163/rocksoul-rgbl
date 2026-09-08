@@ -1,0 +1,29 @@
+name: Home Corpus Statistics
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: home-stats-dev
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  update-home-stats:
+    runs-on: self-hosted
+    timeout-minutes: 15
+    steps:
+      - name: Checkout dev
+        uses: actions/checkout@v4
+        with:
+          ref: dev
+          fetch-depth: 1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --no-frozen-lockfile
+      - run: pnpm build:sqlite
+      - run: pnpm home:stats

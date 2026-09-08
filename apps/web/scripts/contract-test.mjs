@@ -37,7 +37,7 @@ for (const legacy of [
 expect(pkg.dependencies?.["@rocksoul/ui"] === "github:bjo163/rocksoul-ui#1730eda55564654dc8d4131bbdbf126d0c2d1eca", "Rocksoul UI must be pinned to the merged textual-intelligence release")
 expect(!main.includes("raw.githubusercontent.com/bjo163/rocksoul-assets/main"), "runtime must not consume rocksoul-assets/main")
 expect(!main.includes("ASSET_BASE"), "runtime must use the stable @rocksoul/ui asset resolver")
-expect(indexHtml.includes("82f20b8a361a19abdc6591fe2f4c67e3fb9d4b05"), "document assets must use the stable Rocksoul asset release")
+expect(indexHtml.includes("4050b6b5ea88f187a31a304bf978abfe637db9ce"), "document assets must use the stable Rocksoul asset release")
 expect(api.includes("/v1/passages/"), "passage trace API adapter is missing")
 expect(api.includes("/v1/assertions/"), "assertion traversal API adapter is missing")
 expect(api.includes('const CATALOG_URL = "/corpus-catalog.json"'), "generated catalog adapter is missing")
@@ -63,6 +63,8 @@ for (const component of ["TextualHierarchyTrace", "ParallelTextLanes", "SourceRi
 expect(main.includes("STATIC SEMANTIC GUARDRAILS"), "semantic matrix must be labeled as a contract rather than live evidence")
 expect(styles.includes("prefers-reduced-motion"), "reduced-motion contract is missing")
 expect(styles.includes("focus-visible"), "visible focus contract is missing")
+expect(pkg.scripts?.build?.includes("ensure-browser-db.mjs"), "production build must materialize the full browser database")
+expect(main.includes("239,841") === false && main.includes("537K+") === false, "runtime corpus metrics must not be hardcoded")
 
 if (failures.length) {
   console.error("RGBL web contract smoke failed:")

@@ -4,10 +4,7 @@
   "specVersion": "0.1",
   "profiles": ["textual@0.1", "source@0.1"],
   "dependencies": [],
-  "partitions": [
-    { "recordType": "resource", "path": "data/core/resources/*.jsonl" },
-    { "recordType": "provenance", "path": "data/core/provenance/*.jsonl" }
-  ],
+  "partitions": [],
   "sources": [
     "Project Gutenberg eBook #7145, E. A. Wallis Budge, The Book of the Dead"
   ],

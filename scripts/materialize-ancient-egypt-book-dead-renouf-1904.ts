@@ -85,8 +85,6 @@ async function main(): Promise<void> {
   await writeFile(path.join(CORE, 'provenance/book-dead-renouf-1904.jsonl'), deterministicJsonl(records.filter(r => r.record_type === 'provenance')), 'utf8')
   const manifestPath = path.join(ROOT, DATASET, 'manifest.json')
   const manifest = JSON.parse(await readFile(manifestPath, 'utf8')) as Record<string, unknown>
-  manifest.sourceSha256 = sourceHash
-  manifest.sourceByteSize = Buffer.byteLength(text)
   await writeFile(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`, 'utf8')
   const files = [`${DATASET}/data/core/resources/book-dead-renouf-1904.jsonl`, `${DATASET}/data/core/provenance/book-dead-renouf-1904.jsonl`, `${DATASET}/manifest.json`]
   const checksums: string[] = []

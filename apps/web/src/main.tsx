@@ -383,7 +383,7 @@ function CorpusApp() {
         active: index === 0,
       }))
     : [
-        { id: "source-boundary", kind: "source" as const, label: "Source trace unavailable", detail: sourceMode === "api" ? "No provenance record returned for this passage." : "Generated catalog has no provenance record for this selection.", active: true },
+        { id: "source-boundary", kind: "source" as const, label: "Source trace unavailable", detail: "No provenance record resolved for the current canonical selection.", active: true },
         { id: "text-boundary", kind: "text" as const, label: "Canonical passage identity", detail: selectedPassage?.id ?? "No passage selected" },
       ]
 
@@ -416,7 +416,7 @@ function CorpusApp() {
               title="TRACE THE TEXT."
               summary="Inspect canonical work identity, expression, edition, source artifact, exact passage content, rights, provenance, evidence and explicit textual relations without collapsing their semantic boundaries."
               recordId="TEXT ≠ INTERPRETATION · TRANSLATION ≠ SOURCE IDENTITY"
-              status={{ label: sourceMode === "api" ? "LIVE CANONICAL TEXT LAYER" : "CANONICAL CATALOG MODE", variant: sourceMode === "catalog" ? "partial" : "verified" }}
+              status={{ label: sourceMode === "api" ? "LIVE CANONICAL TEXT LAYER" : sourceMode === "browser" ? "FULL IMMUTABLE CORPUS" : "CANONICAL CATALOG MODE", variant: sourceMode === "catalog" ? "partial" : "verified" }}
               metadata={[
                 { label: "Domain", value: "TEXT" },
                 { label: "Hierarchy", value: "WORK → EXPRESSION → EDITION → ARTIFACT → PASSAGE → CONTENT" },
@@ -445,7 +445,7 @@ function CorpusApp() {
 
           <section className="runtime-band" aria-label="Runtime status">
             <div className="runtime-state">
-              <span className={sourceMode === "api" ? "runtime-dot live" : "runtime-dot"} aria-hidden="true" />
+              <span className={sourceMode === "catalog" ? "runtime-dot" : "runtime-dot live"} aria-hidden="true" />
               <div>
                 <strong>{sourceMode === "api" ? "Canonical API connected" : sourceMode === "browser" ? "Full browser corpus connected" : "Generated canonical catalog active"}</strong>
                 <small>{sourceMode === "api" ? rgblApiBaseUrl : sourceMode === "browser" ? "Content-addressed SQLite · HTTP range/WASM" : rgblApiConfigured ? "Configured endpoint is unavailable; catalog is active" : "Repository catalog is active"}</small>
@@ -461,7 +461,7 @@ function CorpusApp() {
           {apiNotice ? (
             <aside className="api-notice" role="status">
               <MoonWitnessAssetImage pack="state-illustrations" file="svg/source-missing.svg" alt="" aria-hidden="true" />
-              <div><strong>Canonical runtime notice.</strong><p>{apiNotice}. The interface is using the generated canonical catalog rather than inventing missing text.</p></div>
+              <div><strong>Canonical runtime notice.</strong><p>{apiNotice}. Active source: {sourceModeLabel(sourceMode)}. Missing records remain unavailable rather than being synthesized.</p></div>
             </aside>
           ) : null}
 
@@ -535,10 +535,19 @@ function CorpusApp() {
             </div>
 
             <div className="metric-strip" aria-label="Corpus metrics">
-              <div><span>Indexed records</span><strong>{health?.totalRecords ? formatCount(health.totalRecords) : aggregateRecords ? formatCount(aggregateRecords) : "537K+"}</strong><small>{sourceMode === "api" ? "live database" : sourceMode === "browser" ? "full browser index" : "repository catalog"}</small></div>
+              <div><span>Indexed records</span><strong>{health?.totalRecords ? formatCount(health.totalRecords) : aggregateRecords ? formatCount(aggregateRecords) : "—"}</strong><small>{sourceMode === "api" ? "live database" : sourceMode === "browser" ? "full browser index" : "repository catalog"}</small></div>
               <div><span>Traditions</span><strong>{traditions.length}</strong><small>registry scope</small></div>
               <div><span>Visible works</span><strong>{visibleWorks.length}</strong><small>{selectedTraditionName}</small></div>
-              <div><span>Runtime</span><strong>{sourceMode === "api" ? "API" : sourceMode === "browser" ? "FULL" : "CATALOG"}</strong><small>{sourceMode === "browser" ? "239,841 exact-text lanes" : sourceMode === "api" ? "canonical records" : sourceMode === "browser" ? "full canonical browser records" : "canonical catalog · no invented text"}</small></div>
+              <div><span>Runtime</span><strong>{sourceMode === "api" ? "API" : sourceMode === "browser" ? "FULL" : "CATALOG"}</strong><small>{sourceMode === "browser" ? (health?.contentCount ? formatCount(health.contentCount) + " exact-text lanes" : "full canonical browser records") : sourceMode === "api" ? "canonical records" : "canonical catalog · no invented text"}</small></div>
+            </div>
+
+            <div className="corpus-surface-grid" aria-label="Indexed research surfaces">
+              <div><span>DATASETS</span><strong>{formatCount(health?.datasetCount ?? traditions.reduce((sum, tradition) => sum + (tradition.datasetCount ?? 0), 0))}</strong><small>declared corpus packages</small></div>
+              <div><span>PASSAGES</span><strong>{formatCount(health?.passageCount)}</strong><small>canonical textual units</small></div>
+              <div><span>CONTENT</span><strong>{formatCount(health?.contentCount)}</strong><small>exact searchable lanes</small></div>
+              <div><span>EVIDENCE</span><strong>{formatCount(health?.evidenceCount)}</strong><small>explicit target records</small></div>
+              <div><span>RELATIONS</span><strong>{formatCount(health?.relationCount)}</strong><small>alignment / variant graph</small></div>
+              <div><span>ASSERTIONS</span><strong>{formatCount(health?.assertionCount)}</strong><small>scoped claim records</small></div>
             </div>
 
             <div className="atlas-layout">

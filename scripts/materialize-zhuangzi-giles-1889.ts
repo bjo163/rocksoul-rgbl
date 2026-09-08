@@ -80,8 +80,6 @@ async function main(): Promise<void> {
 
   const manifestPath = path.join(root, DATASET, 'manifest.json')
   const manifest = JSON.parse(await readFile(manifestPath, 'utf8')) as Record<string, unknown>
-  manifest.sourceSha256 = editionHash
-  manifest.sourceByteSize = Buffer.byteLength(text)
   await writeFile(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`, 'utf8')
 
   const checksumFiles = [resourcePath, provenancePath, manifestPath]

@@ -13,6 +13,7 @@ import { worksRoutes } from './routes/works.js'
 import { searchRoutes } from './routes/search.js'
 import { devotionalsRoutes } from './routes/devotionals.js'
 import { compareRoutes } from './routes/compare.js'
+import { recordsRoutes } from './routes/records.js'
 
 export async function buildApp(): Promise<FastifyInstance> {
   const app = fastify({
@@ -62,6 +63,7 @@ export async function buildApp(): Promise<FastifyInstance> {
     await v1.register(searchRoutes)
     await v1.register(devotionalsRoutes)
     await v1.register(compareRoutes)
+    await v1.register(recordsRoutes)
   }, { prefix: '/v1' })
 
   // Root redirect to docs

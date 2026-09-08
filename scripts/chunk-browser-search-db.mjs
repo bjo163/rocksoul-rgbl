@@ -27,6 +27,7 @@ openChunk()
 for await (const sourceChunk of createReadStream(input, { highWaterMark: 1024 * 1024 })) {
   let offset = 0
   while (offset < sourceChunk.length) {
+    if (!current) openChunk()
     const remaining = serverChunkSize - currentBytes
     const take = Math.min(remaining, sourceChunk.length - offset)
     if (!current.write(sourceChunk.subarray(offset, offset + take))) await once(current, "drain")

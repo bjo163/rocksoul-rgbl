@@ -52,7 +52,7 @@ if (current) {
 
 const catalog = JSON.parse(await readFile(path.resolve("apps/web/public/corpus-catalog.json"), "utf8"))
 const config = {
-  schemaVersion: 1,
+  schemaVersion: 2,
   corpusHash: catalog.corpusHash,
   serverMode: "chunked",
   requestChunkSize,

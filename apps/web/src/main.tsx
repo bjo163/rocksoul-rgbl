@@ -420,7 +420,7 @@ function CorpusApp() {
               metadata={[
                 { label: "Domain", value: "TEXT" },
                 { label: "Hierarchy", value: "WORK → EXPRESSION → EDITION → ARTIFACT → PASSAGE → CONTENT" },
-                { label: "Visual grammar", value: "@rocksoul/ui · stable rocksoul-assets v1.3.1" },
+                { label: "Visual grammar", value: "@rocksoul/ui · registry-backed rocksoul-assets" },
                 { label: "Runtime", value: sourceMode === "api" ? `RGBL REST · ${health?.database ?? "healthy"}` : sourceMode === "browser" ? "Immutable FTS3 browser database" : "Generated canonical repository catalog" },
               ]}
               actions={

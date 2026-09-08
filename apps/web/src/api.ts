@@ -15,10 +15,13 @@ import type {
   WorkHierarchy,
 } from "./data"
 import {
+  browserDbStats,
   browserLoadPassage,
   browserLoadPassages,
   browserLoadPassageTrace,
+  browserLoadWorkHierarchy,
   browserSearchCorpus,
+  browserTraverseAssertion,
 } from "./browser-db"
 
 const API_BASE = (import.meta.env.VITE_RGBL_API_URL as string | undefined)?.replace(/\/+$/, "") ?? ""
@@ -150,25 +153,53 @@ export async function loadHealth(): Promise<LoadResult<ApiHealth | null>> {
   if (API_BASE) {
     try {
       return { data: await requestJson<ApiHealth>("/v1/health"), source: "api" }
-    } catch (error) {
-      return catalogResult((catalog) => ({
-        status: "catalog-ready",
-        service: "rocksoul-rgbl-static-catalog",
-        totalRecords: catalog.summary.totalRecords,
-        database: "Generated canonical repository catalog",
-        corpusHash: catalog.corpusHash,
-        catalogHash: catalog.catalogHash,
-      }), error)
+    } catch (apiError) {
+      try {
+        const stats = await browserDbStats()
+        return {
+          source: "browser",
+          error: errorMessage(apiError),
+          data: {
+            status: "browser-ready",
+            service: "rocksoul-rgbl-browser-sqlite",
+            totalRecords: stats.totalRecords,
+            database: "Immutable chunked SQLite · " + String(stats.databaseBytes) + " bytes",
+          },
+        }
+      } catch (browserError) {
+        return catalogResult((catalog) => ({
+          status: "catalog-ready",
+          service: "rocksoul-rgbl-static-catalog",
+          totalRecords: catalog.summary.totalRecords,
+          database: "Generated canonical repository catalog",
+          corpusHash: catalog.corpusHash,
+          catalogHash: catalog.catalogHash,
+        }), browserError)
+      }
     }
   }
-  return catalogResult((catalog) => ({
-    status: "catalog-ready",
-    service: "rocksoul-rgbl-static-catalog",
-    totalRecords: catalog.summary.totalRecords,
-    database: "Generated canonical repository catalog",
-    corpusHash: catalog.corpusHash,
-    catalogHash: catalog.catalogHash,
-  }))
+
+  try {
+    const stats = await browserDbStats()
+    return {
+      source: "browser",
+      data: {
+        status: "browser-ready",
+        service: "rocksoul-rgbl-browser-sqlite",
+        totalRecords: stats.totalRecords,
+        database: "Immutable chunked SQLite · " + String(stats.databaseBytes) + " bytes",
+      },
+    }
+  } catch (browserError) {
+    return catalogResult((catalog) => ({
+      status: "catalog-ready",
+      service: "rocksoul-rgbl-static-catalog",
+      totalRecords: catalog.summary.totalRecords,
+      database: "Generated canonical repository catalog",
+      corpusHash: catalog.corpusHash,
+      catalogHash: catalog.catalogHash,
+    }), browserError)
+  }
 }
 
 export async function loadSemanticRules(): Promise<LoadResult<SemanticRuleRow[]>> {
@@ -356,11 +387,22 @@ export async function loadWorkHierarchy(workId: string): Promise<LoadResult<Work
           dataset: normalizeDataset(data.dataset),
         },
       }
-    } catch (error) {
-      return catalogResult((catalog) => catalog.hierarchies[workId] ?? { work: null, expressions: [], editions: [], artifacts: [], dataset: null }, error)
-    }
+    } catch {}
   }
-  return catalogResult((catalog) => catalog.hierarchies[workId] ?? { work: null, expressions: [], editions: [], artifacts: [], dataset: null })
+
+  try {
+    const hierarchy = await browserLoadWorkHierarchy(workId)
+    if (hierarchy) return { data: hierarchy, source: "browser" }
+  } catch (browserError) {
+    return catalogResult(
+      (catalog) => catalog.hierarchies[workId] ?? { work: null, expressions: [], editions: [], artifacts: [], dataset: null },
+      browserError,
+    )
+  }
+
+  return catalogResult(
+    (catalog) => catalog.hierarchies[workId] ?? { work: null, expressions: [], editions: [], artifacts: [], dataset: null },
+  )
 }
 
 export async function loadPassageTrace(passage: Passage): Promise<LoadResult<PassageTrace>> {
@@ -474,7 +516,8 @@ export async function searchCorpus(query: string, tradition?: string, offset = 0
 
 export async function loadAssertionTraversal(assertionId: string): Promise<LoadResult<AssertionTraversal | null>> {
   const id = assertionId.trim()
-  if (!id) return { data: null, source: API_BASE ? "api" : "catalog" }
+  if (!id) return { data: null, source: API_BASE ? "api" : "browser" }
+
   if (API_BASE) {
     try {
       const payload = await requestJson<{ data?: unknown }>("/v1/assertions/" + encodeURIComponent(id) + "/traversal")
@@ -487,9 +530,13 @@ export async function loadAssertionTraversal(assertionId: string): Promise<LoadR
           targets: Array.isArray(data.targets) ? data.targets.map(asRecord) : [],
         },
       }
-    } catch (error) {
-      return { data: null, source: "catalog", error: errorMessage(error) }
-    }
+    } catch {}
   }
-  return { data: null, source: "catalog" }
+
+  try {
+    return { data: await browserTraverseAssertion(id), source: "browser" }
+  } catch (browserError) {
+    return { data: null, source: "catalog", error: errorMessage(browserError) }
+  }
 }
+

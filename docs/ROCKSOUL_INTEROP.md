@@ -230,3 +230,44 @@ The first end-to-end four-way integration is:
 RGBL reuses existing canonical Mark 13:2 passage identities rather than creating integration-specific duplicate text records.
 
 [Read the shared case →](cases/JERUSALEM-70-TEMPLE.md)
+
+## Six-domain ecosystem contract
+
+The current semantic-domain ownership map is:
+
+```text
+MFTL       STORY        What was told?
+LEGEND     EVENT        What happened?
+SUPERHERO  PERSON       Who was involved?
+RGBL       TEXT         What does the exact source text say?
+AWS        LAW          Was it legally applicable?
+JIZZ       PERSPECTIVE  How is the record observed, framed, or situated?
+```
+
+Qualified owner notation extends accordingly:
+
+```text
+aws:LAW-...
+jizz:PERSP-...
+correlation:CORR-...
+```
+
+RGBL may preserve text in which an observer, community, narrator, court, scholar, or tradition expresses a perspective. That textual presence remains TEXT evidence. A canonical ecosystem PERSPECTIVE record belongs to `rocksoul-jizz`.
+
+```text
+TEXTUAL EXPRESSION OF A VIEW ≠ PERSPECTIVE OWNERSHIP
+PERSPECTIVE ≠ TEXT
+```
+
+## Relationship layer — Correlation
+
+`rocksoul-correlation` owns reviewed RELATIONSHIP semantics between canonical records and the explainability/freshness metadata attached to those edges.
+
+RGBL's own alignments, variants, assertions, evidence and provenance remain TEXT-internal corpus structures. They are not a competing global correlation store.
+
+```text
+RGBL alignment / assertion / evidence   local TEXT semantics
+correlation:CORR-*                      reviewed ecosystem relationship
+```
+
+Correlation must reference RGBL canonical IDs rather than copying exact passages or corpus records into its own data.

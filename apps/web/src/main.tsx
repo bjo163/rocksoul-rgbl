@@ -1,4 +1,4 @@
-import { StrictMode, useEffect, useMemo, useState, type FormEvent } from "react"
+import { StrictMode, useEffect, useMemo, useRef, useState, type FormEvent } from "react"
 import { createRoot } from "react-dom/client"
 import {
   Badge,
@@ -22,6 +22,7 @@ import {
   loadAssertionTraversal,
   loadHealth,
   loadSemanticRules,
+  loadPassageById,
   loadPassageTrace,
   loadPassages,
   loadTraditions,
@@ -43,6 +44,20 @@ import {
   type Work,
   type WorkHierarchy,
 } from "./data"
+
+type SourceMode = "api" | "browser" | "catalog"
+
+function strongestSource(...sources: SourceMode[]): SourceMode {
+  if (sources.includes("api")) return "api"
+  if (sources.includes("browser")) return "browser"
+  return "catalog"
+}
+
+function sourceModeLabel(source: SourceMode) {
+  if (source === "api") return "LIVE API"
+  if (source === "browser") return "FULL BROWSER DB"
+  return "GENERATED CATALOG"
+}
 
 const sections = [
   { id: "explore", label: "Corpus" },
@@ -112,13 +127,14 @@ function CorpusApp() {
   const [searching, setSearching] = useState(false)
   const [loadingPassages, setLoadingPassages] = useState(false)
   const [health, setHealth] = useState<ApiHealth | null>(null)
-  const [sourceMode, setSourceMode] = useState<"api" | "catalog">("catalog")
+  const [sourceMode, setSourceMode] = useState<SourceMode>("catalog")
   const [apiNotice, setApiNotice] = useState<string>("")
   const [semanticRows, setSemanticRows] = useState<SemanticRuleRow[]>([])
   const [assertionId, setAssertionId] = useState("")
   const [assertionTrace, setAssertionTrace] = useState<AssertionTraversal | null>(null)
   const [assertionLoading, setAssertionLoading] = useState(false)
   const [assertionNotice, setAssertionNotice] = useState("")
+  const pendingPassageId = useRef("")
 
   const selectedWork = useMemo(
     () => works.find((work) => work.id === selectedWorkId) ?? works[0],
@@ -161,19 +177,41 @@ function CorpusApp() {
     let active = true
     setLoadingPassages(true)
     setPassageOffset(0)
-    void Promise.all([loadWorkHierarchy(selectedWorkId), loadPassages(selectedWorkId, 0, 12)]).then(([hierarchyResult, passageResult]) => {
+    void (async () => {
+      const [hierarchyResult, passageResult] = await Promise.all([
+        loadWorkHierarchy(selectedWorkId),
+        loadPassages(selectedWorkId, 0, 12),
+      ])
       if (!active) return
+
+      let pageData = passageResult.data
+      const requestedPassage = pendingPassageId.current || initialParam("passage")
+      let nextPassage = pageData.find((item) => item.id === requestedPassage)
+
+      if (requestedPassage && !nextPassage) {
+        const direct = await loadPassageById(requestedPassage)
+        if (!active) return
+        if (direct.data?.workId === selectedWorkId) {
+          nextPassage = direct.data
+          pageData = [direct.data, ...pageData.filter((item) => item.id !== direct.data?.id)]
+        }
+      }
+
+      nextPassage ??= pageData[0]
+      pendingPassageId.current = ""
       setHierarchy(hierarchyResult.data)
-      setPassages(passageResult.data)
+      setPassages(pageData)
       setPassageTotal(passageResult.total)
       setPassageHasMore(passageResult.hasMore)
       setPassageOffset(passageResult.offset)
-      setSourceMode(hierarchyResult.source === "api" || passageResult.source === "api" ? "api" : "catalog")
+      setSourceMode(strongestSource(hierarchyResult.source, passageResult.source))
       setApiNotice(hierarchyResult.error || passageResult.error || "")
-      const requestedPassage = initialParam("passage")
-      const nextPassage = passageResult.data.find((item) => item.id === requestedPassage) ?? passageResult.data[0]
       setSelectedPassageId(nextPassage?.id ?? "")
       updateQuery({ work: selectedWorkId, passage: nextPassage?.id })
+      setLoadingPassages(false)
+    })().catch((error) => {
+      if (!active) return
+      setApiNotice(error instanceof Error ? error.message : "Unable to load canonical passages")
       setLoadingPassages(false)
     })
     return () => { active = false }
@@ -189,7 +227,7 @@ function CorpusApp() {
       if (!active) return
       setTrace(result.data)
       if (result.error) setApiNotice(result.error)
-      if (result.source === "api") setSourceMode("api")
+      if (result.source !== "catalog") setSourceMode(result.source)
     })
     return () => { active = false }
   }, [selectedPassage?.id])
@@ -234,6 +272,25 @@ function CorpusApp() {
   function choosePassage(passage: Passage) {
     setSelectedPassageId(passage.id)
     updateQuery({ work: selectedWork?.id, passage: passage.id })
+  }
+
+  async function inspectSearchResult(result: SearchRecord) {
+    if (!result.workId || result.kind !== "textual.passage") return
+    updateQuery({ work: result.workId, passage: result.id, q: query || undefined })
+
+    if (result.workId === selectedWorkId) {
+      const direct = await loadPassageById(result.id)
+      if (direct.data) {
+        setPassages((current) => [direct.data!, ...current.filter((item) => item.id !== direct.data?.id)])
+        setSelectedPassageId(direct.data.id)
+        setSourceMode(strongestSource(sourceMode, direct.source))
+      }
+    } else {
+      pendingPassageId.current = result.id
+      setSelectedWorkId(result.workId)
+    }
+
+    document.getElementById("passage")?.scrollIntoView({ behavior: "smooth", block: "start" })
   }
 
   async function movePassagePage(nextOffset: number) {
@@ -346,8 +403,8 @@ function CorpusApp() {
             <a href="https://github.com/bjo163/rocksoul-rgbl" target="_blank" rel="noreferrer">Repository</a>
           </nav>
           <div className="header-tools">
-            <Badge variant={sourceMode === "api" ? "verified" : "partial"}>
-              {sourceMode === "api" ? "LIVE CORPUS" : "GENERATED CATALOG"}
+            <Badge variant={sourceMode === "catalog" ? "partial" : "verified"}>
+              {sourceMode === "api" ? "LIVE CORPUS" : sourceMode === "browser" ? "FULL CORPUS" : "GENERATED CATALOG"}
             </Badge>
             <ThemeToggle />
           </div>
@@ -360,12 +417,12 @@ function CorpusApp() {
               title="TRACE THE TEXT."
               summary="Inspect canonical work identity, expression, edition, source artifact, exact passage content, rights, provenance, evidence and explicit textual relations without collapsing their semantic boundaries."
               recordId="TEXT ≠ INTERPRETATION · TRANSLATION ≠ SOURCE IDENTITY"
-              status={{ label: sourceMode === "api" ? "LIVE CANONICAL TEXT LAYER" : "CANONICAL CATALOG MODE", variant: sourceMode === "api" ? "verified" : "partial" }}
+              status={{ label: sourceMode === "api" ? "LIVE CANONICAL TEXT LAYER" : "CANONICAL CATALOG MODE", variant: sourceMode === "catalog" ? "partial" : "verified" }}
               metadata={[
                 { label: "Domain", value: "TEXT" },
                 { label: "Hierarchy", value: "WORK → EXPRESSION → EDITION → ARTIFACT → PASSAGE → CONTENT" },
                 { label: "Visual grammar", value: "@rocksoul/ui · stable rocksoul-assets v1.3.1" },
-                { label: "Runtime", value: sourceMode === "api" ? `RGBL REST · ${health?.database ?? "healthy"}` : "Generated canonical repository catalog" },
+                { label: "Runtime", value: sourceMode === "api" ? `RGBL REST · ${health?.database ?? "healthy"}` : sourceMode === "browser" ? "Immutable FTS3 browser database" : "Generated canonical repository catalog" },
               ]}
               actions={
                 <>
@@ -391,8 +448,8 @@ function CorpusApp() {
             <div className="runtime-state">
               <span className={sourceMode === "api" ? "runtime-dot live" : "runtime-dot"} aria-hidden="true" />
               <div>
-                <strong>{sourceMode === "api" ? "Canonical API connected" : "Generated canonical catalog active"}</strong>
-                <small>{sourceMode === "api" ? rgblApiBaseUrl : rgblApiConfigured ? "Configured endpoint is unavailable; catalog is active" : "No REST endpoint configured; repository catalog is active"}</small>
+                <strong>{sourceMode === "api" ? "Canonical API connected" : sourceMode === "browser" ? "Full browser corpus connected" : "Generated canonical catalog active"}</strong>
+                <small>{sourceMode === "api" ? rgblApiBaseUrl : sourceMode === "browser" ? "Content-addressed SQLite · HTTP range/WASM" : rgblApiConfigured ? "Configured endpoint is unavailable; catalog is active" : "Repository catalog is active"}</small>
               </div>
             </div>
             <div className="runtime-metrics">
@@ -405,13 +462,13 @@ function CorpusApp() {
           {apiNotice ? (
             <aside className="api-notice" role="status">
               <MoonWitnessAssetImage pack="state-illustrations" file="svg/source-missing.svg" alt="" aria-hidden="true" />
-              <div><strong>Live corpus adapter degraded.</strong><p>{apiNotice}. The interface is using the generated canonical catalog rather than inventing missing text.</p></div>
+              <div><strong>Canonical runtime notice.</strong><p>{apiNotice}. The interface is using the generated canonical catalog rather than inventing missing text.</p></div>
             </aside>
           ) : null}
 
           <section className="search-band" aria-label="Corpus search">
             <div>
-              <p className="section-kicker">EXACT SEARCH / FTS5</p>
+              <p className="section-kicker">EXACT SEARCH / {sourceMode === "api" ? "FTS5" : sourceMode === "browser" ? "FTS3 WASM" : "CATALOG"}</p>
               <h2>Find the record before interpreting the record.</h2>
             </div>
             <form className="corpus-search" onSubmit={runSearch}>
@@ -438,7 +495,7 @@ function CorpusApp() {
             </form>
             <div className="search-context">
               <span>FILTER · {selectedTraditionName}</span>
-              <span>{typeof searchLatency === "number" ? `SERVER SEARCH · ${searchLatency.toFixed(2)} ms` : sourceMode === "api" ? "LIVE FTS5" : "GENERATED CATALOG INDEX"}</span>
+              <span>{typeof searchLatency === "number" ? `SERVER SEARCH · ${searchLatency.toFixed(2)} ms` : sourceMode === "api" ? "LIVE FTS5" : sourceMode === "browser" ? "FULL CORPUS · BROWSER FTS3" : "GENERATED CATALOG INDEX"}</span>
             </div>
 
             {results.length ? (
@@ -454,6 +511,9 @@ function CorpusApp() {
                       <code title={result.id}>{result.id}</code>
                       {result.snippet ? <p>{result.snippet}</p> : null}
                       <small>{[result.datasetId, typeof result.score === "number" ? `score ${result.score.toFixed(3)}` : undefined].filter(Boolean).join(" · ")}</small>
+                      {result.workId ? (
+                        <Button variant="secondary" onClick={() => void inspectSearchResult(result)}>Inspect trace</Button>
+                      ) : null}
                     </article>
                   ))}
                 </div>
@@ -476,10 +536,10 @@ function CorpusApp() {
             </div>
 
             <div className="metric-strip" aria-label="Corpus metrics">
-              <div><span>Indexed records</span><strong>{health?.totalRecords ? formatCount(health.totalRecords) : aggregateRecords ? formatCount(aggregateRecords) : "537K+"}</strong><small>{health ? "live database" : "repository baseline"}</small></div>
+              <div><span>Indexed records</span><strong>{health?.totalRecords ? formatCount(health.totalRecords) : aggregateRecords ? formatCount(aggregateRecords) : "537K+"}</strong><small>{sourceMode === "api" ? "live database" : sourceMode === "browser" ? "full browser index" : "repository catalog"}</small></div>
               <div><span>Traditions</span><strong>{traditions.length}</strong><small>registry scope</small></div>
               <div><span>Visible works</span><strong>{visibleWorks.length}</strong><small>{selectedTraditionName}</small></div>
-              <div><span>API state</span><strong>{sourceMode === "api" ? "LIVE" : "SAFE"}</strong><small>{sourceMode === "api" ? "canonical records" : "canonical catalog · no invented text"}</small></div>
+              <div><span>Runtime</span><strong>{sourceMode === "api" ? "API" : sourceMode === "browser" ? "FULL" : "CATALOG"}</strong><small>{sourceMode === "browser" ? "239,841 exact-text lanes" : sourceMode === "api" ? "canonical records" : "canonical catalog · no invented text"}</small></div>
             </div>
 
             <div className="atlas-layout">

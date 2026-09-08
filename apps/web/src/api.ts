@@ -14,6 +14,12 @@ import type {
   Work,
   WorkHierarchy,
 } from "./data"
+import {
+  browserLoadPassage,
+  browserLoadPassages,
+  browserLoadPassageTrace,
+  browserSearchCorpus,
+} from "./browser-db"
 
 const API_BASE = (import.meta.env.VITE_RGBL_API_URL as string | undefined)?.replace(/\/+$/, "") ?? ""
 const REQUEST_TIMEOUT_MS = 8_000
@@ -36,7 +42,7 @@ export interface ApiHealth {
 
 export interface LoadResult<T> {
   data: T
-  source: "api" | "catalog"
+  source: "api" | "browser" | "catalog"
   error?: string
 }
 
@@ -286,19 +292,53 @@ export async function loadPassages(workId: string, offset = 0, limit = 12): Prom
         total: payload.total,
         hasMore: Boolean(payload.hasMore),
       }
-    } catch (error) {
-      const result = await catalogResult((catalog) => catalog.passagePages[workId], error)
-      const page = result.data
-      const available = page?.data ?? []
-      const data = available.slice(offset, offset + limit)
-      return { data, source: "catalog", error: result.error, offset, limit, total: page?.total ?? 0, hasMore: offset + data.length < available.length }
+    } catch (apiError) {
+      try {
+        const page = await browserLoadPassages(workId, offset, limit)
+        return { ...page, source: "browser", offset, limit, error: errorMessage(apiError) }
+      } catch (browserError) {
+        const result = await catalogResult((catalog) => catalog.passagePages[workId], browserError)
+        const page = result.data
+        const available = page?.data ?? []
+        const data = available.slice(offset, offset + limit)
+        return { data, source: "catalog", error: result.error, offset, limit, total: page?.total ?? 0, hasMore: offset + data.length < available.length }
+      }
     }
   }
-  const result = await catalogResult((catalog) => catalog.passagePages[workId])
-  const page = result.data
-  const available = page?.data ?? []
-  const data = available.slice(offset, offset + limit)
-  return { data, source: "catalog", offset, limit, total: page?.total ?? 0, hasMore: offset + data.length < available.length }
+
+  try {
+    const page = await browserLoadPassages(workId, offset, limit)
+    return { ...page, source: "browser", offset, limit }
+  } catch (browserError) {
+    const result = await catalogResult((catalog) => catalog.passagePages[workId], browserError)
+    const page = result.data
+    const available = page?.data ?? []
+    const data = available.slice(offset, offset + limit)
+    return { data, source: "catalog", error: result.error, offset, limit, total: page?.total ?? 0, hasMore: offset + data.length < available.length }
+  }
+}
+
+export async function loadPassageById(passageId: string): Promise<LoadResult<Passage | null>> {
+  try {
+    const passage = await browserLoadPassage(passageId)
+    if (passage) return { data: passage, source: "browser" }
+  } catch (browserError) {
+    const catalog = await catalogResult((value) => {
+      for (const page of Object.values(value.passagePages)) {
+        const match = page.data.find((passage) => passage.id === passageId)
+        if (match) return match
+      }
+      return null
+    }, browserError)
+    return catalog
+  }
+  return catalogResult((value) => {
+    for (const page of Object.values(value.passagePages)) {
+      const match = page.data.find((passage) => passage.id === passageId)
+      if (match) return match
+    }
+    return null
+  })
 }
 
 export async function loadWorkHierarchy(workId: string): Promise<LoadResult<WorkHierarchy>> {
@@ -342,27 +382,35 @@ export async function loadPassageTrace(passage: Passage): Promise<LoadResult<Pas
           dataset: normalizeDataset(data.dataset),
         },
       }
-    } catch (error) {
-      return catalogResult((catalog) => catalog.traces[passage.id] ?? {
-        passage,
-        contents: passage.contents ?? [],
-        artifacts: [],
-        provenanceRecords: [],
-        evidence: [],
-        relations: [],
-        dataset: null,
-      }, error)
-    }
+    } catch {}
   }
-  return catalogResult((catalog) => catalog.traces[passage.id] ?? {
-    passage,
-    contents: passage.contents ?? [],
-    artifacts: [],
-    provenanceRecords: [],
-    evidence: [],
-    relations: [],
-    dataset: null,
-  })
+
+  try {
+    const browserTrace = await browserLoadPassageTrace(passage)
+    const catalog = await loadCatalog().catch(() => null)
+    const catalogTrace = catalog?.traces[passage.id]
+    return {
+      source: "browser",
+      data: catalogTrace ? {
+        ...browserTrace,
+        artifacts: catalogTrace.artifacts,
+        provenanceRecords: catalogTrace.provenanceRecords,
+        evidence: catalogTrace.evidence,
+        relations: catalogTrace.relations,
+        dataset: browserTrace.dataset ?? catalogTrace.dataset,
+      } : browserTrace,
+    }
+  } catch (browserError) {
+    return catalogResult((catalog) => catalog.traces[passage.id] ?? {
+      passage,
+      contents: passage.contents ?? [],
+      artifacts: [],
+      provenanceRecords: [],
+      evidence: [],
+      relations: [],
+      dataset: null,
+    }, browserError)
+  }
 }
 
 function catalogSearch(catalog: CorpusCatalog, query: string, tradition?: string) {
@@ -378,7 +426,7 @@ function catalogSearch(catalog: CorpusCatalog, query: string, tradition?: string
 
 export async function searchCorpus(query: string, tradition?: string, offset = 0, limit = 20): Promise<PageResult<SearchRecord>> {
   const clean = query.trim()
-  if (!clean) return { data: [], source: API_BASE ? "api" : "catalog", offset: 0, limit, hasMore: false }
+  if (!clean) return { data: [], source: API_BASE ? "api" : "browser", offset: 0, limit, hasMore: false }
 
   if (API_BASE) {
     try {
@@ -406,20 +454,22 @@ export async function searchCorpus(query: string, tradition?: string, offset = 0
             snippet: stringValue(row.label, row.snippet),
             source: stringValue(row.datasetId, row.dataset_id),
             datasetId: stringValue(row.datasetId, row.dataset_id),
+            workId: stringValue(row.workId, row.work_id),
             score: numberValue(row.score),
           }
         }),
       }
-    } catch (error) {
-      const result = await catalogResult((catalog) => catalogSearch(catalog, clean, tradition), error)
-      const data = result.data.slice(offset, offset + limit)
-      return { data, source: "catalog", offset, limit, hasMore: offset + data.length < result.data.length, error: result.error }
-    }
+    } catch {}
   }
 
-  const result = await catalogResult((catalog) => catalogSearch(catalog, clean, tradition))
-  const data = result.data.slice(offset, offset + limit)
-  return { data, source: "catalog", offset, limit, hasMore: offset + data.length < result.data.length }
+  try {
+    const page = await browserSearchCorpus(clean, tradition, offset, limit)
+    return { ...page, source: "browser", offset, limit }
+  } catch (browserError) {
+    const result = await catalogResult((catalog) => catalogSearch(catalog, clean, tradition), browserError)
+    const data = result.data.slice(offset, offset + limit)
+    return { data, source: "catalog", offset, limit, hasMore: offset + data.length < result.data.length, error: result.error }
+  }
 }
 
 export async function loadAssertionTraversal(assertionId: string): Promise<LoadResult<AssertionTraversal | null>> {

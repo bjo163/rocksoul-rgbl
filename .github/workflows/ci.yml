@@ -59,6 +59,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Verify generated corpus catalog
+        run: node scripts/export-web-catalog.mjs --check
       - name: Install web dependencies
         working-directory: apps/web
         run: npx --yes npm@11.6.0 install

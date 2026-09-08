@@ -20,8 +20,8 @@ export const searchRoutes: FastifyPluginAsync = async (fastify) => {
   }, async (req) => {
     const query = req.query as { q?: string; text?: string; tradition?: string; limit?: number; offset?: number }
     const searchTerm = query.q || query.text || ''
-    const limit = query.limit || 20
-    const offset = query.offset || 0
+    const limit = Math.max(1, Math.min(100, query.limit ?? 20))
+    const offset = Math.max(0, query.offset ?? 0)
 
     if (!searchTerm) {
       return { success: true, count: 0, data: [] }
@@ -31,9 +31,14 @@ export const searchRoutes: FastifyPluginAsync = async (fastify) => {
     const results = await fastify.repo.search({
       text: searchTerm,
       tradition: query.tradition,
-      limit,
+      limit: limit + 1,
       offset
     })
+    const hasMore = results.length > limit
+    const page = results.slice(0, limit).map((result) => ({
+      ...result,
+      tradition: result.datasetId ? fastify.repo.getDatasetInfo(result.datasetId)?.tradition ?? null : null
+    }))
     const latencyMs = (performance.now() - start).toFixed(2)
 
     return {
@@ -41,8 +46,11 @@ export const searchRoutes: FastifyPluginAsync = async (fastify) => {
       query: searchTerm,
       tradition: query.tradition ?? null,
       latencyMs: Number(latencyMs),
-      count: results.length,
-      data: results
+      limit,
+      offset,
+      count: page.length,
+      hasMore,
+      data: page
     }
   })
 }

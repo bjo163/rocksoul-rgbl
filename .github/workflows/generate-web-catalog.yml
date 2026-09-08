@@ -1,0 +1,44 @@
+name: Generate Web Corpus Catalog
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "datasets/**"
+      - "config/upstream-registry.json"
+      - "config/textual-semantic-rules.json"
+      - "scripts/export-web-catalog.mjs"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: web-corpus-catalog-main
+  cancel-in-progress: true
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Generate canonical web catalog
+        run: node scripts/export-web-catalog.mjs
+      - name: Commit catalog when changed
+        run: |
+          git config user.name "rocksoul-rgbl-data-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add apps/web/public/corpus-catalog.json
+          if git diff --cached --quiet; then
+            echo "Catalog already current."
+          else
+            git commit -m "build(web-data): refresh canonical corpus catalog"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi

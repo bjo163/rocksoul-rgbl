@@ -409,6 +409,25 @@ export async function buildSqliteCorpus(targetPath = dbPath): Promise<{ recordCo
     )
   }
 
+  // Passages are canonically contained by expressions in textual@0.1. The
+  // work-oriented API derives the owning work after all records are loaded.
+  const expressionRows = db.prepare(`
+    SELECT id, json FROM raw_records
+    WHERE kind = 'textual.expression'
+  `).all() as Array<{ id: string; json: string }>
+  const remapPassageWork = db.prepare('UPDATE passages SET work_id = ? WHERE work_id = ?')
+  for (const row of expressionRows) {
+    try {
+      const record = JSON.parse(row.json) as { extensions?: { textual?: { work?: unknown } } }
+      const work = record.extensions?.textual?.work
+      if (typeof work === 'string' && work.startsWith('mw:work:')) {
+        remapPassageWork.run(work, row.id)
+      }
+    } catch {
+      // Canonical validation owns malformed-record reporting.
+    }
+  }
+
   db.exec('COMMIT')
 
   // Optimize and vacuum

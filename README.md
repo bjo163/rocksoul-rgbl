@@ -30,7 +30,27 @@ A provenance-first **multi-tradition text, scripture, sacred-literature, and evi
 
 </div>
 
+
 ---
+<!-- ROCKSOUL_FIELD_NOTE_START -->
+<div align="center">
+
+### **DON’T QUOTE THE VIBE. QUOTE THE TEXT.**
+
+`/// MOONWITNESS FIELD NOTE ///`
+
+</div>
+
+> No screenshot theology. No editionless quotation. No silent translation swap. RGBL keeps work, expression, edition, passage, content, rights, source artifact, and provenance explicit.
+
+```text
+ARTIFACT → EDITION → PASSAGE → CONTENT → ASSERTION → PROVENANCE
+```
+
+**NO VIBES-ONLY CLAIMS · NO SOURCELESS LORE · UNCERTAINTY IS DATA**
+
+<!-- ROCKSOUL_FIELD_NOTE_END -->
+
 
 > **RGBL preserves what the source text says before any downstream engine decides how to weigh it.**
 
@@ -119,7 +139,7 @@ RGBL owns canonical `mw:*` corpus identity for works, passages, content, resourc
 
 [Read the interoperability contract →](docs/ROCKSOUL_INTEROP.md)
 
-## Four-way proof case
+## Shared five-domain proof
 
 ### **CASE 001 — JERUSALEM 70 CE**
 
@@ -142,7 +162,7 @@ LEGEND    Jerusalem / Second Temple destruction, 70 CE
 SUPERHERO Flavius Josephus — witness / recorder
 ```
 
-The proof works precisely because the repositories **do not collapse into each other**. RGBL proves what the selected text expression says; it does not prove event historicity or supernatural fulfillment.
+The proof works precisely because the repositories **do not collapse into each other**. RGBL proves what the selected text expression says; it does not prove event historicity or supernatural fulfillment. AWS consumes the same graph only for a separate LAW/applicability question.
 
 [Read the shared case →](docs/cases/JERUSALEM-70-TEMPLE.md)
 

@@ -41,6 +41,14 @@ export interface ApiHealth {
   memoryUsageMb?: number
   corpusHash?: string
   catalogHash?: string
+  datasetCount?: number
+  passageCount?: number
+  contentCount?: number
+  evidenceCount?: number
+  relationCount?: number
+  assertionCount?: number
+  bytesFetched?: number
+  databaseBytes?: number
 }
 
 export interface LoadResult<T> {
@@ -163,7 +171,15 @@ export async function loadHealth(): Promise<LoadResult<ApiHealth | null>> {
             status: "browser-ready",
             service: "rocksoul-rgbl-browser-sqlite",
             totalRecords: stats.totalRecords,
-            database: "Immutable chunked SQLite · " + String(stats.databaseBytes) + " bytes",
+            datasetCount: stats.datasetCount,
+            passageCount: stats.passages,
+            contentCount: stats.contents,
+            evidenceCount: stats.evidence,
+            relationCount: stats.relations,
+            assertionCount: stats.assertions,
+            bytesFetched: stats.bytesFetched,
+            databaseBytes: stats.databaseBytes,
+            database: "Immutable chunked SQLite · HTTP range/WASM",
           },
         }
       } catch (browserError) {
@@ -187,7 +203,15 @@ export async function loadHealth(): Promise<LoadResult<ApiHealth | null>> {
         status: "browser-ready",
         service: "rocksoul-rgbl-browser-sqlite",
         totalRecords: stats.totalRecords,
-        database: "Immutable chunked SQLite · " + String(stats.databaseBytes) + " bytes",
+        datasetCount: stats.datasetCount,
+        passageCount: stats.passages,
+        contentCount: stats.contents,
+        evidenceCount: stats.evidence,
+        relationCount: stats.relations,
+        assertionCount: stats.assertions,
+        bytesFetched: stats.bytesFetched,
+        databaseBytes: stats.databaseBytes,
+        database: "Immutable chunked SQLite · HTTP range/WASM",
       },
     }
   } catch (browserError) {

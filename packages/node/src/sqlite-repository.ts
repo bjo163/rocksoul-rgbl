@@ -266,22 +266,36 @@ export class SqliteCorpusRepository implements CorpusRepository {
   }
 
   async getEvidenceForAssertion(id: CanonicalId): Promise<Evidence[]> {
-    return []
+    const assertion = await this.getAssertion(id)
+    if (!assertion) return []
+    const evidence: Evidence[] = []
+    for (const evidenceId of assertion.evidence ?? []) {
+      const record = await this.getEvidence(evidenceId)
+      if (record) evidence.push(record)
+    }
+    return evidence
   }
 
   async traverseAssertionEvidence(id: CanonicalId): Promise<AssertionEvidenceTraversal | null> {
     const assertion = await this.getAssertion(id)
     if (!assertion) return null
-    return {
-      assertion,
-      evidence: [],
-      targets: []
+    const evidence = await this.getEvidenceForAssertion(id)
+    const targets: CorpusRecord[] = []
+    const seen = new Set<CanonicalId>()
+    for (const item of evidence) {
+      if (seen.has(item.target)) continue
+      const target = await this.getRecord(item.target)
+      if (target) {
+        seen.add(item.target)
+        targets.push(target)
+      }
     }
+    return { assertion, evidence, targets }
   }
 
   async search(query: CorpusSearchQuery): Promise<CorpusSearchResult[]> {
     if (!query.text?.trim()) return []
-    const words = query.text.trim().split(/[\s\-+:,.'"!?()]+/).filter(Boolean)
+    const words = query.text.trim().split(/[\\s\\-+:,.'\"!?()]+/).filter(Boolean)
     if (words.length === 0) return []
     const ftsQuery = words.map((w) => `"${w}"*`).join(' AND ')
 
@@ -289,15 +303,23 @@ export class SqliteCorpusRepository implements CorpusRepository {
     const offset = query.offset ?? 0
 
     try {
-      const sql = `
-        SELECT f.passage_id as id, 'resource' as record_type, 'textual.passage' as kind, f.text as label, f.dataset_id, f.rank
+      let sql = `
+        SELECT f.passage_id as id, 'resource' as record_type, 'textual.passage' as kind,
+               f.text as label, f.dataset_id, f.rank
         FROM fts_contents f
+        JOIN datasets d ON d.id = f.dataset_id
         WHERE fts_contents MATCH ?
-        ORDER BY rank
-        LIMIT ? OFFSET ?
       `
+      const params: Array<string | number> = [ftsQuery]
+      if (query.tradition) {
+        sql += ' AND d.tradition = ?'
+        params.push(query.tradition)
+      }
+      sql += ' ORDER BY rank LIMIT ? OFFSET ?'
+      params.push(limit, offset)
+
       const stmt = this.db.prepare(sql)
-      const rows = stmt.all(ftsQuery, limit, offset) as Array<{
+      const rows = stmt.all(...params) as Array<{
         id: string
         record_type: string
         kind: string
@@ -315,15 +337,23 @@ export class SqliteCorpusRepository implements CorpusRepository {
         score: Math.abs(r.rank ?? 1)
       }))
     } catch {
-      // Fallback to LIKE query if complex FTS syntax fails
-      const fallbackSql = `
-        SELECT c.passage_id as id, 'resource' as record_type, 'textual.passage' as kind, c.text as label, c.dataset_id
+      let fallbackSql = `
+        SELECT c.passage_id as id, 'resource' as record_type, 'textual.passage' as kind,
+               c.text as label, c.dataset_id
         FROM contents c
+        JOIN datasets d ON d.id = c.dataset_id
         WHERE c.text LIKE ?
-        LIMIT ? OFFSET ?
       `
+      const params: Array<string | number> = [`%${words[0]}%`]
+      if (query.tradition) {
+        fallbackSql += ' AND d.tradition = ?'
+        params.push(query.tradition)
+      }
+      fallbackSql += ' LIMIT ? OFFSET ?'
+      params.push(limit, offset)
+
       const stmt = this.db.prepare(fallbackSql)
-      const rows = stmt.all(`%${words[0]}%`, limit, offset) as Array<{
+      const rows = stmt.all(...params) as Array<{
         id: string
         record_type: string
         kind: string
@@ -375,7 +405,7 @@ export class SqliteCorpusRepository implements CorpusRepository {
   /**
    * Query devotionals (Duas, Asmaul Husna, Mantras, Prayers)
    */
-  getDevotionals(tradition?: string, category?: string, limit = 100): any[] {
+  getDevotionals(tradition?: string, category?: string, limit = 100, offset = 0): any[] {
     let sql = 'SELECT * FROM devotionals WHERE 1=1'
     const params: any[] = []
     if (tradition) {
@@ -386,8 +416,8 @@ export class SqliteCorpusRepository implements CorpusRepository {
       sql += ' AND category = ?'
       params.push(category)
     }
-    sql += ' ORDER BY number ASC LIMIT ?'
-    params.push(limit)
+    sql += ' ORDER BY number ASC LIMIT ? OFFSET ?'
+    params.push(limit, offset)
 
     return this.db.prepare(sql).all(...params)
   }
@@ -412,12 +442,131 @@ export class SqliteCorpusRepository implements CorpusRepository {
     `).all() as Array<{ tradition: string; dataset_count: number; total_records: number }>
   }
 
-  getWorks(): Array<{ id: string; dataset_id: string; work_type: string; title_en: string; title_id: string; title_native: string }> {
+  getWorks(): Array<{
+    id: string
+    dataset_id: string
+    work_type: string
+    title_en: string
+    title_id: string
+    title_native: string
+    tradition: string
+    source_language: string
+    rights: string
+    availability: string
+  }> {
     return this.db.prepare(`
-      SELECT id, dataset_id, work_type, title_en, title_id, title_native
-      FROM works
-      ORDER BY title_en ASC
-    `).all() as Array<{ id: string; dataset_id: string; work_type: string; title_en: string; title_id: string; title_native: string }>
+      SELECT w.id, w.dataset_id, w.work_type, w.title_en, w.title_id, w.title_native,
+             d.tradition, d.source_language, d.rights, d.availability
+      FROM works w
+      JOIN datasets d ON d.id = w.dataset_id
+      ORDER BY COALESCE(w.title_en, w.title_native, w.id) ASC
+    `).all() as Array<{
+      id: string
+      dataset_id: string
+      work_type: string
+      title_en: string
+      title_id: string
+      title_native: string
+      tradition: string
+      source_language: string
+      rights: string
+      availability: string
+    }>
+  }
+
+  countWorkPassages(workId: CanonicalId): number {
+    const row = this.db.prepare('SELECT count(*) as c FROM passages WHERE work_id = ?').get(workId) as { c: number }
+    return row.c
+  }
+
+  getDatasetInfo(id: CanonicalId | string): {
+    id: string
+    version: string
+    spec_version: string
+    tradition: string
+    genre: string
+    source_language: string
+    rights: string
+    availability: string
+    record_count: number
+  } | null {
+    const row = this.db.prepare('SELECT * FROM datasets WHERE id = ?').get(id)
+    return row ? row as {
+      id: string
+      version: string
+      spec_version: string
+      tradition: string
+      genre: string
+      source_language: string
+      rights: string
+      availability: string
+      record_count: number
+    } : null
+  }
+
+  async getWorkHierarchy(workId: CanonicalId): Promise<{
+    work: Resource | null
+    expressions: Resource[]
+    editions: Resource[]
+    artifacts: Resource[]
+    dataset: ReturnType<SqliteCorpusRepository['getDatasetInfo']>
+  }> {
+    const work = await this.getResource(workId)
+    const datasetId = await this.getRecordDataset(workId)
+    const candidates = this.db.prepare(`
+      SELECT json FROM raw_records
+      WHERE record_type = 'resource'
+        AND kind IN ('textual.expression', 'textual.edition', 'textual.artifact')
+    `).all() as Array<{ json: string }>
+    const resources = candidates.map((row) => JSON.parse(row.json) as Resource)
+
+    const expressions = resources.filter((record) =>
+      record.kind === 'textual.expression' &&
+      (record.extensions?.textual as { work?: unknown } | undefined)?.work === workId
+    )
+    const expressionIds = new Set(expressions.map((record) => record.id))
+    const editions = resources.filter((record) => {
+      if (record.kind !== 'textual.edition') return false
+      const textual = record.extensions?.textual as { expressions?: unknown } | undefined
+      return Array.isArray(textual?.expressions) && textual.expressions.some((id) => typeof id === 'string' && expressionIds.has(id as CanonicalId))
+    })
+    const editionIds = new Set(editions.map((record) => record.id))
+    const artifacts = resources.filter((record) => {
+      if (record.kind !== 'textual.artifact') return false
+      const textual = record.extensions?.textual as { represents?: unknown } | undefined
+      return typeof textual?.represents === 'string' && editionIds.has(textual.represents as CanonicalId)
+    })
+
+    return {
+      work,
+      expressions,
+      editions,
+      artifacts,
+      dataset: datasetId ? this.getDatasetInfo(datasetId) : null
+    }
+  }
+
+  getRelatedTextualResources(targetId: CanonicalId): Resource[] {
+    const rows = this.db.prepare(`
+      SELECT json FROM raw_records
+      WHERE record_type = 'resource'
+        AND kind IN ('textual.alignment', 'textual.variant')
+        AND json LIKE ?
+    `).all(`%${targetId}%`) as Array<{ json: string }>
+    return rows
+      .map((row) => JSON.parse(row.json) as Resource)
+      .filter((record) => JSON.stringify(record).includes(targetId))
+  }
+
+  getEvidenceTargeting(targetId: CanonicalId): Evidence[] {
+    const rows = this.db.prepare(`
+      SELECT json FROM raw_records
+      WHERE record_type = 'evidence'
+        AND json LIKE ?
+    `).all(`%${targetId}%`) as Array<{ json: string }>
+    return rows
+      .map((row) => JSON.parse(row.json) as Evidence)
+      .filter((record) => record.target === targetId)
   }
 
   close(): void {

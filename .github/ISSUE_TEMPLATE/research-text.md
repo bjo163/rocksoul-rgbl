@@ -37,7 +37,7 @@ assignees: ""
 
 ## Source Candidates
 
-| Source / witness | Type | Date | Link / locator | What it may support |
+| Source | Type | Date | Link / locator | What it may support |
 |---|---|---|---|---|
 | | | | | |
 

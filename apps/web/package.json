@@ -6,7 +6,7 @@
   "description": "RGBL scripture and revelation reference observatory.",
   "scripts": {
     "dev": "vite",
-    "build": "tsc --noEmit && vite build",
+    "build": "node scripts/ensure-catalog.mjs && tsc --noEmit && vite build",
     "typecheck": "tsc --noEmit",
     "test": "node scripts/contract-test.mjs",
     "preview": "vite preview"

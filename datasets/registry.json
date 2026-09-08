@@ -4,27 +4,40 @@
     {
       "id": "mw:dataset:dhammapada:sujato",
       "path": "datasets/dhammapada-sujato",
-      "status": "active"
+      "status": "active",
+      "tradition": "buddhism",
+      "genre": "scripture_translation",
+      "sourceLanguage": "en"
     },
     {
       "id": "mw:dataset:dhammapada:indonesian-wikisource",
       "path": "datasets/dhammapada-indonesian-wikisource",
-      "status": "active"
+      "status": "active",
+      "tradition": "buddhism",
+      "genre": "scripture_translation",
+      "sourceLanguage": "id"
     },
     {
       "id": "mw:dataset:lexicon:quran-arabic-core",
       "path": "datasets/quran-arabic-lexicon",
-      "status": "supplemental"
+      "status": "supplemental",
+      "tradition": "islam",
+      "genre": "lexicon",
+      "sourceLanguage": "ar"
     },
     {
       "id": "mw:dataset:lexicon:dhammapada-core",
       "path": "datasets/dhammapada-lexicon",
-      "status": "supplemental"
+      "status": "supplemental",
+      "tradition": "buddhism",
+      "genre": "lexicon"
     },
     {
       "id": "mw:dataset:research-graph:baseline",
       "path": "datasets/research-graph-baseline",
-      "status": "supplemental"
+      "status": "supplemental",
+      "tradition": "multitradition",
+      "genre": "research_graph"
     },
     {
       "id": "mw:dataset:example:minimal",
@@ -59,172 +72,269 @@
     {
       "id": "mw:dataset:bible:passage-alignments",
       "path": "datasets/bible-passage-alignments",
-      "status": "active"
+      "status": "active",
+      "tradition": "multitradition",
+      "genre": "textual_alignment"
     },
     {
       "id": "mw:dataset:bible:tsi-2021",
       "path": "datasets/bible-tsi-2021",
-      "status": "active"
+      "status": "active",
+      "tradition": "christianity",
+      "genre": "scripture_translation",
+      "sourceLanguage": "id"
     },
     {
       "id": "mw:dataset:oshb:wlc",
       "path": "datasets/oshb-wlc",
-      "status": "active"
+      "status": "active",
+      "tradition": "judaism",
+      "genre": "scripture",
+      "sourceLanguage": "he"
     },
     {
       "id": "mw:dataset:sblgnt:v1-2",
       "path": "datasets/sblgnt-v1-2",
-      "status": "active"
+      "status": "active",
+      "tradition": "christianity",
+      "genre": "scripture",
+      "sourceLanguage": "grc"
     },
     {
       "id": "mw:dataset:suttacentral:dn-mn-sujato",
       "path": "datasets/suttacentral-dn-mn-sujato",
-      "status": "active"
+      "status": "active",
+      "tradition": "buddhism",
+      "genre": "scripture_translation",
+      "sourceLanguage": "en"
     },
     {
       "id": "mw:dataset:suttacentral:sn-an-sujato",
       "path": "datasets/suttacentral-sn-an-sujato",
-      "status": "active"
+      "status": "active",
+      "tradition": "buddhism",
+      "genre": "scripture_translation",
+      "sourceLanguage": "en"
     },
     {
       "id": "mw:dataset:web-classic:2020",
       "path": "datasets/web-classic-2020",
-      "status": "active"
+      "status": "active",
+      "tradition": "christianity",
+      "genre": "scripture_translation",
+      "sourceLanguage": "en"
     },
     {
       "id": "mw:dataset:world-religions:baseline",
       "path": "datasets/world-religions-baseline",
-      "status": "active"
+      "status": "active",
+      "tradition": "multitradition",
+      "genre": "reference_graph"
     },
     {
       "id": "mw:dataset:world-religions:textual-evidence",
       "path": "datasets/world-religions-textual-evidence",
-      "status": "active"
+      "status": "active",
+      "tradition": "multitradition",
+      "genre": "textual_evidence"
     },
     {
       "id": "mw:dataset:quran:tanzil-uthmani",
       "path": "datasets/quran-tanzil-uthmani",
-      "status": "active"
+      "status": "active",
+      "tradition": "islam",
+      "genre": "scripture",
+      "sourceLanguage": "ar"
     },
     {
       "id": "mw:dataset:quranenc:english-rwwad",
       "path": "datasets/quranenc-english-rwwad",
-      "status": "active"
+      "status": "active",
+      "tradition": "islam",
+      "genre": "scripture_translation",
+      "sourceLanguage": "en"
     },
     {
       "id": "mw:dataset:quranenc:indonesian-kemenag",
       "path": "datasets/quranenc-indonesian-kemenag",
-      "status": "active"
+      "status": "active",
+      "tradition": "islam",
+      "genre": "scripture_translation",
+      "sourceLanguage": "id"
     },
     {
       "id": "mw:dataset:hadith:nawawi-40",
       "path": "datasets/hadith-nawawi-40",
-      "status": "supplemental"
+      "status": "supplemental",
+      "tradition": "islam",
+      "genre": "hadith",
+      "sourceLanguage": "ar"
     },
     {
       "id": "mw:dataset:mishnah:pirkei-avot",
       "path": "datasets/mishnah-pirkei-avot",
-      "status": "supplemental"
+      "status": "supplemental",
+      "tradition": "judaism",
+      "genre": "rabbinic_text",
+      "sourceLanguage": "he"
     },
     {
       "id": "mw:dataset:hinduism:bhagavad-gita",
       "path": "datasets/bhagavad-gita",
-      "status": "supplemental"
+      "status": "supplemental",
+      "tradition": "hinduism",
+      "genre": "scripture",
+      "sourceLanguage": "sa"
     },
     {
       "id": "mw:dataset:christianity:early-writings",
       "path": "datasets/early-christian-writings",
-      "status": "supplemental"
+      "status": "supplemental",
+      "tradition": "christianity",
+      "genre": "early_christian_writings"
     },
     {
       "id": "mw:dataset:islam:quran-tafsir-sample",
       "path": "datasets/quran-tafsir-sample",
-      "status": "supplemental"
+      "status": "supplemental",
+      "tradition": "islam",
+      "genre": "commentary",
+      "sourceLanguage": "ar"
     },
     {
       "id": "mw:dataset:devotional:baseline",
       "path": "datasets/devotional-baseline",
-      "status": "supplemental"
+      "status": "supplemental",
+      "tradition": "multitradition",
+      "genre": "devotional"
     },
     {
       "id": "mw:dataset:lexicon:hebrew-biblical-core",
       "path": "datasets/hebrew-biblical-lexicon",
-      "status": "supplemental"
+      "status": "supplemental",
+      "tradition": "judaism",
+      "genre": "lexicon",
+      "sourceLanguage": "he"
     },
     {
       "id": "mw:dataset:lexicon:greek-christian-core",
       "path": "datasets/greek-christian-lexicon",
-      "status": "supplemental"
+      "status": "supplemental",
+      "tradition": "christianity",
+      "genre": "lexicon",
+      "sourceLanguage": "grc"
     },
     {
       "id": "mw:dataset:lexicon:sanskrit-hindu-core",
       "path": "datasets/sanskrit-hindu-lexicon",
-      "status": "supplemental"
+      "status": "supplemental",
+      "tradition": "hinduism",
+      "genre": "lexicon",
+      "sourceLanguage": "sa"
     },
     {
       "id": "mw:dataset:islam:asmaul-husna-99",
       "path": "datasets/asmaul-husna-99",
-      "status": "supplemental"
+      "status": "supplemental",
+      "tradition": "islam",
+      "genre": "devotional",
+      "sourceLanguage": "ar"
     },
     {
       "id": "mw:dataset:islam:duas-authentic",
       "path": "datasets/islamic-duas-authentic",
-      "status": "supplemental"
+      "status": "supplemental",
+      "tradition": "islam",
+      "genre": "devotional",
+      "sourceLanguage": "ar"
     },
     {
       "id": "mw:dataset:hadith:bukhari",
       "path": "datasets/hadith-bukhari",
-      "status": "supplemental"
+      "status": "supplemental",
+      "tradition": "islam",
+      "genre": "hadith",
+      "sourceLanguage": "ar"
     },
     {
       "id": "mw:dataset:hadith:muslim",
       "path": "datasets/hadith-muslim",
-      "status": "supplemental"
+      "status": "supplemental",
+      "tradition": "islam",
+      "genre": "hadith",
+      "sourceLanguage": "ar"
     },
     {
       "id": "mw:dataset:taoism:tao-te-ching",
       "path": "datasets/tao-te-ching",
-      "status": "supplemental"
+      "status": "supplemental",
+      "tradition": "daoism",
+      "genre": "scripture",
+      "sourceLanguage": "lzh"
     },
     {
       "id": "mw:dataset:confucianism:analects",
       "path": "datasets/analects-confucius",
-      "status": "supplemental"
+      "status": "supplemental",
+      "tradition": "confucianism",
+      "genre": "classical_text",
+      "sourceLanguage": "lzh"
     },
     {
       "id": "mw:dataset:hinduism:yoga-sutras",
       "path": "datasets/yoga-sutras",
-      "status": "supplemental"
+      "status": "supplemental",
+      "tradition": "hinduism",
+      "genre": "scripture",
+      "sourceLanguage": "sa"
     },
     {
       "id": "mw:dataset:hinduism:principal-upanishads",
       "path": "datasets/principal-upanishads",
-      "status": "supplemental"
+      "status": "supplemental",
+      "tradition": "hinduism",
+      "genre": "scripture",
+      "sourceLanguage": "sa"
     },
     {
       "id": "mw:dataset:zoroastrianism:gathas",
       "path": "datasets/gathas-zarathustra",
-      "status": "supplemental"
+      "status": "supplemental",
+      "tradition": "zoroastrianism",
+      "genre": "scripture",
+      "sourceLanguage": "ae"
     },
     {
       "id": "mw:dataset:sikhism:japji-sahib",
       "path": "datasets/sikhism-japji-sahib",
-      "status": "supplemental"
+      "status": "supplemental",
+      "tradition": "sikhism",
+      "genre": "scripture_devotional",
+      "sourceLanguage": "pa"
     },
     {
       "id": "mw:dataset:jainism:tattvartha-sutra",
       "path": "datasets/jainism-tattvartha-sutra",
-      "status": "supplemental"
+      "status": "supplemental",
+      "tradition": "jainism",
+      "genre": "scripture",
+      "sourceLanguage": "sa"
     },
     {
       "id": "mw:dataset:bahai:hidden-words",
       "path": "datasets/bahai-hidden-words",
-      "status": "supplemental"
+      "status": "supplemental",
+      "tradition": "bahai",
+      "genre": "scripture_aphorisms",
+      "sourceLanguage": "ar"
     },
     {
       "id": "mw:dataset:shinto:kojiki",
       "path": "datasets/shinto-kojiki-baseline",
-      "status": "supplemental"
+      "status": "supplemental",
+      "tradition": "shinto",
+      "genre": "classical_text",
+      "sourceLanguage": "ja"
     }
   ]
 }

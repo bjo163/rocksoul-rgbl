@@ -38,14 +38,15 @@ jobs:
         run: node scripts/chunk-browser-search-db.mjs
       - name: Archive browser database
         run: tar -C dist/browser/chunks -czf dist/rgbl-browser-db.tar.gz .
-      - name: Publish content-addressed browser database
+      - name: Publish versioned content-addressed browser database
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           HASH="$(node -e "console.log(JSON.parse(require('fs').readFileSync('apps/web/public/corpus-catalog.json','utf8')).corpusHash)")"
-          TAG="browser-db-$HASH"
+          SCHEMA="$(node -e "console.log(JSON.parse(require('fs').readFileSync('dist/browser/chunks/config.json','utf8')).schemaVersion)")"
+          TAG="browser-db-v${SCHEMA}-${HASH}"
           if ! gh release view "$TAG" >/dev/null 2>&1; then
-            gh release create "$TAG" --target "$GITHUB_SHA" --title "RGBL Browser DB $HASH" --notes "Generated browser-compatible corpus search database for immutable corpus hash $HASH."
+            gh release create "$TAG" --target "$GITHUB_SHA" --title "RGBL Browser DB v${SCHEMA} ${HASH}" --notes "Generated browser-compatible corpus database for schema v${SCHEMA} and immutable corpus hash ${HASH}."
           fi
           gh release upload "$TAG" dist/rgbl-browser-db.tar.gz --clobber
           echo "Published $TAG"

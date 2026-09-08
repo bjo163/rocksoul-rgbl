@@ -90,8 +90,10 @@ export class MoonWitness {
       } else if (this.apiEndpoint) {
         const res = await fetch(`${this.apiEndpoint}/v1/passages/${encodeURIComponent(canonicalId)}`)
         if (!res.ok) return null
-        const data = (await res.json()) as { passage: Resource; contents: Resource[] }
-        return this.formatParallelVerse(data.passage, data.contents)
+        const payload = (await res.json()) as { data?: { passage?: Resource; contents?: Resource[] }; passage?: Resource; contents?: Resource[] }
+        const data = payload.data ?? payload
+        if (!data.passage) return null
+        return this.formatParallelVerse(data.passage, data.contents ?? [])
       }
       return null
     }
@@ -105,7 +107,10 @@ export class MoonWitness {
         return this.repo.getRecord(canonicalId)
       } else if (this.apiEndpoint) {
         const res = await fetch(`${this.apiEndpoint}/v1/works/${encodeURIComponent(canonicalId)}`)
-        return res.ok ? res.json() : null
+        if (!res.ok) return null
+        const payload = (await res.json()) as { data?: { work?: unknown } | unknown }
+        const data = payload.data
+        return data && typeof data === 'object' && 'work' in data ? (data as { work: unknown }).work : data ?? payload
       }
       return null
     },
@@ -127,7 +132,7 @@ export class MoonWitness {
         return {
           page,
           limit,
-          passages: (data.passages || []).map((i: any) => this.formatParallelVerse(i.passage, i.contents))
+          passages: (data.data || data.passages || []).map((i: any) => this.formatParallelVerse(i.passage, i.contents || []))
         }
       }
       return { page, limit, passages: [] }
@@ -146,7 +151,7 @@ export class MoonWitness {
         if (filter.limit) params.set('limit', String(filter.limit))
         const res = await fetch(`${this.apiEndpoint}/v1/devotionals?${params}`)
         const data = (await res.json()) as any
-        return data.items || []
+        return data.data || data.items || []
       }
       return []
     }
@@ -159,7 +164,7 @@ export class MoonWitness {
     } else if (this.apiEndpoint) {
       const res = await fetch(`${this.apiEndpoint}/v1/search?q=${encodeURIComponent(query)}&limit=${options.limit ?? 20}&offset=${options.offset ?? 0}`)
       const data = (await res.json()) as any
-      return data.results || []
+      return data.data || data.results || []
     }
     return []
   }

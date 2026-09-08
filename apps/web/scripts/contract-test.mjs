@@ -5,10 +5,11 @@ import process from "node:process"
 const root = process.cwd()
 const read = (file) => readFile(path.join(root, file), "utf8")
 
-const [data, main, api, pkgRaw, indexHtml, styles, generator, semanticRules, catalog] = await Promise.all([
+const [data, main, api, browserDb, pkgRaw, indexHtml, styles, generator, semanticRules, catalog] = await Promise.all([
   read("src/data.ts"),
   read("src/main.tsx"),
   read("src/api.ts"),
+  read("src/browser-db.ts"),
   read("package.json"),
   read("index.html"),
   read("src/styles.css"),
@@ -41,6 +42,12 @@ expect(api.includes("/v1/passages/"), "passage trace API adapter is missing")
 expect(api.includes("/v1/assertions/"), "assertion traversal API adapter is missing")
 expect(api.includes('const CATALOG_URL = "/corpus-catalog.json"'), "generated catalog adapter is missing")
 expect(api.includes("loadCatalog"), "catalog loader is missing")
+expect(api.includes("browserLoadWorkHierarchy"), "browser hierarchy adapter is missing")
+expect(api.includes("browserTraverseAssertion"), "browser assertion traversal adapter is missing")
+expect(browserDb.includes("CREATE TABLE") === false, "browser runtime must consume, not build, the corpus database")
+for (const surface of ["browserLoadWorkHierarchy", "browserLoadPassageTrace", "browserTraverseAssertion", "browserDbStats"]) {
+  expect(browserDb.includes(surface), `full browser graph surface is missing: ${surface}`)
+}
 expect(generator.includes('datasets/registry.json'), "catalog generator must use the canonical dataset registry")
 expect(generator.includes('config/upstream-registry.json'), "catalog generator must use the upstream tradition registry")
 expect(generator.includes('config/textual-semantic-rules.json'), "catalog generator must use machine-readable semantic rules")

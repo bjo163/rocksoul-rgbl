@@ -23,12 +23,14 @@ export const devotionalsRoutes: FastifyPluginAsync = async (fastify) => {
       limit?: number
       offset?: number
     }
-    const items = fastify.repo.getDevotionals(tradition, category, limit)
+    const items = fastify.repo.getDevotionals(tradition, category, Math.max(1, Math.min(100, limit)), Math.max(0, offset))
 
     return {
       success: true,
       tradition,
       category: category ?? 'all',
+      limit,
+      offset,
       count: items.length,
       data: items
     }

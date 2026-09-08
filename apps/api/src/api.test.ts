@@ -82,13 +82,12 @@ test('Fastify Corpus API Engine with OpenTelemetry & Dynamic Traditions', async 
     assert.ok(Array.isArray(json.data.artifacts))
   })
 
-  await t.test('GET /v1/assertions/:id/traversal resolves explicit evidence targets', async () => {
-    const res = await app.inject({ method: 'GET', url: '/v1/assertions/mw%3Aassertion%3Aexample%3A001/traversal' })
+  await t.test('GET /v1/assertions/:id/traversal resolves active direct evidence references', async () => {
+    const res = await app.inject({ method: 'GET', url: '/v1/assertions/mw%3Aassertion%3Ap13%3Atextual-evidence%3A1/traversal' })
     assert.equal(res.statusCode, 200)
     const json = res.json()
-    assert.equal(json.data.assertion.id, 'mw:assertion:example:001')
-    assert.ok(json.data.evidence.some((item: any) => item.id === 'mw:evidence:example:001'))
-    assert.ok(json.data.targets.length >= 1)
+    assert.equal(json.data.assertion.id, 'mw:assertion:p13:textual-evidence:1')
+    assert.ok(json.data.targets.some((item: any) => item.id === 'mw:content:quran:2:87:ar-uthmani'))
   })
 
   await t.test('GET /v1/search honors tradition filtering and pagination metadata', async () => {

@@ -282,6 +282,7 @@ export class SqliteCorpusRepository implements CorpusRepository {
     const evidence = await this.getEvidenceForAssertion(id)
     const targets: CorpusRecord[] = []
     const seen = new Set<CanonicalId>()
+
     for (const item of evidence) {
       if (seen.has(item.target)) continue
       const target = await this.getRecord(item.target)
@@ -290,6 +291,20 @@ export class SqliteCorpusRepository implements CorpusRepository {
         targets.push(target)
       }
     }
+
+    // Some production datasets use assertion.evidence as a direct pointer to
+    // source/content records rather than an intermediate Evidence record.
+    // Preserve that distinction: resolve those records as targets without
+    // manufacturing synthetic Evidence objects.
+    for (const reference of assertion.evidence ?? []) {
+      if (evidence.some((item) => item.id === reference) || seen.has(reference)) continue
+      const target = await this.getRecord(reference)
+      if (target) {
+        seen.add(reference)
+        targets.push(target)
+      }
+    }
+
     return { assertion, evidence, targets }
   }
 

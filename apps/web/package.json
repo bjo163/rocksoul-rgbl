@@ -6,7 +6,7 @@
   "description": "RGBL scripture and revelation reference observatory.",
   "scripts": {
     "dev": "vite",
-    "build": "node scripts/ensure-catalog.mjs && tsc --noEmit && vite build",
+    "build": "node scripts/ensure-catalog.mjs && node scripts/ensure-browser-db.mjs && tsc --noEmit && vite build",
     "typecheck": "tsc --noEmit",
     "test": "node scripts/contract-test.mjs",
     "preview": "vite preview"
@@ -14,7 +14,8 @@
   "dependencies": {
     "@rocksoul/ui": "github:bjo163/rocksoul-ui#1730eda55564654dc8d4131bbdbf126d0c2d1eca",
     "react": "19.2.8",
-    "react-dom": "19.2.8"
+    "react-dom": "19.2.8",
+    "sql.js-httpvfs": "0.8.12"
   },
   "devDependencies": {
     "@types/react": "19.2.0",

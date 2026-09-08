@@ -44,6 +44,52 @@ function titleCase(value) {
     .join(" ")
 }
 
+port { createHash } from "node:crypto"
+import { execFileSync } from "node:child_process"
+import { existsSync } from "node:fs"
+import { mkdir, readFile, readdir, writeFile } from "node:fs/promises"
+import path from "node:path"
+import { fileURLToPath } from "node:url"
+
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..")
+const outputPath = path.join(root, "apps/web/public/corpus-catalog.json")
+const checkOnly = process.argv.includes("--check")
+const maxSamplePassagesPerWork = 12
+
+async function readJson(file) {
+  return JSON.parse(await readFile(file, "utf8"))
+}
+
+async function listJsonl(dir) {
+  if (!existsSync(dir)) return []
+  const out = []
+  for (const entry of await readdir(dir, { withFileTypes: true })) {
+    const full = path.join(dir, entry.name)
+    if (entry.isDirectory()) out.push(...await listJsonl(full))
+    else if (entry.isFile() && entry.name.endsWith(".jsonl")) out.push(full)
+  }
+  return out.sort()
+}
+
+function asObject(value) {
+  return value && typeof value === "object" && !Array.isArray(value) ? value : {}
+}
+
+function preferredLabel(record) {
+  const labels = Array.isArray(record.labels) ? record.labels : []
+  const preferredEn = labels.find((label) => label?.role === "preferred" && label?.language === "en")
+  const preferred = labels.find((label) => label?.role === "preferred")
+  return preferredEn?.value ?? preferred?.value ?? labels[0]?.value ?? record.id
+}
+
+function titleCase(value) {
+  return String(value)
+    .split(/[-_]/g)
+    .filter(Boolean)
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(" ")
+}
+
 function sourceRevision() {
   try {
     return execFileSync("git", ["rev-parse", "HEAD"], { cwd: root, encoding: "utf8" }).trim()
@@ -85,7 +131,7 @@ for (const entry of registry.datasets) {
   })
 }
 
-const worksRaw = new Map()
+const corpusHasher = createHash("sha256")\nfor (const dataset of datasets) corpusHasher.update(JSON.stringify(dataset.manifest))\n\nconst worksRaw = new Map()
 const workDataset = new Map()
 const expressionsRaw = new Map()
 const expressionToWork = new Map()

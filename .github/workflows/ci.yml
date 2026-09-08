@@ -61,7 +61,7 @@ jobs:
           node-version: 22
       - name: Install web dependencies
         working-directory: apps/web
-        run: npm install
+        run: npx --yes npm@11.6.0 install
       - name: Typecheck web
         working-directory: apps/web
         run: npm run typecheck

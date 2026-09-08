@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "version": "1.0.0",
   "title": "MoonWitness Fast-Track Corpus Expansion Queue",
-  "updatedAt": "2026-09-06",
+  "updatedAt": "2026-09-08",
   "policy": {
     "workingBranch": "dev",
     "releaseBranch": "main",
@@ -62,6 +62,19 @@
         "rights": "Project Gutenberg marks public domain in the USA; verify target-jurisdiction status before redistribution",
         "status": "in_progress",
         "notes": "Acquisition manifest, recipe, canonical mapper, and 15-minute CI materializer are now in dev."
+      },
+      {
+        "id": "breadth-yoga-sutras-johnston-gutenberg",
+        "priority": 96,
+        "tradition": "hinduism",
+        "work": "The Yoga Sutras of Patanjali",
+        "edition": "Charles Johnston interpretation, Project Gutenberg eBook 2526",
+        "language": "en",
+        "source": "https://www.gutenberg.org/ebooks/2526",
+        "plainTextSource": "https://www.gutenberg.org/cache/epub/2526/pg2526.txt",
+        "rights": "Project Gutenberg marks public domain in the USA; verify target-jurisdiction status before redistribution; worldwide status remains jurisdiction-dependent",
+        "status": "ready_for_ingestion",
+        "notes": "Replacement for blocked Chinese Text Project lane. Source exposes four books and an explicit 196-sutra structure; ingestion must verify text/plain, Gutenberg identity, non-empty sutra coverage, and reject HTML/challenge payloads. No machine translation."
       }
     ]
   }

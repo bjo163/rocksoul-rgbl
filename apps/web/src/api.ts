@@ -1,24 +1,22 @@
-import {
-  fallbackPassages,
-  fallbackSearchRecords,
-  fallbackTraditions,
-  fallbackWorks,
-  type AssertionTraversal,
-  type ContentLane,
-  type CorpusResource,
-  type DatasetInfo,
-  type EvidenceRecord,
-  type Passage,
-  type PassageTrace,
-  type ProvenanceRecord,
-  type SearchRecord,
-  type Tradition,
-  type Work,
-  type WorkHierarchy,
+import type {
+  AssertionTraversal,
+  ContentLane,
+  CorpusCatalog,
+  CorpusResource,
+  DatasetInfo,
+  EvidenceRecord,
+  Passage,
+  PassageTrace,
+  SearchRecord,
+  SemanticRuleRow,
+  Tradition,
+  Work,
+  WorkHierarchy,
 } from "./data"
 
 const API_BASE = (import.meta.env.VITE_RGBL_API_URL as string | undefined)?.replace(/\/+$/, "") ?? ""
 const REQUEST_TIMEOUT_MS = 8_000
+const CATALOG_URL = "/corpus-catalog.json"
 
 export const rgblApiConfigured = Boolean(API_BASE)
 export const rgblApiBaseUrl = API_BASE
@@ -31,11 +29,13 @@ export interface ApiHealth {
   totalRecords?: number
   database?: string
   memoryUsageMb?: number
+  corpusHash?: string
+  catalogHash?: string
 }
 
 export interface LoadResult<T> {
   data: T
-  source: "api" | "fallback"
+  source: "api" | "catalog"
   error?: string
 }
 
@@ -96,16 +96,28 @@ function normalizeDataset(value: unknown): DatasetInfo | null {
   }
 }
 
+let catalogPromise: Promise<CorpusCatalog> | undefined
+
+export function loadCatalog(): Promise<CorpusCatalog> {
+  if (!catalogPromise) {
+    catalogPromise = fetch(CATALOG_URL, { headers: { accept: "application/json" } }).then(async (response) => {
+      if (!response.ok) throw new Error("Generated corpus catalog returned " + response.status)
+      return await response.json() as CorpusCatalog
+    })
+  }
+  return catalogPromise
+}
+
 async function requestJson<T>(path: string): Promise<T> {
   if (!API_BASE) throw new Error("RGBL API URL is not configured")
   const controller = new AbortController()
   const timeout = window.setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS)
   try {
-    const response = await fetch(`${API_BASE}${path}`, {
+    const response = await fetch(API_BASE + path, {
       headers: { accept: "application/json" },
       signal: controller.signal,
     })
-    if (!response.ok) throw new Error(`RGBL API returned ${response.status}`)
+    if (!response.ok) throw new Error("RGBL API returned " + response.status)
     return await response.json() as T
   } finally {
     window.clearTimeout(timeout)
@@ -114,71 +126,105 @@ async function requestJson<T>(path: string): Promise<T> {
 
 function errorMessage(error: unknown) {
   if (error instanceof Error) return error.name === "AbortError" ? "RGBL API request timed out" : error.message
-  return "RGBL API request failed"
+  return "RGBL data request failed"
+}
+
+async function catalogResult<T>(select: (catalog: CorpusCatalog) => T, error?: unknown): Promise<LoadResult<T>> {
+  try {
+    const catalog = await loadCatalog()
+    return { data: select(catalog), source: "catalog", error: error ? errorMessage(error) : undefined }
+  } catch (catalogError) {
+    const message = [error ? errorMessage(error) : "", errorMessage(catalogError)].filter(Boolean).join(" · ")
+    throw new Error(message || "Canonical web catalog is unavailable")
+  }
 }
 
 export async function loadHealth(): Promise<LoadResult<ApiHealth | null>> {
-  if (!API_BASE) return { data: null, source: "fallback" }
-  try {
-    return { data: await requestJson<ApiHealth>("/v1/health"), source: "api" }
-  } catch (error) {
-    return { data: null, source: "fallback", error: errorMessage(error) }
+  if (API_BASE) {
+    try {
+      return { data: await requestJson<ApiHealth>("/v1/health"), source: "api" }
+    } catch (error) {
+      return catalogResult((catalog) => ({
+        status: "catalog-ready",
+        service: "rocksoul-rgbl-static-catalog",
+        totalRecords: catalog.summary.totalRecords,
+        database: "Generated canonical repository catalog",
+        corpusHash: catalog.corpusHash,
+        catalogHash: catalog.catalogHash,
+      }), error)
+    }
   }
+  return catalogResult((catalog) => ({
+    status: "catalog-ready",
+    service: "rocksoul-rgbl-static-catalog",
+    totalRecords: catalog.summary.totalRecords,
+    database: "Generated canonical repository catalog",
+    corpusHash: catalog.corpusHash,
+    catalogHash: catalog.catalogHash,
+  }))
+}
+
+export async function loadSemanticRules(): Promise<LoadResult<SemanticRuleRow[]>> {
+  return catalogResult((catalog) => catalog.semanticRules)
 }
 
 export async function loadTraditions(): Promise<LoadResult<Tradition[]>> {
-  if (!API_BASE) return { data: fallbackTraditions, source: "fallback" }
-  try {
-    const payload = await requestJson<{ data?: unknown[] }>("/v1/traditions")
-    const rows = Array.isArray(payload.data) ? payload.data : []
-    return {
-      source: "api",
-      data: rows.map((item) => {
-        const row = asRecord(item)
-        return {
-          id: stringValue(row.id, row.tradition) ?? "unknown",
-          name: stringValue(row.name, row.tradition) ?? "Unknown tradition",
-          datasetCount: numberValue(row.datasetCount, row.dataset_count),
-          totalRecords: numberValue(row.totalRecords, row.total_records),
-          primaryLanguage: stringValue(row.primaryLanguage, row.primary_language),
-          scripts: Array.isArray(row.scripts) ? row.scripts.filter((value): value is string => typeof value === "string") : [],
-        }
-      }),
+  if (API_BASE) {
+    try {
+      const payload = await requestJson<{ data?: unknown[] }>("/v1/traditions")
+      const rows = Array.isArray(payload.data) ? payload.data : []
+      return {
+        source: "api",
+        data: rows.map((item) => {
+          const row = asRecord(item)
+          return {
+            id: stringValue(row.id, row.tradition) ?? "unknown",
+            name: stringValue(row.name, row.tradition) ?? "Unknown tradition",
+            datasetCount: numberValue(row.datasetCount, row.dataset_count),
+            totalRecords: numberValue(row.totalRecords, row.total_records),
+            primaryLanguage: stringValue(row.primaryLanguage, row.primary_language),
+            scripts: Array.isArray(row.scripts) ? row.scripts.filter((value): value is string => typeof value === "string") : [],
+          }
+        }),
+      }
+    } catch (error) {
+      return catalogResult((catalog) => catalog.traditions, error)
     }
-  } catch (error) {
-    return { data: fallbackTraditions, source: "fallback", error: errorMessage(error) }
   }
+  return catalogResult((catalog) => catalog.traditions)
 }
 
 export async function loadWorks(): Promise<LoadResult<Work[]>> {
-  if (!API_BASE) return { data: fallbackWorks, source: "fallback" }
-  try {
-    const payload = await requestJson<{ data?: unknown[] }>("/v1/works")
-    const rows = Array.isArray(payload.data) ? payload.data : []
-    return {
-      source: "api",
-      data: rows.map((item, index) => {
-        const row = asRecord(item)
-        const id = stringValue(row.id, row.canonical_id, row.canonicalId) ?? `work-${index + 1}`
-        const title = stringValue(row.title_en, row.title_id, row.title_native, row.title, row.name) ?? id
-        const workType = stringValue(row.work_type, row.workType)
-        const datasetId = stringValue(row.dataset_id, row.datasetId)
-        return {
-          id,
-          title,
-          tradition: stringValue(row.tradition) ?? "unscoped",
-          language: stringValue(row.source_language, row.language),
-          description: workType ? `${workType.replaceAll("_", " ")} · canonical textual.work` : "Canonical textual.work record.",
-          source: datasetId ?? "RGBL canonical corpus",
-          datasetId,
-          rights: stringValue(row.rights),
-          availability: stringValue(row.availability),
-        }
-      }),
+  if (API_BASE) {
+    try {
+      const payload = await requestJson<{ data?: unknown[] }>("/v1/works")
+      const rows = Array.isArray(payload.data) ? payload.data : []
+      return {
+        source: "api",
+        data: rows.map((item, index) => {
+          const row = asRecord(item)
+          const id = stringValue(row.id, row.canonical_id, row.canonicalId) ?? "work-" + String(index + 1)
+          const title = stringValue(row.title_en, row.title_id, row.title_native, row.title, row.name) ?? id
+          const workType = stringValue(row.work_type, row.workType)
+          const datasetId = stringValue(row.dataset_id, row.datasetId)
+          return {
+            id,
+            title,
+            tradition: stringValue(row.tradition) ?? "unscoped",
+            language: stringValue(row.source_language, row.language),
+            description: workType ? workType.replaceAll("_", " ") + " · canonical textual.work" : "Canonical textual.work record.",
+            source: datasetId ?? "RGBL canonical corpus",
+            datasetId,
+            rights: stringValue(row.rights),
+            availability: stringValue(row.availability),
+          }
+        }),
+      }
+    } catch (error) {
+      return catalogResult((catalog) => catalog.works, error)
     }
-  } catch (error) {
-    return { data: fallbackWorks, source: "fallback", error: errorMessage(error) }
   }
+  return catalogResult((catalog) => catalog.works)
 }
 
 function normalizeContent(item: unknown): ContentLane {
@@ -206,7 +252,7 @@ function normalizePassageBundle(item: unknown, workId: string): Passage {
   const bundle = asRecord(item)
   const passage = asRecord(bundle.passage && typeof bundle.passage === "object" ? bundle.passage : item)
   const contents = Array.isArray(bundle.contents) ? bundle.contents.map(normalizeContent) : []
-  const id = stringValue(passage.id) ?? `${workId}:passage:unknown`
+  const id = stringValue(passage.id) ?? workId + ":passage:unknown"
   const firstContent = contents[0]
   return {
     id,
@@ -217,76 +263,86 @@ function normalizePassageBundle(item: unknown, workId: string): Passage {
     source: firstContent?.artifact ?? "RGBL canonical corpus",
     provenance: firstContent?.provenance ?? "Provenance is available on the canonical source/content record.",
     note: contents.length
-      ? `${contents.length} exact content lane${contents.length === 1 ? "" : "s"} available.`
+      ? String(contents.length) + " exact content lane(s) available."
       : "No exact content lane was returned for this passage.",
     contents,
   }
 }
 
 export async function loadPassages(workId: string, offset = 0, limit = 12): Promise<PageResult<Passage>> {
-  if (!API_BASE) {
-    const all = fallbackPassages.filter((passage) => passage.workId === workId)
-    const data = all.slice(offset, offset + limit)
-    return { data, source: "fallback", offset, limit, total: all.length, hasMore: offset + data.length < all.length }
-  }
-  try {
-    const params = new URLSearchParams({ limit: String(limit), offset: String(offset) })
-    const payload = await requestJson<{ data?: unknown[]; total?: number; hasMore?: boolean; limit?: number; offset?: number }>(
-      `/v1/works/${encodeURIComponent(workId)}/passages?${params.toString()}`,
-    )
-    const rows = Array.isArray(payload.data) ? payload.data : []
-    return {
-      source: "api",
-      data: rows.map((item) => normalizePassageBundle(item, workId)),
-      offset: payload.offset ?? offset,
-      limit: payload.limit ?? limit,
-      total: payload.total,
-      hasMore: Boolean(payload.hasMore),
+  if (API_BASE) {
+    try {
+      const params = new URLSearchParams({ limit: String(limit), offset: String(offset) })
+      const payload = await requestJson<{ data?: unknown[]; total?: number; hasMore?: boolean; limit?: number; offset?: number }>(
+        "/v1/works/" + encodeURIComponent(workId) + "/passages?" + params.toString(),
+      )
+      const rows = Array.isArray(payload.data) ? payload.data : []
+      return {
+        source: "api",
+        data: rows.map((item) => normalizePassageBundle(item, workId)),
+        offset: payload.offset ?? offset,
+        limit: payload.limit ?? limit,
+        total: payload.total,
+        hasMore: Boolean(payload.hasMore),
+      }
+    } catch (error) {
+      const result = await catalogResult((catalog) => catalog.passagePages[workId], error)
+      const page = result.data
+      const available = page?.data ?? []
+      const data = available.slice(offset, offset + limit)
+      return { data, source: "catalog", error: result.error, offset, limit, total: page?.total ?? 0, hasMore: offset + data.length < available.length }
     }
-  } catch (error) {
-    const all = fallbackPassages.filter((passage) => passage.workId === workId)
-    return { data: all, source: "fallback", offset: 0, limit, total: all.length, hasMore: false, error: errorMessage(error) }
   }
-}
-
-function fallbackHierarchy(workId: string): WorkHierarchy {
-  const work = fallbackWorks.find((item) => item.id === workId)
-  const resources = (ids: Array<string | undefined>, kind: string) =>
-    ids.filter((id): id is string => Boolean(id)).map((id) => ({ id, record_type: "resource", kind }))
-  return {
-    work: work ? { id: work.id, record_type: "resource", kind: "textual.work", labels: [{ value: work.title, role: "preferred", language: "en" }] } : null,
-    expressions: resources([work?.featuredExpression], "textual.expression"),
-    editions: resources([work?.featuredEdition], "textual.edition"),
-    artifacts: [],
-    dataset: work?.datasetId ? { id: work.datasetId, rights: work.rights, availability: work.availability } : null,
-  }
+  const result = await catalogResult((catalog) => catalog.passagePages[workId])
+  const page = result.data
+  const available = page?.data ?? []
+  const data = available.slice(offset, offset + limit)
+  return { data, source: "catalog", offset, limit, total: page?.total ?? 0, hasMore: offset + data.length < available.length }
 }
 
 export async function loadWorkHierarchy(workId: string): Promise<LoadResult<WorkHierarchy>> {
-  if (!API_BASE) return { data: fallbackHierarchy(workId), source: "fallback" }
-  try {
-    const payload = await requestJson<{ data?: unknown }>(`/v1/works/${encodeURIComponent(workId)}`)
-    const data = asRecord(payload.data)
-    return {
-      source: "api",
-      data: {
-        work: Object.keys(asRecord(data.work)).length ? asRecord(data.work) as CorpusResource : null,
-        expressions: Array.isArray(data.expressions) ? data.expressions.map((item) => asRecord(item) as CorpusResource) : [],
-        editions: Array.isArray(data.editions) ? data.editions.map((item) => asRecord(item) as CorpusResource) : [],
-        artifacts: Array.isArray(data.artifacts) ? data.artifacts.map((item) => asRecord(item) as CorpusResource) : [],
-        dataset: normalizeDataset(data.dataset),
-      },
+  if (API_BASE) {
+    try {
+      const payload = await requestJson<{ data?: unknown }>("/v1/works/" + encodeURIComponent(workId))
+      const data = asRecord(payload.data)
+      return {
+        source: "api",
+        data: {
+          work: Object.keys(asRecord(data.work)).length ? asRecord(data.work) as CorpusResource : null,
+          expressions: Array.isArray(data.expressions) ? data.expressions.map((item) => asRecord(item) as CorpusResource) : [],
+          editions: Array.isArray(data.editions) ? data.editions.map((item) => asRecord(item) as CorpusResource) : [],
+          artifacts: Array.isArray(data.artifacts) ? data.artifacts.map((item) => asRecord(item) as CorpusResource) : [],
+          dataset: normalizeDataset(data.dataset),
+        },
+      }
+    } catch (error) {
+      return catalogResult((catalog) => catalog.hierarchies[workId] ?? { work: null, expressions: [], editions: [], artifacts: [], dataset: null }, error)
     }
-  } catch (error) {
-    return { data: fallbackHierarchy(workId), source: "fallback", error: errorMessage(error) }
   }
+  return catalogResult((catalog) => catalog.hierarchies[workId] ?? { work: null, expressions: [], editions: [], artifacts: [], dataset: null })
 }
 
 export async function loadPassageTrace(passage: Passage): Promise<LoadResult<PassageTrace>> {
-  if (!API_BASE) {
-    return {
-      source: "fallback",
-      data: {
+  if (API_BASE) {
+    try {
+      const payload = await requestJson<{ data?: unknown }>("/v1/passages/" + encodeURIComponent(passage.id))
+      const data = asRecord(payload.data)
+      const normalized = normalizePassageBundle({ passage: data.passage, contents: data.contents }, passage.workId)
+      return {
+        source: "api",
+        data: {
+          passage: normalized,
+          rawPassage: asRecord(data.passage) as CorpusResource,
+          contents: Array.isArray(data.contents) ? data.contents.map(normalizeContent) : [],
+          artifacts: Array.isArray(data.artifacts) ? data.artifacts.map((item) => asRecord(item) as CorpusResource) : [],
+          provenanceRecords: Array.isArray(data.provenance) ? data.provenance.map((item) => asRecord(item)) : [],
+          evidence: Array.isArray(data.evidence) ? data.evidence.map((item) => asRecord(item) as EvidenceRecord) : [],
+          relations: Array.isArray(data.relations) ? data.relations.map((item) => asRecord(item) as CorpusResource) : [],
+          dataset: normalizeDataset(data.dataset),
+        },
+      }
+    } catch (error) {
+      return catalogResult((catalog) => catalog.traces[passage.id] ?? {
         passage,
         contents: passage.contents ?? [],
         artifacts: [],
@@ -294,53 +350,41 @@ export async function loadPassageTrace(passage: Passage): Promise<LoadResult<Pas
         evidence: [],
         relations: [],
         dataset: null,
-      },
+      }, error)
     }
   }
-  try {
-    const payload = await requestJson<{ data?: unknown }>(`/v1/passages/${encodeURIComponent(passage.id)}`)
-    const data = asRecord(payload.data)
-    const normalized = normalizePassageBundle({ passage: data.passage, contents: data.contents }, passage.workId)
-    return {
-      source: "api",
-      data: {
-        passage: normalized,
-        rawPassage: asRecord(data.passage) as CorpusResource,
-        contents: Array.isArray(data.contents) ? data.contents.map(normalizeContent) : [],
-        artifacts: Array.isArray(data.artifacts) ? data.artifacts.map((item) => asRecord(item) as CorpusResource) : [],
-        provenanceRecords: Array.isArray(data.provenance) ? data.provenance.map((item) => asRecord(item) as ProvenanceRecord) : [],
-        evidence: Array.isArray(data.evidence) ? data.evidence.map((item) => asRecord(item) as EvidenceRecord) : [],
-        relations: Array.isArray(data.relations) ? data.relations.map((item) => asRecord(item) as CorpusResource) : [],
-        dataset: normalizeDataset(data.dataset),
-      },
-    }
-  } catch (error) {
-    return {
-      source: "fallback",
-      error: errorMessage(error),
-      data: {
-        passage,
-        contents: passage.contents ?? [],
-        artifacts: [],
-        provenanceRecords: [],
-        evidence: [],
-        relations: [],
-        dataset: null,
-      },
-    }
-  }
+  return catalogResult((catalog) => catalog.traces[passage.id] ?? {
+    passage,
+    contents: passage.contents ?? [],
+    artifacts: [],
+    provenanceRecords: [],
+    evidence: [],
+    relations: [],
+    dataset: null,
+  })
+}
+
+function catalogSearch(catalog: CorpusCatalog, query: string, tradition?: string) {
+  const needle = query.toLowerCase()
+  return catalog.searchRecords.filter((record) => {
+    const haystack = [record.id, record.title, record.kind, record.tradition, record.language, record.snippet, record.source]
+      .filter(Boolean)
+      .join(" ")
+      .toLowerCase()
+    return haystack.includes(needle) && (!tradition || record.tradition === tradition)
+  })
 }
 
 export async function searchCorpus(query: string, tradition?: string, offset = 0, limit = 20): Promise<PageResult<SearchRecord>> {
   const clean = query.trim()
-  if (!clean) return { data: [], source: API_BASE ? "api" : "fallback", offset: 0, limit, hasMore: false }
+  if (!clean) return { data: [], source: API_BASE ? "api" : "catalog", offset: 0, limit, hasMore: false }
 
   if (API_BASE) {
     try {
       const params = new URLSearchParams({ q: clean, limit: String(limit), offset: String(offset) })
       if (tradition) params.set("tradition", tradition)
       const payload = await requestJson<{ data?: unknown[]; hasMore?: boolean; latencyMs?: number; offset?: number; limit?: number }>(
-        `/v1/search?${params.toString()}`,
+        "/v1/search?" + params.toString(),
       )
       const rows = Array.isArray(payload.data) ? payload.data : []
       return {
@@ -352,7 +396,7 @@ export async function searchCorpus(query: string, tradition?: string, offset = 0
         data: rows.map((item, index) => {
           const row = asRecord(item)
           return {
-            id: stringValue(row.id) ?? `result-${index + 1}`,
+            id: stringValue(row.id) ?? "result-" + String(index + 1),
             title: stringValue(row.label, row.title) ?? "Corpus record",
             kind: stringValue(row.kind) ?? "record",
             recordType: stringValue(row.recordType, row.record_type),
@@ -366,40 +410,35 @@ export async function searchCorpus(query: string, tradition?: string, offset = 0
         }),
       }
     } catch (error) {
-      const fallback = fallbackSearch(clean, tradition)
-      return { data: fallback, source: "fallback", offset: 0, limit, hasMore: false, error: errorMessage(error) }
+      const result = await catalogResult((catalog) => catalogSearch(catalog, clean, tradition), error)
+      const data = result.data.slice(offset, offset + limit)
+      return { data, source: "catalog", offset, limit, hasMore: offset + data.length < result.data.length, error: result.error }
     }
   }
 
-  return { data: fallbackSearch(clean, tradition), source: "fallback", offset: 0, limit, hasMore: false }
-}
-
-function fallbackSearch(query: string, tradition?: string) {
-  const needle = query.toLowerCase()
-  return fallbackSearchRecords.filter((record) => {
-    const haystack = [record.id, record.title, record.kind, record.tradition, record.language, record.snippet, record.source]
-      .filter(Boolean)
-      .join(" ")
-      .toLowerCase()
-    return haystack.includes(needle) && (!tradition || record.tradition === tradition)
-  })
+  const result = await catalogResult((catalog) => catalogSearch(catalog, clean, tradition))
+  const data = result.data.slice(offset, offset + limit)
+  return { data, source: "catalog", offset, limit, hasMore: offset + data.length < result.data.length }
 }
 
 export async function loadAssertionTraversal(assertionId: string): Promise<LoadResult<AssertionTraversal | null>> {
   const id = assertionId.trim()
-  if (!id || !API_BASE) return { data: null, source: "fallback" }
-  try {
-    const payload = await requestJson<{ data?: unknown }>(`/v1/assertions/${encodeURIComponent(id)}/traversal`)
-    const data = asRecord(payload.data)
-    return {
-      source: "api",
-      data: {
-        assertion: asRecord(data.assertion),
-        evidence: Array.isArray(data.evidence) ? data.evidence.map((item) => asRecord(item) as EvidenceRecord) : [],
-        targets: Array.isArray(data.targets) ? data.targets.map(asRecord) : [],
-      },
+  if (!id) return { data: null, source: API_BASE ? "api" : "catalog" }
+  if (API_BASE) {
+    try {
+      const payload = await requestJson<{ data?: unknown }>("/v1/assertions/" + encodeURIComponent(id) + "/traversal")
+      const data = asRecord(payload.data)
+      return {
+        source: "api",
+        data: {
+          assertion: asRecord(data.assertion),
+          evidence: Array.isArray(data.evidence) ? data.evidence.map((item) => asRecord(item) as EvidenceRecord) : [],
+          targets: Array.isArray(data.targets) ? data.targets.map(asRecord) : [],
+        },
+      }
+    } catch (error) {
+      return { data: null, source: "catalog", error: errorMessage(error) }
     }
-  } catch (error) {
-    return { data: null, source: "fallback", error: errorMessage(error) }
   }
+  return { data: null, source: "catalog" }
 }

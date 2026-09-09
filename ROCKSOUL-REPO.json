@@ -1,0 +1,14 @@
+{
+  "schema": "rocksoul.repository.v1",
+  "repository_id": "rocksoul-rgbl",
+  "role": "TEXT",
+  "provider": "github",
+  "github_repository": "rocksoul-rgbl",
+  "tracking": {
+    "master_todo": "../MASTER-TODO.json"
+  },
+  "automation": {
+    "sync_enabled": true,
+    "release_mode": "repository-controlled"
+  }
+}

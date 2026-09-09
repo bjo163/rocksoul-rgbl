@@ -1,5 +1,14 @@
 {
   "schema": "rocksoul.todo.v1",
   "repository_id": "rocksoul-rgbl",
-  "tasks": []
+  "tasks": [
+    {
+      "id": "RGBL-001",
+      "title": "Maintain repository control contract and local TODO",
+      "status": "NOT_STARTED",
+      "scope": "repository",
+      "github_issue": "https://github.com/bjo163/rocksoul-rgbl/issues/384",
+      "evidence": []
+    }
+  ]
 }

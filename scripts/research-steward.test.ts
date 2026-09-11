@@ -16,6 +16,23 @@ test('TEXT progression ranks inspected witness work ahead of discovery', () => {
   assert.equal(ranked[0].id, 1);
 });
 
+test('rankTextResearch preserves caller-specific metadata', () => {
+  const ranked = rankTextResearch([
+    {
+      id: 1,
+      state: 'source_inspected' as const,
+      issue: {
+        number: 42,
+        title: 'Example TEXT research issue',
+      },
+    },
+  ]);
+
+  assert.equal(ranked[0].issue.number, 42);
+  assert.equal(ranked[0].issue.title, 'Example TEXT research issue');
+  assert.equal(typeof ranked[0].rps, 'number');
+});
+
 test('TEXT only advances when witness provenance and ownership gates are explicit', () => {
   assert.equal(nextTextState({
     id: 1,

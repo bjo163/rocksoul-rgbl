@@ -48,7 +48,7 @@ export function textRpsV1(item: TextResearchItem, pressure = textWipPressure([it
   return Math.max(0, Math.min(100, progressionValue + evidenceGain + crossDomainValue + novelty - discoveryPenalty));
 }
 
-export function rankTextResearch(items: TextResearchItem[]) {
+export function rankTextResearch<T extends TextResearchItem>(items: T[]): Array<T & { rps: number }> {
   const pressure = textWipPressure(items);
   return items
     .map((item) => ({ ...item, rps: textRpsV1(item, pressure) }))
@@ -136,7 +136,7 @@ export async function runTextSteward(repo = process.env.GITHUB_REPOSITORY, token
   const signals = [];
 
   for (const item of ranked) {
-    const issue = item.issue as Record<string, unknown>;
+    const issue = item.issue;
     const before = item.state;
     const after = nextTextState(item);
     const evidence = [

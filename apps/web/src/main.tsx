@@ -11,6 +11,7 @@ import {
   ObservatorySectionNav,
   ProvenanceRail,
   TextualRelationTrace,
+  type TextualRelationRecord,
   TextualHierarchyTrace,
   SourceRightsSummary,
   ParallelTextLanes,
@@ -359,7 +360,7 @@ function CorpusApp() {
           state: "partial" as const,
         }]
       : []
-  const textualRelations = (trace?.relations ?? []).flatMap((relation) => {
+  const textualRelations: TextualRelationRecord[] = (trace?.relations ?? []).flatMap<TextualRelationRecord>((relation) => {
     const textual = extension(relation, "textual")
 
     if (relation.kind === "textual.variant") {

@@ -1,84 +1,89 @@
 # Aggressive Discovery Queue
 
-Status: active on `dev`; this is the expansion-agent handoff for immediate implementation.
+Status: active on `dev`; expansion-agent handoff for immediate implementation.
 
-## Inventory gate
+## Run 6 inventory gate
 
-Latest checked state on `dev`:
-
-- 90 registered traditions, 297 works, 618 editions.
-- README statistics are stale relative to the latest materialization wave; do not use README alone as a duplicate test.
-- Existing active source lanes include Quran/Tanzil, Dhammapada/Sujato, OSHB/WLC, SBLGNT, WEB Classic, and the newly materialized Zhuangzi Giles plus Ancient Egyptian Book of the Dead editions (Budge and Renouf/Naville).
-- Existing recipes and dataset ids must be checked before each acquisition; no candidate below is a duplicate of the three newly materialized works.
+- Current repo owner is `bjo163/rocksoul-rgbl` (RGBL/MoonWitness corpus); `dev` is working branch, `main` is release baseline.
+- Existing active lanes: Quran/Tanzil, Dhammapada/Sujato, OSHB/WLC, SBLGNT, WEB Classic, Zhuangzi Giles, and Ancient Egyptian Book of the Dead (Budge + Renouf/Naville).
+- Baseline inventory remains 90 traditions, 297 works, 618 editions. README is not a duplicate authority; re-check registry, recipes, materialization, quality, language, and Home statistics before every write.
+- No long-lived branch: commit directly on `dev`; release promotion remains controlled.
 
 ## Lane A — deepen existing works
 
-### A1. Complete SuttaCentral English collections (highest value)
+### A1. Bilara English completion (execute first)
 
-- **Targets:** Dīgha Nikāya (DN), Majjhima Nikāya (MN), Saṁyutta Nikāya (SN), Aṅguttara Nikāya (AN).
+- **Targets:** Digha (DN), Majjhima (MN), Samyutta (SN), Anguttara (AN) Nikayas.
 - **Upstream:** `https://github.com/suttacentral/bilara-data`
-- **Ref policy:** pin the exact `published` commit used by the ingestion run; do not float on branch head.
-- **Path family:** `translation/en/sujato/sutta/dn/**`, `mn/**`, `sn/**`, `an/**`.
-- **Rights:** Bilara/SuttaCentral-supported translations are CC0 per upstream LICENSE; copy the license evidence into the dataset license bundle.
-- **Implementation:** add one recipe per nikāya or one deterministic collection recipe with stable unit ids; preserve source segment ids; reject HTML/challenge responses; require complete file enumeration before writing canonical JSONL.
-- **Acceptance:** source file count, non-empty segment count, language=`en`, translation expression separate from any Pali root, SHA-256 manifest, deterministic rebuild, full `pnpm check`.
-- **Why now:** highest record yield from an already approved, reproducible source family and directly deepens the Buddhism lane without inventing new tradition metadata.
+- **Pin:** exact `published` commit recorded in recipe + manifest; never float on branch head.
+- **Paths:** `translation/en/sujato/sutta/dn/**`, `mn/**`, `sn/**`, `an/**`.
+- **Rights:** require publication-level CC0 evidence; do not infer rights for Pali roots.
+- **Implementation:** enumerate before writing; reject HTML/CAPTCHA/challenge/empty/placeholder payloads; preserve segment ids; deterministic canonical JSONL.
+- **Acceptance:** complete file inventory, non-empty count, `language=en`, translation separate from root, SHA-256, reproducible rebuild, `pnpm check`.
+- **State:** `READY_FOR_IMPLEMENTATION`.
 
-### A2. Dhammapada source-language root audit and conditional ingest
+### A2. Dhammapada Pali root (rights audit only)
 
-- **Target:** Mahāsaṅgīti Pali root files.
-- **Upstream:** `https://github.com/suttacentral/bilara-data`
-- **Path family:** `root/pli/ms/sutta/kn/dhp/*_root-pli-ms.json`.
-- **Gate:** do not bundle until the exact root-text redistribution terms are documented; if unresolved, store external metadata only.
-- **Implementation:** produce an audit artifact containing exact commit, file list, license text, and a byte-preserving sample; only then enable canonical ingest.
-- **Acceptance:** no inferred CC0 from the translation license; source language=`pli`; no machine translation; explicit relation to the existing English expression.
+- **Target:** `root/pli/ms/sutta/kn/dhp/*_root-pli-ms.json`.
+- **Action:** audit exact commit, file list, license text, sample bytes, proposed dataset id; do not materialize until redistribution terms are explicit.
+- **State:** `RIGHTS_AUDIT_REQUIRED`.
 
-### A3. Edition matrix for the existing Ancient Egyptian Book of the Dead
+### A3. Poetic Edda edition matrix
 
-- **Targets:** additional legitimate editions only where they are not byte-identical to the current Budge/Renouf datasets.
-- **Preferred source family:** Project Gutenberg plain-text artifacts with stable ebook ids; use the raw text endpoint, not rendered HTML.
-- **Implementation:** first run a duplicate fingerprint scan over title/edition/year/translator and normalized passage hashes; ingest only a distinct edition with full provenance and rights evidence.
-- **Acceptance:** edition-level identity, chapter inventory, translator/year metadata, source SHA-256, and a hard failure for HTML/challenge pages.
-- **Why now:** this expands edition coverage for an already active tradition and improves comparative scholarship without creating a new registry tradition.
+- **Primary:** Project Gutenberg `73533`, Henry Adams Bellows, *The Poetic Edda* (1923).
+- **Secondary:** Project Gutenberg `13007`, Lucy Winifred Faraday, *The Edda, Volume 1*.
+- **Implementation:** fetch raw plain text only; capture ebook id, title-page evidence, author/translator, year, URL, content type, byte length, SHA-256; fingerprint normalized poem/section bodies against existing Edda data before ingest.
+- **Rights:** preserve USA-public-domain scope; do not mark worldwide redistribution safe without jurisdiction review.
+- **Acceptance:** at least one distinct edition, stable headings, no challenge body, deterministic parser fixture, edition-level provenance.
+- **State:** `READY_FOR_PROBE`.
 
-## Lane B — new traditions with immediate, rights-safe entry points
+### A4. Indonesian coverage
 
-### B1. Norse & Germanic — Poetic Edda, Bellows translation (priority 1)
+- Accept only a named human-authored Indonesian edition with stable artifact, translator/editor identity, explicit redistribution permission or verified public-domain status, and source mapping.
+- No machine-translated canonical layer; no floating web scrape.
+- **State:** `SEARCH_REQUIRED`; do not invent coverage.
 
-- **Work:** `Poetic Edda` (Old Norse source text + English translation as separate expressions).
-- **Source:** Project Gutenberg plain text ebook for Henry Adams Bellows translation; resolve and pin the exact ebook id at acquisition time.
-- **Rights gate:** verify jurisdictional redistribution status for the exact translation artifact before bundling; if only US public-domain evidence is available, retain metadata-only until policy is satisfied.
-- **Implementation:** acquire raw text, parse poem boundaries from stable headings, preserve Old Norse and English as separate layers, emit a manifest and checksum.
-- **Acceptance:** no modern paraphrase, no machine translation, exact poem count, edition/translator/year metadata, reproducible parser test.
+## Lane B — new traditions
 
-### B2. Classical Greco-Roman — Orphic Hymns / Hermetic corpus (priority 2)
+### B1. Norse / Germanic — Poetic Edda bounded corpus
 
-- **Work family:** a bounded, edition-specific corpus rather than an undefined “Greek religion” bucket.
-- **Source:** Project Gutenberg or Internet Sacred Texts plain-text scans of a pre-1928 English edition; source artifact must be pinned and independently checksum-verified.
-- **Implementation:** start with one bounded work (e.g. Orphic Hymns) and one edition; create a new work id, expression id, and edition id; keep commentary/notes out of primary text records.
-- **Acceptance:** edition-specific title page evidence, stable section inventory, license/rights record, parser rejects HTML and placeholders.
+- **Pins:** Gutenberg `73533` primary; `13007` secondary.
+- **Implementation:** create tradition/work/expression/edition records; parse poem boundaries; keep Old Norse status separate from English translation; never synthesize Old Norse from English.
+- **Acceptance:** exact poem inventory, metadata, rights evidence, SHA-256, duplicate result, parser fixture.
+- **State:** `READY_FOR_PROBE`.
 
-### B3. Zoroastrianism — Gāthās bounded collection (priority 3, audit-first)
+### B2. Classical Greek — bounded canonical-greekLit slice
 
-- **Work:** Yasna 28–34, 43–51, 53 only; do not ingest a vague “Avesta”.
-- **Source candidates:** Avesta.org / Sacred Texts Archive for a bounded public-domain text plus a separately audited translation.
-- **Implementation:** first create a source audit issue/artifact; ingest Avestan/source-language only if byte-level redistribution is permitted; otherwise keep external provenance and add only an approved translation edition.
-- **Acceptance:** exact ha inventory, edition identity, translation rights evidence, no conflation of Avestan and English records.
+- **Upstream:** `https://github.com/PerseusDL/canonical-greekLit`
+- **License:** repository documents CC BY-SA 4.0 unless otherwise indicated; retain per-file attribution/share-alike evidence.
+- **Implementation:** choose one bounded work family; pin commit; acquire XML/TEI; validate XML, author/work identity, language/script, and edition metadata; keep notes/commentary out of primary text.
+- **State:** `READY_FOR_PROBE`.
 
-## Rejected / deferred this run
+### B3. Zoroastrian Gathas — audit-first
 
-- Chinese Text Project source-language lanes: authentication/blocking risk remains; not ready for immediate deterministic acquisition.
-- Sikh scripture from GPL-linked datasets: compatibility and redistribution review still required.
-- Sefaria translations: non-commercial clauses make them unsuitable for default bundled canonical data.
-- Any candidate without an exact artifact, rights evidence, and reproducible raw endpoint.
+- **Scope:** Yasna 28-34, 43-51, 53 only.
+- **Action:** rights/provenance audit before bundle; source-language and English are separate expressions; reject vague full-Avesta intake.
+- **State:** `RIGHTS_AUDIT_REQUIRED`.
+
+### B4. Orphic Hymns — bounded edition
+
+- Select one pre-1928 edition with stable raw artifact and title-page evidence; create new work/edition ids only after duplicate and rights checks. Keep editorial notes non-canonical.
+- **State:** `CANDIDATE_PENDING_SOURCE_PIN`.
+
+## Rejected / deferred
+
+- Chinese Text Project source-language lanes: authentication/blocking risk.
+- Sefaria translations: non-commercial restrictions.
+- Sikh GPL-linked datasets: compatibility/redistribution review incomplete.
+- Any floating `latest` ref, rendered HTML input, dead endpoint, placeholder, synthetic text, or machine translation.
 
 ## Immediate execution order
 
-1. Complete DN/MN/SN/AN English from pinned Bilara commit.
-2. Run Dhammapada Pali rights audit; ingest only if cleared.
-3. Run Book of the Dead edition-difference scan; add only distinct, rights-safe editions.
-4. Prepare Poetic Edda bounded acquisition and rights packet.
-5. Prepare bounded Orphic Hymns acquisition and parser fixture.
-6. Open Gāthās audit artifact; do not bundle until rights gate passes.
+1. Probe Bilara DN/MN/SN/AN English from one pinned `published` commit.
+2. Produce Dhammapada Pali rights audit.
+3. Probe Gutenberg `73533`, then `13007`; run edition-difference fingerprints.
+4. Probe bounded Perseus slice from pinned commit.
+5. Open Gathas rights audit; do not bundle before clearance.
+6. Keep Indonesian lane in `SEARCH_REQUIRED` until a compliant edition is source-pinned.
 
-Every completed item must update the corresponding registry, recipe, dataset manifest, checksum file, coverage report, and home statistics in the same release cycle.
+Every completed item must update registry, recipe, manifest, checksum, language/quality coverage, and Home statistics in the same release cycle.

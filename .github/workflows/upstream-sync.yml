@@ -49,6 +49,8 @@ jobs:
 
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add ingestion/recipes/ datasets/ dist/
+          # dist/ is a derived build output and is intentionally gitignored.
+          # Persist only source-controlled upstream inputs and datasets.
+          git add ingestion/recipes/ datasets/
           git commit -m "chore(upstream): auto-sync latest scriptures and recipes from official hulu sources"
           git push origin main

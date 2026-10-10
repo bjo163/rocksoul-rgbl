@@ -2,6 +2,10 @@ import { pathToFileURL } from 'node:url';
 
 export type ResearchState = 'discovered' | 'triaged' | 'needs_sources' | 'source_inspected' | 'ready_for_observation';
 
+const RESEARCH_STATES = new Set<ResearchState>([
+  'discovered', 'triaged', 'needs_sources', 'source_inspected', 'ready_for_observation',
+]);
+
 export interface TextResearchItem {
   id: number | string;
   state: ResearchState;
@@ -67,7 +71,17 @@ export function nextTextState(item: TextResearchItem): ResearchState {
 
 function metadata(body: string, key: string) {
   const matches = [...body.matchAll(new RegExp(`${key}:([^\\n]+)`, 'g'))];
-  return matches.at(-1)?.[1]?.trim() ?? null;
+  const raw = matches.at(-1)?.[1]?.trim();
+  return raw ? raw.replace(/`+$/u, '').trim() : null;
+}
+
+export function parseTextResearchState(body: string): ResearchState {
+  const raw = metadata(body, 'ROCKSOUL-RESEARCH-STATE');
+  if (raw === null) return 'discovered';
+  if (!RESEARCH_STATES.has(raw as ResearchState)) {
+    throw new TypeError(`Unknown TEXT research lifecycle: ${raw}`);
+  }
+  return raw as ResearchState;
 }
 
 function checked(body: string, text: string) {
@@ -123,7 +137,7 @@ export async function runTextSteward(repo = process.env.GITHUB_REPOSITORY, token
     const body = String(issue.body ?? '');
     return {
       id: Number(issue.number),
-      state: (metadata(body, 'ROCKSOUL-RESEARCH-STATE') ?? 'discovered') as ResearchState,
+      state: parseTextResearchState(body),
       witnessInspected: checked(body, 'Actual witness/edition/source content has been inspected'),
       exactTextIdentityPreserved: checked(body, 'Exact-text identity is preserved'),
       ownershipBoundaryPreserved: checked(body, 'TEXT ownership boundary is preserved'),
